@@ -1,0 +1,74 @@
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-container {
+  height: 100vh;
+  width: 100vw;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.carousel-container .carousel-item-wrapper {
+  width: fit-content;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  transition: transform 1s;
+}
+
+.carousel-container .carousel-item {
+  width: 100vw;
+  height: 100vh;
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  white-space: pre;
+}
+
+.carousel-container .carousel-item .title {
+  font-size: 56px;
+  font-weight: 600;
+  margin-top: 10rem;
+}
+
+.carousel-container .carousel-item .text {
+  font-size: 28px;
+  margin-top: 1rem;
+}
+
+.carousel-container .page-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  display: flex;
+  width: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-container .page-indicator .indicator {
+  width: 40px;
+  height: 4px;
+  margin: auto;
+  border-radius: 4px;
+  background-color: gray;
+}
+
+.carousel-container .page-indicator .indicator .progress {
+  background-color: white;
+  height: 4px;
+  width: 0;
+}
+
+.carousel-container .page-indicator .indicator.active .progress {
+  width: 100%;
+  transition: width 3s linear;
+}
