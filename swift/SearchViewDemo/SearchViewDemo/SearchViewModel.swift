@@ -8,22 +8,24 @@
 import Foundation
 
 class SearchViewModel: ObservableObject {
-    @Published var isSearching: Bool = false
+    @Published var text: String = ""
     @Published var result: [Category] = []
+    @Published var isSearching: Bool = false
 
     // MARK: Intents
 
     func cancel() {
+        text = ""
         result = []
         isSearching = false
     }
 
-    func search(with text: String) {
+    func search() {
         isSearching = true
         Request.getMockData { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let categories): self.result = categories.filter { $0.brand == text }
+                case .success(let categories): self.result = categories.filter { $0.brand == self.text }
                 case .failure(let error): print(error.localizedDescription)
                 }
             }

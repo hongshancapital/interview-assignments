@@ -9,14 +9,13 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject private var viewModel: SearchViewModel
-    @State private var text: String = ""
 
     var body: some View {
         SearchNavigationView(
-            text: $text,
+            text: $viewModel.text,
             placeholder: "Tap here to search",
-            search: search,
-            cancel: cancel) {
+            search: viewModel.search,
+            cancel: viewModel.cancel) {
             contentView
             .navigationBarTitle("Search")
         }
@@ -42,15 +41,6 @@ struct SearchView: View {
                 .id(UUID())
             }
         }
-    }
-
-    private func search() {
-        viewModel.search(with: text)
-    }
-
-    private func cancel() {
-        text = ""
-        viewModel.cancel()
     }
 }
 
