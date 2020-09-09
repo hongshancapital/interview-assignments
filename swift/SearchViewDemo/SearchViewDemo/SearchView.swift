@@ -47,12 +47,14 @@ struct SearchView: View {
     }
 
     private var searchBar: SearchBar {
-        SearchBar(text: $viewModel.text, isEditing: $viewModel.isSearching, commitHandler: viewModel.search)
+        SearchBar(text: $viewModel.text, isEditing: $viewModel.isSearching) {
+            self.viewModel.search()
+        }
     }
 
     private var listView: some View {
         Group {
-            if viewModel.isSearching && viewModel.result.isEmpty {
+            if viewModel.isEmptyResult {
                 Text("No result")
                     .frame(height: 200)
             } else {
@@ -71,6 +73,7 @@ struct SearchView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
+                .id(UUID())
             }
         }
     }

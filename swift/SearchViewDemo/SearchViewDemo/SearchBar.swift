@@ -37,7 +37,7 @@ struct SearchBar: View {
 
     private var textField: some View {
         TextField("Tap here for search", text: $text, onEditingChanged: { value in
-            self.isEditing = value
+            withAnimation { self.isEditing = value }
         }, onCommit: {
             self.commitHandler?()
         })
@@ -60,7 +60,7 @@ struct SearchBar: View {
 
     private func clearContent() {
         text = ""
-        isEditing = false
+        withAnimation { self.isEditing = false }
         // Resign first responder
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }

@@ -8,13 +8,15 @@
 import Foundation
 
 class SearchViewModel: ObservableObject {
-    @Published var text: String = "" {
-        didSet {
-            search()
-        }
-    }
+    @Published var text: String = "" { didSet { search() } }
     @Published var result: [Category] = []
     @Published var isSearching: Bool = false
+
+    // MARK: Accessors
+
+    var isEmptyResult: Bool {
+        isSearching && result.isEmpty && !text.isEmpty
+    }
 
     // MARK: Intents
 
@@ -24,7 +26,7 @@ class SearchViewModel: ObservableObject {
         isSearching = false
     }
 
-    func search() {
+    func search(completion: ((Result<[Category], Error>) -> Void)? = nil) {
         isSearching = true
         Request.getMockData { result in
             DispatchQueue.main.async {
@@ -32,6 +34,7 @@ class SearchViewModel: ObservableObject {
                 case .success(let categories): self.result = categories.filter { $0.brand == self.text }
                 case .failure(let error): print(error.localizedDescription)
                 }
+                completion?(result)
             }
         }
     }
