@@ -8,7 +8,11 @@
 import Foundation
 
 class SearchViewModel: ObservableObject {
-    @Published var text: String = ""
+    @Published var text: String = "" {
+        didSet {
+            search()
+        }
+    }
     @Published var result: [Category] = []
     @Published var isSearching: Bool = false
 

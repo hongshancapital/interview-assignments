@@ -11,35 +11,74 @@ struct SearchView: View {
     @EnvironmentObject private var viewModel: SearchViewModel
 
     var body: some View {
-        SearchNavigationView(
-            text: $viewModel.text,
-            placeholder: "Tap here to search",
-            search: viewModel.search,
-            cancel: viewModel.cancel) {
-                self.contentView.navigationBarTitle("Search")
+        GeometryReader { geometry in
+            VStack {
+                VStack {
+                    self.titleLabel
+                    self.searchBar
+                }
+                .padding(.horizontal, 16)
+                self.listView
+                Spacer()
+            }
+            .padding(.top, geometry.safeAreaInsets.top + self.topMargin)
+            .background(Color.gray.opacity(0.1))
+            .edgesIgnoringSafeArea(.vertical)
         }
-        .edgesIgnoringSafeArea(.top)
+        .onAppear {
+            UITableView.appearance().separatorStyle = .none
+            UITableView.appearance().backgroundColor = UIColor.gray.withAlphaComponent(0.01)
+        }
     }
 
-    private var contentView: some View {
+    // MARK: Components
+
+    private var titleLabel: some View {
+        Group {
+            if !viewModel.isSearching {
+                HStack {
+                    Text("Search")
+                        .font(.title)
+                        .fontWeight(.bold)
+                    Spacer()
+                }
+            }
+        }
+    }
+
+    private var searchBar: SearchBar {
+        SearchBar(text: $viewModel.text, isEditing: $viewModel.isSearching, commitHandler: viewModel.search)
+    }
+
+    private var listView: some View {
         Group {
             if viewModel.isSearching && viewModel.result.isEmpty {
                 Text("No result")
+                    .frame(height: 200)
             } else {
                 List {
                     ForEach(viewModel.result) { category in
-                        Section(header: Text(category.name)) {
-                            ForEach(category.items) { item in
-                                ItemRow(item: item)
-                            }
+                        Text(category.name)
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                            .listRowBackground(Color.gray.opacity(0.1))
+                            .listRowInsets(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+                        ForEach(category.items) { item in
+                            ItemRow(item: item)
+                                .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                                .listRowBackground(Color.white)
                         }
                     }
                 }
-                .listStyle(GroupedListStyle())
-                // Fix animation glitch
-                .id(UUID())
+                .listStyle(PlainListStyle())
             }
         }
+    }
+
+    // MARK: Accessors
+
+    private var topMargin: CGFloat {
+        viewModel.isSearching ? 8 : 32
     }
 }
 

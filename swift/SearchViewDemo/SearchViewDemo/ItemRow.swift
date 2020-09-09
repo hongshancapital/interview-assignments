@@ -12,17 +12,18 @@ struct ItemRow: View {
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(item.name)
-                    .font(.system(size: 17, weight: .bold))
+                    .font(.system(size: 17, weight: .semibold))
                 Text(item.status.displayText)
                     .font(.system(size: 14, weight: .regular))
                     .foregroundColor(.gray)
             }
             Spacer()
             Text(item.price.formattedAmount)
+                .font(.subheadline)
                 .foregroundColor(priceColor)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 12)
                 .padding(.vertical, 4)
                 .background(priceColor.opacity(0.1))
                 .cornerRadius(12)
