@@ -16,8 +16,7 @@ struct SearchView: View {
             placeholder: "Tap here to search",
             search: viewModel.search,
             cancel: viewModel.cancel) {
-            contentView
-            .navigationBarTitle("Search")
+                self.contentView.navigationBarTitle("Search")
         }
         .edgesIgnoringSafeArea(.top)
     }
