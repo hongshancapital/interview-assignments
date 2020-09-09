@@ -34,10 +34,8 @@ struct ItemRow: View {
 
     var priceColor: Color {
         switch item.status {
-        case .inStock:
-            return .blue
-        case .outStock:
-            return .gray
+        case .inStock: return .blue
+        case .outStock: return .gray
         }
     }
 }

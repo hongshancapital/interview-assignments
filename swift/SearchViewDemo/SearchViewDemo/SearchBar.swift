@@ -46,11 +46,8 @@ struct SearchBar: View {
     private var closeButton: some View {
         Group {
             if isEditing {
-                Button(
-                    action: { self.clearContent() },
-                    label: {
-                        Image(systemName: "xmark")
-                            .foregroundColor(.gray)
+                Button(action: { self.clearContent() }, label: {
+                    Image(systemName: "xmark").foregroundColor(.gray)
                 })
             }
         }

@@ -14,7 +14,7 @@ struct SearchView: View {
         GeometryReader { geometry in
             VStack {
                 VStack {
-                    self.titleLabel
+                    self.titleView
                     self.searchBar
                 }
                 .padding(.horizontal, 16)
@@ -33,7 +33,7 @@ struct SearchView: View {
 
     // MARK: Components
 
-    private var titleLabel: some View {
+    private var titleView: some View {
         Group {
             if !viewModel.isSearching {
                 HStack {
@@ -73,6 +73,7 @@ struct SearchView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
+                // Fix animation glitch
                 .id(UUID())
             }
         }
