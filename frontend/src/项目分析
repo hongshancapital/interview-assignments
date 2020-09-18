@@ -1,0 +1,21 @@
+1. 用户需求分析
+用户需要轮播组件，该轮播组件可循环播放轮播页面（移动方向向左），并有页面索引指示
+当前活跃页面对应的指示器以进度条形式显示，时长与页面显示时长相同
+当轮播显示最后一个页面后，整体向右移动以回到第一个页面
+
+
+2. User stories
+轮播容器 carousel(short for Cr)
+CrContainer
+用于状态管理，例如保存页面列表 slides， 当前页面索引值 current， 
+设定页面停留时间 interval等， 并包含子UI功能组件
+
+CrSlider
+用于滑动显示页面， 接受属性包括页面列表 slides，当前页面索引值 current， 
+页面逗留时间 interval等
+
+CrSliderPage
+轮播显示页面， 接受属性包括标题 title，副标题 subtitle, 图标 logo 及相关样式（theme）属性
+
+CrIndicator
+指示器进度条， 接受属性 百分比 percentage, 进度条时长interval 等
