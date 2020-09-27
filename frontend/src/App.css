@@ -12,3 +12,66 @@
   font-size: 28px;
   font-weight: 400;
 }
+.carousel{
+  position: relative;
+  overflow: hidden;
+}
+.slides-wrapper{
+  display: flex;
+  transition: all 1s ease-in-out;
+}
+.slide-content{
+  flex: 0 0 100vw;
+  height: 100vh;
+}
+.slide-image{
+  width: 100%;
+  height: 100%;
+}
+.slide-content{
+  display: flex;
+  justify-content: center;
+}
+.text-wrapper{
+  position: absolute;
+  z-index: 1;
+  top: 100px;
+}
+
+.text-wrapper h3
+,.text-wrapper h6{
+  margin: 0;
+  padding: 0;
+}
+.text-wrapper h3{
+  margin-bottom: 30px;
+}
+.text-wrapper h6{
+  max-width: 440px;
+}
+/* 进度条 */
+.bars-wrapper{
+  position: absolute;
+  width: 100vw;
+  z-index: 1;
+  display: flex;
+  bottom: 50px;
+  justify-content: center;
+}
+.item-bar{
+  flex: 0 0 40px;
+  height: 2px;
+  background-color: rgba(255,255,255,.5);
+  margin-left: 6px;
+  border-radius: 1px;
+  position: relative;
+}
+.progress-bar{
+  position: absolute;
+  z-index: 2;
+  background: #fff;
+  width: 0;
+  height: 2px;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+}
