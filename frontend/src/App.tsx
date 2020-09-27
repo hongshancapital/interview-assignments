@@ -48,7 +48,7 @@ interface ProgressBar {
   duration: number;
   isActive: boolean
 }
-const SLIDE_DURATION = 3000; // 轮播时间间隔 2000ms
+const SLIDE_DURATION = 3000; // 轮播时间间隔 3000ms
 
 function App() {
   return (<div className="App">
