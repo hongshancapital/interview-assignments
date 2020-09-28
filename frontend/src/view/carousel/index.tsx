@@ -108,6 +108,12 @@ function Carousel(props: IProps) {
       setLeft(childrenLeft[currentSub])
       setCurrentSub(currentSub + 1)
       setRunNumber(runNumber + 1)
+    }else{ //currentSub == childrenNumber
+      if(autoPlay){
+        setLeft(childrenLeft[0])
+        setCurrentSub(1)
+        setRunNumber(runNumber + 1)          
+      }
     }
   }
 
@@ -118,8 +124,8 @@ function Carousel(props: IProps) {
     <StyledDivWin left={left}>
       {childrenSub}
     </StyledDivWin>
-    <StyledImgLeftArrow src={IconArrowLeft} onClick={onArrowLeftClicked} id='leftArrow' />
-    <StyledImgRightArrow src={IconArrowRight} onClick={onArrowRightClicked} id='rightArrow' />
+    {/* <StyledImgLeftArrow src={IconArrowLeft} onClick={onArrowLeftClicked} id='leftArrow' />
+    <StyledImgRightArrow src={IconArrowRight} onClick={onArrowRightClicked} id='rightArrow' /> */}
     <StyledDivProgress>
       <Progress
         childrenNum={childrenNumber}
@@ -130,7 +136,7 @@ function Carousel(props: IProps) {
         runNumber={runNumber}
       >
       </Progress>
-      <StyledImgAutoPlay src={autoPlay ? IconStopPlay : IconAutoPlay} onClick={enableAutoPlay} />
+      {/* <StyledImgAutoPlay src={autoPlay ? IconStopPlay : IconAutoPlay} onClick={enableAutoPlay} /> */}
     </StyledDivProgress>
   </StyledDivCarousel>
 }

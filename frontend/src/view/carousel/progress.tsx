@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { keyframes } from 'styled-components'
 
 const StyledDivProcess = styled.div`
-    width: 70%;
-    height: 100%;
+    width: 15%;
+    height: 5%;
     display: flex;
     justify-content: center;    
     align-items: stretch;
@@ -12,8 +12,10 @@ const StyledDivProcess = styled.div`
 const StyledDivProgressMax = styled.div`
     width: 0%;
     flex: 1 1 auto;
-    margin:3px;
-    border: 1px solid black;
+    margin-left:3px;
+    margin-right:3px;
+    // border: 0.5px solid black;
+    background-color: gray;
 `
 const progress0to100 = keyframes`
   from {
