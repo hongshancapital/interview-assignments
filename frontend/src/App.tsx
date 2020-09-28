@@ -16,6 +16,8 @@ export interface SlideItem {
   bgImage: string;
   textColor: string;
   theme: Theme;
+  scale?: number; // 图片缩放比例
+  fillColor?:string; // 背景填充色
 }
 
 export interface CarouselProps {
@@ -23,25 +25,33 @@ export interface CarouselProps {
   slideDuration: number;
 }
 
-const slides = [{
+const slides = [
+  {
   title: 'xPhone',
   subTitle: 'Losts to Love.Less to Spend. Starting at $399.',
   bgImage: iphoneImg,
   textColor: '#ffffff',
-  theme: Theme.normal
-}, {
+  theme: Theme.normal,
+  fillColor:'rgb(17,17,17)',
+  scale: 0.5,
+},
+{
   title: 'Tablet',
   subTitle: 'Just the right amount of everything',
   bgImage: tabletImg,
   textColor: '#000000',
+  fillColor:'rgb(250,250,250)',
   theme: Theme.normal
-}, {
+},
+{
   title: 'Buy a Tablet or xPhone for college.',
   subTitle: 'Get arPods.',
   bgImage: airpodsImg,
   textColor: '#000000',
+  fillColor:'rgb(241,241,243)',
   theme: Theme.bold
-}];
+}
+];
 
 // 进度条
 interface ProgressBar {
@@ -83,7 +93,9 @@ function Carousel(props: CarouselProps) {
               subTitle={item.subTitle}
               bgImage={item.bgImage}
               textColor={item.textColor}
+              fillColor={item.fillColor}
               theme={item.theme}
+              scale={item.scale}
             />
 
         ))
@@ -106,6 +118,12 @@ function Carousel(props: CarouselProps) {
 function Slide(props: SlideItem) {
   let style = {
     color: props.textColor
+  }
+  let contentStyle = {};
+  if (props.fillColor) {
+    contentStyle = {
+      backgroundColor: props.fillColor
+    }
   }
   let textInfo = null;
   if (props.theme === Theme.normal) {
@@ -130,8 +148,20 @@ function Slide(props: SlideItem) {
       </React.Fragment>
     )
   }
-  return (<div className='slide-content'>
-    <img className="slide-image" src={props.bgImage} />
+
+  const onLoad = (e:any) => {
+    let trueWidth = window.innerWidth;
+    if(props.scale){
+      trueWidth = trueWidth * props.scale;
+    }
+    e.target.width = trueWidth;
+  }
+  return (<div className='slide-content' style={contentStyle}>
+    <img
+      className="slide-image"
+      src={props.bgImage}
+      onLoad={onLoad}
+    />
     <div className="text-wrapper" style={style}>
       {textInfo}
     </div>
@@ -162,6 +192,7 @@ function ProgressBars(props:ProgressBar){
     </div>
   )
 }
+
 export default App;
 
 
