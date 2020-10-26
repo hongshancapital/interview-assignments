@@ -42,8 +42,7 @@ WAF配置
 答：
 先要完成 https://cdkworkshop.com/15-prerequisites.html 准备工作
 ```shell
-$ tar -zxf q2.tar.gz
-$ cd aws-cdk-fargate-test
+$ cd q2
 $ npm install -g aws-cdk
 $ npm install
 $ npm run build
