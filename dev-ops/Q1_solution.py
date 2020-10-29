@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import json
+import requests
+import os
 
 
 class LogInfo:
@@ -8,11 +10,11 @@ class LogInfo:
     class to define the log structure
     """
     def __init__(self, device, pid, pname, timestamp, occurrence, description):
-        self.device = device
-        self.pid = pid
-        self.processname = pname
-        self.timestamp = timestamp
-        self.occurrence = occurrence
+        self.deviceName = device
+        self.processId = pid
+        self.processName = pname
+        self.timeWindow = timestamp
+        self.numberOfOccurrence = occurrence
         self.description = description
     
     def to_dict(self):
@@ -20,7 +22,7 @@ class LogInfo:
 
 
 
-def create_hour_slot(hour):
+def create_hour_slot(hour: str):
     if not hour:
         return ''
 
@@ -44,8 +46,8 @@ def get_process_info(process):
     return pid, pname
 
 
-def create_log_key_info(filename, outputfile, time_index=2, device_index=3, process_index=4):
-    if not filename or not outputfile:
+def create_log_key_data(filename: str, time_index=2, device_index=3, process_index=4):
+    if not filename:
         print('Please enter the log file name.')
         return False
     
@@ -81,26 +83,42 @@ def create_log_key_info(filename, outputfile, time_index=2, device_index=3, proc
             timestamp = create_hour_slot(item)
             pid, pname = get_process_info(parts[process_index])
             logitem = LogInfo(parts[device_index], pid, pname, timestamp, occurrenceMap[item], key)
-            result.append(logitem)
-    # dump result to file with json format 
-    for logitem in result:
-        try:
-            with open(outputfile, 'a') as out:
-                json.dump(logitem.to_dict(), out, indent=4)
-        except FileExistsError or FileNotFoundError:
-            print("Error: not able to find output file.")
-            return False
-        except Exception:
-            print("Error to write log files")
-            return False
+            result.append(logitem.to_dict())
+    # create the json format data 
+    if not result:
+        json_data = []
+    else:
+        json_data = json.dumps(result)
     
-    return True
+    return json_data
+    
 
+def upload_data(logData, url):
+    if not url:
+        print("Please enter the valid url.")
+        return
+
+    try:
+        response = requests.post(url, data=logData)
+        if response.status_code < 300 and response.status_code >= 200:
+            print("Successfully upload the log data.")
+            return True
+        else:
+            print("Error to upload the log data to remote: " + response.text)
+            return False
+    except requests.RequestException as error:
+        print(error)
+        return False
+
+    
 
 if __name__ == '__main__':
-    input_file = '/Users/conding/repos/dc/interview-assignments/dev-ops/DevOps_interview_data_set'
-    output_file = 'logs_info.json'
-    create_log_key_info(input_file, output_file)
+    dirname = os.path.dirname(__file__)
+    input_file = os.path.join(dirname, 'DevOps_interview_data_set')
+    data = create_log_key_data(input_file)
+    # print(data)
+    url = "https://foo.com/bar"
+    upload_data(data, url)
             
 
 
