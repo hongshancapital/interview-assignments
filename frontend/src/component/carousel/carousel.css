@@ -1,0 +1,77 @@
+.ui-carousel {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.ui-carousel .carousel-container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.5s;
+    transform: translateX(0);
+    z-index: 0;
+}
+.ui-carousel .carousel-container .carousel-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fafafa;
+}
+.ui-carousel .carousel-container .carousel-item.grey {
+    background-color: #f2f2f3;
+}
+.ui-carousel .carousel-container .carousel-item.black {
+    background-color: #080808;
+    color: #fff;
+}
+.ui-carousel .carousel-container .carousel-item .title {
+    text-align: center;
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 64px;
+    word-wrap: break-word;
+    word-break: normal;
+    text-align: center;
+}
+.ui-carousel .carousel-container .carousel-item .info {
+    text-align: center;
+    font-size: 28px;
+    padding-top: 36px;
+    word-wrap: break-word;
+    word-break: normal;
+    text-align: center;
+}
+.ui-carousel .carousel-container .carousel-item .img {
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+}
+.ui-carousel .carousel-container .carousel-item .img img {
+    width: 200px;
+}
+.ui-carousel .carousel-countdown {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 3px;
+    display: flex;
+    justify-content: center;
+    bottom: 120px;
+}
+.ui-carousel .carousel-countdown div {
+    display: flex;
+    width: 50px;
+    margin: 0 2px;
+    background-color: #ccc;
+    border-radius: 1px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.ui-carousel .carousel-countdown div span {
+    transition-property: width;
+    background-color: #666;
+    width: 0%;
+}
