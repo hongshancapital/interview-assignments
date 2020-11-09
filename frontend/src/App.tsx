@@ -1,6 +1,6 @@
 import React from "react"
 import "./App.css"
-import Sarousel from './component/carousel/Index'
+import Carousel from './component/carousel/Index'
 
 interface CarouselItem {
     title: string
@@ -32,7 +32,7 @@ function App() {
     const [stop, setStop] = React.useState<boolean>(false)
   return (
       <div className="App">
-        <Sarousel items= {carouselItems} duration= {3000} stop={stop}/>
+        <Carousel items= {carouselItems} duration= {3000} stop={stop}/>
         <button className="app-button" onClick={()=> setStop(stop => !stop)}>{`${stop? '关闭' : '开启'}手动切换`}</button>
       </div>
   )
