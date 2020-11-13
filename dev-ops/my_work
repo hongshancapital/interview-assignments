@@ -1,0 +1,82 @@
+#Q1:
+
+#!/usr/bin/python
+import json
+import requests
+from collections import defaultdict
+
+filename = '/Users/tanjiliang/Downloads/test/interview-assignments/dev-ops/DevOps_interview_data_set'
+server_url = 'https://foo.com/bar'
+
+with open(filename) as r_line:
+   lines = r_line.readlines()
+
+log = {}
+rowID = 1
+
+for line in lines:
+	if "[" in line:
+		row = ''
+		#get the timeWindow
+		row += '00' + line[7:9] + '-' + ('0000' + str(int(line[7:9]) +1))[-4:] + '#'
+		#get the deviceName 
+		row += line[16:31].strip() + '#'
+		#get the processId 
+		row += line[line.index("[") + 1:line.index("]")].strip() + '#'
+		#get the processName
+		row += line[32:line.index("[")].strip() + '#'
+		#get the descriptionn 
+		row += line[line.index("]")+2:].strip() 
+		log[rowID] = row    
+	rowID += 1
+
+#sum the log
+audit = defaultdict(list)
+for key, value in sorted(log.items()):
+    audit[value].append(key)
+
+# generate json data
+log_json = []
+for key, value in audit.items():
+	new_log = {}
+	new_log['timeWindow'] = key.split('#')[0]
+	new_log['deviceName'] = key.split('#')[1]
+	new_log['processId'] = key.split('#')[2]
+	new_log['processName'] = key.split('#')[3]
+	new_log['description'] = key.split('#')[4]
+	new_log['numberOfOccurrence'] = len(value)
+	log_json.append(new_log)
+
+# post to server
+requests.post(server_url, data = json.dumps(log_json)
+
+
+#Q2：
+import * as cdk from '@aws-cdk/core';
+import * as ec2 from "@aws-cdk/aws-ec2";
+import * as ecs from "@aws-cdk/aws-ecs";
+import * as ecs_patterns from "@aws-cdk/aws-ecs-patterns";
+
+const vpc = new ec2.Vpc(this, "MyVpc", {
+      maxAzs: 3 
+    });
+
+    const cluster = new ecs.Cluster(this, "MyCluster", {
+      vpc: vpc
+    });
+
+    // Create a load-balanced Fargate service and make it public
+    new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService", {
+      cluster: cluster,
+      cpu: 512, 
+      desiredCount: 6,
+      taskImageOptions: { image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample") },
+      memoryLimitMiB: 2048,
+      publicLoadBalancer: true 
+    })
+	
+
+Q3:
+
+命令（假设文件名字是test.tst）
+cat test.txt | sort -k2 -rn
