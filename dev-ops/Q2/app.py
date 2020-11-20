@@ -19,11 +19,7 @@ class EcsFargate(core.Stack):
             subnet_configuration=[ec2.SubnetConfiguration(
                 cidr_mask=24,
                 name="Application",
-                subnet_type=ec2.SubnetType.PRIVATE
-            ), ec2.SubnetConfiguration(
-                cidr_mask=24,
-                name="Ingress",
-                subnet_type=ec2.SubnetType.PUBLIC
+                subnet_type=ec2.SubnetType.ISOLATED
             )
             ]
         )
@@ -37,7 +33,7 @@ class EcsFargate(core.Stack):
             self, "FargateService",
             assign_public_ip=False,
             cluster=cluster,
-            public_load_balancer=True,
+            public_load_balancer=False,
             task_image_options={
                 'image': ecs.ContainerImage.from_registry("amazon/amazon-ecs-sample")
             }
