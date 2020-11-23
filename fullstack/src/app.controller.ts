@@ -8,9 +8,9 @@ import {
   HttpStatus,
   Body,
   HttpException,
-} from '@nestjs/common';
-import { Request } from 'express';
-import { AppService } from './app.service';
+} from "@nestjs/common";
+import { Request } from "express";
+import { AppService } from "./app.service";
 
 import {
   ApiParam,
@@ -18,16 +18,16 @@ import {
   ApiBody,
   ApiHeader,
   ApiHeaders,
-} from '@nestjs/swagger';
+} from "@nestjs/swagger";
 
-import { Shorten } from './entity/shorten';
-import { ShortenDto } from './dto/ShortenDto';
+import { Shorten } from "./entity/shorten";
+import { ShortenDto } from "./dto/ShortenDto";
 
-@Controller('api')
+@Controller("api")
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post('link')
+  @Post("link")
   getShortened(@Body() shortenDto: ShortenDto) {
     let originalUrl;
     try {
@@ -36,22 +36,22 @@ export class AppController {
       throw new HttpException(
         {
           status: HttpStatus.BAD_REQUEST,
-          error: 'invalid URL',
+          error: "invalid URL",
         },
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.BAD_REQUEST
       );
     }
 
     return this.appService.shortenerLink(shortenDto);
   }
 
-  @Get('link/:id')
+  @Get("link/:id")
   @ApiParam({
-    name: 'id',
+    name: "id",
   })
   getLink(@Param() params, @Req() req) {
     // console.log('Retrieve shortened url: ', params.id);
-    let shortenPromise = this.appService.retrieveShortened(params.id);
+    const shortenPromise = this.appService.retrieveShortened(params.id);
     this.appService.trackShortened(params.id, req);
     return shortenPromise;
   }

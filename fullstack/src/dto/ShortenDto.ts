@@ -1,9 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger";
 
 export class ShortenDto {
-	@ApiProperty({
-		description: 'The regular URL',
-		default: 'https://docs.nestjs.com/',
-	})
-	link: string;
+  @ApiProperty({
+    description: "The regular URL",
+    default: "https://docs.nestjs.com/",
+  })
+  link: string;
 }

@@ -1,29 +1,29 @@
 import {
-	Entity,
-	Column,
-	ObjectID,
-	ObjectIdColumn,
-	CreateDateColumn,
-	UpdateDateColumn,
-} from 'typeorm';
+  Entity,
+  Column,
+  ObjectID,
+  ObjectIdColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity()
 export class TrackLink {
-	@ObjectIdColumn()
-	id: ObjectID;
+  @ObjectIdColumn()
+  id: ObjectID;
 
-	@Column()
-	shortened: string;
+  @Column()
+  shortened: string;
 
-	@Column()
-	remoteAddress: string;
+  @Column()
+  remoteAddress: string;
 
-	@Column()
-	userAgent: string;
+  @Column()
+  userAgent: string;
 
-	@CreateDateColumn()
-	createdAt: string;
+  @CreateDateColumn()
+  createdAt: string;
 
-	@UpdateDateColumn()
-	updatedAt: string;
+  @UpdateDateColumn()
+  updatedAt: string;
 }

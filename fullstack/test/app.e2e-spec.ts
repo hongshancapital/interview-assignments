@@ -1,12 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
-import { AppController } from './../src/app.controller';
-import { AppService } from './../src/app.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { INestApplication } from "@nestjs/common";
+import * as request from "supertest";
+import { AppModule } from "./../src/app.module";
+import { AppService } from "./../src/app.service";
 
-describe('AppController (e2e) POST', () => {
-  let appController: AppController;
+describe("AppController (e2e) POST", () => {
   let appService: AppService;
 
   let app: INestApplication;
@@ -31,9 +29,9 @@ describe('AppController (e2e) POST', () => {
 
   it(`/POST /api/link`, (done) => {
     return request(app.getHttpServer())
-      .post('/api/link')
+      .post("/api/link")
       .send({
-        link: 'https://docs.nestjs.com/',
+        link: "https://docs.nestjs.com/",
       })
       .expect(201)
       .end((error, response) => {
@@ -46,8 +44,7 @@ describe('AppController (e2e) POST', () => {
   });
 });
 
-describe('AppController (e2e) GET', () => {
-  let appController: AppController;
+describe("AppController (e2e) GET", () => {
   let appService: AppService;
 
   let app: INestApplication;
@@ -72,7 +69,7 @@ describe('AppController (e2e) GET', () => {
 
   it(`/GET /api/link`, (done) => {
     return request(app.getHttpServer())
-      .get('/link')
+      .get("/link")
       .expect(404)
       .end((error, response) => {
         if (error) {

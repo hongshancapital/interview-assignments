@@ -15,17 +15,23 @@ When the shortened version of the URL is visited, the service will fetch the ori
 
 ### List of the technologies 
 
-* Nest.js (Is built with and fully supports TypeScript)
-is a progressive Node.js framework for building efficient, reliable and scalable server-side applications. I use it to build an API for shortening URLs.
+* Nest.js (Is built with and fully supports TypeScript) <br />
+It is a progressive Node.js framework for building efficient, reliable and scalable server-side applications. I use it to build an API for shortening URLs.
 
-* MongoDB (storing URLs)
-is a NoSQL database perfect for this application. It provides a flexible schema design and is easy to get started with. 
+* MongoDB (storing URLs) <br />
+It is a NoSQL database perfect for this application. It provides a flexible schema design and is easy to get started with. 
 
-* TypeORM
-is an ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript (ES5, ES6, ES7, ES8). Its goal is to always support the latest JavaScript features and provide additional features that help you to develop any kind of application that uses databases - from small applications with a few tables to large scale enterprise applications with multiple databases.
+* TypeORM <br />
+It is an ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript (ES5, ES6, ES7, ES8). Its goal is to always support the latest JavaScript features and provide additional features that help you to develop any kind of application that uses databases - from small applications with a few tables to large scale enterprise applications with multiple databases.
 
-* Nano ID
-is a library for generating random IDs. Likewise UUID, there is a probability of duplicate IDs. However, this probability is extremely small.
+* Nano ID <br />
+It is a library for generating random IDs. Likewise UUID, there is a probability of duplicate IDs. However, this probability is extremely small.
+
+* Swagger (Debug the API within UI mode)<br />
+Simplify API development for users, teams, and enterprises with the Swagger open source and professional toolset. Find out how Swagger can help you design and document your APIs at scale.
+
+
+
 
 
 ### Flowchart
@@ -53,26 +59,29 @@ Dictionary:
 const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-';
 ```
 
-* ID length: **8 characters**, Speed:1000 IDs per hour/second. **~99 days** needed, in order to have a 1% probability of at least one collision.
+* ID length: **8 characters**, Speed:1000 IDs per hour. **~99 days** needed, in order to have a 1% probability of at least one collision.
 ```js
 const nanoid = require('nanoid');
 nanoid(8); //=> "Fj7sB39c"
 ```
 
-* ID length: **9 characters**, Speed:1000 IDs per hour/second. **~2 years** needed, in order to have a 1% probability of at least one collision.
+* ID length: **9 characters**, Speed:1000 IDs per hour. **~2 years** needed, in order to have a 1% probability of at least one collision.
 ```js
 const nanoid = require('nanoid');
 nanoid(9); //=> "Iu13EwGaG"
 ```
 
-* ID length: **10 characters**, Speed:1000 IDs per hour/second. **~17 years** needed, in order to have a 1% probability of at least one collision.
+* ID length: **10 characters**, Speed:1000 IDs per hour. **~17 years** needed, in order to have a 1% probability of at least one collision.
 ```js
 const nanoid = require('nanoid');
 nanoid(10); //=> "LThFuTb_ui"
 ```
 
+## Running the app
 
-## Dependencies
+### 1. Docker Mode
+
+#### Dependencies
 
 In order to ensure that we have same development environment, I containerize the app and db with Docker.
 
@@ -80,21 +89,57 @@ In order to ensure that we have same development environment, I containerize the
 $ brew cask install docker
 ```
 
-## Running the app
+#### Launch
 
 ```bash
 # Pull code
 $ git pull
 
 # Go to the workspace
-$ cd fullstack-short-url-ted
+$ cd [application folder]
 
 # Launch production mode
 $ bash docker_run.sh
 ```
+```bash
+# Open the Swagger-UI
+http://localhost:3010/api/
+```
+
+### 2. Local Mode
+
+#### Dependencies
+
+You need to install the node.js and mongodb by yourself.
+
+```bash
+# Install Nodejs
+$ brew install node
+
+# Install Database
+$ brew tap mongodb/brew
+$ brew install mongodb-community@4.4
+```
+
+```bash
+# Pull code
+$ git pull
+
+# Go to the workspace
+$ cd [application folder]
+
+# Installation
+$ npm install
+
+# Launch dev mode
+$ npm run start
+```
+```bash
+# Open the Swagger-UI
+http://localhost:3000/api/
+```
 
 ## Test
-
 This app uses the [Jest](https://jestjs.io/)(A delightful JavaScript Testing Framework).
 
 ### Unit testing
@@ -161,6 +206,12 @@ Tests:       2 passed, 2 total
 Snapshots:   0 total
 Time:        7.244 s
 Ran all test suites.
+```
+
+## Code Quality
+```bash
+# Run eslint check
+$ npm run lint
 ```
 
 ## Stay in touch
