@@ -190,6 +190,7 @@ All files           |   50.55 |        0 |   44.44 |   46.91 |
 
 ### API End-to-end testing
 This app uses the SuperTest for API e2e testing
+**Plase make sure your database be started**
 ```bash
 # test e2e
 $ npm run test:e2e
