@@ -64,8 +64,10 @@ public class LinkServiceImpl implements LinkService {
             return "";
         }
 
+        // 先从JVM缓存中获取
         Object o = cache.getIfPresent(shortLink);
         if (o == null) {
+            // 未从JVM中获取时，从Redis中获取
             String originalLink = stringRedisTemplate.boundValueOps(shortLink).get();
             if(StringUtils.isEmpty(originalLink)) {
                 Link link = linkMapper.selectByShortLink(shortLink);

@@ -11,7 +11,7 @@ public class ShortUrlGenerator {
 
     private static String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static int scale = 62;
-    private static int minLength = 5;
+    private static int minLength = 8;
 
 
     //数字转62进制
