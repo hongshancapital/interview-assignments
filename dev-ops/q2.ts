@@ -22,7 +22,7 @@ export class MyEcsConstructStack extends cdk.Stack {
         image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
       },
       memoryLimitMiB: 2048,
-      publicLoadBalancer: true,
+      publicLoadBalancer: false,
       assignPublicIp: false,
       taskSubnets: {
         subnetType: SubnetType.PRIVATE,
