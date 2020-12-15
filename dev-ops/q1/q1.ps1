@@ -19,14 +19,15 @@ function Invoke-FooBarRequest {
         $ReqHour
     )
 
-    $Occurrence[$ReqHour+$ReqProcessName] += 1
+    $key = [string]$ReqHour+$ReqProcessName
+    $Occurrence[$key] += 1
     $Params = @{
         deviceName=$ReqDeviceName;
         processId=$ReqProcessId;
         processName=$ReqProcessName;
         description=$ReqDescription;
-        timeWindow=$ReqHour+'00';
-        numberOfOccurrence=$Occurrence[$ReqHour+$ReqProcessName];
+        timeWindow=[string]::Format("{0:d2}00-{1:d2}00", $ReqHour, $ReqHour+1);
+        numberOfOccurrence=$Occurrence[$key];
     }
     Invoke-WebRequest -Uri $ServiceApi -ContentType "application/json" -Method Post -Body (ConvertTo-Json $Params)
 }
@@ -38,7 +39,7 @@ foreach ($line in Get-Content $LogFile) {
         $PrevDescription = $PrevDescription + '\n' + $line.trim()
         continue
     }
-    $Hour = $groups[1].Value
+    $Hour = [int]$groups[1].Value
 
     $DeviceName = $Parts[3]
     if ($DeviceName -eq '---') {

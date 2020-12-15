@@ -9,7 +9,7 @@ log_file = './DevOps_interview_data_set'
 
 
 def send_request(device_name, process_id, process_name, description, hour, occurrence):
-    key = hour + process_name
+    key = str(hour) + process_name
     if key not in occurrence:
         occurrence[key] = 1
     else:
@@ -21,7 +21,7 @@ def send_request(device_name, process_id, process_name, description, hour, occur
         'processId': process_id,
         'processName': process_name,
         'description': description,
-        'timeWindow': hour + '00',
+        'timeWindow': '{:02d}00-{:02d}00'.format(hour, hour+1),
         'numberOfOccurrence': occurrence[key],
     }))
 
@@ -45,7 +45,7 @@ def main():
                 prev_description += ('\n' + line.strip())
                 continue
 
-            hour = '%02d' % ts.hour
+            hour = ts.hour
             rest = line[16:].strip()
             if rest.startswith('---'):
                 # repeated line
