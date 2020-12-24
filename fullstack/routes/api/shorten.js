@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const uniqid = require('uniqid');
+const { nanoid } = require('nanoid');
 // load URL model
 const URL = require('../../models/URLs');
-
-// @route GET /api/shorten/test
-// router.get('/test', (req, res) => res.json({msg: 'API is working'}));
 
 // @route POST api/shorten
 // e.g. localhost:5000/api/shorten?url=www.google.com
@@ -18,8 +15,10 @@ router.post('/', (req, res) => {
         if(doc){
             console.log('Entry found it in db.');
         }else{
+            // 8 characters id/short url
+            const shortURLid = nanoid(8);
             const webAdress = new URL({
-                _id: uniqid(),
+                _id: shortURLid,
                 url: urlData
             });
             webAdress.save((err) => {

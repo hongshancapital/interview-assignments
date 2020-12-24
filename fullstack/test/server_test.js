@@ -25,9 +25,10 @@ before(function (done) {
   }
 });
 
-// integration tests
+// route unit tests
 describe('### Basic server tests', function () {
   var server = require('../server');
+  var shortURL;
 
   it('### Basic GET responds to /', function testSlash(done) {
   request(server)
@@ -49,15 +50,34 @@ describe('### Basic server tests', function () {
       .post('/api/shorten')
       .type("form")
       .send({ url: "www.mathworks.com" })
-      //.expect(200, done).expect('Content-Type', /json/)
       .end( (err, res) => {
         if (err) done(err);
         // GET access to the short URL
-        console.log('  ### Shortened URL is: ' + '/' + res.body.hash);
+        shortURL = res.body.hash;
+        console.log('  ### Shortened URL is: ' + '/' + shortURL);
         request(server)
-          .get('/' + res.body.hash)
+          .get('/' + shortURL)
           .expect("Content-Type", /text/)
           .expect(302, done);
       });
+  });
+
+  it('### Testing redirect route API', function testRedirectURL(done) {
+    console.log('  ### redirect route hash: ' + '/' + shortURL);
+    request(server)
+      .get('/api/redirect?hash' + shortURL)
+      .set({'hash': shortURL})
+      .expect(200, done).expect('Content-Type', /json/)
+      .expect({'url':'www.mathworks.com'});
+  });
+
+  it('### Invalid shortened URL', function testInvalidShortURL(done) {
+    shortURL = '12345';
+    console.log('  ### redirect route hash: ' + '/' + shortURL);
+    request(server)
+      .get('/api/redirect?hash' + shortURL)
+      .set({'hash': shortURL})
+      .expect(400, done).expect('Content-Type', /json/)
+      .expect({'error':'This link may have expried'});
   });
 });

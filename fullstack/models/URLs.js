@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const shortId = require('shortid');
 
 // database schema
 const shortUrlSchema = new mongoose.Schema({
@@ -9,6 +8,7 @@ const shortUrlSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // short URL hash
     hash:{
         type: String,
     }

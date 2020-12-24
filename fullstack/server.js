@@ -24,7 +24,7 @@ app.use('/api/shorten', shorten);
 const redirect = require('./routes/api/redirect');
 app.use('/api/redirect', redirect);
 
-// get short URL e.g. http://localhost:5000/cmksminkj0w8o7w
+// get short URL e.g. http://localhost:5000/5rxpPzRB
 app.get('/:shortURL', (req, res)=>{
   const shortURL = req.params.shortURL;
   // pass in the short url

@@ -4,7 +4,7 @@ const router = express.Router();
 const URL = require('../../models/URLs');
 
 // @route GET api/redirect
-// e.g. localhost:5000/api/redirect?hash=cmkslh8kj0vtbrp
+// e.g. localhost:5000/api/redirect?hash=5rxpPzRB
 router.get('/', (req, res) => {
     
     const hash = req.headers.hash;

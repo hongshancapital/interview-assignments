@@ -4,7 +4,8 @@
   "description": "撰写两个API接口",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon ./routes/server.js"
+    "devStart": "nodemon ./routes/server.js",
+    "test": "mocha -R spec ./test/server_test.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,9 +14,8 @@
     "express": "^4.17.1",
     "mocha": "^8.2.1",
     "mongoose": "^5.11.8",
-    "node-mocks-http": "^1.9.0",
-    "shortid": "^2.2.16",
-    "uniqid": "^5.2.0"
+    "nanoid": "^3.1.20",
+    "node-mocks-http": "^1.9.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6",
