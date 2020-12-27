@@ -76,7 +76,7 @@
 
 ## 作业在哪？如何提交？
 
-Fork 我们的 [作业仓库](https://github.com/sequoiacapital/interview-assignments) 并在相关文件夹下找到你的作业。完成作业后提交一个 Pull Request 即可。如果方便，可以在 PR 描述中留下你的简历。
+Fork 我们的 [作业仓库](https://github.com/scdt-china/interview-assignments) 并在相关文件夹下找到你的作业。完成作业后提交一个 Pull Request 即可。如果方便，可以在 PR 描述中留下你的简历。
 
 ## 还有其他要补充的吗？
 
