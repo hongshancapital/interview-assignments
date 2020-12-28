@@ -87,6 +87,7 @@ Fork 我们的 [作业仓库](https://github.com/scdt-china/interview-assignment
 
 # [北京] 红杉资本招聘 Java 全栈工程师
 
+[Assignment](./java/README.md)
 
 ## 我们期望你在岗位上
 
