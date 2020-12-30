@@ -3,4 +3,6 @@ The monorepo for interview take home assignments.
 
 Please find your assignment in subfolder accordingly.
 
-[中文 JD](https://github.com/scdt-china/interview-assignments/blob/master/developer-jd.md)
+[TypeScript全栈/Swift工程师](./developer-jd.md)
+
+[Java全栈工程师](./java-jd.md)
