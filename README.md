@@ -10,3 +10,5 @@ Please find your assignment in subfolder accordingly.
 [DevOps运维工程师/专家 - 中文JD](./devops-jd.md)
 
 [资深Helpdesk运维工程师 - 中文JD](./helpdesk-jd.md)
+
+[QA工程师 - 中文JD](./qa-jd.md)
