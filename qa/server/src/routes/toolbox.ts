@@ -9,7 +9,7 @@ toolboxRouter.get(
   '/toolbox',
   (req, res) => {
     const sql = "select * from toolbox_prefs order by id desc";
-
+    console.log('get /toolbox/');
     db.all(sql, [], (err, rows) => {
       if (err) {
         res.status(400).json({ "error": err.message });
@@ -25,6 +25,7 @@ toolboxRouter.get(
 toolboxRouter.get(
   '/toolbox/options',
   (req, res) => {
+    console.log('get /toolbox/options');
     res.json(generateToolboxNames());
   }
 );

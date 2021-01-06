@@ -5,9 +5,10 @@ This directory contains:
 
 - server
 - web
+- mobile
 
-2 miniature projects, which can be up and running (web can connect to server). Both lacking test suites.
+3 miniature projects, which can be up and running (web/mobile can connect to server), but lacking test suites.
 
-Your mission is to setup test suites for at least ONE of server/web projects, depending on your tech stack(Express/React Hooks), and submit your PR.
+Your mission is to setup test suites for at least ONE of server/web/mobile projects, depending on your tech stack(Express/React Hooks/SwiftUI), and submit your PR.
 
-It's nice for us to have test suites for all the projects!
+It's nice to have test suites for all the projects(Coverage 3/3😄)!
