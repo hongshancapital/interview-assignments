@@ -1,0 +1,29 @@
+
+spring:
+  thymeleaf:
+    # 前缀
+    prefix:
+      classpath: /templates/
+    # 后缀
+    suffix: .html
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    pool:
+      max-active: 8
+      max-wait: 1
+      max-idle: 8
+      min-idle: 0
+    timeout: 10000
+    password: xxxxxx
+
+# 短域名配置
+shorturl:
+  #生成短域名的scheme，支持[http|https]，不写默认http
+  scheme: http
+  #生成短域名的域名，必填
+  host: t.cn
+  #短域名hash冲突时的重试次数
+  maxTryTimes: 5
+  #短域名的过期天数
+  expireDays: 500
