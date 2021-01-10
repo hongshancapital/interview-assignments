@@ -19,7 +19,7 @@ public class Bootstrap {
         StatefulRedisConnection<String, String> connect = client.connect();
         RedisCommands<String, String> sync = connect.sync();
         String set = sync.set(generate.substring(0,7),arg);
-        System.out.println("得到的短链接地址"+"http://t."+set);
+        System.out.println("得到的短链接地址"+"http://t.com/"+set);
 
 
     }
