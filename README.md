@@ -6,9 +6,14 @@ Please find your assignment in subfolder accordingly.
 
 ## 开放岗位
 
-1. [Java](java/) / TypeScript [Fullstack](fullstack/) / [Frontend](frontend/) / [Swift](swift/) / [QA](qa/) / [DevOps](dev-ops/) 工程师
-2. [UI 设计师](design/)
-3. [Helpdesk](helpdesk/)
+- [Java](java/)
+- [TypeScript Fullstack](fullstack/)
+- [TypeScript Frontend](frontend/)
+- [Swift](swift/)
+- [QA](qa/)
+- [DevOps](dev-ops/)
+- [UI 设计师](design/)
+- [Helpdesk](helpdesk/)
 
 链接中有更为具体的 JD。
 
