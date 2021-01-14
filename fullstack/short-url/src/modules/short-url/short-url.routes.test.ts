@@ -12,8 +12,8 @@ beforeAll(async (done) => {
   done();
 });
 
-const invalidKey = 'zzzzzzzzz';
-const notFoundKey = 'zzzzzzzz';
+const invalidKey = '111111111';
+const notFoundKey = 'ZZZZZZZZ';
 const invalidUrl = 'invalidUrl';
 const randomUrl = `https://test.domain/${new Date().getTime()}`;
 let createdKey: string;

@@ -1,6 +1,7 @@
 import validUrl = require('valid-url');
 import config = require('config');
 import base62 = require('base62');
+import md5 = require('md5');
 import { getDbConnection } from '../../libs/db.lib';
 import { redisAsync } from '../../libs/redis.lib';
 import { IShortUrlInfo } from './interfaces/i-short-url-info.interface';
@@ -8,13 +9,14 @@ import { ShortUrl } from './entities/short-url.entity';
 
 const counterRedisKey = 'Counter';
 const cacheDuration = config.get<number>('cacheDuration');
+const maxId = base62.decode('ZZZZZZZZ');
 
 const getShortUrlRedisKey = (key: string): string => {
   return `Info:${key}`;
 };
 
-const getShortUrlLockRedisKey = (url: string): string => {
-  return `Lock:${url}`;
+const getShortUrlLockRedisKey = (hash: string): string => {
+  return `Lock:${hash}`;
 };
 
 const validKey = (key: string): boolean => {
@@ -44,11 +46,12 @@ const createShortUrl = async (url: string): Promise<IShortUrlInfo> => {
     throw new Error('invalid url');
   }
 
+  const hash = md5(url);
   const shortUrlRepository = getShortUrlRepository();
   const exist = await shortUrlRepository.findOne({
     select: ['id'],
     where: {
-      url,
+      hash,
       deletedAt: null,
     },
   });
@@ -59,25 +62,27 @@ const createShortUrl = async (url: string): Promise<IShortUrlInfo> => {
     };
   }
 
-  const lockRedisKey = getShortUrlLockRedisKey(url);
+  const lockRedisKey = getShortUrlLockRedisKey(hash);
   const lockRes = await redisAsync.incr(lockRedisKey);
   if (lockRes > 1) {
     throw new Error('annother same create url request is processing');
   }
 
   const id = await redisAsync.incr(counterRedisKey);
-  const key = getKeyById(id);
-  if (!validKey(key)) {
+  if (id > maxId) {
     await redisAsync.decr(counterRedisKey);
     await redisAsync.del(lockRedisKey);
     throw new Error('amount of url is out of range');
   }
+
+  const key = getKeyById(id);
 
   try {
     await shortUrlRepository.save(
       shortUrlRepository.create({
         id,
         url,
+        hash,
       }),
     );
   } catch (error) {

@@ -17,17 +17,24 @@ export class ShortUrl {
   })
   id: number;
 
-  @Index('idx-url')
+  @Index('uni-hash', {
+    unique: true,
+  })
   @Column({
-    type: 'varchar',
-    width: 2083,
+    type: 'char',
+    width: 32,
+    comment: 'Hash Value',
+  })
+  hash: string;
+
+  @Column({
+    type: 'text',
     comment: 'URL',
   })
   url: string;
 
   @CreateDateColumn({
     type: 'datetime',
-    precision: null,
     default: () => 'CURRENT_TIMESTAMP',
     comment: 'Create Time',
   })
@@ -35,7 +42,6 @@ export class ShortUrl {
 
   @UpdateDateColumn({
     type: 'datetime',
-    precision: null,
     default: () => 'CURRENT_TIMESTAMP',
     comment: 'Update Time',
   })
@@ -44,7 +50,6 @@ export class ShortUrl {
   @Index('idx-deletedAt')
   @Column({
     type: 'datetime',
-    precision: null,
     default: null,
     comment: 'Delete Time',
   })

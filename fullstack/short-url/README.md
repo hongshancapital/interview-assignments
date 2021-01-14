@@ -38,21 +38,21 @@ $ yarn test --coverage
 ## 测试结果
 
 ```
- PASS  src/modules/short-url/short-url.routes.test.ts (7.184 s)
+  PASS  src/modules/short-url/short-url.routes.test.ts (6.098 s)
   Short Url Endpoints Step 1
-    ✓ [GetShortUrl] The short url is invalid: zzzzzzzzz (29 ms)
-    ✓ [GetShortUrl] The short url is not found: zzzzzzzz (5 ms)
+    ✓ [GetShortUrl] The short url is invalid: 111111111 (32 ms)
+    ✓ [GetShortUrl] The short url is not found: ZZZZZZZZ (6 ms)
     ✓ [CreateShortUrl] The url is empty (3 ms)
-    ✓ [CreateShortUrl] The url is invalid: invalidUrl (5 ms)
-    ✓ [CreateShortUrl] The url is random: https://test.domain/1610508261775 (31 ms)
+    ✓ [CreateShortUrl] The url is invalid: invalidUrl (4 ms)
+    ✓ [CreateShortUrl] The url is random: https://test.domain/1610609673048 (39 ms)
   Short Url Endpoints Step 2
-    ✓ [CreateShortUrl] The url is duplicate: https://test.domain/1610508261775 (4 ms)
+    ✓ [CreateShortUrl] The url is duplicate: https://test.domain/1610609673048 (5 ms)
     ✓ [GetShortUrl] The short url is created (3 ms)
 
---------------------------------|---------|----------|---------|---------|----------------------------
+--------------------------------|---------|----------|---------|---------|--------------------------------
 File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
---------------------------------|---------|----------|---------|---------|----------------------------
-All files                       |   91.03 |    76.67 |   95.24 |   91.22 |
+--------------------------------|---------|----------|---------|---------|--------------------------------
+All files                       |   90.06 |    76.67 |   95.24 |    90.2 |
  config                         |     100 |      100 |     100 |     100 |
   default.js                    |     100 |      100 |     100 |     100 |
   test.js                       |     100 |      100 |     100 |     100 |
@@ -63,36 +63,57 @@ All files                       |   91.03 |    76.67 |   95.24 |   91.22 |
  src/libs                       |   93.75 |      100 |   83.33 |    96.3 |
   db.lib.ts                     |   90.91 |      100 |     100 |   88.89 | 12
   redis.lib.ts                  |   95.24 |      100 |      75 |     100 |
- src/modules/short-url          |   87.37 |       75 |     100 |   87.37 |
+ src/modules/short-url          |   85.86 |       75 |     100 |   85.86 |
   short-url.module.ts           |     100 |      100 |     100 |     100 |
   short-url.routes.ts           |     100 |      100 |     100 |     100 |
-  short-url.service.ts          |   83.56 |    73.08 |     100 |   83.56 | 65,71-72,83-84,105,116-128
+  short-url.service.ts          |   81.82 |    73.08 |     100 |   81.82 | 68,73-75,89-90,111,122-134,152
  src/modules/short-url/entities |     100 |      100 |     100 |     100 |
   short-url.entity.ts           |     100 |      100 |     100 |     100 |
---------------------------------|---------|----------|---------|---------|----------------------------
+--------------------------------|---------|----------|---------|---------|--------------------------------
 Test Suites: 1 passed, 1 total
 Tests:       7 passed, 7 total
 Snapshots:   0 total
-Time:        7.325 s
+Time:        6.246 s
 Ran all test suites.
-Done in 8.28s.
+Done in 7.17s.
 ```
 
 ## 获取URL压力测试结果
 
 ```
 # run ab test
-$ ab -c 1000 -n 10000 http://127.0.0.1:3000/a
+$ ab -c 1000 -n 10000 http://127.0.0.1:3000/1
+
+Document Path:          /1
+Document Length:        79 bytes
 
 Concurrency Level:      1000
-Time taken for tests:   3.093 seconds
+Time taken for tests:   3.351 seconds
 Complete requests:      10000
 Failed requests:        0
 Write errors:           0
-Total transferred:      2750000 bytes
-HTML transferred:       680000 bytes
-Requests per second:    3233.14 [#/sec] (mean)
-Time per request:       309.297 [ms] (mean)
-Time per request:       0.309 [ms] (mean, across all concurrent requests)
-Transfer rate:          868.28 [Kbytes/sec] received
+Total transferred:      2860000 bytes
+HTML transferred:       790000 bytes
+Requests per second:    2984.14 [#/sec] (mean)
+Time per request:       335.105 [ms] (mean)
+Time per request:       0.335 [ms] (mean, across all concurrent requests)
+Transfer rate:          833.46 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0   93 308.2      6    3009
+Processing:    45  145  94.3    128     955
+Waiting:       13  117  92.1    102     919
+Total:         46  237 325.1    135    3163
+
+Percentage of the requests served within a certain time (ms)
+  50%    135
+  66%    143
+  75%    151
+  80%    156
+  90%    534
+  95%   1149
+  98%   1172
+  99%   1176
+ 100%   3163 (longest request)
 ```
