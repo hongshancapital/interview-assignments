@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Write by : Actrace actrace@outlook.com
+ */
+
 $data_analytics = new data_analytics('./Helpdesk_interview_data_set');
 
 class data_analytics
@@ -17,7 +21,7 @@ class data_analytics
     public $send = false; // 发送到服务器
 
     /**
-     * 初始化，并处理
+     * 初始化，并处理日志文件
      * $path | string | 日志文件路径
      */
     public function __construct($path)
@@ -57,17 +61,18 @@ class data_analytics
     public function stage_2()
     {
         foreach ($this->log as $line) {
-            $tmp = explode(' ', $line);
-            $matche = preg_match_all("|\((.*)\[(\d.*)\]\)\: (.*)|", $line, $process);
-            if ($matche > 0) {
-                $this->stage_2_arr[] = [
-                    "deviceName" => $tmp[3],
-                    "processId" => $process[2][0],
-                    "processName" => $process[1][0],
-                    "description" => $process[3][0],
-                    "time" => "{$tmp[2]}"
-                ];
+            //使用日志处理器处理特定格式的日志内容
+            if ($this->stage2_processer1($line)) {
+                continue;
             }
+
+            //可以添加更多的处理器
+            // if($this->stage2_processer2($line)){
+            //     continue;
+            // }
+            // if($this->stage2_processer3($line)){
+            //     continue;
+            // }
         }
     }
 
@@ -142,6 +147,28 @@ class data_analytics
         //写入到当前目录
         if ($this->save) {
             file_put_contents($this->save_path, $data);
+        }
+    }
+
+    /**
+     * 处理器：日志格式1
+     * 用于处理特定的错误日志
+     */
+    public function stage2_processer1($line)
+    {
+        $tmp = explode(' ', $line);
+        $matche = preg_match_all("|\((.*)\[(\d.*)\]\)\: (.*)|", $line, $process);
+        if ($matche > 0) {
+            $this->stage_2_arr[] = [
+                "deviceName" => $tmp[3],
+                "processId" => $process[2][0],
+                "processName" => $process[1][0],
+                "description" => $process[3][0],
+                "time" => "{$tmp[2]}"
+            ];
+            return true;
+        } else {
+            return false;
         }
     }
 
