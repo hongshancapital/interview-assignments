@@ -23,10 +23,14 @@
 
 # Windows 用户
 
-使用 PowerShell 运行 windows.ps1 
+用户需要 PHP 解释器以运行这个脚本，可以到这里下载：  
+https://windows.php.net/downloads/releases/php-7.4.14-nts-Win32-vc15-x64.zip  
+
+修改 Windows.ps1 中 php.exe 的路径到正确位置，使用 PowerShell 运行 windows.ps1 
 
 # macos 用户
 
+macOS 已经内置了 php ，通常无需额外安装。  
 打开终端运行 macos.sh
 
 # 编写更多处理器
