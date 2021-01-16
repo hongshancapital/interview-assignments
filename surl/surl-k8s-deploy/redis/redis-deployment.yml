@@ -1,0 +1,45 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:latest
+          imagePullPolicy: IfNotPresent
+          command: ["/usr/local/bin/redis-server"]
+          args:
+            - /etc/redis/redis.conf
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/redis
+            - name: data-volume
+              mountPath: /data
+      volumes:
+        - name: config-volume
+          configMap:
+            name: redis
+        - name: data-volume
+          hostPath:
+            path: /Volumes/Code/surl-runtime/redis
+            type: Directory

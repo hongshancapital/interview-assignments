@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: surl-main
+  labels:
+    app: surl-main 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: surl-main
+  template:
+    metadata:
+      labels:
+        app: surl-main
+    spec:
+      containers:
+      - name: surl-main
+        image: surl-main:0.0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080

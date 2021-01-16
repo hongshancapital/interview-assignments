@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cassandra-pv-0
+  labels:
+    app: cassandra
+spec:
+  storageClassName: "local-storage"
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /Volumes/Code/surl-runtime/cassandra/cassandra-0
+  persistentVolumeReclaimPolicy: Recycle
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cassandra-pv-1
+  labels:
+    app: cassandra
+spec:
+  storageClassName: "local-storage"
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /Volumes/Code/surl-runtime/cassandra/cassandra-1
+  persistentVolumeReclaimPolicy: Recycle
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cassandra-pv-2
+  labels:
+    app: cassandra
+spec:
+  storageClassName: "local-storage"
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /Volumes/Code/surl-runtime/cassandra/cassandra-2
+  persistentVolumeReclaimPolicy: Recycle
