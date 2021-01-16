@@ -6,6 +6,7 @@ Please find your assignment in subfolder accordingly.
 
 ## 开放岗位
 
+北京：
 - [Java](java/)
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
@@ -13,6 +14,8 @@ Please find your assignment in subfolder accordingly.
 - [QA](qa/)
 - [DevOps](dev-ops/)
 - [UI 设计师](design/)
+
+上海/深圳/香港
 - [Helpdesk](helpdesk/)
 
 链接中有更为具体的 JD。
