@@ -3,8 +3,8 @@
 1. 系统设计文档   https://github.com/devil0118/short_url/blob/1612e87e7a2e408f43306c0a56679fbebd437352/readme/%E7%9F%AD%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3.docx
 2. 源代码  
 https://github.com/devil0118/short_url/tree/1612e87e7a2e408f43306c0a56679fbebd437352
-3. 单元测试代码以及单元测试覆盖率  
-https://github.com/devil0118/short_url/tree/1612e87e7a2e408f43306c0a56679fbebd437352/readme/jacoco
+3. 单元测试代码以及单元测试覆盖率    
+https://github.com/devil0118/interview-assignments/blob/master/java/short_url/readme/shortUrl.png
 4. API 集成测试案例以及测试结果  
 见测试代码
 5. 简单的框架设计图，以及所有做的假设  
@@ -26,8 +26,8 @@ https://github.com/devil0118/short_url/blob/18fc3731fc067839b5ed0ac4d242924081ba
 https://github.com/devil0118/http_server/blob/fb564b6fc1dc63ff1a9436d02ee219eb38e81c86/readme/HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3.docx
 2. 源代码  
 https://github.com/devil0118/http_server/tree/fb564b6fc1dc63ff1a9436d02ee219eb38e81c86
-3. 单元测试代码以及单元测试覆盖率  
-https://github.com/devil0118/http_server/tree/fb564b6fc1dc63ff1a9436d02ee219eb38e81c86/readme/jacoco
+3. 单元测试代码以及单元测试覆盖率    
+https://github.com/devil0118/interview-assignments/blob/master/java/http_server/readme/httpServer.png
 4. API 集成测试案例以及测试结果  
 见测试代码
 5. 简单的框架设计图，以及所有做的假设  
