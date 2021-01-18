@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractRequestHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.network.handler</a> &gt; <span class="el_source">AbstractRequestHandler.java</span></div><h1>AbstractRequestHandler.java</h1><pre class="source lang-java linenums">package com.wb.http_server.network.handler;
+
+import com.wb.http_server.context.ServletContext;
+import com.wb.http_server.exception.FilterNotFoundException;
+import com.wb.http_server.exception.ServerErrorException;
+import com.wb.http_server.exception.ServletNotFoundException;
+import com.wb.http_server.exception.base.ServletException;
+import com.wb.http_server.exception.handler.ExceptionHandler;
+import com.wb.http_server.filter.Filter;
+import com.wb.http_server.filter.FilterChain;
+import com.wb.http_server.network.wrapper.SocketWrapper;
+import com.wb.http_server.request.Request;
+import com.wb.http_server.resource.ResourceHandler;
+import com.wb.http_server.response.Response;
+import com.wb.http_server.servlet.Servlet;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ * RequestHandler 的父类，通过父类来复用成员变量和部分方法
+ * 不同IO模型的RequestHandler基本是在将Response写回客户端这部分有不同的实现，在这里被设置为了抽象方法
+ */
+<span class="nc" id="L28">@Slf4j</span>
+@Getter
+public abstract class AbstractRequestHandler implements FilterChain, Runnable {
+
+<span class="nc" id="L32">    protected Request request;</span>
+<span class="nc" id="L33">    protected Response response;</span>
+<span class="nc" id="L34">    protected SocketWrapper socketWrapper;</span>
+<span class="nc" id="L35">    protected ServletContext servletContext;</span>
+<span class="nc" id="L36">    protected ExceptionHandler exceptionHandler;</span>
+<span class="nc" id="L37">    protected ResourceHandler resourceHandler;</span>
+<span class="nc" id="L38">    protected boolean isFinished;</span>
+<span class="nc" id="L39">    protected Servlet servlet;</span>
+<span class="nc" id="L40">    protected List&lt;Filter&gt; filters;</span>
+<span class="nc" id="L41">    private int filterIndex = 0;</span>
+
+    public AbstractRequestHandler(SocketWrapper socketWrapper, ServletContext servletContext, ExceptionHandler exceptionHandler, ResourceHandler resourceHandler, Request request, Response response)
+<span class="nc" id="L44">            throws ServletNotFoundException, FilterNotFoundException {</span>
+<span class="nc" id="L45">        this.socketWrapper = socketWrapper;</span>
+<span class="nc" id="L46">        this.servletContext = servletContext;</span>
+<span class="nc" id="L47">        this.exceptionHandler = exceptionHandler;</span>
+<span class="nc" id="L48">        this.resourceHandler = resourceHandler;</span>
+<span class="nc" id="L49">        this.isFinished = false;</span>
+<span class="nc" id="L50">        this.request = request;</span>
+<span class="nc" id="L51">        this.response = response;</span>
+<span class="nc" id="L52">        request.setServletContext(servletContext);</span>
+<span class="nc" id="L53">        request.setRequestHandler(this);</span>
+<span class="nc" id="L54">        response.setRequestHandler(this);</span>
+<span class="nc" id="L55">        servlet = servletContext.mapServlet(request.getUrl());</span>
+<span class="nc" id="L56">        filters = servletContext.mapFilter(request.getUrl());</span>
+<span class="nc" id="L57">    }</span>
+
+    /**
+     * 入口
+     */
+    @Override
+    public void run() {
+        // 如果没有filter，则直接执行servlet
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (filters.isEmpty()) {</span>
+<span class="nc" id="L66">            service();</span>
+        } else {
+            // 先执行filter
+<span class="nc" id="L69">            doFilter(request, response);</span>
+        }
+<span class="nc" id="L71">    }</span>
+
+    /**
+     * 递归执行，自定义filter中如果同意放行，那么会调用filterChain(也就是requestHandler)的doiFilter方法，
+     * 此时会执行下一个filter的doFilter方法；
+     * 如果不放行，那么会在sendRedirect之后将响应数据写回客户端，结束；
+     * 如果所有Filter都执行完毕，那么会调用service方法，执行servlet逻辑
+     * @param request
+     * @param response
+     */
+    @Override
+    public void doFilter(Request request, Response response) {
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (filterIndex &lt; filters.size()) {</span>
+<span class="nc" id="L84">            filters.get(filterIndex++).doFilter(request, response, this);</span>
+        } else {
+<span class="nc" id="L86">            service();</span>
+        }
+<span class="nc" id="L88">    }</span>
+
+    /**
+     * 调用servlet
+     */
+    private void service() {
+        try {
+            //处理资源，交由某个Servlet执行
+            //Servlet是单例多线程
+            //Servlet在RequestHandler中执行
+<span class="nc" id="L98">            servlet.service(request, response);</span>
+<span class="nc" id="L99">        } catch (ServletException e) {</span>
+<span class="nc" id="L100">            exceptionHandler.handle(e, response, socketWrapper);</span>
+<span class="nc" id="L101">        } catch (Exception e) {</span>
+            //其他未知异常
+<span class="nc" id="L103">            e.printStackTrace();</span>
+<span class="nc" id="L104">            exceptionHandler.handle(new ServerErrorException(), response, socketWrapper);</span>
+        } finally {
+<span class="nc bnc" id="L106" title="All 2 branches missed.">            if (!isFinished) {</span>
+<span class="nc" id="L107">                flushResponse();</span>
+            }
+        }
+<span class="nc" id="L110">        log.info(&quot;请求处理完毕&quot;);</span>
+<span class="nc" id="L111">    }</span>
+
+    /**
+     * 响应数据写回到客户端
+     */
+    public abstract void flushResponse();
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,1023 @@
+2021-01-10 12:21:47.716 [ main ] - [ INFO  ] [ com.wb.shorturl.service.ShortUrlServiceTest : 55 ] - Starting ShortUrlServiceTest using Java 1.8.0_181 on helloworld-2.local with PID 57526 (started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 12:21:47.756 [ main ] - [ DEBUG ] [ com.wb.shorturl.service.ShortUrlServiceTest : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 12:21:47.760 [ main ] - [ INFO  ] [ com.wb.shorturl.service.ShortUrlServiceTest : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 12:21:52.073 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 12:21:53.169 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 12:21:55.871 [ main ] - [ INFO  ] [ com.wb.shorturl.service.ShortUrlServiceTest : 61 ] - Started ShortUrlServiceTest in 9.546 seconds (JVM running for 13.151)
+2021-01-10 12:21:56.851 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 12:21:56.879 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: Or8Zew2V3c(String)
+2021-01-10 12:21:57.603 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:21:57.605 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 12:21:57.605 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 12:21:57.606 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: [Or8Zew2V3c]
+2021-01-10 12:21:57.607 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: [Or8Zew2V3c]
+2021-01-10 12:21:57.607 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: [Or8Zew2V3c]
+2021-01-10 12:21:57.608 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: [Or8Zew2V3c]
+2021-01-10 12:21:57.608 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: [Or8Zew2V3c]
+2021-01-10 12:21:57.725 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 5
+2021-01-10 12:21:57.809 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 12:21:57.837 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 12:24:33.348 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 55 ] - Starting ShortUrlAPIControllerTests using Java 1.8.0_181 on helloworld-2.local with PID 57715 (started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 12:24:33.353 [ main ] - [ DEBUG ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 12:24:33.356 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 12:24:37.502 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 12:24:38.657 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 12:24:41.607 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 61 ] - Started ShortUrlAPIControllerTests in 9.249 seconds (JVM running for 11.902)
+2021-01-10 12:24:42.571 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 12:24:42.601 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 12:25:41.911 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 55 ] - Starting ShortUrlAPIControllerTests using Java 1.8.0_181 on helloworld-2.local with PID 57792 (started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 12:25:41.915 [ main ] - [ DEBUG ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 12:25:41.931 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 12:25:45.851 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 12:25:46.906 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 12:25:49.756 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 61 ] - Started ShortUrlAPIControllerTests in 8.495 seconds (JVM running for 10.508)
+2021-01-10 12:25:50.784 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 12:25:50.823 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: 1821959231(Integer)
+2021-01-10 12:25:51.520 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:25:51.522 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 12:25:51.522 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 12:25:51.523 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:25:51.524 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:25:51.525 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:25:51.525 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:25:51.526 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:25:51.623 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 12:25:51.652 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==>  Preparing: INSERT INTO short_url ( id, short_code, origin_url, origin_url_hash, create_timestamp ) VALUES ( ?, ?, ?, ?, ? )
+2021-01-10 12:25:51.652 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==> Parameters: 0(Long), Os7bplhcxo(String), https://www.123.com(String), 1821959231(Integer), 1610252751633(Long)
+2021-01-10 12:25:51.699 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 12:25:51.702 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: 1626861388(Integer)
+2021-01-10 12:25:51.704 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:25:51.705 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 12:25:51.706 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 12:25:51.708 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:25:51.708 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:25:51.709 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:25:51.711 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:25:51.712 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:25:51.713 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:25:51.713 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )
+2021-01-10 12:25:51.713 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: InsertStatement(super=DMLStatement(super=AbstractSQLStatement(type=DML, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[AndCondition(conditions=[])])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0), SQLToken(startIndex=23)], parametersIndex=5, logicSQL=INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )), deleteStatement=false, updateTableAlias={}, updateColumnValues={}, whereStartIndex=0, whereStopIndex=0, whereParameterStartIndex=0, whereParameterEndIndex=0), columnNames=[id, short_code, origin_url, origin_url_hash, create_timestamp], values=[InsertValue(columnValues=[org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@6e5186a3, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@6ec0c914, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@52b4477f, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@57c723df, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@35c1d31a])])
+2021-01-10 12:25:51.714 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url0   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bplhcxo, https://www.123.com, 1821959231, 1610252751633]
+2021-01-10 12:25:51.715 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url1   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bplhcxo, https://www.123.com, 1821959231, 1610252751633]
+2021-01-10 12:25:51.715 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url2   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bplhcxo, https://www.123.com, 1821959231, 1610252751633]
+2021-01-10 12:25:51.716 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url3   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bplhcxo, https://www.123.com, 1821959231, 1610252751633]
+2021-01-10 12:25:51.717 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url4   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bplhcxo, https://www.123.com, 1821959231, 1610252751633]
+2021-01-10 12:25:51.765 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 12:25:51.793 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 12:25:51.794 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: -1156927871(Integer)
+2021-01-10 12:25:51.797 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:25:51.798 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 12:25:51.800 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 12:25:51.801 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:25:51.802 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:25:51.803 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:25:51.804 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:25:51.804 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:25:51.880 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 12:25:51.887 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - <==    Updates: 5
+2021-01-10 12:25:51.893 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==>  Preparing: INSERT INTO short_url ( id, short_code, origin_url, origin_url_hash, create_timestamp ) VALUES ( ?, ?, ?, ?, ? )
+2021-01-10 12:25:51.894 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==> Parameters: 0(Long), Os7bpXA256(String), http://www.abc.com(String), 1626861388(Integer), 1610252751767(Long)
+2021-01-10 12:25:51.894 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:25:51.895 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )
+2021-01-10 12:25:51.895 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: InsertStatement(super=DMLStatement(super=AbstractSQLStatement(type=DML, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[AndCondition(conditions=[])])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0), SQLToken(startIndex=23)], parametersIndex=5, logicSQL=INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )), deleteStatement=false, updateTableAlias={}, updateColumnValues={}, whereStartIndex=0, whereStopIndex=0, whereParameterStartIndex=0, whereParameterEndIndex=0), columnNames=[id, short_code, origin_url, origin_url_hash, create_timestamp], values=[InsertValue(columnValues=[org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@6e5186a3, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@6ec0c914, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@52b4477f, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@57c723df, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@35c1d31a])])
+2021-01-10 12:25:51.896 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url0   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bpXA256, http://www.abc.com, 1626861388, 1610252751767]
+2021-01-10 12:25:51.896 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url1   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bpXA256, http://www.abc.com, 1626861388, 1610252751767]
+2021-01-10 12:25:51.896 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url2   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bpXA256, http://www.abc.com, 1626861388, 1610252751767]
+2021-01-10 12:25:51.896 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url3   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bpXA256, http://www.abc.com, 1626861388, 1610252751767]
+2021-01-10 12:25:51.897 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url4   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7bpXA256, http://www.abc.com, 1626861388, 1610252751767]
+2021-01-10 12:25:51.906 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 12:25:51.921 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 12:25:52.015 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - <==    Updates: 5
+2021-01-10 12:27:37.707 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 55 ] - Starting ShortUrlAPIControllerTests using Java 1.8.0_181 on helloworld-2.local with PID 57928 (started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 12:27:37.711 [ main ] - [ DEBUG ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 12:27:37.723 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 12:27:41.994 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 12:27:42.996 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 12:27:45.494 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 61 ] - Started ShortUrlAPIControllerTests in 8.654 seconds (JVM running for 10.751)
+2021-01-10 12:27:46.475 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 12:27:46.507 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: 1821959231(Integer)
+2021-01-10 12:27:47.144 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:27:47.145 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 12:27:47.146 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 12:27:47.147 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:27:47.147 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:27:47.148 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:27:47.148 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:27:47.149 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [1821959231]
+2021-01-10 12:27:47.246 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 12:27:47.281 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==>  Preparing: INSERT INTO short_url ( id, short_code, origin_url, origin_url_hash, create_timestamp ) VALUES ( ?, ?, ?, ?, ? )
+2021-01-10 12:27:47.282 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==> Parameters: 0(Long), Os7jWHKNc4(String), https://www.123.com(String), 1821959231(Integer), 1610252867258(Long)
+2021-01-10 12:27:47.324 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 12:27:47.331 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: 1626861388(Integer)
+2021-01-10 12:27:47.332 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:27:47.332 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 12:27:47.332 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 12:27:47.333 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:27:47.333 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:27:47.334 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:27:47.334 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:27:47.335 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [1626861388]
+2021-01-10 12:27:47.397 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 12:27:47.420 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 12:27:47.422 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: -1156927871(Integer)
+2021-01-10 12:27:47.423 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:27:47.424 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 12:27:47.425 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 12:27:47.426 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:27:47.426 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:27:47.427 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:27:47.427 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:27:47.428 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [-1156927871]
+2021-01-10 12:27:47.439 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 12:27:47.439 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )
+2021-01-10 12:27:47.439 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: InsertStatement(super=DMLStatement(super=AbstractSQLStatement(type=DML, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[AndCondition(conditions=[Condition(column=Column(name=create_timestamp, tableName=short_url), operator=EQUAL, compareOperator=null, positionValueMap={}, positionIndexMap={0=4})])])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0), SQLToken(startIndex=23)], parametersIndex=5, logicSQL=INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )), deleteStatement=false, updateTableAlias={}, updateColumnValues={}, whereStartIndex=0, whereStopIndex=0, whereParameterStartIndex=0, whereParameterEndIndex=0), columnNames=[id, short_code, origin_url, origin_url_hash, create_timestamp], values=[InsertValue(columnValues=[org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@3002707f, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@7771be34, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@51574d48, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@7c2c4f0a, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@5f8e5978])])
+2021-01-10 12:27:47.443 [ Thread-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url3   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, Os7jWHKNc4, https://www.123.com, 1821959231, 1610252867258]
+2021-01-10 12:27:47.482 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 12:27:47.509 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 12:27:47.511 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 12:27:47.512 [ Thread-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - <==    Updates: 1
+2021-01-10 12:28:32.740 [ main ] - [ INFO  ] [ com.wb.shorturl.service.ShortUrlServiceTest : 55 ] - Starting ShortUrlServiceTest using Java 1.8.0_181 on helloworld-2.local with PID 58002 (started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 12:28:32.749 [ main ] - [ DEBUG ] [ com.wb.shorturl.service.ShortUrlServiceTest : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 12:28:32.753 [ main ] - [ INFO  ] [ com.wb.shorturl.service.ShortUrlServiceTest : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 12:28:37.085 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 12:28:38.105 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 12:28:40.910 [ main ] - [ INFO  ] [ com.wb.shorturl.service.ShortUrlServiceTest : 61 ] - Started ShortUrlServiceTest in 8.994 seconds (JVM running for 11.327)
+2021-01-10 12:28:41.832 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 12:28:41.847 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 13:55:46.328 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 61976 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 13:55:46.331 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 13:55:46.332 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 13:55:48.862 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-82"]
+2021-01-10 13:55:48.864 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2021-01-10 13:55:48.864 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-01-10 13:55:48.986 [ main ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring embedded WebApplicationContext
+2021-01-10 13:55:50.244 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 13:55:51.262 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 13:55:52.194 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-82"]
+2021-01-10 13:55:52.245 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 61 ] - Started ShortUrlApplication in 6.382 seconds (JVM running for 7.278)
+2021-01-10 13:55:52.584 [ RMI TCP Connection(1)-127.0.0.1 ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-10 14:05:44.158 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 14:05:44.165 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 14:05:50.345 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 62662 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 14:05:50.347 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 14:05:50.348 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 14:05:52.555 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-82"]
+2021-01-10 14:05:52.556 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2021-01-10 14:05:52.557 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-01-10 14:05:52.617 [ main ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring embedded WebApplicationContext
+2021-01-10 14:05:53.356 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 14:05:54.134 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 14:05:54.855 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-82"]
+2021-01-10 14:05:54.902 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 61 ] - Started ShortUrlApplication in 5.009 seconds (JVM running for 6.004)
+2021-01-10 14:05:55.285 [ RMI TCP Connection(2)-127.0.0.1 ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-10 14:07:48.367 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 14:07:48.372 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 14:13:48.595 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 63298 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 14:13:48.598 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 14:13:48.598 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 14:13:50.812 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-82"]
+2021-01-10 14:13:50.814 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2021-01-10 14:13:50.815 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-01-10 14:13:50.934 [ main ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring embedded WebApplicationContext
+2021-01-10 14:13:51.876 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 14:13:52.824 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 14:13:53.644 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-82"]
+2021-01-10 14:13:53.743 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 61 ] - Started ShortUrlApplication in 5.608 seconds (JVM running for 6.76)
+2021-01-10 14:13:54.410 [ RMI TCP Connection(1)-127.0.0.1 ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-10 14:14:15.948 [ http-nio-82-exec-4 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 14:14:15.964 [ http-nio-82-exec-4 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: 52586958(Integer)
+2021-01-10 14:14:16.415 [ http-nio-82-exec-4 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 14:14:16.417 [ http-nio-82-exec-4 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 14:14:16.417 [ http-nio-82-exec-4 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 14:14:16.418 [ http-nio-82-exec-4 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [52586958]
+2021-01-10 14:14:16.418 [ http-nio-82-exec-4 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [52586958]
+2021-01-10 14:14:16.418 [ http-nio-82-exec-4 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [52586958]
+2021-01-10 14:14:16.418 [ http-nio-82-exec-4 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [52586958]
+2021-01-10 14:14:16.419 [ http-nio-82-exec-4 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [52586958]
+2021-01-10 14:14:16.507 [ http-nio-82-exec-4 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 14:14:16.520 [ Thread-9 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==>  Preparing: INSERT INTO short_url ( id, short_code, origin_url, origin_url_hash, create_timestamp ) VALUES ( ?, ?, ?, ?, ? )
+2021-01-10 14:14:16.521 [ Thread-9 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==> Parameters: 0(Long), OteVKsnp9g(String), http://www.ddd.com(String), 52586958(Integer), 1610259256515(Long)
+2021-01-10 14:14:16.604 [ Thread-9 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 14:14:16.604 [ Thread-9 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )
+2021-01-10 14:14:16.604 [ Thread-9 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: InsertStatement(super=DMLStatement(super=AbstractSQLStatement(type=DML, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[AndCondition(conditions=[Condition(column=Column(name=create_timestamp, tableName=short_url), operator=EQUAL, compareOperator=null, positionValueMap={}, positionIndexMap={0=4})])])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0), SQLToken(startIndex=23)], parametersIndex=5, logicSQL=INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )), deleteStatement=false, updateTableAlias={}, updateColumnValues={}, whereStartIndex=0, whereStopIndex=0, whereParameterStartIndex=0, whereParameterEndIndex=0), columnNames=[id, short_code, origin_url, origin_url_hash, create_timestamp], values=[InsertValue(columnValues=[org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@68a2906d, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@7fd25b11, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@32e31046, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@27c081e7, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@5b9d4c8a])])
+2021-01-10 14:14:16.605 [ Thread-9 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url0   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, OteVKsnp9g, http://www.ddd.com, 52586958, 1610259256515]
+2021-01-10 14:14:16.632 [ Thread-9 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - <==    Updates: 1
+2021-01-10 14:26:30.519 [ http-nio-82-exec-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 14:26:30.521 [ http-nio-82-exec-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: -339465680(Integer)
+2021-01-10 14:26:30.522 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 14:26:30.522 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 14:26:30.522 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 14:26:30.523 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [-339465680]
+2021-01-10 14:26:30.523 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [-339465680]
+2021-01-10 14:26:30.524 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [-339465680]
+2021-01-10 14:26:30.524 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [-339465680]
+2021-01-10 14:26:30.524 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [-339465680]
+2021-01-10 14:26:30.726 [ http-nio-82-exec-2 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 14:26:30.735 [ Thread-9 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==>  Preparing: INSERT INTO short_url ( id, short_code, origin_url, origin_url_hash, create_timestamp ) VALUES ( ?, ?, ?, ?, ? )
+2021-01-10 14:26:30.736 [ Thread-9 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - ==> Parameters: 0(Long), OtfNXSuxbM(String), http://www.333.co(String), -339465680(Integer), 1610259990727(Long)
+2021-01-10 14:26:30.737 [ Thread-9 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 14:26:30.738 [ Thread-9 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )
+2021-01-10 14:26:30.738 [ Thread-9 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: InsertStatement(super=DMLStatement(super=AbstractSQLStatement(type=DML, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[AndCondition(conditions=[Condition(column=Column(name=create_timestamp, tableName=short_url), operator=EQUAL, compareOperator=null, positionValueMap={}, positionIndexMap={0=4})])])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0), SQLToken(startIndex=23)], parametersIndex=5, logicSQL=INSERT INTO short_url  ( id,
+short_code,
+origin_url,
+origin_url_hash,
+create_timestamp )  VALUES  ( ?,
+?,
+?,
+?,
+? )), deleteStatement=false, updateTableAlias={}, updateColumnValues={}, whereStartIndex=0, whereStopIndex=0, whereParameterStartIndex=0, whereParameterEndIndex=0), columnNames=[id, short_code, origin_url, origin_url_hash, create_timestamp], values=[InsertValue(columnValues=[org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@68a2906d, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@7fd25b11, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@32e31046, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@27c081e7, org.apache.shardingsphere.core.parse.old.parser.expression.SQLPlaceholderExpression@5b9d4c8a])])
+2021-01-10 14:26:30.738 [ Thread-9 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: INSERT INTO short_url2   (id, short_code, origin_url, origin_url_hash, create_timestamp) VALUES (?, ?, ?, ?, ?) ::: [0, OtfNXSuxbM, http://www.333.co, -339465680, 1610259990727]
+2021-01-10 14:26:30.779 [ Thread-9 ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.insert : 137 ] - <==    Updates: 1
+2021-01-10 15:43:23.294 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 15:43:23.298 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 15:43:31.176 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 70000 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 15:43:31.178 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 15:43:31.179 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 15:43:33.642 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-82"]
+2021-01-10 15:43:33.643 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2021-01-10 15:43:33.644 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-01-10 15:43:33.732 [ main ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring embedded WebApplicationContext
+2021-01-10 15:43:34.510 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 15:43:35.317 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 15:43:36.075 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-82"]
+2021-01-10 15:43:36.128 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 61 ] - Started ShortUrlApplication in 5.557 seconds (JVM running for 6.665)
+2021-01-10 15:43:36.553 [ RMI TCP Connection(3)-127.0.0.1 ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-10 15:47:11.416 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 15:47:11.426 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 15:47:19.178 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 70260 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 15:47:19.180 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 15:47:19.180 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 15:47:23.318 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-82"]
+2021-01-10 15:47:23.319 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2021-01-10 15:47:23.320 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-01-10 15:47:23.412 [ main ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring embedded WebApplicationContext
+2021-01-10 15:47:24.302 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 15:47:25.666 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 15:47:26.634 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-82"]
+2021-01-10 15:47:26.721 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 61 ] - Started ShortUrlApplication in 7.958 seconds (JVM running for 10.566)
+2021-01-10 15:47:26.805 [ RMI TCP Connection(3)-192.168.1.5 ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-10 15:47:27.762 [ RMI TCP Connection(2)-192.168.1.5 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 15:47:27.762 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 15:47:27.762 [ http-nio-82-exec-1 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 15:47:27.764 [ http-nio-82-exec-1 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: select 1
+2021-01-10 15:47:27.764 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: select 1
+2021-01-10 15:47:27.764 [ RMI TCP Connection(2)-192.168.1.5 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: select 1
+2021-01-10 15:47:27.765 [ RMI TCP Connection(2)-192.168.1.5 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[], parametersIndex=0, logicSQL=select 1)), containStar=false, firstSelectItemStartIndex=7, selectListStopIndex=7, groupByLastIndex=0, items=[CommonSelectItem(expression=1, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 15:47:27.765 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[], parametersIndex=0, logicSQL=select 1)), containStar=false, firstSelectItemStartIndex=7, selectListStopIndex=7, groupByLastIndex=0, items=[CommonSelectItem(expression=1, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 15:47:27.765 [ http-nio-82-exec-1 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[], parametersIndex=0, logicSQL=select 1)), containStar=false, firstSelectItemStartIndex=7, selectListStopIndex=7, groupByLastIndex=0, items=[CommonSelectItem(expression=1, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 15:47:27.766 [ RMI TCP Connection(2)-192.168.1.5 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: select 1
+2021-01-10 15:47:27.766 [ http-nio-82-exec-1 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: select 1
+2021-01-10 15:47:27.766 [ http-nio-82-exec-2 ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: select 1
+2021-01-10 16:03:20.348 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 55 ] - Starting ShortUrlAPIControllerTests using Java 1.8.0_181 on helloworld-2.local with PID 71401 (started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 16:03:20.372 [ main ] - [ DEBUG ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 16:03:20.383 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 16:03:31.028 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 16:03:34.261 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 16:03:40.002 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 61 ] - Started ShortUrlAPIControllerTests in 20.832 seconds (JVM running for 25.799)
+2021-01-10 16:03:42.771 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 16:03:42.824 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: notExistuwS(String)
+2021-01-10 16:03:44.135 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:03:44.143 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 16:03:44.145 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:03:44.151 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:44.153 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:44.153 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:44.156 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:44.158 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:44.400 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 0
+2021-01-10 16:03:44.487 [ main ] - [ ERROR ] [ com.wb.shorturl.controller.ShortUrlController : 84 ] - not found short Code:notExistuwS
+2021-01-10 16:03:44.509 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 16:03:44.511 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: (String)
+2021-01-10 16:03:44.513 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:03:44.515 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 16:03:44.518 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:03:44.519 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:44.521 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:44.522 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:44.527 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:44.529 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:44.593 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 0
+2021-01-10 16:03:44.599 [ main ] - [ ERROR ] [ com.wb.shorturl.controller.ShortUrlController : 84 ] - not found short Code:
+2021-01-10 16:03:44.875 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 16:03:44.879 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: -386659915(Integer)
+2021-01-10 16:03:44.920 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:03:44.922 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 16:03:44.924 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:03:44.928 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:03:44.930 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:03:44.943 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:03:44.945 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:03:44.947 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:03:45.046 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 16:03:45.073 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 16:03:45.088 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: -230418642(Integer)
+2021-01-10 16:03:45.095 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:03:45.097 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 16:03:45.098 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:03:45.114 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:03:45.169 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:03:45.170 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:03:45.176 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:03:45.177 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:03:45.258 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 16:03:45.409 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 16:03:45.413 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: notExistuwS(String)
+2021-01-10 16:03:45.420 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:03:45.423 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 16:03:45.429 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:03:45.436 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:45.441 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:45.445 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:45.447 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:45.448 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:03:45.596 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 0
+2021-01-10 16:03:45.632 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 16:03:45.638 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: (String)
+2021-01-10 16:03:45.643 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:03:45.646 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 16:03:45.651 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:03:45.654 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:45.655 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:45.658 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:45.660 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:45.661 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:03:45.736 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 0
+2021-01-10 16:03:46.872 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 16:03:46.890 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 16:13:34.176 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 55 ] - Starting ShortUrlAPIControllerTests using Java 1.8.0_181 on helloworld-2.local with PID 72468 (started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 16:13:34.184 [ main ] - [ DEBUG ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 16:13:34.194 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 16:13:42.008 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 16:13:46.976 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 16:13:52.744 [ main ] - [ INFO  ] [ c.w.shorturl.controller.ShortUrlAPIControllerTests : 61 ] - Started ShortUrlAPIControllerTests in 19.564 seconds (JVM running for 24.378)
+2021-01-10 16:13:56.192 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 16:13:56.380 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: notExistuwS(String)
+2021-01-10 16:14:00.745 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:14:00.750 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 16:14:00.752 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:14:00.753 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:00.757 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:00.758 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:00.759 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:00.761 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:01.201 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 0
+2021-01-10 16:14:01.230 [ main ] - [ ERROR ] [ com.wb.shorturl.controller.ShortUrlController : 84 ] - not found short Code:notExistuwS
+2021-01-10 16:14:01.312 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 16:14:01.313 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: (String)
+2021-01-10 16:14:01.316 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:14:01.319 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 16:14:01.322 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:14:01.324 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:01.325 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:01.326 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:01.327 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:01.328 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:01.395 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 0
+2021-01-10 16:14:01.397 [ main ] - [ ERROR ] [ com.wb.shorturl.controller.ShortUrlController : 84 ] - not found short Code:
+2021-01-10 16:14:01.708 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 16:14:01.711 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: -386659915(Integer)
+2021-01-10 16:14:01.933 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:14:01.935 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 16:14:01.945 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:14:01.950 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:14:01.951 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:14:01.954 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:14:01.956 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:14:01.958 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [-386659915]
+2021-01-10 16:14:02.065 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 16:14:02.127 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (origin_url_hash = ?)
+2021-01-10 16:14:02.129 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - ==> Parameters: -230418642(Integer)
+2021-01-10 16:14:02.130 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:14:02.131 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?)
+2021-01-10 16:14:02.132 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (origin_url_hash = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:14:02.133 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:14:02.133 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:14:02.134 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:14:02.135 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:14:02.136 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (origin_url_hash = ?) ::: [-230418642]
+2021-01-10 16:14:02.189 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectList : 137 ] - <==      Total: 0
+2021-01-10 16:14:02.266 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 16:14:02.268 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: notExistuwS(String)
+2021-01-10 16:14:02.270 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:14:02.271 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 16:14:02.271 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:14:02.272 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:02.274 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:02.275 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:02.276 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:02.276 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: [notExistuwS]
+2021-01-10 16:14:02.367 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 0
+2021-01-10 16:14:02.412 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==>  Preparing: SELECT id,short_code,origin_url,origin_url_hash,create_timestamp FROM short_url WHERE (short_code = ?)
+2021-01-10 16:14:02.414 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - ==> Parameters: (String)
+2021-01-10 16:14:02.420 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Rule Type: sharding
+2021-01-10 16:14:02.421 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Logic SQL: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?)
+2021-01-10 16:14:02.424 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - SQLStatement: SelectStatement(super=DQLStatement(super=AbstractSQLStatement(type=DQL, tables=Tables(tables=[Table(name=short_url, alias=Optional.absent())]), routeConditions=Conditions(orCondition=OrCondition(andConditions=[])), encryptConditions=Conditions(orCondition=OrCondition(andConditions=[])), sqlTokens=[TableToken(tableName=short_url, quoteCharacter=NONE, schemaNameLength=0)], parametersIndex=1, logicSQL=SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url 
+ 
+ WHERE (short_code = ?))), containStar=false, firstSelectItemStartIndex=8, selectListStopIndex=64, groupByLastIndex=0, items=[CommonSelectItem(expression=id, alias=Optional.absent()), CommonSelectItem(expression=short_code, alias=Optional.absent()), CommonSelectItem(expression=origin_url, alias=Optional.absent()), CommonSelectItem(expression=origin_url_hash, alias=Optional.absent()), CommonSelectItem(expression=create_timestamp, alias=Optional.absent())], groupByItems=[], orderByItems=[], limit=null, subqueryStatement=null, subqueryStatements=[], subqueryConditions=[])
+2021-01-10 16:14:02.427 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url0 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:02.430 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url1 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:02.430 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url2 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:02.431 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url3 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:02.431 [ main ] - [ INFO  ] [ ShardingSphere-SQL : 89 ] - Actual SQL: master ::: SELECT  id,short_code,origin_url,origin_url_hash,create_timestamp  FROM short_url4 
+ 
+ WHERE (short_code = ?) ::: []
+2021-01-10 16:14:02.494 [ main ] - [ DEBUG ] [ com.wb.shorturl.mapper.ShortUrlMapper.selectOne : 137 ] - <==      Total: 0
+2021-01-10 16:14:03.671 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 16:14:03.698 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 17:32:59.615 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 17:32:59.618 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed
+2021-01-10 18:06:17.290 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 76962 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:06:17.294 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:06:17.295 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:06:43.033 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77003 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:06:43.037 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:06:43.038 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:07:16.960 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77060 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:07:16.964 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:07:16.964 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:09:10.217 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77257 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:09:10.221 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:09:10.222 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:09:42.262 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77306 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:09:42.301 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:09:42.302 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:11:19.036 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77433 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:11:19.039 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:11:19.040 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:11:44.136 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77478 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:11:44.139 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:11:44.140 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:12:29.834 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77566 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:12:29.836 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:12:29.837 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:12:51.631 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77626 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:12:51.635 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:12:51.638 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:14:59.100 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 55 ] - Starting ShortUrlApplication using Java 1.8.0_181 on helloworld-2.local with PID 77781 (/Users/wangbing/Documents/train/train/target/classes started by wangbing in /Users/wangbing/Documents/train/train)
+2021-01-10 18:14:59.104 [ main ] - [ DEBUG ] [ com.wb.shorturl.ShortUrlApplication : 56 ] - Running with Spring Boot v2.4.1, Spring v5.3.2
+2021-01-10 18:14:59.105 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 660 ] - No active profile set, falling back to default profiles: default
+2021-01-10 18:15:01.519 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-82"]
+2021-01-10 18:15:01.520 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2021-01-10 18:15:01.520 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-01-10 18:15:01.617 [ main ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring embedded WebApplicationContext
+2021-01-10 18:15:02.677 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1003 ] - {dataSource-1} inited
+2021-01-10 18:15:03.534 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 431 ] - This primary key of "id" is primitive !不建议如此请使用包装类 in Class: "com.wb.shorturl.entity.ShortUrl"
+2021-01-10 18:15:04.401 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-82"]
+2021-01-10 18:15:04.459 [ main ] - [ INFO  ] [ com.wb.shorturl.ShortUrlApplication : 61 ] - Started ShortUrlApplication in 5.939 seconds (JVM running for 7.183)
+2021-01-10 18:15:04.705 [ RMI TCP Connection(1)-127.0.0.1 ] - [ INFO  ] [ o.a.c.c.C.[Tomcat].[localhost].[/short_url] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-10 18:15:53.143 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost/127.0.0.1:6379
+2021-01-10 18:15:53.149 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:16:02.127 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:16:02.130 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:16:10.324 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:16:10.327 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:16:26.718 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:16:26.721 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:16:56.812 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:16:56.815 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:17:26.913 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:17:26.916 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:17:57.013 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:17:57.023 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:18:27.117 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:18:27.123 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:18:57.217 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:18:57.220 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:19:27.313 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:19:27.316 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:19:57.418 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:19:57.422 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:20:27.517 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:20:27.520 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:20:57.616 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:20:57.619 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:21:27.718 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:21:27.722 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:21:57.821 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:21:57.824 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:22:27.918 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:22:27.922 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:22:58.022 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:22:58.025 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:23:28.122 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:23:28.125 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:23:58.220 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:23:58.223 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:24:28.322 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:24:28.325 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:24:58.423 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:24:58.427 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:25:28.524 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:25:28.526 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:25:58.628 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:25:58.640 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:26:28.726 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:26:28.729 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:26:58.827 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:26:58.830 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:27:28.928 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:27:28.931 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:27:59.028 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:27:59.031 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:28:29.125 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:28:29.129 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:28:59.228 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:28:59.233 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:29:29.327 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:29:29.330 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:29:59.430 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:29:59.432 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:30:29.527 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:30:29.530 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:30:59.628 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:30:59.630 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:31:29.653 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:31:29.655 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:31:59.752 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:31:59.760 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:32:29.853 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:32:29.856 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:32:59.954 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:32:59.957 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:33:30.054 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:33:30.057 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:34:00.153 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:34:00.156 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:34:30.250 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:34:30.253 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:35:00.354 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:35:00.358 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:35:30.450 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:35:30.453 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:36:00.555 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:36:00.558 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 18:36:31.074 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 18:36:31.078 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:11:07.467 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:11:07.471 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:11:37.787 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:11:37.790 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:12:07.890 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:12:07.897 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:12:37.991 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:12:37.994 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:13:08.087 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:13:08.090 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:13:38.188 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:13:38.191 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:14:08.290 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:14:08.292 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:14:38.460 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:14:38.464 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:49:42.805 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:49:42.809 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:50:12.913 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:50:12.917 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:50:43.015 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:50:43.018 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:51:13.113 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:51:13.116 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:51:43.213 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:51:43.220 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:52:13.312 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:52:13.315 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:52:43.417 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:52:43.420 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:53:13.515 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:53:13.518 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:53:43.616 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:53:43.620 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:54:13.718 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:54:13.733 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:54:43.818 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:54:43.822 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:55:13.917 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:55:13.923 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:55:44.015 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:55:44.018 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:56:14.115 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:56:14.118 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:56:44.217 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:56:44.221 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:57:14.319 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:57:14.323 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:57:44.419 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:57:44.422 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:58:14.517 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:58:14.521 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:58:44.616 [ lettuce-eventExecutorLoop-1-1 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:58:44.622 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:59:14.719 [ lettuce-eventExecutorLoop-1-2 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:59:14.722 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 19:59:44.820 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 19:59:44.823 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:00:14.920 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:00:14.923 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:00:45.018 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:00:45.024 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:01:15.123 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:01:15.125 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:01:45.220 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:01:45.224 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:02:15.324 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:02:15.330 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:02:45.422 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:02:45.425 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:03:15.524 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:03:15.528 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:03:45.618 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:03:45.622 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:04:15.720 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:04:15.723 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:04:45.822 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:04:45.824 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:05:15.948 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:05:15.951 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:05:46.054 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:05:46.059 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:06:16.156 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:06:16.166 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:06:46.253 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:06:46.256 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:07:16.358 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:07:16.361 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:07:46.453 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:07:46.455 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:08:16.559 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:08:16.564 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:08:46.657 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:08:46.660 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:09:16.759 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:09:16.762 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:09:46.857 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:09:46.862 [ lettuce-nioEventLoop-4-1 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:10:16.959 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:10:16.961 [ lettuce-nioEventLoop-4-2 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:10:47.060 [ lettuce-eventExecutorLoop-1-4 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:10:47.063 [ lettuce-nioEventLoop-4-3 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:11:17.165 [ lettuce-eventExecutorLoop-1-3 ] - [ INFO  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 171 ] - Reconnecting, last destination was localhost:6379
+2021-01-10 20:11:17.175 [ lettuce-nioEventLoop-4-4 ] - [ WARN  ] [ io.lettuce.core.protocol.ConnectionWatchdog : 151 ] - Cannot reconnect to [localhost:6379]: Connection refused: localhost/127.0.0.1:6379
+2021-01-10 20:11:41.895 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 1965 ] - {dataSource-1} closing ...
+2021-01-10 20:11:41.901 [ SpringContextShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2037 ] - {dataSource-1} closed

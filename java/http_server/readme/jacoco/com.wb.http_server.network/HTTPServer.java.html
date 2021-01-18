@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HTTPServer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.network</a> &gt; <span class="el_source">HTTPServer.java</span></div><h1>HTTPServer.java</h1><pre class="source lang-java linenums">package com.wb.http_server.network;
+
+import com.wb.http_server.dispatcher.NioDispatcher;
+import com.wb.http_server.network.connector.IdleConnectionCleaner;
+import com.wb.http_server.network.connector.NioAcceptor;
+import com.wb.http_server.network.connector.NioPoller;
+import com.wb.http_server.network.wrapper.NioSocketWrapper;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ * 请求层面上的监听器
+ */
+
+<span class="nc" id="L24">@Slf4j</span>
+<span class="nc" id="L25">public class HTTPServer {</span>
+<span class="nc" id="L26">    private int pollerCount = Math.min(2, Runtime.getRuntime().availableProcessors());</span>
+    private ServerSocketChannel server;
+    private NioDispatcher nioDispatcher;
+<span class="nc" id="L29">    private volatile boolean isRunning = true;</span>
+    private NioAcceptor nioAcceptor;
+    private List&lt;NioPoller&gt; nioPollers;
+    /**
+     * poller轮询器
+     */
+<span class="nc" id="L35">    private AtomicInteger pollerRotater = new AtomicInteger(0);</span>
+
+
+    private IdleConnectionCleaner cleaner;
+
+    //********************************初始化*************************************************************
+    private void initDispatcherServlet() {
+<span class="nc" id="L42">        nioDispatcher = new NioDispatcher();</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * 初始化IdleSocketCleaner
+     */
+    private void initIdleSocketCleaner() {
+<span class="nc" id="L49">        cleaner = new IdleConnectionCleaner(nioPollers);</span>
+<span class="nc" id="L50">        cleaner.start();</span>
+<span class="nc" id="L51">    }</span>
+
+    private void initServerSocket(int port) throws IOException {
+<span class="nc" id="L54">        server = ServerSocketChannel.open();</span>
+<span class="nc" id="L55">        server.bind(new InetSocketAddress(port));</span>
+<span class="nc" id="L56">        server.configureBlocking(true);</span>
+<span class="nc" id="L57">    }</span>
+
+    private void initPoller() throws IOException {
+<span class="nc" id="L60">        nioPollers = new ArrayList&lt;&gt;(pollerCount);</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        for (int i = 0; i &lt; pollerCount; i++) {</span>
+<span class="nc" id="L62">            String pollName = &quot;NioPoller-&quot; + i;</span>
+<span class="nc" id="L63">            NioPoller nioPoller = new NioPoller(this, pollName);</span>
+<span class="nc" id="L64">            Thread pollerThread = new Thread(nioPoller, pollName);</span>
+<span class="nc" id="L65">            pollerThread.setDaemon(true);</span>
+<span class="nc" id="L66">            pollerThread.start();</span>
+<span class="nc" id="L67">            nioPollers.add(nioPoller);</span>
+        }
+<span class="nc" id="L69">    }</span>
+
+    /**
+     * 初始化Acceptor
+     */
+    private void initAcceptor() {
+<span class="nc" id="L75">        this.nioAcceptor = new NioAcceptor(this);</span>
+<span class="nc" id="L76">        Thread t = new Thread(nioAcceptor, &quot;NioAcceptor&quot;);</span>
+<span class="nc" id="L77">        t.setDaemon(true);</span>
+<span class="nc" id="L78">        t.start();</span>
+<span class="nc" id="L79">    }</span>
+
+
+    //************************初始化结束***************************************************************
+    public void start(int port) {
+        try {
+<span class="nc" id="L85">            initDispatcherServlet();</span>
+<span class="nc" id="L86">            initServerSocket(port);</span>
+<span class="nc" id="L87">            initPoller();</span>
+<span class="nc" id="L88">            initAcceptor();</span>
+<span class="nc" id="L89">            initIdleSocketCleaner();</span>
+<span class="nc" id="L90">            log.info(&quot;服务器启动&quot;);</span>
+<span class="nc" id="L91">        } catch (Exception e) {</span>
+<span class="nc" id="L92">            e.printStackTrace();</span>
+<span class="nc" id="L93">            log.info(&quot;初始化服务器失败&quot;);</span>
+<span class="nc" id="L94">            close();</span>
+<span class="nc" id="L95">        }</span>
+<span class="nc" id="L96">    }</span>
+
+    public void close() {
+<span class="nc" id="L99">        isRunning = false;</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        for (NioPoller nioPoller : nioPollers) {</span>
+            try {
+<span class="nc" id="L102">                nioPoller.close();</span>
+<span class="nc" id="L103">            } catch (IOException e) {</span>
+<span class="nc" id="L104">                e.printStackTrace();</span>
+<span class="nc" id="L105">            }</span>
+<span class="nc" id="L106">        }</span>
+<span class="nc" id="L107">        nioDispatcher.shutdown();</span>
+        try {
+<span class="nc" id="L109">            server.close();</span>
+<span class="nc" id="L110">        } catch (IOException e) {</span>
+<span class="nc" id="L111">            e.printStackTrace();</span>
+<span class="nc" id="L112">        }</span>
+<span class="nc" id="L113">    }</span>
+
+    /**
+     * 调用dispatcher，处理这个读已就绪的客户端连接
+     *
+     * @param socketWrapper
+     */
+    public void execute(NioSocketWrapper socketWrapper) {
+<span class="nc" id="L121">        nioDispatcher.doDispatch(socketWrapper);</span>
+<span class="nc" id="L122">    }</span>
+
+    /**
+     * 轮询Poller，实现负载均衡
+     *
+     * @return
+     */
+    private NioPoller getPoller() {
+<span class="nc" id="L130">        int idx = Math.abs(pollerRotater.incrementAndGet()) % nioPollers.size();</span>
+<span class="nc" id="L131">        return nioPollers.get(idx);</span>
+    }
+
+    public boolean isRunning() {
+<span class="nc" id="L135">        return isRunning;</span>
+    }
+
+    /**
+     * 以阻塞方式来接收一个客户端的链接
+     *
+     * @return
+     * @throws IOException
+     */
+    public SocketChannel accept() throws IOException {
+<span class="nc" id="L145">        return server.accept();</span>
+    }
+
+    /**
+     * 将Acceptor接收到的socket放到轮询到的一个Poller的Queue中
+     *
+     * @param socket
+     * @return
+     */
+    public void registerToPoller(SocketChannel socket) throws IOException {
+<span class="nc" id="L155">        server.configureBlocking(false);</span>
+<span class="nc" id="L156">        getPoller().register(socket, true);</span>
+<span class="nc" id="L157">        server.configureBlocking(true);</span>
+<span class="nc" id="L158">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

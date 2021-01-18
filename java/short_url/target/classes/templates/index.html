@@ -1,0 +1,128 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>[[#{page.title}]]</title>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
+    <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+    <style>
+        @media (min-width: 1200px) {
+            .container {
+                width: 751px;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: aliceblue">
+<div class="container">
+    <br>
+    <h1 style="font-size: x-large;" align="center">[[#{project.name}]]</h1><br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+    <form id="url_form">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <input type="url" id="originUrl" class="form-control" th:placeholder="#{placeholder.url}" name="originUrl"/>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-md-12" align="center">
+                <button type="button" class="btn btn-success" onclick="form_submit()">[[#{btn.create}]]</button>
+                <button type="reset" class="btn btn-primary">[[#{btn.reset}]]</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<!-- 按钮触发模态框 -->
+<button class="btn btn-primary btn-lg" style="display: none" id="show_btn" data-toggle="modal" data-target="#showModel"></button>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="showModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">[[#{project.name}]]</h4>
+            </div>
+            <div class="modal-body"><form id="formDwz">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <input type="text" id="short_url" class="form-control"/>
+
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" data-clipboard-action="copy" data-clipboard-target="#short_url"  class="btn btn-primary" id="copy_btn">[[#{btn.copy}]]</button>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </form></div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+</body>
+
+
+<script>
+
+
+     $(function(){
+         var clipboard = new Clipboard('#copy_btn');
+         clipboard.on('success', function(e) {
+             alert("[[#{tip.copied}]]");
+             e.clearSelection();
+         });
+
+     });
+
+     <!-- 验证URL后提交form -->
+    function form_submit() {
+        var btn = $(this);
+        var originUrl = $('#originUrl').val();
+        if (originUrl == '') {
+            alert("[[#{tip.needUrl}]]");
+        } else {
+            var regExp=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+            var objExp=new RegExp(regExp);
+
+            if(objExp.test(originUrl) != true){
+                alert("[[#{tip.urlWrongful}]]");
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'api/generateShortUrl',
+                data: $('#url_form').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if(data.status==200){
+                        $("#short_url").val(data.message)
+                        $("#show_btn").click();
+                    }else{
+                        alert(data.message);
+                    }
+
+                },
+                beforeSend: function () {
+                    $(btn).attr("disabled", "disabled");
+                },
+                complete: function () {
+                    $(btn).removeAttr("disabled");
+                }
+            })
+        }
+    }
+</script>
+</html>

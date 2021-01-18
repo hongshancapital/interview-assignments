@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Response.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.response</a> &gt; <span class="el_source">Response.java</span></div><h1>Response.java</h1><pre class="source lang-java linenums">package com.wb.http_server.response;
+
+import com.wb.http_server.cookie.Cookie;
+import com.wb.http_server.enumeration.HttpStatus;
+import com.wb.http_server.network.handler.AbstractRequestHandler;
+import lombok.extern.slf4j.Slf4j;
+
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static com.wb.http_server.constant.CharConstant.BLANK;
+import static com.wb.http_server.constant.CharConstant.CRLF;
+import static com.wb.http_server.constant.CharsetProperties.UTF_8_CHARSET;
+import static com.wb.http_server.constant.ContextConstant.DEFAULT_CONTENT_TYPE;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ */
+
+<span class="fc" id="L23">@Slf4j</span>
+public class Response {
+    private StringBuilder headerAppender;
+    private List&lt;Cookie&gt; cookies;
+    private List&lt;Header&gt; headers;
+<span class="fc" id="L28">    private HttpStatus status = HttpStatus.OK;</span>
+<span class="fc" id="L29">    private String contentType = DEFAULT_CONTENT_TYPE;</span>
+<span class="fc" id="L30">    private byte[] body = new byte[0];</span>
+    private AbstractRequestHandler requestHandler;
+
+    public AbstractRequestHandler getRequestHandler(){
+<span class="fc" id="L34">        return requestHandler;</span>
+    }
+<span class="fc" id="L36">    public Response() {</span>
+<span class="fc" id="L37">        this.headerAppender = new StringBuilder();</span>
+<span class="fc" id="L38">        this.cookies = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L39">        this.headers = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * 设置HTTP Status
+     * @param status
+     */
+    public void setStatus(HttpStatus status) {
+<span class="fc" id="L47">        this.status = status;</span>
+<span class="fc" id="L48">    }</span>
+
+    public void setContentType(String contentType) {
+<span class="nc" id="L51">        this.contentType = contentType;</span>
+<span class="nc" id="L52">    }</span>
+
+    public void setBody(byte[] body) {
+<span class="nc" id="L55">        this.body = body;</span>
+<span class="nc" id="L56">    }</span>
+
+
+    public void addCookie(Cookie cookie) {
+<span class="fc" id="L60">        cookies.add(cookie);</span>
+<span class="fc" id="L61">    }</span>
+
+    public void addHeader(Header header) {
+<span class="fc" id="L64">        headers.add(header);</span>
+<span class="fc" id="L65">    }</span>
+    
+    
+    private void buildHeader() {
+        //HTTP/1.1 200 OK
+<span class="fc" id="L70">        headerAppender.append(&quot;HTTP/1.1&quot;).append(BLANK).append(status.getCode()).append(BLANK).append(status).append(CRLF);</span>
+        //Date: Sat, 31 Dec 2005 23:59:59 GMT
+<span class="fc" id="L72">        headerAppender.append(&quot;Date:&quot;).append(BLANK).append(new Date()).append(CRLF);</span>
+<span class="fc" id="L73">        headerAppender.append(&quot;Content-Type:&quot;).append(BLANK).append(contentType).append(CRLF);</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (headers != null) {</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            for (Header header : headers) {</span>
+<span class="fc" id="L76">                headerAppender.append(header.getKey()).append(&quot;:&quot;).append(BLANK).append(header.getValue()).append(CRLF);</span>
+<span class="fc" id="L77">            }</span>
+        }
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (cookies.size() &gt; 0) {</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">            for (Cookie cookie : cookies) {</span>
+<span class="fc" id="L81">                headerAppender.append(&quot;Set-Cookie:&quot;).append(BLANK).append(cookie.getKey()).append(&quot;=&quot;).append(cookie.getValue()).append(CRLF);</span>
+<span class="fc" id="L82">            }</span>
+        }
+<span class="fc" id="L84">        headerAppender.append(&quot;Content-Length:&quot;).append(BLANK);</span>
+<span class="fc" id="L85">    }</span>
+
+    //一次性传入响应体
+    private void buildBody() {
+<span class="fc" id="L89">        this.headerAppender.append(body.length).append(CRLF).append(CRLF);</span>
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * response构建的最后一步，将header和body转为字节数组
+     */
+    private void buildResponse() {
+<span class="fc" id="L96">        buildHeader();</span>
+<span class="fc" id="L97">        buildBody();</span>
+<span class="fc" id="L98">    }</span>
+    
+    /**
+     * 返回Response构建后的数据，用于NIO
+     * @return
+     */
+    public ByteBuffer[] getResponseByteBuffer() {
+<span class="fc" id="L105">        buildResponse();</span>
+<span class="fc" id="L106">        byte[] header = this.headerAppender.toString().getBytes(UTF_8_CHARSET);</span>
+<span class="fc" id="L107">        ByteBuffer[] response = {ByteBuffer.wrap(header), ByteBuffer.wrap(body)};</span>
+<span class="fc" id="L108">        return response;</span>
+    }
+
+    /**
+     * 重定向，注意重定向后会立即写数据至socket中
+     * @param url
+     */
+    public void sendRedirect(String url) {
+<span class="nc" id="L116">        log.info(&quot;重定向至{}&quot;, url);</span>
+<span class="nc" id="L117">        addHeader(new Header(&quot;Location&quot;, url));</span>
+<span class="nc" id="L118">        setStatus(HttpStatus.MOVED_TEMPORARILY);</span>
+<span class="nc" id="L119">        buildResponse();</span>
+        // 刷新至客户端
+<span class="nc" id="L121">        requestHandler.flushResponse();</span>
+<span class="nc" id="L122">    }</span>
+
+
+    /**
+     * 用于调用不同RequestHandler的写刷新（将response写入到客户端）
+     * @param requestHandler
+     */
+    public void setRequestHandler(AbstractRequestHandler requestHandler) {
+<span class="fc" id="L130">        this.requestHandler = requestHandler;</span>
+<span class="fc" id="L131">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

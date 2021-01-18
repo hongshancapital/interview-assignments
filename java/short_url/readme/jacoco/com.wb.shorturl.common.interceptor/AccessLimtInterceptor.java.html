@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccessLimtInterceptor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">short-url</a> &gt; <a href="index.source.html" class="el_package">com.wb.shorturl.common.interceptor</a> &gt; <span class="el_source">AccessLimtInterceptor.java</span></div><h1>AccessLimtInterceptor.java</h1><pre class="source lang-java linenums">package com.wb.shorturl.common.interceptor;
+
+import com.wb.shorturl.common.access.AccessLimit;
+import com.wb.shorturl.common.exception.BaseErrorCode;
+import com.wb.shorturl.common.exception.BaseExceptionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
+
+
+/**
+ * @author bing.wang
+ * @date 2021/1/8
+ */
+
+@Component
+<span class="fc" id="L26">public class AccessLimtInterceptor implements HandlerInterceptor {</span>
+
+<span class="fc" id="L28">    private static final Logger logger = LoggerFactory.getLogger(AccessLimtInterceptor.class);</span>
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Value(&quot;${access.seconds}&quot;)
+    private int seconds;
+
+    @Value(&quot;${access.max_count}&quot;)
+    private int maxCount;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (handler instanceof HandlerMethod) {</span>
+<span class="nc" id="L43">            HandlerMethod hm = (HandlerMethod) handler;</span>
+<span class="nc" id="L44">            AccessLimit accessLimit = hm.getMethodAnnotation(AccessLimit.class);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (null == accessLimit) {</span>
+<span class="nc" id="L46">                return true;</span>
+            }
+<span class="nc" id="L48">            boolean needLogin = accessLimit.needLogin();</span>
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (needLogin) {</span>
+                //判断是否登录
+<span class="nc" id="L52">                Object user = request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                if (null == user) {</span>
+<span class="nc" id="L54">                    response.sendRedirect(&quot;login&quot;);</span>
+<span class="nc" id="L55">                    return false;</span>
+                }
+            }
+<span class="nc" id="L58">            String ip = request.getRemoteAddr();</span>
+<span class="nc" id="L59">            String key = request.getServletPath() + &quot;:&quot; + ip;</span>
+<span class="nc" id="L60">            String count = (String) redisTemplate.opsForValue().get(key);</span>
+
+<span class="nc bnc" id="L62" title="All 2 branches missed.">            if (null == count) {</span>
+<span class="nc" id="L63">                redisTemplate.opsForValue().set(key, 1, seconds, TimeUnit.SECONDS);</span>
+<span class="nc" id="L64">                return true;</span>
+            }
+
+<span class="nc bnc" id="L67" title="All 2 branches missed.">            if (Integer.parseInt(count) &lt; maxCount) {</span>
+<span class="nc" id="L68">                redisTemplate.opsForValue().increment(key);</span>
+<span class="nc" id="L69">                return true;</span>
+            }
+
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (Integer.parseInt(count) &gt;= maxCount) {</span>
+<span class="nc" id="L73">                logger.warn(&quot;恶意访问:&quot;+key);</span>
+<span class="nc" id="L74">                response.sendRedirect(&quot;/error/&quot; + BaseErrorCode.SERVER_IS_BUSY.getCode());</span>
+<span class="nc" id="L75">                return false;</span>
+            }
+        }
+
+<span class="nc" id="L79">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

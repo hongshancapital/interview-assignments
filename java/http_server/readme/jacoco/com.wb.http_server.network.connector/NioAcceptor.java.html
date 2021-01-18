@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NioAcceptor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.network.connector</a> &gt; <span class="el_source">NioAcceptor.java</span></div><h1>NioAcceptor.java</h1><pre class="source lang-java linenums">package com.wb.http_server.network.connector;
+
+import com.wb.http_server.network.HTTPServer;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.nio.channels.SocketChannel;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ * Nio 请求器
+ */
+<span class="fc" id="L14">@Slf4j</span>
+public class NioAcceptor implements Runnable {
+    private HTTPServer httpserver;
+    
+<span class="fc" id="L18">    public NioAcceptor(HTTPServer httpserver) {</span>
+<span class="fc" id="L19">        this.httpserver = httpserver;</span>
+<span class="fc" id="L20">    }</span>
+    
+    @Override
+    public void run() {
+<span class="fc" id="L24">        log.info(&quot;{} 开始监听&quot;,Thread.currentThread().getName());</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        while (httpserver.isRunning()) {</span>
+            SocketChannel client;
+            try {
+<span class="fc" id="L28">                client = httpserver.accept();</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">                if(client == null){</span>
+<span class="nc" id="L30">                    log.info(&quot;Acceptor接收到连接请求 {}&quot;,client);</span>
+<span class="nc" id="L31">                    continue;</span>
+                }
+<span class="fc" id="L33">                client.configureBlocking(false);</span>
+<span class="fc" id="L34">                log.info(&quot;Acceptor接收到连接请求 {}&quot;,client);</span>
+<span class="fc" id="L35">                httpserver.registerToPoller(client);</span>
+<span class="fc" id="L36">                log.info(&quot;socketWrapper:{}&quot;, client);</span>
+<span class="nc" id="L37">            } catch (IOException e) {</span>
+<span class="nc" id="L38">                e.printStackTrace();</span>
+<span class="pc" id="L39">            }</span>
+        }
+<span class="nc" id="L41">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

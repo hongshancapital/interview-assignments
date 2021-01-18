@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.exception.handler</a> &gt; <span class="el_source">ExceptionHandler.java</span></div><h1>ExceptionHandler.java</h1><pre class="source lang-java linenums">package com.wb.http_server.exception.handler;
+
+import com.wb.http_server.exception.RequestInvalidException;
+import com.wb.http_server.exception.base.ServletException;
+import com.wb.http_server.network.wrapper.SocketWrapper;
+import com.wb.http_server.response.Header;
+import com.wb.http_server.response.Response;
+import com.wb.http_server.util.IOUtil;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+
+import static com.wb.http_server.constant.ContextConstant.ERROR_PAGE;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ * 会根据异常对应的HTTP Status设置response的状态以及相应的错误页面
+ */
+
+<span class="fc" id="L21">@Slf4j</span>
+<span class="fc" id="L22">public class ExceptionHandler {</span>
+
+    public void handle(ServletException e, Response response, SocketWrapper socketWrapper) {
+        try {
+<span class="nc bnc" id="L26" title="All 2 branches missed.">            if (e instanceof RequestInvalidException) {</span>
+<span class="nc" id="L27">                log.info(&quot;请求无法读取，丢弃&quot;);</span>
+<span class="nc" id="L28">                socketWrapper.close();</span>
+            } else {
+<span class="nc" id="L30">                log.info(&quot;抛出异常:{}&quot;, e.getClass().getName());</span>
+<span class="nc" id="L31">                e.printStackTrace();</span>
+<span class="nc" id="L32">                response.addHeader(new Header(&quot;Connection&quot;, &quot;close&quot;));</span>
+<span class="nc" id="L33">                response.setStatus(e.getStatus());</span>
+<span class="nc" id="L34">                response.setBody(IOUtil.getBytesFromFile(</span>
+<span class="nc" id="L35">                        String.format(ERROR_PAGE, String.valueOf(e.getStatus().getCode()))));</span>
+            }
+<span class="nc" id="L37">        } catch (IOException e1) {</span>
+<span class="nc" id="L38">            e1.printStackTrace();</span>
+<span class="nc" id="L39">        }</span>
+<span class="nc" id="L40">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

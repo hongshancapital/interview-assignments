@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NioRequestHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.network.handler</a> &gt; <span class="el_source">NioRequestHandler.java</span></div><h1>NioRequestHandler.java</h1><pre class="source lang-java linenums">package com.wb.http_server.network.handler;
+
+import com.wb.http_server.context.ServletContext;
+import com.wb.http_server.context.WebApplication;
+import com.wb.http_server.exception.FilterNotFoundException;
+import com.wb.http_server.exception.ServletNotFoundException;
+import com.wb.http_server.exception.handler.ExceptionHandler;
+import com.wb.http_server.network.wrapper.NioSocketWrapper;
+import com.wb.http_server.network.wrapper.SocketWrapper;
+import com.wb.http_server.request.Request;
+import com.wb.http_server.resource.ResourceHandler;
+import com.wb.http_server.response.Response;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.List;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ */
+@Setter
+@Getter
+<span class="nc" id="L27">@Slf4j</span>
+public class NioRequestHandler extends AbstractRequestHandler {
+    
+    public NioRequestHandler(SocketWrapper socketWrapper, ServletContext servletContext, ExceptionHandler exceptionHandler, ResourceHandler resourceHandler, Request request, Response response) throws ServletNotFoundException, FilterNotFoundException {
+<span class="nc" id="L31">        super(socketWrapper, servletContext, exceptionHandler, resourceHandler, request, response);</span>
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * 写入后会根据请求头Connection来判断是关闭连接还是重新将连接放回Poller，实现保活
+     */
+    @Override
+    public void flushResponse() {
+<span class="nc" id="L39">        isFinished = true;</span>
+<span class="nc" id="L40">        NioSocketWrapper nioSocketWrapper = (NioSocketWrapper) socketWrapper;</span>
+<span class="nc" id="L41">        ByteBuffer[] responseData = response.getResponseByteBuffer();</span>
+        try {
+<span class="nc" id="L43">            nioSocketWrapper.getSocketChannel().write(responseData);</span>
+<span class="nc" id="L44">            List&lt;String&gt; connection = request.getHeaders().get(&quot;Connection&quot;);</span>
+<span class="nc bnc" id="L45" title="All 4 branches missed.">            if (connection != null &amp;&amp; connection.get(0).equals(&quot;close&quot;)) {</span>
+<span class="nc" id="L46">                log.info(&quot;CLOSE: 客户端连接{} 已关闭&quot;, nioSocketWrapper.getSocketChannel());</span>
+<span class="nc" id="L47">                nioSocketWrapper.close();</span>
+            }
+<span class="nc" id="L49">        } catch (IOException e) {</span>
+<span class="nc" id="L50">            e.printStackTrace();</span>
+<span class="nc" id="L51">        }</span>
+<span class="nc" id="L52">        WebApplication.getServletContext().afterRequestDestroyed(request);</span>
+<span class="nc" id="L53">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

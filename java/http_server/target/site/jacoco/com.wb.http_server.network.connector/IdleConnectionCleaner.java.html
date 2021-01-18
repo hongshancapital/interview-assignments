@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IdleConnectionCleaner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.network.connector</a> &gt; <span class="el_source">IdleConnectionCleaner.java</span></div><h1>IdleConnectionCleaner.java</h1><pre class="source lang-java linenums">package com.wb.http_server.network.connector;
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ */
+
+<span class="fc" id="L16">@Slf4j</span>
+public class IdleConnectionCleaner implements Runnable {
+    private ScheduledExecutorService executor;
+    private List&lt;NioPoller&gt; nioPollers;
+
+<span class="fc" id="L21">    public IdleConnectionCleaner(List&lt;NioPoller&gt; nioPollers) {</span>
+<span class="fc" id="L22">        this.nioPollers = nioPollers;</span>
+<span class="fc" id="L23">    }</span>
+
+    public void start() {
+<span class="fc" id="L26">        ThreadFactory threadFactory = new ThreadFactory() {</span>
+            @Override
+            public Thread newThread(Runnable r) {
+<span class="fc" id="L29">                return new Thread(r, &quot;IdleConnectionCleaner&quot;);</span>
+            }
+        };
+<span class="fc" id="L32">        executor = Executors.newSingleThreadScheduledExecutor(threadFactory);</span>
+<span class="fc" id="L33">        executor.scheduleWithFixedDelay(this, 0, 5, TimeUnit.SECONDS);</span>
+<span class="fc" id="L34">    }</span>
+
+    public void shutdown() {
+<span class="nc" id="L37">        executor.shutdown();</span>
+<span class="nc" id="L38">    }</span>
+
+    @Override
+    public void run() {
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (NioPoller nioPoller : nioPollers) {</span>
+<span class="fc" id="L43">            log.debug(&quot;Cleaner 检测{} 所持有的Socket中...&quot;, nioPoller.getPollerName());</span>
+<span class="fc" id="L44">            nioPoller.cleanTimeoutSockets();</span>
+<span class="fc" id="L45">        }</span>
+<span class="fc" id="L46">        log.debug(&quot;检测结束...&quot;);</span>
+<span class="fc" id="L47">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

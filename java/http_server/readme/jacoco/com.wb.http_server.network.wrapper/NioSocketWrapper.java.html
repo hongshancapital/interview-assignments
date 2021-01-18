@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NioSocketWrapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.network.wrapper</a> &gt; <span class="el_source">NioSocketWrapper.java</span></div><h1>NioSocketWrapper.java</h1><pre class="source lang-java linenums">package com.wb.http_server.network.wrapper;
+
+import com.wb.http_server.network.HTTPServer;
+import com.wb.http_server.network.connector.NioPoller;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.nio.channels.SocketChannel;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ */
+<span class="nc" id="L17">@Slf4j</span>
+@Getter
+<span class="nc" id="L19">@Setter</span>
+public class NioSocketWrapper implements SocketWrapper {
+<span class="nc" id="L21">    private final HTTPServer server;</span>
+<span class="nc" id="L22">    private final SocketChannel socketChannel;</span>
+<span class="nc" id="L23">    private final NioPoller nioPoller;</span>
+<span class="nc" id="L24">    private final boolean isNewSocket;</span>
+<span class="nc" id="L25">    private volatile long waitBegin;</span>
+<span class="nc" id="L26">    private volatile boolean isWorking;</span>
+    
+<span class="nc" id="L28">    public NioSocketWrapper(HTTPServer server, SocketChannel socketChannel, NioPoller nioPoller, boolean isNewSocket) {</span>
+<span class="nc" id="L29">        this.server = server;</span>
+<span class="nc" id="L30">        this.socketChannel = socketChannel;</span>
+<span class="nc" id="L31">        this.nioPoller = nioPoller;</span>
+<span class="nc" id="L32">        this.isNewSocket = isNewSocket;</span>
+<span class="nc" id="L33">        this.isWorking = false;</span>
+<span class="nc" id="L34">    }</span>
+    
+    public void close() throws IOException {
+<span class="nc" id="L37">        socketChannel.keyFor(nioPoller.getSelector()).cancel();</span>
+<span class="nc" id="L38">        socketChannel.close();</span>
+<span class="nc" id="L39">    }</span>
+
+
+
+    @Override
+    public String toString() {
+<span class="nc" id="L45">        return socketChannel.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

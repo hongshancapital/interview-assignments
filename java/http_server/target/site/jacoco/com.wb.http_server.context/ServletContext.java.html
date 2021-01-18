@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ServletContext.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.context</a> &gt; <span class="el_source">ServletContext.java</span></div><h1>ServletContext.java</h1><pre class="source lang-java linenums">package com.wb.http_server.context;
+
+import com.wb.http_server.context.holder.ServletHolder;
+import com.wb.http_server.cookie.Cookie;
+import com.wb.http_server.exception.ServletNotFoundException;
+import com.wb.http_server.listener.RequestAndSessionListener;
+import com.wb.http_server.listener.HttpSessionListener;
+import com.wb.http_server.listener.ServletRequestListener;
+import com.wb.http_server.listener.event.HttpSessionEvent;
+import com.wb.http_server.listener.event.ServletRequestEvent;
+import com.wb.http_server.request.Request;
+import com.wb.http_server.response.Response;
+import com.wb.http_server.servlet.Servlet;
+import com.wb.http_server.session.HttpSession;
+import com.wb.http_server.session.IdleSessionCleaner;
+import com.wb.http_server.util.PathMatcher;
+import com.wb.http_server.util.UUIDUtil;
+import lombok.extern.slf4j.Slf4j;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
+import static com.wb.http_server.constant.ContextConstant.*;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ */
+
+<span class="nc" id="L33">@Slf4j</span>
+public class ServletContext {
+    /**
+     * 别名-&gt;类名
+     * 一个Servlet类只能有一个Servlet别名，一个Servlet别名只能对应一个Servlet类
+     */
+    private Map&lt;String, ServletHolder&gt; servlets;
+    /**
+     * 一个Servlet可以对应多个URL，一个URL只能对应一个Servlet
+     * URL Pattern -&gt; Servlet别名
+     */
+    private Map&lt;String, String&gt; servletMapping;
+
+
+    /**
+     * 监听器们
+     */
+    private List&lt;ServletRequestListener&gt; servletRequestListeners;
+    private List&lt;HttpSessionListener&gt; httpSessionListeners;
+
+
+    /**
+     * 整个应用对应的session们
+     */
+    private Map&lt;String, HttpSession&gt; sessions;
+    private IdleSessionCleaner idleSessionCleaner;
+
+    private PathMatcher matcher;
+
+
+    /**
+     * 域
+     */
+    private Map&lt;String, Object&gt; attributes;
+
+<span class="nc" id="L68">    public ServletContext() {</span>
+<span class="nc" id="L69">        init();</span>
+<span class="nc" id="L70">    }</span>
+
+    /**
+     * 由URL得到对应的一个Servlet实例
+     *
+     * @param url
+     * @return
+     * @throws ServletNotFoundException
+     */
+    public Servlet mapServlet(String url) throws ServletNotFoundException {
+        // 1、精确匹配
+
+<span class="nc" id="L82">        String servletAlias = servletMapping.get(url);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (servletAlias != null) {</span>
+<span class="nc" id="L84">            return initAndGetServlet(servletAlias);</span>
+        }
+        // 2、路径匹配
+<span class="nc" id="L87">        List&lt;String&gt; matchingPatterns = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L88">        Set&lt;String&gt; patterns = servletMapping.keySet();</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        for (String pattern : patterns) {</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            if (matcher.match(pattern, url)) {</span>
+<span class="nc" id="L91">                matchingPatterns.add(pattern);</span>
+            }
+<span class="nc" id="L93">        }</span>
+
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (!matchingPatterns.isEmpty()) {</span>
+<span class="nc" id="L96">            Comparator&lt;String&gt; patternComparator = matcher.getPatternComparator(url);</span>
+<span class="nc" id="L97">            Collections.sort(matchingPatterns, patternComparator);</span>
+<span class="nc" id="L98">            String bestMatch = matchingPatterns.get(0);</span>
+<span class="nc" id="L99">            return initAndGetServlet(servletMapping.get(bestMatch));</span>
+        }
+<span class="nc" id="L101">        return initAndGetServlet(DEFAULT_SERVLET_ALIAS);</span>
+    }
+
+    /**
+     * 初始化并获取Servlet实例，如果已经初始化过则直接返回
+     *
+     * @param servletAlias
+     * @return
+     * @throws ServletNotFoundException
+     */
+    private Servlet initAndGetServlet(String servletAlias) throws ServletNotFoundException {
+<span class="nc" id="L112">        ServletHolder servletHolder = servlets.get(servletAlias);</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (servletHolder == null) {</span>
+<span class="nc" id="L114">            throw new ServletNotFoundException();</span>
+        }
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (servletHolder.getServlet() == null) {</span>
+            try {
+<span class="nc" id="L118">                Servlet servlet = (Servlet) Class.forName(servletHolder.getServletClass()).newInstance();</span>
+<span class="nc" id="L119">                servlet.init();</span>
+<span class="nc" id="L120">                servletHolder.setServlet(servlet);</span>
+<span class="nc" id="L121">            } catch (InstantiationException e) {</span>
+<span class="nc" id="L122">                e.printStackTrace();</span>
+<span class="nc" id="L123">            } catch (IllegalAccessException e) {</span>
+<span class="nc" id="L124">                e.printStackTrace();</span>
+<span class="nc" id="L125">            } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L126">                e.printStackTrace();</span>
+<span class="nc" id="L127">            }</span>
+        }
+<span class="nc" id="L129">        return servletHolder.getServlet();</span>
+    }
+
+
+    /**
+     * 应用初始化
+     */
+    private void init() {
+<span class="nc" id="L137">        this.servlets = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L138">        this.servletMapping = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L139">        this.attributes = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="nc" id="L140">        this.sessions = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="nc" id="L141">        this.idleSessionCleaner = new IdleSessionCleaner();</span>
+<span class="nc" id="L142">        this.idleSessionCleaner.start();</span>
+<span class="nc" id="L143">        this.servletRequestListeners = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L144">        this.httpSessionListeners = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L145">        this.matcher = new PathMatcher();</span>
+<span class="nc" id="L146">        config();</span>
+
+<span class="nc" id="L148">    }</span>
+
+    /**
+     * 应用关闭前被调用
+     */
+    public void destroy() {
+<span class="nc" id="L154">        servlets.values().forEach(servletHolder -&gt; {</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            if (servletHolder.getServlet() != null) {</span>
+<span class="nc" id="L156">                servletHolder.getServlet().destroy();</span>
+            }
+<span class="nc" id="L158">        });</span>
+<span class="nc" id="L159">    }</span>
+
+    public void addServlet(String servletName, String mapping,String servletClass){
+<span class="nc" id="L162">        this.servlets.put(servletName,new ServletHolder(servletClass));</span>
+<span class="nc" id="L163">        this.servletMapping.put(mapping,servletName);</span>
+<span class="nc" id="L164">    }</span>
+
+    private void config() {
+<span class="nc" id="L167">        this.servlets.put(&quot;DefaultServlet&quot;, new ServletHolder(&quot;com.wb.http_server.servlet.impl.DefaultServlet&quot;));</span>
+<span class="nc" id="L168">        this.servletMapping.put(&quot;/&quot;, &quot;DefaultServlet&quot;);</span>
+<span class="nc" id="L169">        servletRequestListeners.add(new RequestAndSessionListener());</span>
+<span class="nc" id="L170">        httpSessionListeners.add(new RequestAndSessionListener());</span>
+<span class="nc" id="L171">    }</span>
+
+
+    /**
+     * 获取session
+     *
+     * @param JSESSIONID
+     * @return
+     */
+    public HttpSession getSession(String JSESSIONID) {
+<span class="nc" id="L181">        return sessions.get(JSESSIONID);</span>
+    }
+
+    /**
+     * 创建session
+     *
+     * @param response
+     * @return
+     */
+    public HttpSession createSession(Response response) {
+<span class="nc" id="L191">        HttpSession session = new HttpSession(UUIDUtil.uuid());</span>
+<span class="nc" id="L192">        sessions.put(session.getId(), session);</span>
+<span class="nc" id="L193">        response.addCookie(new Cookie(&quot;JSESSIONID&quot;, session.getId()));</span>
+<span class="nc" id="L194">        HttpSessionEvent httpSessionEvent = new HttpSessionEvent(session);</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">        for (HttpSessionListener listener : httpSessionListeners) {</span>
+<span class="nc" id="L196">            listener.sessionCreated(httpSessionEvent);</span>
+<span class="nc" id="L197">        }</span>
+<span class="nc" id="L198">        return session;</span>
+    }
+
+    /**
+     * 销毁session
+     *
+     * @param session
+     */
+    public void invalidateSession(HttpSession session) {
+<span class="nc" id="L207">        sessions.remove(session.getId());</span>
+<span class="nc" id="L208">        afterSessionDestroyed(session);</span>
+<span class="nc" id="L209">    }</span>
+
+    /**
+     * 清除空闲的session
+     * 由于ConcurrentHashMap是线程安全的，所以remove不需要进行加锁
+     */
+    public void cleanIdleSessions() {
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        for (Iterator&lt;Map.Entry&lt;String, HttpSession&gt;&gt; it = sessions.entrySet().iterator(); it.hasNext(); ) {</span>
+<span class="nc" id="L217">            Map.Entry&lt;String, HttpSession&gt; entry = it.next();</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">            if (Duration.between(entry.getValue().getLastAccessed(), Instant.now()).getSeconds() &gt;= DEFAULT_SESSION_EXPIRE_TIME) {</span>
+<span class="nc" id="L219">                log.info(&quot;该session {} 已过期&quot;, entry.getKey());</span>
+<span class="nc" id="L220">                afterSessionDestroyed(entry.getValue());</span>
+<span class="nc" id="L221">                it.remove();</span>
+            }
+<span class="nc" id="L223">        }</span>
+<span class="nc" id="L224">    }</span>
+
+    private void afterSessionDestroyed(HttpSession session) {
+<span class="nc" id="L227">        HttpSessionEvent httpSessionEvent = new HttpSessionEvent(session);</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        for (HttpSessionListener listener : httpSessionListeners) {</span>
+<span class="nc" id="L229">            listener.sessionDestroyed(httpSessionEvent);</span>
+<span class="nc" id="L230">        }</span>
+<span class="nc" id="L231">    }</span>
+
+    public void afterRequestCreated(Request request) {
+<span class="nc" id="L234">        ServletRequestEvent servletRequestEvent = new ServletRequestEvent(this, request);</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">        for (ServletRequestListener listener : servletRequestListeners) {</span>
+<span class="nc" id="L236">            listener.requestInitialized(servletRequestEvent);</span>
+<span class="nc" id="L237">        }</span>
+<span class="nc" id="L238">    }</span>
+
+    public void afterRequestDestroyed(Request request) {
+<span class="nc" id="L241">        ServletRequestEvent servletRequestEvent = new ServletRequestEvent(this, request);</span>
+<span class="nc bnc" id="L242" title="All 2 branches missed.">        for (ServletRequestListener listener : servletRequestListeners) {</span>
+<span class="nc" id="L243">            listener.requestDestroyed(servletRequestEvent);</span>
+<span class="nc" id="L244">        }</span>
+<span class="nc" id="L245">    }</span>
+
+    public Object getAttribute(String key) {
+<span class="nc" id="L248">        return attributes.get(key);</span>
+    }
+
+    public void setAttribute(String key, Object value) {
+<span class="nc" id="L252">        attributes.put(key, value);</span>
+<span class="nc" id="L253">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

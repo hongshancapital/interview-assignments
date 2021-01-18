@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Request.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.request</a> &gt; <span class="el_source">Request.java</span></div><h1>Request.java</h1><pre class="source lang-java linenums">package com.wb.http_server.request;
+
+import com.wb.http_server.constant.CharConstant;
+import com.wb.http_server.constant.CharsetProperties;
+import com.wb.http_server.context.ServletContext;
+import com.wb.http_server.context.WebApplication;
+import com.wb.http_server.cookie.Cookie;
+import com.wb.http_server.enumeration.RequestMethod;
+import com.wb.http_server.exception.RequestInvalidException;
+import com.wb.http_server.exception.RequestParseException;
+import com.wb.http_server.network.handler.AbstractRequestHandler;
+import com.wb.http_server.request.dispatcher.RequestDispatcher;
+import com.wb.http_server.request.dispatcher.impl.ApplicationRequestDispatcher;
+import com.wb.http_server.session.HttpSession;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ */
+
+@Getter
+<span class="pc" id="L32">@Setter</span>
+<span class="fc" id="L33">@Slf4j</span>
+public class Request {
+
+<span class="nc" id="L36">    private AbstractRequestHandler requestHandler;</span>
+<span class="nc" id="L37">    private RequestMethod method;</span>
+<span class="nc" id="L38">    private String url;</span>
+<span class="nc" id="L39">    private Map&lt;String, List&lt;String&gt;&gt; params;</span>
+<span class="fc" id="L40">    private Map&lt;String, List&lt;String&gt;&gt; headers;</span>
+<span class="nc" id="L41">    private Map&lt;String, Object&gt; attributes;</span>
+<span class="nc" id="L42">    private ServletContext servletContext;</span>
+<span class="nc" id="L43">    private Cookie[] cookies;</span>
+    private HttpSession session;
+
+    /**
+     * 获取queryString或者body（表单格式）的键值类型的数据
+     * @param key
+     * @return
+     */
+    public String getParameter(String key) {
+<span class="nc" id="L52">        List&lt;String&gt; params = this.params.get(key);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if(params == null) {</span>
+<span class="nc" id="L54">            return null;</span>
+        }
+<span class="nc" id="L56">        return params.get(0);</span>
+    }
+
+    public String getHeader(String key) {
+<span class="fc" id="L60">        List&lt;String&gt; header = this.headers.get(key);</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if(header == null) {</span>
+<span class="fc" id="L62">            return null;</span>
+        }
+<span class="nc" id="L64">        return header.get(0);</span>
+    }
+    
+    
+    /**
+     * 解析HTTP请求
+     * 读取请求体只能使用字节流，使用字符流读不到
+     * @param data
+     * @throws RequestParseException
+     */
+<span class="fc" id="L74">    public Request(byte[] data) throws RequestParseException, RequestInvalidException {</span>
+<span class="fc" id="L75">        this.attributes = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L76">        String[] lines = null;</span>
+        try {
+            //支持中文，对中文进行URL解码
+<span class="fc" id="L79">            lines = URLDecoder.decode(new String(data, CharsetProperties.UTF_8_CHARSET), CharsetProperties.UTF_8).split(CharConstant.CRLF);</span>
+<span class="nc" id="L80">        } catch (UnsupportedEncodingException e) {</span>
+<span class="nc" id="L81">            e.printStackTrace();</span>
+<span class="fc" id="L82">        }</span>
+<span class="fc" id="L83">        log.info(&quot;Request读取完毕&quot;);</span>
+<span class="fc" id="L84">        log.info(&quot;请求行: {}&quot;, Arrays.toString(lines));</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        if (lines.length &lt;= 1) {</span>
+<span class="nc" id="L86">            throw new RequestInvalidException();</span>
+        }
+        try {
+<span class="fc" id="L89">            parseHeaders(lines);</span>
+<span class="pc bpc" id="L90" title="3 of 4 branches missed.">            if (headers.containsKey(&quot;Content-Length&quot;) &amp;&amp; !headers.get(&quot;Content-Length&quot;).get(0).equals(&quot;0&quot;)) {</span>
+<span class="nc" id="L91">                parseBody(lines[lines.length - 1]);</span>
+            }
+<span class="nc" id="L93">        } catch (Throwable e) {</span>
+<span class="nc" id="L94">            e.printStackTrace();</span>
+<span class="nc" id="L95">            throw new RequestParseException();</span>
+<span class="fc" id="L96">        }</span>
+        
+<span class="fc" id="L98">        WebApplication.getServletContext().afterRequestCreated(this);</span>
+<span class="fc" id="L99">    }</span>
+
+    public void setAttribute(String key, Object value) {
+<span class="nc" id="L102">        attributes.put(key, value);</span>
+<span class="nc" id="L103">    }</span>
+
+    public Object getAttribute(String key) {
+<span class="nc" id="L106">        return attributes.get(key);</span>
+    }
+    
+    public RequestDispatcher getRequestDispatcher(String url) {
+<span class="nc" id="L110">        return new ApplicationRequestDispatcher(url);</span>
+    }
+    
+    /**
+     * 如果请求报文中携带JSESSIONID这个Cookie，那么取出对应的session
+     * 否则创建一个Session，并在响应报文中添加一个响应头Set-Cookie: JSESSIONID=D5A5C79F3C8E8653BC8B4F0860BFDBCD
+     * 所有从请求报文中得到的Cookie，都会在响应报文中返回
+     * 服务器只会在客户端第一次请求响应的时候，在响应头上添加Set-Cookie：“JSESSIONID=XXXXXXX”信息，
+     * 接下来在同一个会话的第二第三次响应头里，是不会添加Set-Cookie：“JSESSIONID=XXXXXXX”信息的；
+     * 即，如果在Cookie中读到的JSESSIONID，那么不会创建新的Session，也不会在响应头中加入Set-Cookie：“JSESSIONID=XXXXXXX”
+     * 如果没有读到，那么会创建新的Session，并在响应头中加入Set-Cookie：“JSESSIONID=XXXXXXX”
+     * 如果没有调用getSession，那么不会创建新的Session
+     * 
+     * @param createIfNotExists 如果为true，那么在不存在session时会创建一个新的session；否则会直接返回null
+     * @return HttpSession
+     */
+    public HttpSession getSession(boolean createIfNotExists) {
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        if (session != null) {</span>
+<span class="nc" id="L128">            return session;</span>
+        }
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        for (Cookie cookie : cookies) {</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">            if (cookie.getKey().equals(&quot;JSESSIONID&quot;)) {</span>
+<span class="nc" id="L132">                HttpSession currentSession = servletContext.getSession(cookie.getValue());</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">                if (currentSession != null) {</span>
+<span class="nc" id="L134">                    session = currentSession;</span>
+<span class="nc" id="L135">                    return session;</span>
+                }
+            }
+        }
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (!createIfNotExists) {</span>
+<span class="nc" id="L140">            return null;</span>
+        }
+<span class="fc" id="L142">        session = servletContext.createSession(requestHandler.getResponse());</span>
+<span class="fc" id="L143">        return session;</span>
+    }
+
+    public HttpSession getSession() {
+<span class="fc" id="L147">        return getSession(true);</span>
+    }
+
+    public String getServletPath() {
+<span class="nc" id="L151">        return url;</span>
+    }
+    
+    private void parseHeaders(String[] lines) {
+<span class="fc" id="L155">        log.info(&quot;解析请求头&quot;);</span>
+<span class="fc" id="L156">        String firstLine = lines[0];</span>
+        //解析方法
+<span class="fc" id="L158">        String[] firstLineSlices = firstLine.split(CharConstant.BLANK);</span>
+<span class="fc" id="L159">        this.method = RequestMethod.valueOf(firstLineSlices[0]);</span>
+<span class="fc" id="L160">        log.debug(&quot;method:{}&quot;, this.method);</span>
+
+        //解析URL
+<span class="fc" id="L163">        String rawURL = firstLineSlices[1];</span>
+<span class="fc" id="L164">        String[] urlSlices = rawURL.split(&quot;\\?&quot;);</span>
+<span class="fc" id="L165">        this.url = urlSlices[0];</span>
+<span class="fc" id="L166">        log.debug(&quot;url:{}&quot;, this.url);</span>
+
+        //解析URL参数
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">        if (urlSlices.length &gt; 1) {</span>
+<span class="nc" id="L170">            parseParams(urlSlices[1]);</span>
+        }
+<span class="fc" id="L172">        log.debug(&quot;params:{}&quot;, this.params);</span>
+
+        //解析请求头
+        String header;
+<span class="fc" id="L176">        this.headers = new HashMap&lt;&gt;();</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">        for (int i = 1; i &lt; lines.length; i++) {</span>
+<span class="fc" id="L178">            header = lines[i];</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">            if (header.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L180">                break;</span>
+            }
+<span class="fc" id="L182">            int colonIndex = header.indexOf(':');</span>
+<span class="fc" id="L183">            String key = header.substring(0, colonIndex);</span>
+<span class="fc" id="L184">            String[] values = header.substring(colonIndex + 2).split(&quot;,&quot;);</span>
+<span class="fc" id="L185">            headers.put(key, Arrays.asList(values));</span>
+        }
+<span class="fc" id="L187">        log.debug(&quot;headers:{}&quot;, this.headers);</span>
+
+        //解析Cookie
+
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">        if (headers.containsKey(&quot;Cookie&quot;)) {</span>
+<span class="nc" id="L192">            String[] rawCookies = headers.get(&quot;Cookie&quot;).get(0).split(&quot;; &quot;);</span>
+<span class="nc" id="L193">            this.cookies = new Cookie[rawCookies.length];</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">            for (int i = 0; i &lt; rawCookies.length; i++) {</span>
+<span class="nc" id="L195">                String[] kv = rawCookies[i].split(&quot;=&quot;);</span>
+<span class="nc" id="L196">                this.cookies[i] = new Cookie(kv[0], kv[1]);</span>
+            }
+<span class="nc" id="L198">            headers.remove(&quot;Cookie&quot;);</span>
+<span class="nc" id="L199">        } else {</span>
+<span class="fc" id="L200">            this.cookies = new Cookie[0];</span>
+        }
+<span class="fc" id="L202">        log.info(&quot;Cookies:{}&quot;, Arrays.toString(cookies));</span>
+<span class="fc" id="L203">    }</span>
+
+    private void parseBody(String body) {
+<span class="nc" id="L206">        log.info(&quot;解析请求体&quot;);</span>
+<span class="nc" id="L207">        byte[] bytes = body.getBytes(CharsetProperties.UTF_8_CHARSET);</span>
+<span class="nc" id="L208">        List&lt;String&gt; lengths = this.headers.get(&quot;Content-Length&quot;);</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">        if (lengths != null) {</span>
+<span class="nc" id="L210">            int length = Integer.parseInt(lengths.get(0));</span>
+<span class="nc" id="L211">            log.info(&quot;length:{}&quot;, length);</span>
+<span class="nc" id="L212">            parseParams(new String(bytes, 0, Math.min(length,bytes.length), CharsetProperties.UTF_8_CHARSET).trim());</span>
+<span class="nc" id="L213">        } else {</span>
+<span class="nc" id="L214">            parseParams(body.trim());</span>
+        }
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        if (this.params == null) {</span>
+<span class="nc" id="L217">            this.params = new HashMap&lt;&gt;();</span>
+        }
+<span class="nc" id="L219">    }</span>
+
+    private void parseParams(String params) {
+<span class="nc" id="L222">        String[] urlParams = params.split(&quot;&amp;&quot;);</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        if (this.params == null) {</span>
+<span class="nc" id="L224">            this.params = new HashMap&lt;&gt;();</span>
+        }
+<span class="nc bnc" id="L226" title="All 2 branches missed.">        for (String param : urlParams) {</span>
+<span class="nc" id="L227">            String[] kv = param.split(&quot;=&quot;);</span>
+<span class="nc" id="L228">            String key = kv[0];</span>
+<span class="nc" id="L229">            String[] values = kv[1].split(&quot;,&quot;);</span>
+
+<span class="nc" id="L231">            this.params.put(key, Arrays.asList(values));</span>
+        }
+<span class="nc" id="L233">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

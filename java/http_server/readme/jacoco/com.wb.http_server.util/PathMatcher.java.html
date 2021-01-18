@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PathMatcher.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HttpServer</a> &gt; <a href="index.source.html" class="el_package">com.wb.http_server.util</a> &gt; <span class="el_source">PathMatcher.java</span></div><h1>PathMatcher.java</h1><pre class="source lang-java linenums">package com.wb.http_server.util;
+
+/**
+ * @author bing.wang
+ * @date 2021/1/15
+ */
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class PathMatcher {
+    public static final String DEFAULT_PATH_SEPARATOR = &quot;/&quot;;
+    private static final int CACHE_TURNOFF_THRESHOLD = 65536;
+<span class="nc" id="L15">    private static final Pattern VARIABLE_PATTERN = Pattern.compile(&quot;\\{[^/]+?\\}&quot;);</span>
+<span class="nc" id="L16">    private static final char[] WILDCARD_CHARS = new char[]{'*', '?', '{'};</span>
+    private String pathSeparator;
+    private PathMatcher.PathSeparatorPatternCache pathSeparatorPatternCache;
+<span class="nc" id="L19">    private boolean caseSensitive = true;</span>
+<span class="nc" id="L20">    private boolean trimTokens = false;</span>
+    private volatile Boolean cachePatterns;
+<span class="nc" id="L22">    private final Map&lt;String, String[]&gt; tokenizedPatternCache = new ConcurrentHashMap(256);</span>
+<span class="nc" id="L23">    final Map&lt;String, PathMatcher.AntPathStringMatcher&gt; stringMatcherCache = new ConcurrentHashMap(256);</span>
+
+<span class="nc" id="L25">    public PathMatcher() {</span>
+<span class="nc" id="L26">        this.pathSeparator = &quot;/&quot;;</span>
+<span class="nc" id="L27">        this.pathSeparatorPatternCache = new PathMatcher.PathSeparatorPatternCache(&quot;/&quot;);</span>
+<span class="nc" id="L28">    }</span>
+
+    private void deactivatePatternCache() {
+<span class="nc" id="L31">        this.cachePatterns = false;</span>
+<span class="nc" id="L32">        this.tokenizedPatternCache.clear();</span>
+<span class="nc" id="L33">        this.stringMatcherCache.clear();</span>
+<span class="nc" id="L34">    }</span>
+
+
+    public boolean match(String pattern, String path) {
+<span class="nc" id="L38">        return this.doMatch(pattern, path, true, (Map)null);</span>
+    }
+
+
+    protected boolean doMatch(String pattern, String path, boolean fullMatch, Map&lt;String, String&gt; uriTemplateVariables) {
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (path.startsWith(this.pathSeparator) != pattern.startsWith(this.pathSeparator)) {</span>
+<span class="nc" id="L44">            return false;</span>
+        } else {
+<span class="nc" id="L46">            String[] pattDirs = this.tokenizePattern(pattern);</span>
+<span class="nc bnc" id="L47" title="All 6 branches missed.">            if (fullMatch &amp;&amp; this.caseSensitive &amp;&amp; !this.isPotentialMatch(path, pattDirs)) {</span>
+<span class="nc" id="L48">                return false;</span>
+            } else {
+<span class="nc" id="L50">                String[] pathDirs = this.tokenizePath(path);</span>
+<span class="nc" id="L51">                int pattIdxStart = 0;</span>
+<span class="nc" id="L52">                int pattIdxEnd = pattDirs.length - 1;</span>
+<span class="nc" id="L53">                int pathIdxStart = 0;</span>
+
+                int pathIdxEnd;
+                String pattDir;
+<span class="nc bnc" id="L57" title="All 4 branches missed.">                for(pathIdxEnd = pathDirs.length - 1; pattIdxStart &lt;= pattIdxEnd &amp;&amp; pathIdxStart &lt;= pathIdxEnd; ++pathIdxStart) {</span>
+<span class="nc" id="L58">                    pattDir = pattDirs[pattIdxStart];</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                    if (&quot;**&quot;.equals(pattDir)) {</span>
+<span class="nc" id="L60">                        break;</span>
+                    }
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">                    if (!this.matchStrings(pattDir, pathDirs[pathIdxStart], uriTemplateVariables)) {</span>
+<span class="nc" id="L64">                        return false;</span>
+                    }
+
+<span class="nc" id="L67">                    ++pattIdxStart;</span>
+                }
+
+                int patIdxTmp;
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                if (pathIdxStart &gt; pathIdxEnd) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">                    if (pattIdxStart &gt; pattIdxEnd) {</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                        return pattern.endsWith(this.pathSeparator) == path.endsWith(this.pathSeparator);</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">                    } else if (!fullMatch) {</span>
+<span class="nc" id="L75">                        return true;</span>
+<span class="nc bnc" id="L76" title="All 6 branches missed.">                    } else if (pattIdxStart == pattIdxEnd &amp;&amp; pattDirs[pattIdxStart].equals(&quot;*&quot;) &amp;&amp; path.endsWith(this.pathSeparator)) {</span>
+<span class="nc" id="L77">                        return true;</span>
+                    } else {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                        for(patIdxTmp = pattIdxStart; patIdxTmp &lt;= pattIdxEnd; ++patIdxTmp) {</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">                            if (!pattDirs[patIdxTmp].equals(&quot;**&quot;)) {</span>
+<span class="nc" id="L81">                                return false;</span>
+                            }
+                        }
+
+<span class="nc" id="L85">                        return true;</span>
+                    }
+<span class="nc bnc" id="L87" title="All 2 branches missed.">                } else if (pattIdxStart &gt; pattIdxEnd) {</span>
+<span class="nc" id="L88">                    return false;</span>
+<span class="nc bnc" id="L89" title="All 4 branches missed.">                } else if (!fullMatch &amp;&amp; &quot;**&quot;.equals(pattDirs[pattIdxStart])) {</span>
+<span class="nc" id="L90">                    return true;</span>
+                } else {
+<span class="nc bnc" id="L92" title="All 4 branches missed.">                    while(pattIdxStart &lt;= pattIdxEnd &amp;&amp; pathIdxStart &lt;= pathIdxEnd) {</span>
+<span class="nc" id="L93">                        pattDir = pattDirs[pattIdxEnd];</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                        if (pattDir.equals(&quot;**&quot;)) {</span>
+<span class="nc" id="L95">                            break;</span>
+                        }
+
+<span class="nc bnc" id="L98" title="All 2 branches missed.">                        if (!this.matchStrings(pattDir, pathDirs[pathIdxEnd], uriTemplateVariables)) {</span>
+<span class="nc" id="L99">                            return false;</span>
+                        }
+
+<span class="nc" id="L102">                        --pattIdxEnd;</span>
+<span class="nc" id="L103">                        --pathIdxEnd;</span>
+                    }
+
+<span class="nc bnc" id="L106" title="All 2 branches missed.">                    if (pathIdxStart &gt; pathIdxEnd) {</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">                        for(patIdxTmp = pattIdxStart; patIdxTmp &lt;= pattIdxEnd; ++patIdxTmp) {</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                            if (!pattDirs[patIdxTmp].equals(&quot;**&quot;)) {</span>
+<span class="nc" id="L109">                                return false;</span>
+                            }
+                        }
+
+<span class="nc" id="L113">                        return true;</span>
+                    } else {
+<span class="nc bnc" id="L115" title="All 4 branches missed.">                        while(pattIdxStart != pattIdxEnd &amp;&amp; pathIdxStart &lt;= pathIdxEnd) {</span>
+<span class="nc" id="L116">                            patIdxTmp = -1;</span>
+
+                            int patLength;
+<span class="nc bnc" id="L119" title="All 2 branches missed.">                            for(patLength = pattIdxStart + 1; patLength &lt;= pattIdxEnd; ++patLength) {</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">                                if (pattDirs[patLength].equals(&quot;**&quot;)) {</span>
+<span class="nc" id="L121">                                    patIdxTmp = patLength;</span>
+<span class="nc" id="L122">                                    break;</span>
+                                }
+                            }
+
+<span class="nc bnc" id="L126" title="All 2 branches missed.">                            if (patIdxTmp == pattIdxStart + 1) {</span>
+<span class="nc" id="L127">                                ++pattIdxStart;</span>
+                            } else {
+<span class="nc" id="L129">                                patLength = patIdxTmp - pattIdxStart - 1;</span>
+<span class="nc" id="L130">                                int strLength = pathIdxEnd - pathIdxStart + 1;</span>
+<span class="nc" id="L131">                                int foundIdx = -1;</span>
+<span class="nc" id="L132">                                int i = 0;</span>
+
+                                label145:
+<span class="nc bnc" id="L135" title="All 2 branches missed.">                                while(i &lt;= strLength - patLength) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">                                    for(int j = 0; j &lt; patLength; ++j) {</span>
+<span class="nc" id="L137">                                        String subPat = pattDirs[pattIdxStart + j + 1];</span>
+<span class="nc" id="L138">                                        String subStr = pathDirs[pathIdxStart + i + j];</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">                                        if (!this.matchStrings(subPat, subStr, uriTemplateVariables)) {</span>
+<span class="nc" id="L140">                                            ++i;</span>
+<span class="nc" id="L141">                                            continue label145;</span>
+                                        }
+                                    }
+
+<span class="nc" id="L145">                                    foundIdx = pathIdxStart + i;</span>
+<span class="nc" id="L146">                                    break;</span>
+                                }
+
+<span class="nc bnc" id="L149" title="All 2 branches missed.">                                if (foundIdx == -1) {</span>
+<span class="nc" id="L150">                                    return false;</span>
+                                }
+
+<span class="nc" id="L153">                                pattIdxStart = patIdxTmp;</span>
+<span class="nc" id="L154">                                pathIdxStart = foundIdx + patLength;</span>
+                            }
+<span class="nc" id="L156">                        }</span>
+
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                        for(patIdxTmp = pattIdxStart; patIdxTmp &lt;= pattIdxEnd; ++patIdxTmp) {</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">                            if (!pattDirs[patIdxTmp].equals(&quot;**&quot;)) {</span>
+<span class="nc" id="L160">                                return false;</span>
+                            }
+                        }
+
+<span class="nc" id="L164">                        return true;</span>
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isPotentialMatch(String path, String[] pattDirs) {
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (!this.trimTokens) {</span>
+<span class="nc" id="L173">            int pos = 0;</span>
+<span class="nc" id="L174">            String[] var4 = pattDirs;</span>
+<span class="nc" id="L175">            int var5 = pattDirs.length;</span>
+
+<span class="nc bnc" id="L177" title="All 2 branches missed.">            for(int var6 = 0; var6 &lt; var5; ++var6) {</span>
+<span class="nc" id="L178">                String pattDir = var4[var6];</span>
+<span class="nc" id="L179">                int skipped = this.skipSeparator(path, pos, this.pathSeparator);</span>
+<span class="nc" id="L180">                pos += skipped;</span>
+<span class="nc" id="L181">                skipped = this.skipSegment(path, pos, pattDir);</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">                if (skipped &lt; pattDir.length()) {</span>
+<span class="nc bnc" id="L183" title="All 6 branches missed.">                    return skipped &gt; 0 || pattDir.length() &gt; 0 &amp;&amp; this.isWildcardChar(pattDir.charAt(0));</span>
+                }
+
+<span class="nc" id="L186">                pos += skipped;</span>
+            }
+        }
+
+<span class="nc" id="L190">        return true;</span>
+    }
+
+    private int skipSegment(String path, int pos, String prefix) {
+<span class="nc" id="L194">        int skipped = 0;</span>
+
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        for(int i = 0; i &lt; prefix.length(); ++i) {</span>
+<span class="nc" id="L197">            char c = prefix.charAt(i);</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">            if (this.isWildcardChar(c)) {</span>
+<span class="nc" id="L199">                return skipped;</span>
+            }
+
+<span class="nc" id="L202">            int currPos = pos + skipped;</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">            if (currPos &gt;= path.length()) {</span>
+<span class="nc" id="L204">                return 0;</span>
+            }
+
+<span class="nc bnc" id="L207" title="All 2 branches missed.">            if (c == path.charAt(currPos)) {</span>
+<span class="nc" id="L208">                ++skipped;</span>
+            }
+        }
+
+<span class="nc" id="L212">        return skipped;</span>
+    }
+
+    private int skipSeparator(String path, int pos, String separator) {
+        int skipped;
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        for(skipped = 0; path.startsWith(separator, pos + skipped); skipped += separator.length()) {</span>
+        }
+
+<span class="nc" id="L220">        return skipped;</span>
+    }
+
+    private boolean isWildcardChar(char c) {
+<span class="nc" id="L224">        char[] var2 = WILDCARD_CHARS;</span>
+<span class="nc" id="L225">        int var3 = var2.length;</span>
+
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        for(int var4 = 0; var4 &lt; var3; ++var4) {</span>
+<span class="nc" id="L228">            char candidate = var2[var4];</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">            if (c == candidate) {</span>
+<span class="nc" id="L230">                return true;</span>
+            }
+        }
+
+<span class="nc" id="L234">        return false;</span>
+    }
+
+    protected String[] tokenizePattern(String pattern) {
+<span class="nc" id="L238">        String[] tokenized = null;</span>
+<span class="nc" id="L239">        Boolean cachePatterns = this.cachePatterns;</span>
+<span class="nc bnc" id="L240" title="All 4 branches missed.">        if (cachePatterns == null || cachePatterns) {</span>
+<span class="nc" id="L241">            tokenized = (String[])this.tokenizedPatternCache.get(pattern);</span>
+        }
+
+<span class="nc bnc" id="L244" title="All 2 branches missed.">        if (tokenized == null) {</span>
+<span class="nc" id="L245">            tokenized = this.tokenizePath(pattern);</span>
+<span class="nc bnc" id="L246" title="All 4 branches missed.">            if (cachePatterns == null &amp;&amp; this.tokenizedPatternCache.size() &gt;= 65536) {</span>
+<span class="nc" id="L247">                this.deactivatePatternCache();</span>
+<span class="nc" id="L248">                return tokenized;</span>
+            }
+
+<span class="nc bnc" id="L251" title="All 4 branches missed.">            if (cachePatterns == null || cachePatterns) {</span>
+<span class="nc" id="L252">                this.tokenizedPatternCache.put(pattern, tokenized);</span>
+            }
+        }
+
+<span class="nc" id="L256">        return tokenized;</span>
+    }
+
+    public static String[] tokenizeToStringArray(String str, String delimiters) {
+<span class="nc" id="L260">        return tokenizeToStringArray(str, delimiters, true, true);</span>
+    }
+
+    public static String[] toStringArray(Collection&lt;String&gt; collection) {
+<span class="nc" id="L264">        return (String[])collection.toArray(new String[0]);</span>
+    }
+
+
+    public static String[] tokenizeToStringArray(String str, String delimiters, boolean trimTokens, boolean ignoreEmptyTokens) {
+<span class="nc bnc" id="L269" title="All 2 branches missed.">        if (str == null) {</span>
+<span class="nc" id="L270">            return new String[0];</span>
+        } else {
+<span class="nc" id="L272">            StringTokenizer st = new StringTokenizer(str, delimiters);</span>
+<span class="nc" id="L273">            ArrayList tokens = new ArrayList();</span>
+
+            while(true) {
+                String token;
+                do {
+<span class="nc bnc" id="L278" title="All 2 branches missed.">                    if (!st.hasMoreTokens()) {</span>
+<span class="nc" id="L279">                        return toStringArray((Collection)tokens);</span>
+                    }
+
+<span class="nc" id="L282">                    token = st.nextToken();</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">                    if (trimTokens) {</span>
+<span class="nc" id="L284">                        token = token.trim();</span>
+                    }
+<span class="nc bnc" id="L286" title="All 4 branches missed.">                } while(ignoreEmptyTokens &amp;&amp; token.length() &lt;= 0);</span>
+
+<span class="nc" id="L288">                tokens.add(token);</span>
+<span class="nc" id="L289">            }</span>
+        }
+    }
+    protected String[] tokenizePath(String path) {
+<span class="nc" id="L293">        return tokenizeToStringArray(path, this.pathSeparator, this.trimTokens, true);</span>
+    }
+
+    private boolean matchStrings(String pattern, String str, Map&lt;String, String&gt; uriTemplateVariables) {
+<span class="nc" id="L297">        return this.getStringMatcher(pattern).matchStrings(str, uriTemplateVariables);</span>
+    }
+
+    protected PathMatcher.AntPathStringMatcher getStringMatcher(String pattern) {
+<span class="nc" id="L301">        PathMatcher.AntPathStringMatcher matcher = null;</span>
+<span class="nc" id="L302">        Boolean cachePatterns = this.cachePatterns;</span>
+<span class="nc bnc" id="L303" title="All 4 branches missed.">        if (cachePatterns == null || cachePatterns) {</span>
+<span class="nc" id="L304">            matcher = (PathMatcher.AntPathStringMatcher)this.stringMatcherCache.get(pattern);</span>
+        }
+
+<span class="nc bnc" id="L307" title="All 2 branches missed.">        if (matcher == null) {</span>
+<span class="nc" id="L308">            matcher = new PathMatcher.AntPathStringMatcher(pattern, this.caseSensitive);</span>
+<span class="nc bnc" id="L309" title="All 4 branches missed.">            if (cachePatterns == null &amp;&amp; this.stringMatcherCache.size() &gt;= 65536) {</span>
+<span class="nc" id="L310">                this.deactivatePatternCache();</span>
+<span class="nc" id="L311">                return matcher;</span>
+            }
+
+<span class="nc bnc" id="L314" title="All 4 branches missed.">            if (cachePatterns == null || cachePatterns) {</span>
+<span class="nc" id="L315">                this.stringMatcherCache.put(pattern, matcher);</span>
+            }
+        }
+
+<span class="nc" id="L319">        return matcher;</span>
+    }
+
+    public Comparator&lt;String&gt; getPatternComparator(String path) {
+<span class="nc" id="L323">        return new PathMatcher.AntPatternComparator(path);</span>
+    }
+
+    private static class PathSeparatorPatternCache {
+        private final String endsOnWildCard;
+        private final String endsOnDoubleWildCard;
+
+<span class="nc" id="L330">        public PathSeparatorPatternCache(String pathSeparator) {</span>
+<span class="nc" id="L331">            this.endsOnWildCard = pathSeparator + &quot;*&quot;;</span>
+<span class="nc" id="L332">            this.endsOnDoubleWildCard = pathSeparator + &quot;**&quot;;</span>
+<span class="nc" id="L333">        }</span>
+    }
+
+    protected static class AntPatternComparator implements Comparator&lt;String&gt; {
+        private final String path;
+
+<span class="nc" id="L339">        public AntPatternComparator(String path) {</span>
+<span class="nc" id="L340">            this.path = path;</span>
+<span class="nc" id="L341">        }</span>
+
+        public int compare(String pattern1, String pattern2) {
+<span class="nc" id="L344">            PathMatcher.AntPatternComparator.PatternInfo info1 = new PathMatcher.AntPatternComparator.PatternInfo(pattern1);</span>
+<span class="nc" id="L345">            PathMatcher.AntPatternComparator.PatternInfo info2 = new PathMatcher.AntPatternComparator.PatternInfo(pattern2);</span>
+<span class="nc bnc" id="L346" title="All 4 branches missed.">            if (info1.isLeastSpecific() &amp;&amp; info2.isLeastSpecific()) {</span>
+<span class="nc" id="L347">                return 0;</span>
+<span class="nc bnc" id="L348" title="All 2 branches missed.">            } else if (info1.isLeastSpecific()) {</span>
+<span class="nc" id="L349">                return 1;</span>
+<span class="nc bnc" id="L350" title="All 2 branches missed.">            } else if (info2.isLeastSpecific()) {</span>
+<span class="nc" id="L351">                return -1;</span>
+            } else {
+<span class="nc" id="L353">                boolean pattern1EqualsPath = pattern1.equals(this.path);</span>
+<span class="nc" id="L354">                boolean pattern2EqualsPath = pattern2.equals(this.path);</span>
+<span class="nc bnc" id="L355" title="All 4 branches missed.">                if (pattern1EqualsPath &amp;&amp; pattern2EqualsPath) {</span>
+<span class="nc" id="L356">                    return 0;</span>
+<span class="nc bnc" id="L357" title="All 2 branches missed.">                } else if (pattern1EqualsPath) {</span>
+<span class="nc" id="L358">                    return -1;</span>
+<span class="nc bnc" id="L359" title="All 2 branches missed.">                } else if (pattern2EqualsPath) {</span>
+<span class="nc" id="L360">                    return 1;</span>
+<span class="nc bnc" id="L361" title="All 4 branches missed.">                } else if (info1.isPrefixPattern() &amp;&amp; info2.getDoubleWildcards() == 0) {</span>
+<span class="nc" id="L362">                    return 1;</span>
+<span class="nc bnc" id="L363" title="All 4 branches missed.">                } else if (info2.isPrefixPattern() &amp;&amp; info1.getDoubleWildcards() == 0) {</span>
+<span class="nc" id="L364">                    return -1;</span>
+<span class="nc bnc" id="L365" title="All 2 branches missed.">                } else if (info1.getTotalCount() != info2.getTotalCount()) {</span>
+<span class="nc" id="L366">                    return info1.getTotalCount() - info2.getTotalCount();</span>
+<span class="nc bnc" id="L367" title="All 2 branches missed.">                } else if (info1.getLength() != info2.getLength()) {</span>
+<span class="nc" id="L368">                    return info2.getLength() - info1.getLength();</span>
+<span class="nc bnc" id="L369" title="All 2 branches missed.">                } else if (info1.getSingleWildcards() &lt; info2.getSingleWildcards()) {</span>
+<span class="nc" id="L370">                    return -1;</span>
+<span class="nc bnc" id="L371" title="All 2 branches missed.">                } else if (info2.getSingleWildcards() &lt; info1.getSingleWildcards()) {</span>
+<span class="nc" id="L372">                    return 1;</span>
+<span class="nc bnc" id="L373" title="All 2 branches missed.">                } else if (info1.getUriVars() &lt; info2.getUriVars()) {</span>
+<span class="nc" id="L374">                    return -1;</span>
+                } else {
+<span class="nc bnc" id="L376" title="All 2 branches missed.">                    return info2.getUriVars() &lt; info1.getUriVars() ? 1 : 0;</span>
+                }
+            }
+        }
+
+        private static class PatternInfo {
+            private final String pattern;
+            private int uriVars;
+            private int singleWildcards;
+            private int doubleWildcards;
+            private boolean catchAllPattern;
+            private boolean prefixPattern;
+            private Integer length;
+
+<span class="nc" id="L390">            public PatternInfo(String pattern) {</span>
+<span class="nc" id="L391">                this.pattern = pattern;</span>
+<span class="nc bnc" id="L392" title="All 2 branches missed.">                if (this.pattern != null) {</span>
+<span class="nc" id="L393">                    this.initCounters();</span>
+<span class="nc" id="L394">                    this.catchAllPattern = this.pattern.equals(&quot;/**&quot;);</span>
+<span class="nc bnc" id="L395" title="All 4 branches missed.">                    this.prefixPattern = !this.catchAllPattern &amp;&amp; this.pattern.endsWith(&quot;/**&quot;);</span>
+                }
+
+<span class="nc bnc" id="L398" title="All 2 branches missed.">                if (this.uriVars == 0) {</span>
+<span class="nc bnc" id="L399" title="All 2 branches missed.">                    this.length = this.pattern != null ? this.pattern.length() : 0;</span>
+                }
+
+<span class="nc" id="L402">            }</span>
+
+            protected void initCounters() {
+<span class="nc" id="L405">                int pos = 0;</span>
+<span class="nc bnc" id="L406" title="All 2 branches missed.">                if (this.pattern != null) {</span>
+                    while(true) {
+<span class="nc bnc" id="L408" title="All 2 branches missed.">                        while(pos &lt; this.pattern.length()) {</span>
+<span class="nc bnc" id="L409" title="All 2 branches missed.">                            if (this.pattern.charAt(pos) == '{') {</span>
+<span class="nc" id="L410">                                ++this.uriVars;</span>
+<span class="nc" id="L411">                                ++pos;</span>
+<span class="nc bnc" id="L412" title="All 2 branches missed.">                            } else if (this.pattern.charAt(pos) == '*') {</span>
+<span class="nc bnc" id="L413" title="All 4 branches missed.">                                if (pos + 1 &lt; this.pattern.length() &amp;&amp; this.pattern.charAt(pos + 1) == '*') {</span>
+<span class="nc" id="L414">                                    ++this.doubleWildcards;</span>
+<span class="nc" id="L415">                                    pos += 2;</span>
+<span class="nc bnc" id="L416" title="All 4 branches missed.">                                } else if (pos &gt; 0 &amp;&amp; !this.pattern.substring(pos - 1).equals(&quot;.*&quot;)) {</span>
+<span class="nc" id="L417">                                    ++this.singleWildcards;</span>
+<span class="nc" id="L418">                                    ++pos;</span>
+                                } else {
+<span class="nc" id="L420">                                    ++pos;</span>
+                                }
+                            } else {
+<span class="nc" id="L423">                                ++pos;</span>
+                            }
+                        }
+
+<span class="nc" id="L427">                        return;</span>
+                    }
+                }
+<span class="nc" id="L430">            }</span>
+
+            public int getUriVars() {
+<span class="nc" id="L433">                return this.uriVars;</span>
+            }
+
+            public int getSingleWildcards() {
+<span class="nc" id="L437">                return this.singleWildcards;</span>
+            }
+
+            public int getDoubleWildcards() {
+<span class="nc" id="L441">                return this.doubleWildcards;</span>
+            }
+
+            public boolean isLeastSpecific() {
+<span class="nc bnc" id="L445" title="All 4 branches missed.">                return this.pattern == null || this.catchAllPattern;</span>
+            }
+
+            public boolean isPrefixPattern() {
+<span class="nc" id="L449">                return this.prefixPattern;</span>
+            }
+
+            public int getTotalCount() {
+<span class="nc" id="L453">                return this.uriVars + this.singleWildcards + 2 * this.doubleWildcards;</span>
+            }
+
+            public int getLength() {
+<span class="nc bnc" id="L457" title="All 2 branches missed.">                if (this.length == null) {</span>
+<span class="nc bnc" id="L458" title="All 2 branches missed.">                    this.length = this.pattern != null ? PathMatcher.VARIABLE_PATTERN.matcher(this.pattern).replaceAll(&quot;#&quot;).length() : 0;</span>
+                }
+
+<span class="nc" id="L461">                return this.length;</span>
+            }
+        }
+    }
+
+    protected static class AntPathStringMatcher {
+<span class="nc" id="L467">        private static final Pattern GLOB_PATTERN = Pattern.compile(&quot;\\?|\\*|\\{((?:\\{[^/]+?\\}|[^/{}]|\\\\[{}])+?)\\}&quot;);</span>
+        private static final String DEFAULT_VARIABLE_PATTERN = &quot;(.*)&quot;;
+        private final Pattern pattern;
+        private final List&lt;String&gt; variableNames;
+
+<span class="nc" id="L472">        public AntPathStringMatcher(String pattern, boolean caseSensitive) {</span>
+<span class="nc" id="L473">            this.variableNames = new LinkedList();</span>
+<span class="nc" id="L474">            StringBuilder patternBuilder = new StringBuilder();</span>
+<span class="nc" id="L475">            Matcher matcher = GLOB_PATTERN.matcher(pattern);</span>
+
+            int end;
+<span class="nc bnc" id="L478" title="All 2 branches missed.">            for(end = 0; matcher.find(); end = matcher.end()) {</span>
+<span class="nc" id="L479">                patternBuilder.append(this.quote(pattern, end, matcher.start()));</span>
+<span class="nc" id="L480">                String match = matcher.group();</span>
+<span class="nc bnc" id="L481" title="All 2 branches missed.">                if (&quot;?&quot;.equals(match)) {</span>
+<span class="nc" id="L482">                    patternBuilder.append('.');</span>
+<span class="nc bnc" id="L483" title="All 2 branches missed.">                } else if (&quot;*&quot;.equals(match)) {</span>
+<span class="nc" id="L484">                    patternBuilder.append(&quot;.*&quot;);</span>
+<span class="nc bnc" id="L485" title="All 4 branches missed.">                } else if (match.startsWith(&quot;{&quot;) &amp;&amp; match.endsWith(&quot;}&quot;)) {</span>
+<span class="nc" id="L486">                    int colonIdx = match.indexOf(58);</span>
+<span class="nc bnc" id="L487" title="All 2 branches missed.">                    if (colonIdx == -1) {</span>
+<span class="nc" id="L488">                        patternBuilder.append(&quot;(.*)&quot;);</span>
+<span class="nc" id="L489">                        this.variableNames.add(matcher.group(1));</span>
+                    } else {
+<span class="nc" id="L491">                        String variablePattern = match.substring(colonIdx + 1, match.length() - 1);</span>
+<span class="nc" id="L492">                        patternBuilder.append('(');</span>
+<span class="nc" id="L493">                        patternBuilder.append(variablePattern);</span>
+<span class="nc" id="L494">                        patternBuilder.append(')');</span>
+<span class="nc" id="L495">                        String variableName = match.substring(1, colonIdx);</span>
+<span class="nc" id="L496">                        this.variableNames.add(variableName);</span>
+                    }
+                }
+            }
+
+<span class="nc" id="L501">            patternBuilder.append(this.quote(pattern, end, pattern.length()));</span>
+<span class="nc bnc" id="L502" title="All 2 branches missed.">            this.pattern = caseSensitive ? Pattern.compile(patternBuilder.toString()) : Pattern.compile(patternBuilder.toString(), 2);</span>
+<span class="nc" id="L503">        }</span>
+
+        private String quote(String s, int start, int end) {
+<span class="nc bnc" id="L506" title="All 2 branches missed.">            return start == end ? &quot;&quot; : Pattern.quote(s.substring(start, end));</span>
+        }
+
+        public boolean matchStrings(String str, Map&lt;String, String&gt; uriTemplateVariables) {
+<span class="nc" id="L510">            Matcher matcher = this.pattern.matcher(str);</span>
+<span class="nc bnc" id="L511" title="All 2 branches missed.">            if (!matcher.matches()) {</span>
+<span class="nc" id="L512">                return false;</span>
+            } else {
+<span class="nc bnc" id="L514" title="All 2 branches missed.">                if (uriTemplateVariables != null) {</span>
+<span class="nc bnc" id="L515" title="All 2 branches missed.">                    if (this.variableNames.size() != matcher.groupCount()) {</span>
+<span class="nc" id="L516">                        throw new IllegalArgumentException(&quot;The number of capturing groups in the pattern segment &quot; + this.pattern + &quot; does not match the number of URI template variables it defines, which can occur if capturing groups are used in a URI template regex. Use non-capturing groups instead.&quot;);</span>
+                    }
+
+<span class="nc bnc" id="L519" title="All 2 branches missed.">                    for(int i = 1; i &lt;= matcher.groupCount(); ++i) {</span>
+<span class="nc" id="L520">                        String name = (String)this.variableNames.get(i - 1);</span>
+<span class="nc" id="L521">                        String value = matcher.group(i);</span>
+<span class="nc" id="L522">                        uriTemplateVariables.put(name, value);</span>
+                    }
+                }
+
+<span class="nc" id="L526">                return true;</span>
+            }
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
