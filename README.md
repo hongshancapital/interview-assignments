@@ -105,6 +105,19 @@ Please find your assignment in subfolder accordingly.
 
 ## 作业在哪？如何提交？
 
+### 设计师
+
+发送你的作业和简历/作品集至以下地址：
+
+```
+cmVjcnVpdGluZy5kZXNpZ25Ac2VxdW9pYWNhcC5jb20=
+```
+
+（防止爬虫进行了 base64 编码，可以通过[这个链接](https://tool.oschina.net/encrypt?type=3)进行解析）
+
+
+### 其他岗位
+
 Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提交一个 Pull Request 即可。如果方便，可以在 PR 描述中留下你的简历。
 
 ## 还有其他要补充的吗？
