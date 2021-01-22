@@ -20,7 +20,6 @@ struct ResultSection: View {
 struct ContentView: View {
     @State private var searchText: String = ""
     @State private var searchError = false
-    @State private var searching = false
     @State private var productGroups: [ProductGroup] = []
     
     var body: some View {
@@ -35,7 +34,7 @@ struct ContentView: View {
                         }
                     }
                     .listStyle(GroupedListStyle())
-                } else if searching {
+                } else if searchText != "" {
                     ErrorView(error: "No Result")
                 }
             }
@@ -53,7 +52,6 @@ struct ContentView: View {
     }
     
     func search(value: String) {
-        searching = searchText != ""
         searchError = false
         
         let url = URL(string: "http://127.0.0.1:8080/search?q="+searchText)!
