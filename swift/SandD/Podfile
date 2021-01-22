@@ -1,0 +1,20 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'SandD' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for SandD
+  pod "GCDWebServer", "~> 3.0"
+
+  target 'SandDTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'SandDUITests' do
+    # Pods for testing
+  end
+
+end
