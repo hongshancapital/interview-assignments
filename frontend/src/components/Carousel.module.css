@@ -1,0 +1,55 @@
+.carouselContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carouselSlideWrapper {
+  display: flex;
+  height: 100%;
+  transition: transform .5s ease;
+  transform: translateX(0);
+}
+
+.carouselIndicators {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  bottom: 6%;
+}
+
+.carouselIndicatorItem {
+  padding: 4px 0;
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+.carouselIndicatorItemBackground {
+  height: 2px;
+  width: 32px;
+  background-color: #a0a0a0;
+  position: relative;
+}
+
+.carouselIndicatorItemFill {
+  height: 100%;
+  width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #f9f9f9;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
