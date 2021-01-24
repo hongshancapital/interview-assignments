@@ -1,5 +1,8 @@
 # TypeScript Frontend Engineer Assignment
 
+## 预览
+[https://frontend-homework-preview.vercel.app/](https://frontend-homework-preview.vercel.app/)
+
 ## 要求
 
 - 实现 demo.mov 中的效果
