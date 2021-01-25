@@ -8,7 +8,7 @@
 
 1. 系统设计文档
 
-   [文档](./short-url/README.md)
+   [文档](./short-url/)
 
 2. [源代码](./short-url)
 
@@ -24,7 +24,7 @@
 
 5. 简单的框架设计图，以及所有做的假设
 
-   [流程图](./short-url/README.md#design)
+   [流程图](./short-url#design)
 
 6. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
 
@@ -32,11 +32,11 @@
 
 7. CI/CD、日志、监控和报警的设计
 
-   [监控](short-url/README.md#monitor)
+   [监控](short-url#monitor)
 
 8. （Bonus），使用 Google/AWS/Aliyun 制作相关的 CI/CD pipeline， 并且提供 IAM 可以 preview
 
-   [AWS CodeBuild](short-url/README.md#pipeline)
+   [AWS CodeBuild](short-url#pipeline)
 
 ### Question 2
 
