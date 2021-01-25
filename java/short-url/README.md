@@ -1,4 +1,4 @@
-#短域名服务
+# 短域名服务
 
 * [问题解决](#Question)
 
@@ -16,14 +16,14 @@
   
 
  <span id="Question"> </span>
-##问题解决
+## 问题解决
 
  <span id="Cocurrent"> </span>
-###高可用、容灾、高并发访问
+### 高可用、容灾、高并发访问
 
 使用分布式发号器解决分布式部署uid问题，同时可以将其作为分片键做分库分表
 
-#####单机压测结果
+##### 单机压测结果
 
 ```shell
 服务器配置：
@@ -72,7 +72,7 @@ Percentage of the requests served within a certain time (ms)
 
 ```
 
-#####集群压测结果
+##### 集群压测结果
 
 ```shell
 服务器配置：
@@ -133,7 +133,7 @@ UID并发瓶颈大概为：28节点部署的情况下14400 UID/s 。但是由于
 
  <span id="location"> </span>
 
-###全球不同地理区域访问体验
+### 全球不同地理区域访问体验
 
 整体策略如下
 
@@ -174,7 +174,7 @@ UID并发瓶颈大概为：28节点部署的情况下14400 UID/s 。但是由于
 
  <span id="pipeline"> </span>
 
-##CI/CD pipeline
+## CI/CD pipeline
 
 * 集成 spring cloud config 实现配置中心
 * 基于 aws 的 CodePipeline CodeBuild CodeDeploy 实现自动化部署
