@@ -1,0 +1,32 @@
+server:
+  port: 9002
+eureka:
+  client:
+    serviceUrl: # eureka server的路径
+      defaultZone: http://shoturldemo:8761/eureka/,http://shoturldemoB:8762/eureka/ #把 eureka 集群中的所有 url 都填写了进来，也可以只写一台，因为各个 eureka server 可以同步注册表
+  instance:
+    #使用ip注册，否则会使用主机名注册了（此处考虑到对老版本的兼容，新版本经过实验都是ip）
+    prefer-ip-address: true
+    #自定义实例显示格式，加上版本号，便于多版本管理，注意是ip-address，早期版本是ipAddress
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+spring:
+  application:
+  name: lagou-cloud-gateway
+  cloud:
+    gateway:
+      routes: # 路由可以有多个
+        - id: service-autodeliver-router # 我们自定义的路由 ID，保持唯一
+          #uri: http://127.0.0.1:8096  # 目标服务地址  自动投递微服务（部署多实例）  动态路由：uri配置的应该是一个服务名称，而不应该是一个具体的服务实例的地址
+          uri: lb://lagou-service-autodeliver                                                                    # gateway网关从服务注册中心获取实例信息然后负载后路由
+          predicates:                                         # 断言：路由条件，Predicate 接受一个输入参数，返回一个布尔值结果。该接口包含多种默 认方法来将 Predicate 组合成其他复杂的逻辑（比如：与，或，非）。
+            - Path=/autodeliver/**
+        - id: service-resume-router      # 我们自定义的路由 ID，保持唯一
+          #uri: http://127.0.0.1:8081       # 目标服务地址
+          #http://localhost:9002/resume/openstate/1545132
+
+          #http://127.0.0.1:8081/openstate/1545132
+          uri: lb://lagou-service-resume
+          predicates:                                         # 断言：路由条件，Predicate 接受一个输入参数，返回一个布尔值结果。该接口包含多种默 认方法来将 Predicate 组合成其他复杂的逻辑（比如：与，或，非）。
+            - Path=/resume/**
+          filters:
+            - StripPrefix=1
