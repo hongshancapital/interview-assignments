@@ -7,13 +7,36 @@
 我们希望你递交的作业内容包括：
 
 1. 系统设计文档
-2. 源代码
+
+   [文档](./short-url/README.md)
+
+2. [源代码](./short-url)
+
 3. 单元测试代码以及单元测试覆盖率
+
+   [单元测试](./short-url/short-url-web/src/test/java/)
+
 4. API 集成测试案例以及测试结果
+
+   [国内多节点部署](https://luman.work)
+
+   [国外与大陆多地区部署](http://a.luman.work)
+
 5. 简单的框架设计图，以及所有做的假设
+
+   [流程图](./short-url/README.md#design)
+
 6. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+
+   [SQL](short-url/short-url.sql)
+
 7. CI/CD、日志、监控和报警的设计
+
+   [监控](short-url/README.md#monitor)
+
 8. （Bonus），使用 Google/AWS/Aliyun 制作相关的 CI/CD pipeline， 并且提供 IAM 可以 preview
+
+   [AWS CodeBuild](short-url/README.md#pipeline)
 
 ### Question 2
 
@@ -49,3 +72,4 @@
 6. 持续保持技术激情，善于快速学习，注重代码质量，有良好的软件工程知识和编码规范意识；
 7. 具有较好的沟通能力、思路清晰、善于思考、能独立分析和解决问题；
 8. 有强烈的责任心和团队合作精神，积极融入团队；
+
