@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct ProductGroup: Hashable, Decodable {
     var category: String
@@ -17,26 +18,58 @@ struct ResultSection: View {
     }
 }
 
+final class SearchProductModel: ObservableObject {
+    @Published private(set) var productGroups: [ProductGroup]? = nil
+    
+    private var searchCancellable: Cancellable? {
+        didSet { oldValue?.cancel() }
+    }
+
+    deinit {
+        searchCancellable?.cancel()
+    }
+    
+    func search(text: String) {
+        var urlComponents = URLComponents(string: "http://127.0.0.1:8080/search")!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "q", value: text)
+        ]
+
+        var request = URLRequest(url: urlComponents.url!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        searchCancellable = URLSession.shared.dataTaskPublisher(for: request)
+            .map { $0.data }
+            .decode(type: [ProductGroup]?.self, decoder: JSONDecoder())
+            .replaceError(with: nil)
+            .receive(on: RunLoop.main)
+            .assign(to: \.productGroups, on: self)
+
+    }
+}
+
 struct ContentView: View {
-    @State private var searchText: String = ""
-    @State private var searchError = false
-    @State private var productGroups: [ProductGroup] = []
+    @ObservedObject var searchModel = SearchProductModel()
+    @State var searchText = ""
+    @State var isSearching = false
     
     var body: some View {
         NavigationView {
             VStack {
-                SearchBarView(searchText: $searchText)
-                if searchError {
-                    ErrorView(error: "Error occured on requesting")
-                } else if productGroups != [] {
-                    List {
-                        ForEach(self.productGroups, id: \.self) { group in
-                            ResultSection(productGroup: group)
+                SearchBarView(searchText: $searchText, isSearching: $isSearching, perform: searchModel.search)
+                if self.isSearching {
+                    if searchModel.productGroups == nil {
+                        ErrorView(error: "Error occured on requesting")
+                    } else if searchModel.productGroups! != [] {
+                        List {
+                            ForEach(searchModel.productGroups!, id: \.self) { group in
+                                ResultSection(productGroup: group)
+                            }
                         }
+                        .listStyle(GroupedListStyle())
+                    } else {
+                        ErrorView(error: "No Result")
                     }
-                    .listStyle(GroupedListStyle())
-                } else if searchText != "" {
-                    ErrorView(error: "No Result")
                 } else {
                     Spacer()
                 }
@@ -44,38 +77,10 @@ struct ContentView: View {
             .navigationTitle("Search")
         }
         .onAppear(perform: initView)
-        .onChange(of: searchText, perform: { value in
-            search(value: value)
-        })
     }
     
     func initView() {
         initWebServer()
-    }
-    
-    func search(value: String) {
-        searchError = false
-        
-        let url = URL(string: "http://127.0.0.1:8080/search?q="+searchText)!
-
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            if error != nil {
-                print("Network error: \(String(describing: error)).")
-                searchError = true
-                return
-            }
-            let data = data!
-            print(String(data: data, encoding: .utf8)!)
-            let decoder = JSONDecoder()
-            do {
-                productGroups = try decoder.decode([ProductGroup].self, from: data)
-            } catch {
-                print("Decode error: \(error).")
-                searchError = true
-            }
-        }
-
-        task.resume()
     }
 }
 
@@ -87,7 +92,9 @@ struct ContentView_Previews: PreviewProvider {
 
 struct SearchBarView: View {
     @Binding var searchText: String
+    @Binding var isSearching: Bool
     @State private var isEditing: Bool = false
+    var perform: ((String) -> Void)? = nil
     var placeholder: String = "Tap here to search"
     
     var body: some View {
@@ -101,13 +108,19 @@ struct SearchBarView: View {
                         Text(placeholder)
                     }
                     TextField("", text: $searchText, onEditingChanged: { isEditing in
-                              self.isEditing = true
-                          }).foregroundColor(.primary)
+                        self.isEditing = true
+                    }, onCommit: {
+                        if self.perform != nil {
+                            self.perform!(searchText)
+                        }
+                        self.isSearching = true
+                    }).foregroundColor(.primary)
                 }
                 
                 // Clear button
                 Button(action: {
                     self.searchText = ""
+                    self.isSearching = false
                 }) {
                     Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                 }
