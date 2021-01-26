@@ -18,12 +18,21 @@
 1. Bash 或其他脚本语言，假设在 Mac 环境下，进行操作
 2. Powershell，假设在 windows 环境下，进行操作
 
-#### 说明
+#### 解答说明
 1. 使用python语言处理日志，脚本文件'log_analysis.py'  
 2. 需要将原日志中某些不规范的行清洗，比如  
 ```
         ASL Module "com.apple.cdscheduler" claims selected messages.
         Those messages may not appear in standard system log files or in the ASL database.
+```
+3. 生成的json文件为：DevOps_interview_data_set.json
+```
+{
+"deviceName": "BBAOMACBOOKAIR2",
+"processName": "com.apple.xpc.launchd",
+"processId": "1",
+"timeWindow": "00",
+"description": "(com.apple.mdworker.bundles[12513]): Could not find uid associated with service: 0: Undefined error: 0 501"},
 ```
 ### Q2
 
@@ -53,7 +62,7 @@ footer 3
 testline 5
 dafsd812342 9
 ```
-#### 说明  
+#### 解答说明  
 1. 将输入样例输入到一个文件：3_log.txt
 2. 命令及输出如下：
 ```
