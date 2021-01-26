@@ -182,7 +182,7 @@ UID并发瓶颈大概为：28节点部署的情况下14400 UID/s 。但是由于
 研究了一下 aws ，感觉功能性还是很强的。配置项很多，可拆分的组件也很多。简单的只做了一个部署流程，部署服务器为海外服务。
 
 由于IAM 账号能看到 spring cloud config 的密码，就没在文档里提供账号密码。需要查看辛苦给我发下邮件。
-
+![CodePipeline](CodePipeline.png)
 
  <span id="monitor"> </span>
 
