@@ -57,7 +57,7 @@ public class ShortUrlController {
         String url = shortUrlService.getUrl(code);
         try {
             if(StringUtils.isEmpty(url)){
-                return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(new URI("/index")).build();
+                return ResponseEntity.status(HttpStatus.MOVED_TEMPORARILY).location(new URI("/index")).build();
             }
             return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(new URI(url)).build();
         }catch (URISyntaxException e) {
