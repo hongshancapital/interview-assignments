@@ -14,7 +14,7 @@ struct ErrorView: View {
             Text(error)
                 .font(.footnote)
                 .fontWeight(.thin)
-                .foregroundColor(Color.gray)
+                .foregroundColor(.secondary)
                 .padding(.top, 70)
             Spacer()
         }

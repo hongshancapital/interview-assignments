@@ -25,6 +25,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
+                SearchBarView(searchText: $searchText)
                 if searchError {
                     ErrorView(error: "Error occured on requesting")
                 } else if productGroups != [] {
@@ -36,10 +37,11 @@ struct ContentView: View {
                     .listStyle(GroupedListStyle())
                 } else if searchText != "" {
                     ErrorView(error: "No Result")
+                } else {
+                    Spacer()
                 }
             }
             .navigationTitle("Search")
-            .overlay(NavigationSearch(text: $searchText, placeholder: "Tap here to search").frame(width: 0, height: 0))
         }
         .onAppear(perform: initView)
         .onChange(of: searchText, perform: { value in
@@ -80,5 +82,42 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct SearchBarView: View {
+    @Binding var searchText: String
+    @State private var isEditing: Bool = false
+    var placeholder: String = "Tap here to search"
+    
+    var body: some View {
+        HStack {
+            HStack {
+                Image(systemName: "magnifyingglass")
+                
+                // Search text field
+                ZStack (alignment: .leading) {
+                    if searchText.isEmpty { // Separate text for placeholder to give it the proper color
+                        Text(placeholder)
+                    }
+                    TextField("", text: $searchText, onEditingChanged: { isEditing in
+                              self.isEditing = true
+                          }).foregroundColor(.primary)
+                }
+                
+                // Clear button
+                Button(action: {
+                    self.searchText = ""
+                }) {
+                    Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                }
+            }
+            .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+            .foregroundColor(.secondary) // For magnifying glass and placeholder test
+            .background(Color(.tertiarySystemFill))
+            .cornerRadius(10.0)
+        }
+        .padding(.horizontal)
+        .navigationBarHidden(isEditing)
     }
 }
