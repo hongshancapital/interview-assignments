@@ -18,6 +18,13 @@
 1. Bash 或其他脚本语言，假设在 Mac 环境下，进行操作
 2. Powershell，假设在 windows 环境下，进行操作
 
+#### 说明
+1. 使用python语言处理日志，脚本文件'log_analysis.py'  
+2. 需要将原日志中某些不规范的行清洗，比如  
+```
+        ASL Module "com.apple.cdscheduler" claims selected messages.
+        Those messages may not appear in standard system log files or in the ASL database.
+```
 ### Q2
 
 使用 CDK，搭建一套 Fargate + ALB/NLB 的应用（应用可以参考 https://hub.docker.com/r/amazon/amazon-ecs-sample ），在私有网络的 VPC 环境中（无公网访问）
@@ -45,6 +52,17 @@ bar 4
 footer 3
 testline 5
 dafsd812342 9
+```
+#### 说明  
+1. 将输入样例输入到一个文件：3_log.txt
+2. 命令及输出如下：
+```
+cat 3_log.txt |awk '{print $2" "$1}'|sort -r
+9 dafsd812342
+5 testline
+4 bar
+3 footer
+1 foo
 ```
 
 ## 岗位描述
