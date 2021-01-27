@@ -14,7 +14,7 @@
 
 3. 单元测试代码以及单元测试覆盖率
 
-   [单元测试](./short-url/short-url-web/src/test/java/)
+   [单元测试](./short-url/short-url-web/src/test/java/com/luman/shorturl)
 
 4. API 集成测试案例以及测试结果
 
