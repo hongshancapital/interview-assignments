@@ -45,12 +45,25 @@
 我们希望你递交的作业内容包括：
 
 1. 系统设计文档
-2. 源代码
+
+   [README](./http-server)
+
+2. [源代码](./http-server)
+
 3. 单元测试代码以及单元测试覆盖率
+
+   [单元测试](./http-server/src/test/java)
+
 4. API 集成测试案例以及测试结果
+
 5. 简单的框架设计图，以及所有做的假设
+
 6. 性能指标即测试过程
+
+   [压测](./http-server#ab)
+
 7. CI/CD、日志、监控和报警的设计
+
 8. （Bonus），使用 Google/AWS/Aliyun 制作相关的 CI/CD pipeline， 并且提供 IAM 可以 preview
 
 ## Job Description
