@@ -1,3 +1,31 @@
+# 短链接
+- 短域名存储接口：接受长域名信息，返回短域名信息
+- 短域名读取接口：接受短域名信息，返回长域名信息。
+
+## 短链接设想关键词
+
+- 用户唯一判断（cookie实现）
+- redis缓存（加速访问）
+- 分步骤匹配短链接（优化逻辑）
+- 记录访问记录（ua、ip、用户等）
+
+## 访问短链接接口行为步骤
+
+1. 通过cookie分配uuid（用户唯一标识）
+2. 读取短链接（通过redis或者数据库）
+3. 记录访问记录
+
+## 如何运行
+```bash
+docker-compose up -d
+npm install
+npm run start:dev
+```
+浏览器打开http://localhost:3000/api/
+
+##流程图
+![avatar](./flow.png)
+
 # TypeScript Fullstack Engineer Assignment
 
 ### Typescript 实现短域名服务（细节可以百度/谷歌）
