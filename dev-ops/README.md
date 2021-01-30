@@ -19,7 +19,7 @@
 2. Powershell，假设在 windows 环境下，进行操作
 
 #### 解答说明
-(1) 使用python语言在Linux处理日志，脚本文件'log_analysis.py'  
+(1) 使用python语言在Linux环境处理日志，脚本文件：'log_analysis.py'  
 (2) 需要将原日志中某些不规范的日志数据行清洗，比如  
 ```
         ASL Module "com.apple.cdscheduler" claims selected messages.
