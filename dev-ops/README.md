@@ -19,13 +19,13 @@
 2. Powershell，假设在 windows 环境下，进行操作
 
 #### 解答说明
-1. 使用python语言处理日志，脚本文件'log_analysis.py'  
-2. 需要将原日志中某些不规范的行清洗，比如  
+(1) 使用python语言在Linux处理日志，脚本文件'log_analysis.py'  
+(2) 需要将原日志中某些不规范的日志数据行清洗，比如  
 ```
         ASL Module "com.apple.cdscheduler" claims selected messages.
         Those messages may not appear in standard system log files or in the ASL database.
 ```
-3. 生成的json文件为：DevOps_interview_data_set.json
+(3) 分析完成的日志json文件为：DevOps_interview_data_set.json
 ```
 {
 "deviceName": "BBAOMACBOOKAIR2",
@@ -49,7 +49,7 @@ WAF 配置
 使用 Typescript 编写相关 CDK 脚本
 
 #### 解答说明
-* (1)在中国区AWS测试
+(1)在中国区AWS测试
 ```
 [ec2-user@dev-bastion AWSEcsFargateService]$ ls -lrt
 total 344
@@ -111,9 +111,9 @@ export class AwsEcsFargateServiceStack extends cdk.Stack {
   }
 }
 ```
-* (2) 代码见文件：aws_ecs_fargate_service-stack.ts
-* (3) 在两个AZ分别创建Public/Private subnet, ECS创建于Private subnet中，通过Public Subnet的NAT下载image；ALB的AZ包含两个AZ的Public Subnet
-* (4) 可以通过ALB的DNS Name在internet访问,页面见截图：AWS-Example-Web.JPG
+(2) 代码见文件：aws_ecs_fargate_service-stack.ts
+(3) 在两个AZ分别创建Public/Private subnet, ECS创建于Private subnet中，通过Public Subnet的NAT下载image；ALB的AZ包含两个AZ的Public Subnet
+(4) 可以通过ALB的DNS Name在internet访问,页面见截图：AWS-Example-Web.JPG
 ### Q3
 
 假设目前我们有一个日志文件是这样的格式, 可以假设字符串开始（无空格），然后一个空格，然后一个正整数。
@@ -129,8 +129,8 @@ testline 5
 dafsd812342 9
 ```
 #### 解答说明  
-1. 将输入样例输入到一个文件：3_log.txt
-2. 命令及输出如下：
+(1) 将输入样例输入到一个文件：3_log.txt
+(2) 命令及输出如下：
 ```
 cat 3_log.txt |awk '{print $2" "$1}'|sort -r
 9 dafsd812342
