@@ -18,6 +18,22 @@
 1. Bash 或其他脚本语言，假设在 Mac 环境下，进行操作
 2. Powershell，假设在 windows 环境下，进行操作
 
+#### 解答说明
+(1) 使用python语言在Linux环境处理日志，脚本文件：'log_analysis.py'  
+(2) 需要将原日志中某些不规范的日志数据行清洗，比如  
+```
+        ASL Module "com.apple.cdscheduler" claims selected messages.
+        Those messages may not appear in standard system log files or in the ASL database.
+```
+(3) 分析完成的日志json文件为：DevOps_interview_data_set.json
+```
+{
+"deviceName": "BBAOMACBOOKAIR2",
+"processName": "com.apple.xpc.launchd",
+"processId": "1",
+"timeWindow": "00",
+"description": "(com.apple.mdworker.bundles[12513]): Could not find uid associated with service: 0: Undefined error: 0 501"},
+```
 ### Q2
 
 使用 CDK，搭建一套 Fargate + ALB/NLB 的应用（应用可以参考 https://hub.docker.com/r/amazon/amazon-ecs-sample ），在私有网络的 VPC 环境中（无公网访问）
@@ -32,6 +48,72 @@ WAF 配置
 
 使用 Typescript 编写相关 CDK 脚本
 
+#### 解答说明
+(1)在中国区AWS测试
+```
+[ec2-user@dev-bastion AWSEcsFargateService]$ ls -lrt
+total 344
+-rw-r--r--   1 ec2-user ec2-user    543 Jan 30 12:55 README.md
+-rw-r--r--   1 ec2-user ec2-user    130 Jan 30 12:55 jest.config.js
+drwxrwxr-x   2 ec2-user ec2-user   4096 Jan 30 12:55 bin
+drwxrwxr-x   2 ec2-user ec2-user   4096 Jan 30 12:55 test
+-rw-r--r--   1 ec2-user ec2-user    598 Jan 30 12:55 tsconfig.json
+-rw-rw-r--   1 ec2-user ec2-user    457 Jan 30 12:55 cdk.json
+drwxrwxr-x   2 ec2-user ec2-user   4096 Jan 30 12:56 cdk.out
+drwxrwxr-x 393 ec2-user ec2-user  16384 Jan 30 12:56 node_modules
+-rw-rw-r--   1 ec2-user ec2-user    697 Jan 30 12:56 package.json
+-rw-rw-r--   1 ec2-user ec2-user 297547 Jan 30 12:56 package-lock.json
+drwxrwxr-x   2 ec2-user ec2-user   4096 Jan 30 13:43 lib
+[ec2-user@dev-bastion AWSEcsFargateService]$ cat lib/aws_ecs_fargate_service-stack.ts 
+import * as cdk from '@aws-cdk/core';
+import * as ec2 from "@aws-cdk/aws-ec2";
+import * as ecs from "@aws-cdk/aws-ecs";
+import * as ecs_patterns from "@aws-cdk/aws-ecs-patterns";
+
+export class AwsEcsFargateServiceStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    //defines the stack
+    const vpc = new ec2.Vpc(this, "EcsFargateVpc", {
+      maxAzs: 2,
+      natGateways: 1,
+      cidr: '20.10.0.0/16',
+      subnetConfiguration: [
+                {
+                    cidrMask: 24,
+                    name: 'Public',
+                    subnetType: ec2.SubnetType.PUBLIC,
+                },
+                {
+                    cidrMask: 24,
+                    name: 'Private-ECS',
+                    subnetType: ec2.SubnetType.PRIVATE,
+                },
+            ]
+    });
+
+    const selection = vpc.selectSubnets({
+        subnetType: ec2.SubnetType.PRIVATE
+    });
+
+    const cluster = new ecs.Cluster(this, "ECSFargateCluster", {
+      vpc: vpc,
+      clusterName: "EcsFargate-cluster"
+    });
+
+    // Create a load-balanced Fargate service and make it public
+    new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService", {
+      cluster: cluster, 
+      desiredCount: 2, 
+      taskImageOptions: { image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample") }
+    });
+  }
+}
+```
+(2) 代码见文件：aws_ecs_fargate_service-stack.ts
+(3) 在两个AZ分别创建Public/Private subnet, ECS创建于Private subnet中，通过Public Subnet的NAT下载image；ALB的AZ包含两个AZ的Public Subnet
+(4) 可以通过ALB的DNS Name在internet访问,页面见截图：AWS-Example-Web.JPG
 ### Q3
 
 假设目前我们有一个日志文件是这样的格式, 可以假设字符串开始（无空格），然后一个空格，然后一个正整数。
@@ -45,6 +127,17 @@ bar 4
 footer 3
 testline 5
 dafsd812342 9
+```
+#### 解答说明  
+(1) 将输入样例输入到一个文件：3_log.txt
+(2) 命令及输出如下：
+```
+cat 3_log.txt |awk '{print $2" "$1}'|sort -r
+9 dafsd812342
+5 testline
+4 bar
+3 footer
+1 foo
 ```
 
 ## 岗位描述
