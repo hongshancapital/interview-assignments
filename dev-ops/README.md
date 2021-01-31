@@ -2,9 +2,7 @@
 
 ### Q1
 
-分析系统日志。DevOps_interview_data_set.gz
-
-分析系统日志得到关键信息，用 Json 的格式 POST 上传至服务器 https://foo.com/bar )，key 的名称在括号里
+分析系统日志: DevOps_interview_data_set.gz ,文件在Repo中。分析系统日志得到关键信息，用 Json 的格式 POST 上传至服务器 https://foo.com/bar )，key的名称在括号里：
 
 1. 设备名称: (deviceName)
 2. 错误的进程号码: (processId)
@@ -13,39 +11,25 @@
 5. 发生的时间（小时级），例如 0100-0200，0300-0400, (timeWindow)
 6. 在小时级别内发生的次数 (numberOfOccurrence)
 
-分别使用
-
-1. Bash 或其他脚本语言，假设在 Mac 环境下，进行操作
-2. Powershell，假设在 windows 环境下，进行操作
+***使用Python或sh完成***
 
 ### Q2
 
-使用 CDK，搭建一套 Fargate + ALB/NLB 的应用（应用可以参考 https://hub.docker.com/r/amazon/amazon-ecs-sample ），在私有网络的 VPC 环境中（无公网访问）
+作为开发团队的成员，您的任务是确保：
 
-#### 注意
+- 应用程序(一个简单的Java应用程序，返回Hello World)具有一定的弹性，并且单节点故障不会影响最终用户，您可以使用[此仓库](https://github.com/goxr3plus/Simplest-Spring-Boot-Hello-World)中提供的源代码，也可以创建自己的应用程序。
+- 可以伸缩应用程序，最好自动伸缩以处理增加的负载。
+- 基础架构和所需的服务以及应用程序部署是自动化的，可以通过在终端中单击按钮或命令来触发。
+- 在将应用程序的源代码更改合并到master分支之前，可以对其进行自动测试。
+- 可以启动该应用程序的特定版本以进行故障排除，测试，展示等。
+- 需要监控环境、应用的日志，自动执行事件管理和警报
 
-- VPC 的子网 no public assign attribute
+*您可以使用任何免费或开源的OS，软件包，工具等来开发解决方案*
 
-#### Bonus
+**Bonus**
 
-WAF 配置
+- 使用AWS、GCP
 
-使用 Typescript 编写相关 CDK 脚本
-
-### Q3
-
-假设目前我们有一个日志文件是这样的格式, 可以假设字符串开始（无空格），然后一个空格，然后一个正整数。
-使用任何方式，来对这个文件内容按照数字从大到小进行排序。如果是代码，请附加代码，如果是命令行，请附加命令行。
-
-输入样例:
-
-```
-foo 1
-bar 4
-footer 3
-testline 5
-dafsd812342 9
-```
 
 ## 岗位描述
 
