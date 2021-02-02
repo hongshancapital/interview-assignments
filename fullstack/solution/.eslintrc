@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "airbnb-typescript/base"
+  ],
+  parserOptions: {
+    project: './tsconfig.json'
+  },
+  rules: {
+    "radix":0,
+    "class-methods-use-this":off,
+    "@typescript-eslint/naming-convention":0,
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {"argsIgnorePattern":"^dummy"}]
+  }
+}
