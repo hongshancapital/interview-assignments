@@ -1,0 +1,13 @@
+$regex = '^\w+\s\d+\s(?<hour>\d{2}):\d{2}:\d{2}\s(?<deviceName>\w+)\s(?<processName>[a-zA-Z\.]+)\[(?<processId>\d+)\][^:]*:\s(?<description>.*)$'
+foreach($line in Get-Content .\DevOps_interview_data_set.test1 ) {
+    if($line -match $regex){
+        $hour = $Matches.hour
+        $deviceName = $Matches.deviceName
+        $processName = $Matches.processName
+        $processId = $Matches.processId
+        $description = $Matches.description
+    } else {
+        $description += $line
+    }
+    echo $deviceName$description
+}
