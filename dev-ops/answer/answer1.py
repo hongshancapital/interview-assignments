@@ -39,6 +39,6 @@ def main():
       'numberOfOccurrence': res[key],
     })
 
-  requests.post("http://localhost:8080/", json=out)
+  requests.post("https://https://foo.com/bar", json=out)
    
 main()
