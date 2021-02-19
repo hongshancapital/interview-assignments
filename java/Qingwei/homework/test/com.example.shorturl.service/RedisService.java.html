@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../jacoco-resources/report.css" rel="stylesheet" type="text/css"/>
+    <link href="../jacoco-resources/report.gif" rel="shortcut icon" type="image/gif"/>
+    <title>RedisService.java</title>
+    <link href="../jacoco-resources/prettify.css" rel="stylesheet" type="text/css"/>
+    <script src="../jacoco-resources/prettify.js" type="text/javascript"></script>
+</head>
+<body onload="window['PR_TAB_WIDTH']=4;prettyPrint()">
+<div class="breadcrumb" id="breadcrumb"><span class="info"><a class="el_session"
+                                                              href="../jacoco-sessions.html">Sessions</a></span><a
+        class="el_report" href="../index.html">shorturl</a> &gt; <a class="el_package" href="index.source.html">com.example.shorturl.service</a>
+    &gt; <span class="el_source">RedisService.java</span></div>
+<h1>RedisService.java</h1>
+<pre class="source lang-java linenums">/*
+ * Copyright (C) 2018 hongsan, Inc. All Rights Reserved.
+ */
+package com.example.shorturl.service;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Component;
+
+/**
+ * redis 工具类
+ */
+@Component
+<span class="fc" id="L24">public class RedisService {</span>
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
+    /**
+     * 读取缓存k
+     *
+     * @param key
+     *
+     * @return
+     */
+    public String get(final String key) {
+<span class="nc" id="L37">        String result = null;</span>
+        try {
+<span class="nc"
+      id="L39">            ValueOperations&lt;String, String&gt; operations = redisTemplate.opsForValue();</span>
+<span class="nc" id="L40">            result = operations.get(key);</span>
+<span class="nc" id="L41">        } catch (Exception e) {</span>
+<span class="nc" id="L42">            e.printStackTrace();</span>
+<span class="nc" id="L43">            throw new RuntimeException(&quot;redis exception&quot;);</span>
+<span class="nc" id="L44">        }</span>
+
+<span class="nc" id="L46">        return result;</span>
+    }
+
+    /**
+     * 写入缓存
+     *
+     * @param key
+     * @param value
+     *
+     * @return
+     */
+    public boolean set(final String key, String value) {
+<span class="nc" id="L58">        boolean result = false;</span>
+        try {
+<span class="nc"
+      id="L60">            ValueOperations&lt;String, String&gt; operations = redisTemplate.opsForValue();</span>
+<span class="nc" id="L61">            operations.set(key, value);</span>
+<span class="nc" id="L62">            result = true;</span>
+<span class="nc" id="L63">        } catch (Exception e) {</span>
+<span class="nc" id="L64">            e.printStackTrace();</span>
+<span class="nc" id="L65">            throw new RuntimeException(&quot;redis exception&quot;);</span>
+<span class="nc" id="L66">        }</span>
+<span class="nc" id="L67">        return result;</span>
+    }
+
+    /**
+     * 写入缓存
+     *
+     * @param key
+     * @param value
+     *
+     * @return
+     */
+    public boolean set(final String key, String value, Integer expireTime) {
+<span class="nc" id="L79">        boolean result = false;</span>
+        try {
+<span class="nc"
+      id="L81">            ValueOperations&lt;String, String&gt; operations = redisTemplate.opsForValue();</span>
+<span class="nc" id="L82">            operations.set(key, value);</span>
+            // 负数过期时间则永不过期
+<span class="nc bnc" id="L84" title="All 4 branches missed.">            if (expireTime != null &amp;&amp; expireTime &gt; 0) {</span>
+<span class="nc" id="L85">                redisTemplate.expire(key, expireTime, TimeUnit.MINUTES);</span>
+            }
+<span class="nc" id="L87">            result = true;</span>
+<span class="nc" id="L88">        } catch (Exception e) {</span>
+<span class="nc" id="L89">            e.printStackTrace();</span>
+<span class="nc" id="L90">            throw new RuntimeException(&quot;redis exception&quot;);</span>
+<span class="nc" id="L91">        }</span>
+<span class="nc" id="L92">        return result;</span>
+    }
+
+}
+</pre>
+<div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shorturl.dao.ShortUrlDao">
+
+    <resultMap type="com.example.shorturl.domain.ShortUrl" id="resMap">
+        <id property="id" column="id"/>
+        <result property="longUrl" column="long_url"/>
+        <result property="shortUrl" column="short_url"/>
+    </resultMap>
+
+    <sql id="baseColumn">id, long_url, short_url</sql>
+
+    <select id="findByShortUrl" resultMap="resMap">
+        select
+        <include refid="baseColumn"/>
+        from short_url
+        where short_url = #{0} limit 1
+    </select>
+
+    <select id="findByLongUrl" resultMap="resMap">
+        select
+        <include refid="baseColumn"/>
+        from short_url
+        where long_url = #{0}
+    </select>
+
+    <insert id="insert" parameterType="ShortUrl">
+        insert into short_url(long_url, short_url)
+        values (#{longUrl}, #{shortUrl})
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            select
+            LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../jacoco-resources/report.css" rel="stylesheet" type="text/css"/>
+    <link href="../jacoco-resources/report.gif" rel="shortcut icon" type="image/gif"/>
+    <title>ShortUrlServiceImpl.java</title>
+    <link href="../jacoco-resources/prettify.css" rel="stylesheet" type="text/css"/>
+    <script src="../jacoco-resources/prettify.js" type="text/javascript"></script>
+</head>
+<body onload="window['PR_TAB_WIDTH']=4;prettyPrint()">
+<div class="breadcrumb" id="breadcrumb"><span class="info"><a class="el_session"
+                                                              href="../jacoco-sessions.html">Sessions</a></span><a
+        class="el_report" href="../index.html">shorturl</a> &gt; <a class="el_package" href="index.source.html">com.example.shorturl.service</a>
+    &gt; <span class="el_source">ShortUrlServiceImpl.java</span></div>
+<h1>ShortUrlServiceImpl.java</h1>
+<pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 hongsan, Inc. All Rights Reserved.
+ */
+package com.example.shorturl.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
+
+import com.example.shorturl.dao.ShortUrlDao;
+import com.example.shorturl.domain.ShortUrl;
+
+/**
+ * 短链接服务，缓存加数据库
+ * com.example.shorturl.service shorturl
+ *
+ * @create mencius 2021-02-18 19:41
+ */
+@Service
+<span class="fc" id="L21">public class ShortUrlServiceImpl implements ShortUrlService{</span>
+
+    @Autowired
+    private ShortUrlDao shortUrlDao;
+    @Autowired
+    private RedisService redisService;
+
+    @Override
+    public String queryLongUrl(String code) {
+<span class="nc" id="L30">        String fullUrl = redisService.get(code);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (!StringUtils.hasLength(fullUrl)){</span>
+<span class="nc" id="L32">            final ShortUrl byShortUrl = shortUrlDao.findByShortUrl(code);</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            if (byShortUrl != null){</span>
+<span class="nc" id="L34">                fullUrl =  byShortUrl.getShortUrl();</span>
+            }
+        }
+<span class="nc" id="L37">        return fullUrl;</span>
+    }
+
+    @Override
+    public String genCode(String fullUrl, int expirtTime) {
+<span class="nc" id="L42">        String code = redisService.get(fullUrl);</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (!StringUtils.hasLength(code)){</span>
+<span class="nc" id="L44">            final String md5 = DigestUtils.md5DigestAsHex(fullUrl.getBytes());</span>
+<span class="nc" id="L45">            final String[] codes = shortUrl(md5);</span>
+<span class="nc" id="L46">            code = codes[0];</span>
+<span class="nc" id="L47">            redisService.set(fullUrl, code, expirtTime);</span>
+<span class="nc" id="L48">            shortUrlDao.insert(new ShortUrl(fullUrl, code));</span>
+        }
+<span class="nc" id="L50">        return code;</span>
+    }
+
+
+    /**
+     * https://blog.csdn.net/dihuangtian01/article/details/98849862
+     * 传入32位md5值
+     *
+     * @param md5
+     * @return
+     */
+    public static String[] shortUrl(String md5) {
+        // 要使用生成 URL 的字符
+<span class="nc" id="L63">        String[] chars = new String[] { &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;,</span>
+                &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;A&quot;,
+                &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, &quot;P&quot;, &quot;Q&quot;, &quot;R&quot;, &quot;S&quot;, &quot;T&quot;, &quot;U&quot;, &quot;V&quot;,
+                &quot;W&quot;, &quot;X&quot;, &quot;Y&quot;, &quot;Z&quot;
+        };
+
+<span class="nc" id="L69">        String[] resUrl = new String[4];</span>
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (int i = 0; i &lt; 4; i++) {</span>
+
+            // 把加密字符按照 8 位一组 16 进制与 0x3FFFFFFF 进行位与运算，超过30位的忽略
+<span class="nc" id="L74">            String sTempSubString = md5.substring(i * 8, i * 8 + 8);</span>
+
+            // 这里需要使用 long 型来转换，因为 Inteper .parseInt() 只能处理 31 位 , 首位为符号位 , 如果不用 long ，则会越界
+<span class="nc" id="L77">            long lHexLong = 0x3FFFFFFF &amp; Long.parseLong(sTempSubString, 16);</span>
+<span class="nc" id="L78">            String outChars = &quot;&quot;;</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            for (int j = 0; j &lt; 6; j++) {</span>
+                // 把得到的值与 0x0000003D 进行位与运算，取得字符数组 chars 索引
+<span class="nc" id="L81">                long index = 0x0000003D &amp; lHexLong;</span>
+                // 把取得的字符相加
+<span class="nc" id="L83">                outChars += chars[(int) index];</span>
+                // 每次循环按位右移 5 位
+<span class="nc" id="L85">                lHexLong = lHexLong &gt;&gt; 5;</span>
+            }
+            // 把字符串存入对应索引的输出数组
+<span class="nc" id="L88">            resUrl[i] = outChars;</span>
+        }
+<span class="nc" id="L90">        return resUrl;</span>
+    }
+
+
+}
+</pre>
+<div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>
+</div>
+</body>
+</html>
