@@ -1,0 +1,18 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: cloud-ShortURL-service
+  redis:
+    host: 192.168.31.118
+    port: 6379
+    password:
+    timeout: 30000
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    instance-id: shortService001
