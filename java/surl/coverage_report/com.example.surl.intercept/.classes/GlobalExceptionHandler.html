@@ -1,0 +1,106 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GlobalExceptionHandler</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.surl.intercept</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GlobalExceptionHandler (com.example.surl.intercept)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GlobalExceptionHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.surl.intercept;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.surl.utils.Ajax;
+<i>4</i>&nbsp;import org.springframework.web.bind.annotation.ExceptionHandler;
+<i>5</i>&nbsp;import org.springframework.web.bind.annotation.ResponseBody;
+<i>6</i>&nbsp;import org.springframework.web.bind.annotation.RestControllerAdvice;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * @author 杨欢
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;@RestControllerAdvice
+<i>15</i>&nbsp;@ResponseBody
+<b class="fc"><i>16</i>&nbsp;public class GlobalExceptionHandler {</b>
+<i>17</i>&nbsp;    @ExceptionHandler(RuntimeException.class)
+<i>18</i>&nbsp;    public Ajax&lt;Object&gt; globalExceptionHandler(HttpServletResponse response, RuntimeException e) {
+<b class="nc"><i>19</i>&nbsp;        response.setStatus(500);</b>
+<b class="nc"><i>20</i>&nbsp;        e.printStackTrace();</b>
+<b class="nc"><i>21</i>&nbsp;        return Ajax.error(e);</b>
+<i>22</i>&nbsp;    }
+<i>23</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-02-20 00:30</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UrlMapper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.surl.mapper</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UrlMapper (com.example.surl.mapper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">UrlMapper</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.surl.mapper;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.surl.entity.UrlDO;
+<i>4</i>&nbsp;import org.apache.ibatis.annotations.Param;
+<i>5</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * @author 杨欢
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;@Repository
+<i>12</i>&nbsp;public interface UrlMapper {
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    void insertUrl(@Param(&quot;urlDO&quot;)UrlDO urlDO);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    UrlDO getUrlByUri(@Param(&quot;surl&quot;) String surl);
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    void deleteUrl(@Param(&quot;surl&quot;) String surl);
+<i>21</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-02-20 00:30</div>
+</div>
+</body>
+</html>

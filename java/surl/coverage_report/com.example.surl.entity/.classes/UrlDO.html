@@ -1,0 +1,120 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UrlDO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.surl.entity</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UrlDO (com.example.surl.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UrlDO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (10/ 11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.surl.entity;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import io.swagger.annotations.ApiModelProperty;
+<i>4</i>&nbsp;import lombok.AllArgsConstructor;
+<i>5</i>&nbsp;import lombok.Data;
+<i>6</i>&nbsp;import lombok.NoArgsConstructor;
+<i>7</i>&nbsp;import lombok.experimental.Accessors;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.Date;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * @author 杨欢
+<i>14</i>&nbsp; */
+<b class="fc"><i>15</i>&nbsp;@Data</b>
+<i>16</i>&nbsp;@Accessors(chain = true)
+<b class="nc"><i>17</i>&nbsp;@AllArgsConstructor</b>
+<b class="fc"><i>18</i>&nbsp;@NoArgsConstructor</b>
+<i>19</i>&nbsp;public class UrlDO {
+<i>20</i>&nbsp;
+<b class="fc"><i>21</i>&nbsp;    public UrlDO(String surl, String lurl) {</b>
+<b class="fc"><i>22</i>&nbsp;        this.surl = surl;</b>
+<b class="fc"><i>23</i>&nbsp;        this.lurl = lurl;</b>
+<b class="fc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @ApiModelProperty(hidden = true)
+<b class="fc"><i>28</i>&nbsp;    private long id;</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @ApiModelProperty(notes = &quot;短链接&quot;)
+<b class="fc"><i>31</i>&nbsp;    private String surl;</b>
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    @ApiModelProperty(notes = &quot;长链接&quot;)
+<b class="fc"><i>34</i>&nbsp;    private String lurl;</b>
+<i>35</i>&nbsp;
+<b class="fc"><i>36</i>&nbsp;    private Date createdAt;</b>
+<i>37</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-02-20 00:30</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Ajax</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.surl.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Ajax (com.example.surl.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Ajax</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70.6%
+  </span>
+  <span class="absValue">
+    (12/ 17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.surl.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import cn.hutool.core.date.DateUtil;
+<i>4</i>&nbsp;import io.swagger.annotations.ApiModelProperty;
+<i>5</i>&nbsp;import lombok.Data;
+<i>6</i>&nbsp;import lombok.NoArgsConstructor;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * @author 杨欢
+<i>11</i>&nbsp; */
+<b class="fc"><i>12</i>&nbsp;@Data</b>
+<b class="fc"><i>13</i>&nbsp;@NoArgsConstructor</b>
+<i>14</i>&nbsp;public class Ajax&lt;T&gt; {
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    @ApiModelProperty(value = &quot;错误码&quot;)
+<b class="fc"><i>17</i>&nbsp;    private int code;</b>
+<i>18</i>&nbsp;    @ApiModelProperty(value = &quot;信息&quot;)
+<b class="fc"><i>19</i>&nbsp;    private String msg;</b>
+<i>20</i>&nbsp;    @ApiModelProperty(value = &quot;内容&quot;)
+<b class="fc"><i>21</i>&nbsp;    private Object data;</b>
+<i>22</i>&nbsp;    @ApiModelProperty(value = &quot;返回时间&quot;)
+<b class="fc"><i>23</i>&nbsp;    private String timestamp;</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    // 请求处理成功，并响应结果数据
+<i>26</i>&nbsp;    public static &lt;T&gt; Ajax&lt;T&gt; success(T data) {
+<b class="fc"><i>27</i>&nbsp;        Ajax&lt;T&gt; resp = new Ajax&lt;&gt;();</b>
+<b class="fc"><i>28</i>&nbsp;        resp.setCode(0);</b>
+<b class="fc"><i>29</i>&nbsp;        resp.setMsg(&quot;success&quot;);</b>
+<b class="fc"><i>30</i>&nbsp;        resp.setData(data);</b>
+<b class="fc"><i>31</i>&nbsp;        resp.setTimestamp(DateUtil.now());</b>
+<b class="fc"><i>32</i>&nbsp;        return resp;</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    public static &lt;T&gt; Ajax&lt;T&gt; error(RuntimeException e) {
+<b class="nc"><i>37</i>&nbsp;        Ajax&lt;T&gt; resp = new Ajax&lt;&gt;();</b>
+<b class="nc"><i>38</i>&nbsp;        resp.setCode(-1);</b>
+<b class="nc"><i>39</i>&nbsp;        resp.setMsg(e.getMessage());</b>
+<b class="nc"><i>40</i>&nbsp;        resp.setTimestamp(DateUtil.now());</b>
+<b class="nc"><i>41</i>&nbsp;        return resp;</b>
+<i>42</i>&nbsp;    }
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-02-20 00:30</div>
+</div>
+</body>
+</html>

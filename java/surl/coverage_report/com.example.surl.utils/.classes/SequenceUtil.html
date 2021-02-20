@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SequenceUtil</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.surl.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SequenceUtil (com.example.surl.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SequenceUtil</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (3/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (15/ 30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.surl.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import cn.hutool.core.date.SystemClock;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * 简化雪花ID
+<i>8</i>&nbsp; * @author 杨欢
+<i>9</i>&nbsp; */
+<i>10</i>&nbsp;public class SequenceUtil {
+<i>11</i>&nbsp;    /** 初始偏移时间戳 */
+<i>12</i>&nbsp;    private static final long OFFSET = 1546300800L;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    /** 机器id (0~15 保留 16~31作为备份机器) */
+<i>15</i>&nbsp;    private static final long WORKER_ID;
+<i>16</i>&nbsp;    /** 机器id所占位数 (5bit, 支持最大机器数 2^5 = 32)*/
+<i>17</i>&nbsp;    private static final long WORKER_ID_BITS = 5L;
+<i>18</i>&nbsp;    /** 自增序列所占位数 (16bit, 支持最大每秒生成 2^16 = ‭65536‬) */
+<i>19</i>&nbsp;    private static final long SEQUENCE_ID_BITS = 16L;
+<i>20</i>&nbsp;    /** 机器id偏移位数 */
+<i>21</i>&nbsp;    private static final long WORKER_SHIFT_BITS = SEQUENCE_ID_BITS;
+<i>22</i>&nbsp;    /** 自增序列偏移位数 */
+<i>23</i>&nbsp;    private static final long OFFSET_SHIFT_BITS = SEQUENCE_ID_BITS + WORKER_ID_BITS;
+<i>24</i>&nbsp;    /** 机器标识最大值 (2^5 / 2 - 1 = 15) */
+<i>25</i>&nbsp;    private static final long WORKER_ID_MAX = ((1 &lt;&lt; WORKER_ID_BITS) - 1) &gt;&gt; 1;
+<i>26</i>&nbsp;    /** 备份机器ID开始位置 (2^5 / 2 = 16) */
+<i>27</i>&nbsp;    private static final long BACK_WORKER_ID_BEGIN = (1 &lt;&lt; WORKER_ID_BITS) &gt;&gt; 1;
+<i>28</i>&nbsp;    /** 自增序列最大值 (2^16 - 1 = ‭65535) */
+<i>29</i>&nbsp;    private static final long SEQUENCE_MAX = (1 &lt;&lt; SEQUENCE_ID_BITS) - 1;
+<i>30</i>&nbsp;    /** 发生时间回拨时容忍的最大回拨时间 (秒) */
+<i>31</i>&nbsp;    private static final long BACK_TIME_MAX = 1L;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /** 上次生成ID的时间戳 (秒) */
+<b class="fc"><i>34</i>&nbsp;    private static long lastTimestamp = 0L;</b>
+<i>35</i>&nbsp;    /** 当前秒内序列 (2^16)*/
+<b class="fc"><i>36</i>&nbsp;    private static long sequence = 0L;</b>
+<i>37</i>&nbsp;    /** 备份机器上次生成ID的时间戳 (秒) */
+<b class="fc"><i>38</i>&nbsp;    private static long lastTimestampBak = 0L;</b>
+<i>39</i>&nbsp;    /** 备份机器当前秒内序列 (2^16)*/
+<b class="fc"><i>40</i>&nbsp;    private static long sequenceBak = 0L;</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    static {
+<i>43</i>&nbsp;        // 初始化机器ID
+<i>44</i>&nbsp;        // 伪代码: 由你的配置文件获取节点ID
+<b class="fc"><i>45</i>&nbsp;        long workerId = 1L;</b>
+<b class="fc"><i>46</i>&nbsp;        if (workerId &lt; 0 || workerId &gt; WORKER_ID_MAX) {</b>
+<b class="nc"><i>47</i>&nbsp;            throw new IllegalArgumentException(String.format(&quot;cmallshop.workerId范围: 0 ~ %d 目前: %d&quot;, WORKER_ID_MAX, workerId));</b>
+<i>48</i>&nbsp;        }
+<b class="fc"><i>49</i>&nbsp;        WORKER_ID = workerId;</b>
+<b class="fc"><i>50</i>&nbsp;    }</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /** 私有构造函数禁止外部访问 */
+<b class="nc"><i>53</i>&nbsp;    private SequenceUtil() {}</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * 获取自增序列
+<i>57</i>&nbsp;     * @return long
+<i>58</i>&nbsp;     */
+<i>59</i>&nbsp;    public static long nextId() {
+<b class="fc"><i>60</i>&nbsp;        return nextId(SystemClock.now() / 1000);</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * 主机器自增序列
+<i>65</i>&nbsp;     * @param timestamp 当前Unix时间戳
+<i>66</i>&nbsp;     * @return long
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    private static synchronized long nextId(long timestamp) {
+<i>69</i>&nbsp;        // 时钟回拨检查
+<b class="fc"><i>70</i>&nbsp;        if (timestamp &lt; lastTimestamp) {</b>
+<i>71</i>&nbsp;            // 发生时钟回拨
+<b class="nc"><i>72</i>&nbsp;            return nextIdBackup(timestamp);</b>
+<i>73</i>&nbsp;        }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;        // 开始下一秒
+<b class="fc"><i>76</i>&nbsp;        if (timestamp != lastTimestamp) {</b>
+<b class="fc"><i>77</i>&nbsp;            lastTimestamp = timestamp;</b>
+<b class="fc"><i>78</i>&nbsp;            sequence = 0L;</b>
+<i>79</i>&nbsp;        }
+<b class="fc"><i>80</i>&nbsp;        if (0L == (++sequence &amp; SEQUENCE_MAX)) {</b>
+<i>81</i>&nbsp;            // 秒内序列用尽
+<i>82</i>&nbsp;            //            log.warn(&quot;秒内[{}]序列用尽, 启用备份机器ID序列&quot;, timestamp);
+<b class="nc"><i>83</i>&nbsp;            sequence--;</b>
+<b class="nc"><i>84</i>&nbsp;            return nextIdBackup(timestamp);</b>
+<i>85</i>&nbsp;        }
+<i>86</i>&nbsp;
+<b class="fc"><i>87</i>&nbsp;        return ((timestamp - OFFSET) &lt;&lt; OFFSET_SHIFT_BITS) | (WORKER_ID &lt;&lt; WORKER_SHIFT_BITS) | sequence;</b>
+<i>88</i>&nbsp;    }
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    /**
+<i>91</i>&nbsp;     * 备份机器自增序列
+<i>92</i>&nbsp;     * @param timestamp timestamp 当前Unix时间戳
+<i>93</i>&nbsp;     * @return long
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    private static long nextIdBackup(long timestamp) {
+<b class="nc"><i>96</i>&nbsp;        if (timestamp &lt; lastTimestampBak) {</b>
+<b class="nc"><i>97</i>&nbsp;            if (lastTimestampBak - SystemClock.now() / 1000 &lt;= BACK_TIME_MAX) {</b>
+<b class="nc"><i>98</i>&nbsp;                timestamp = lastTimestampBak;</b>
+<i>99</i>&nbsp;            } else {
+<b class="nc"><i>100</i>&nbsp;                throw new RuntimeException(String.format(&quot;时钟回拨: now: [%d] last: [%d]&quot;, timestamp, lastTimestampBak));</b>
+<i>101</i>&nbsp;            }
+<i>102</i>&nbsp;        }
+<i>103</i>&nbsp;
+<b class="nc"><i>104</i>&nbsp;        if (timestamp != lastTimestampBak) {</b>
+<b class="nc"><i>105</i>&nbsp;            lastTimestampBak = timestamp;</b>
+<b class="nc"><i>106</i>&nbsp;            sequenceBak = 0L;</b>
+<i>107</i>&nbsp;        }
+<i>108</i>&nbsp;
+<b class="nc"><i>109</i>&nbsp;        if (0L == (++sequenceBak &amp; SEQUENCE_MAX)) {</b>
+<i>110</i>&nbsp;            // 秒内序列用尽
+<i>111</i>&nbsp;            //            logger.warn(&quot;秒内[{}]序列用尽, 备份机器ID借取下一秒序列&quot;, timestamp);
+<b class="nc"><i>112</i>&nbsp;            return nextIdBackup(timestamp + 1);</b>
+<i>113</i>&nbsp;        }
+<i>114</i>&nbsp;
+<b class="nc"><i>115</i>&nbsp;        return ((timestamp - OFFSET) &lt;&lt; OFFSET_SHIFT_BITS) | ((WORKER_ID ^ BACK_WORKER_ID_BEGIN) &lt;&lt; WORKER_SHIFT_BITS) | sequenceBak;</b>
+<i>116</i>&nbsp;    }
+<i>117</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-02-20 00:30</div>
+</div>
+</body>
+</html>
