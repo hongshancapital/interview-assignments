@@ -1,7 +1,5 @@
 package com.example.shorturl.service;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,19 +17,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class RedisServiceTest {
+public class RedisServiceTests {
 
-    private static Logger logger = LoggerFactory.getLogger(RedisServiceTest.class);
+    private static Logger logger = LoggerFactory.getLogger(RedisServiceTests.class);
     @Autowired(required = false)
     private RedisService redisService;
-
-    @Before
-    public void before() throws Exception {
-    }
-
-    @After
-    public void after() throws Exception {
-    }
 
     /**
      * Method: get(final String key)

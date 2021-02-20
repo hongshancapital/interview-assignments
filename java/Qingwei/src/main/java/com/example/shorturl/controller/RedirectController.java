@@ -32,7 +32,7 @@ public class RedirectController {
     ShortUrlServiceImpl shortUrlService;
 
     /**
-     * 重定向到fullUrl
+     * 重定向到fullUrl,即查询服务。
      *
      * @param code
      * @return
@@ -48,7 +48,7 @@ public class RedirectController {
             if (!StringUtils.hasLength(url)) {
                 return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(new URI("/")).build();
             }
-            return ResponseEntity.status(HttpStatus.FOUND).location(new URI(url)).build();
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(new URI(url)).build();
         } catch (URISyntaxException e) {
             return ResponseEntity.notFound().build();
         }

@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class ShortUrlServiceImplTest {
+public class ShortUrlServiceImplTests {
 
     @Autowired(required = false)
     private ShortUrlServiceImpl shortUrlServiceImpl;
@@ -35,7 +35,11 @@ public class ShortUrlServiceImplTest {
      */
     @Test
     public void testQueryLongUrl() throws Exception {
-        final String fullUrl = shortUrlServiceImpl.queryLongUrl("aaaaaa");
+
+        String fullUrl = shortUrlServiceImpl.queryLongUrl("aaaaaa");
+
+        final String code = shortUrlServiceImpl.genCode("http://www.cctv.com", 10);
+        fullUrl = shortUrlServiceImpl.queryLongUrl(code);
     }
 
     /**
