@@ -32,27 +32,29 @@ def logsFilter(file):
     pattern1 = "(?P<month>\w+) (?P<day>\d+) (?P<hour>\d+):(?P<minute>\d+):(?P<second>\d+) (?P<deviceName>\w+) \w+.*\s\((?P<processName>\w+.*)?\[?\.(?P<processId>\d+)?\]?\):\s(?P<description>\w+.*)"
     pattern2 = "(?P<month>\w+) (?P<day>\d+) (?P<hour>\d+):(?P<minute>\d+):(?P<second>\d+) (?P<deviceName>\w+) \w+.*\s\((?P<processName>\w+.*)\[(?P<processId>\d+)\]\):\s(?P<description>\w+.*)"
     pattern3 = "(?P<month>\w+) (?P<day>\d+) (?P<hour>\d+):(?P<minute>\d+):(?P<second>\d+) (?P<deviceName>\w+) \w+.*:\s(?P<processName>\w+.*):\s(?P<processId>\d+):\s(?P<description>\w+.*)"
-    with open(file) as f:
-        for line in f:
-            if re.findall("Undefined error:", line.strip()):
-                res = re.match(pattern2, line.strip())
-                list.append(getDictValue(res.group('hour'), res.group('deviceName'), res.group('processId'), res.group('processName'), res.group('description')))
-            elif re.findall("error =", line.strip()):
-                res = re.match(pattern1, line.strip())
-                list.append(getDictValue(res.group('hour'), res.group('deviceName'), res.group('processId'), res.group('processName'), res.group('description')))
-            elif re.findall("with_error", line.strip()):
-                res = re.match(pattern3, line.strip())
-                list.append(getDictValue(res.group('hour'), res.group('deviceName'), res.group('processId'), res.group('processName'), res.group('description')))
-            else:
-                pass
-    return list
+    try:
+        with open(file) as f:
+            for line in f:
+                if re.findall("Undefined error:", line.strip()):
+                    res = re.match(pattern2, line.strip())
+                    list.append(getDictValue(res.group('hour'), res.group('deviceName'), res.group('processId'), res.group('processName'), res.group('description')))
+                elif re.findall("error =", line.strip()):
+                    res = re.match(pattern1, line.strip())
+                    list.append(getDictValue(res.group('hour'), res.group('deviceName'), res.group('processId'), res.group('processName'), res.group('description')))
+                elif re.findall("with_error", line.strip()):
+                    res = re.match(pattern3, line.strip())
+                    list.append(getDictValue(res.group('hour'), res.group('deviceName'), res.group('processId'), res.group('processName'), res.group('description')))
+                else:
+                    pass
+        return list
+    except Exception as err:
+        print(err)
 
 ## send json data to server via post format
 def dataDelivery(dataInfo):
     if isinstance(dataInfo, dict):
         with open('data.json', 'a+') as f:
             f.write(json.dumps(dataInfo) +'\n')
-    #    print(json.dumps(dataInfo))
         try:
             res = requests.post(serverAdd, json.dumps(dataInfo))
             if res.status_code == 200:
@@ -96,7 +98,10 @@ def dataProcess(list):
     
 def main():
     (options, args) = parseOptions()
-    dataProcess(logsFilter(options.fileName))
+    if options.fileName != None:
+        dataProcess(logsFilter(options.fileName))
+    else:
+        print('please check parameter: -f ')
 
 if __name__ == '__main__':
     main()
