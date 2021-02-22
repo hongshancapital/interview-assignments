@@ -6,7 +6,7 @@ Please find your assignment in subfolder accordingly.
 
 ## 开放岗位
 
-北京：
+北京 (以下岗位签约实体均为中智)：
 - [Java](java/)
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
@@ -16,11 +16,11 @@ Please find your assignment in subfolder accordingly.
 - [UI 设计师](design/)
 
 上海/深圳/香港：
-- [Helpdesk](helpdesk/)
+- [Helpdesk](helpdesk/) (全职)
 
 链接中有更为具体的 JD。
 
-## 如果你还没听说过「红杉资本」...
+## 如果你还没听说过「红杉」...
 
 身为工程师的你一定听说过这些公司：Apple, Google, GitHub... 是的，这些公司背后都有红杉的身影。
 
