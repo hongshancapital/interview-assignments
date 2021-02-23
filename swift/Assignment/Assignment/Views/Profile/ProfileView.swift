@@ -19,7 +19,9 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            ProfileHeader(user: appState.currentUser ?? User.default)
+            if let user = appState.currentUser {
+                ProfileHeader(user: user)
+            }
             Spacer()
             Button(action: {
                 showingConfirmLogoutSheet = true

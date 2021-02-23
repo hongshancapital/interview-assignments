@@ -10,7 +10,6 @@ import SwiftUI
 struct AccountCreationView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = AccountCreationViewModel()
     
     private var createAccountButtonDisabled: Bool {

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = LoginViewModel()
     
     private var loginButtonDisabled: Bool {
