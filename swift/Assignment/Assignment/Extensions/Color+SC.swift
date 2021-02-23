@@ -1,8 +1,8 @@
 //
-//  Colors.swift
+//  Color+SC.swift
 //  Assignment
 //
-//  Created by Tpphha on 2021/2/22.
+//  Created by Tpphha on 2021/2/23.
 //
 
 import SwiftUI
