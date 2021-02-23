@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ToastUI
 
 struct ProfileView: View {
     
