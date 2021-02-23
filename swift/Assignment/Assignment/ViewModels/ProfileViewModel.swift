@@ -10,6 +10,9 @@ import Combine
 
 class ProfileViewModel: ObservableObject {
     // Output
+    var user: User? {
+        return appState.currentUser
+    }
     @Published var isLoading = false
     
     private var cancellableSet = Set<AnyCancellable>()

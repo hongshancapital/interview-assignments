@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @EnvironmentObject private var appState: AppState
     @StateObject private var viewModel = ProfileViewModel()
     @State private var showingConfirmLogoutSheet: Bool = false
     
@@ -19,7 +18,7 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            if let user = appState.currentUser {
+            if let user = viewModel.user {
                 ProfileHeader(user: user)
             }
             Spacer()
