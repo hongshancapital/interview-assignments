@@ -6,13 +6,15 @@ Please find your assignment in subfolder accordingly.
 
 ## 开放岗位
 
-北京 (以下岗位签约实体均为中智)：
+岗位非特别注明签约实体均为第三方 (外包)
+
+北京：
 - [Java](java/)
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
 - [QA](qa/)
-- [DevOps](dev-ops/)
+- [DevOps](dev-ops/) (全职)
 - [UI 设计师](design/)
 
 上海/深圳/香港：
