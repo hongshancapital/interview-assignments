@@ -51,6 +51,6 @@ print (result)
 
 # Create json format
 js = result.to_json(orient="records")
-jsonfile = open('file.json', 'w')
+jsonfile = open('./file.json', 'w')
 json.dump(json.loads(js), jsonfile)
 jsonfile.write('\n')

@@ -1,6 +1,6 @@
 
 # CI for Q1
-ci1: clean stage analyse post
+ci1: clean stage runQ1
 
 stage:
 	mkdir -p stage/
@@ -12,7 +12,7 @@ clean:
 	rm -rf stage
 
 runQ1:
-	cd ./stage/Q1/ && sh ./run.sh
+	cd ./stage/Q1/ && sh ./scripts/run.sh
 
 
 
