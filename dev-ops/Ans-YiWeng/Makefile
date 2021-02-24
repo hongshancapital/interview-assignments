@@ -1,6 +1,6 @@
-
-# CI for Q1
-ci1: clean stage runQ1
+# Basic build commands
+clean:
+	rm -rf stage
 
 stage:
 	mkdir -p stage/
@@ -8,16 +8,16 @@ stage:
 	cp -R Q2 stage/
 	cp ../DevOps_interview_data_set.gz stage/Q1/
 
-clean:
-	rm -rf stage
+deps:
+	pip install -r requirements.txt
 
-runQ1:
+# CI for Q1
+ci-Q11: clean stage deps run-Q1
+
+run-Q1:
 	cd ./stage/Q1/ && sh ./scripts/run.sh
 
-
-
 # for Q2
-
-ci2: clean deps lint package
+ci-Q2: clean deps lint package
 
 package: stage
