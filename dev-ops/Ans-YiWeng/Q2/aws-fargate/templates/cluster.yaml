@@ -1,0 +1,46 @@
+Description: >
+    Creates a Fargate ECS cluster
+
+Parameters:
+    pClusterName:
+        Type: String
+        Default: "aws-fargate"
+    pStackname:
+        Description: Stack-name Tag Value
+        Type: String
+        Default: "fargate-app"
+    pEnvironment:
+        Description: Environment Tag Value
+        Type: String
+        Default: "dev"
+    pName:
+        Description: App-Name Tag Value
+        Type: String
+        Default: "default"
+
+Resources:
+    Cluster:
+      Type: AWS::ECS::Cluster
+      Properties:
+        ClusterName: !Ref pClusterName
+        Tags:
+            -   
+                Key: "stack-name"
+                Value: !Ref pStackname
+            -   
+                Key: "environment"
+                Value: !Ref pEnvironment
+            -   
+                Key: "app-name"
+                Value: !Ref pName
+
+    MyRepository:
+        Type: AWS::ECR::Repository
+        Properties:
+            RepositoryName: "helloworldwebapp"
+            ImageScanningConfiguration:
+                ScanOnPush: "false"
+
+Outputs:
+    ClusterName:
+        Value: !Ref Cluster

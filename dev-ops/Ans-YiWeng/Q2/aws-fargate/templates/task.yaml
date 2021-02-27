@@ -1,0 +1,84 @@
+Description: Create a task definition for an ECS service
+
+Parameters:
+  pAppName:
+    Description: Name for the task definition
+    Type: String
+
+  pTaskRole:
+    Description: ARN of the IAM role used to run the created task
+    Type: String
+
+  pEcsRepository:
+    Description: ECS repository containing the image for the task
+    Type: String
+
+  pImageTag:
+    Description: Tag for the ECS image to use for this task
+    Type: String
+    Default: latest
+
+  pContainerPort:
+    Description: Port to bind the container on
+    Type: Number
+
+  pEnvCatalinaOpts:
+    Description: Command line options to use when starting Catalina
+    Type: String
+    Default: ""
+
+  pAWSLogGroup:
+    Description: Log group name for the task definition
+    Type: String
+
+  pAWSLogPrefix:
+    Description: Prefix for all logs from this task definition
+    Type: String
+
+  pTaskCPU:
+    Description: CPU resource parameter for container task defintion
+    Type: String
+    Default: "512"
+
+  pTaskMemory:
+    Description: Memory resource parameter for container task definiton
+    Type: String
+    Default: "1024"
+
+Resources:
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Join ['', [!Ref pAppName, TaskDefinition]]
+      Cpu: !Ref pTaskCPU
+      Memory: !Ref pTaskMemory
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref pTaskRole
+      TaskRoleArn: !Ref pTaskRole
+      ContainerDefinitions:
+        -   Name: !Ref pAppName
+            Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${pEcsRepository}:${pImageTag}
+            Essential: true
+            Memory: !Ref pTaskMemory
+            PortMappings:
+              - ContainerPort: !Ref pContainerPort
+            LogConfiguration:
+              LogDriver: 'awslogs'
+              Options:
+                awslogs-create-group: True
+                awslogs-group: !Ref pAWSLogGroup
+                awslogs-region: !Ref AWS::Region
+                awslogs-stream-prefix: !Ref pAWSLogPrefix
+                awslogs-datetime-format: '%Y-%m-%d %H:%M:%S'
+            Environment:
+              -   Name: Tag
+                  Value: !Ref pImageTag
+              -   Name: CATALINA_OPTS
+                  Value: !Ref pEnvCatalinaOpts
+
+Outputs:
+  TaskDefinition:
+    Description: Task definition for this service
+    Value: !Ref TaskDefinition

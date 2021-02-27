@@ -1,0 +1,49 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "helloworldwebapp",
+      "image": "<IMGAGE_VERSION>",
+      "portMappings": [
+        {
+          "hostPort": 8080,
+          "protocol": "tcp",
+          "containerPort": 8080
+        }
+      ],
+      "essential": true,
+      "entryPoint": [],
+      "command": [],
+      "environment": [
+        {
+          "name": "CATALINA_OPTS",
+          "value": "-server -Xms800m -Xmx800m -XX:MaxGCPauseMillis=1500"
+        },
+        {
+          "name": "Tag",
+          "value": "1.0.0"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "dnsServers": [],
+      "dnsSearchDomains": [],
+      "dockerSecurityOptions": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/helloworldwebapp",
+          "awslogs-datetime-format": "%Y-%m-%d %H:%M:%S",
+          "awslogs-region": "ap-southeast-2",
+          "awslogs-create-group": "true",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "cpu": "1024",
+  "memory": "1024",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ]
+}

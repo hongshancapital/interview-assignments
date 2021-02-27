@@ -8,7 +8,7 @@ public class WelcomeController {
 
 	@RequestMapping("/")
 	public String index() {
-		return "Welcome for Spring Boot V2!";
+		return "Welcome for Spring Boot V1!!!";
 	}
 
 }

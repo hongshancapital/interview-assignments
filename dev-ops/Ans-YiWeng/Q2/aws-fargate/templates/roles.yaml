@@ -1,0 +1,47 @@
+Description: IAM roles for DR service definitions
+
+Parameters:
+    pName:
+        Description: Name for the task definition
+        Type: String
+    pEnvironment:
+        Description: Environment for the stack
+        Type: String
+    pTaskRoleName:
+      Description: Role name for the tasks
+      Type: String
+
+Resources:
+    TaskRole:
+        Type: AWS::IAM::Role
+        Properties:
+          RoleName: !Ref pTaskRoleName
+          Path: "/"
+          AssumeRolePolicyDocument:
+            Statement:
+             - Effect: "Allow"
+               Principal:
+                 Service:
+                  - "ecs-tasks.amazonaws.com"
+               Action:
+                - "sts:AssumeRole"
+          Policies:
+            - PolicyName: "cloudwatchAccess"
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  - Sid: "AccessLogs"
+                    Effect: "Allow"
+                    Action:
+                      - "logs:PutLogEvents"
+                      - "logs:CreateLogStream"
+                      - "logs:DescribeLogStreams"
+                      - "logs:CreateLogGroup"
+                    Resource: !Sub "arn:aws:logs:*:*:log-group:*"
+          ManagedPolicyArns:
+            - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+
+Outputs:
+    TaskRole:
+        Description: Role for the ECS task
+        Value: !GetAtt TaskRole.Arn

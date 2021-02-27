@@ -24,6 +24,6 @@ public class WelcomeControllerTest {
 	public void getHello() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("Welcome for Spring Boot V2!")));
+				.andExpect(content().string(equalTo("Welcome for Spring Boot V1!!!")));
 	}
 }

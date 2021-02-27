@@ -1,0 +1,15 @@
+template_path: templates/service.yaml
+
+parameters:
+    pAppName: helloworldwebapp
+    pSubnets: !stack_output_external aws-fargate-resources-vpc::AppSubnets
+    pDesiredCount: "2"
+    pCluster: !stack_output_external aws-fargate-resources-cluster::ClusterName
+    pContainerPort: "8080"
+    pTaskDefinition: !stack_output helloworld/task::TaskDefinition
+    pTargetGroupArn: !stack_output_external aws-fargate-resources-alb::AppTargetGroup
+    pStackname: helloworldwebapp
+    pEnvironment: prod
+    pALBSg: !stack_output_external aws-fargate-resources-alb::SecurityGroup
+    pAllowedPort: "8080"
+    pSgService: !stack_output_external aws-fargate-resources-vpc::SgService

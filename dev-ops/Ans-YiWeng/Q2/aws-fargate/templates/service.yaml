@@ -1,0 +1,138 @@
+Description: ECS Service with blue-green deployments via CodeDeploy
+
+Parameters:
+  pAppName:
+    Description: Name of the app to launch a service for
+    Type: String
+  pSubnets:
+    Description: VPC subnets to launch the tasks in
+    Type: List<AWS::EC2::Subnet::Id>
+  pDesiredCount:
+    Description: Desired number of service tasks to launch.
+    Type: Number
+    Default: 1
+  pCluster:
+    Description: Name of the cluster to place the tasks in
+    Type: String
+  pContainerPort:
+    Description: Port number on which the ECS container is listening
+    Type: Number
+  pTaskDefinition:
+    Description: Task definition to run on this service
+    Type: String
+  pTargetGroupArn:
+    Description: ARN for the target group to place the initial service into
+    Type: String
+  pTerminateWaitTime:
+    Description: The time, in minutes, before terminating the old stack. Defaults to zero (immediate)
+    Type: Number
+    Default: 0
+  pSgService:
+    Description: Security Group attached to service
+    Type: AWS::EC2::SecurityGroup::Id
+  pALBSg:
+    Description: Security Group attached to relevant load balancer
+    Type: AWS::EC2::SecurityGroup::Id
+  pAllowedPort:
+    Description: Port to allow from ALB
+    Type: String
+  pStackname:
+    Description: Stack-name Tag Value
+    Type: String
+    Default: "fargate-cluster"
+  pEnvironment:
+    Description: Environment Tag Value
+    Type: String
+    Default: "dev"
+  # for autoscaling
+  MinContainers:
+    Type: Number
+    Default: 2
+  # for autoscaling
+  MaxContainers:
+    Type: Number
+    Default: 10
+  # target CPU utilization (%)
+  AutoScalingTargetValue:
+    Type: Number
+    Default: 60
+
+Resources:
+  SecurityGroupIngress01:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      GroupId: !Ref pSgService
+      FromPort: !Ref pAllowedPort
+      ToPort: !Ref pAllowedPort
+      SourceSecurityGroupId: !Ref pALBSg
+  SecurityGroupIngress02:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      GroupId: !Ref pSgService
+      FromPort: 443
+      ToPort: 443
+      CidrIp: 0.0.0.0/0
+  EcsService:
+    Type: AWS::ECS::Service
+    DependsOn:
+      - SecurityGroupIngress01
+    Properties:
+      ServiceName: !Ref pAppName
+      Cluster: !Ref pCluster
+      DesiredCount: !Ref pDesiredCount
+      LaunchType: FARGATE
+      TaskDefinition: !Ref pTaskDefinition
+      HealthCheckGracePeriodSeconds: 150
+      DeploymentConfiguration:
+        MinimumHealthyPercent: 100
+        MaximumPercent: 200
+      LoadBalancers:
+        -   ContainerName: !Ref pAppName
+            ContainerPort: !Ref pContainerPort
+            TargetGroupArn: !Ref pTargetGroupArn
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref pSgService
+          Subnets: !Ref pSubnets
+  AutoScalingRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join ['', [!Ref pAppName, AutoScalingRole]]
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole'
+  AutoScalingTarget:
+    Type: AWS::ApplicationAutoScaling::ScalableTarget
+    Properties:
+      MinCapacity: !Ref MinContainers
+      MaxCapacity: !Ref MaxContainers
+      ResourceId: !Join ['/', [service, !Ref pCluster, !GetAtt EcsService.Name]]
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      RoleARN: !GetAtt AutoScalingRole.Arn
+  AutoScalingPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: !Join ['', [!Ref pAppName, AutoScalingPolicy]]
+      PolicyType: TargetTrackingScaling
+      ScalingTargetId: !Ref AutoScalingTarget
+      TargetTrackingScalingPolicyConfiguration:
+        PredefinedMetricSpecification:
+          PredefinedMetricType: ECSServiceAverageCPUUtilization
+        ScaleInCooldown: 10
+        ScaleOutCooldown: 10
+        TargetValue: !Ref AutoScalingTargetValue
+
+Outputs:
+  ServiceArn:
+    Description: ARN for this service
+    Value: !Ref EcsService

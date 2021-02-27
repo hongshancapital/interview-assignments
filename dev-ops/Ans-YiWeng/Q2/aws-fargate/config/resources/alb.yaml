@@ -1,0 +1,12 @@
+---
+template_path: templates/alb.yaml
+parameters:
+    pVpcId: !stack_output resources/vpc::VPCId
+    pSubnets: !stack_output resources/vpc::AppSubnets
+    pName: aws-fargate
+    pHealthCheckPath: /helloworldwebapp/actuator/health
+    pHealthyTaskCount: "2"
+    pStackname: helloworldwebapp
+    pEnvironment: prod
+    pAlbPort: "8080"
+    pAppPort: "8080"

@@ -1,0 +1,135 @@
+Description: Create ALB for traffic to applications
+
+Parameters:
+    pVpcId:
+        Description: VPC to place the created ALB into
+        Type: AWS::EC2::VPC::Id
+    pSubnets:
+        Description: VPC subnets to place the ALB in
+        Type: List<AWS::EC2::Subnet::Id>
+    pName:
+        Description: Application name for the load balancer
+        Type: String
+    pHealthCheckPath:
+        Description: Path for the ALB health check
+        Type: String
+    pAppPort:
+        Description: Port on which the application handles traffic
+        Type: Number
+        Default: 8080
+    pAlbPort:
+        Description: Port number for ALB traffic
+        Type: Number
+        Default: 8080
+    pHealthyTaskCount:
+        Type: Number
+    pAlbscheme:
+        Description: ALB network scheme
+        Type: String
+        Default: internet-facing
+    pStackname:
+        Description: Stack-name Tag Value
+        Type: String
+        Default: "fargate-app"
+    pEnvironment:
+        Description: Environment Tag Value
+        Type: String
+        Default: "dev"
+    pAppName:
+        Description: App-Name Tag Value
+        Type: String
+        Default: "default"
+    pInternalWebSgOwnerAccountId:
+        Description: Source Security Group Owner Id for aws account
+        Type: String
+        Default: "default"
+
+Resources:
+    SecurityGroup:
+        Type: "AWS::EC2::SecurityGroup"
+        Properties:
+            GroupDescription: !Join [ "-", [ !Ref pName, "alb" ]]
+            VpcId: !Ref pVpcId
+            SecurityGroupIngress:
+                - CidrIp: 0.0.0.0/0
+                  IpProtocol: "TCP"
+                  FromPort: !Ref pAlbPort
+                  ToPort: !Ref pAlbPort
+
+    LoadBalancer:
+        Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+        Properties:
+            LoadBalancerAttributes:
+                - Key: idle_timeout.timeout_seconds
+                  Value: 60
+            Name: !Ref pName
+            Scheme: !Ref pAlbscheme
+            Subnets: !Ref pSubnets
+            SecurityGroups:
+                - !Ref SecurityGroup
+            Tags:
+                -
+                    Key: "desired_task_count"
+                    Value: !Ref pHealthyTaskCount
+                -   
+                    Key: "stack-name"
+                    Value: !Ref pStackname
+                -   
+                    Key: "environment"
+                    Value: !Ref pEnvironment
+                -   
+                    Key: "app-name"
+                    Value: !Ref pAppName
+
+    ProdLoadBalancerListener:
+        Type: AWS::ElasticLoadBalancingV2::Listener
+        Properties:
+            LoadBalancerArn: !Ref LoadBalancer
+            Port: !Ref pAlbPort
+            Protocol: HTTP
+            DefaultActions:
+                - Type: forward
+                  TargetGroupArn: !Ref AppTargetGroup
+
+    AppTargetGroup:
+        Type: AWS::ElasticLoadBalancingV2::TargetGroup
+        Properties:
+            VpcId: !Ref pVpcId
+            Name: !Join [ "-", [ !Ref pName, "app-tg" ] ]
+            TargetType: ip
+            Port: !Ref pAppPort
+            Protocol: HTTP
+            Matcher:
+                HttpCode: 200-299
+            HealthCheckIntervalSeconds: 60
+            HealthCheckPath: !Ref pHealthCheckPath 
+            HealthCheckProtocol: HTTP
+            HealthCheckTimeoutSeconds: 20
+            HealthyThresholdCount: 2
+            UnhealthyThresholdCount: 5
+            TargetGroupAttributes:
+                - Key: deregistration_delay.timeout_seconds
+                  Value: 30
+
+Outputs:
+    LoadBalancerDomainName:
+        Description: Domain name for the created load balancer
+        Value: !GetAtt LoadBalancer.DNSName
+
+    LoadBalancerHostedZone:
+        Description: Hosted Zone ID for the created load balancer. Used to create additional record sets
+        Value: !GetAtt LoadBalancer.CanonicalHostedZoneID
+
+    LoadBalancerArn:
+        Value: !Ref LoadBalancer
+
+    ProdListenerArn:
+        Description: ARN of the listener created to serve production traffic
+        Value: !Ref ProdLoadBalancerListener
+
+    AppTargetGroup:
+        Description: ARN of the newly created app target group
+        Value: !Ref AppTargetGroup
+
+    SecurityGroup:
+        Value: !Ref SecurityGroup

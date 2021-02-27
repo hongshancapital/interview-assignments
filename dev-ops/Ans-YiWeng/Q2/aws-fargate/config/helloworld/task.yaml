@@ -1,0 +1,13 @@
+template_path: templates/task.yaml
+
+parameters:
+    pAppName: helloworldwebapp
+    pTaskRole: !stack_output_external aws-fargate-resources-roles::TaskRole
+    pEcsRepository: helloworldwebapp
+    pImageTag: "1.0.0"
+    pContainerPort: "8080"
+    pAWSLogGroup: /ecs/helloworldwebapp
+    pAWSLogPrefix: ecs
+    pTaskCPU: "512"
+    pTaskMemory: "1024"
+    pEnvCatalinaOpts: "-server -Xms800m -Xmx800m -XX:MaxGCPauseMillis=1500"
