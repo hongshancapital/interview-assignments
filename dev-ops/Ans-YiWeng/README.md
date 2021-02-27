@@ -58,6 +58,10 @@ Testing
 - Unit test will run automatically when package the code defined in Dockerfile `RUN mvn clean test package`. 
 - `make integration-test <q2_version>` will test your local image which contains your testing version code.
 
+### Q1
+逻辑：
+- 通过查找父进程加子进程[xx][xx]，找到小时单位内相同的相加，并将他们的描述合并，打印出如题目要求的json格式生成文件并发送。
+
 ### Q2
 
 作为开发团队的成员，您的任务是确保：

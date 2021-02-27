@@ -6,6 +6,6 @@
 
 3. Run the creation/update command `sceptre launch-stack <environment> <stack>`.(eg. `sceptre launch-env helloworld alb`)
 
-4. Run the creation/update command `sceptre delete-env <environment>`.(eg. `sceptre launch-env helloworld`)
+4. Run the creation/update command `sceptre delete-env <environment>`.(eg. `sceptre delete-env helloworld`)
 
-5. Run the creation/update command `sceptre delete-stack <environment> <stack>`.(eg. `sceptre launch-env helloworld alb`)
+5. Run the creation/update command `sceptre delete-stack <environment> <stack>`.(eg. `sceptre delete-env helloworld alb`)
