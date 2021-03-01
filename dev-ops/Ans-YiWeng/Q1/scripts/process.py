@@ -37,7 +37,7 @@ print(result.dtypes)
 # Revert to timeWindow by hour
 for x in range(10):
     xplus = x+1
-    timeWindow = "0" + str(x) + "00-" + str(xplus) + "00"
+    timeWindow = "0" + str(x) + "00-" + "0" + str(xplus) + "00"
     result['Time'] = result['Time'].replace(x, timeWindow)
 
 for x in range(10,24):
@@ -47,6 +47,10 @@ for x in range(10,24):
 
 # Replace first letter of index name with lower letter
 result.rename(columns={'DeviceName':'deviceName','Process':'processName', 'Time':'timeWindow','Description':'description'},inplace=True)
+
+# Extract error message
+result = result[result['description'].str.contains("error")]
+
 print (result)
 
 # Create json format
