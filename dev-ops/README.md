@@ -68,3 +68,27 @@
 11. 为团队引入创新的技术和解决方案，以技术创新驱动业务，促进团队在这些领域的发展。
 
 12. 有责任心，能在日常服务过程中很好实践客户第一，善于推动跨部门复杂项目的实施和较强的拿结果能力；
+
+```bash
+# DevOps-卓博咨询-zhang
+# https://github.com/scdt-china/interview-assignments/blob/master/dev-ops/README.md
+
+######## Q1
+$ gzip -d  DevOps_interview_data_set.gz
+$ cat DevOps_interview_data_set | awk -F" " 'BEGIN {printf("%s","\[")} {deviceName=$4;
+gsub(/[^0-9]+/,"",$6);processId=$6;if(processId=="")next;
+processName=$5;
+description="";{for(i=7;i<=NF;i++) description=(description" "$i)};gsub(/"/,"\\\"",description)
+gsub(/:.*/,"",$3);h1=$3;h2=$3+1;if(h2==24)h2="00";if(length(h2)<2)h2=sprintf("0%s",h2);timeWindow=sprintf("%s00-%s00",h1,h2);
+dict[timeWindow]=dict[timeWindow]+1
+printf("{\"deviceName\":\"%s\",\"processId\":\"%s\",\"processName\":\"%s\",\"description\":\"%s\",\"timeWindow\":\"%s\"},", deviceName,processId,processName,description,timeWindow)} END {printf("%s","\{");for (key in dict)printf("\"%s\":%s,", key, dict[key]);printf("%s","\}");printf("%s","\]")}' > zhang.json
+$ ls
+DevOps_interview_data_set  zhang.json
+$ curl https://foo.com/bar -F "file=./zhang.json" -H "token: zhang" -v
+
+######## Q2
+请参考这个demo：https://github.com/hbstarjason/springboot-devops-demo
+一直都在持续更新中，所熟悉的技术栈都运用在这个demo里了。
+另，对于持续交付（CD）也有一定的了解，请参考：https://github.com/hbstarjason/Continuous-Deploy
+
+```
