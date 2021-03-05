@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gc.shorturl.mapper.UrlMapper">
+    <insert id="insert" keyProperty="short_url">
+        insert into url (short_url,original_url) values (#{shortUrl},#{originalUrl})
+        on duplicate key update short_url=#{shortUrl};
+    </insert>
+    <select id="getByShortUrl" resultType="string">
+        select original_url from url where short_url =#{shortUrl};
+    </select>
+</mapper>
