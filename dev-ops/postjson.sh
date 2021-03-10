@@ -1,0 +1,1 @@
+curl -H "Content-Type:application/json" -X POST --data '{"deviceName":"BBAOMACBOOKAIR2","processId":"1","processName":"com.apple.xpc","description":"Could not find uid associated with service: 0: Undefined error: 0 501","timeWindow":"0100-0200","numberOfOccurrence":"17"}' https://foo.com/bar
