@@ -3,6 +3,8 @@
 1、在本机上安装mysql
 
 2、用mysql的workbench软件登录本地安装的mysql
+   用户名：root
+   密码：mysql
 
 3、在workbench软件中执行rungo.sql数据库脚本
 
@@ -29,6 +31,8 @@ Operation steps:
 1. Install MySQL on your computer
 
 2. Use the workbench software of Mysql to log in the local installation of MySQL
+   username：root
+   password：mysql
 
 3. Execute in workbench software rungo.sql Database script
 
