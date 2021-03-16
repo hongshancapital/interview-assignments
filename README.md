@@ -18,7 +18,7 @@ Please find your assignment in subfolder accordingly.
 - [UI 设计师](design/)
 
 上海/深圳/香港：
-- [Helpdesk](helpdesk/) (全职)
+- [IT Support Engineer](ITSupportEngineer/) (全职)
 
 链接中有更为具体的 JD。
 
@@ -126,4 +126,4 @@ Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提
 
 1. 面试不会问茴字有几种写法，甚至不会限制语言。我们看重的是解决问题的能力
 2. 办公地点在北京国贸 / 望京，交通便利，离地铁和环线都特别近
-3. Helpdesk 在 上海 / 深圳 / 香港 都有名额，其余岗位仅限北京
+3. IT Support Engineer 在 上海 / 香港 都有名额，其余岗位仅限北京
