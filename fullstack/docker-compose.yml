@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:11-alpine
+    restart: always
+    ports:
+    - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: 123456
+      TZ: 'GMT+8'
+      PGTZ: 'GMT+8'
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - 6379:6379
