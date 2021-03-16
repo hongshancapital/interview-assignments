@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sequoiacap.domain.dao.UrlMapDao">
+    <resultMap id="BaseResultMap" type="com.sequoiacap.domain.entity.UrlMap">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="short_url" jdbcType="VARCHAR" property="shortUrl"/>
+        <result column="long_url" jdbcType="VARCHAR" property="longUrl"/>
+        <result column="compression_code" jdbcType="VARCHAR" property="compressionCode"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="url_status" jdbcType="TINYINT" property="urlStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="edit_time" jdbcType="TIMESTAMP" property="editTime"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="editor" jdbcType="VARCHAR" property="editor"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, short_url, long_url, compression_code, description,url_status, create_time, edit_time, creator, editor, deleted
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM url_map
+        WHERE deleted = 0
+    </select>
+    <insert id="insertSelective" parameterType="com.sequoiacap.domain.entity.UrlMap"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into url_map
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="shortUrl != null">
+                short_url,
+            </if>
+            <if test="longUrl != null">
+                long_url,
+            </if>
+            <if test="compressionCode != null">
+                compression_code,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="urlStatus != null">
+                url_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="editTime != null">
+                edit_time,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="editor != null">
+                editor,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="shortUrl != null">
+                #{shortUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="longUrl != null">
+                #{longUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="compressionCode != null">
+                #{compressionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="urlStatus != null">
+                #{urlStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editTime != null">
+                #{editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="editor != null">
+                #{editor,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectByCompressionCode" resultMap="BaseResultMap">
+        SELECT *
+        FROM url_map
+        WHERE deleted = 0
+          AND compression_code = #{compressionCode}
+    </select>
+</mapper>

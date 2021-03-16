@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sequoiacap.domain.dao.CompressionCodeDao">
+    <resultMap id="BaseResultMap" type="com.sequoiacap.domain.entity.CompressionCode">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="compression_code" jdbcType="VARCHAR" property="compressionCode"/>
+        <result column="code_status" jdbcType="TINYINT" property="codeStatus"/>
+        <result column="sequence_value" jdbcType="VARCHAR" property="sequenceValue"/>
+        <result column="strategy" jdbcType="VARCHAR" property="strategy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="edit_time" jdbcType="TIMESTAMP" property="editTime"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="editor" jdbcType="VARCHAR" property="editor"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, compression_code, code_status, sequence_value, strategy, create_time, edit_time, creator, editor, deleted
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from compression_code
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="getLatestAvailableCompressionCode" resultMap="BaseResultMap">
+        SELECT *
+        FROM compression_code
+        WHERE code_status = 1
+          AND deleted = 0
+        ORDER BY id
+        LIMIT 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from compression_code
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insertSelective" parameterType="com.sequoiacap.domain.entity.CompressionCode"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into compression_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="compressionCode != null">
+                compression_code,
+            </if>
+            <if test="codeStatus != null">
+                code_status,
+            </if>
+            <if test="sequenceValue != null">
+                sequence_value,
+            </if>
+            <if test="strategy != null">
+                strategy,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="editTime != null">
+                edit_time,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="editor != null">
+                editor,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="compressionCode != null">
+                #{compressionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="codeStatus != null">
+                #{codeStatus,jdbcType=TINYINT},
+            </if>
+            <if test="sequenceValue != null">
+                #{sequenceValue,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy != null">
+                #{strategy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editTime != null">
+                #{editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="editor != null">
+                #{editor,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sequoiacap.domain.entity.CompressionCode">
+        update compression_code
+        <set>
+            <if test="compressionCode != null">
+                compression_code = #{compressionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="codeStatus != null">
+                code_status = #{codeStatus,jdbcType=TINYINT},
+            </if>
+            <if test="sequenceValue != null">
+                sequence_value = #{sequenceValue,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy != null">
+                strategy = #{strategy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editTime != null">
+                edit_time = #{editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="editor != null">
+                editor = #{editor,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

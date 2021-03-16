@@ -1,0 +1,45 @@
+CREATE TABLE `url_map` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `short_url` varchar(32) NOT NULL COMMENT '短链URL',
+  `long_url` varchar(768) NOT NULL COMMENT '长链URL',
+  `compression_code` varchar(16) NOT NULL COMMENT '压缩码',
+  `description` varchar(256) DEFAULT NULL COMMENT '描述',
+  `url_status` tinyint NOT NULL DEFAULT '1' COMMENT 'URL状态,1:正常,2:已失效',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `edit_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `creator` varchar(32) NOT NULL DEFAULT 'admin' COMMENT '创建者',
+  `editor` varchar(32) NOT NULL DEFAULT 'admin' COMMENT '更新者',
+  `deleted` tinyint NOT NULL DEFAULT '0' COMMENT '软删除标识',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_compression_code` (`compression_code`),
+  KEY `idx_short_url` (`short_url`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='URL映射表';
+
+CREATE TABLE `compression_code` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `compression_code` varchar(16) NOT NULL COMMENT '压缩码',
+  `code_status` tinyint NOT NULL DEFAULT '1' COMMENT '压缩码状态,1:未使用,2:已使用,3:已失效',
+  `sequence_value` varchar(64) NOT NULL COMMENT '序列(盐)',
+  `strategy` varchar(8) NOT NULL DEFAULT 'sequence' COMMENT '策略,sequence或者hash',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `edit_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `creator` varchar(32) NOT NULL DEFAULT 'admin' COMMENT '创建者',
+  `editor` varchar(32) NOT NULL DEFAULT 'admin' COMMENT '更新者',
+  `deleted` tinyint NOT NULL DEFAULT '0' COMMENT '软删除标识',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_compression_code` (`compression_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='压缩码';
+
+CREATE TABLE `domain_conf` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `domain_value` varchar(16) NOT NULL COMMENT '域名',
+  `protocol` varchar(8) NOT NULL DEFAULT 'https' COMMENT '协议,https或者http',
+  `domain_status` tinyint NOT NULL DEFAULT '1' COMMENT '域名状态,1:正常,2:已失效',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `edit_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `creator` varchar(32) NOT NULL DEFAULT 'admin' COMMENT '创建者',
+  `editor` varchar(32) NOT NULL DEFAULT 'admin' COMMENT '更新者',
+  `deleted` tinyint NOT NULL DEFAULT '0' COMMENT '软删除标识',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_domain` (`domain_value`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='域名配置';

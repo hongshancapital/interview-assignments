@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sequoiacap.domain.dao.DomainConfDao">
+    <resultMap id="BaseResultMap" type="com.sequoiacap.domain.entity.DomainConf">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="domain_value" jdbcType="VARCHAR" property="domainValue"/>
+        <result column="protocol" jdbcType="VARCHAR" property="protocol"/>
+        <result column="domain_status" jdbcType="TINYINT" property="domainStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="edit_time" jdbcType="TIMESTAMP" property="editTime"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="editor" jdbcType="VARCHAR" property="editor"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, domain_value, protocol, domain_status, create_time, edit_time, creator, editor,deleted
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM domain_conf
+        WHERE deleted = 0
+    </select>
+
+    <select id="selectByDomain" resultMap="BaseResultMap">
+        SELECT *
+        FROM domain_conf
+        WHERE deleted = 0
+          AND domain_status = 1
+          AND domain_value = #{domain}
+    </select>
+
+</mapper>
