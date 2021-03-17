@@ -29,6 +29,11 @@
 2. Dockerfile；
 3. CI/CD的代码或配置；
 4. 创建Infrastructure的代码；
+5. 其他用到的代码和配置文件；
+
+**Bonus**
+
+- Markdwon格式的文档
 
 
 ## 岗位描述
