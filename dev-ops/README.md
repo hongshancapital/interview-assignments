@@ -15,27 +15,20 @@
 
 ### Q2
 
-作为团队的DevOps专家，您正在设计团队某应用的DevOps方案，该应用和所需环境要求如下：
+作为团队的DevOps专家，您正在设计团队某应用的DevOps方案，代码使用Github存放[此仓库](https://github.com/goxr3plus/Simplest-Spring-Boot-Hello-World)(也可以使用您自己的应用代码)，应用运行在AWS的ECS Fargate中：
 
-- 应用具备可伸缩弹性，运行在Docker容器中，代码见[此仓库](https://github.com/goxr3plus/Simplest-Spring-Boot-Hello-World)(也可以使用您自己的应用代码)；
-- 开发人员的源代码更改合并到master分支之前，可以自动运行自动化测试；
-- 基础架构和所需的服务以及应用程序部署是自动化的，可以通过在终端中单击按钮或命令来触发；
-- 当环境CPU使用超过80%时自动伸缩；
-- 监控环境、应用的日志，当出现错误日志和内存不足时产生邮件警报；
+- 开发人员的源代码更改合并到master分支之前，自动运行单元测试(如果使用本仓库的Java工程，则使用maven执行测试命令)；
+- 通过AWS CDK或AWS SDK创建应用所需的基础架构和所需的服务，包括VPC、ECS、Task Define、Service，使用AWS CloudWatch管理日志；
+- 应用程序部署是自动化的，可以使用Jenkins、AWS Code Deploy、Github Action；
+- 监控CloudWatch中的应用日志，当出现ERROR关键字时通过AWS SNS发送邮件告警；
 
-*您可以使用任何免费或开源的OS，软件包，工具等来开发解决方案*
 
 递交作业内容
-1. 简单的设计文档，以及所有做的假设；
+
+1. 框架设计图与设计说明；
 2. Dockerfile；
 3. CI/CD的代码或配置；
 4. 创建Infrastructure的代码；
-5. 自动伸缩、监控的代码或配置；
-
-
-**Bonus**
-
-- 使用AWS、GCP
 
 
 ## 岗位描述
