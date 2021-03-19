@@ -32,6 +32,7 @@ public class UrlService {
 		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
 		long id = idWorker.nextId();
 		UrlModel urlModel = new UrlModel();
+		// 去Redis中抢占位置  保证原子性
 		Boolean lock = redisUtil.setNx(redisUtil.lock + id, String.valueOf(id));
 		// 抢到锁了 执行业务
 		if (lock) {
@@ -41,6 +42,8 @@ public class UrlService {
 			urlModel.setShortUrl(UrlUtil.convertToStr(id));
 			this.mapper.insertUrl(urlModel);
 			setCache(urlModel);
+			//删除锁
+			redisUtil.delete(redisUtil.lock);
 		} else {
 			// 自旋获取锁
 			// 休眠100ms

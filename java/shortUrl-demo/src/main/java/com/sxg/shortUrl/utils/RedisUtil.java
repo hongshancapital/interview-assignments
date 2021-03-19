@@ -1,5 +1,7 @@
 package com.sxg.shortUrl.utils;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +43,7 @@ public class RedisUtil {
     public boolean setNx(final String key, String value) {
         boolean result = false;
         try {
-            redisTemplate.opsForValue().setIfAbsent(key, value);
+            redisTemplate.opsForValue().setIfAbsent(key, value,300,TimeUnit.SECONDS);
             result = true;
         } catch (RuntimeException e) {
             e.printStackTrace();
