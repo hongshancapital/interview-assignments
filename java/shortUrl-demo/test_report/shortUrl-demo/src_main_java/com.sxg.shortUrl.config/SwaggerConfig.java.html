@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>SwaggerConfig.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.config</a> &gt; <span class="el_source">SwaggerConfig.java</span></div><h1>SwaggerConfig.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+/**
+ * 
+ * @author sxg 2.0 访问链接 http://localhost:8080/swagger-ui.html 3.0 访问链接
+ *         http://localhost:8080/swagger-ui/index.html
+ */
+@Configuration
+@EnableSwagger2
+<span class="fc" id="L22">public class SwaggerConfig {</span>
+	@Bean
+	public Docket createRestApi() {
+<span class="fc" id="L25">		return new Docket(DocumentationType.OAS_30)</span>
+				// 定义是否开启swagger，false为关闭，可以通过变量控制
+<span class="fc" id="L27">				.enable(true).select()</span>
+				// 配置需要扫描的controller位置
+<span class="fc" id="L29">				.apis(RequestHandlerSelectors.basePackage(&quot;com.sxg.shortUrl.controller&quot;))</span>
+				// 配置路径
+<span class="fc" id="L31">				.paths(PathSelectors.any())</span>
+				// 构建
+<span class="fc" id="L33">				.build();</span>
+	}
+
+	// 文档信息
+	@SuppressWarnings(&quot;unused&quot;)
+	private ApiInfo apiInfo() {
+<span class="nc" id="L39">		return new ApiInfoBuilder().title(&quot;Demo接口文档&quot;).description(&quot;短链接功能&quot;).contact(new Contact(&quot;sxg&quot;, &quot;url&quot;, &quot;email&quot;))</span>
+<span class="nc" id="L40">				.version(&quot;1.0&quot;).build();</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>

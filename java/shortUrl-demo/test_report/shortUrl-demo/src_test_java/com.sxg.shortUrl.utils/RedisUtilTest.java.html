@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>RedisUtilTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.utils</a> &gt; <span class="el_source">RedisUtilTest.java</span></div><h1>RedisUtilTest.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.utils;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.sxg.shortUrl.utils.RedisUtil;
+
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@DisplayName(&quot;redis工具&quot;)
+<span class="fc" id="L17">class RedisUtilTest {</span>
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Test
+    @DisplayName(&quot;redis工具增删改查测试&quot;)
+    void get() {
+<span class="fc" id="L25">        String str = &quot;test&quot;;</span>
+<span class="fc" id="L26">        String key = &quot;test:redis:util&quot;;</span>
+<span class="fc" id="L27">        boolean set = redisUtil.set(key, str);</span>
+<span class="fc" id="L28">        Assertions.assertTrue(set);</span>
+<span class="fc" id="L29">        String getStr = redisUtil.get(key);</span>
+<span class="fc" id="L30">        Assertions.assertEquals(str, getStr);</span>
+<span class="fc" id="L31">        String modifyStr = &quot;test2&quot;;</span>
+<span class="fc" id="L32">        redisUtil.getAndSet(key, modifyStr);</span>
+<span class="fc" id="L33">        getStr = redisUtil.get(key);</span>
+<span class="fc" id="L34">        Assertions.assertEquals(modifyStr, getStr);</span>
+<span class="fc" id="L35">        boolean delete = redisUtil.delete(key);</span>
+<span class="fc" id="L36">        Assertions.assertTrue(delete);</span>
+<span class="fc" id="L37">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>

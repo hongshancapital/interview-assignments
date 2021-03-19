@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UrlUtil.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.utils</a> &gt; <span class="el_source">UrlUtil.java</span></div><h1>UrlUtil.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.utils;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+
+/**
+ * @author sxg
+ */
+<span class="nc" id="L10">public class UrlUtil {</span>
+
+<span class="fc" id="L12">    public static String arrChars = &quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz&quot;;</span>
+
+
+    public static String convertToStr(long num) throws RuntimeException {
+
+<span class="fc" id="L17">        int n = arrChars.length();</span>
+
+<span class="fc" id="L19">        StringBuilder ret = new StringBuilder();</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        do {</span>
+<span class="fc" id="L21">            int perNum = (int) (num % n);</span>
+<span class="fc" id="L22">            num = num / n;</span>
+<span class="fc" id="L23">            ret.insert(0, arrChars.charAt(perNum));</span>
+<span class="fc" id="L24">        } while (num &gt; 1);</span>
+
+<span class="fc" id="L26">        return ret.toString();</span>
+    }
+  public static void main(String[] args) {
+<span class="nc" id="L29">System.out.println(convertToStr(292716982304771L));</span>
+<span class="nc" id="L30">}</span>
+
+    public static boolean isValidUrl(String urlString) {
+<span class="fc" id="L33">        URI uri = null;</span>
+        try {
+<span class="fc" id="L35">            uri = new URI(urlString);</span>
+<span class="pc" id="L36">        } catch (URISyntaxException e) {</span>
+<span class="nc" id="L37">            return false;</span>
+        }
+
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (uri.getHost() == null) {</span>
+<span class="fc" id="L41">            return false;</span>
+        }
+<span class="pc bpc" id="L43" title="1 of 4 branches missed.">        if (uri.getScheme().equalsIgnoreCase(&quot;http&quot;) || uri.getScheme().equalsIgnoreCase(&quot;https&quot;)) {</span>
+<span class="fc" id="L44">            return true;</span>
+        }
+<span class="fc" id="L46">        return false;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>

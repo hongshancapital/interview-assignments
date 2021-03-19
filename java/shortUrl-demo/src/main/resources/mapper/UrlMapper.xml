@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sxg.shortUrl.mapper.UrlMapper">
+	<insert id="insertUrl" parameterType="object">
+		INSERT INTO url(id, short_url, long_url, create_date)
+		VALUES (#{urlModel.id}, #{urlModel.shortUrl}, #{urlModel.longUrl}, #{urlModel.createDate})
+	</insert>
+
+	<delete id="deleteUrl" parameterType="String">
+		DELETE FROM url WHERE short_url = #{shortUrl}
+	</delete>
+
+	<select id="getUrlByUri" resultType="com.sxg.shortUrl.model.UrlModel">
+		SELECT id, short_url, long_url, create_date from url where short_url = #{shortUrl}
+	</select>
+</mapper>

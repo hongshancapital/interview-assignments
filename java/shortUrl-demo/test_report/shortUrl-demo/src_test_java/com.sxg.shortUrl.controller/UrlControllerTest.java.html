@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UrlControllerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.controller</a> &gt; <span class="el_source">UrlControllerTest.java</span></div><h1>UrlControllerTest.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.controller;
+
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.sxg.shortUrl.controller.UrlController;
+import com.sxg.shortUrl.service.UrlService;
+import com.sxg.shortUrl.utils.RedisUtil;
+
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ExtendWith(SpringExtension.class)
+@DisplayName(&quot;短链接控制器层验证&quot;)
+<span class="fc" id="L32">class UrlControllerTest {</span>
+
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UrlService urlService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+
+    @BeforeEach
+    public void setUp() {
+<span class="fc" id="L45">        MockitoAnnotations.openMocks(this);</span>
+<span class="fc" id="L46">        mockMvc = MockMvcBuilders.standaloneSetup(new UrlController(urlService, redisUtil)).build();</span>
+<span class="fc" id="L47">    }</span>
+
+    @Test
+    @DisplayName(&quot;创建短链接&quot;)
+    void createSurl() throws Exception {
+<span class="fc" id="L52">        MockHttpServletRequestBuilder url1 = MockMvcRequestBuilders.post(&quot;/&quot;).param(&quot;url&quot;, &quot;http://sina8.com&quot;);</span>
+<span class="fc" id="L53">        ResultActions performTrue = mockMvc.perform(url1);</span>
+<span class="fc" id="L54">        performTrue.andExpect(MockMvcResultMatchers.status().is(200));</span>
+<span class="fc" id="L55">        ResultActions performTrue1 = mockMvc.perform(url1);</span>
+<span class="fc" id="L56">        String newRes = performTrue1.andReturn().getResponse().getContentAsString();</span>
+<span class="fc" id="L57">        JSONObject jsonObject = JSONUtil.parseObj(newRes);</span>
+<span class="fc" id="L58">        Assertions.assertEquals(0, ((JSONObject) jsonObject.get(&quot;data&quot;)).get(&quot;id&quot;));</span>
+<span class="fc" id="L59">    }</span>
+
+
+    @Test
+    @DisplayName(&quot;获取长链接&quot;)
+    void getUrl() throws Exception {
+<span class="fc" id="L65">        MockHttpServletRequestBuilder url1 = MockMvcRequestBuilders.post(&quot;/&quot;).param(&quot;url&quot;, &quot;http://sina811.com&quot;);</span>
+<span class="fc" id="L66">        ResultActions performTrue = mockMvc.perform(url1);</span>
+<span class="fc" id="L67">        performTrue.andExpect(MockMvcResultMatchers.status().is(200));</span>
+<span class="fc" id="L68">        String newRes = performTrue.andReturn().getResponse().getContentAsString();</span>
+<span class="fc" id="L69">        JSONObject jsonObject = JSONUtil.parseObj(newRes);</span>
+<span class="fc" id="L70">        String shortUrl = (String) ((JSONObject) jsonObject.get(&quot;data&quot;)).get(&quot;shortUrl&quot;);</span>
+<span class="fc" id="L71">        MockHttpServletRequestBuilder mockHttpServletRequestBuilder = MockMvcRequestBuilders.get(&quot;/&quot; + shortUrl);</span>
+<span class="fc" id="L72">        ResultActions perform = mockMvc.perform(mockHttpServletRequestBuilder);</span>
+<span class="fc" id="L73">        perform.andExpect(MockMvcResultMatchers.status().is(200));</span>
+<span class="fc" id="L74">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>SnowflakeIdWorker.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.utils</a> &gt; <span class="el_source">SnowflakeIdWorker.java</span></div><h1>SnowflakeIdWorker.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.utils;
+
+
+/**
+ * 雪花算法，生成唯一id
+ * 
+ * @author sxg
+ *
+ */
+public class SnowflakeIdWorker {
+
+<span class="fc" id="L12">	private final long twepoch = 1577808000L;</span>
+	/**
+	 * 机器id所占的位数
+	 */
+<span class="fc" id="L16">	private final long workerIdBits = 5L;</span>
+	/**
+	 * 数据标识id所占的位数
+	 */
+<span class="fc" id="L20">	private final long datacenterIdBits = 5L;</span>
+	/**
+	 * 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数)
+	 */
+<span class="fc" id="L24">	private final long maxWorkerId = -1L ^ (-1L &lt;&lt; workerIdBits);</span>
+	/**
+	 * 支持的最大数据标识id，结果是31
+	 */
+<span class="fc" id="L28">	private final long maxDatacenterId = -1L ^ (-1L &lt;&lt; datacenterIdBits);</span>
+	/**
+	 * 序列在id中占的位数
+	 */
+<span class="fc" id="L32">	private final long sequenceBits = 12L;</span>
+	/**
+	 * 机器ID向左移12位
+	 */
+<span class="fc" id="L36">	private final long workerIdShift = sequenceBits;</span>
+	/**
+	 * 数据标识id向左移17位(12+5)
+	 */
+<span class="fc" id="L40">	private final long datacenterIdShift = sequenceBits + workerIdBits;</span>
+	/**
+	 * 时间截向左移22位(5+5+12)
+	 */
+<span class="fc" id="L44">	private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;</span>
+	/**
+	 * 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)
+	 */
+<span class="fc" id="L48">	private final long sequenceMask = -1L ^ (-1L &lt;&lt; sequenceBits);</span>
+	/**
+	 * 工作机器ID(0~31)
+	 */
+	private long workerId;
+	/**
+	 * 数据中心ID(0~31)
+	 */
+	private long datacenterId;
+	/**
+	 * 毫秒内序列(0~4095)
+	 */
+<span class="fc" id="L60">	private long sequence = 0L;</span>
+	/**
+	 * 上次生成ID的时间截
+	 */
+<span class="fc" id="L64">	private long lastTimestamp = 0L;</span>
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param workerId     工作ID (0~31)
+	 * @param datacenterId 数据中心ID (0~31)
+	 */
+<span class="fc" id="L72">	public SnowflakeIdWorker(long workerId, long datacenterId) {</span>
+<span class="pc bpc" id="L73" title="2 of 4 branches missed.">		if (workerId &gt; maxWorkerId || workerId &lt; 0) {</span>
+<span class="nc" id="L74">			throw new IllegalArgumentException(</span>
+<span class="nc" id="L75">					String.format(&quot;worker Id can't be greater than %d or less than 0&quot;, maxWorkerId));</span>
+		}
+<span class="pc bpc" id="L77" title="2 of 4 branches missed.">		if (datacenterId &gt; maxDatacenterId || datacenterId &lt; 0) {</span>
+<span class="nc" id="L78">			throw new IllegalArgumentException(</span>
+<span class="nc" id="L79">					String.format(&quot;datacenter Id can't be greater than %d or less than 0&quot;, maxDatacenterId));</span>
+		}
+<span class="fc" id="L81">		this.workerId = workerId;</span>
+<span class="fc" id="L82">		this.datacenterId = datacenterId;</span>
+<span class="fc" id="L83">	}</span>
+
+	/**
+	 * 获得下一个ID (该方法是线程安全的)
+	 * 
+	 * @return SnowflakeId
+	 */
+	public synchronized long nextId() {
+<span class="fc" id="L91">		long timestamp = timeGen();</span>
+		// 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">		if (timestamp &lt; lastTimestamp) {</span>
+<span class="nc" id="L94">			throw new RuntimeException(String.format(</span>
+<span class="nc" id="L95">					&quot;Clock moved backwards.  Refusing to generate id for %d milliseconds&quot;, lastTimestamp - timestamp));</span>
+		}
+		// 如果是同一时间生成的，则进行毫秒内序列
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">		if (lastTimestamp == timestamp) {</span>
+<span class="nc" id="L99">			sequence = (sequence + 1) &amp; sequenceMask;</span>
+			// 毫秒内序列溢出
+<span class="nc bnc" id="L101" title="All 2 branches missed.">			if (sequence == 0) {</span>
+				// 阻塞到下一个毫秒,获得新的时间戳
+<span class="nc" id="L103">				timestamp = tilNextMillis(lastTimestamp);</span>
+			}
+<span class="nc" id="L105">		}</span>
+		// 时间戳改变，毫秒内序列重置
+		else {
+<span class="fc" id="L108">			sequence = 0L;</span>
+		}
+		// 上次生成ID的时间截
+<span class="fc" id="L111">		lastTimestamp = timestamp;</span>
+		// 移位并通过或运算拼到一起组成64位的ID
+<span class="fc" id="L113">		return ((timestamp - twepoch) &lt;&lt; timestampLeftShift) //</span>
+<span class="fc" id="L114">				| (datacenterId &lt;&lt; datacenterIdShift) //</span>
+<span class="fc" id="L115">				| (workerId &lt;&lt; workerIdShift) //</span>
+<span class="fc" id="L116">				| sequence;</span>
+
+	}
+
+	/**
+	 * 阻塞到下一个毫秒，直到获得新的时间戳
+	 * 
+	 * @param lastTimestamp 上次生成ID的时间截
+	 * @return 当前时间戳
+	 */
+	protected long tilNextMillis(long lastTimestamp) {
+<span class="nc" id="L127">		long timestamp = timeGen();</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">		while (timestamp &lt;= lastTimestamp) {</span>
+<span class="nc" id="L129">			timestamp = timeGen();</span>
+		}
+<span class="nc" id="L131">		return timestamp;</span>
+	}
+
+	/**
+	 * 返回以毫秒为单位的当前时间
+	 * 
+	 * @return 当前时间(毫秒)
+	 */
+	protected long timeGen() {
+<span class="fc" id="L140">		return System.currentTimeMillis() / 1000;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>

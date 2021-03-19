@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UrlUtilTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.utils</a> &gt; <span class="el_source">UrlUtilTest.java</span></div><h1>UrlUtilTest.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.utils;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.sxg.shortUrl.utils.UrlUtil;
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@DisplayName(&quot;url工具类&quot;)
+<span class="fc" id="L15">class UrlUtilTest {</span>
+    @Test
+    @DisplayName(&quot;url验证&quot;)
+    void isValidUrl() {
+<span class="fc" id="L19">        String s = &quot;htt://qq.com&quot;;</span>
+<span class="fc" id="L20">        String s1 = &quot;http:qq.com&quot;;</span>
+<span class="fc" id="L21">        String s2 = &quot;http:/qq.com&quot;;</span>
+<span class="fc" id="L22">        String str = &quot;http://qq.com&quot;;</span>
+<span class="fc" id="L23">        String str1 = &quot;http://qq.com/path&quot;;</span>
+<span class="fc" id="L24">        String str2 = &quot;http://qq.com/path?val=1&quot;;</span>
+<span class="fc" id="L25">        String str3 = &quot;http://qq.com/path?val=1&amp;val2=2#location&quot;;</span>
+<span class="fc" id="L26">        Assertions.assertFalse(UrlUtil.isValidUrl(s));</span>
+<span class="fc" id="L27">        Assertions.assertFalse(UrlUtil.isValidUrl(s1));</span>
+<span class="fc" id="L28">        Assertions.assertFalse(UrlUtil.isValidUrl(s2));</span>
+<span class="fc" id="L29">        Assertions.assertTrue(UrlUtil.isValidUrl(str));</span>
+<span class="fc" id="L30">        Assertions.assertTrue(UrlUtil.isValidUrl(str1));</span>
+<span class="fc" id="L31">        Assertions.assertTrue(UrlUtil.isValidUrl(str2));</span>
+<span class="fc" id="L32">        Assertions.assertTrue(UrlUtil.isValidUrl(str3));</span>
+<span class="fc" id="L33">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>

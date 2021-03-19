@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UrlController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.controller</a> &gt; <span class="el_source">UrlController.java</span></div><h1>UrlController.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.controller;
+
+import cn.hutool.core.util.StrUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+
+import com.sxg.shortUrl.model.UrlModel;
+import com.sxg.shortUrl.service.UrlService;
+import com.sxg.shortUrl.utils.Result;
+import com.sxg.shortUrl.utils.RedisUtil;
+import com.sxg.shortUrl.utils.UrlUtil;
+
+/**
+ * 
+ * @author sxg
+ *
+ */
+@RestController
+@Api(tags = &quot;短链接接口&quot;)
+public class UrlController {
+
+	private final UrlService service;
+	private final RedisUtil redisUtil;
+
+<span class="fc" id="L27">	public UrlController(UrlService service, RedisUtil redisUtil) {</span>
+<span class="fc" id="L28">		this.service = service;</span>
+<span class="fc" id="L29">		this.redisUtil = redisUtil;</span>
+<span class="fc" id="L30">	}</span>
+
+	@PostMapping
+	@ApiOperation(value = &quot;生成短链接信息&quot;)
+	@ApiImplicitParam(name = &quot;url&quot;, value = &quot;长链接&quot;, required = true, dataType = &quot;string&quot;)
+	public Result&lt;UrlModel&gt; createSurl(@RequestParam(name = &quot;url&quot;) String url) {
+
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">		if (!UrlUtil.isValidUrl(url)) {</span>
+<span class="nc" id="L38">			throw new RuntimeException(&quot;url不合法&quot;);</span>
+		}
+
+<span class="fc" id="L41">		String s = redisUtil.get(RedisUtil.urlLong + url);</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">		if (!StrUtil.isNullOrUndefined(s)) {</span>
+<span class="fc" id="L43">			return Result.success(new UrlModel(s, url));</span>
+		}
+<span class="nc" id="L45">		UrlModel sUrl = this.service.createShortUrl(url);</span>
+
+<span class="nc" id="L47">		return Result.success(sUrl);</span>
+	}
+
+	@GetMapping(&quot;{shortUrl}&quot;)
+	@ApiOperation(value = &quot;获取长链接信息&quot;)
+	@ApiImplicitParam(name = &quot;shortUrl&quot;, value = &quot;短链接URI&quot;, required = true, dataType = &quot;string&quot;, paramType = &quot;path&quot;)
+	public Result&lt;UrlModel&gt; getUrl(@PathVariable String shortUrl) {
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">		if (StrUtil.length(shortUrl) != 8) {</span>
+<span class="nc" id="L55">			throw new RuntimeException(&quot;短链接不合法&quot;);</span>
+		}
+
+<span class="fc" id="L58">		String s = redisUtil.get(RedisUtil.urlShort + shortUrl);</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">		if (!StrUtil.isNullOrUndefined(shortUrl)) {</span>
+<span class="fc" id="L60">			return Result.success(new UrlModel(shortUrl, s));</span>
+		}
+
+<span class="nc" id="L63">		UrlModel urlDO = this.service.getUrl(s);</span>
+<span class="nc" id="L64">		return Result.success(urlDO);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>

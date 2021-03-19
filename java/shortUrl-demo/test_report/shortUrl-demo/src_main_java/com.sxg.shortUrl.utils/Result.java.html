@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Result.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.utils</a> &gt; <span class="el_source">Result.java</span></div><h1>Result.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.utils;
+
+import cn.hutool.core.date.DateUtil;
+import io.swagger.annotations.ApiModelProperty;
+
+/**
+ * 
+ * @author sxg
+ *
+ */
+<span class="fc" id="L11">public class Result&lt;T&gt; {</span>
+
+	@ApiModelProperty(value = &quot;错误码&quot;)
+	private int code;
+	@ApiModelProperty(value = &quot;信息&quot;)
+	private String msg;
+	@ApiModelProperty(value = &quot;内容&quot;)
+	private Object data;
+	@ApiModelProperty(value = &quot;返回时间&quot;)
+	private String timestamp;
+
+	public int getCode() {
+<span class="fc" id="L23">		return code;</span>
+	}
+
+	public void setCode(int code) {
+<span class="fc" id="L27">		this.code = code;</span>
+<span class="fc" id="L28">	}</span>
+
+	public String getMsg() {
+<span class="fc" id="L31">		return msg;</span>
+	}
+
+	public void setMsg(String msg) {
+<span class="fc" id="L35">		this.msg = msg;</span>
+<span class="fc" id="L36">	}</span>
+
+	public Object getData() {
+<span class="fc" id="L39">		return data;</span>
+	}
+
+	public void setData(Object data) {
+<span class="fc" id="L43">		this.data = data;</span>
+<span class="fc" id="L44">	}</span>
+
+	public String getTimestamp() {
+<span class="fc" id="L47">		return timestamp;</span>
+	}
+
+	public void setTimestamp(String timestamp) {
+<span class="fc" id="L51">		this.timestamp = timestamp;</span>
+<span class="fc" id="L52">	}</span>
+
+	// 请求处理成功，并响应结果数据
+	public static &lt;T&gt; Result&lt;T&gt; success(T data) {
+<span class="fc" id="L56">		Result&lt;T&gt; resp = new Result&lt;&gt;();</span>
+<span class="fc" id="L57">		resp.setCode(0);</span>
+<span class="fc" id="L58">		resp.setMsg(&quot;success&quot;);</span>
+<span class="fc" id="L59">		resp.setData(data);</span>
+<span class="fc" id="L60">		resp.setTimestamp(DateUtil.now());</span>
+<span class="fc" id="L61">		return resp;</span>
+	}
+
+	public static &lt;T&gt; Result&lt;T&gt; error(RuntimeException e) {
+<span class="nc" id="L65">		Result&lt;T&gt; resp = new Result&lt;&gt;();</span>
+<span class="nc" id="L66">		resp.setCode(-1);</span>
+<span class="nc" id="L67">		resp.setMsg(e.getMessage());</span>
+<span class="nc" id="L68">		resp.setTimestamp(DateUtil.now());</span>
+<span class="nc" id="L69">		return resp;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>
