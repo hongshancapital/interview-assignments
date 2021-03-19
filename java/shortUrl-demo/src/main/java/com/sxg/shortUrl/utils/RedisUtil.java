@@ -16,7 +16,7 @@ public class RedisUtil {
 
     public static String urlLong = "com:sxg:shortDemo:urlLong:";
     public static String urlShort = "url:sxg:shortDemo:urlShort:";
-
+    public static String lock = "url:sxg:shortDemo:lock:";
 
     public RedisUtil(RedisTemplate<String, String> redisTemplate) {this.redisTemplate = redisTemplate;}
 
@@ -33,6 +33,24 @@ public class RedisUtil {
     }
 
 
+    
+    
+    /**
+     * 写入缓存
+     */
+    public boolean setNx(final String key, String value) {
+        boolean result = false;
+        try {
+            redisTemplate.opsForValue().setIfAbsent(key, value);
+            result = true;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    
+    
     /**
      * 写入缓存
      */

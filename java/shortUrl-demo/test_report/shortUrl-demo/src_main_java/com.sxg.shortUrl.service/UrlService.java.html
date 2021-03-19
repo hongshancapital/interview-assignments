@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UrlService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 11:58:11)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.service</a> &gt; <span class="el_source">UrlService.java</span></div><h1>UrlService.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.service;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UrlService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">shortUrl-demo (2021-3-19 16:01:24)</a> &gt; <a href="../../index.html" class="el_group">shortUrl-demo</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.sxg.shortUrl.service</a> &gt; <span class="el_source">UrlService.java</span></div><h1>UrlService.java</h1><pre class="source lang-java linenums">package com.sxg.shortUrl.service;
 
 import org.springframework.stereotype.Service;
 import com.sxg.shortUrl.mapper.UrlMapper;
@@ -7,8 +7,9 @@ import com.sxg.shortUrl.utils.RedisUtil;
 import com.sxg.shortUrl.utils.SnowflakeIdWorker;
 import com.sxg.shortUrl.utils.UrlUtil;
 
-import java.util.Date;
+import io.netty.util.internal.StringUtil;
 
+import java.util.Date;
 
 /**
  * 
@@ -18,39 +19,51 @@ import java.util.Date;
 @Service
 public class UrlService {
 
-    private final UrlMapper mapper;
-    private final RedisUtil redisUtil;
+	private final UrlMapper mapper;
+	private final RedisUtil redisUtil;
 
+<span class="fc" id="L25">	public UrlService(UrlMapper mapper, RedisUtil redisUtil) {</span>
+<span class="fc" id="L26">		this.mapper = mapper;</span>
+<span class="fc" id="L27">		this.redisUtil = redisUtil;</span>
+<span class="fc" id="L28">	}</span>
 
-<span class="fc" id="L25">    public UrlService(UrlMapper mapper, RedisUtil redisUtil) {</span>
-<span class="fc" id="L26">        this.mapper = mapper;</span>
-<span class="fc" id="L27">        this.redisUtil = redisUtil;</span>
-<span class="fc" id="L28">    }</span>
+	public UrlModel createShortUrl(String longUrl) {
 
-    public UrlModel createShortUrl(String longUrl) {
-    	
-<span class="fc" id="L32">    	SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);</span>
-<span class="fc" id="L33">    	long id =  idWorker.nextId();</span>
-<span class="fc" id="L34">        UrlModel urlModel = new UrlModel();</span>
-<span class="fc" id="L35">        urlModel.setCreateDate(new Date());</span>
-<span class="fc" id="L36">        urlModel.setId(id);</span>
-<span class="fc" id="L37">        urlModel.setLongUrl(longUrl);</span>
-<span class="fc" id="L38">        urlModel.setShortUrl(UrlUtil.convertToStr(id));</span>
-<span class="fc" id="L39">        this.mapper.insertUrl(urlModel);</span>
-<span class="fc" id="L40">        setCache(urlModel);</span>
-<span class="fc" id="L41">        return urlModel;</span>
-    }
+<span class="fc" id="L32">		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);</span>
+<span class="fc" id="L33">		long id = idWorker.nextId();</span>
+<span class="fc" id="L34">		UrlModel urlModel = new UrlModel();</span>
+<span class="fc" id="L35">		Boolean lock = redisUtil.setNx(redisUtil.lock + id, String.valueOf(id));</span>
+		// 抢到锁了 执行业务
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">		if (lock) {</span>
+<span class="fc" id="L38">			urlModel.setCreateDate(new Date());</span>
+<span class="fc" id="L39">			urlModel.setId(id);</span>
+<span class="fc" id="L40">			urlModel.setLongUrl(longUrl);</span>
+<span class="fc" id="L41">			urlModel.setShortUrl(UrlUtil.convertToStr(id));</span>
+<span class="fc" id="L42">			this.mapper.insertUrl(urlModel);</span>
+<span class="fc" id="L43">			setCache(urlModel);</span>
+<span class="fc" id="L44">		} else {</span>
+			// 自旋获取锁
+			// 休眠100ms
+			try {
+<span class="nc" id="L48">				Thread.sleep(100);</span>
+<span class="nc" id="L49">			} catch (InterruptedException e) {</span>
+<span class="nc" id="L50">				e.printStackTrace();</span>
+			}
+<span class="nc" id="L52">			return createShortUrl(longUrl);</span>
+		}
 
+<span class="fc" id="L55">		return urlModel;</span>
+	}
 
-    public UrlModel getUrl(String s) {
-<span class="fc" id="L46">        UrlModel urlModel = this.mapper.getUrlByUri(s);</span>
-<span class="fc" id="L47">        setCache(urlModel);</span>
-<span class="fc" id="L48">        return urlModel;</span>
-    }
+	public UrlModel getUrl(String s) {
+<span class="fc" id="L59">		UrlModel urlModel = this.mapper.getUrlByUri(s);</span>
+<span class="fc" id="L60">		setCache(urlModel);</span>
+<span class="fc" id="L61">		return urlModel;</span>
+	}
 
-    private void setCache(UrlModel urlModel) {
-<span class="fc" id="L52">        redisUtil.set(RedisUtil.urlLong + urlModel.getLongUrl(), urlModel.getShortUrl());</span>
-<span class="fc" id="L53">        redisUtil.set(RedisUtil.urlShort + urlModel.getShortUrl(), urlModel.getLongUrl());</span>
-<span class="fc" id="L54">    }</span>
+	private void setCache(UrlModel urlModel) {
+<span class="fc" id="L65">		redisUtil.set(RedisUtil.urlLong + urlModel.getLongUrl(), urlModel.getShortUrl());</span>
+<span class="fc" id="L66">		redisUtil.set(RedisUtil.urlShort + urlModel.getShortUrl(), urlModel.getLongUrl());</span>
+<span class="fc" id="L67">	}</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 11:58:11)</div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>shortUrl-demo (2021-3-19 16:01:24)</div></body></html>
