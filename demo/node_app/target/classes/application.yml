@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: node-app
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    max-active: 20
+    max-idle: 8
+    min-idle: 8
+    initial-size: 10
+server:
+  port: 8005
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: com.addr.node.bean
+#  mapperLocations: classpath:mapper/*.xml
+#  typeAliasesPackage: com.addr.node.bean

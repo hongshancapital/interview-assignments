@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addr.node.mapper.DomainMapper">
+
+    <select id="queryDomain" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT
+		long_domain
+		FROM tb_domain where short_domain =#{shortDomain}
+	</select>
+
+    <insert id="insertDomain" parameterType="java.util.Map">
+        insert into tb_domain(short_domain,long_domain)
+        values(#{shortDomain},#{longDomain})
+    </insert>
+</mapper>
