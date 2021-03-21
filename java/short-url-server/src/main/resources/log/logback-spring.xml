@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d | %highlight(%-5p) | %boldYellow(%t) | %boldGreen(%logger) | (%file:%line\)- %m%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="short_url_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>log/short_url.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>log/short_url.%d.%i.log</fileNamePattern>
+            <!--<maxHistory>30</maxHistory>-->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d | %p | %t | %logger | (%file:%line\)- %m%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="short_url_log"/>
+    </root>
+
+    <!--<logger name="com.asan" level="DEBUG">-->
+    <!--<appender-ref ref="short_url_log"/>-->
+    <!--</logger>-->
+
+</configuration>
