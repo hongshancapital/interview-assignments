@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html,body{height:100%;font-size: large;}
+      #app {
+        height:100%;display: flex;flex-direction: column; align-items: center;padding-top: 10%;
+      }
+      
+      input{width: 400px;font-size: large;padding: 8px;margin-bottom: 16px;}
+      button{padding: 8px;font-size: large;margin-bottom: 16px;}
+      
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div><input type="url" v-model="originUrl"/></div>
+      <div><button @click="getShortUrl()">Get Short URL</button></div>
+      <div><a :href="shortUrl" target="_blank">{{shortUrl}}</a></div>
+      
+    </div>
+    <script src="/vue.js"></script>
+    <script>
+
+      var app = new Vue({
+        el: "#app",
+        data: {
+          originUrl: "http://www.baidu.com",
+          shortKey: "",
+        },
+
+        methods: {
+          getShortUrl() {
+            fetch(`/shorturl?url=${encodeURIComponent(this.originUrl)}`)
+              .then((res) => res.text())
+              .then((text) => (this.shortKey = text));
+          },
+
+          getOriginUrl() {
+            fetch(`/shorturl?url=${this.originUrl}`)
+              .then((res) => res.text())
+              .then((text) => console.log(text));
+          },
+        },
+        mounted() {},
+        computed: {
+          shortUrl() {
+            return location.href + this.shortKey;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
