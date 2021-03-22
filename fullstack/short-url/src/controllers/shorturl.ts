@@ -2,26 +2,25 @@
 /**
  * testing purpose
  */
-import { Response, Request } from "express";
-import * as cache from "../db/cache";
-import db from "../db/db";
-import { notFound,shortUrlKey } from "../const";
+import { Response, Request, NextFunction } from "express";
+import { notFound } from "../const";
+import { getOriginUrlById, resetData } from "../services/shorturl";
+import logger from "../util/logger";
 
 /**
  * redirect short url to origin url.
  * @route GET /:key
  */
-export const redirectToOriginUrl = async (req: Request, res: Response) => {
+export const redirectToOriginUrl = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   let key = req.path.substr(1);
-  let value: string = (await cache.get(req.path)) as string;
-  if (!value) {
-    try {
-      value = await db.getOriginUrl(key);
-      cache.set(key, value);
-      res.redirect(value);
-    } catch (e) {
-      res.end(notFound);
-    }
+  let value: string = await getOriginUrlById(key);
+
+  if (value === notFound) {
+    next();
   } else {
     res.redirect(value);
   }
@@ -33,10 +32,10 @@ export const redirectToOriginUrl = async (req: Request, res: Response) => {
  */
 export const reset = async (req: Request, res: Response) => {
   try {
-     await db.setId(0);
-    cache.set(shortUrlKey, '0');
-    res.end('0');
+    await resetData();
+    res.end("0");
   } catch (e) {
-    res.end(e.stack);
+    logger.error(`ERROR occurred when resetting data: ${e && e.message}`);
+    res.end("reset error");
   }
 };

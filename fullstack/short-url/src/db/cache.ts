@@ -8,11 +8,19 @@ let client: RedisClient,
   getAsync: (k: string) => Promise<any>,
   incrAsync:(k: string) => Promise<any>;
 
+/**
+ * Redis config 
+ */
 export interface RedisConifg {
   port: number;
   host?: string;
 }
 
+/**
+ * connect to Redis and transform the redis method to promisify
+ * 
+ * @param config Redis port and host
+ */
 export async function connectRedis(
   config: RedisConifg
 ): Promise<RedisClient | RedisError> {
@@ -30,12 +38,23 @@ export async function connectRedis(
   });
 }
 
+/**
+ * set the integer key when the app started
+ * 
+ * @param initData the last key for origin URL
+ */
 export async function initCache(
   initData: any
 ): Promise<RedisError | String> {
   return setAsync(shortUrlKey, initData);
 }
 
+/**
+ * put the URL to cache when it's visited.
+ * 
+ * @param key a base64 short key
+ * @param data the origin URL
+ */
 export async function set(
   key: string,
   data: string
@@ -43,31 +62,19 @@ export async function set(
   return setAsync(key, data);
 }
 
+/**
+ * get the origin URL from cache by key
+ * 
+ * @param key base64 short key
+ */
 export async function get(
   key: string
 ): Promise<RedisError | String> {
   return getAsync(key);
 }
-
+/**
+ * get a new integer key for next origin URL
+ */
 export async function getNewId(): Promise<RedisError | number> {
   return incrAsync(shortUrlKey);
 }
-
-// const retry_strategy = function(options:any) {
-//   if (options.error && options.error.code === "ECONNREFUSED") {
-//     // End reconnecting on a specific error and flush all commands with
-//     // a individual error
-//     return new Error("The server refused the connection");
-//   }
-//   if (options.total_retry_time > 1000 * 60 * 60) {
-//     // End reconnecting after a specific timeout and flush all commands
-//     // with a individual error
-//     return new Error("Retry time exhausted");
-//   }
-//   if (options.attempt > 10) {
-//     // End reconnecting with built in error
-//     return undefined;
-//   }
-//   // reconnect after
-//   return Math.min(options.attempt * 100, 3000);
-// }

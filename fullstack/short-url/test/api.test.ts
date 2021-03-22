@@ -1,6 +1,8 @@
 import request from "supertest";
 import LevelDb from "../src/db/db";
 import app from "../src/app";
+import { invalidURL, notFound } from "../src/const";
+
 const redis = require("redis");
 const setMock = jest.fn((key, value, cb) => cb(null, value));
 const getMock = jest.fn((key, cb) => cb(null, "get test url"));
@@ -37,6 +39,16 @@ beforeEach(() => {
 });
 
 describe("GET /shorturl", () => {
+  it("should return invalid URL", (done) => {
+    request(app)
+      .get("/shorturl?url=/www.a.com")
+      .expect(invalidURL)
+      .end(function (err, res) {
+        if (err) done(err);
+        done();
+      });
+  });
+
   it("should return 200 OK", (done) => {
     request(app)
       .get("/shorturl?url=http://www.a.com")
@@ -46,10 +58,6 @@ describe("GET /shorturl", () => {
         expect(res.text).toBe("K");
         done();
       });
-  });
-
-  it("should return invalid URL", () => {
-    request(app).get("/shorturl?url=/www.a.com").expect("Invalid URL");
   });
 });
 
@@ -80,9 +88,40 @@ describe("GET /originurl", () => {
       });
   });
 
-  it("should return Not Found", () => {
+  it("should return Not Found", (done) => {
     getMock.mockImplementation(jest.fn((key, cb) => cb(null, "")));
     LevelDb.getOriginUrl = jest.fn(() => Promise.reject());
-    request(app).get("/originurl?key=A").expect("Not Found");
+    request(app)
+    .get("/originurl?key=A")
+    .end(function (err, res) {
+      if (err) done(err);
+      expect(res.text).toBe(notFound);
+      done();
+    });
+  });  
+
+  it("should return 400 Bad Request", (done) => {
+    getMock.mockImplementation(jest.fn((key, cb) => cb(null, "")));
+    LevelDb.getOriginUrl = jest.fn(() => Promise.reject("error"));
+    request(app)
+    .get("/originurl?key0=A")
+    .expect(400)
+    .end(function(err, res){
+      if (err) return done(err);
+      return done();
+    });
+  });
+});
+
+describe("GET /404", () => {
+  it("should return 404 Not Found", (done) => {
+    request(app)
+      .get("/404")
+      .expect(404)
+      .end(function (err, res) {
+        if (err) done(err);
+        expect(res.text).toBe(notFound);
+        done();
+      });
   });
 });

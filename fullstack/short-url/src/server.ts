@@ -21,12 +21,6 @@ try {
 try {
   connectRedis({ port: 6379, host: process.env.REDIS_HOST });
   LevelDb.getCurrentId().then(initCache);
-  
-  // test max id 2 ^ 53-1
-  // initCache(Math.pow(2,53)-2)
-  // console.log(Math.pow(2,53) - 1)
-  // key = gAAAAAAAA
-
 } catch (e) {
   logger.error("Cache connetion/init error:" + e.stack);
   process.exit(1);

@@ -10,7 +10,6 @@ import { getOriginUrlById, genShortId } from "../services/shorturl";
  */
 export const genShortUrl = async (req: Request, res: Response) => {
   let url: string = req.query["url"] as string;
-  
   if (!validateUrl(url)) {
     return res.end(invalidURL);
   }
