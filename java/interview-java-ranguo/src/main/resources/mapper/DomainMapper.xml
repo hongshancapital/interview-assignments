@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiejin.java.interview.mapper.DomainMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="xiejin.java.interview.entity.Domain">
+        <id column="original_domain" property="originalDomain" />
+        <result column="short_domain" property="shortDomain" />
+        <result column="expire_time" property="expireTime" />
+        <result column="state" property="state" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="updator" property="updator" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        original_domain, short_domain, expire_time, state, creator, create_time, updator, update_time
+    </sql>
+
+</mapper>

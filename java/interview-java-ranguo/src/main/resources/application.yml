@@ -1,0 +1,48 @@
+server:
+  port: 8081
+#  servlet:
+#    context-path: cetc
+spring:
+  application:
+    name: domain-change
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 2
+      min-idle: 1
+      max-active: 2
+      filters: stat,wall
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin
+      url: jdbc:mysql://localhost:3306/domain-change?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true&rewriteBatchedStatements=true
+      username: root
+      password: admin
+
+# 日志配置
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info
+  file:
+    path: /data/logs/cetc
+    max-size: 100MB
+    max-history: 15
+
+#注意生产环境下     设置为false
+# 开发环境   设置为true
+swagger:
+  enabled: true
+mybatis-plus:
+  typeAliasesPackage: xiejin.java.interview.entity
+  mapper-locations: mapper/*.xml
+  type-enums-package: xiejin.java.interview.enums
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+
