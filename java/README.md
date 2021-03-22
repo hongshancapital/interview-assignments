@@ -1,4 +1,9 @@
 # Java Assignment
+将interview-java-ranguo工程拷贝出来运行
+求职作业
+求职公司：燃果
+求职者：谢晋
+求职岗位：java高级工程师
 
 ## 这是什么？
 
