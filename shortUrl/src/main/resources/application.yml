@@ -1,0 +1,63 @@
+###################  spring配置  ###################
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/short_url?useUnicode=yes&characterEncoding=UTF-8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: 123456
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 配置获取连接等待超时的时间
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    useGlobalDataSourceStat: true
+  # Redis
+  redis:
+    database: 0
+    host: 192.168.1.161
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+
+###################  服务器配置  ###################
+server:
+  port: 8160
+  servlet:
+    session:
+      timeout: 30m
+
+###################  Mybatis配置  ##################
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.scdt.exam.model
+
+logging:
+  level.root: info
+  level.com.itprosoft: debug
