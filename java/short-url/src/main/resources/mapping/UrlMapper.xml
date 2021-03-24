@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gc.shorturl.mapper.UrlMapper">
-    <insert id="insert" keyProperty="short_url">
-        insert into url (short_url,original_url) values (#{shortUrl},#{originalUrl})
-        on duplicate key update short_url=#{shortUrl};
+    <resultMap id="BaseResultMap" type="com.gc.shorturl.entity.ShortUrl">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="index" property="index" jdbcType="INTEGER"/>
+        <result column="short_url" property="shortUrl" jdbcType="VARCHAR"/>
+        <result column="suffix" property="suffix" jdbcType="VARCHAR"/>
+        <result column="original_url" property="originalUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+    <insert id="insert" keyProperty="id" parameterType="com.gc.shorturl.entity.ShortUrl">
+        insert into url (short_url,suffix,`index`,original_url)
+        values (#{shortUrl},#{suffix},#{index},#{originalUrl})
     </insert>
-    <select id="getByShortUrl" resultType="string">
-        select original_url from url where short_url =#{shortUrl};
+    <!--    <select id="getByShortUrl" resultType="com.gc.shorturl.entity.ShortUrl">-->
+    <select id="getByShortUrl" resultMap="BaseResultMap">
+        select * from url where short_url =#{shortUrl} limit 2;
+    </select>
+    <select id="getByAllUrl" resultType="com.gc.shorturl.entity.ShortUrl">
+        select * from url where short_url =#{shortUrl} and original_url=#{originalUrl};
+    </select>
+    <select id="getMaxIndexByShortUrl" resultType="java.lang.Integer">
+        select MAX(`index`) from url where short_url =#{shortUrl};
     </select>
 </mapper>

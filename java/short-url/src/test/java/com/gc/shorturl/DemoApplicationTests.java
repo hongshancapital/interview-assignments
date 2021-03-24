@@ -34,17 +34,26 @@ class DemoApplicationTests {
     ShortUrlController controller;
 
     @Test
+    void testAll() {
+        getShortUrl();
+        getOriginalUrl();
+        convert2ShortUrl();
+    }
+
+    @Test
     void getShortUrl() {
-        BaseResponse response = controller.convert2ShortUrl("http://www.baidu.com");
-        System.out.println(response.getData());
+        String url = "http://www.baidu.com";
+        BaseResponse response = controller.convert2ShortUrl(url);
+        System.out.println("网址:[" + url + "]生成的短地址为：" + response.getData());
     }
 
     @Test
     void getOriginalUrl() {
         BaseResponse<String> response = controller.convert2ShortUrl("http://www.baidu.com");
         if (response.getCode() == 200) {
-            response = controller.convert2OriginalUrl(response.getData());
-            System.out.println(response.getData());
+            String shortUrl = response.getData();
+            response = controller.convert2OriginalUrl(shortUrl);
+            System.out.println("短网址:[" + shortUrl + "]对应的原地址是：" + response.getData());
         }
     }
 

@@ -1,7 +1,10 @@
 package com.gc.shorturl.mapper;
 
+import com.gc.shorturl.entity.ShortUrl;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +16,13 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UrlMapper {
 
-    int insert(@Param("shortUrl") String shortUrl, @Param("originalUrl") String originalUrl);
+    int insert(ShortUrl entity);
 
-    String getByShortUrl(@Param("shortUrl") String shortUrl);
+    List<ShortUrl> getByShortUrl(@Param("shortUrl") String shortUrl);
+
+    ShortUrl getByShortUrlAndSuffix(@Param("shortUrl") String shortUrl, @Param("suffix") String suffix);
+
+    ShortUrl getByAllUrl(@Param("shortUrl") String shortUrl, @Param("originalUrl") String originalUrl);
+
+    int getMaxIndexByShortUrl(@Param("shortUrl") String shortUrl);
 }
