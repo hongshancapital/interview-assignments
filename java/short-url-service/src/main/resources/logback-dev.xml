@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>logback</contextName>
+
+    <!-- 日志存放路径 -->
+    <property name="log.path" value="/opt/logs/shorturl"/>
+
+    <!-- 日志输出格式 -->
+    <property name="log.pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{100} - [%method,%line] - %msg%n"/>
+
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!--按天生成日志-->
+    <appender name="logFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/shorturl.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.path}/shorturl.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- 日志最大的历史 7天 -->
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${log.pattern}</Pattern>
+        </layout>
+    </appender>
+
+
+    <!--8个日志级别（OFF、FATAL、ERROR、WARN、INFO、DEBUG、TRACE、 ALL）-->
+    <!-- 开发环境+测试环境. 多个使用逗号隔开. -->
+    <springProfile name="dev,test">
+        <!-- 系统模块日志级别控制  -->
+        <logger name="com.snail.shorturlservice" level="DEBUG"/>
+
+        <root level="INFO">
+            <appender-ref ref="console"/>
+            <appender-ref ref="logFile"/>
+        </root>
+    </springProfile>
+</configuration>
