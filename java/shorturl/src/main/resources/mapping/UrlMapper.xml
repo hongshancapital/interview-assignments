@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjup.shorturl.mapper.UrlMapper">
+
+    <resultMap id="urlMap" type="com.wjup.shorturl.entity.UrlEntity">
+        <id column="uuid" property="uuid"></id>
+        <result column="shorl_url_id" property="shortUrlId"></result>
+        <result column="long_url" property="longUrl"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="last_view" property="lastView"></result>
+        <result column="view_pwd" property="viewPwd"></result>
+    </resultMap>
+
+    <insert id="createShortUrl">
+        insert into tb_url (uuid,shorl_url_id,long_url,create_time,view_pwd)
+        values (#{uuid},#{shortUrlId},#{longUrl},#{createTime},#{viewPwd})
+    </insert>
+
+    <select id="findByShortUrlId" resultMap="urlMap">
+        select * from tb_url where shorl_url_id = #{shortUrlId}
+    </select>
+
+    <update id="updateShortUrl">
+        update tb_url set last_view = #{lastView} where shorl_url_id = #{shortUrlId}
+    </update>
+
+    <select id="findByPwd" resultMap="urlMap">
+        select * from tb_url where shorl_url_id = #{shortUrlId} and view_pwd = #{viewPwd}
+    </select>
+</mapper>

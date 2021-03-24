@@ -1,0 +1,67 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>短网址,短网址生成,短链接</title>
+    <meta name="Description" content="短网址程序,短网址服务,短网址转换">
+    <meta name="keywords" content="短网址,短网址生成,短链接,网址缩短,短链接生成器,新浪短网址,长网址变短网址,t.cn,域名缩短">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        @media (min-width: 1200px) {
+            .container {
+                width: 751px;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: aliceblue">
+<div class="container" align="center">
+    <br>
+    <br>
+    <br>
+    <br>
+    该条短址请求需要密码才能访问<br><br>
+    <div class="row">
+        <div class="col-xs-4" align="center"></div>
+        <div class="col-xs-4">
+            <input id="viewPwd" type="password" class="form-control" placeholder="请输入密码">
+            <input id="shortUrlId" hidden="hidden" th:value="${shortUrlId}">
+        </div>
+    </div>
+    <span id="msg" hidden="hidden" style="font-size: medium;color: red">aaa</span>
+    <br>
+    <a class="btn btn-success" onclick="VerifyPwd()">访问</a>
+</div>
+
+<script>
+    function VerifyPwd() {
+        var viewPwd = $('#viewPwd').val();
+        if (viewPwd == '') {
+            $('#msg').removeAttr("hidden");
+            $('#msg').html("请输入密码！")
+        } else {
+            $.ajax({
+                type: 'post',
+                url: '/VerifyPwd',
+                data: {
+                    viewPwd: viewPwd,
+                    shortUrlId: $('#shortUrlId').val()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.flag) {
+                        window.location.href = data.longUrl
+                    } else {
+                        $('#msg').removeAttr("hidden");
+                        $('#msg').html("密码错误！")
+                    }
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

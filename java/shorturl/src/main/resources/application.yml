@@ -1,0 +1,29 @@
+server:
+  port: 9527
+
+mybatis:
+  configuration:
+    # �»���ת�շ�
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.wjup.shorturl.entity
+
+spring:
+  datasource:
+    username: root
+    password: Hx123456test!
+    url: jdbc:mysql://172.16.7.60:3306/pbs?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: utf-8
+    mode: html5
+    servlet:
+      content-type: text/html
+
+
+logging:
+  path: /opt/java/log
+  file: shorturl.log

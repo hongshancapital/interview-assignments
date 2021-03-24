@@ -1,0 +1,149 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>短网址,短网址生成,短链接</title>
+    <meta name="Description" content="短网址程序,短网址服务,短网址转换">
+    <meta name="keywords" content="短网址,短网址生成,短链接,网址缩短,短链接生成器,新浪短网址,长网址变短网址,t.cn,域名缩短">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        @media (min-width: 1200px) {
+            .container {
+                width: 751px;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: aliceblue">
+<div class="container">
+    <br>
+    <h1 style="font-size: x-large;" align="center">短网址生成</h1><br>
+    <br>
+    <div class="row">
+        <div class="col-xs-12 col-md-12" align="right">
+            <a class="btn btn-info" onclick="pwd()">加密短网址</a>
+<!--            <a class="btn btn-info" href="#">解析短网址</a>-->
+        </div>
+    </div>
+    <br>
+    <form id="url">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                    <textarea rows="5" class="form-control" placeholder="支持批量生成短址,回车换行,每行一个长网址" id="longUrl"
+                              name="longUrl"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-md-12" align="center">
+                <button type="button" class="btn btn-success" onclick="form_submit()">生 成</button>
+                <button type="reset" class="btn btn-primary">重 置</button>
+            </div>
+        </div>
+    </form>
+
+    短链接地址：<span id="shortUrl" hidden="hidden" style="font-size: large;color: red">aaa</span><br/>
+    <a href="/doc.html">文档地址</a>
+</div>
+
+<div class="modal fade" id="msg-dwz" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&nbsp;&times;</span>
+                </button>
+                <h4 class="modal-title" id="msgTitle-dwz">加密短网址</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formDwz">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                *密码短网址必须输入密码才能访问；您可将需要付费内容加密传播，以保证自身利益
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <textarea rows="5" id="longUrlPwd" class="form-control"
+                                          placeholder="原网址-支持批量生成短址,回车换行,每行一个长网址"
+                                          required></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input type="text" id="viewPwd" class="form-control" placeholder="访问密码"
+                                       required>
+                            </div>
+                        </div>
+                        <br>
+                        <span id="msg" hidden="hidden" style="font-size: large;color: red">aaa</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" onclick="pwd_submit()">提交</a>
+                <a href="javascript:void(0)" class="btn btn-primary" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function pwd() {
+        $('#msg-dwz').modal('show');
+    }
+
+    function form_submit() {
+        var longUrl = $('#longUrl').val();
+        if (longUrl == '') {
+            $('#shortUrl').removeAttr("hidden");
+            $('#shortUrl').html("请输入网址！")
+        } else {
+            $.ajax({
+                type: 'post',
+                url: '/create',
+                data: {
+                    longUrl: longUrl,
+                    viewPwd: null
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('#shortUrl').removeAttr("hidden");
+                    $('#shortUrl').html(data.shortUrl)
+                }
+            })
+        }
+    }
+
+    function pwd_submit() {
+        var longUrlPwd = $('#longUrlPwd').val();
+        var viewPwd = $('#viewPwd').val();
+        if (viewPwd == '' || longUrlPwd == '') {
+            $('#msg').removeAttr("hidden");
+            $('#msg').html("网址或者访问密码不能为空！")
+        } else {
+            $.ajax({
+                type: 'post',
+                url: '/create',
+                data: {
+                    longUrl: longUrlPwd,
+                    viewPwd: viewPwd
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('#msg').removeAttr("hidden");
+                    $('#msg').html(data.shortUrl)
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>
