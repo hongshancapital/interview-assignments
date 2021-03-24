@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 /**
- * Create by wjup on 2019/9/29 11:33
- */
-
+ * @description: TODO
+ * @classname: UrlMapper
+ * @author niuxing@huaxiapawn
+ * @date 2020/03/21 13:44
+*/
 @Repository
 public interface UrlMapper {
 

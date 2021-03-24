@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @description: AOP 拦截参数实现
  * @classname: AopLogCollector
  * @author niuxing@huaxiapawn
- * @date 2020/11/24 13:44
+ * @date 2020/03/21 13:44
 */
 @Component
 @Aspect
