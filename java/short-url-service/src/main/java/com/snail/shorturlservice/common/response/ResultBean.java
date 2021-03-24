@@ -1,12 +1,18 @@
 package com.snail.shorturlservice.common.response;
 
 import com.google.common.base.MoreObjects;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
+@ApiModel("响应结果实体")
 public class ResultBean<T> implements Serializable {
+    @ApiModelProperty("响应码")
     private int code;
+    @ApiModelProperty("响应信息")
     private String msg;
+    @ApiModelProperty("响应数据")
     private T data;
 
     public ResultBean() {

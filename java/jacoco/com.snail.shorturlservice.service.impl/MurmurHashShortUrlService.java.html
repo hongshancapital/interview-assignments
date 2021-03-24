@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MurmurHashShortUrlService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">short-url-service</a> &gt; <a href="index.source.html" class="el_package">com.snail.shorturlservice.service.impl</a> &gt; <span class="el_source">MurmurHashShortUrlService.java</span></div><h1>MurmurHashShortUrlService.java</h1><pre class="source lang-java linenums">package com.snail.shorturlservice.service.impl;
+
+import com.snail.shorturlservice.common.utils.NumberTo62Util;
+import com.snail.shorturlservice.common.utils.ShortUrlUtil;
+import com.snail.shorturlservice.dao.mapper.ShortUrlMapper;
+import com.snail.shorturlservice.exception.DataInsertException;
+import com.snail.shorturlservice.po.ShortUrlPO;
+import com.snail.shorturlservice.properties.ApplicationProperties;
+import com.snail.shorturlservice.redis.RedisRepository;
+import com.snail.shorturlservice.service.ShortUrlService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L20">public class MurmurHashShortUrlService implements ShortUrlService {</span>
+<span class="fc" id="L21">    private static final Logger LOGGER = LoggerFactory.getLogger(MurmurHashShortUrlService.class);</span>
+
+    @Autowired
+    private ApplicationProperties applicationProperties;
+    @Autowired
+    private RedisRepository redisRepository;
+    @Autowired
+    private ShortUrlMapper shortUrlMapper;
+
+    @Override
+    public String shorten(String url) {
+<span class="fc" id="L32">        String domain = this.applicationProperties.getDomain();</span>
+<span class="fc" id="L33">        long longHashCode = ShortUrlUtil.getLongHashCode(url);</span>
+<span class="fc" id="L34">        String key = NumberTo62Util.to62(longHashCode, 6);</span>
+<span class="fc" id="L35">        ShortUrlPO newPo = null;</span>
+
+        //用哈希值字段查数据库，可能出现哈希冲突的多条记录
+<span class="fc" id="L38">        List&lt;ShortUrlPO&gt; poList = this.shortUrlMapper.findByLongHashCode(longHashCode);</span>
+<span class="pc bpc" id="L39" title="1 of 4 branches missed.">        if (null != poList &amp;&amp; !poList.isEmpty()) {</span>
+            //有哈希冲突的记录，在结果集里匹配与本次参数url相同的记录
+<span class="fc" id="L41">            Optional&lt;ShortUrlPO&gt; poOptional = poList.stream().filter(shortUrlPO -&gt; shortUrlPO.getLongUrl().equals(url)).findAny();</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">            if (poOptional.isPresent()){</span>
+                // 找到匹配记录，缓存并返回结果
+<span class="fc" id="L44">                ShortUrlPO po = poOptional.get();</span>
+<span class="fc" id="L45">                key = po.getShortKey();</span>
+<span class="fc" id="L46">                this.redisRepository.setShortUrl(key, url);</span>
+<span class="fc" id="L47">                String shortUrl = domain + key;</span>
+<span class="fc" id="L48">                return shortUrl;</span>
+            }else {
+                // 没有匹配记录，给新增数据编号，并插入新增数据
+<span class="fc" id="L51">                int seq = poList.size();</span>
+<span class="fc" id="L52">                String seqKey = NumberTo62Util.to62(seq);</span>
+<span class="fc" id="L53">                seqKey = key + seqKey;</span>
+<span class="fc" id="L54">                newPo = new ShortUrlPO();</span>
+<span class="fc" id="L55">                newPo.setShortKey(seqKey);</span>
+<span class="fc" id="L56">                newPo.setLongUrl(url);</span>
+<span class="fc" id="L57">                newPo.setLongHashCode(longHashCode);</span>
+<span class="fc" id="L58">                newPo.setSeq(seq);</span>
+            }
+        }
+
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (null == newPo){</span>
+            //新建，插入数据库，缓存
+<span class="fc" id="L64">            newPo = new ShortUrlPO();</span>
+<span class="fc" id="L65">            newPo.setShortKey(key);</span>
+<span class="fc" id="L66">            newPo.setLongUrl(url);</span>
+<span class="fc" id="L67">            newPo.setLongHashCode(longHashCode);</span>
+        }
+
+<span class="fc" id="L70">        int count = 0;</span>
+        try {
+<span class="fc" id="L72">            count = this.shortUrlMapper.insert(newPo);</span>
+<span class="nc" id="L73">        } catch (Exception e) {</span>
+            // 入库失败，输出日志，抛出异常
+<span class="nc" id="L75">            LOGGER.error(&quot;数据入库异常&quot;, e);</span>
+<span class="nc" id="L76">            throw new DataInsertException(&quot;服务繁忙，请重试&quot;);</span>
+<span class="fc" id="L77">        }</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (count == 1){</span>
+            // 入库成功，缓存并返回结果
+<span class="fc" id="L80">            this.redisRepository.setShortUrl(newPo.getShortKey(), url);</span>
+<span class="fc" id="L81">            String shortUrl = domain + newPo.getShortKey();</span>
+<span class="fc" id="L82">            return shortUrl;</span>
+        }else {
+            // 入库失败，抛出异常
+<span class="nc" id="L85">            throw new DataInsertException(&quot;服务异常，请重试&quot;);</span>
+        }
+    }
+
+    @Override
+    public String getLongUrl(String shortUrlKey) {
+<span class="fc" id="L91">        String[] arr = shortUrlKey.split(&quot;/&quot;);</span>
+<span class="fc" id="L92">        shortUrlKey = arr[arr.length - 1];</span>
+        //先从缓存中获取
+<span class="fc" id="L94">        String longUrl = this.redisRepository.getLongUrl(shortUrlKey);</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if (null != longUrl) {</span>
+<span class="nc" id="L96">            return longUrl;</span>
+        }
+
+        //再从数据库获取
+<span class="fc" id="L100">        ShortUrlPO po = this.shortUrlMapper.findByShortKey(shortUrlKey);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (null != po) {</span>
+<span class="fc" id="L102">            longUrl = po.getLongUrl();</span>
+        }
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (null == longUrl) longUrl = &quot;&quot;;</span>
+        //放入缓存,防止缓存穿透
+<span class="fc" id="L106">        this.redisRepository.setShortUrl(shortUrlKey, longUrl);</span>
+
+<span class="fc" id="L108">        return longUrl;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortUrlController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">short-url-service</a> &gt; <a href="index.source.html" class="el_package">com.snail.shorturlservice.controller</a> &gt; <span class="el_source">ShortUrlController.java</span></div><h1>ShortUrlController.java</h1><pre class="source lang-java linenums">package com.snail.shorturlservice.controller;
+
+import com.snail.shorturlservice.common.response.ResultBean;
+import com.snail.shorturlservice.service.ShortUrlService;
+import com.snail.shorturlservice.vo.ShortenUrlReqVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+@Api(&quot;短链接服务API&quot;)
+@RequestMapping(&quot;/surl&quot;)
+@Controller
+<span class="fc" id="L17">public class ShortUrlController {</span>
+
+    @Autowired
+    private ShortUrlService shortUrlService;
+
+    /**
+     * 接收短链接，返回原始URL地址
+     * @param shortUrl
+     * @return
+     */
+    @ApiOperation(&quot;接收短链接，返回原始URL地址&quot;)
+    @ResponseBody
+    @GetMapping(&quot;/{shortUrl}&quot;)
+    public ResultBean&lt;String&gt; getLongUrl(@PathVariable(&quot;shortUrl&quot;) String shortUrl) {
+<span class="nc" id="L31">        String url = this.shortUrlService.getLongUrl(shortUrl);</span>
+<span class="nc" id="L32">        return ResultBean.success(url);</span>
+    }
+
+    /**
+     * 接收URL地址，返回短链接
+     * @param reqVO
+     * @return
+     */
+    @ApiOperation(&quot;接收URL地址，返回短链接&quot;)
+    @ResponseBody
+    @PostMapping(&quot;/shorten&quot;)
+    public ResultBean&lt;String&gt; shorten(@Valid @RequestBody ShortenUrlReqVO reqVO) {
+<span class="nc" id="L44">        String shortUrl = this.shortUrlService.shorten(reqVO.getUrl());</span>
+<span class="nc" id="L45">        return ResultBean.success(shortUrl);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

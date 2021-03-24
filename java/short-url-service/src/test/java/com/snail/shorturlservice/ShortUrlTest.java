@@ -20,5 +20,9 @@ class ShortUrlTest {
         String shortUrlKey = "ZM5Bcv";
         String longUrl = shortUrlService.getLongUrl(shortUrlKey);
         System.out.println(longUrl);
+
+        String url1 = "https://news.sinaeeee.com.cn/gov/xlxw/2021-03-23/doc-ikknscsi9992821.shtml";
+        String shortUrl1 = shortUrlService.shorten(url1);
+        System.out.println(shortUrl1);
     }
 }
