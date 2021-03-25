@@ -19,7 +19,7 @@ public class ShortUtils {
      * @param length 生成长度
      * @return shortUrlId
      */
-    public static synchronized String getStringRandom(int length) {
+    public static String getStringRandom(int length) {
 
         String val = "";
         Random random = new Random();
@@ -45,7 +45,7 @@ public class ShortUtils {
      * @param longUrl
      * @return
      */
-    public static synchronized String to62url(String longUrl){
+    public static String to62url(String longUrl){
         //MurmurHash算法
         HashFunction function= Hashing.murmur3_32();
         HashCode hashCode = function.hashString(longUrl, Charset.forName("utf-8"));

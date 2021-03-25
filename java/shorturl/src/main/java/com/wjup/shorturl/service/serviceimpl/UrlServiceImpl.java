@@ -39,7 +39,7 @@ public class UrlServiceImpl implements UrlService {
     }
 
     @Override
-    public String createShortUrl(String longUrl, String viewPwd, HttpServletRequest request) {
+    public synchronized String createShortUrl(String longUrl, String viewPwd, HttpServletRequest request) {
         //根据换行进行分割
         String[] split = longUrl.split("\n|\r");
         StringBuffer msg = new StringBuffer();

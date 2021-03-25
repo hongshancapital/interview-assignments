@@ -3,12 +3,26 @@
 
 # 主要功能
 1. 生成短网址，支持批量生成短网址
-2. 对短网址进行加密，访问时需要输入密码才能打开原网址
+#2. 对短网址进行加密，访问时需要输入密码才能打开原网址
 
 # 项目架构
-springboot、mybatis、thymeleaf
+springboot
+mybatis
+thymeleaf
 bootstrap
 mysql
+
+#数据表结构脚本
+CREATE TABLE `tb_url` (
+  `uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `shorl_url_id` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '短链接编码',
+  `long_url` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '长链接地址',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `last_view` datetime DEFAULT NULL COMMENT '最后访问该地址时间',
+  `view_pwd` varchar(36) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '密文',
+  PRIMARY KEY (`uuid`),
+  UNIQUE KEY `shorl_url_id` (`shorl_url_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='短链接表';
 
 # 项目截图
 resources/testImg/前端测试长转短.png
