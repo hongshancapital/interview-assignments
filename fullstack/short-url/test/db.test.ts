@@ -1,17 +1,16 @@
 import LevelDb from "../src/db/db";
-LevelDb.idTable = {}
 LevelDb.urlTable = {}
 
 
 test("setId should return true", (done) => {
-  LevelDb.idTable.put = jest.fn().mockResolvedValue(true)
+  LevelDb.urlTable.put = jest.fn().mockResolvedValue(true)
   LevelDb.setId(123).then(data=>{
     expect(data).toBe(true);
     done();
   })
 });
 test("getCurrentId should return 123", (done) => {
-  LevelDb.idTable.get = jest.fn().mockResolvedValue(123)
+  LevelDb.urlTable.get = jest.fn().mockResolvedValue(123)
   LevelDb.getCurrentId().then(data=>{
     expect(data).toBe(123);
     done();

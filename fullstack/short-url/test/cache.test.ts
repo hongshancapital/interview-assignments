@@ -1,7 +1,7 @@
 const redis = require("redis");
-const setMock = jest.fn((key, value, cb) => cb(null, value));
-const getMock = jest.fn((key, cb) => cb(null, "get test url"));
-const incrMock = jest.fn((key, cb) => cb(null, 15));
+const setMock = jest.fn((_key, value, cb) => cb(null, value));
+const getMock = jest.fn((_key, cb) => cb(null, "get test url"));
+const incrMock = jest.fn((_key, cb) => cb(null, 15));
 redis.createClient = jest.fn(() => {
   return {
     set: setMock,
@@ -42,7 +42,7 @@ test("getNewId should return 15", (done) => {
 });
 
 test("get should return error", (done) => {
-  getMock.mockImplementation((key: string, cb: any) => cb("error", null));
+  getMock.mockImplementation((_key: string, cb: any) => cb("error", null));
   cache.get("a").catch((error) => {
     expect(error).toBe("error");
     done();
@@ -50,7 +50,7 @@ test("get should return error", (done) => {
 });
 
 test("set should return error", (done) => {
-  setMock.mockImplementation((key: string, value, cb: any) =>
+  setMock.mockImplementation((_key: string, _value, cb: any) =>
     cb("error", null)
   );
   cache.set("a", "url").catch((error) => {
@@ -60,7 +60,7 @@ test("set should return error", (done) => {
 });
 
 test("getNewId should return error", (done) => {
-  incrMock.mockImplementation((key, cb: any) => cb("error", null));
+  incrMock.mockImplementation((_key, cb: any) => cb("error", null));
   cache.getNewId().catch((error) => {
     expect(error).toBe("error");
     done();

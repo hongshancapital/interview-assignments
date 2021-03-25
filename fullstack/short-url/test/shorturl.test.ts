@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import request from "supertest";
 import LevelDb from "../src/db/db";
 import app from "../src/app";
 
 const redis = require("redis");
-const setMock = jest.fn((key, value, cb) => cb(null, value));
-const getMock = jest.fn((key, cb) => cb(null, "get test url"));
-const incrMock = jest.fn((key, cb) => cb(null, 10));
+const setMock = jest.fn((_key, value, cb) => cb(null, value));
+const getMock = jest.fn((_key, cb) => cb(null, "get test url"));
+const incrMock = jest.fn((_key, cb) => cb(null, 10));
 redis.createClient = jest.fn(() => {
   return {
     set: setMock,
@@ -25,7 +26,7 @@ beforeEach(() => {
 test("should return 302 Redirect", (done) => {
   jest.mock("../src/services/shorturl",()=>{
     return {
-      getOriginUrlById: jest.fn(key => Promise.resolve("http://test.com"))
+      getOriginUrlById: jest.fn(_key => Promise.resolve("http://test.com"))
     }
   });
   request(app)

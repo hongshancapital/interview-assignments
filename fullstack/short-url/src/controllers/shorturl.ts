@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 /**
  * testing purpose
  */
-import { Response, Request, NextFunction } from "express";
-import { notFound } from "../const";
-import { getOriginUrlById, resetData } from "../services/shorturl";
-import logger from "../util/logger";
+import {Response, Request, NextFunction} from 'express';
+import {notFound} from '../const';
+import {getOriginUrlById, resetData} from '../services/shorturl';
+import logger from '../util/logger';
 
 /**
  * redirect short url to origin url.
@@ -16,8 +16,8 @@ export const redirectToOriginUrl = async (
   res: Response,
   next: NextFunction
 ) => {
-  let key = req.path.substr(1);
-  let value: string = await getOriginUrlById(key);
+  const key = req.path.substr(1);
+  const value: string = await getOriginUrlById(key);
 
   if (value === notFound) {
     next();
@@ -30,12 +30,12 @@ export const redirectToOriginUrl = async (
  * reset data.
  * @route GET /reset
  */
-export const reset = async (req: Request, res: Response) => {
+export const reset = async (_req: Request, res: Response) => {
   try {
     await resetData();
-    res.end("0");
+    res.end('0');
   } catch (e) {
     logger.error(`ERROR occurred when resetting data: ${e && e.message}`);
-    res.end("reset error");
+    res.end('reset error');
   }
 };

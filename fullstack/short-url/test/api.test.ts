@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import request from "supertest";
 import LevelDb from "../src/db/db";
 import app from "../src/app";
 import { invalidURL, notFound } from "../src/const";
 
 const redis = require("redis");
-const setMock = jest.fn((key, value, cb) => cb(null, value));
-const getMock = jest.fn((key, cb) => cb(null, "get test url"));
-const incrMock = jest.fn((key, cb) => cb(null, 10));
+const setMock = jest.fn((_key, value, cb) => cb(null, value));
+const getMock = jest.fn((_key, cb) => cb(null, "get test url"));
+const incrMock = jest.fn((_key, cb) => cb(null, 10));
 redis.createClient = jest.fn(() => {
   return {
     set: setMock,
@@ -18,17 +19,8 @@ redis.createClient = jest.fn(() => {
 import * as cache from "../src/db/cache";
 cache.connectRedis({ port: 0 });
 
-const mockCache = () => {
-  return {
-    __esModule: true,
-    // default: jest.fn(() => 42),
-    connectRedis: jest.fn(() => Promise.resolve()),
-    getNewId: jest.fn(() => Promise.resolve(10)),
-    get: jest.fn(() => Promise.resolve("test url in cache")),
-    set: jest.fn(() => Promise.resolve(true)),
-  };
-};
-
+const mockTable:any = {batch:jest.fn(() => mockTable),put:jest.fn(() => mockTable),write:jest.fn(() => mockTable)}
+LevelDb.urlTable = mockTable;
 LevelDb.setId = jest.fn(() => Promise.resolve(true));
 LevelDb.setUrl = jest.fn(() => Promise.resolve(true));
 LevelDb.getCurrentId = jest.fn(() => Promise.resolve(1));
@@ -43,13 +35,16 @@ describe("GET /shorturl", () => {
     request(app)
       .get("/shorturl?url=/www.a.com")
       .expect(invalidURL)
-      .end(function (err, res) {
+      .end(function (err, _res) {
         if (err) done(err);
         done();
       });
   });
 
   it("should return 200 OK", (done) => {
+    getMock.mockImplementation(
+      jest.fn((_key, cb) => cb(null, ""))
+    );
     request(app)
       .get("/shorturl?url=http://www.a.com")
       .expect(200)
@@ -62,10 +57,11 @@ describe("GET /shorturl", () => {
 });
 
 describe("GET /originurl", () => {
-  getMock.mockImplementation(
-    jest.fn((key, cb) => cb(null, "test url in cache"))
-  );
+  
   it("should return url from cache", (done) => {
+    getMock.mockImplementation(
+      jest.fn((_key, cb) => cb(null, "test url in cache"))
+    );
     request(app)
       .get("/originurl?key=CX")
       .expect(200)
@@ -77,7 +73,7 @@ describe("GET /originurl", () => {
   });
 
   it("should return url from db", (done) => {
-    getMock.mockImplementation(jest.fn((key, cb) => cb(null, "")));
+    getMock.mockImplementation(jest.fn((_key, cb) => cb(null, "")));
     request(app)
       .get("/originurl?key=CX")
       .expect(200)
@@ -89,7 +85,7 @@ describe("GET /originurl", () => {
   });
 
   it("should return Not Found", (done) => {
-    getMock.mockImplementation(jest.fn((key, cb) => cb(null, "")));
+    getMock.mockImplementation(jest.fn((_key, cb) => cb(null, "")));
     LevelDb.getOriginUrl = jest.fn(() => Promise.reject());
     request(app)
     .get("/originurl?key=A")
@@ -101,12 +97,12 @@ describe("GET /originurl", () => {
   });  
 
   it("should return 400 Bad Request", (done) => {
-    getMock.mockImplementation(jest.fn((key, cb) => cb(null, "")));
+    getMock.mockImplementation(jest.fn((_key, cb) => cb(null, "")));
     LevelDb.getOriginUrl = jest.fn(() => Promise.reject("error"));
     request(app)
     .get("/originurl?key0=A")
     .expect(400)
-    .end(function(err, res){
+    .end(function(err, _res){
       if (err) return done(err);
       return done();
     });
