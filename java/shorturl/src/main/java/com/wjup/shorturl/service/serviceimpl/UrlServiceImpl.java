@@ -6,6 +6,7 @@ import com.wjup.shorturl.service.UrlService;
 import com.wjup.shorturl.util.ShortUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -52,9 +53,10 @@ public class UrlServiceImpl implements UrlService {
             }
 
             //随机字符串
-            String shortUrlId = ShortUtils.getStringRandom(6);
+//            String shortUrlId = ShortUtils.getStringRandom(6);
             //62进制字符串  两种方式生成短链接
-            //String shortUrl = this.to62url(longUrl);
+//            这种方式可以解决 上述方案中随机数冲突的问题 采用的是布隆过滤器  同时也解决高并发访问量情况下多次磁盘IO  数据库压力的问题
+            String shortUrlId = ShortUtils.to62url(longUrl);
             urlEntity.setShortUrlId(shortUrlId);
             urlEntity.setUuid(UUID.randomUUID().toString());
             urlEntity.setLongUrl(split[i]);
