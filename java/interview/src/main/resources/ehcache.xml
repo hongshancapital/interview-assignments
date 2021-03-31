@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns='http://www.ehcache.org/v3'
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
+							http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+
+<!--        <cache-template name="myDefaults">-->
+<!--            <key-type>java.lang.String</key-type>-->
+<!--            <value-type>java.lang.String</value-type>-->
+<!--            <heap unit="entries">2000</heap>-->
+<!--            <jsr107:mbeans enable-statistics="true"/>-->
+<!--        </cache-template>-->
+
+    <!--    <cache alias="user" >-->
+    <!--        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>-->
+    <!--        <value-type>com.d00216118.demo.model.User</value-type>-->
+    <!--        <expiry>-->
+    <!--            <ttl unit="seconds">6</ttl>-->
+    <!--        </expiry>-->
+    <!--        <jsr107:mbeans enable-statistics="true"/>-->
+    <!--    </cache>-->
+
+    <cache alias="user" >
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>com.d00216118.demo.model.User</value-type>
+        <expiry>
+            <ttl unit="seconds">6</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">2000</heap>
+        </resources>
+        <jsr107:mbeans enable-statistics="true"/>
+    </cache>
+
+
+
+
+
+
+</config>
+
+
+        <!--<config-->
+        <!--        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'-->
+        <!--        xmlns='http://www.ehcache.org/v3'-->
+        <!--        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.9.xsd">-->
+
+
+        <!--    <cache-template name="default">-->
+        <!--        <heap unit="MB">1</heap>-->
+        <!--    </cache-template>-->
+
+        <!--    <cache alias="user" uses-template="default">-->
+        <!--&lt;!&ndash;            <tti unit="seconds">10</tti>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <ttl unit="minutes">2</ttl>&ndash;&gt;-->
+
+
+        <!--        <expiry>-->
+        <!--            <ttl unit="seconds">1</ttl>-->
+        <!--        </expiry>-->
+        <!--        -->
+        <!--    </cache>-->
+        <!--</config>-->
+
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd">-->
+        <!--    &lt;!&ndash;timeToIdleSeconds 当缓存闲置n秒后销毁 &ndash;&gt;-->
+        <!--    &lt;!&ndash;timeToLiveSeconds 当缓存存活n秒后销毁 &ndash;&gt;-->
+        <!--    &lt;!&ndash; 缓存配置-->
+        <!--        name:缓存名称。-->
+        <!--        maxElementsInMemory：缓存最大个数。-->
+        <!--        eternal:对象是否永久有效，一但设置了，timeout将不起作用。-->
+        <!--        timeToIdleSeconds：设置对象在失效前的允许闲置时间（单位：秒）。仅当eternal=false对象不是永久有效时使用，可选属性，默认值是0，也就是可闲置时间无穷大。-->
+        <!--        timeToLiveSeconds：设置对象在失效前允许存活时间（单位：秒）。最大时间介于创建时间和失效时间之间。仅当eternal=false对象不是永久有效时使用，默认是0.，也就是对象存活时间无穷大。-->
+        <!--        overflowToDisk：当内存中对象数量达到maxElementsInMemory时，Ehcache将会对象写到磁盘中。 diskSpoolBufferSizeMB：这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区。-->
+        <!--        maxElementsOnDisk：硬盘最大缓存个数。-->
+        <!--        diskPersistent：是否缓存虚拟机重启期数据 Whether the disk-->
+        <!--        store persists between restarts of the Virtual Machine. The default value-->
+        <!--        is false.-->
+        <!--        diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是120秒。  memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。默认策略是-->
+        <!--LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）。-->
+        <!--        clearOnFlush：内存数量最大时是否清除。 &ndash;&gt;-->
+        <!--    &lt;!&ndash; 磁盘缓存位置 &ndash;&gt;-->
+        <!--    <diskStore path="java.io.tmpdir" />-->
+        <!--    &lt;!&ndash; 默认缓存 &ndash;&gt;-->
+        <!--    <defaultCache-->
+        <!--            maxElementsInMemory="10000"-->
+        <!--            eternal="false"-->
+        <!--            timeToIdleSeconds="120"-->
+        <!--            timeToLiveSeconds="120"-->
+        <!--            maxElementsOnDisk="10000000"-->
+        <!--            diskExpiryThreadIntervalSeconds="120"-->
+        <!--            memoryStoreEvictionPolicy="LRU">-->
+
+        <!--        <persistence strategy="localTempSwap" />-->
+        <!--    </defaultCache>-->
+
+        <!--    &lt;!&ndash; 测试 &ndash;&gt;-->
+        <!--    <cache name="user"-->
+        <!--           eternal="false"-->
+        <!--           timeToIdleSeconds="2400"-->
+        <!--           timeToLiveSeconds="2400"-->
+        <!--           maxEntriesLocalHeap="10000"-->
+        <!--           maxEntriesLocalDisk="10000000"-->
+        <!--           diskExpiryThreadIntervalSeconds="120"-->
+        <!--           overflowToDisk="false"-->
+        <!--           memoryStoreEvictionPolicy="LRU">-->
+        <!--    </cache>-->
+        <!--</ehcache>-->
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<ehcache>-->
+        <!--    <diskStore path="java.io.tmpdir" />-->
+
+        <!--    <defaultCache maxElementsInMemory="2000"-->
+        <!--                  eternal="true"-->
+        <!--                  overflowToDisk="false"-->
+        <!--                  timeToLiveSeconds="1200" />-->
+
+        <!--    <cache name="user"-->
+        <!--           maxElementsInMemory="2000"-->
+        <!--           eternal="false"-->
+        <!--           overflowToDisk="false"-->
+        <!--           timeToLiveSeconds="10000" />-->
+        <!--</ehcache>-->
+
+
+        <!--<config-->
+        <!--        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'-->
+        <!--        xmlns='http://www.ehcache.org/v3'-->
+        <!--        xmlns:jsr107='http://www.ehcache.org/v3/jsr107'>-->
+
+        <!--    <service>-->
+        <!--        <jsr107:defaults enable-statistics="true"/>-->
+        <!--    </service>-->
+        <!--    <cache alias="user">-->
+        <!--        <key-type>java.lang.Long</key-type>-->
+        <!--        <value-type>com.d00216118.demo.model.User</value-type>-->
+        <!--        <expiry>-->
+        <!--            <ttl unit="seconds">100</ttl>-->
+        <!--        </expiry>-->
+        <!--&lt;!&ndash;        <listeners>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <listener>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <class>com.company.CustomCacheEventLogger</class>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <event-firing-mode>ASYNCHRONOUS</event-firing-mode>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <event-ordering-mode>UNORDERED</event-ordering-mode>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <events-to-fire-on>CREATED</events-to-fire-on>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <events-to-fire-on>UPDATED</events-to-fire-on>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <events-to-fire-on>EXPIRED</events-to-fire-on>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <events-to-fire-on>REMOVED</events-to-fire-on>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <events-to-fire-on>EVICTED</events-to-fire-on>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </listener>&ndash;&gt;-->
+        <!--&lt;!&ndash;        </listeners>&ndash;&gt;-->
+        <!--        <resources>-->
+        <!--            <heap unit="entries">2000</heap>-->
+        <!--            <offheap unit="MB">100</offheap>-->
+        <!--        </resources>-->
+        <!--    </cache>-->
+        <!--</config>-->
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<config xmlns='http://www.ehcache.org/v3' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'-->
+        <!--        xsi:schemaLocation="http://www.ehcache.org/v3-->
+        <!--        http://www.ehcache.org/schema/ehcache-core-3.0.xsd">-->
+
+        <!--    <cache-template name="default">-->
+        <!--        <heap unit="MB">1</heap>-->
+        <!--    </cache-template>-->
+
+        <!--    <cache alias="user" uses-template="default">-->
+        <!--        <expiry>-->
+        <!--            <ttl unit="seconds">10</ttl>-->
+        <!--        </expiry>-->
+        <!--    </cache>-->
+        <!--</config>-->
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<config-->
+        <!--        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'-->
+        <!--        xmlns:jsr107='http://www.ehcache.org/v3/jsr107'-->
+        <!--        xmlns='http://www.ehcache.org/v3'-->
+        <!--        xsi:schemaLocation="-->
+        <!--        http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.1.xsd-->
+        <!--        http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.1.xsd">-->
+
+        <!--    <service>-->
+        <!--        <jsr107:defaults enable-management="false" enable-statistics="true"/>-->
+        <!--    </service>-->
+
+        <!--    <cache alias="user">-->
+        <!--        <key-type>java.lang.Long</key-type>-->
+        <!--        <value-type>java.lang.String</value-type>-->
+        <!--        <expiry>-->
+        <!--            <ttl unit="seconds">1</ttl>-->
+        <!--        </expiry>-->
+        <!--        <resources>-->
+        <!--            <heap unit="entries">2000</heap>-->
+        <!--        </resources>-->
+        <!--    </cache>-->
+        <!--</config>-->
+
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<config xmlns='http://www.ehcache.org/v3'>-->
+        <!--    <cache alias="user">-->
+        <!--        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>-->
+        <!--        <value-type>java.lang.String</value-type>-->
+        <!--        <expiry>-->
+        <!--            <ttl unit="minutes">2</ttl>-->
+        <!--        </expiry>-->
+        <!--        <resources>-->
+        <!--            <heap unit="kB">10</heap>-->
+        <!--        </resources>-->
+        <!--    </cache>-->
+        <!--</config>-->
+
+
+        <!--<ehcache:config-->
+        <!--xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'-->
+        <!--xmlns:ehcache='http://www.ehcache.org/v3'-->
+        <!--xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.1.xsd">-->
+
+        <!--<ehcache:cache alias="user">-->
+        <!--    <ehcache:key-type>java.lang.Long</ehcache:key-type>-->
+        <!--    <ehcache:value-type>java.lang.String</ehcache:value-type>-->
+        <!--    <ehcache:expiry>-->
+
+        <!--    </ehcache:expiry>-->
+        <!--    <ehcache:resources>-->
+        <!--        <ehcache:heap unit="entries">100</ehcache:heap>-->
+        <!--        <ehcache:offheap unit="MB">1</ehcache:offheap>-->
+        <!--    </ehcache:resources>-->
+        <!--</ehcache:cache>-->
+        <!--</ehcache:config>-->
+
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<ehcache name="mycache-manager" updateCheck="false">-->
+
+        <!--    &lt;!&ndash; 缓存数据磁盘位置 &ndash;&gt;-->
+        <!--    <diskStore path="java.io.tmpdir"/>-->
+
+        <!--    &lt;!&ndash; 默认缓存 &ndash;&gt;-->
+        <!--    <defaultCache-->
+        <!--            maxEntriesLocalHeap="1000"-->
+        <!--            eternal="false"-->
+        <!--            timeToIdleSeconds="60"-->
+        <!--            timeToLiveSeconds="60"-->
+        <!--            overflowToDisk="false">-->
+        <!--    </defaultCache>-->
+
+
+        <!--</ehcache>-->
