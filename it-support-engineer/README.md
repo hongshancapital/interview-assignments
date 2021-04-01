@@ -1,8 +1,8 @@
 # IT Support Engineer Assignment
 
-### 分析系统日志：Helpdesk_interview_data_set.gz
+### 分析系统日志：interview_data_set.gz
 
-分析系统日志得到关键信息，用 Json 的格式 POST 上传至服务器( https://foo.com/bar )，key 的名称在括号里
+分析系统日志得到关键信息，用 Json 的格式 POST 上传至服务器 ( https://foo.com/bar )，key 的名称在括号里
 
 1. 设备名称: (deviceName)
 2. 错误的进程号码: (processId)
