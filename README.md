@@ -18,7 +18,7 @@ Please find your assignment in subfolder accordingly.
 - [UI 设计师](design/)
 
 上海/深圳/香港：
-- [IT Support Engineer](ITSupportEngineer/) (全职)
+- [IT Support Engineer](it-support-engineer/) (全职)
 
 链接中有更为具体的 JD。
 
