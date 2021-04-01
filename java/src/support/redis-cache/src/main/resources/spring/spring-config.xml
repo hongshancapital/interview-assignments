@@ -1,0 +1,82 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd">
+	<bean id="redisConnectionFactory"
+	   	class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+	   	p:host-name="${redis-host}" p:port="${redis-port}" p:password="${redis-password}">
+	   	<property name="poolConfig">
+	   		<bean class="redis.clients.jedis.JedisPoolConfig">
+	   			<property name="maxTotal" value="500"/>
+	   			<property name="maxIdle" value="100"/>
+	   			<property name="minIdle" value="20"/>
+	   		</bean>
+	   	</property>
+	</bean>
+
+	<bean id="redisTemplate"
+	    class="org.springframework.data.redis.core.RedisTemplate"
+	    p:connection-factory-ref="redisConnectionFactory">
+	    <property name="hashKeySerializer">
+           <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+           <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+        </property>
+	    <property name="keySerializer">
+           <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+        </property>
+	    <property name="valueSerializer">
+	       <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+	    </property>
+	</bean>
+
+    <bean id="springSessionRedisTaskExecutor"
+        class="com.sequoiacap.cache.utils.SessionThreadPool"/>
+
+    <bean id="redisListener"
+        class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+        <property name="connectionFactory">
+            <bean class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		        p:host-name="${redis-host}" p:port="${redis-port}" p:password="${redis-password}">
+		        <property name="usePool" value="false"/>
+		    </bean>
+        </property>
+        <property name="taskExecutor" ref="springSessionRedisTaskExecutor"/>
+    </bean>
+    
+	<util:constant
+	    static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>
+    
+    <bean class="com.sequoiacap.session.TokenHttpSessionIdResolver"/>
+    
+    <!-- 
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
+	 -->
+
+    <bean id="jedisUtil" class="com.sequoiacap.cache.utils.JedisUtil"/>
+</beans>

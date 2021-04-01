@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.sequoiacap.starter</groupId>
+    <artifactId>self-execute-starter</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <groupId>com.sequoiacap</groupId>
+  <artifactId>shorturl-app</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <packaging>war</packaging>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>com.sequoiacap</groupId>
+  		<artifactId>utils</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.sequoiacap</groupId>
+  		<artifactId>redis-cache</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.sequoiacap</groupId>
+  		<artifactId>jpa-support</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+    <dependency>
+        <groupId>com.sequoiacap.web</groupId>
+        <artifactId>app-framework-webbox</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    
+    
+    <dependency>
+        <groupId>com.sequoiacap</groupId>
+        <artifactId>shorturl</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>com.sequoiacap</groupId>
+        <artifactId>shorturl-task</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>    
+    <dependency>
+        <groupId>com.sequoiacap.web</groupId>
+        <artifactId>shorturl-webbox</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+	
+	<dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.23</version>
+    </dependency>
+  </dependencies>
+  
+  
+  <build>
+    <finalName>shorturl-app</finalName>
+  </build>
+</project>

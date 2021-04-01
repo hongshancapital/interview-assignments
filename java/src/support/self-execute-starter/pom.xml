@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+    <groupId>com.sequoiacap.starter</groupId>
+	<artifactId>self-execute-starter</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+
+    <name>self-execute-starter</name>
+	<description>self execute for Spring Boot</description>
+
+    <properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.sequoiacap.web</groupId>
+            <artifactId>self-execute-webbox</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+            <plugin>
+                    <groupId>net.jhorstmann</groupId>
+                    <artifactId>i18n-maven-plugin</artifactId>
+                    <version>0.2</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-dependency-plugin</artifactId>
+              <version>2.8</version>
+              <executions>
+                <execution>
+                  <id>jetty-classpath</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                    <goal>unpack-dependencies</goal>
+                  </goals>
+                  <configuration>
+                    <includeGroupIds>
+                        javax.servlet, javax.servlet.jsp,
+                        org.glassfish, org.glassfish.web,
+                        org.eclipse.jetty, org.apache.taglibs,
+                        com.sequoiacap.starter
+                    </includeGroupIds>
+                    <includeScope>provided</includeScope>
+                    <!-- remove some files in order to decrease size -->
+                    <excludes>*, about_files/*, META-INF/*</excludes>
+                    <outputDirectory>
+                      ${project.build.directory}/${project.artifactId}
+                    </outputDirectory>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>        
+                    <execution>
+                        <id>unpack-dependencies</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+
+                        <configuration>
+                            <includes>**/*</includes>
+                            <excludes>META-INF/**/*</excludes>
+                            <includeGroupIds>com.sequoiacap.web</includeGroupIds>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                
+                <executions>        
+                    <execution>
+                        <id>exploded-war</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+
+                        <configuration>
+                            <warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
+                            <packagingExcludes>%regex[WEB-INF/lib/(\w*-?)*-webbox-\d*\.\d*\.\d*(-SNAPSHOT)?\.jar]</packagingExcludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warSourceDirectory>${basedir}/src/main/empty</warSourceDirectory>
+
+                    <packagingExcludes>%regex[WEB-INF/lib/(\w*-?)*-webbox-\d*\.\d*\.\d*(-SNAPSHOT)?\.jar]</packagingExcludes>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+
+</project>

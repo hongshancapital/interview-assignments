@@ -1,0 +1,101 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
+	<bean id="dataSource"
+        class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="${jdbc-driver}"/>
+        <property name="url" value="${jdbc-uri}"/>
+        <property name="username" value="${jdbc-username}"/>
+        <property name="password" value="${jdbc-password}"/>
+
+        <!--maxActive: 最大连接数量-->    
+        <property name="maxTotal" value="5000"/>  
+        <!--minIdle: 最小空闲连接-->    
+        <property name="minIdle" value="5"/>  
+        <!--maxIdle: 最大空闲连接-->    
+        <property name="maxIdle" value="250"/>  
+        <!--initialSize: 初始化连接-->    
+        <property name="initialSize" value="30"/>  
+        <!-- 连接被泄露时是否打印 -->  
+        <property name="logAbandoned" value="true"/>  
+        <!--removeAbandoned: 是否自动回收超时连接-->    
+        <property name="removeAbandonedOnBorrow"  value="true"/>  
+        <!--removeAbandonedTimeout: 超时时间(以秒数为单位)-->    
+        <property name="removeAbandonedTimeout" value="10"/>  
+        <!--maxWait: 超时等待时间以毫秒为单位 1000等于1秒-->  
+        <property name="maxWaitMillis" value="1000"/>  
+        <!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位. -->  
+        <property name="timeBetweenEvictionRunsMillis" value="10000"/>  
+        <!--  在每次空闲连接回收器线程(如果有)运行时检查的连接数量 -->  
+        <property name="numTestsPerEvictionRun" value="10"/>  
+        <!-- 1000 * 60 * 30  连接在池中保持空闲而不被空闲连接回收器线程-->  
+        <property name="minEvictableIdleTimeMillis" value="10000"/>
+        <!-- 检验连接有效性 -->
+        <property name="validationQuery" value="SELECT 1"/>
+<!--
+        <property name="connectionInitSqls">
+            <list>
+                <value>SET time_zone='${user.time_zone:+8:00}'</value>
+            </list>
+        </property>
+-->
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+        <constructor-arg value="true"/>
+    </bean>
+
+	<bean id="namedJdbcTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="jdbcTemplate"/>
+	</bean>
+
+	<bean id="entityManagerFactory" class= 
+        "org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="app-framework"/>
+        <property name="packagesToScan" value="com.sequoiacap.**.model"/>
+        <property name="dataSource" ref="dataSource"/>
+
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>
+            </props>
+        </property>
+<!-- 
+        <property name="loadTimeWeaver">
+            <bean class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver"/>
+        </property>
+ -->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">            
+                <property name="generateDdl" value="${jdbc-ddl}"/>
+                <property name="showSql" value="${jdbc-debug}"/>
+            </bean>
+        </property>
+    </bean>
+    
+	<bean id="transactionManager"
+        class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<jpa:repositories
+        base-package="com.sequoiacap.**.repository"
+        repository-impl-postfix="Impl"
+        entity-manager-factory-ref="entityManagerFactory"
+        transaction-manager-ref="transactionManager"/>
+</beans>

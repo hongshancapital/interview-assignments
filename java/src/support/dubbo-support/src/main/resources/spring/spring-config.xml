@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://dubbo.apache.org/schema/dubbo
+    http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+    
+    <dubbo:application name="${dubbo-appname}"/>
+    <dubbo:registry address="${dubbo-register:jedis://${redis-host}:${redis-port}?password=${redis-password}&amp;file=/var/tmp/dubbo.cache}" />
+    <dubbo:protocol name="dubbo" host="${dubbo-host}" port="-1"/>
+
+    <dubbo:provider filter="localeProviderFilter,statProviderFilter"/>
+    <dubbo:consumer filter="localeConsumerFilter,asyncControlFilter,statConsumerFilter"
+        retries="0" check="false" loadbalance="leastactive"
+        timeout="120000"/>
+
+	<bean id="serializerRegister" class="org.pp.dubbo.hession.SerializerRegister"/>
+
+	<bean id="statBroadCast" class="org.pp.dubbo.stat.StatBroadCast"/>
+</beans>

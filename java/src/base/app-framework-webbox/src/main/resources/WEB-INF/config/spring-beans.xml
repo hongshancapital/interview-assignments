@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:property-placeholder location="classpath:system.properties"/>
+    
+    <bean  
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="locations">  
+            <list>  
+                <value>classpath:system.properties</value>  
+            </list>  
+        </property>  
+    </bean> 
+
+	<context:component-scan base-package="com.sequoiacap.**.impl" />
+	<context:component-scan base-package="com.sequoiacap.**.module" />
+    <context:component-scan base-package="com.sequoiacap.**.config" />
+
+    <import resource="classpath*:/spring/spring-config.xml" />
+
+<!-- 
+    <import resource="spring-security.xml"/>
+-->
+
+    <bean id="threadPoolExecutor" class="com.sequoiacap.threadpool.ThreadPool"/>
+
+    <task:scheduler id="tasksScheduler" pool-size="10"/>
+
+    <bean id="applicationContextHolder"
+        class="com.sequoiacap.utils.ApplicationContextHolder"/>
+
+    <import resource="application-config.xml"/>
+    <import resource="/*/spring-config.xml" />
+    
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+<!-- 
+    <bean id="passwordEncoder"
+        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+ -->
+<!-- 
+    <bean id="deadLockRetryAspect" class="com.sequoiacap.webbox.advice.DeadLockRetryAspect"/>
+ -->
+</beans>

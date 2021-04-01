@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.sequoiacap</groupId>
+    <artifactId>root</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.sequoiacap.web</groupId>
+  <artifactId>root-webbox</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <soa.init>true</soa.init>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>net.jhorstmann</groupId>
+      <artifactId>i18n-jsp</artifactId>
+      <version>0.2</version>
+    </dependency>
+    
+  </dependencies>
+  
+  <build>
+	<outputDirectory>
+		${project.build.directory}/${project.build.finalName}/WEB-INF/classes
+	</outputDirectory>
+
+	<plugins>
+        <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-resources-plugin</artifactId>
+	        <version>2.6</version>
+			
+			<configuration>
+				<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+			</configuration>
+		</plugin>
+
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-jar-plugin</artifactId>
+	        <version>2.4</version>
+
+			<configuration>
+				<classesDirectory>${project.build.directory}/${project.build.finalName}</classesDirectory>
+			</configuration>
+		</plugin>
+	</plugins>
+  </build>
+</project>
