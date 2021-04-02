@@ -21,8 +21,17 @@ class ToolboxListModel: ObservableObject {
     }
     @Published var results: [ToolboxModel];
     @Published var options: [String];
+    @Published var name: String = ""
+    @Published var tools: String = ""
+    @Published var optionsIndex: Int = 0
+
+    func submit() {
+//        tools = options[optionsIndex]
+        createToolboxPref(name: name, tools: tools)
+        loadData()
+    }
     
-    func loadToolboxList() {
+    func loadToolboxList(onCompletion: (([ToolboxModel]) -> Void)? = nil) {
         guard let url = URL(string: "http://localhost:5000/toolbox") else {
             print("Invalid URL")
             return
@@ -34,6 +43,7 @@ class ToolboxListModel: ObservableObject {
                 if let response = try? JSONDecoder().decode(ListResponse.self, from: data) {
                     DispatchQueue.main.async {
                         self.results = response.data
+                        onCompletion?(response.data)
                     }
                     return
                 }
