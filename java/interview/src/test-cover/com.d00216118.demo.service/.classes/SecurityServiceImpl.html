@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SecurityServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.d00216118.demo.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SecurityServiceImpl (com.d00216118.demo.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SecurityServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    72%
+  </span>
+  <span class="absValue">
+    (18/ 25)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SecurityServiceImpl$$EnhancerBySpringCGLIB$$7593f768</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityServiceImpl$$EnhancerBySpringCGLIB$$f1c61c7b</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityServiceImpl$$EnhancerBySpringCGLIB$$f1c61c7b$$FastClassBySpringCGLIB$$46ab582d</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityServiceImpl$$FastClassBySpringCGLIB$$cb2260c7</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    72%
+  </span>
+  <span class="absValue">
+    (18/ 25)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.d00216118.demo.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import io.jsonwebtoken.Claims;
+<i>5</i>&nbsp;import io.jsonwebtoken.JwtBuilder;
+<i>6</i>&nbsp;import io.jsonwebtoken.Jwts;
+<i>7</i>&nbsp;import io.jsonwebtoken.SignatureAlgorithm;
+<i>8</i>&nbsp;import org.hibernate.validator.constraints.NotBlank;
+<i>9</i>&nbsp;import org.springframework.cache.annotation.Cacheable;
+<i>10</i>&nbsp;import org.springframework.stereotype.Service;
+<i>11</i>&nbsp;import org.springframework.util.StringUtils;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;import javax.crypto.spec.SecretKeySpec;
+<i>14</i>&nbsp;import javax.xml.bind.DatatypeConverter;
+<i>15</i>&nbsp;import java.net.URL;
+<i>16</i>&nbsp;import java.security.Key;
+<i>17</i>&nbsp;import java.util.Date;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;/**
+<i>20</i>&nbsp; * @author Yu Chen
+<i>21</i>&nbsp; * @email D00216118@student.dkit.ie
+<i>22</i>&nbsp; * @date 8:09 下午 2021/3/29
+<i>23</i>&nbsp; **/
+<i>24</i>&nbsp;@Service
+<b class="fc"><i>25</i>&nbsp;public class SecurityServiceImpl implements SecurityService {</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    public static final String secretKey = &quot;8C8kum6LxyKWYLM78sKdXrwbTjDCFywU&quot;;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * @param subject   the name of user
+<i>31</i>&nbsp;     * @param ttlMillis this is the expiration time,
+<i>32</i>&nbsp;     * @return the string value of JWT
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    @Override
+<i>35</i>&nbsp;    @Cacheable(value = &quot;token&quot;)
+<i>36</i>&nbsp;    public String createToken(String subject, long ttlMillis) {
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;        if (ttlMillis &lt;= 0) {</b>
+<b class="nc"><i>39</i>&nbsp;            throw new RuntimeException(&quot; the param of ttlMillis must not null in createToken()&quot;);</b>
+<i>40</i>&nbsp;        }
+<i>41</i>&nbsp;
+<b class="fc"><i>42</i>&nbsp;        if (!StringUtils.hasLength(subject)) {</b>
+<b class="nc"><i>43</i>&nbsp;            throw new IllegalArgumentException(&quot;subject name can&#39;t be blank/empty/null&quot;);</b>
+<i>44</i>&nbsp;        }
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;</b>
+<b class="fc"><i>47</i>&nbsp;        long nowMillis = System.currentTimeMillis();</b>
+<i>48</i>&nbsp;
+<b class="fc"><i>49</i>&nbsp;        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);</b>
+<b class="fc"><i>50</i>&nbsp;        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());</b>
+<i>51</i>&nbsp;
+<b class="fc"><i>52</i>&nbsp;        JwtBuilder builder = Jwts.builder()</b>
+<b class="fc"><i>53</i>&nbsp;                .setSubject(subject)</b>
+<b class="fc"><i>54</i>&nbsp;                .signWith(signatureAlgorithm, signingKey);</b>
+<i>55</i>&nbsp;
+<b class="fc"><i>56</i>&nbsp;        builder.setExpiration(new Date(nowMillis + ttlMillis));</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;        return builder.compact();</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    @Override
+<i>63</i>&nbsp;    public String getSubject(@NotBlank String token) {
+<i>64</i>&nbsp;        try {
+<b class="fc"><i>65</i>&nbsp;            Claims claims = Jwts.parser()</b>
+<b class="fc"><i>66</i>&nbsp;                    .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))</b>
+<b class="fc"><i>67</i>&nbsp;                    .parseClaimsJws(token).getBody();</b>
+<i>68</i>&nbsp;
+<b class="fc"><i>69</i>&nbsp;            return claims.getSubject();</b>
+<b class="nc"><i>70</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>71</i>&nbsp;            System.out.println(e.toString());</b>
+<b class="nc"><i>72</i>&nbsp;            return null;</b>
+<i>73</i>&nbsp;        }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    @Override
+<i>78</i>&nbsp;    public boolean checkUrl(String url) {
+<i>79</i>&nbsp;        try {
+<b class="fc"><i>80</i>&nbsp;            new URL(url).toURI();</b>
+<b class="fc"><i>81</i>&nbsp;            return true;</b>
+<b class="nc"><i>82</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>83</i>&nbsp;            return false;</b>
+<i>84</i>&nbsp;        }
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-04-06 14:34</div>
+</div>
+</body>
+</html>
