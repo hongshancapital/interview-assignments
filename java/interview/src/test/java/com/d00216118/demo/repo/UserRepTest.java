@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
@@ -18,8 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @Email D00216118@student.dkit.ie
  * @Date 2:19 下午 2021/3/29
  **/
+//@SpringBootTest
 @RunWith(SpringRunner.class)
-@DataJpaTest
+    @DataJpaTest
 public class UserRepTest {
 
     @Autowired

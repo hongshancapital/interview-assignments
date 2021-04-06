@@ -1,5 +1,6 @@
-package com.d00216118.demo.model;
+package com.d00216118.demo.dto;
 
+import com.d00216118.demo.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,18 @@ import org.hibernate.validator.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserPostData extends User{
+public class UserRequestDTO {
+
     @NotBlank
     private String sign;
+
     @NotBlank
     private String timestamp;
+
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
 
 }

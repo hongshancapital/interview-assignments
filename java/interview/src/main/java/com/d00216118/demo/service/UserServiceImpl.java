@@ -2,6 +2,7 @@ package com.d00216118.demo.service;
 
 import com.d00216118.demo.model.User;
 import com.d00216118.demo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,5 @@ public class UserServiceImpl implements UserService{
     public User getUser(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
     }
-
 
 }

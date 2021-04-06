@@ -1,20 +1,18 @@
 package com.d00216118.demo.service;
 
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-//import lombok.NonNull;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.spec.SecretKeySpec;
-
 import javax.xml.bind.DatatypeConverter;
+import java.net.URL;
 import java.security.Key;
 import java.util.Date;
 
@@ -24,23 +22,24 @@ import java.util.Date;
  * @date 8:09 下午 2021/3/29
  **/
 @Service
-public class SecurityTokenServiceImpl implements SecurityTokenService {
+public class SecurityServiceImpl implements SecurityService {
 
     public static final String secretKey = "8C8kum6LxyKWYLM78sKdXrwbTjDCFywU";
 
     /**
      * @param subject   the name of user
      * @param ttlMillis this is the expiration time,
-     * @return the string value of jwt
+     * @return the string value of JWT
      */
     @Override
+    @Cacheable(value = "token")
     public String createToken(String subject, long ttlMillis) {
 
         if (ttlMillis <= 0) {
             throw new RuntimeException(" the param of ttlMillis must not null in createToken()");
         }
 
-        if(!StringUtils.hasLength(subject)) {
+        if (!StringUtils.hasLength(subject)) {
             throw new IllegalArgumentException("subject name can't be blank/empty/null");
         }
 
@@ -62,7 +61,6 @@ public class SecurityTokenServiceImpl implements SecurityTokenService {
 
     @Override
     public String getSubject(@NotBlank String token) {
-
         try {
             Claims claims = Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
@@ -76,22 +74,14 @@ public class SecurityTokenServiceImpl implements SecurityTokenService {
 
     }
 
-/*
-
-    public static void main(String[] args) {
-        SecurityTokenServiceImpl sts = new SecurityTokenServiceImpl();
-
-        //30 minutes
-        String token = sts.createToken("we", (30 * 60 * 1000));
-
-        System.out.println("----------------token");
-        System.out.println(token);
-
-        System.out.println("----------------check");
-        String subject = sts.getSubject(null);
-        System.out.println(subject);
-
+    @Override
+    public boolean checkUrl(String url) {
+        try {
+            new URL(url).toURI();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
-*/
 
 }

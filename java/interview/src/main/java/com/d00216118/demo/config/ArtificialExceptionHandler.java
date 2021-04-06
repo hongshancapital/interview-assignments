@@ -1,4 +1,4 @@
-package com.d00216118.demo.controller;
+package com.d00216118.demo.config;
 
 import com.d00216118.demo.util.ReponseMessage;
 import org.springframework.http.HttpHeaders;
