@@ -26,6 +26,9 @@ def name_find(x):
         aa = x.split('[')[0]
         return aa
 
+def number_len(x):
+    a = len(x)
+    return(a)
     
 
     f = open("Helpdesk_interview_data_set", "r")
@@ -57,9 +60,19 @@ del data5['Error description']
 del data5['Month']
 del data5['Day']
 del data5['Time']
-data5.to_excel('work.xls',index=False)
+
 JSON = data5.to_json(orient="records",force_ascii=False)
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"}
 URL = "https://foo.com/bar"
+requests.post(URL, data=JSON,headers=headers,verify=False)
 
-r = requests.post(URL, data=JSON,headers=headers,verify=False)
+# JSON include Key（DeviceName，timeWindow，processName，processId，description ）
+
+data6 = data5.groupby(['DeviceName','timeWindow','processName','description']).apply(lambda x : (x ['processId'] * 0 + str(1)).sum()).reset_index()
+data6.rename(columns = {0:'number'},inplace = True)
+data6['numberOfOccurre'] = data6['number'].map(number_len)
+del data6['number']
+JSON_NOID = data6.to_json(orient="records",force_ascii=False)
+requests.post(URL, data=JSON_NOID,headers=headers,verify=False)
+
+# JSON_NOID include Key（DeviceName，timeWindow，processName，description ,numberOfOccurre）
