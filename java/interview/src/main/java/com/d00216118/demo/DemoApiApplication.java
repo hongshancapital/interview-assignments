@@ -14,7 +14,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableCaching
 @EnableJpaAuditing
-//@EnableSwagger2
 public class DemoApiApplication {
 
     public static void main(String[] args) {
