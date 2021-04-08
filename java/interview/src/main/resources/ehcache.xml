@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns='http://www.ehcache.org/v3'
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
+							http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+
+    <cache alias="user">
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>com.d00216118.demo.model.User</value-type>
+        <expiry>
+            <ttl unit="seconds">6</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">2000</heap>
+        </resources>
+        <jsr107:mbeans enable-statistics="true"/>
+    </cache>
+
+    <cache alias="infoUrl">
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>com.d00216118.demo.model.InfoUrl</value-type>
+        <expiry>
+            <ttl unit="seconds">10</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">1000</heap>
+        </resources>
+        <jsr107:mbeans enable-statistics="true"/>
+    </cache>
+
+
+    <cache alias="token">
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>java.lang.String</value-type>
+        <expiry>
+            <ttl unit="seconds">30</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">2000</heap>
+        </resources>
+        <jsr107:mbeans enable-statistics="true"/>
+    </cache>
+
+
+</config>
+

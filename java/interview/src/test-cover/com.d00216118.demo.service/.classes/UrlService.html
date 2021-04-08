@@ -1,0 +1,68 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UrlService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.d00216118.demo.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UrlService (com.d00216118.demo.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">UrlService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.d00216118.demo.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.d00216118.demo.model.InfoUrl;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.validation.constraints.NotEmpty;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * @author Yu Chen
+<i>9</i>&nbsp; * @email D00216118@student.dkit.ie
+<i>10</i>&nbsp; * @date 2:35 下午 2021/4/2
+<i>11</i>&nbsp; **/
+<i>12</i>&nbsp;public interface UrlService {
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    boolean checkUrlExist(String url,Long userId);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    InfoUrl convertToTinyUrl( @NotEmpty InfoUrl infoUrl) throws Exception;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    InfoUrl getUrlByTinyUrl(String tinyUrl, Long userId);
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-04-06 14:34</div>
+</div>
+</body>
+</html>
