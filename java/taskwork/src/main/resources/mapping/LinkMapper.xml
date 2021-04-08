@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongshan.taskwork.dao.LinkMapper">
+  
+  <insert id="insert">
+    insert into t_link (id, long_url, short_url, 
+      prefix_domain, prefix_domain_type, short_url_suffix)
+    values (
+    #{id}, 
+    #{longUrl}, 
+    #{shortUrl}, 
+    #{prefixDomain}, 
+    #{prefixDomainType}, 
+    #{shortUrlSuffix})
+  </insert>
+  
+    <select id="queryLongUrlByShortUrl" resultType="java.lang.String" >
+    select 
+    long_url as longUrl
+    from t_link
+    where prefix_domain_type = #{prefixDomainType}
+    and short_url_suffix = #{shortUrlSuffix}
+  </select>
+  
+  <select id="queryById" resultType="java.lang.String" >
+  select 
+    short_url as shortUrl
+    from t_link
+    where id = #{id}
+  </select>
+  
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongshan.taskwork.dao.DefaultDomainMapper">
+  <select id="queryCodeByDomainName"  resultType="java.lang.String">
+    select 
+    code as code
+    from t_default_domain
+    where domain_name = #{domainName}
+  </select>
+  
+  <select id="queryDomainNameByCode" resultType="java.lang.String">
+    select 
+    domain_name as domainName
+    from t_default_domain
+    where code = #{code}
+  </select>
+</mapper>
