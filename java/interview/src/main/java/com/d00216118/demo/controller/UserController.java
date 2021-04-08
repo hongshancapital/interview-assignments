@@ -26,10 +26,8 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-    //    @Autowired
     private final UserServiceImpl userService;
 
-    //    @Autowired
     private final SecurityServiceImpl securityService;
 
     public UserController(UserServiceImpl userService, SecurityServiceImpl securityService) {
@@ -56,7 +54,7 @@ public class UserController {
             return ReponseMessage.failedResult("1", "the Sign is error!");
         }
 
-//        The token expiration time is 30 minutes and user ID is object
+        //The token expiration time is 30 minutes and user ID is object
         String token = securityService.createToken(user.getId() + "", (30 * 60 * 1000));
         String timestamp = String.valueOf(System.currentTimeMillis());
         String sign = token + "|" + user.getUsername() + "|" + timestamp;

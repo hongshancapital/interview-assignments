@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TinyUrlRequestDTO {
+
     @NotBlank
     private String token;
 

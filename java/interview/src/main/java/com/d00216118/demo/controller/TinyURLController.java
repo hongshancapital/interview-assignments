@@ -88,8 +88,6 @@ public class TinyURLController {
         if (userId != null && !userId.isEmpty()) {
             User u = userService.getUser(Long.parseLong(userId));
             if (u.getUsername().compareToIgnoreCase(tinyUrlRequestDTO.getUsername()) == 0) {
-
-//                decode(tinyUrlRequestDTO.getTinyUrl(), "utf-8");
                 String tinyUrl = URLDecoder.decode(tinyUrlRequestDTO.getTinyUrl(), "utf-8");
                 String temp = tinyUrl.substring(tinyUrl.length() - 8, tinyUrl.length());
                 InfoUrl infoUrl = urlService.getUrlByTinyUrl(temp, u.getId());

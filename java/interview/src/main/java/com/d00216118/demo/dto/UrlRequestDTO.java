@@ -28,8 +28,6 @@ public class UrlRequestDTO {
     @NotBlank
     private String url;
 
-//    private String tinyUrl;
-
     @NotBlank
     private String timestamp;
 
@@ -37,6 +35,5 @@ public class UrlRequestDTO {
     @ApiModelProperty(notes = "The signature is used to verify the correctness of the transmission")
     @NotBlank
     private String sign;
-
 
 }

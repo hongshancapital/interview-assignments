@@ -72,4 +72,5 @@ public class UrlServiceImpl implements UrlService {
     static String urlToMd5(String url) {
         return DigestUtils.md5DigestAsHex(url.getBytes());
     }
+
 }

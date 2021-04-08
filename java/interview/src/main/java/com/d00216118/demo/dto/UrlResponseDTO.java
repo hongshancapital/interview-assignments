@@ -22,5 +22,4 @@ public class UrlResponseDTO {
 
     private String sign;
 
-
 }

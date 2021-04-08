@@ -17,5 +17,4 @@ public interface UrlService {
 
     InfoUrl getUrlByTinyUrl(String tinyUrl, Long userId);
 
-
 }

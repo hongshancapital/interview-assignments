@@ -20,29 +20,6 @@ public class DemoApiApplication {
         SpringApplication.run(DemoApiApplication.class, args);
     }
 
-
-/*    @Bean
-    public CommandLineRunner testDemo(UrlServiceImpl urlService) {
-
-		return args -> {
-
-			String url="http://baike.baidu.com/link?url=ZbFVNe9FDaoht-ZHu9snNTFPk2QEEWEz8-oFSkd4Fdo0pzPDwolG1tubpZ-bglJEDnqf6O4hIJ5dEIAW3IAQke3cyF-H3YmZ0EX65Z2xdjw1suMk56IxG-uNzAq9lI57M636J7FgNB5So2_1OPTk7oVe_5E_NhkiWlTqMpPpmxZj7m07Mk4UcL4HboQSF6Or";
-
-			InfoUrl infoUrl = new InfoUrl();
-			infoUrl.setUrl(url);
-
-//			InfoUrl t = urlRepository.save(infoUrl);
-
-//			InfoUrl t = UrlServiceImpl
-			InfoUrl t = urlService.convertToTinyUrl(infoUrl);
-
-					System.out.println(t);
-			System.out.println(System.currentTimeMillis());
-
-		};
-	}
-	*/
-
 }
 
 

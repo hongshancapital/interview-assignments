@@ -58,7 +58,6 @@ public class SecurityServiceImpl implements SecurityService {
         return builder.compact();
     }
 
-
     @Override
     public String getSubject(@NotBlank String token) {
         try {

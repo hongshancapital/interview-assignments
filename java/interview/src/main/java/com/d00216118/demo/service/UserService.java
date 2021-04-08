@@ -15,5 +15,4 @@ public interface UserService {
 
     User getUser(String username, String password);
 
-
 }

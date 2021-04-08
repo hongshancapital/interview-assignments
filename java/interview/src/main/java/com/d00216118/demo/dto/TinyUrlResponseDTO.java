@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TinyUrlResponseDTO {
+
     private String timestamp;
 
     private String url;
@@ -20,4 +21,5 @@ public class TinyUrlResponseDTO {
     private String username;
 
     private String sign;
+
 }
