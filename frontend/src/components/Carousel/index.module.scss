@@ -1,0 +1,82 @@
+/**
+ * Created by BangJie on 2021/4/10.
+ */
+.wrap {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .carousel {
+    position: absolute;
+    .silder {
+      float: left;
+      .title1 {
+        margin: 0;
+        padding-top: 15%;
+        padding-bottom: 16px;
+        color: #fff;
+        font-size: 48px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .title2 {
+        @extend .title1;
+        color: #000;
+      }
+      .title3 {
+        @extend .title2;
+        padding: 0;
+      }
+      .content1 {
+        margin: 0;
+        padding: 0;
+        font-size: 24px;
+        line-height: 32px;
+        color: #fff;
+        text-align: center;
+      }
+      .content2 {
+        @extend .content1;
+        color: #000;
+        line-height: 24px;
+      }
+    }
+  }
+  .btnGroup {
+    position: absolute;
+    display: inline-flex;
+    left: 0;
+    bottom: 20px;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    .btn {
+      position: relative;
+      margin: auto 8px;
+      border-radius: 4px;
+      height: 3px;
+      width: 52px;
+      overflow: hidden;
+      transition: 0.2s;
+      @keyframes mymove {
+         from {
+          left: -52px;
+         }
+         to {
+          left: 0;
+         }
+       }
+      .bar {
+        position: absolute;
+        left: -52px;
+        width: 52px;
+        height: 3px;
+        background-color: #fff;
+        animation-name:mymove;
+        animation-duration:3s;
+        animation-iteration-count:1
+      }
+    }
+  }
+}
