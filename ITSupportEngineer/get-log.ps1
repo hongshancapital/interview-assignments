@@ -1,4 +1,5 @@
-﻿filter Convertto-DateTime
+﻿#转换中英文月份至阿拉伯数字月份
+filter Convertto-DateTime
 {
   param($OutputFormat='MM dd HH:mm:ss')
 
@@ -22,8 +23,38 @@
   } catch {}
 }
 
+#powrshell解压gz函数
+Function DeGZip-File{
+    Param(
+        $infile,
+        $outfile = ($infile -replace '\.gz$','')
+        )
+    $input = New-Object System.IO.FileStream $inFile, ([IO.FileMode]::Open), ([IO.FileAccess]::Read), ([IO.FileShare]::Read)
+    $output = New-Object System.IO.FileStream $outFile, ([IO.FileMode]::Create), ([IO.FileAccess]::Write), ([IO.FileShare]::None)
+    $gzipStream = New-Object System.IO.Compression.GzipStream $input, ([IO.Compression.CompressionMode]::Decompress)
+    $buffer = New-Object byte[](1024)
+    while($true){
+        $read = $gzipstream.Read($buffer, 0, 1024)
+        if ($read -le 0){break}
+        $output.Write($buffer, 0, $read)
+        }
+    $gzipStream.Close()
+    $output.Close()
+    $input.Close()
+}
 
-$text = Get-Content D:\Jobs\Helpdesk_interview_data_set
+#下载日志压缩包至临时文件夹，如失败请解压后放至任一文件夹并修改读取日志 $text = Get-Content "$($TMPDIR)interview_data_set"
+try {
+    Import-Module BitsTransfer
+    Start-BitsTransfer -Source "https://github.com/scdt-china/interview-assignments/raw/master/it-support-engineer/interview_data_set.gz" -Destination "$($TMPDIR)interview_data_set.gz"
+    DeGZip-File "$($TMPDIR)interview_data_set.gz" "$($TMPDIR)interview_data_set"
+}
+catch {
+    write-host "unzip interview_data_set.gz to tmpdir"
+}
+
+#读取并分析日志    
+$text = Get-Content "$($TMPDIR)interview_data_set"
 $event = @()
 foreach ($line in $text) {
     $log = $line -split '\s'
@@ -83,4 +114,16 @@ foreach ($line in $text) {
 }
 $group = $event | Group-Object timewindow,devicename,processid,processname
 $json = $group | %{$($_.group)[0].numberofoccurrence = $_.count ; $($_.group)[0]} | ConvertTo-Json
-Invoke-WebRequest -Uri "https://foo.com/bar" -Method Post -Body $json
+
+#打印分析结果
+#timewindows 包含日期和时间段
+#processid 阔话内为子进程ID（如果有）
+write-host $json
+
+#上传json
+try {
+    Invoke-WebRequest -Uri "https://foo.com/bar" -Method Post -Body $json
+}
+catch {
+    write-host 'check foo.com connecting'
+}
