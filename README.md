@@ -1,9 +1,3 @@
-# interview-assignments
-
-The monorepo for interview take home assignments.
-
-Please find your assignment in subfolder accordingly.
-
 ## 如果你还没听说过「红杉」...
 
 如果果你还没听说过「红杉」
@@ -27,6 +21,12 @@ Please find your assignment in subfolder accordingly.
 - [IT Support Engineer](it-support-engineer/) (全职)
 
 链接中有更为具体的 JD。
+
+# interview-assignments
+
+The monorepo for interview take home assignments.
+
+Please find your assignment in subfolder accordingly.
 
 ## 这样一家投资公司为什么要招工程师 / 设计师？
 
