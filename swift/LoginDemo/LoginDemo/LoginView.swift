@@ -13,7 +13,7 @@ struct LoginView: View {
     
     private var loginButton: some View {
         NavigationLink(
-            destination: Text("Destination"),
+            destination: UserView(),
             isActive: $viewModel.loginSuccessed,
             label: {
                 GeometryReader { reader in
@@ -26,10 +26,12 @@ struct LoginView: View {
                             .background(viewModel.loginBtnEnable ? Color.green : Color.secondary)
                             .cornerRadius(6)
                     }
-                    .disabled(!viewModel.loginBtnEnable)
+                    
                 }
+                
                 .frame(height: 40)
             })
+            .disabled(!viewModel.loginBtnEnable)
     }
     
     private var createAccountButton: some View {
@@ -46,12 +48,12 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
-            InputView(placeholder: "Name", text: $viewModel.userName)
+            InputView(placeholder: "Name", type: .username, text: $viewModel.userName)
             
-            InputView(placeholder: "Password", text: $viewModel.password)
+            InputView(placeholder: "Password", type: .password, text: $viewModel.password)
             
             if viewModel.type == .createAccount {
-                InputView(placeholder: "Repeat Password", text: $viewModel.repeatPassword)
+                InputView(placeholder: "Repeat Password", type: .password, text: $viewModel.repeatPassword)
             } else {
                 createAccountButton
             }
@@ -60,18 +62,34 @@ struct LoginView: View {
         }
         .padding(.horizontal, 20)
         .animation(.easeInOut)
+        .navigationBarHidden(true)
+        .ignoresSafeArea()
     }
+}
+
+enum InputViewType {
+    case username
+    case password
 }
 
 struct InputView: View {
     let placeholder: String
+    let type: InputViewType
     @Binding var text: String
     
     var body: some View {
         VStack(spacing: 0) {
-            TextField(placeholder, text: $text)
-                .frame(height: 50)
-            
+            Group {
+                if type == .username {
+                    TextField(placeholder, text: $text)
+                        .textContentType(.username)
+                } else {
+                    SecureField(placeholder, text: $text)
+                        .textContentType(.password)
+                }
+            }
+            .frame(height: 50)
+
             Divider()
         }
     }

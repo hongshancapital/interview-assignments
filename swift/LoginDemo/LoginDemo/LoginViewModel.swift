@@ -71,5 +71,8 @@ class LoginViewModel: ObservableObject {
     func login() {
         /// 省略了网络加载
         loginSuccessed = true
+        
+        UserDefaults.standard.setValue(userName, forKey: "username")
+        UserDefaults.standard.setValue(true, forKey: "isLogin")
     }
 }
