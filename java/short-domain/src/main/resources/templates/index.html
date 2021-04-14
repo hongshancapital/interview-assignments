@@ -6,7 +6,44 @@
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 </head>
 <body>
+<h2>短域名服务</h2>
 
-    
+
+<table>
+    <tr>
+        <td>请输入长域名</td>
+        <td><input id="url" type="text" name="" value="https://www.sequoiacap.com/china" placeholder="请输入长域名"/></td>
+        <td>
+            <button id="btn">获取</button>
+        </td>
+    </tr>
+    <tr>
+        <td>请输入短域名</td>
+        <td><input id="short-url" type="text" name="" placeholder="请输入短域名"/></td>
+        <td>
+            <button id="jump">跳转</button>
+        </td>
+    </tr>
+    <tr>
+        短域名:<span id="pad"></span>
+    </tr>
+</table>
+
+
 </body>
+<script>
+    $(function () {
+        $("#btn").click(function () {
+            $.post("domain/transfer-short", {url: $('#url').val()}, function (result) {
+                $('#pad').html(result.data)
+            });
+        });
+
+        $("#jump").click(function () {
+            $.post("domain/search", {url: $('#short-url').val()}, function (result) {
+                window.location.href = result.data;
+            });
+        });
+    })
+</script>
 </html>

@@ -8,6 +8,7 @@ import com.alice.shortdomain.dto.RequestDTO;
 import com.alice.shortdomain.dto.ResponseDTO;
 import com.alice.shortdomain.service.DomainTransferService;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +42,13 @@ public class DomainTransferServiceImpl implements DomainTransferService {
         try {
             lock.writeLock().lock();
             Assert.notNull(request);
+            ResponseDTO<String> response = new ResponseDTO<>();
+            if (StringUtils.isBlank(request.getUrl())) {
+                response.setCode(500);
+                response.setMessage("转换失败，url不能为空");
+                response.setData("");
+                return response;
+            }
             // 生成短域名长度
             int length = RandomUtil.randomInt(1, 8);
             // 生成短域名
@@ -52,10 +60,9 @@ public class DomainTransferServiceImpl implements DomainTransferService {
             }
             //
             cache.put(shortUrl, request.getUrl());
-            ResponseDTO<String> response = new ResponseDTO<>();
             response.setCode(200);
             response.setMessage("转换成功");
-            response.setData(shortUrl);
+            response.setData(String.format("%s/%s", DOMAIN_PREFIX, shortUrl));
             log.info("{}", response);
             return response;
         } finally {
@@ -68,11 +75,11 @@ public class DomainTransferServiceImpl implements DomainTransferService {
         try {
             lock.readLock().lock();
             Assert.notNull(request);
-            String shortUrl = request.getUrl();
+            String shortUrl = request.getUrl().replaceFirst(DOMAIN_PREFIX + "/", "");
             ResponseDTO<String> response = new ResponseDTO<>();
             response.setCode(200);
             if (cache.containsKey(shortUrl)) {
-                response.setData(String.format("%s/%s", DOMAIN_PREFIX, cache.get(shortUrl)));
+                response.setData(cache.get(shortUrl));
                 response.setMessage("查询成功");
             } else {
                 response.setData("");

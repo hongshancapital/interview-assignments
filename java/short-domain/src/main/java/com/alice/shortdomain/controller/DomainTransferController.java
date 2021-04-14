@@ -5,9 +5,9 @@ import com.alice.shortdomain.dto.ResponseDTO;
 import com.alice.shortdomain.service.DomainTransferService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 长域名转短域名，根据短域名查询长域名
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Alice [l1360737271@qq.com]
  * @date 2021/4/13 17:35
  */
-@Controller
+@RestController
 @Api(tags = "域名处理模块")
 @RequestMapping("domain")
 public class DomainTransferController {
