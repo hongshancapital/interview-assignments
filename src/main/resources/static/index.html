@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>缩短 URL</title>
+    <meta charset="UTF-8">
+    <style>
+.shadow {
+  -moz-box-shadow:    1px 1px 1px 2px #ccc;
+  -webkit-box-shadow: 1px 1px 1px 2px #ccc;
+  box-shadow:         1px 1px 1px 2px #ccc;
+}
+
+.radius {
+  border: none;
+  border: solid 1px #ccc;
+  border-radius: 2px;
+}
+
+.input-width {
+  width: 70%;
+  display: block;
+}
+
+.full-width {
+  width: 100%;
+  display: block;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.mt-6 {
+  margin-top: 6px;
+}
+    </style>
+</head>
+<body>
+    <div class="full-width">
+        <h1 class="input-width center">Url Shorten</h1>
+        <input id="url" class="shadow radius input-width center mt-6">
+        <div class="input-width center mt-6"><button onclick="submit()">缩短</button></div>
+        <div class="input-width center mt-6" id="status"></div>
+    </div>
+    <script>
+        function submit() {
+            let url = document.querySelector('#url').value
+            let status = document.querySelector('#status')
+            if (url === '') {
+                status.innerText = '请输入一个地址'
+                return
+            }
+            fetch('/api/toshorturl', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({longUrl: url})
+            }).then((result) => {
+              if (result.status == 204) {
+                throw new Error('Full')
+              }
+              return result.json()
+            }).then((result) => {
+              status.innerText = '已缩短 URL： ' + window.location.protocol + '//' + window.location.host + '/s/' + result.shortUrl
+            }).catch(() => { status.innerText = '无法成功缩短 URL' })
+        }
+    </script>
+</body>
+</html>
