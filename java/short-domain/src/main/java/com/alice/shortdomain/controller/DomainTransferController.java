@@ -2,6 +2,7 @@ package com.alice.shortdomain.controller;
 
 import com.alice.shortdomain.dto.RequestDTO;
 import com.alice.shortdomain.dto.ResponseDTO;
+import com.alice.shortdomain.service.DomainTransferService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -17,27 +18,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Api(tags = "域名处理模块")
 @RequestMapping("domain")
-public class DomainTransController {
+public class DomainTransferController {
 
+    private final DomainTransferService domainTransferService;
 
-    /**
-     * @return
-     */
-    @PostMapping("encode")
-    @ApiOperation(value = "长域名转短域名")
-    public ResponseDTO<String> encode(RequestDTO request) {
-        ResponseDTO<String> responseDTO = new ResponseDTO<>();
-        return responseDTO;
+    public DomainTransferController(DomainTransferService domainTransferService) {
+        this.domainTransferService = domainTransferService;
     }
 
-    /**
-     * @return
-     */
-    @PostMapping("decode")
+
+    @PostMapping("transfer-short")
+    @ApiOperation(value = "长域名转短域名")
+    public ResponseDTO<String> transferShort(RequestDTO request) {
+        return domainTransferService.transferShort(request);
+    }
+
+    @PostMapping("search")
     @ApiOperation(value = "根据短域名查询长域名")
-    public ResponseDTO<String> decode(RequestDTO request) {
-        ResponseDTO<String> responseDTO = new ResponseDTO<>();
-        return responseDTO;
+    public ResponseDTO<String> search(RequestDTO request) {
+        return domainTransferService.search(request);
     }
 
 }

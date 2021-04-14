@@ -29,4 +29,11 @@ public class RequestDTO implements Serializable {
         this.url = url;
     }
 
+
+    @Override
+    public String toString() {
+        return "RequestDTO{" +
+                "url='" + url + '\'' +
+                '}';
+    }
 }

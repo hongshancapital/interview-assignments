@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
+ * 域名转换服务
+ *
  * @author Alice [l1360737271@qq.com]
  * @date 2021/4/13 17:30
  */
