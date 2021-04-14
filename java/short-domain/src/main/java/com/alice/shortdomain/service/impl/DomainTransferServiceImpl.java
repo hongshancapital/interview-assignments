@@ -69,8 +69,7 @@ public class DomainTransferServiceImpl implements DomainTransferService {
             lock.readLock().lock();
             Assert.notNull(request);
             String shortUrl = request.getUrl();
-            ResponseDTO<String> response
-                    = new ResponseDTO<>();
+            ResponseDTO<String> response = new ResponseDTO<>();
             response.setCode(200);
             if (cache.containsKey(shortUrl)) {
                 response.setData(String.format("%s/%s", DOMAIN_PREFIX, cache.get(shortUrl)));
