@@ -41,10 +41,13 @@ public class URLServiceTest {
 
     @Test
     public void setTestMaxHeapSize(){
-        String b= createRandomStr1(1024*1024);;
+        String b= createRandomStr1(Math.round(10));;
         String shortUrl=null;
-        for (int i = 0; i < 10240; i++) {
-
+        int flowCounter = 10240000;
+        for (int i = 0; i < flowCounter; i++) {
+            if(i%10000==0){
+                System.out.println(i+"");
+            }
             shortUrl= urlService.setUrl(new StringBuffer().append(i).append(b).toString());
             if(shortUrl==null){
                 System.out.println("超过内存大小");
@@ -53,7 +56,11 @@ public class URLServiceTest {
 
         }
 
-
+        System.out.println("冲突个数："+urlService.getConflictCount()+"\t"+ (((double)urlService.getConflictCount())/flowCounter));
+        System.out.println("一次冲突个数："+urlService.conflictCounter1.get());
+        System.out.println("二次冲突个数："+urlService.conflictCounter2.get());
+        System.out.println("三次冲突个数："+urlService.conflictCounter3.get());
+        System.out.println("reshort次冲突个数："+urlService.conflictCounterReshort.get());
     }
 
 

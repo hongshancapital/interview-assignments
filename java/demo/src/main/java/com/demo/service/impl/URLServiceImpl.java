@@ -25,6 +25,16 @@ public class URLServiceImpl implements URLService {
     private Object lock=new Object();
 
     AtomicLong hashmapSize=new AtomicLong(0);
+
+    public AtomicLong conflictCounter =new AtomicLong(0);
+
+    public AtomicLong conflictCounter1 =new AtomicLong(0);
+    public AtomicLong conflictCounter2 =new AtomicLong(0);
+    public AtomicLong conflictCounter3 =new AtomicLong(0);
+    public AtomicLong conflictCounterReshort =new AtomicLong(0);
+
+    public HashMap<String, Integer> reshortMap=new HashMap<String, Integer>();
+    public Map<String, Object> context=new HashMap<String, Object>();
     @Override
     public String getUrl(String shortUrl) {
         return hashMap.get(shortUrl);
@@ -56,35 +66,69 @@ public class URLServiceImpl implements URLService {
     //重新缩小longUrl， 采用给longUrl加上一个前缀，生成新的短url
     public String reShort(String longUrl){
         String shortUrl = null;
-        for(int i=0;i<1000;i++){
-
-            shortUrl=getInnerShortUrl(new StringBuffer().append(i).append(":").append(longUrl).toString());
-            if(shortUrl!=null){
-                return shortUrl;
+        conflictCounterReshort.incrementAndGet();
+        int counter=0;
+        try {
+            for (int i = 0; i < 1000; i++) {
+                counter = i;
+                shortUrl = getInnerShortUrl(new StringBuffer().append(i).append(":").append(longUrl).toString());
+                if (shortUrl != null) {
+                    return shortUrl;
+                }
             }
+            throw new RuntimeException("暂无数据");
+        }finally{
+            reshortMap.put(longUrl, counter);
         }
-        throw new RuntimeException("暂无数据");
     }
 
 
 
     public String getInnerShortUrl(String longUrl) {
         String[] shortUrls = Util.shortUrl(longUrl);
-        String shortUrl = null;
         //找到long url是否已经保存过
+        //如果long url 被保存过则将 已经存在的短url 返回过去
         for(String s:shortUrls){
             if(hashMap.containsKey(s) && hashMap.get(s).equals(longUrl)){
                 return s;
             }
         }
-        //找到短url
+
+        //从返回的4段段链接中找到未被使用的短url
+        String shortUrl = null;
+        int i=0;
         for(String s:shortUrls){
             if(!hashMap.containsKey(s)){
+                if(i>0){
+                    //System.out.println("\n\nnow longUrl:["+longUrl+"] now shortUrl:"+s+"\t  old LongUrl:["+hashMap.get(shortUrls[i-1])+"] old shortUrl:"+shortUrls[i-1]+" i:"+i);
+                    conflictCounter.incrementAndGet();
+                    if(i==1){
+                        conflictCounter1.incrementAndGet();
+                    }else if(i==2){
+                        conflictCounter2.incrementAndGet();
+                    }else if(i==3){
+                        conflictCounter3.incrementAndGet();
+                    }
+                }
                 shortUrl = s;
                 break;
             }
+            i++;
         }
         return shortUrl;
     }
 
+    public long getConflictCount(){
+        return conflictCounter.get();
+    }
+
+    public Map<String, Object> getContext(){
+        context.put("conflictCounter", conflictCounter.get());
+        context.put("conflictCounter1", conflictCounter1.get());
+        context.put("conflictCounter2", conflictCounter2.get());
+        context.put("conflictCounter3", conflictCounter3.get());
+        context.put("conflictCounterReshort", conflictCounterReshort.get());
+        context.put("reshortMap", reshortMap);
+        return context;
+    }
 }
