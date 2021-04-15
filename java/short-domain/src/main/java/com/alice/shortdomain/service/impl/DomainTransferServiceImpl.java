@@ -7,7 +7,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.alice.shortdomain.dto.RequestDTO;
 import com.alice.shortdomain.dto.ResponseDTO;
 import com.alice.shortdomain.service.DomainTransferService;
-import org.apache.commons.lang3.RandomStringUtils;
+import com.alice.shortdomain.utils.RandomStringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,14 +49,16 @@ public class DomainTransferServiceImpl implements DomainTransferService {
                 response.setData("");
                 return response;
             }
+
+            // TODO: 换成自己实现的随机字符串生成工具
             // 生成短域名长度
             int length = RandomUtil.randomInt(1, 8);
             // 生成短域名
-            String shortUrl = RandomStringUtils.random(length, true, true);
+            String shortUrl = RandomStringUtil.randomStr(length);
             // 避免重复的key ，保证key （短域名） 不重复， 不保证长域名的不重复
             while (cache.containsKey(shortUrl)) {
                 length = RandomUtil.randomInt(1, 8);
-                shortUrl = RandomStringUtils.random(length, true, true);
+                shortUrl = RandomStringUtil.randomStr(length);
             }
             //
             cache.put(shortUrl, request.getUrl());
