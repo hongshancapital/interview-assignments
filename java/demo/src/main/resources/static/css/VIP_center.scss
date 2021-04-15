@@ -1,0 +1,280 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+.active{
+    display: flex;
+}
+.headers{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 2.56rem;
+    background: #393939;
+    background-size: 100%;
+    background-position: 0 -1.55rem;
+    font-size:0.45rem;
+    color: #FFFFFF;
+    margin-top: -0.1rem;
+    box-sizing: border-box;
+    padding-top: 0.37rem;
+    margin-bottom: 0.53rem;
+    .dl{
+//      margin-top: 0.37rem;
+        width: 100%;
+        height:1.84rem;
+        display: flex;
+        .portrait{
+            width: 2.08rem;
+            height: 1.84rem;
+            margin-left: 0.53rem;
+            margin-right: 0.28rem;
+            position: relative;
+            img{
+                position: absolute;
+                top: 0;
+                left:0;
+                width: 100%;
+                height: 100%;
+            }
+            .heade{
+                margin: 0 auto;
+                position: relative;
+                .heade_child{
+                    width: 1.6rem !important;
+                    height: 1.6rem !important;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 50%;
+                    margin-left: -0.8rem;
+                }
+            }
+        }
+        .text{
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            p:nth-of-type(1){
+                font-size:0.45rem;
+                display: flex;
+                align-items: center;
+                img{
+                    width:0.58rem ;
+                    height: 0.52rem;
+                    margin-right: 0.1rem;
+                }
+            }
+            p:nth-of-type(2){
+                font-size:0.37rem;
+                span{
+                    color: #E2D0AC;
+                }
+            }
+        }
+    }
+    
+}
+
+
+
+.tab_two{
+    width: 8.08rem;
+    height: 0.8rem;
+    text-align: center;
+    line-height: 0.8rem;
+    font-size: 0.37rem;
+    margin: 0 auto;
+    display: flex;
+    color: #5E5959;
+    margin-bottom: 0.53rem;
+    li{
+        width: 50%;
+        box-sizing: border-box;
+        border: 1px solid #D9B479;
+    }
+    .addcolor{
+        background:#D9B479;
+        color: #805A1F;
+    }
+    li:nth-of-type(1){
+        border-radius:0.16rem 0 0 0.16rem;
+        border-right: none;
+    }
+    li:nth-of-type(2){
+        border-radius:0 0.16rem 0.16rem 0;
+    }
+}
+#parents{
+    .block{
+        display: block;
+    }
+    
+    .h_tab{
+        width: 100%;
+        height:3.2rem;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.53rem;
+        .payment{
+            width: 3.36rem;
+            height:3.2rem;
+            box-sizing: border-box;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            border-radius: 0.1rem;
+            li{
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            li:nth-of-type(1){
+                color: #6E6D6B;
+                font-size:0.42rem ;
+            }
+            li:nth-of-type(2){
+                color: #A37557;
+                font-size:0.37rem ;
+                span{
+                    font-size: 0.64rem;
+                }
+                .small{
+                    font-size:0.26rem ;
+                }
+            }
+            li:nth-of-type(3){
+                width: 2.7rem;
+                height: 0.45rem;
+                background: #F9EACB;
+                color: #A37557;
+                font-size: 0.24rem;
+                margin: 0 auto;
+                text-align: center;
+                border-radius: 0.4rem;
+            }
+        }
+        .active{
+            background: url(../img/posi_bac.png) no-repeat;
+            background-size:100% 100% ;
+        }
+    }
+}
+
+.BT{
+    width: 100%;
+    height:0.26rem ;
+    background: #F1F1F1;
+}
+.Explain{
+    width: 100%;
+    height: 7.28rem;
+    overflow: hidden;
+    p{
+        width: 100%;
+        text-align: center;
+        color: #805A1F;
+        font-weight: 600;
+        font-size: 0.48rem;
+        margin: 0.4rem 0 0.26rem 0;
+    }
+    ul{
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 0.48rem;
+        padding-right: 0.25rem;
+        font-size:0.37rem ;
+        color: #805A1F;
+    }
+}
+.Title{
+    width: 100%;
+    height: 1.33rem;
+    text-align: center;
+    line-height: 1.33rem;
+    font-family:PingFangSC-Medium;
+    font-weight:500;
+    color:rgba(128,90,31,1);
+    font-size: 0.48rem;
+}
+.introduce{
+    font-size: 0.37rem;
+    width: 49.7%;
+    overflow: hidden;
+    p{
+        width: 100%;
+        height: 0.72rem;
+        text-align: center;
+        line-height: 0.72rem;
+        margin-bottom:0.02rem ;
+        box-sizing: border-box;
+        color: #999999;
+    }
+    p:nth-of-type(1){
+        background: #FBF2E9;
+        color: #C3A67D;
+    }
+    p:nth-of-type(even){
+        background:rgba(245,245,245,1);
+    }
+}
+.introduce1{
+    float: left;
+}
+.introduce2{
+    float: right;
+}
+
+.footerNav{
+    width: 100%;
+    height: 2.2rem;
+    position: fixed;
+    bottom: 0;
+    background: white;
+    p:nth-of-type(1){
+        text-align: center;
+        #Btn{
+            border: none;
+            outline: none !important;
+            width: 7.9rem;
+            height: 1.17rem;
+            text-align: center;
+            background: url(../img/bac_h1.png) no-repeat;
+            background-size: 100% 100%;
+            color:rgba(128,90,31,1);
+            font-weight: 500;
+            line-height: 1.17rem;
+            font-size: 0.48rem;
+            margin-bottom: 0.26rem;
+        }
+    }
+    p:nth-of-type(2){
+        text-align: center;
+        font-size: 0.35rem;
+        color: #5E5959;
+        span{
+            color: #DAB57A;
+            font-size: 0.35rem;
+        }
+    }
+}
+.hide{
+    display: none;
+}
+.float:after{
+    display:block;
+    clear:both;
+    content:"";
+    visibility:hidden;
+    height:0;
+}

@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+html,
+body {
+    width: 100%;
+    font-family: PingFangSC;
+}
+
+.flex {
+    display: flex;
+}
+
+.active {
+    display: none;
+}
+
+.padding {
+    box-sizing: border-box;
+    padding: 0% 4%;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.broad {
+    width: 100%;
+    height: 5rem;
+    background: url(../img/banner.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    ul {
+        width: 60%;
+        height: 1.45rem;
+        position: absolute;
+        left: 50%;
+        margin-left: -30%;
+        top: 50%;
+        margin-top: -0.72rem;
+        font-size: 0.24rem;
+        color: white;
+        text-align: center;
+        li:nth-of-type(1) {
+            margin-bottom: 0.26rem;
+        }
+    }
+}
+
+.content {
+    width: 100%;
+    .list {
+        width: 100%;
+        box-sizing: border-box;
+        //      padding: 0% 4%;
+        color: #666;
+        font-size: 0.37rem;
+        align-items: center;
+        margin: 0.22rem 0 0.3rem 0;
+        .img {
+            width: 0.88rem;
+            height: 0.88rem;
+            //          margin-right: 0.26rem;
+            img {
+                width: 100%;
+            }
+        }
+    }
+    p {
+        padding: 0% 4%;
+    }
+    .black {
+        color: #333;
+        font-size: 0.48rem;
+        font-weight: 600;
+    }
+    .gray {
+        font-size: 0.4rem;
+        color: #5E5959;
+        margin: 0.93rem 0 0.4rem 0;
+    }
+    .Progress {
+        box-sizing: border-box;
+        padding: 0% 4%;
+        font-size: 0.32rem;
+        color: #5E5959;
+        justify-content: space-between;
+        //clear: both;
+        li {
+            width: 29%;
+            div:nth-of-type(1) {
+                text-align: center;
+                border: 1px solid rgba(203, 203, 203, 1);
+                border-radius: 0.1rem;
+                margin-bottom: 0.37rem;
+            }
+            .pro {
+                border: 1px dashed #ccc;
+                height: 0.16rem;
+                p {
+                    //                  width: 100%;
+                    height: 100%;
+                    background: -webkit-linear-gradient(0deg, yellow, pink);
+                }
+            }
+            .font {
+                color: #5E5959;
+                font-size: 0.32rem;
+                width: 2rem;
+            }
+        }
+    }
+    .btn {
+        margin-top: 0.25rem;
+        box-sizing: border-box;
+        padding: 0% 4% 0 4%;
+        button {
+            background: none;
+            border: none;
+            width: 2.48rem;
+            height: 1rem;
+
+            background-size: 95% 95%;
+            outline: none;
+        }
+    }
+}
+
+.footerNav {
+    width: 100%;
+    .center {
+        margin: 0 auto;
+        margin-top: 0.9rem;
+        width: 3.4rem;
+        height: 3.4rem;
+
+        background-size: 100%;
+    }
+    .center_2{
+        margin-top:1.9rem ;
+    }
+    .text {
+        width: 100%;
+        text-align: center;
+        font-size: 0.37rem;
+        color: #5E5959;
+    }
+    .style {
+        font-size: 0.26rem;
+        margin-bottom: 0.49rem;
+    }
+    .margin {
+        margin: 0.26rem 0 1rem 0;
+    }
+    
+}
+
+//
+#weixin-tip {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    filter: alpha(opacity=80);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+#weixin-tip p {
+    text-align: center;
+    margin-top: 10%;
+    padding: 0 5%;
+    position: relative;
+}
+
+#weixin-tip .close {
+    color: #fff;
+    padding: 5px;
+    font: bold 20px/24px simsun;
+    text-shadow: 0 1px 0 #ddd;
+    position: absolute;
+    top: 0;
+    left: 5%;
+}
+//

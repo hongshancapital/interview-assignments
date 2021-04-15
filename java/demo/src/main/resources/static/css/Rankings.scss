@@ -1,0 +1,173 @@
+*{
+    margin:0 ;
+    padding: 0;
+    list-style: none;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    background: white;
+    font-size: 0.37rem;
+    font-family:PingFangSC-Regular;
+}
+.flex{
+    display: flex;
+}
+.active{
+    color: #FF5C72;
+    font-size: 0.53rem;
+    font-weight: 600;
+}
+.active_letter{
+        background: url(../img/bgcolor_1.png) no-repeat;
+        background-size: 100%;
+        border: none;
+        color: #FFFFFF;
+}
+.Rankings{
+    .headers{
+        width: 100%;
+        height: 1.25rem;
+        box-sizing: border-box;
+        padding: 0 5%;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.45rem;
+        position: fixed;
+        top: 0;
+        background: white;
+        z-index: 999;
+        ul{
+            font-size: 0.48rem;
+            font-weight: 600;
+            color: #272121;
+            
+            li:nth-of-type(1){
+                margin-right: 0.2rem;
+            }
+            li:nth-of-type(2){
+                margin-left: 0.2rem;
+            }
+        }
+        p{
+            font-size: 0.42rem;
+        }
+        img{
+            margin-left: -0.35rem;
+        }
+    }
+}
+.con{
+    width: 100%;
+    .tab{
+        width: 100%;
+        .letter_tab{
+            width: 80%;
+            height: 0.8rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+            font-size: 0.37rem;
+            margin-bottom: 0.5rem;
+            li{
+                box-sizing: border-box;
+                width: 50%;
+                height: 0.8rem;
+                text-align: center;
+                line-height: 0.8rem;
+                color:rgba(94,89,89,1);
+
+                border: 1px solid rgba(255,100,94,1);
+            }
+            li:nth-of-type(1){
+                border-radius:0.16rem 0 0 0.16rem;
+                border-right: none;
+            }
+            li:nth-of-type(2){
+                border-radius:0 0.16rem 0.16rem 0;
+            }
+        }
+        .List{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 5%;
+            li{
+                width: 100%;
+                display: flex;
+                height: 1.81rem;
+                justify-content: space-between;
+                margin-bottom: 0.42rem;
+                p{
+                    display: flex;
+                    align-items: center;
+                    height: 1.81rem;
+                    
+                    span{
+                        display: inline-block;
+                        text-align: center;
+                        
+                    }
+                    span:nth-of-type(1){
+                        height: 0.65rem;
+                        width: 0.53rem;
+                        line-height: 0.65rem;
+                    }
+                    span:nth-of-type(2){
+                        height: 1.81rem;
+                        width: 1.44rem;
+                        margin: 0 0.42rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        img{
+                            width: 95%;
+                            height: 75%;
+                            position: absolute;
+                            bottom: 0.05rem;
+                        }
+                    }
+                }
+                p:nth-of-type(2){
+                    color: #FF645E;
+                }
+            }
+        }
+    }
+}
+.footList{
+    width: 90%;
+    height: 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
+    margin: 0 auto;
+    background: white;
+    
+    p{
+        display: flex;
+        align-items: center;
+        
+        span{
+            display: inline-block;
+        }
+        span:nth-of-type(1){
+            height: 0.65rem;
+            width: 0.53rem;
+            line-height: 0.65rem;
+            text-align: center;
+            line-height: 0.65rem;
+        }
+        span:nth-of-type(2){
+            height: 1.81rem;
+            width: 1.44rem;
+            margin: 0 0.42rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
