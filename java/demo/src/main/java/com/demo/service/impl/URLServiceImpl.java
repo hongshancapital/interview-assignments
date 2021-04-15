@@ -43,6 +43,7 @@ public class URLServiceImpl implements URLService {
     @Override
     public String setUrl(String longUrl) {
         String shortUrl = getInnerShortUrl(longUrl);
+        //长url获取短url时冲突了，此时要处理冲突
         if(shortUrl==null){
             shortUrl = reShort(longUrl);
         }
