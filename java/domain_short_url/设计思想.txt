@@ -1,0 +1,23 @@
+@Author 施华海
+设计思路以及所有做的假设
+    1、 设计思路：采用B/S模式，分层架构，本系统共分2层：Controller层和service层, 利用Springboot做脚手架，
+                整合JUNIT、Jacoco、swagger分别完成单元测试、代码覆盖率报告和在线接口文档说明,利用MAVEN进行构建管理
+                
+          A   Controller层：负责接收和验证用户参数（长域名、短域名、短域名长度等）、调用Service实例完成域名存取、
+                            将结果响应给客户端;
+               本系统由com.cicc.domain.controller.TinyURLController类实现Controller角色;
+
+          B   Service层：负责实例化并调用相关算法类完成实际的短域名存储和读取
+               本系统由com.cicc.domain.services.TinyURL类实现Service角色,其分别实现短域名存储和读取的API；
+               a 短域名存储API-createTinyUrl： 为了降低短域名重复率，本算法利用混合KEY的方式生成MD5值，
+                 并将MD5值并结合与操作和移位操作生成4个短域名,从4个个短域名随机选取1个作为最终的短域名，
+                 对最终的短域名进行内存存储（利用ConcurrentHashMap完成短域名的内存映射）同时返回给controller层；
+               b 短域名读取API-getLongUrl: 根据短域名直接从ConcurrentHashMap里映射对应的长域名；
+               
+          C   单元测试：这对API进行单独测试，本系统单元测试类：com.cicc.domain.jacoco.test.TinyURLTest；
+          
+          D   Jacoco代码覆盖率报告: 通过ECLIPSE EclEmma 	插件，实现覆盖情况的查看。
+                
+     2、 假设：
+           A 短域名长度最大为8个字符，字符构成：【A-Z,a-z,0-9】
+           B 考虑浏览器的兼容性，长域名长度我们规定最大为2038个字符
