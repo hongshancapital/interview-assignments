@@ -1,0 +1,42 @@
+赵银凡from博网科技
+
+数据库名称：my_user
+字符集：	utf8mb4
+排序规则：	utf8mb4_general_ci
+
+用户表结构
+CREATE TABLE `list` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_name` varchar(32) NOT NULL DEFAULT '',
+  `user_password` varchar(32) DEFAULT '',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uni_user_name` (`user_name`),
+  KEY `idx_create_time` (`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+nginx配置
+
+server {
+	listen      3000;
+	server_name localhost;
+	access_log  /logs/my.user.com/access.log  main;
+	error_log  	/logs/my.user.com/error.log  ;
+	root   		/data0/www/;
+	
+	location / {
+		index   index.php index.html index.htm;
+		try_files $uri $uri/ $uri.php?$args;
+	}
+	
+	location ~ \.php(.*)$ {
+		fastcgi_pass   127.0.0.1:9001;
+		fastcgi_index  index.php;
+		fastcgi_split_path_info  ^((?U).+\.php)(/?.+)$;
+		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+		fastcgi_param  PATH_INFO  $fastcgi_path_info;
+		fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_path_info;
+		include        fastcgi_params;
+	}
+}

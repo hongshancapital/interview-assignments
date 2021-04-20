@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>用户注册</title>
+	</head>
+	<style>
+		body{text-align:center;}
+		.body_div{
+			background:#fff2e6; color:#fff2e6;
+			margin:0 auto;
+			width:800px; 
+			height:100%;
+		}
+		.top_div{
+			margin-top:100px;
+			height:60px;
+		}
+		.user_div{
+			margin-top:20px;
+			width:100%;
+			height:60px;
+		}
+		.user_span{
+            display: inline-block;
+			margin-left:-110px;
+			width:20%;
+			height:10px;
+			color:#3366ff;
+			font-size:14px;
+			text-align:right;
+		}
+		.user_input{
+			with:200px;
+			line-height:30px;
+		}
+		.user_btn{
+			width:100px;
+			height:33px;
+			margin-right:20px;
+			background:#40bf80;
+			border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;
+		}
+		.message_div{
+			width:100%;
+			height:20px;
+		}
+		.message_error{
+			color: crimson;
+		}
+		.message_success{
+			color:#40bf80;
+		}
+	</style>
+	<script src="./js/jquery-3.5.1.min.js"></script>
+
+	<body>
+		<form action="#" method="post" id="registerUser">
+			<div class="body_div">
+				<div class="top_div"></div>
+				<div class="user_div">
+					<span class="user_span">Username：</span>
+					<input type="text" class="user_input" name="userName" />
+				</div>
+				<div class="user_div">
+					<span class="user_span">Password：</span>
+					<input type="text" class="user_input" name="password" />
+				</div>
+				<div class="user_div">
+					<span class="user_span">Repeat Password：</span>
+					<input type="text" class="user_input" name="repeatPassword" />
+				</div>
+				<div class="message_div" id="showMessage"></div>
+				<div class="user_div">
+					<input type="button" value="Submit" class="user_btn" name="user_repeat_password" />
+				</div>
+			</div>
+			
+		</form>
+		<script>
+			var url = '/api/register';
+			$(".user_btn").click(function (){
+				var data = $("#registerUser").serialize();
+				console.log(data);
+				$.post(url, data,function(resultJSONObject){
+					if(resultJSONObject.code==1000){
+						$("#showMessage").addClass('message_success').removeClass('message_error').html('注册成功');
+					}else{
+						$("#showMessage").addClass('message_error').removeClass('message_success').html(resultJSONObject.message);
+					}
+				},"json");
+			});
+		</script>
+	</body>
+</html>
