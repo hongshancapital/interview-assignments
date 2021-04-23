@@ -5,20 +5,11 @@ package com.interview.shorter.commons;
  */
 public final class Hash {
 
-	public static final long hash(byte[] s) {
-		if (null == s) {
-			return 0;
-		}
+	private Hash() {
 
-		long hash = 1;
-		for (byte element : s) {
-			hash = hash * 63 + element;
-		}
-
-		return hash;
 	}
 
-	public static final long trans(byte[] s) {
+	public static long trans(byte[] s) {
 		if (null == s) {
 			return 0;
 		}
@@ -31,27 +22,27 @@ public final class Hash {
 		return hash;
 	}
 
-	public static final long mirror(byte[] s) {
+	public static long mirror(byte[] s) {
 		if (null == s) {
 			return 0;
 		}
 
 		long hash = 1;
 		for (byte element : s) {
-			hash = hash * 63 + (0 - element);
+			hash = hash * 63 + (-element);
 		}
 
 		return hash;
 	}
 
-	public static final long transMirror(byte[] s) {
+	public static long transMirror(byte[] s) {
 		if (null == s) {
 			return 0;
 		}
 
 		long hash = 1;
 		for (int i = s.length - 1; i > -1; i--) {
-			hash = hash * 63 + (0 - s[i]);
+			hash = hash * 63 + (-s[i]);
 		}
 
 		return hash;
@@ -60,12 +51,12 @@ public final class Hash {
 	static final long _longHashConstant = 4095;
 
 
-	public static final long longHash(byte[] s) {
+	public static long longHash(byte[] s) {
 		return longHash(s, 0, s.length);
 	}
 
 
-	public static final long longHash(byte[] s, int start, int end) {
+	public static long longHash(byte[] s, int start, int end) {
 		if (null == s) {
 			return 0;
 		}

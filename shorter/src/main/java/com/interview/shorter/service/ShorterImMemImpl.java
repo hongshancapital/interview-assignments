@@ -15,8 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author Bai Lijun mailTo: 13910160159@163.com
  * Created at 2021-04-23
- */
-/**
  * 短码转换内存实现
  */
 @Service
@@ -57,7 +55,6 @@ public class ShorterImMemImpl implements Shorter {
 
             for (int i = 0; i < 8; i++) {
                 id = genId(source, i);
-                log.debug("产生id", id, i);
                 if (!InMem.containsKey(id)) {
                     break;
                 }
@@ -71,30 +68,17 @@ public class ShorterImMemImpl implements Shorter {
             while (StringUtils.isEmpty(id)) {
                 id = Helper.random(getLength() + 1, digits);
 
-                log.debug("!!!!!!Generated candidate of id {0}.", id);
-
                 if (!InMem.containsKey(id)) {
                     break;
                 }
             }
 
             //long[] aux = Helper.hash(source);
-            try {
-                InMem.put(id, source);
-            } catch (RuntimeException dae) {
-                if (!InMem.containsKey(id)) {
-                    throw dae;
-                }
+            InMem.put(id, source);
 
-                Atlas atlas = this.restore(id);
-                if (atlas.match(source)) {
-                    return id;
-                } else {
-                    return shorting(type, source);// later collision!!
-                }
-            }
-        } finally {
-
+        } catch (Exception e) {
+            log.error(e.getLocalizedMessage());
+            throw e;
         }
 
         return id;
@@ -141,7 +125,7 @@ public class ShorterImMemImpl implements Shorter {
 
     }
 
-    public class AtlasImpl implements Atlas {
+    public static class AtlasImpl implements Atlas {
         String id;
         String value;
         private long[] old;
@@ -175,17 +159,17 @@ public class ShorterImMemImpl implements Shorter {
 
         @Override
         public long getKey() {
-            return -1L;
+            return old[0];
         }
 
         @Override
         public long getAux() {
-            return -1L;
+            return old[1];
         }
 
         @Override
         public long getAux1() {
-            return -1L;
+            return old[2];
         }
 
         @Override
