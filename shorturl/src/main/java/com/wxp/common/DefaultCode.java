@@ -1,8 +1,7 @@
 package com.wxp.common;
 
 /**
- * @author owell
- * @date 2019/4/10 13:50
+ * 返回码
  */
 public enum DefaultCode{
 
