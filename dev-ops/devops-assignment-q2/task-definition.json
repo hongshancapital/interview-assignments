@@ -1,0 +1,38 @@
+{
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "inferenceAccelerators": [],
+    "containerDefinitions": [
+        {
+            "name": "devops-assignment-q2-app",
+            "image": "devops-assignment-q2-repository:00000",
+            "resourceRequirements": null,
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": "5000",
+                    "protocol": "tcp"
+                }
+
+            ],
+            "logConfiguration": {
+              "logDriver": "awslogs",
+              "secretOptions": [],
+              "options": {
+                "awslogs-group": "devops-assignment-q2-logs",
+                "awslogs-region": "cn-northwest-1",
+                "awslogs-stream-prefix": "ecs"
+              }
+            }
+        }
+    ],
+    "volumes": [],
+    "networkMode": "awsvpc",
+    "memory": "512",
+    "cpu": "256",
+    "executionRoleArn": "arn:aws-cn:iam::382348112289:role/devops-assignment-q2-ecs-execution-role",
+    "family": "devops-assignment-q2-task-definition",
+    "taskRoleArn": "",
+    "placementConstraints": []
+}
