@@ -21,6 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ShorterImMemImpl implements Shorter {
 
     private static Map<String, String> InMem = new ConcurrentHashMap<>();
+    //处理并发请求将一个资源转换为短码增加 原始url 到短码的映射
+    private static Map<String, String> urlMap = new ConcurrentHashMap<>();
     private static Logger log = LoggerFactory.getLogger(ShorterImMemImpl.class);
 
 
@@ -47,6 +49,10 @@ public class ShorterImMemImpl implements Shorter {
 
         if (!source.matches(HTTP_START_EXP)) {
             source = "http://".concat(source);
+        }
+        //增加并发时候的检查
+        if (urlMap.containsKey(source)) {
+            return urlMap.get(source);
         }
 
 
@@ -75,6 +81,7 @@ public class ShorterImMemImpl implements Shorter {
 
             //long[] aux = Helper.hash(source);
             InMem.put(id, source);
+            urlMap.put(source, id);
 
         } catch (Exception e) {
             log.error(e.getLocalizedMessage());
