@@ -1,0 +1,36 @@
+import os
+import json
+import requests
+
+with open(r'interview_data_set') as f:
+    old_rows = f.readlines()
+    rows = sorted(old_rows,key=lambda row:row.split('):')[-1])
+    for r in rows:
+        print(r)
+    n = 0
+    m = n + 1
+    count = 0
+    while n < len(rows) - 2:
+        while m < len(rows) - 1:
+            str_n = rows[n][16:]
+            str_m = rows[m][16:]
+            if str_n == str_m:
+                count += 1
+            else:
+                m += 1
+        # print('error---%s-出现了%d次' % (rows[n][16:], count))
+        deviceName = rows[n].split()[3]
+        processId = rows[n].split('):')[0][-5:]
+
+        processName = rows[n].split(' ')[4]
+        description = rows[n].split('): ')[-1]
+        timeWindow = '1_hour'
+        numberOfOccurrence = count
+        dict01 = {'deviceName': deviceName, 'processId': processId, 'processName': processName,
+                  'description': description, 'timeWindow': timeWindow,
+                  'numberOfOccurrence': count}
+        js = json.dumps(dict01)
+        print(js)
+        url = 'https://foo.com/bar'
+        response = requests.post(url=url,  data=js, verify=False)
+        n += 1
