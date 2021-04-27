@@ -33,7 +33,7 @@ export CODE_STAR_CONNECTION_ARN=你刚刚创建的Github应用程序ARN
 export GITHUB_OWNER=你的Github用户名
 ```
 ### 通过CDK部署基础设施
-首先确保当前环境安装了CDK。然后在项目目录执行 `make install && make infra`，将自动创建几乎所有基础设施；服务也将开始运行，不过运行的是标准tomcat，因为尚未构建服务镜像。
+首先确保当前环境安装了CDK。然后在项目目录执行 `make i && make infra`，将自动创建几乎所有基础设施；服务也将开始运行，不过运行的是标准tomcat，因为尚未构建服务镜像。
 ### 部署后的调整
 手动执行CodePipeline以构建镜像并部署到ECS服务，或者在Github上合并PR以触发CodePipeline。然后就可以访问以下地址：
 ```
