@@ -12,9 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 @RunWith(SpringRunner.class)
@@ -120,5 +118,37 @@ public class ShortUrlTest {
         long originNum = Base62.decode(base62Num);
 
         Assert.isTrue(num == originNum, "Base62 转换错误");
+    }
+
+    /**
+     * 测试并发场景下请求同一个url，不生成多个短码
+     * @throws InterruptedException
+     */
+    @Test
+    public void concurrentRequest() throws InterruptedException {
+        Set<String> set = new HashSet<String>();
+        final Set<String> shortUrlSet = Collections.synchronizedSet(set);
+        final int perCount = 100000;
+        final int threadCount = 10;
+        final CountDownLatch countDownLatch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            new Thread(new Runnable() {
+                public void run() {
+                    String url = "http://www.wxp.com/aaabbbccc/dddeeefff/ggghhhiii/jjjkkklll/";
+                    for (int i = 0; i < perCount; i++) {
+                        String tmpUrl = url + i;
+                        shortUrlSet.add(shortUrlService.getShortUrl(tmpUrl));
+                    }
+                    countDownLatch.countDown();
+                }
+            }).start();
+        }
+
+        countDownLatch.await();
+
+        System.out.println(shortUrlSet.size());
+
+        Assert.isTrue(shortUrlSet.size() == perCount, "生成的短链存在重复。set size is: " + shortUrlSet.size());
     }
 }
