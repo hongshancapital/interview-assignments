@@ -46,8 +46,8 @@ export class BaseStack extends cdk.Stack {
         {
           cidrMask: 24,
           name: 'private',
-          // subnetType: ec2.SubnetType.PRIVATE 
-          subnetType: ec2.SubnetType.PUBLIC // 省钱。注意所有引用subnets的地方应该使用selectSubnets方法以免混淆。
+          subnetType: ec2.SubnetType.PRIVATE 
+          // subnetType: ec2.SubnetType.PUBLIC // 省钱。注意所有引用subnets的地方应该使用selectSubnets方法以免混淆。
         },
         {
           cidrMask: 24,
@@ -280,7 +280,7 @@ export class BaseStack extends cdk.Stack {
         vpcSubnets: vpc.selectSubnets({subnetGroupName: 'private'}),
         securityGroup: sgApp,
         
-        assignPublicIp: true, // 因为部署在了public子网，因此必须分配publicIP才能访问Internet
+        // assignPublicIp: true, // 因为部署在了public子网，因此必须分配publicIP才能访问Internet
       })
 
       service.registerLoadBalancerTargets({
