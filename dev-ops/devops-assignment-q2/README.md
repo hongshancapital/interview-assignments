@@ -5,7 +5,33 @@
 
 ## Automatically execute unit tests before merging into master or main branch
 
-Please refer to .git/hooks/prepare-commit-msg.
+Please add the following code into *.git/hooks/prepare-commit-msg*.
+```bash
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+if [ "${COMMIT_SOURCE}" != "merge" ]
+then exit 0
+fi
+
+current_branch=`git branch | grep '*' | sed 's/* //'`
+if [[ "${current_branch}" != "master" && "${current_branch}" != "main" ]]
+then exit 0
+fi
+
+echo "Preparing to merge to master..."
+pytest=`source .venv/Scripts/activate && pytest`
+pytest_result=$?
+if [ "${pytest_result}" != 0 ]
+then
+  echo "${pytest}"
+  echo `git merge --abort`
+  echo "Merge canceled due to test failures."
+  exit 1
+fi
+```
+
 Note: `git merge` uses fast-forward merge by default. The prepare-commit-msg hook will not be invoked for fast-forward merge. This behavior can be suppressed with the --no-ff option.
 
 ## Create infrastructure and service by using AWS CDK
