@@ -1,0 +1,19 @@
+﻿进入项目目录
+
+执行：npm run start
+
+问题：
+每次改动代码都需要重新启动服务
+
+注册入口：
+
+    请求示例
+	
+	//注册验证不通过
+    curl -d "username=12foo&password=bar" -X POST http://localhost:3000/api/register
+	//注册成功
+    curl -d "username=foo1231&password=bar12345&repeat_password=bar12345" -X POST http://localhost:3000/api/register
+	
+
+
+	
