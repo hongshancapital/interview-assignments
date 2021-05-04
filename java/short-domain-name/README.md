@@ -27,7 +27,7 @@ localhost:8888/doc.html
 
 ### 测试结果
 
-![img.png](file:///Users/fanzhaofei/github/short-domain-name/img.png?lastModify=1620139406)
+![img.png](img.png)
 
 ###实现思路
 
