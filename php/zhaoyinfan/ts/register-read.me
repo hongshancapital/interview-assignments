@@ -2,8 +2,6 @@
 
 执行：npm run start
 
-问题：
-每次改动代码都需要重新启动服务
 
 注册入口：
 
@@ -15,5 +13,8 @@
     curl -d "username=foo1231&password=bar12345&repeat_password=bar12345" -X POST http://localhost:3000/api/register
 	
 
-
-	
+问题：
+1、每次改动代码都需要重新启动服务
+   修改配置可实现，但是目前参考网上解决访问无法实现
+2、方法调用，返回值的无法获取
+3、加载mongoose的时候采用npm i mongoose || npm i mongoose -g(全局)均在 import from加载的时候找不到模块
