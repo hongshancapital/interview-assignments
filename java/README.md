@@ -9,7 +9,7 @@
 - 长短域名对应关系保存于内存中，同时会持久化到本地日志中，系统重启支持自动恢复
 - 自动检测JVM空间剩余情况，当内存不足时，自动停止生成和保存新的短域名(可以重启并扩大JVM内存空间)
 - 详细的swagger文档. http://IP:8090/swagger-ui.html
-- Jacoco单元测试平均覆盖率大于90%
+- Jacoco单元测试平均覆盖率大于90%，截图参考：[github地址](https://github.com/pgcwxy/interview-assignments/tree/master/java/screenshot)
 
 ## 设计思路
 ### 根据长域名生成短域名的核心方法
