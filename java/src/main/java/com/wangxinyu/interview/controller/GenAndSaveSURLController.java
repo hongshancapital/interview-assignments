@@ -1,5 +1,6 @@
 package com.wangxinyu.interview.controller;
 
+import com.wangxinyu.interview.InterviewApplication;
 import com.wangxinyu.interview.bean.CommonReturnType;
 import com.wangxinyu.interview.bean.UrlDTO;
 import com.wangxinyu.interview.cons.ErrorReason;
@@ -43,6 +44,9 @@ public class GenAndSaveSURLController {
         }
         if (lUrl.length() <= maxSUrlLength) {
             return new CommonReturnType<>(ErrorReason.LURL_TOO_SHORT.getCode(), ErrorReason.LURL_TOO_SHORT.getReason(), null);
+        }
+        if (!InterviewApplication.acceptNewRequest.get()) {
+            return new CommonReturnType<>(ErrorReason.NOT_ENOUGH_MEMORY.getCode(),ErrorReason.NOT_ENOUGH_MEMORY.getReason(),null);
         }
         String errorMsg = "";
         int code = 0;
