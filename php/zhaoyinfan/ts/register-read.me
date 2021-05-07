@@ -6,18 +6,16 @@
 注册入口：
 
     请求示例
-	
-	//注册验证不通过
-    curl -d "username=12foo&password=bar" -X POST http://localhost:3000/api/register
 	//注册成功
-    curl -d "username=foo1231&password=bar12345&repeat_password=bar12345" -X POST http://localhost:3000/api/register
+    curl -d "username=fooTest&password=bar12345&repeat_password=bar12345" -X POST http://localhost:3000/api/register
+	//注册数据不存在
+    curl -d "username=foo111Test&password=bar12345&repeat_password=bar12345" -X POST http://localhost:3000/api/register
 	
-
 问题：
 1、每次改动代码都需要重新启动服务
-   执行：npm run watch 可以通过监控项目入口文件 项目文件发生变更自动重启服务
+   执行：npm run watch-dev 可以通过监控项目入口文件 项目文件发生变更自动重启服务
 2、报错：Parameter ‘XXX’ implicitly has an ‘any’ type.解决方法
 	tsconfig.json文件中“strict”: true,改为false
 	
-2、方法调用，返回值的无法获取
-3、加载mongoose的时候采用npm i mongoose || npm i mongoose -g(全局)均在 import from加载的时候找不到模块
+2、方法（函数）调用，返回值的无法获取
+   import方式将函数加载进来，如果所在的目标文件中有多个方法用函数名+逗号间隔加载进来
