@@ -2,10 +2,12 @@ package com.capital.domain.service.impl;
 
 
 import com.capital.domain.BaseApplicationTest;
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +15,6 @@ import java.util.List;
 
 /**
  * @author jiangts
- * @Classname cn.cyberwater.log.service.impl.SysLoginLogServiceImplTest.java
- * @Description TODO
- * @Project 供水SaaS
- * @Date 2020/5/26 14:20
  * @Vsersion V1.0
  */
 class SysLoginLogServiceImplTest extends BaseApplicationTest {
@@ -33,26 +31,27 @@ class SysLoginLogServiceImplTest extends BaseApplicationTest {
         System.out.println("域名转换日志测试结束");
     }
 
-    @Test
     /**
      * 测试长域名转短域名
      */
+    @Test
     void langToShort() throws Exception{
         ArrayList<String> list = new ArrayList<>();
         list.add("qfq2f23rr3fwrwfawr");
         list.add("wf4t3g45ye5y4wye4");
         list.add("f25yt4y4eyhsrrgsgsg");
         list.add("d6u845uj5jr65h5y6he5");
-        for (String s : list) {
-        String aShort = conversionService.langToShort(s);
-        System.out.println(aShort);
+        for (int i = 0; i < list.size(); i++) {
+            String s = list.get(i);
+            String aShort = conversionService.langToShort(s);
+            Assert.assertEquals(aShort,String.valueOf(i));
         }
     }
 
-    @Test
     /**
      * 测试存储后再通过短域名获取长域名
      */
+    @Test
     void getLong() throws Exception{
         ArrayList<String> list = new ArrayList<>();
         ArrayList<String> listTemp = new ArrayList<>();
