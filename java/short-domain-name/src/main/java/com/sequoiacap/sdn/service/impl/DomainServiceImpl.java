@@ -1,6 +1,7 @@
 package com.sequoiacap.sdn.service.impl;
 
 import com.sequoiacap.sdn.service.DomainService;
+import com.sequoiacap.sdn.utils.LRUCache;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,7 +24,8 @@ public class DomainServiceImpl implements DomainService {
                     'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
                     'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
-    private static final Map<String, String> CACHE_MAP = new HashMap<>();
+    private LRUCache lruCache = new LRUCache(3);
+
 
     @Override
     public String langToShort(String longDomain) {
@@ -42,12 +44,12 @@ public class DomainServiceImpl implements DomainService {
         }
 
         //存储长短域名map
-        CACHE_MAP.put(sBuilder.toString(), longDomain);
+        lruCache.setCache(sBuilder.toString(), longDomain);
         return sBuilder.toString();
     }
 
     @Override
     public String getLang(String shortDomain) {
-        return CACHE_MAP.get(shortDomain);
+        return lruCache.getCache(shortDomain).toString();
     }
 }
