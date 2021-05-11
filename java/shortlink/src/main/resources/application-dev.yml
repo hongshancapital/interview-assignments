@@ -1,0 +1,18 @@
+logging:
+    level:
+        #包的日志级别
+        org.springframework.web: DEBUG
+        com.example: info
+    #自定义log信息
+    config: classpath:config/logback-spring.xml
+    pattern:
+        #控制台的日志输出格式
+        console: '%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n'
+        #文件的日志输出格式
+        file: '%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n'
+    file:
+        #日志名称
+        name: shortlink.log
+        #存储的路径
+        path: logs/
+
