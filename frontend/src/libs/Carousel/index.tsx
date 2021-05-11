@@ -53,7 +53,7 @@ const Dots: FC<{
               opacity: i === index ? 1 : 0,
               animation:
                 i === index
-                  ? `${styles.progress} ${duration}ms linear infinite`
+                  ? `${styles.progress} ${duration}ms linear`
                   : 'none',
             }}
           />

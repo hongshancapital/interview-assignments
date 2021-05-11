@@ -3,6 +3,8 @@
   flex-direction: column;
   box-sizing: border-box;
   padding-top: 20vh;
+  position: relative;
+  overflow: hidden;
 
   &.bgBlack {
     background: #111;
@@ -15,5 +17,31 @@
   &.bgGrey {
     background: #f0f0f2;
     color: #111;
+  }
+
+  .iphone {
+    width: 900px;
+  }
+
+  .tablet {
+    width: 1800px;
+  }
+
+  .airPods {
+    width: 1800px;
+  }
+
+  :global {
+    h1,
+    p {
+      z-index: 1;
+      position: relative;
+    }
+    img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 100px;
+    }
   }
 }
