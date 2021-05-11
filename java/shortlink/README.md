@@ -102,6 +102,8 @@
     * 找出系统瓶颈，负载/响应时间/资源利用率/吞吐量
     * 评估优化方案+成本 权衡
     * 迭代式优化
+    * jmh 基准测试 uuid murmur3_128 性能
+    * benchmark.lua + wrk 测试api rw tps
 
 ##### 使用缓存
     * 读多写少，写一次无update，适合缓存，expire 30天淘汰
