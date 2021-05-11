@@ -1,0 +1,73 @@
+<html>
+<head>
+<style>
+input[type]{
+	border: 1px solid black;
+	background: white;
+}
+
+#btn_submit{
+	border: 10px solid orange;
+	width: 200px;
+	box-shadow:0px 4px 5px #666;
+	background: orange;        
+	color: white;    
+}
+
+#msg {
+	color: red;
+}
+</style>
+</head>
+<body>
+<body>
+<center>
+<div>
+	<form action="/index.php" method="POST">
+		Register Page
+		<hr>
+		<p>Username: <input type="text" id="username" name="username" placeholder="Username" value="aaaa111"><br></p>
+		<p>Password: <input type="password" id="password" name="password" placeholder="Password" ></p>
+		<p>Repeat Password: <input type="password" id="repeat_password" name="repeat_password" placeholder="Repeat Password"></p>
+		
+		<p id='msg'></p>
+		<p><input type="button" id="btn_submit" value="Submit"></p>
+	</form>
+	</div>
+</center>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+$(document).ready(function(){
+	$('#btn_submit').click(function(){
+		var username = $('#username').val();
+		var password = $('#password').val();
+		var repeat_password = $('#repeat_password').val();
+		$('#msg').html();
+		
+		if (username == "") {
+			$('#msg').html("Username is required");
+			return;
+		}		
+		if (password == "") {
+			$('#msg').html("Password is required");
+			return;
+		}
+		if (password != repeat_password) {
+			$('#msg').html("Password is not match");
+			return;
+		}
+		
+    	$.ajax({
+    	    type: 'POST',
+    		url: "/",
+    		data: "username=" + username + "&password=" + password + "&repeat_password=" + repeat_password,
+    		success: function(data) {
+    			$('#msg').html(data.msg);
+    		},
+    	    dataType: "json",
+    	});
+	});
+});
+</script>
+</body>
+</html>
