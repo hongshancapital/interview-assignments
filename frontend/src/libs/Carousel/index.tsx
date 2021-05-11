@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 // import useCountdown from './hooks/useCountdown'
 import useIndex from './hooks/useIndex'
 import styles from './index.module.scss'
@@ -11,14 +11,14 @@ import styles from './index.module.scss'
  * 当前传入children即可，目前仅支持全屏轮播
  */
 const Carousel: FC<{
-  children: React.ReactNode[]
   /**轮播间隔时间，ms */
   duration?: number
 }> = ({ children, duration = 2000 }) => {
-  const { currIndex } = useIndex({ duration, children })
+  const childrenArray = Array.isArray(children) ? [...children] : [children]
+  const { currIndex } = useIndex({ duration, children: childrenArray })
 
   const bodyWidth = document.body.clientWidth
-  const wrapperWidth = bodyWidth * children.length
+  const wrapperWidth = bodyWidth * childrenArray.length
 
   return (
     <div className={styles.Carousel}>
@@ -29,9 +29,9 @@ const Carousel: FC<{
           transform: `translateX(-${currIndex * bodyWidth}px)`,
         }}
       >
-        {children}
+        {childrenArray}
       </div>
-      <Dots num={children.length} index={currIndex} duration={duration} />
+      <Dots num={childrenArray.length} index={currIndex} duration={duration} />
     </div>
   )
 }
