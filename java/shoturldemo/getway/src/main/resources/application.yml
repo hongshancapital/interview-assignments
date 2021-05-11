@@ -1,0 +1,34 @@
+server:
+  port: 9000
+eureka:
+  client:
+    serviceUrl: # eureka server的路径
+      defaultZone: http://shoturldemo:8761/eureka/,http://shoturldemoB:8762/eureka/
+  instance:
+    prefer-ip-address: true
+    #自定义实例显示格式，加上版本号，便于多版本管理，注意是ip-address，早期版本是ipAddress
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+spring:
+  application:
+  name: shorturl-cloud-gateway
+  cloud:
+    gateway:
+      routes: # 路由可以有多个
+        - id: zh-shorturl-router
+          uri: lb://zh-shorturl-service
+          predicates:
+            - Path=/zh/shorturl/**
+          filters:
+            - StripPrefix=1
+
+        - id: jp-shorturl-router
+          uri: lb://jp-shorturl-service
+          predicates:
+            - Path=/jp/shorturl/**
+          filters:
+            - StripPrefix=1
+        - id: add-shorturl-router
+            uri: lb://add-shorturl-service
+            predicates:
+              - Path=/command/shorturl/add/**
+

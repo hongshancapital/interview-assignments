@@ -1,0 +1,19 @@
+#eureka server服务端口
+server:
+  port: 8762
+spring:
+  application:
+    name: shuturl-cloud-eureka-server # 应用名称，应用名称会在Eureka中作为服务名称
+    # eureka 客户端配置（和Server交互），Eureka Server 其实也是一个Client
+eureka:
+  instance:
+    hostname: shoturldemo  # 当前eureka实例的主机名
+  client:
+    service-url:
+      # 配置客户端所交互的Eureka Server的地址（Eureka Server集群中每一个Server其实相对于其它Server来说都是Client）
+      # 集群模式下，defaultZone应该指向其它Eureka Server，如果有更多其它Server实例，逗号拼接即可
+      defaultZone: http://shoturldemoB:8763/eureka
+    register-with-eureka: true  # 集群模式下可以改成true
+    fetch-registry: true # 集群模式下可以改成true
+  dashboard:
+    enabled: true
