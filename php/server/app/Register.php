@@ -61,6 +61,7 @@ class Register
         // 只能以英文字母或下划线开头
         // 只能包含英文字母，下划线或数字
         if (!isset($post['Username']) ||
+            strlen($post['Username']) > 32 ||
             !preg_match('/^[A-Za-z_]{1}/', $post['Username']) ||
             preg_match('/[\W]{1}/', $post['Username'])) {
             $this->response(400, 'username error');
@@ -76,6 +77,7 @@ class Register
         // 不能含有 3 位以上的连续数字
         if (!isset($post['Password']) ||
             strlen($post['Password']) <= 6 ||
+            strlen($post['Password']) > 32 ||
             preg_match('/[\d]{3}/', $post['Password'])) {
             $this->response(400, 'password error');
         }
