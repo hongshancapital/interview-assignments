@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -22,7 +24,13 @@ class DomainServiceTest {
      */
     @Test
     void shortDomainSaveHandle() {
-        domainService.shortDomainSaveHandle("aaaaaaaabbbbbbcccc.com");
+        try {
+            domainService.shortDomainSaveHandle("aaaaaaaabbbbbbcccc.com");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -41,7 +49,14 @@ class DomainServiceTest {
      */
     @Test
     void shortDomainReadHandle2() {
-        String shortDomain = domainService.shortDomainSaveHandle("aaaaaaaabbbbbbcccc.com");
+        String shortDomain = null;
+        try {
+            shortDomain = domainService.shortDomainSaveHandle("aaaaaaaabbbbbbcccc.com");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         String res = domainService.shortDomainReadHandle(shortDomain);
         log.info("{}", res);

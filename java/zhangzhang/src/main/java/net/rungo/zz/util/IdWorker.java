@@ -2,6 +2,9 @@ package net.rungo.zz.util;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class IdWorker {
 
@@ -11,8 +14,8 @@ public class IdWorker {
     //12位的序列号
     private long sequence;
 
-    public IdWorker(){
-        new IdWorker(1,1,1);
+    public IdWorker() {
+        new IdWorker(1, 1, 1);
     }
 
     public IdWorker(long workerId, long datacenterId, long sequence) {
@@ -65,6 +68,17 @@ public class IdWorker {
 
     public long getTimestamp() {
         return System.currentTimeMillis();
+    }
+
+    public List nextIdList(int count) {
+        List<Long> list = null;
+        if (count > 0){
+            list = new ArrayList<>();
+            for(int i=0;i<count;i++){
+                list.add(nextId());
+            }
+        }
+        return list;
     }
 
     //下一个ID生成算法
@@ -124,7 +138,7 @@ public class IdWorker {
         IdWorker worker = new IdWorker();
         for (int i = 0; i < 3000; i++) {
             long id = worker.nextId();
-            System.out.println(id+":"+ConversionUtils.decimalToSixtyTwo(id));
+            System.out.println(id + ":" + ConversionUtils.decimalToSixtyTwo(id));
         }
     }
 }
