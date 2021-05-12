@@ -122,7 +122,7 @@ public class IdWorker {
     //---------------测试---------------
     public static void main(String[] args) {
         IdWorker worker = new IdWorker();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 3000; i++) {
             long id = worker.nextId();
             System.out.println(id+":"+ConversionUtils.decimalToSixtyTwo(id));
         }

@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class DomainService {
 
-    private static final Map<String, String> DOMAINMAP = new HashMap<>();
+    private static final Map<String, String> DOMAINMAP = new ConcurrentHashMap<>();
 //    private static final  Queue<Domain> fifo = EvictingQueue.create(2);        防止内存溢出可以使用队列存储
 
     @Resource
