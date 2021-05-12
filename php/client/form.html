@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单提交</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid">
+    <h3>表单提交</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST" action="http://127.0.0.1:3000/api/register">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text"" name="Username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="text"" name="Password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>重复密码</label>
+                    <input type="text"" name="RepeatPassword" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div> 
+</body>
+</html>
