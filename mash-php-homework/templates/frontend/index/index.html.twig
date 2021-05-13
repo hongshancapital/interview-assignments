@@ -1,0 +1,150 @@
+<!doctype html>
+<html className="no-js" lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>用户注册</title>
+        <link rel="stylesheet" href="{{ asset('static/css/foundation.css') }}">
+        <link rel="stylesheet" href="{{ asset('static/css/app.css') }}">     
+        <style>
+            #error-info {
+                color: red;
+            }
+        </style> 
+    </head>
+    <body>
+    <!--main-->
+    <div className="grid-container" style="max-width: 100rem; margin:50px;">
+        <div className="grid-x" style="min-height:581px;">                
+            <div className="cell padding-left-1 margin-top-1 margin-bottom-1" id="root">                   
+                 
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('static/js/vendor/jquery.js') }}"></script>    
+    <script src="{{ asset('static/js/vendor/what-input.js') }}"></script>
+    <script src="{{ asset('static/js/vendor/foundation.js') }}"></script>
+    <script src="{{ asset('static/js/app.js') }}"></script>    
+   
+    <!--<script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>-->
+ <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  
+    <script type="text/babel">
+        
+        const User = () => {
+            const [formData, setFormData] = React.useState({
+                username: '',
+                password: '',
+                passwordRepeat: '',
+            })
+            const [response, setResponse] = React.useState('')
+            const [resource, setResource] = React.useState([])
+          
+            const url = "{{ path('api.register') }}"  
+            const urlResource = "{{ path('api.users') }}"  
+            
+            const httpRequest = (url, data = {}) => {                
+                fetch(url, {
+                                method: 'POST', 
+                                body: JSON.stringify(data), 
+                                headers: new Headers({
+                                    'Content-Type': 'application/json'
+                                })
+                })
+                .then(res => res.json())
+                .then(json => {   
+                    setResponse(json.msg)
+                    if (url == "{{ path('api.register') }}" && json.code == 0) {
+                        let newResouce = resource
+                        newResouce.push({username:formData.username})
+                        setResource(newResouce)  
+                        setFormData({
+                            username: '',
+                            password: '',
+                            passwordRepeat: '',
+                        })
+                    } else if (url == "{{ path('api.users') }}" ) {
+                         setResource(json.data) 
+                    }
+                })
+                .catch(error => console.error('Error:', error))
+            }
+
+            React.useEffect(() => httpRequest(urlResource), [])
+           
+            const handleChange = (event) => {
+                setFormData({
+                    ...formData,
+                    [event.target.id]:event.target.value,
+                })
+            }
+            
+            const handleSubmit = () => {
+                httpRequest(url, formData)
+            }
+
+            const Item = () => {
+                return resource.map((item, index) => {                    
+                    return <li key={index}>{item.username}</li>
+                })
+            }
+
+            return (
+                <React.Fragment>
+                    <div className="grid-x">
+                        <div className="cell large-offset-2">
+                            <p className="lead">用户注册</p>
+                            <p id="error-info" className="help-text">{response}</p>
+                        </div>
+                        <div className="cell small-2">
+                            <label className="text-right middle">
+                            用户名:
+                            </label>
+                        </div>
+                        <div className="cell small-10">
+                            <input type="text" id="username" placeholder="用户名" value={formData.username} onChange={(event)=>handleChange(event)} />
+                        </div>
+                        <div className="cell small-2">
+                            <label className="text-right middle">
+                            初始密码:
+                            </label>
+                        </div>
+                        <div className="cell small-10">
+                            <input type="password" id="password"placeholder="初始密码" value={formData.password} onChange={(event)=>handleChange(event)} />
+                        </div>
+                        <div className="cell small-2">
+                            <label className="text-right middle">
+                            确认密码:
+                            </label>
+                        </div>
+                        <div className="cell small-10">
+                            <input type="password" id="passwordRepeat" placeholder="确认密码" value={formData.passwordRepeat} onChange={(event)=>handleChange(event)} />
+                        </div>
+                        
+                        <div className="cell small-offset-4">
+                            <button type="button" className="button small" onClick={()=>handleSubmit()}>提交</button>                
+                        </div>
+                    </div>
+                    <div className="grid-x margin-top-3">
+                        <div className="cell large-offset-2">
+                            <p className="help-text">用户列表</p>
+                            <ol>
+                                <Item />
+                            </ol>
+                        </div>
+                    </div>                   
+                </React.Fragment>
+            )
+        }
+
+
+        const domContainer = document.querySelector('#root');
+        ReactDOM.render(<User />, domContainer);
+    </script>
+    </body>
+</html>

@@ -1,0 +1,335 @@
+body {
+  overflow-x: hidden;
+  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+  font-size: 95%;
+  
+}
+/*通用*/
+.margin-bottom-0{margin-bottom:0px ;}
+.padding-tb{padding:0.5rem 0.8rem;}
+td .button{margin-bottom: 0;}
+/*分页*/
+.pagination a, .pagination button{display: inline;}
+/* nav */
+.top-bar, .top-bar ul {
+    background-color: #252a2f; 
+}
+/*.top-bar .top-bar-left .menu .menu-text{color:rgb(255, 255, 255);}*/
+/*菜单下行线 使用方式 div增加.hover-underline-menu 以及属性 data-menu-underline-from-center*/
+.hover-underline-menu {
+    width: 100%;
+  }
+  
+  .hover-underline-menu .menu {
+    background-color: #252a2f;
+  }
+  
+  .hover-underline-menu .menu a {
+    color: #fefefe;
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .hover-underline-menu .menu .underline-from-center {
+    position: relative;
+  }
+  
+  .hover-underline-menu .menu .underline-from-center::after {
+    content: "";
+    position: absolute;
+    top: calc(100% - 0.125rem);
+    border-bottom: 0.125rem solid #fefefe;
+    left: 50%;
+    right: 50%;
+    transition: all 0.5s ease;
+  }
+  
+  .hover-underline-menu .menu .underline-from-center:hover::after {
+    left: 0;
+    right: 0;
+    transition: all 0.5s ease;
+  }
+  /*菜单下行线*/
+  /*菜单当前*/
+  /** tabs start **/
+  
+.md-tabs {
+  background-color: #1779BA;
+}
+
+.md-tabs > .mobile-nav-bar {
+  background-color: #1779BA;
+  margin-bottom: 15px;
+}
+
+.md-tabs > .mobile-nav-bar .title-bar-text {
+  font-size: 26px;
+}
+
+.md-tabs > .mobile-nav-bar a {
+  color: #fefefe;
+}
+
+.md-tabs > .tabs {
+  margin: 0;
+  border: 0;
+  background: #1779BA;
+  list-style-type: none;
+  display: table;
+  width: 100%;
+}
+
+.md-tabs > .tabs > .tabs-title {
+  display: table-cell;
+  width: 14%;
+  text-align: center;
+  display: inline-block;
+}
+
+.md-tabs > .tabs > .tabs-title.is-active > a {
+  color: #3ADB76;
+  background-color: transparent;
+  outline: none;
+}
+
+.md-tabs > .tabs > .tabs-title.is-active:nth-of-type(1) ~ .slide {
+  left: calc((100% / 7) * 0);
+}
+
+.md-tabs > .tabs > .tabs-title.is-active:nth-of-type(2) ~ .slide {
+  left: calc((100% / 7) * 1);
+}
+
+.md-tabs > .tabs > .tabs-title.is-active:nth-of-type(3) ~ .slide {
+  left: calc((100% / 7) * 2);
+}
+
+.md-tabs > .tabs > .tabs-title.is-active:nth-of-type(4) ~ .slide {
+  left: calc((100% / 7) * 3);
+}
+.md-tabs > .tabs > .tabs-title.is-active:nth-of-type(5) ~ .slide {
+  left: calc((100% / 7) * 4);
+}
+.md-tabs > .tabs > .tabs-title.is-active:nth-of-type(6) ~ .slide {
+  left: calc((100% / 7) * 5);
+}
+.md-tabs > .tabs > .tabs-title.is-active:nth-of-type(7) ~ .slide {
+  left: calc((100% / 7) * 6);
+}
+
+.md-tabs > .tabs > .tabs-title > a {
+  color: #fefefe;
+  font-size: 16px;
+}
+
+.md-tabs > .tabs > .tabs-title > a:hover, .md-tabs > .tabs > .tabs-title > a:focus {
+  background: transparent;
+}
+
+.slide {
+  background: #3ADB76;
+  width: calc(100% / 7);
+  height: 4px;
+  position: relative;
+  left: 0;
+  top: 52px;
+  transition: left 0.3s ease-out;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .slide {
+    width: 0;
+    height: 0;
+  }
+  .md-tabs > .accordion {
+    margin-left: 0;
+    list-style-type: none;
+  }
+  .md-tabs > .accordion > .accordion-item > .accordion-title {
+    position: relative;
+    display: block;
+    padding: 1.25rem 1rem;
+    border: 0;
+    font-size: 0.75rem;
+    line-height: 1;
+    background: #1779BA;
+    color: #fefefe;
+  }
+  .md-tabs > .accordion > .accordion-item > .accordion-title:hover {
+    background-color: #1779BA;
+    color: #3ADB76;
+    outline: none;
+  }
+  .md-tabs > .accordion > .is-active.accordion-item > a.accordion-title {
+    border-bottom: 4px solid #3ADB76;
+    color: #3ADB76;
+  }
+  .md-tabs > .accordion > .accordion-item > .accordion-content {
+    display: none;
+    padding: 1rem;
+    border: 1px solid #e6e6e6;
+    border-top: 0px;
+    background-color: #fefefe;
+    color: #0a0a0a;
+  }
+  > .accordion > .accordion-item > .accordion-title:focus {
+    background-color: #1779BA;
+    color: #3ADB76;
+    outline: none;
+  }
+}
+
+/** tabs end **/
+
+/** table responsive start
+table class="responsive-card-table" ,tbody 的 <td data-label="First Name">Clark</td>
+*/
+
+.responsive-card-table {
+  border-collapse: collapse;
+}
+
+.responsive-card-table.unstriped tbody {
+  background-color: transparent;
+}
+
+.responsive-card-table th {
+  background-color: #e6e6e6;
+}
+
+.responsive-card-table tr,
+.responsive-card-table th,
+.responsive-card-table td {
+  border: 1px solid #0a0a0a;
+}
+
+@media screen and (max-width: 640px) {
+  .responsive-card-table {
+    
+  }
+  .responsive-card-table thead tr {
+    position: absolute;
+    top: -9999em;
+    left: -9999em;
+  }
+  .responsive-card-table tr {
+    border: 1px solid #0a0a0a;
+    display: block;
+  }
+  .responsive-card-table tr + tr {
+    margin-top: 1.5rem;
+  }
+  .responsive-card-table td {
+    border: none;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-bottom: 1px solid #0a0a0a;
+    padding-left: 50%;
+    position: relative;
+  }
+  .responsive-card-table td:before {
+    content: attr(data-label);
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-left: -100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  .responsive-card-table td:after {
+    content: '';
+    position: absolute;
+    background: #e6e6e6;
+    width: 35%;
+    height: 95%;
+    left: 1px;
+    top: 1px;
+    z-index: 0;
+  }
+}
+/** table responsive end*/
+/** dashboard start*/
+.dashboard-number-card {
+  background: #fff;
+  border-radius: 5px;
+  margin: 0 20px 20px;
+  position: relative;
+}
+
+.dashboard-number-card .dashboard-number-delta {
+  -webkit-align-items: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  bottom: 6px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 0;
+  opacity: 0.7;
+  position: absolute;
+  right: 6px;
+  color: #1779ba;
+}
+
+.dashboard-number-card .dashboard-number-delta i {
+  margin-right: 5px;
+  width: 0.6rem;
+}
+
+.dashboard-number-card.positive .dashboard-number-delta,.dashboard-number-card.primary .dashboard-number-delta, .dashboard-number-card.negative .dashboard-number-delta {
+  color: #fefefe;
+}
+
+.dashboard-number-card.positive .dashboard-number-value,
+.dashboard-number-card.positive .dashboard-number-area, .dashboard-number-card.negative .dashboard-number-value,
+.dashboard-number-card.primary .dashboard-number-value,
+.dashboard-number-card.primary .dashboard-number-area, .dashboard-number-card.negative .dashboard-number-value,
+.dashboard-number-card.negative .dashboard-number-area {
+  color: white;
+}
+
+.dashboard-number-card.positive .dashboard-number-area, .dashboard-number-card.negative .dashboard-number-area {
+  opacity: 0.6;
+}
+
+.dashboard-number-card.positive {
+  background: #3adb76;
+}
+
+.dashboard-number-card.negative {
+  background: #cc4b37;
+}
+.dashboard-number-card.primary {
+  background: #0eabe9;
+}
+
+.dashboard-number-value {
+  color: #1779ba;
+  font-size: 22px;
+  font-weight: 800;
+  padding: 1rem 2rem 1.75rem;
+  text-align: center;
+}
+
+.dashboard-number-area {
+  bottom: 6px;
+  color: #1779ba;
+  font-size: 12px;
+  left: 6px;
+  margin-bottom: 0;
+  position: absolute;
+}
+/** dashboard end*/
+
+
+
+  
