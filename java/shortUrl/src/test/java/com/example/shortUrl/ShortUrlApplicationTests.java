@@ -32,12 +32,15 @@ public class ShortUrlApplicationTests {
         String longUrl = "https://github.com/sqskg/interview-assignments";
         log.info("short url = {}", ShortUrlGenerator.shortCodeGenerate(longUrl));
         //short url = VjzMBFIj
+        String illegalUrl = "www.baidu.com";
+        log.info("short url = {}", ShortUrlGenerator.shortCodeGenerate(illegalUrl));
     }
 
     @Test
     public void generate() throws Exception {
         mvc = MockMvcBuilders.webAppContextSetup(wac).build(); //初始化MockMvc对象
 		String longUrl = "https://github.com/sqskg/interview-assignments";
+        String illegalUrl = "www.baidu.com";
 		String uri = "/shortUrl/generate";
         ResultActions actions = mvc
                 .perform(MockMvcRequestBuilders.post(uri).characterEncoding("UTF-8")
@@ -48,6 +51,16 @@ public class ShortUrlApplicationTests {
 		actions.andExpect(
 				MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print());
+
+		actions = mvc
+                .perform(MockMvcRequestBuilders.post(uri).characterEncoding("UTF-8")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(illegalUrl));
+        actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(
+                MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
