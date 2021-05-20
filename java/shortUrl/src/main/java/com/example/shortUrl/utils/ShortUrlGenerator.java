@@ -69,7 +69,6 @@ public class ShortUrlGenerator {
             // 这里需要使用 long 型来转换，因为 Integer.parseInt() 只能处理 31 位 , 首位为符号位 , 如果不用 long ，则会越界
             long lHexLong = 0x3FFFFFFF & Long.parseLong(sTempSubString, 16);
             String outChars = "";
-            // 把得到的值与 0x0000003D 进行位与运算，取得字符数组 chars 索引(具体需要看chars数组的长度   以防下标溢出，注意起点为0)
             long index = 0x0000003D & lHexLong;
             outChars += chars[(int) index];
             resUrl += outChars;
