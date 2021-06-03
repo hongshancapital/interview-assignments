@@ -11,7 +11,7 @@ struct ContentView: View {
     @EnvironmentObject var userAuth: UserModel
     
     var body: some View {
-        if userAuth.isLogin {
+        if userAuth.user != nil {
             HomeView()
         } else {
             LoginAndRegisterView()

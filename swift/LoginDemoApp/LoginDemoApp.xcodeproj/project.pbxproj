@@ -20,6 +20,8 @@
 		3B75B409265E4E9E00F9CA2F /* CommonTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75B407265E4E9E00F9CA2F /* CommonTextField.swift */; };
 		3B75B40B265E53B200F9CA2F /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75B40A265E53B200F9CA2F /* RoundedCorner.swift */; };
 		3B75B40D265F2D7400F9CA2F /* GrayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75B40C265F2D7400F9CA2F /* GrayButton.swift */; };
+		3B86CB4E2668961100994028 /* UserCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86CB4D2668961100994028 /* UserCache.swift */; };
+		3B86CB5126689AB200994028 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86CB5026689AB200994028 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		3B75B407265E4E9E00F9CA2F /* CommonTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTextField.swift; sourceTree = "<group>"; };
 		3B75B40A265E53B200F9CA2F /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		3B75B40C265F2D7400F9CA2F /* GrayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayButton.swift; sourceTree = "<group>"; };
+		3B86CB4D2668961100994028 /* UserCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCache.swift; sourceTree = "<group>"; };
+		3B86CB5026689AB200994028 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,15 +113,14 @@
 		3B75B3D1265E4E2B00F9CA2F /* LoginDemoApp */ = {
 			isa = PBXGroup;
 			children = (
-				3B75B405265E4E9200F9CA2F /* views */,
-				3B75B3FF265E4E5D00F9CA2F /* HomeView.swift */,
-				3B75B3FE265E4E5D00F9CA2F /* LoginAndRegisterView.swift */,
-				3B75B3FD265E4E5D00F9CA2F /* UserModel.swift */,
+				3B86CB5226689AD000994028 /* ViewModels */,
+				3B86CB4F26689A8A00994028 /* Models */,
+				3B75B405265E4E9200F9CA2F /* Views */,
 				3B75B3D2265E4E2B00F9CA2F /* LoginDemoAppApp.swift */,
-				3B75B3D4265E4E2B00F9CA2F /* ContentView.swift */,
 				3B75B3D6265E4E2C00F9CA2F /* Assets.xcassets */,
 				3B75B3DB265E4E2C00F9CA2F /* Info.plist */,
 				3B75B3D8265E4E2C00F9CA2F /* Preview Content */,
+				3B86CB4D2668961100994028 /* UserCache.swift */,
 			);
 			path = LoginDemoApp;
 			sourceTree = "<group>";
@@ -148,15 +151,42 @@
 			path = LoginDemoAppUITests;
 			sourceTree = "<group>";
 		};
-		3B75B405265E4E9200F9CA2F /* views */ = {
+		3B75B405265E4E9200F9CA2F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3B86CB5326689B0B00994028 /* Common */,
+				3B75B3D4265E4E2B00F9CA2F /* ContentView.swift */,
+				3B75B3FE265E4E5D00F9CA2F /* LoginAndRegisterView.swift */,
+				3B75B3FF265E4E5D00F9CA2F /* HomeView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		3B86CB4F26689A8A00994028 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3B86CB5026689AB200994028 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3B86CB5226689AD000994028 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				3B75B3FD265E4E5D00F9CA2F /* UserModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		3B86CB5326689B0B00994028 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				3B75B407265E4E9E00F9CA2F /* CommonTextField.swift */,
-				3B75B406265E4E9E00F9CA2F /* GreenButton.swift */,
-				3B75B40A265E53B200F9CA2F /* RoundedCorner.swift */,
 				3B75B40C265F2D7400F9CA2F /* GrayButton.swift */,
+				3B75B40A265E53B200F9CA2F /* RoundedCorner.swift */,
+				3B75B406265E4E9E00F9CA2F /* GreenButton.swift */,
 			);
-			name = views;
+			name = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +327,8 @@
 				3B75B3D5265E4E2B00F9CA2F /* ContentView.swift in Sources */,
 				3B75B402265E4E5D00F9CA2F /* HomeView.swift in Sources */,
 				3B75B3D3265E4E2B00F9CA2F /* LoginDemoAppApp.swift in Sources */,
+				3B86CB4E2668961100994028 /* UserCache.swift in Sources */,
+				3B86CB5126689AB200994028 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

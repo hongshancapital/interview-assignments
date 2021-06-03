@@ -13,13 +13,13 @@ struct HomeView: View {
     var body: some View {
         VStack(alignment: .center){
             VStack{
-                Text(userAuth.userName.prefix(1).uppercased())
+                Text(userAuth.username.prefix(1).uppercased())
                     .frame(width:90, height: 90)
                     .clipShape(Circle())
                     .foregroundColor(.white)
                     .background(Color(red: 0.8, green: 0.8, blue: 0.8).cornerRadius(45))
                     .overlay(Circle().stroke(Color.white.opacity(0.7), lineWidth: 4))
-                Text(userAuth.userName).padding(.top, 4).foregroundColor(.white)
+                Text(userAuth.username).padding(.top, 4).foregroundColor(.white)
             }.padding(80).padding(.top, 40)
             .frame(
                 minWidth: 0,
