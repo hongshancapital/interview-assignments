@@ -1,0 +1,4 @@
+短域名存储接口：输入长域名md5生成短域名，缓存进linkedhashmap，短域名做key，长域名做value，
+                linkedhashmap实现lru算法防止内存溢出，Collections.synchronizedMap实现线程安全。
+
+短域名读取接口：直接从缓存中取出对应的value
