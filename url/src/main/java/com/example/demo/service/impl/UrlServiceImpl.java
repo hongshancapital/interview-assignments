@@ -11,23 +11,13 @@ import java.util.Map;
 
 @Service
 public class UrlServiceImpl implements UrlService {
-    private static Map<String,String> hashMap =  Collections.synchronizedMap(new LRULinkedHashMap<>(1000));
-
+    private static ConcurrentHashMapCache hashMap = new ConcurrentHashMapCache();
     @Override
     public String save(String url) {
         String shortUrl = null;
         try{
-            if (hashMap.containsValue(url)){
-                for(Map.Entry<String,String> map : hashMap.entrySet()){
-                    if (url.equals(map.getValue())){
-                        shortUrl =map.getKey();
-                    }
-                }
-            }else{
-                shortUrl = gererateShortUrl(url);
-                hashMap.put(shortUrl, url);
-            }
-
+            shortUrl = gererateShortUrl(url);
+            hashMap.put(shortUrl, url);
         }catch (Exception e) {
             return "系统异常";
         }
