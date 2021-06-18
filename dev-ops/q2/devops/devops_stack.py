@@ -17,11 +17,11 @@ from aws_cdk import (core as cdk,
 
 #modify below variable correspondly
 
-aws_account="732507633146"
-mail="test@163.com"
-github_owner="Wyifei"  #case-sensitive
-github_repository="Simplest-Spring-Boot-Hello-World"
-github_token="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"
+aws_account="<your aws account>"
+mail="<your e-mail>"
+github_owner="<your github owner>"  #case-sensitive
+github_repository="<your repository>"
+github_token="<your github token>"
 
 class DevopsStack(cdk.Stack):
 
