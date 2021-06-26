@@ -8,6 +8,7 @@ import com.sequoia.china.service.IDomainNameConvertService;
 import com.sequoia.china.util.IdUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,6 +20,12 @@ import org.springframework.stereotype.Service;
 public class DomainNameConvertServiceImpl implements IDomainNameConvertService {
 
     private final static Logger log= LoggerFactory.getLogger(DomainNameConvertServiceImpl.class);
+
+    @Autowired
+    DomainNameContainer container;
+
+    @Autowired
+    IdUtil idUtil;
 
     /**
      * 长域名转短域名
@@ -44,21 +51,14 @@ public class DomainNameConvertServiceImpl implements IDomainNameConvertService {
         if (StrUtil.isEmpty(suffixUrl)){
             throw new SequoiaRunTimeException(ErrorEnum.SCE_0003,longDomainName);
         }
-        //3.获取容器
-        DomainNameContainer instance = DomainNameContainer.getInstance();
-        //4.判断域名容器中是否有该长域名，有则直接返回，无则进行后续步骤；
-        String shortDomainName = instance.longToShortMap.get(suffixUrl);
+        //3.从容器中获取短域名
+        String shortDomainName = container.getShortDomainName(suffixUrl);
         if (StrUtil.isNotEmpty(shortDomainName)){
             return prefixUrl+shortDomainName;
         }
         //5.生成id；
-        String id= IdUtil.getId();
-        synchronized (instance){
-            //6.存储：key=suffixUrl，value=id
-            instance.longToShortMap.put(suffixUrl,id);
-            //7.存储：key=id，value=suffixUrl
-            instance.shortToLongMap.put(id,suffixUrl);
-        }
+        String id= idUtil.getId();
+        container.put(suffixUrl,id);
         return prefixUrl+id;
     }
 
@@ -83,13 +83,8 @@ public class DomainNameConvertServiceImpl implements IDomainNameConvertService {
         if (StrUtil.isEmpty(suffixUrl)){
             throw new SequoiaRunTimeException(ErrorEnum.SCE_0003,shortDomainName);
         }
-        //3.获取容器
-        DomainNameContainer instance = DomainNameContainer.getInstance();
-        //4.判断域名容器中是否有该长域名，有则直接返回，无则进行后续步骤；
-        String longDomainName = instance.shortToLongMap.get(suffixUrl);
-        if (StrUtil.isEmpty(longDomainName)){
-            throw new SequoiaRunTimeException(ErrorEnum.SCE_0004,shortDomainName);
-        }
+        //3.从容器中获取长域名
+        String longDomainName = container.getLongDomainName(suffixUrl);
         return prefixUrl+longDomainName;
     }
 

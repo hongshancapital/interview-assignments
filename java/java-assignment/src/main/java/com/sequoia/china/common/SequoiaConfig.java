@@ -17,11 +17,24 @@ public class SequoiaConfig {
      */
     private int idRecursiveMaxCount;
 
+    /**
+     * 长短域名映射关系容器容量上限
+     */
+    private int containerMaxCount;
+
     public int getIdRecursiveMaxCount() {
         return idRecursiveMaxCount;
     }
 
     public void setIdRecursiveMaxCount(int idRecursiveMaxCount) {
         this.idRecursiveMaxCount = idRecursiveMaxCount;
+    }
+
+    public int getContainerMaxCount() {
+        return containerMaxCount;
+    }
+
+    public void setContainerMaxCount(int containerMaxCount) {
+        this.containerMaxCount = containerMaxCount;
     }
 }
