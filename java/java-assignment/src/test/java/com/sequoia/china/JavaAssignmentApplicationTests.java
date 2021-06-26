@@ -109,6 +109,7 @@ class JavaAssignmentApplicationTests {
         MvcResult mvcResult3=mockMvc.perform(MockMvcRequestBuilders.post("/domainNameconvert/shortToLong")
                 .param("shortDomainName",data))
                 .andReturn();
+        System.out.println("map容量："+container.shortToLongMap.size()+"-"+container.longToShortMap.size());
         for (String str:container.linkedList) {
             System.out.println(str);
         }

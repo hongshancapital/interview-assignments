@@ -48,7 +48,15 @@ public class DomainNameContainer {
         }
         //1.判断是否超过容器上限，如果大于或等于maxCount，则移除linkedlist first元素
         if (linkedList.size()>= sequoiaConfig.getContainerMaxCount()) {
+            //找到list中第一个元素，并删除
+            String first = linkedList.getFirst();
             linkedList.removeFirst();
+            //删除map中对应的元素
+            String[] split = first.split("\\|");
+            String longD=split[0];
+            String shortD=split[1];
+            longToShortMap.remove(longD);
+            shortToLongMap.remove(shortD);
         }
         //2.将值放入map，建立映射关系
         longToShortMap.put(longDomainName,shortDomainName);
