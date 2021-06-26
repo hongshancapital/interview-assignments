@@ -34,6 +34,11 @@ public enum ErrorEnum implements ErrorEnumService{
      */
     SCE_0004("SCE-0004", "无匹配的长域名"),
 
+    /**
+     * 超过最大递归次数，请稍后重试
+     */
+    SCE_0005("SCE-0005", "超过最大递归次数，请稍后重试"),
+
     ;
 
     /**

@@ -1,6 +1,10 @@
 package com.sequoia.china.util;
 
+import com.sequoia.china.common.SequoiaConfig;
 import com.sequoia.china.container.DomainNameContainer;
+import com.sequoia.china.exception.ErrorEnum;
+import com.sequoia.china.exception.SequoiaRunTimeException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
@@ -10,6 +14,7 @@ import java.security.SecureRandom;
  * @Author helichao
  * @Date 2021/6/24 9:03 下午
  */
+@Component
 public class IdUtil {
 
     private final static char[] chars= new char[]{'0','1','2','3','4','5','6','7','8','9',
@@ -18,20 +23,41 @@ public class IdUtil {
 
     private static SecureRandom random = new SecureRandom();
 
+    private static int idRecursiveMaxCount;
+
+    public IdUtil(SequoiaConfig sequoiaConfig) {
+        idRecursiveMaxCount=sequoiaConfig.getIdRecursiveMaxCount();
+    }
+
     /**
      * 生成id
      *
      * @return
      */
     public static String getId(){
+        //第一次获取id，递归次数为0
+        return getId(0);
+    }
+
+    /**
+     * 生成id
+     *
+     * @param recursiveCount 当前递归次数
+     * @return
+     */
+    private static String getId(int recursiveCount){
+        if (recursiveCount >= idRecursiveMaxCount){
+            throw new SequoiaRunTimeException(ErrorEnum.SCE_0005);
+        }
         StringBuffer idSb=new StringBuffer(8);
         for (int i = 0; i < 8; i++) {
             idSb.append(chars[random.nextInt(62)]);
         }
         String id = idSb.toString();
-        //id重复，递归重新获取，经测试2000万次访问不存在id重复问题
+        //id重复，递归重新获取，经测试1000万次访问不存在id重复问题
         if (DomainNameContainer.getInstance().shortToLongMap.containsKey(id)){
-            id=getId();
+            recursiveCount++;
+            id=getId(recursiveCount);
         }
         return id;
     }

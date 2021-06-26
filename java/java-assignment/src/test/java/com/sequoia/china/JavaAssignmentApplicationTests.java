@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.Charset;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
@@ -25,9 +27,6 @@ class JavaAssignmentApplicationTests {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    RestTemplate restTemplate;
 
     @Test
     void testDomainNameConvert() throws Exception {
@@ -52,7 +51,7 @@ class JavaAssignmentApplicationTests {
         MvcResult mvcResult2=mockMvc.perform(MockMvcRequestBuilders.post("/domainNameconvert/shortToLong")
                 .param("shortDomainName",data))
                 .andReturn();
-        String longDomainName2 = mvcResult2.getResponse().getContentAsString();
+        String longDomainName2 = mvcResult2.getResponse().getContentAsString(Charset.forName("UTF-8"));
         if (StrUtil.isEmpty(longDomainName2)){
             System.out.println("返回为空");
             return;
