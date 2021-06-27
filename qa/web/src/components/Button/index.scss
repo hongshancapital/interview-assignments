@@ -1,0 +1,113 @@
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  padding: 5px 20px;
+  background: #50b855;
+  border: 1px solid #50b855;
+  color: #fff;
+  border-radius: 15px;
+  transition: all ease-in-out 0.2s;
+  height: 30px;
+  line-height: 30px;
+  white-space: nowrap;
+  font-size: 14px;
+
+  &:not(.disabled):not(.loading):hover {
+    cursor: pointer;
+  }
+
+  &:hover,
+  &.loading {
+    border-color: darken(#50b855, 10%);
+    background: darken(#50b855, 10%);
+  }
+
+  &.loading {
+    color: #eee;
+
+    > span {
+      margin-right: 5px;
+    }
+  }
+
+  &.disabled {
+    background: #efeff2;
+    color: #c8ccd8;
+    border: none;
+
+    &:hover {
+      background: #efeff2;
+    }
+  }
+
+  &.noBorder {
+    border-width: 0;
+  }
+
+  svg {
+    margin-right: 3px;
+    fill: #fff;
+    transition: all ease-in-out 0.2s;
+  }
+}
+
+.small {
+  font-size: 12px;
+
+  padding: 2px 10px;
+  height: 24px;
+  line-height: 24px;
+}
+
+.tiny {
+  font-size: 12px;
+
+  padding: 1px 5px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.ghost {
+  background: #fff;
+  color: #c8ccd8;
+  border-color: #c8ccd8;
+
+  &:hover,
+  &.loading {
+    background: #fff;
+    color: #50b855;
+    border-color: #50b855;
+
+    svg {
+      fill: #50b855;
+    }
+  }
+
+  svg {
+    fill: #c8ccd8;
+  }
+}
+
+.secondary {
+  background: #fff;
+  color: #50b855;
+  border-color: #50b855;
+
+  svg {
+    fill: #50b855;
+  }
+
+  &:hover,
+  &.loading {
+    background: #50b855;
+    color: #fff;
+    border-color: #50b855;
+
+    svg {
+      fill: #fff;
+    }
+  }
+}
