@@ -33,8 +33,8 @@ public class DomainNameServiceImpl implements IDomainNameService {
                 logger.warn("max cache size reached, " + storeSize);
                 throw new SystemException(CommonConstants.CODE_SERVICE_UNAVAILABLE, "service temporary unavailable");
             }
-            String shortUrl = generateAndCacheUrl(longUrl);
-            return generateFullShortUrlByShortKey(shortUrl);
+            String shortKey = generateAndCacheUrl(longUrl);
+            return generateFullShortUrlByShortKey(shortKey);
         }
     }
 
@@ -47,23 +47,24 @@ public class DomainNameServiceImpl implements IDomainNameService {
         if (cacheShortUrl.isPresent()) {
             return generateFullShortUrlByShortKey(cacheShortUrl.get());
         } else {
+            logger.info("get long url failed, shortUrl: " + shortUrl);
             throw new SystemException(CommonConstants.CODE_LONG_URL_NOT_FOUND, "long url not found");
         }
     }
 
     private String generateAndCacheUrl(String longUrl) {
         Integer key = 10000;
-        String[] shortUrls = ShortUrlUtils.getShortText(longUrl, key.toString());
-        for (int j = 0; j < shortUrls.length; j += 1) {
-            String shortUrl = shortUrls[j];
-            Optional<String> value = matchStorageService.getLongUrlByShortUrl(shortUrl);
+        String[] shortKeys = ShortUrlUtils.getShortText(longUrl, key.toString());
+        for (int j = 0; j < shortKeys.length; j += 1) {
+            String shortKey = shortKeys[j];
+            Optional<String> value = matchStorageService.getLongUrlByShortUrl(shortKey);
             if (!value.isPresent()) {
-                logger.info("set url match, longUrl: " + longUrl + ", shortUrl: " + shortUrl);
-                matchStorageService.setUrlMatch(longUrl, shortUrl);
-                return shortUrl;
+                logger.info("set url match, longUrl: " + longUrl + ", shortUrl: " + shortKey);
+                matchStorageService.setUrlMatch(longUrl, shortKey);
+                return shortKey;
             }
         }
-        logger.info("all the candidate shortKey is conflict, source longUrl is: " + longUrl);
+        logger.info("all the candidate shortKeys are conflict, source longUrl is: " + longUrl);
         throw new SystemException(CommonConstants.CODE_SERVICE_UNAVAILABLE, "service temporary unavailable");
     }
 
