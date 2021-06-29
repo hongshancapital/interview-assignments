@@ -17,9 +17,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
  *
  * @version v1.0.0
  *
- *
- * @version v1.0.0
- *
  */
 
 @EnableSwagger2Doc
