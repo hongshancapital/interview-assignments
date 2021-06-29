@@ -23,6 +23,7 @@ public class ResponseBodyWrapHandler implements HandlerMethodReturnValueHandler 
     public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest) throws Exception {
 
         ResponseResult rr = new ResponseResult("success", returnValue);
+
         delegate.handleReturnValue(rr, returnType, modelAndViewContainer, nativeWebRequest);
 
     }

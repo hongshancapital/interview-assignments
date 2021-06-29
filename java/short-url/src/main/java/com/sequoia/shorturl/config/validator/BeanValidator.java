@@ -6,8 +6,13 @@ import org.springframework.validation.SmartValidator;
 
 /**
  * 统一校验
- * @author xj
- * @since 2021-06-27
+ *
+ * @Author xj
+ *
+ * @Date 2021/06/27
+ *
+ * @version v1.0.0
+ *
  */
 public class BeanValidator {
 

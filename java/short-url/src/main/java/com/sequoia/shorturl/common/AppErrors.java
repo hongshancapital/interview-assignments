@@ -1,11 +1,14 @@
 package com.sequoia.shorturl.common;
 
 /**
- * @接口错误信息枚举
  *
- *@Author xj
+ * 错误信息枚举
  *
- *@Date 2021/6/27 16:18
+ * @Author xiaojun
+ *
+ * @Date 2021/6/27
+ *
+ * @version v1.0.0
  *
  */
 public enum AppErrors {
@@ -38,7 +41,7 @@ public enum AppErrors {
 
     public static String message(String errorCode) {
         String message = null;
-        for (com.sequoia.shorturl.common.AppErrors err : com.sequoia.shorturl.common.AppErrors.values()) {
+        for (AppErrors err : AppErrors.values()) {
             if (err.errorCode().equals(errorCode)) {
                 message = err.message();
                 break;

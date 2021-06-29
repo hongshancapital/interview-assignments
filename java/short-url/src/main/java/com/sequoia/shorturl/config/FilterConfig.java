@@ -5,15 +5,15 @@ import org.springframework.context.annotation.Bean;
 import com.sequoia.shorturl.filter.LogCostFilter;
 import com.sequoia.shorturl.filter.ShortUrlFilter;
 
-/***
+/**
  *
- *@ DESC
+ * springboot加载过滤器
  *
- *@Author xiaojun
+ * @Author xiaojun
  *
- *@Date 2021/6/27 23:27
+ * @Date 2021/6/27
  *
- *@version v1.0
+ * @version v1.0.0
  *
  */
 public class FilterConfig {

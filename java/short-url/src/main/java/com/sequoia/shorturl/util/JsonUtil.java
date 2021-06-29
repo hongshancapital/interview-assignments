@@ -32,11 +32,9 @@ public class JsonUtil {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         objectMapper.setDateFormat(dateFormat);
         objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);// 默认不显示无JsonView注解的字段
-        // objectMapper.enableDefaultTyping(DefaultTyping.NON_FINAL,
-        // As.EXISTING_PROPERTY);// 启用默认类型作为属性@class
+
         objectMapper.disableDefaultTyping();// 禁用默认类型作为属性
-        // objectMapper.enableDefaultTypingAsProperty(DefaultTyping.NON_FINAL,
-        // "@demoType");
+
         objectMapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);// 允许使用非双引号属性名
         objectMapper.configure(Feature.ALLOW_SINGLE_QUOTES, true);// 允许单引号包信属性名
         objectMapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);// 允许JSON整数以多个0开始
@@ -44,14 +42,7 @@ public class JsonUtil {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, false);
 
-        // SimpleModule module = new SimpleModule();
-        // module.addSerializer(String.class, new StringSerializer());
-        // objectMapper.registerModule(module);
 
-        /*
-         * SimpleModule module = new SimpleModule(); module.addSerializer(new
-         * SimpleKeyJsonSerializer()); objectMapper.registerModule(module);
-         */
         typeFactory = objectMapper.getTypeFactory();
         
         gson = new GsonBuilder().create();
@@ -138,26 +129,5 @@ public class JsonUtil {
     public static String parseToJsonFromGson(Map<String, Object> map){
         return gson.toJson(map);
     }
-    /**
-    public static void main(String[] args) throws IOException {
 
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        Map<String, Object> m1 = new HashMap<String, Object>();
-        m1.put("name", "n1");
-        m1.put("age", 12);
-        Map<String, Object> m2 = new HashMap<String, Object>();
-        m2.put("name", "n1");
-        m2.put("age", 12);
-        list.add(m1);
-        list.add(m2);
-
-        JavaType type = constructCollectionType(List.class, Map.class);
-        String ss = "[{\"name\":\"n1\",\"age\":12},{\"name\":\"n1\",\"age\":12}]";
-        List<Map<String, Object>> l = parse(ss, type);
-        for (Map<String, Object> map : l) {
-            System.out.println(map.get("name"));
-            System.out.println(map.get("age"));
-        }
-
-    }*/
 }

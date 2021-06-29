@@ -8,9 +8,11 @@ import lombok.ToString;
 /**
  * 统一ResponseBody返回值
  *
- *@Author xj
+ * @Author xj
  *
- *@Date 2021/6/27 16:18
+ * @Date 2021/06/27
+ *
+ * @version v1.0.0
  *
  */
 @Data

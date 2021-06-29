@@ -1,30 +1,30 @@
 package com.sequoia.shorturl.service;
 
-import com.sequoia.shorturl.common.SequoiaResponse;
+import com.sequoia.shorturl.common.ResponseResult;
 
-/***
+/**
  *
- *@ DESC  TODO
+ * 短域名服务业务转换接口
  *
- *@Author qq
+ * @Author qq
  *
- *@Date 2021/6/27 16:18
+ * @Date 2021/6/27 16:18
  *
- *@version v1.0
+ * @version v1.0.0
  *
  */
 public interface ShortUrlService {
     /**
-     * 根据原地址返回短地址
-     * @param originalUrl
+     * 根据原域名返回短域名
+     * @param originalUrl 原域名url
      * @return
      */
-    public SequoiaResponse getShortUrl(String originalUrl);
+    public ResponseResult createShortUrl(String originalUrl);
     /**
-     * 根据短地址返回原地址
-     * @param originalUrl
+     * 根据短域名返回原域名
+     * @param shortUrl 短域名url
      * @return
      */
-    public SequoiaResponse getOriginalUrl(String shortUrl);
+    public ResponseResult getOriginalUrl(String shortUrl);
 
 }

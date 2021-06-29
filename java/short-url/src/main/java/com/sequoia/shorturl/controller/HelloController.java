@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- *
- * </p>
+ * restFull 服务启动测试接口  /sayHello
  *
  * @author xj
+ *
  * @Date 2021/06/27
+ *
+ * @version v1.0.0
+ *
  */
 @RestController
-@Api(value  = "短域名接口",tags = "测试操作接口")
+@Api(value  = "测试接口",tags = "测试操作接口")
 public class HelloController {
 
 
