@@ -43,9 +43,9 @@ public class DomainNameServiceImpl implements IDomainNameService {
         logger.info("get long url: " + shortUrl);
         String[] splitUrls = shortUrl.split("/");
         String shortKey = splitUrls[3];
-        Optional<String> cacheShortUrl = matchStorageService.getLongUrlByShortUrl(shortKey);
-        if (cacheShortUrl.isPresent()) {
-            return generateFullShortUrlByShortKey(cacheShortUrl.get());
+        Optional<String> cacheLongUrl = matchStorageService.getLongUrlByShortUrl(shortKey);
+        if (cacheLongUrl.isPresent()) {
+            return cacheLongUrl.get();
         } else {
             logger.info("get long url failed, shortUrl: " + shortUrl);
             throw new SystemException(CommonConstants.CODE_LONG_URL_NOT_FOUND, "long url not found");
