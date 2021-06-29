@@ -23,7 +23,6 @@ import java.io.IOException;
 @Slf4j
 public class ShortUrlFilter extends OncePerRequestFilter {
 
-
 	@Value("${shorturl.prefix}")
     private String shortUrlPrefix;//短域名前缀
 
