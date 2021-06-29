@@ -12,8 +12,6 @@ package com.sequoia.shorturl.common;
  *
  */
 public enum AppErrors {
-    ERROR_MSG_NO_AUTH("1001", "没有权限"),
-    ERROR_MSG_USERNAME_PWD_IS_WRONG("1002", "用户名或者密码错误");
 
     private String errorCode;
     private String message;
