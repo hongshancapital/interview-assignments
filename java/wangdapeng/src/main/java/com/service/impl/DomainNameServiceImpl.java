@@ -57,11 +57,13 @@ public class DomainNameServiceImpl implements IDomainNameService {
         String[] shortKeys = ShortUrlUtils.getShortText(longUrl, key.toString());
         for (int j = 0; j < shortKeys.length; j += 1) {
             String shortKey = shortKeys[j];
-            Optional<String> value = matchStorageService.getLongUrlByShortUrl(shortKey);
-            if (!value.isPresent()) {
-                logger.info("set url match, longUrl: " + longUrl + ", shortUrl: " + shortKey);
-                matchStorageService.setUrlMatch(longUrl, shortKey);
-                return shortKey;
+            synchronized (this) {
+                Optional<String> value = matchStorageService.getLongUrlByShortUrl(shortKey);
+                if (!value.isPresent()) {
+                    logger.info("set url match, longUrl: " + longUrl + ", shortUrl: " + shortKey);
+                    matchStorageService.setUrlMatch(longUrl, shortKey);
+                    return shortKey;
+                }
             }
         }
         logger.info("all the candidate shortKeys are conflict, source longUrl is: " + longUrl);
