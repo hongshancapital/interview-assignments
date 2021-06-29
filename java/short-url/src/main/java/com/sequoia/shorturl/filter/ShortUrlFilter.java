@@ -33,7 +33,7 @@ public class ShortUrlFilter extends OncePerRequestFilter {
         String contextPath = request.getContextPath();
         String url = uri.substring(contextPath.length());
 
-        if(!url.startsWith(shortUrlPrefix)) {
+        if (!url.startsWith(shortUrlPrefix)) {
             filterChain.doFilter(request, response);
             return;
         }
