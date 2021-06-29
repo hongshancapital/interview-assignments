@@ -28,9 +28,9 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
     // 本地缓存，防止内存溢出
     @Autowired
-    Cache<String, String> shortCodeByOriUrlCache;  // 关系映射 根据shortCode查找oriUrl缓存
+    Cache<String, String> shortCodeCache;  // 关系映射 根据shortCode查找oriUrl缓存
     @Autowired
-    Cache<String, String> oriUrlByShortCodeCache;  //关系映射 根据原域名查找shortCode缓存
+    Cache<String, String> oriUrlCache;  //关系映射 根据原域名查找shortCode缓存
 
     @Value("${shorturl.prefix}")
     private String shortUrlPrefix;//转换的短域名网站前缀
@@ -49,13 +49,13 @@ public class ShortUrlServiceImpl implements ShortUrlService {
              if(StringUtils.isEmpty(originalUrl)){
                  return new ResponseResult().responseError("参数错误,不能为空!");
              }
-             shortCode=oriUrlByShortCodeCache.getIfPresent(originalUrl);
+             shortCode=oriUrlCache.getIfPresent(originalUrl);
              if(StringUtils.isEmpty(shortCode)){
              //没命中缓存，重新生成
                  shortCode=ShortCodeUtil.getBatchShortCodeList().get(0);//使用批量发号器 取第一个袁术
-                 shortCodeByOriUrlCache.put(shortCode,originalUrl);//放入短域名跟原域名映射
-                 oriUrlByShortCodeCache.put(originalUrl,shortCode); //放入原域名跟短域名映射
-                 if(shortCodeByOriUrlCache.getIfPresent(shortCode)!=null){ //已经存在
+                 shortCodeCache.put(shortCode,originalUrl);//放入短域名跟原域名映射
+                 oriUrlCache.put(originalUrl,shortCode); //放入原域名跟短域名映射
+                 if(shortCodeCache.getIfPresent(shortCode)!=null){ //已经存在
                       ShortCodeUtil.getBatchShortCodeList().remove(0);//删除用过的第一个元素
                 }
              }
@@ -98,7 +98,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
             }
             log.info("----request shortCode:{}",shortCode);
             //从映射关系中得到原域名
-            String originalUrl=shortCodeByOriUrlCache.getIfPresent(shortCode);
+            String originalUrl=shortCodeCache.getIfPresent(shortCode);
             log.info("----reponse originalUrl:{}",originalUrl);
             return new ResponseResult(0, "success", originalUrl);
         } catch(Exception e) {

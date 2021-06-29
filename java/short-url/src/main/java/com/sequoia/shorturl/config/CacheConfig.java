@@ -33,7 +33,7 @@ public class CacheConfig {
      *
      */
     @Bean
-    public Cache<String, String> shortCodeByOriUrlCache() {
+    public Cache<String, String> shortCodeCache() {
         return Caffeine.newBuilder()
                 // 设置最后一次写入或访问后经过固定时间过期
                 //.expireAfterWrite(60, TimeUnit.SECONDS)
@@ -53,7 +53,7 @@ public class CacheConfig {
      *
      */
     @Bean
-    public Cache<String, String> oriUrlByShortCodeCache() {
+    public Cache<String, String> oriUrlCache() {
         return Caffeine.newBuilder()
                 // 设置最后一次写入或访问后经过固定时间过期
                 //.expireAfterWrite(60, TimeUnit.SECONDS)
