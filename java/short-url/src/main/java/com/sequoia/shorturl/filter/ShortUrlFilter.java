@@ -32,9 +32,11 @@ public class ShortUrlFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         String contextPath = request.getContextPath();
         String url = uri.substring(contextPath.length());
+        //使用包装器
+        XssFilterWrapper xssFilterWrapper=new XssFilterWrapper(request);
 
         if (!url.startsWith(shortUrlPrefix)) {
-            filterChain.doFilter(request, response);
+            filterChain.doFilter(xssFilterWrapper, response);
             return;
         }
 
