@@ -1,5 +1,6 @@
 package com.sequoia.shorturl.filter;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -23,19 +24,19 @@ import java.io.IOException;
 @Slf4j
 public class ShortUrlFilter extends OncePerRequestFilter {
 
-	@Value("${shorturl.prefix}")
+    @Value("${shorturl.prefix}")
     private String shortUrlPrefix;//短域名前缀
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String uri = request.getRequestURI();
-		String contextPath = request.getContextPath();
-		String url = uri.substring(contextPath.length());
+        String contextPath = request.getContextPath();
+        String url = uri.substring(contextPath.length());
 
-		if(!url.startsWith(shortUrlPrefix)) {
-			filterChain.doFilter(request, response);
-			return;
-		}
-		
+        if(!url.startsWith(shortUrlPrefix)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
     }
 }
