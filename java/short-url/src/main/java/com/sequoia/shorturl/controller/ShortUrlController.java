@@ -26,7 +26,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @Api(value  = "短域名接口",tags = "域名转换操作接")
+@Deprecated
 public class ShortUrlController {
+
+   @Autowired
+   ShortUrlController() {
+   }
 
    @Autowired
    private ShortUrlService shortUrlService;
@@ -41,7 +46,7 @@ public class ShortUrlController {
 
    @ApiOperation(value = "根据传入请求短url，返回对应的原长域名", notes = "长域名还原")
    @RequestMapping(value="/getOriginalUrl", method = RequestMethod.GET)
-   public ResponseResult getLongUrl(@RequestParam(name="shortUrl",required=true) String shortUrl){
+   public ResponseResult getOriginalUrl(@RequestParam(name="shortUrl",required=true) String shortUrl){
 
         return shortUrlService.getOriginalUrl(shortUrl);
 

@@ -93,8 +93,11 @@ JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图
     
  六  单元测试 test 测试包下面
 
-    两个测试类 com.sequoia.shorturl.service.ShortUrlServiceImplTest.java 测试业务类
+    四个测试类 com.sequoia.shorturl.service.ShortUrlServiceImplTest.java 测试业务类
              com.sequoia.shorturl.util.ShortCodeUtilTest.java  测试算法类
+             com.sequoia.shorturl.controller.ShortUrlControllerTest.java  restFull接口测试类
+             com.sequoia.shorturl.SuiteExecuteTests集成测试所有单元测试
+      
     
  七 。采用SpringBoot，集成Swagger API文档
     pom.xml引入  集成Swagger 包
@@ -103,8 +106,8 @@ JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图
    
  八 . Jacoco生成测试报告
      pom.xml 引入 Jacoco 配置
-     生成报告mvn命令
-     mvn clean test -Dtest=ShortUrlServiceImplTest  -Dmaven.test.failure.ignore=trure verify
+     生成报告mvn命令 集成测试
+     mvn clean test -Dtest=SuiteExecuteTests  -Dmaven.test.failure.ignore=trure verify
 
  九 .安全过滤跟安全控制  暂未全部实现
    1. 短链接虽然方便了传输和记忆，但是由于链接组成的字符个数少，更容易被爆破、猜测攻击，攻击者可以轻松遍历所有字符组成的链接！
