@@ -96,7 +96,7 @@ JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图
     四个测试类 com.sequoia.shorturl.service.ShortUrlServiceImplTest.java 测试业务类
              com.sequoia.shorturl.util.ShortCodeUtilTest.java  测试算法类
              com.sequoia.shorturl.controller.ShortUrlControllerTest.java  restFull接口测试类
-             com.sequoia.shorturl.SuiteExecuteTests集成测试所有单元测试
+             com.sequoia.shorturl.SuiteExecuteTests.java 集成测试所有单元测试
       
     
  七 。采用SpringBoot，集成Swagger API文档
