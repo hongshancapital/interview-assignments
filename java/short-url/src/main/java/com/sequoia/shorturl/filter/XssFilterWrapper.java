@@ -25,9 +25,7 @@ public class XssFilterWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public String[] getParameterValues(String name) {
-        if("content".equals(name)){//不想过滤的参数，此处content参数是 富文本内容
-            return super.getParameterValues(name);
-        }
+      
         String[] values = super.getParameterValues(name);
         String[] newValues = new String[values.length];
         for (int i = 0; i < values.length; i++) {
