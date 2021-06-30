@@ -23,7 +23,7 @@ public class FilterConfig {
         registration.setFilter(new LogCostFilter());
         registration.addUrlPatterns("/*");
         registration.setName("LogCostFilter");
-        registration.setOrder(1);
+        registration.setOrder(2);
         return registration;
     }
 
@@ -33,7 +33,7 @@ public class FilterConfig {
         registration.setFilter(new ShortUrlFilter());
         registration.addUrlPatterns("/*");
         registration.setName("ShortUrlFilter");
-        registration.setOrder(2);
+        registration.setOrder(1);
         return registration;
     }
 }
