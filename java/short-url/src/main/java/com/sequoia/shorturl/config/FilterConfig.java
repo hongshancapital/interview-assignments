@@ -33,7 +33,7 @@ public class FilterConfig {
         registration.setFilter(new ShortUrlFilter());
         registration.addUrlPatterns("/*");
         registration.setName("ShortUrlFilter");
-        registration.setOrder(1);
+        registration.setOrder(2);
         return registration;
     }
 }
