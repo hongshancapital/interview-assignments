@@ -31,7 +31,7 @@ public class FilterConfig {
     public FilterRegistrationBean registFilter2() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new ShortUrlFilter());
-        registration.addUrlPatterns("/t/*");
+        registration.addUrlPatterns("/*");
         registration.setName("ShortUrlFilter");
         registration.setOrder(1);
         return registration;
