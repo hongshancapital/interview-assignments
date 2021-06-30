@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
  *
  * @Date 2021/06/28
  *
- * @version v1.0
+ * @version v1.0.0
  *
  */
 public class XssFilterWrapper extends HttpServletRequestWrapper {
@@ -25,7 +25,7 @@ public class XssFilterWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public String[] getParameterValues(String name) {
-      
+
         String[] values = super.getParameterValues(name);
         String[] newValues = new String[values.length];
         for (int i = 0; i < values.length; i++) {
