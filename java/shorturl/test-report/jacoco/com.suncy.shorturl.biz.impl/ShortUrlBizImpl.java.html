@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortUrlBizImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shorturl</a> &gt; <a href="index.source.html" class="el_package">com.suncy.shorturl.biz.impl</a> &gt; <span class="el_source">ShortUrlBizImpl.java</span></div><h1>ShortUrlBizImpl.java</h1><pre class="source lang-java linenums">package com.suncy.shorturl.biz.impl;
+
+import com.suncy.shorturl.biz.IShortUrlBiz;
+import com.suncy.shorturl.biz.utils.ShortUrlUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+<span class="fc" id="L14">public class ShortUrlBizImpl implements IShortUrlBiz {</span>
+
+<span class="fc" id="L16">    private static final Map&lt;String, String&gt; SHORT_FULL_MAP = new HashMap&lt;String, String&gt;();</span>
+
+<span class="fc" id="L18">    private static final Map&lt;String, String&gt; FULL_SHORT_MAP = new HashMap&lt;String, String&gt;();</span>
+
+    @Override
+    public String toShortUrl(String fullUrl) {
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (StringUtils.isEmpty(fullUrl)) {</span>
+<span class="nc" id="L23">            throw new IllegalArgumentException(&quot;参数错误&quot;);</span>
+        }
+<span class="fc" id="L25">        Long.parseLong(&quot;123123&quot;, 16);</span>
+<span class="fc" id="L26">        String urlMd5 = DigestUtils.md5DigestAsHex(fullUrl.getBytes());</span>
+<span class="fc" id="L27">        String shortUrl = FULL_SHORT_MAP.get(urlMd5);</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (StringUtils.isNotBlank(shortUrl)) {</span>
+<span class="fc" id="L29">            return shortUrl;</span>
+        }
+        // 生成短链
+<span class="fc" id="L32">        List&lt;String&gt; shortUrlList = ShortUrlUtil.shortUrl(urlMd5, 8);</span>
+<span class="fc" id="L33">        shortUrl = shortUrlList.get(0);</span>
+        // 放入缓存
+<span class="fc" id="L35">        SHORT_FULL_MAP.put(shortUrl, fullUrl);</span>
+<span class="fc" id="L36">        FULL_SHORT_MAP.put(urlMd5, shortUrl);</span>
+        
+<span class="fc" id="L38">        return shortUrl;</span>
+    }
+
+    @Override
+    public String findFullUrl(String shorUrl) {
+<span class="fc" id="L43">        return SHORT_FULL_MAP.get(shorUrl);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
