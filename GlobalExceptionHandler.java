@@ -81,9 +81,6 @@ public class GlobalExceptionHandler {
      * 获取请求参数不正确的提示信息
      * <p>
      * 多个信息，拼接成用逗号分隔的形式
-     *
-     * @author yubaoshan
-     * @date 2020/5/5 16:50
      */
     private String getArgNotValidMessage(BindingResult bindingResult) {
         if (bindingResult == null) {
