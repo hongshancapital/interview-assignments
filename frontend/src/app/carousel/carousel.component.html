@@ -1,0 +1,22 @@
+<div class="slides-viewport" #slidesViewport>
+    <div class="slides">
+        <ng-container *ngFor="let slide of slides">
+            <div class="slide" [style.backgroundColor]="slide.bgc" [style.color]="slide.fgc">
+                <img [src]="slide.imageUrl" [alt]="slide.imageUrl" [style.transform]="'scale(' + slide.imageScale + ')'">
+                <div class="slide-text">
+                    <div class="slide-titles">
+                        <div *ngFor="let title of slide.titles">{{title}}</div>
+                    </div>
+                    <div class="slide-subs" *ngIf="!!slide.subs">
+                        <div *ngFor="let sub of slide.subs">{{sub}}</div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<div class="slides-indicator">
+    <ng-container *ngFor="let slide of slides; let index = index">
+        <div class="slides-indicator-bar" [class.current]="currentSlide === index" (click)="goToSlide(index)"></div>
+    </ng-container>
+</div>
