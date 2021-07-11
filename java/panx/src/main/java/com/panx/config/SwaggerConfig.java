@@ -1,4 +1,4 @@
-package com.panx.swagger;
+package com.panx.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,9 +1,9 @@
-package com.panx.exception;
+package com.panx.exceptions;
 
-public class UrlSwitchException extends Exception{
+public class SystemException extends Exception{
     private String message;
 
-    public UrlSwitchException(String msg) {
+    public SystemException(String msg) {
         super(msg);
         this.message = msg;
     }

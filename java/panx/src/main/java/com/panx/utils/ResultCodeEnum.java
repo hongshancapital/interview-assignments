@@ -1,4 +1,4 @@
-package com.panx.model;
+package com.panx.utils;
 
 public enum ResultCodeEnum {
     SUCCESS(0),

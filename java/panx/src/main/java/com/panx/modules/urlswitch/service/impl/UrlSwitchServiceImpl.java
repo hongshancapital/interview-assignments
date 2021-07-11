@@ -1,11 +1,10 @@
 package com.panx.modules.urlswitch.service.impl;
 
-import com.panx.exception.UrlSwitchException;
-import com.panx.modules.urlswitch.hanlder.UrlSwitchHanlder;
+import com.panx.exceptions.SystemException;
+import com.panx.modules.urlswitch.utils.UrlCacheUtils;
 import com.panx.modules.urlswitch.service.UrlSwitchService;
-import com.panx.modules.urlswitch.vo.UrlVo;
-import com.panx.utils.IdGenerator;
-import com.panx.utils.UrlSwitchUtils;
+import com.panx.modules.urlswitch.entity.UrlVo;
+import com.panx.modules.urlswitch.utils.UrlSwitchUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,27 +15,26 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UrlSwitchServiceImpl implements UrlSwitchService {
-    private static final IdGenerator idGenerator = new IdGenerator();
     /**
      * 短域名转为长域名
      * @Param 包含长域名的UrlVo urlInfo
      * @return 包含结果信息及接口运行信息的Result
      */
-    public UrlVo urlShortToLong(UrlVo urlInfo) throws UrlSwitchException {
+    public UrlVo getLongUrl(UrlVo urlInfo) throws SystemException {
         String longUrl = urlInfo.getLongUrl();
         String shortUrl = urlInfo.getShortUrl();
-        if(null==longUrl&&null!=shortUrl){
+        if(null==longUrl&&null!=shortUrl) {
             String urlHead = UrlSwitchUtils.getUrlHead(shortUrl);
-            longUrl= UrlSwitchHanlder.getUrlMatch(shortUrl.replace(urlHead,""));
+            longUrl= UrlCacheUtils.getLongUrlMatch(shortUrl.replace(urlHead,""));
             if(null==longUrl){
-                throw new UrlSwitchException("暂无匹配数据");
+                throw new SystemException("暂无匹配数据");
             }
             longUrl = urlHead+longUrl;
             urlInfo.setLongUrl(longUrl);
             return urlInfo;
         }
         else {
-            throw new UrlSwitchException("请输入长域名或短域名");
+            throw new SystemException("请输入长域名或短域名");
         }
     }
 
@@ -45,40 +43,22 @@ public class UrlSwitchServiceImpl implements UrlSwitchService {
      * @Param 包含短域名的UrlVo urlInfo
      * @return 包含结果信息及接口运行信息的Result
      */
-    public UrlVo urlLongToShort(UrlVo urlInfo) throws UrlSwitchException {
+    public UrlVo getShortUrl(UrlVo urlInfo) throws SystemException {
         String longUrl = urlInfo.getLongUrl();
         String shortUrl = urlInfo.getShortUrl();
-        if(null==shortUrl&&null!=longUrl){
+        if(null==shortUrl&&null!=longUrl) {
             String urlHead = UrlSwitchUtils.getUrlHead(longUrl);
-            shortUrl= UrlSwitchHanlder.getUrlMatch(longUrl.replace(urlHead,""));
+            shortUrl= UrlCacheUtils.getShortUrlMatch(longUrl.replace(urlHead,""));
             if(null==shortUrl){
-                shortUrl = UrlSwitchUtils.idToShortUrl(idGenerator.nextId());
-                UrlSwitchHanlder.setUrlMatch(longUrl.replace(urlHead,""),shortUrl);
+                shortUrl = UrlSwitchUtils.getShortUrlCode();
+                UrlCacheUtils.setUrlMatch(longUrl.replace(urlHead,""),shortUrl);
             }
             shortUrl = urlHead+shortUrl;
             urlInfo.setShortUrl(shortUrl);
             return urlInfo;
         }
         else {
-            throw new UrlSwitchException("请输入长域名或短域名");
+            throw new SystemException("请输入长域名或短域名");
         }
     }
-
-    /**
-     * 自动判断并转换长短域名
-     * @Param 包含长域名或短域名的UrlVo urlInfo
-     * @return 包含结果信息及接口运行信息的Result
-     */
-    public UrlVo urlSwitch(UrlVo urlInfo) throws UrlSwitchException {
-        String longUrl = urlInfo.getLongUrl();
-        String shortUrl = urlInfo.getShortUrl();
-        if(null==longUrl&&null!=shortUrl){
-            return urlShortToLong(urlInfo);
-        }else if(null == shortUrl){
-            return urlLongToShort(urlInfo);
-        }else {
-            throw new UrlSwitchException("请输入长域名或短域名");
-        }
-    }
-
 }

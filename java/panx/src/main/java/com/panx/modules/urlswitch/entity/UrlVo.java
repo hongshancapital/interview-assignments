@@ -1,4 +1,4 @@
-package com.panx.modules.urlswitch.vo;
+package com.panx.modules.urlswitch.entity;
 
 public class UrlVo {
     private String shortUrl;

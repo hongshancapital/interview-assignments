@@ -5,7 +5,7 @@ package com.panx.utils;
  * @date 2021-07-01
  * id生成器
  */
-public class IdGenerator {
+public class SequenceUtils {
 
     private final static long START_STMP = 1480166465631L;//起始时间戳
 
@@ -16,13 +16,13 @@ public class IdGenerator {
     private long sequence = 0L; //序列号
     private long lastStmp = -1L;//上一次时间戳
 
-    public IdGenerator() {}
+    public SequenceUtils() {}
 
     /**
      * 产生下一个ID
      */
     public synchronized long nextId() {
-        long currStmp = getNewstmp();
+        long currStmp = getNewStmp();
         if (currStmp < lastStmp) {
             throw new RuntimeException("Clock moved backwards.  Refusing to generate id");
         }
@@ -44,14 +44,14 @@ public class IdGenerator {
     }
 
     private long getNextMill() {
-        long mill = getNewstmp();
+        long mill = getNewStmp();
         while (mill <= lastStmp) {
-            mill = getNewstmp();
+            mill = getNewStmp();
         }
         return mill;
     }
 
-    private long getNewstmp() {
+    private long getNewStmp() {
         return System.currentTimeMillis();
     }
 }
