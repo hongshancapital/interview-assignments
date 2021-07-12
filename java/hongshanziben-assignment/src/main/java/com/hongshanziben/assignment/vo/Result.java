@@ -1,7 +1,5 @@
 package com.hongshanziben.assignment.vo;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.io.Serializable;
 
 /**
@@ -34,39 +32,13 @@ public class Result<T> implements Serializable {
         this.code = code;
     }
 
-    public Result() {
-
-    }
-
     public static <T> Result success(T data) {
-        return new Result(data, MSG_SUCCESS, SUCCESS);
+        Result suc = new Result(data, MSG_SUCCESS, SUCCESS);
+        return suc;
     }
 
-    public static <T> Result error(String msg) {
-        return new Result(StringUtils.isNotBlank(msg) ? msg : MSG_ERROR, ERROR);
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    public static <T> Result error() {
+        Result error = new Result(MSG_ERROR , ERROR);
+        return error;
     }
 }

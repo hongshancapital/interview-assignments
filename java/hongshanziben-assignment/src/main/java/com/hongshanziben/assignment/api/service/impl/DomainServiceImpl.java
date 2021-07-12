@@ -38,11 +38,7 @@ public class DomainServiceImpl implements DomainService {
                 Container.container.put(shortDomain, url);
                 Container.checkContainer.put(url, shortDomain);
             } else {
-
-                if (!url.equals(longDomain)) {
-                    String domain = DomainUtils.getShortDomain();
-                    checkShortDomain(domain, url);
-                }
+                checkShortDomain(DomainUtils.getShortDomain(), url);
             }
         }
 
