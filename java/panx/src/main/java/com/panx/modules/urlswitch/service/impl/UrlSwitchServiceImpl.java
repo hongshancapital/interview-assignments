@@ -23,13 +23,13 @@ public class UrlSwitchServiceImpl implements UrlSwitchService {
     public UrlVo getLongUrl(UrlVo urlInfo) throws SystemException {
         String longUrl = urlInfo.getLongUrl();
         String shortUrl = urlInfo.getShortUrl();
-        if(null==longUrl&&null!=shortUrl) {
+        if (null == longUrl && null != shortUrl) {
             String urlHead = UrlSwitchUtils.getUrlHead(shortUrl);
-            longUrl= UrlCacheUtils.getLongUrlMatch(shortUrl.replace(urlHead,""));
-            if(null==longUrl){
+            longUrl = UrlCacheUtils.getLongUrlMatch(shortUrl.replace(urlHead,""));
+            if (null == longUrl){
                 throw new SystemException("暂无匹配数据");
             }
-            longUrl = urlHead+longUrl;
+            longUrl = urlHead + longUrl;
             urlInfo.setLongUrl(longUrl);
             return urlInfo;
         }
@@ -46,14 +46,14 @@ public class UrlSwitchServiceImpl implements UrlSwitchService {
     public UrlVo getShortUrl(UrlVo urlInfo) throws SystemException {
         String longUrl = urlInfo.getLongUrl();
         String shortUrl = urlInfo.getShortUrl();
-        if(null==shortUrl&&null!=longUrl) {
+        if (null == shortUrl && null != longUrl) {
             String urlHead = UrlSwitchUtils.getUrlHead(longUrl);
-            shortUrl= UrlCacheUtils.getShortUrlMatch(longUrl.replace(urlHead,""));
-            if(null==shortUrl){
+            shortUrl = UrlCacheUtils.getShortUrlMatch(longUrl.replace(urlHead,""));
+            if (null == shortUrl){
                 shortUrl = UrlSwitchUtils.getShortUrlCode();
                 UrlCacheUtils.setUrlMatch(longUrl.replace(urlHead,""),shortUrl);
             }
-            shortUrl = urlHead+shortUrl;
+            shortUrl = urlHead + shortUrl;
             urlInfo.setShortUrl(shortUrl);
             return urlInfo;
         }

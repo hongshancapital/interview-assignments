@@ -34,14 +34,19 @@ public class UrlSwitchUtils {
         return new String(buf, charPos, (32 - charPos));
     }
 
+    /**
+     * 获取url的头部
+     * @Param url完整url
+     * @return url头部
+     */
     public static String getUrlHead(String url) throws SystemException {
         String[] urlSplit = url.split("/");
-        if(urlSplit.length<4){
+        if (urlSplit.length < 4) {
             throw new SystemException("url格式异常");
         }
         String urlHead = "";
-        for(int i=0;i<3;i++){
-            urlHead+=urlSplit[i]+"/";
+        for (int i=0;i<3;i++) {
+            urlHead += urlSplit[i] + "/";
         }
         return urlHead;
     }

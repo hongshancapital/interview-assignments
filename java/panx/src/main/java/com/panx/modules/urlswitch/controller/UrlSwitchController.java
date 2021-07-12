@@ -28,7 +28,7 @@ public class UrlSwitchController {
      * @return 包含结果信息及接口运行信息的Result
      */
     @ApiOperation(value = "短域名转为长域名")
-    @PostMapping(value ="/getLongUrl")
+    @PostMapping(value = "/getLongUrl")
     public ResultUtils getLongUrl(@RequestBody UrlVo urlInfo) {
         try {
             return ResultUtils.succeed(urlSwitchService.getLongUrl(urlInfo),"成功");
