@@ -15,7 +15,8 @@ public class UrlTranscodingServiceImpl implements UrlTranscodingService {
     @Override
     public String longToShort(String longUrl){
         String shortUrl = ShortUrlUtil.shortUrl(longUrl);
-        cache.setLocalCache(shortUrl, longUrl);//设置本地缓存
+        //设置本地缓存
+        cache.setLocalCache(shortUrl, longUrl);
         return shortUrl;
     }
 
