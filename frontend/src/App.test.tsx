@@ -14,11 +14,6 @@ const imgs = [
 ];
 
 describe('test App', () => {
-  it('renders learn react link', () => {
-    const { getByText } = render(<App />);
-    const linkElement = getByText(/learn react/i);
-    expect(linkElement).toBeInTheDocument();
-  });
   it('should render Carousel', () => {
     const wrapper = render(
       <Carousel>

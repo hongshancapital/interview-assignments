@@ -14,11 +14,10 @@ const imgs = [
 function App() {
   return (
     <div className="App">
-      <p>learn react</p>
       <Carousel>
         {
           imgs.map((item, index) => (
-            <div key={index} className="wapper" style={{
+            <div key={index} className="wrapper" style={{
               backgroundImage: `url(${item.bg})`,
               backgroundColor: item.bgColor,
             }}>
