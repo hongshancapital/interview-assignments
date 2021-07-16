@@ -31,6 +31,10 @@ java/url.jmx
 1. 可以执行maven 的插件,报告在 target/site中
 2. 只有本次作业相关的包跑了JaCoCo，storage 和 util，其他的包没跑。
 
+
+## Swagger
+http://127.0.0.1:8080/swagger-ui.html
+
 ## 一些说明
 2 从官方仓库无法下载依赖或者下载较慢时,请配置国内镜像. 
 
