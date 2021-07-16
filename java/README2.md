@@ -28,7 +28,8 @@ summary =   1000 in 00:00:01 =  758.2/s Avg:   441 Min:     0 Max:   906 Err:   
 java/url.jmx
 
 ## 关于 JaCoCo
-可以执行maven 的插件,报告在 target/site中
+1. 可以执行maven 的插件,报告在 target/site中
+2. 只有本次作业相关的包跑了JaCoCo，storage 和 util，其他的包没跑。
 
 ## 一些说明
 2 从官方仓库无法下载依赖或者下载较慢时,请配置国内镜像. 
