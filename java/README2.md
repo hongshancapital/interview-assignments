@@ -10,7 +10,7 @@
 6. 索引文件的可以有多个,在 Config 中配置.如何确认数据在那个索引文件中? 短连接取 hash % 索引文件数量.
 7. 数据文件有一个,最大重量可以在 Config 中配置.
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+![Image text](https://upload-images.jianshu.io/upload_images/16120382-c762d5ace1162aa2.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/882/format/webp)
 
 
 ## 关于JMeter
