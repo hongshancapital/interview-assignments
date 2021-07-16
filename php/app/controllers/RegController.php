@@ -82,7 +82,7 @@ class RegController extends ControllerBase
                throw new \Exception(null, -15030);
            }
 
-           //数据保存
+           //数据保存，密码加密在下一个服务
            $result = Users::createUser($username, $pw);
            if ($result['code'] <> 0) {
                $this->error($result['code']);
