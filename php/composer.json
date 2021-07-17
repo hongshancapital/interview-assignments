@@ -1,0 +1,46 @@
+{
+  "name": "onphalcon/demo",
+  "description": "The Scaffold of the demo project.",
+  "type": "project",
+  "keywords": [
+    "Phalcon"
+  ],
+  "homepage": "https://www.pdemo.com",
+  "authors": [
+    {
+      "name": "ZBin",
+      "email": "694309555@qq.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    },
+    {
+      "type": "composer",
+      "url": "http://repo.ewei.group:38989/"
+    }
+  ],
+  "require": {
+    "php": ">=7.4.0",
+    "ext-igbinary": "*",
+    "ext-mbstring": "7.*",
+    "ext-pdo": "*",
+    "ext-psr": "*",
+    "ext-phalcon": "4.*",
+    "ext-yaconf": "1.*",
+    "ext-yac": "2.*",
+    "ext-apcu": "*",
+    "ext-redis": "*",
+    "ext-memcache": "*",
+    "spiral/roadrunner": "v2.0.1",
+    "phalcon-com/scaffold": "dev-master"
+  },
+  "require-dev": {
+    "phalcon/ide-stubs": "^4.0.6"
+  },
+  "scripts": {
+    "demo-start" : "php -S localhost:3000 -t pub pub/6a992d55.php"
+  }
+}
