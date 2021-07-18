@@ -25,6 +25,14 @@ switch ($action) {
             echoJson('password 必须不能含有 3 位以上的连续数字', 113);
         }
 
+        if (preg_match("/^[a-z]{6,}$/", $password)) {
+            echoJson('password 不能纯为小写字母', 114);
+        } else if (preg_match("/^[A-Z]{6,}$/", $password)) {
+            echoJson('password 不能纯为大写字母', 115);
+        } else if (preg_match("/^[0-9]{6,}$/", $password)) {
+            echoJson('password 不能纯为数字', 116);
+        }
+
         $sql = sprintf("INSERT INTO `user`(`username`,`password`) VALUES('%s', '%s')", $username, md5($password));
         if ($db->query($sql)) {
             echoJson('注册成功');
