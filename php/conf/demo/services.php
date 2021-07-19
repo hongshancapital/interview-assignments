@@ -20,9 +20,6 @@ if ($routes = include('routes.php')) {
 }
 $di->setShared('router', $router);
 
-//$serviceClass = 'Project\Controllers\MyController';
-//$di->setShared('Project\Controllers\TestController', new $serviceClass());
-
 
 //可变参数服务（一般为动态实例化服务）（其他尽量共享化）
 $services = [];

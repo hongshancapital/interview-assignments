@@ -16,15 +16,12 @@ class Module implements ModuleDefinitionInterface
 {
     public function registerAutoloaders(DiInterface $di = null)
     {
-        //$di['loader']->registerNamespaces([
-        //    'Admin' => __DIR__ . '/Controller/Admin',
-        //    'Api' => __DIR__ . '/Controller/Api'
-        //], true)->register();
+        //
     }
 
     public function registerServices(DiInterface $di)
     {
-        //$di['view']->setViewsDir(__DIR__ . '/View');
+        //
     }
 }
 

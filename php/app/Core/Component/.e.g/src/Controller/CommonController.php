@@ -14,10 +14,5 @@ class CommonController extends BaseController
         $this->view->setVar('staticUrl', $this->url->getStaticBaseUri());
         $this->view->disableLevel(View::LEVEL_LAYOUT);
     }
-
-    public function test()
-    {
-        //echo 'common';
-    }
 }
 ?>
