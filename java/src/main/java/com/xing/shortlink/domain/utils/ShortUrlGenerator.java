@@ -12,11 +12,10 @@ public class ShortUrlGenerator {
      * 通过传入链接生成4个短链接
      *
      * @param url 链接地址
+     * @param factor 混淆因子
      * @return 短链接地址数组
      */
-    public static String[] shortUrl(String url) {
-        // 可以自定义生成 MD5 加密字符传前的混合 KEY
-        String key = "xing";
+    public static String[] shortUrl(String url, String factor) {
         // 要使用生成 URL 的字符
         String[] chars = new String[]{"a", "b", "c", "d", "e", "f", "g", "h",
                 "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
@@ -27,7 +26,7 @@ public class ShortUrlGenerator {
 
         };
         // 对传入网址进行 MD5 加密
-        String hex = Md5EncodeUtil.md5(key + url);
+        String hex = Md5EncodeUtil.md5(factor + url);
 
         String[] resUrl = new String[4];
         for (int i = 0; i < 4; i++) {

@@ -59,6 +59,11 @@ public class UrlServiceImpl implements UrlService {
     private String urlDomain;
 
     /**
+     * md5混淆因子
+     */
+    private String[] factors = {"xing", "zhe", "xing1", "zhe1"};
+
+    /**
      * 静态缓存
      */
     private static Cache<String, String> cache = CacheBuilder.newBuilder()
@@ -121,44 +126,50 @@ public class UrlServiceImpl implements UrlService {
         if (cache.size() >= MAX_SIZE * warnRate) {
             log.warn("短链接缓存容量报警，当前缓存数量:{}，最大缓存数量:{}", cache.size(), MAX_SIZE);
         }
-        //2.生成计算后的短链数组
-        String[] keys = ShortUrlGenerator.shortUrl(originUrl);
-        //3.选取短链，缓存判断
-        String shortUrl = setNxShortUrl(keys, originUrl);
-
+        String shortUrl = "";
+        for (String factor : factors) {
+            //2.生成计算后的短链数组
+            String[] keys = ShortUrlGenerator.shortUrl(originUrl, factor);
+            //3.选取短链，缓存判断
+            shortUrl = setNxShortUrl(keys, originUrl);
+        }
+        //生成的短链全部被占用，记录异常，人工介入
+        if (!StringUtils.hasText(shortUrl)) {
+            log.error("短链接生成失败，短链接全部已使用！originUrl={}", originUrl);
+            throw new ExtensionException(SHORT_URL_CREATE_ERROR.getCode(), SHORT_URL_CREATE_ERROR.getMsg());
+        }
         return shortUrl;
     }
 
     /**
-     * 多线程访问共用缓存，需要加锁，先判断缓存中是否存在，如果不存在则写入缓存，
+     * 多线程访问共用缓存，需要加锁，使用string的intern生成对象，作为锁
+     * 先判断缓存中是否存在，如果不存在则写入缓存，
      * 如果存在判断是否重复，重复的请求返回对应短链，如果不存在则尝试下一短链
      *
      * @param keys      生成的短链数组
      * @param originUrl 原始链接
      * @return 生成的短链
      */
-    private synchronized String setNxShortUrl(String[] keys, String originUrl) {
+    private String setNxShortUrl(String[] keys, String originUrl) {
         String shortUrl = null;
         for (String key : keys) {
-            //1.缓存中先查询是否已存在短链key
-            String cacheOriginUrl = cache.getIfPresent(key);
-            //2.如果存在有两种情况，重复请求或碰撞
-            if (StringUtils.hasText(cacheOriginUrl)) {
-                if (cacheOriginUrl.equals(originUrl)) {
-                    //重复地址跳出循环返回原有短链接，如果是碰撞则继续执行
+            key = key.intern();
+            synchronized (key) {
+                //1.缓存中先查询是否已存在短链key
+                String cacheOriginUrl = cache.getIfPresent(key);
+                //2.如果存在有两种情况，重复请求或碰撞
+                if (StringUtils.hasText(cacheOriginUrl)) {
+                    if (cacheOriginUrl.equals(originUrl)) {
+                        //重复地址跳出循环返回原有短链接，如果是碰撞则继续执行
+                        shortUrl = urlDomain + key;
+                        break;
+                    }
+                } else {
                     shortUrl = urlDomain + key;
+                    cache.put(key, originUrl);
                     break;
                 }
-            } else {
-                shortUrl = urlDomain + key;
-                cache.put(key, originUrl);
-                break;
             }
-        }
-        //生成的短链全部被占用，记录异常，人工介入
-        if (!StringUtils.hasText(shortUrl)) {
-            log.error("短链接生成失败，短链接全部已使用！originUrl={}", originUrl);
-            throw new ExtensionException(SHORT_URL_CREATE_ERROR.getCode(), SHORT_URL_CREATE_ERROR.getMsg());
         }
         return shortUrl;
     }
