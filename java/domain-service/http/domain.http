@@ -1,0 +1,16 @@
+
+
+@baseUrl = http://127.0.0.1:8080
+
+### 保存
+POST   {{baseUrl}}/service/v1/domain HTTP/1.1
+Content-Type: application/json
+
+{
+  "longUrl": "www.baidu.com"
+}
+
+
+### 查询
+GET {{baseUrl}}/service/v1//domain/www.baidu.com HTTP/1.1
+Content-Type: application/json
