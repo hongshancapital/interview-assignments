@@ -48,13 +48,18 @@ class TinyUrlApplicationTest {
     }
 
 
+    /**
+     * 创建短链case
+     *
+     * @throws Exception
+     */
     @Test
     public void createTest() throws Exception {
         Assert.assertTrue("生成短链失败", StringUtils.isNotBlank(createShortUrl(test_long_url)));
     }
 
     /**
-     * 测试url为空
+     * 测试url为空case
      *
      * @throws Exception
      */
@@ -86,6 +91,11 @@ class TinyUrlApplicationTest {
     }
 
 
+    /**
+     * 获取短链case
+     *
+     * @throws Exception
+     */
     @Test
     public void getOriginalUrlTest() throws Exception {
         String requestUrl = this.base.toString() + "/v1/getOriginalUrl";
@@ -99,6 +109,11 @@ class TinyUrlApplicationTest {
         Assert.assertTrue("获取长链失败", StringUtils.isNotBlank(longUrl));
     }
 
+    /**
+     * 获取短链为空case
+     *
+     * @throws Exception
+     */
     @Test
     public void getOriginalUrlByUrlIsNullTest() throws Exception {
         try {

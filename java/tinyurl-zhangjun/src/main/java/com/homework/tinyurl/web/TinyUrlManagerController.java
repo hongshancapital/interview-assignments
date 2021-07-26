@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Deacription
+ * @Deacription 短地址请求管理
  * @Author zhangjun
  * @Date 2021/7/17 8:45 下午
  **/
@@ -34,11 +34,9 @@ public class TinyUrlManagerController {
     @ApiOperation(value = "短域名存储接口", notes = "接受长域名信息，返回短域名信息")
     @PostMapping(value = "/v1/create", produces = "application/json")
     public Result<String> create(@RequestBody @Validated CreateTinyUrlRequest createTinyUrlRequest) {
-        //url校验
         if (!UrlUtil.isValidationUrl(createTinyUrlRequest.getLongUrl())) {
             throw new TinyUrlException(TinyUrlExceptionCodeEnum.INVALID_URL);
         }
-        // 校验
         String shortUrl = tinyUrlCoreService.generateShortUrl(createTinyUrlRequest.getLongUrl());
         return new Result<>(shortUrl);
     }
@@ -47,7 +45,6 @@ public class TinyUrlManagerController {
     @ApiOperation(value = "短域名读取接口", notes = "接受短域名信息，返回长域名信息")
     @PostMapping(value = "/v1/getOriginalUrl", produces = "application/json")
     public Result<String> getOriginalUrl(@RequestBody @Validated GetOriginalUrlRequest originalUrlRequest) {
-        //url校验
         if (!UrlUtil.isValidationUrl(originalUrlRequest.getShortUrl())) {
             throw new TinyUrlException(TinyUrlExceptionCodeEnum.INVALID_URL);
         }

@@ -8,7 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @Deacription
+ * @Deacription 统一返回值
  * @Author zhangjun
  * @Date 2021/7/17 9:08 下午
  **/

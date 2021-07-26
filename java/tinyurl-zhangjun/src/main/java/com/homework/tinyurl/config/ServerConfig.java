@@ -8,7 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
- * @Deacription
+ * @Deacription 读取本地服务端口路径
  * @Author zhangjun
  * @Date 2021/7/18 9:48 下午
  **/

@@ -3,7 +3,7 @@ package com.homework.tinyurl.model.exception;
 import com.homework.tinyurl.enums.TinyUrlExceptionCodeEnum;
 
 /**
- * @Deacription
+ * @Deacription 系统自定义异常
  * @Author zhangjun
  * @Date 2021/7/18 11:42 上午
  **/

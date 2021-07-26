@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
- * 全局异常
+ * 全局异常处理器
+ *
  * @author
  */
 @ControllerAdvice
@@ -21,6 +22,7 @@ public class TinyUrlExceptionHandler {
 
     /**
      * 业务异常
+     *
      * @param ex
      * @return
      */

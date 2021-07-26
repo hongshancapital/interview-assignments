@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Deacription
+ * @Deacription 本地缓存配置
  * @Author zhangjun
  * @Date 2021/7/17 10:24 下午
  **/
@@ -35,23 +35,13 @@ public class CacheConfig {
      */
     @Value("${localCache.expire:30}")
     private Integer expireDay;
-    /*
-    @Bean
-    public Cache<String, String> caffeineCache() {
-        return Caffeine.newBuilder()
-                //超过时间进行 lru
-                .expireAfterAccess(expireDay,TimeUnit.DAYS)
-                // 初始的缓存空间大小
-                .initialCapacity(initialCapacity)
-                // 缓存的最大条数
-                .maximumSize(maximumSize)
-                .removalListener((RemovalListener<String, String>) (key, value, cause)
-                        -> log.info("key:" + key + ", value:" + value + ", 删除原因:" + cause.toString()))
-                .build();
-    }*/
 
 
-    //配置CacheManager
+    /**
+     * 配置CacheManager
+     *
+     * @return
+     */
     @Bean(name = "caffeineCacheManager")
     public CacheManager cacheManagerWithCaffeine() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();

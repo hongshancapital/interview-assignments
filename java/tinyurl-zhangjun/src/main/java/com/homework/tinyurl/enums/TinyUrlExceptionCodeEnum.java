@@ -1,14 +1,14 @@
 package com.homework.tinyurl.enums;
 
 /**
- * @Deacription
+ * @Deacription 异常枚举
  * @Author zhangjun
  * @Date 2021/7/18 11:44 上午
  **/
 public enum TinyUrlExceptionCodeEnum {
 
-    INVALID_URL(10000000L,"不合法的URL,必须以http或https开头"),
-    NOT_FOUND(10000001L,"未找到有效的长地址信息");
+    INVALID_URL(10000000L, "不合法的URL,必须以http或https开头"),
+    NOT_FOUND(10000001L, "未找到有效的长地址信息");
 
 
     /**

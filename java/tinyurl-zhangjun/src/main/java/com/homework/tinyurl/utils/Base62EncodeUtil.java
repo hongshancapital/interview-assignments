@@ -41,27 +41,5 @@ public class Base62EncodeUtil {
         sb.append(chars.charAt(Long.valueOf(num).intValue()));
         String value = sb.reverse().toString();
         return StringUtils.leftPad(value, minLength, '0');
-        //return value;
     }
-
-    /**
-     * 62进制转10进制
-     *
-     * @param str
-     * @return public static long decode(String str) {
-    //将 0 开头的字符串进行替换
-    str = str.replace("^0*", "");
-    long value = 0;
-    char tempChar;
-    int tempCharValue;
-    for (int i = 0; i < str.length(); i++) {
-    //获取字符
-    tempChar = str.charAt(i);
-    //单字符值
-    tempCharValue = chars.indexOf(tempChar);
-    //单字符值在进制规则下表示的值
-    value += (long) (tempCharValue * Math.pow(scale, str.length() - i - 1));
-    }
-    return value;
-    }     */
 }

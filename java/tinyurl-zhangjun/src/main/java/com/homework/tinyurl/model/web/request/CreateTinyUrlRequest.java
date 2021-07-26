@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @Deacription
+ * @Deacription 短域名创建请求参数
  * @Author zhangjun
  * @Date 2021/7/17 9:39 下午
  **/

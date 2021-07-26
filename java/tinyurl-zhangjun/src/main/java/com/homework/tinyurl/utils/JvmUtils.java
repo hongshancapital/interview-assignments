@@ -7,7 +7,7 @@ import java.lang.management.MemoryMXBean;
 import java.util.List;
 
 /**
- * @Deacription
+ * @Deacription jvm内存获取
  * @Author zhangjun
  * @Date 2021/7/20 2:04 下午
  **/

@@ -42,7 +42,7 @@ public class TinyUrlCoreServiceImplTest {
 
 
     /**
-     * 生成短地址
+     * 生成短地址case
      */
     @Test
     void generateShortUrlTest() {
@@ -57,7 +57,7 @@ public class TinyUrlCoreServiceImplTest {
     }
 
     /**
-     * 批量测试
+     * 批量测试case
      */
     @Test
     void batchGenerateShortUrlTest() {
@@ -84,7 +84,7 @@ public class TinyUrlCoreServiceImplTest {
 
 
     /**
-     * 获取长地址
+     * 获取长地址case
      */
     @Test
     void getLongUrlTest() {
@@ -95,7 +95,7 @@ public class TinyUrlCoreServiceImplTest {
     }
 
     /**
-     * 模拟不存在的短链
+     * 模拟不存在的短链case
      */
     @Test
     void getInValidLongUrlTest() {
@@ -104,7 +104,6 @@ public class TinyUrlCoreServiceImplTest {
         } catch (Exception e) {
 
         }
-        //Assert.assertTrue("获取长链测试失败", StringUtils.isNotBlank(cacheLongUrl));
     }
 
 

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Deacription 跳转测试
+ * @Deacription 路由请求
  * @Author zhangjun
  * @Date 2021/7/18 7:15 下午
  **/

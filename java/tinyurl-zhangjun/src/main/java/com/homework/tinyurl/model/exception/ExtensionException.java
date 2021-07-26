@@ -1,14 +1,11 @@
 package com.homework.tinyurl.model.exception;
 
-import com.homework.tinyurl.model.common.Result;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
 /**
- * @Deacription
+ * @Deacription 自定义异常
  * @Author zhangjun
  * @Date 2021/7/18 11:40 上午
  **/
