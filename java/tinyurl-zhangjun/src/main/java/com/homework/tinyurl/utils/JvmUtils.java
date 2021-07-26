@@ -7,13 +7,16 @@ import java.lang.management.MemoryMXBean;
 import java.util.List;
 
 /**
- * @Deacription jvm内存获取
+ * @Deacription jvm获取系统信息
  * @Author zhangjun
  * @Date 2021/7/20 2:04 下午
  **/
 @Slf4j
 public class JvmUtils {
 
+    /**
+     * 打印当前系统内存信息
+     */
     public static void printCurrentSystemInfo() {
         MemoryMXBean memorymbean = ManagementFactory.getMemoryMXBean();
         log.info("堆内存信息: " + memorymbean.getHeapMemoryUsage());

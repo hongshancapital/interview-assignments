@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class ExtensionException extends RuntimeException {
 
     /**
-     * 业务异常码 ( 详情参加文档说明 )
+     * 业务异常码
      */
     private Long code;
 

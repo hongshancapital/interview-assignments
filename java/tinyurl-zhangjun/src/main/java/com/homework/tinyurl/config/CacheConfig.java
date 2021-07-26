@@ -46,13 +46,10 @@ public class CacheConfig {
     public CacheManager cacheManagerWithCaffeine() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
         Caffeine caffeine = Caffeine.newBuilder()
-                //超过时间进行 lru
                 .expireAfterAccess(expireDay, TimeUnit.DAYS)
-                // 初始的缓存空间大小
                 .initialCapacity(initialCapacity)
                 .removalListener((RemovalListener<String, String>) (key, value, cause)
                         -> log.info("开始进行lru回收 key:" + key + ", value:" + value + ", 删除原因:" + cause.toString()))
-                // 缓存的最大条数
                 .maximumSize(maximumSize);
         cacheManager.setCaffeine(caffeine);
         cacheManager.setAllowNullValues(false);

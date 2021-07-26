@@ -15,6 +15,8 @@ public class UrlUtil {
             .compile("^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\\\\\\\/])+$");
 
     /**
+     * 校验是否是url地址
+     *
      * @param url
      * @return
      */

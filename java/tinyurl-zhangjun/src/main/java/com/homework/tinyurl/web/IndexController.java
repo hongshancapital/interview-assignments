@@ -2,6 +2,7 @@ package com.homework.tinyurl.web;
 
 import com.homework.tinyurl.service.TinyUrlCoreService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class IndexController {
     private TinyUrlCoreService tinyUrlCoreService;
 
     @RequestMapping("/{shortPath}")
+    @ApiOperation(value = "短域名路由接口", notes = "请求短地址转发到长地址")
     public void router(@PathVariable("shortPath") String shortPath, HttpServletResponse response) {
         try {
             String originalUrl = tinyUrlCoreService.getLongUrl(shortPath);

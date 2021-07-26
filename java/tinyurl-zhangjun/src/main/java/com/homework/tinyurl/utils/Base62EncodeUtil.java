@@ -32,10 +32,8 @@ public class Base62EncodeUtil {
         StringBuilder sb = new StringBuilder();
         int remainder;
         while (num > scale - 1) {
-            //对 scale 进行求余，然后将余数追加至 sb 中，由于是从末位开始追加的，因此最后需要反转字符串
             remainder = Long.valueOf(num % scale).intValue();
             sb.append(chars.charAt(remainder));
-            //除以进制数，获取下一个末尾数
             num = num / scale;
         }
         sb.append(chars.charAt(Long.valueOf(num).intValue()));

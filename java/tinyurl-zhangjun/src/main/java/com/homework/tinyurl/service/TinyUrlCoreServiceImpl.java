@@ -16,11 +16,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * @Deacription <p>
- * 映射信息维护在本地jvm 采用caffeine作为本地存储
- * <p/>
+ * @Deacription 短地址核心处理
  * @Author zhangjun
- * @Date 2021/7/17 10:20 下午
+ * @Date 2021/7/17 10:10 下午
  **/
 @Service
 @Slf4j
@@ -57,11 +55,8 @@ public class TinyUrlCoreServiceImpl implements TinyUrlCoreService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         longUrl = longUrl.toLowerCase();
-        //1.生成短地址,hash冲突会递归增加随机字符
         String encode62ShortUrl = generate62ShortUrl(longUrl);
-        //2.处理hash冲突
         encode62ShortUrl = processHashCollision(encode62ShortUrl, longUrl);
-        //3.存储关系
         cacheManager.getCache(SHORT_URL_CACHE_KEY).put(encode62ShortUrl, formatLongUrl(longUrl));
         stopWatch.stop();
         return ServerConfig.SHORT_DOMAIN_PATH + encode62ShortUrl;
@@ -82,10 +77,14 @@ public class TinyUrlCoreServiceImpl implements TinyUrlCoreService {
             throw new TinyUrlException(TinyUrlExceptionCodeEnum.NOT_FOUND);
         }
         String longUrl = cache.get(shortUrl).get().toString();
-        //处理hash冲突前面加的字符
         return formatLongUrl(longUrl);
     }
 
+    /**
+     * 统计hash碰撞
+     *
+     * @return
+     */
     @Override
     public Long getHashCollisionCount() {
         return hashCollisionCounter.get();
@@ -103,31 +102,26 @@ public class TinyUrlCoreServiceImpl implements TinyUrlCoreService {
      * @return
      */
     private String generate62ShortUrl(String longUrl) {
-        //1.hash值
         Long shortUrlId = Hashing.murmur3_32().hashString(longUrl, StandardCharsets.UTF_8).padToLong();
-        //2.把id转成62进制,把地址变得更短
         String encode62ShortUrl = Base62EncodeUtil.encode(shortUrlId);
         return encode62ShortUrl;
     }
 
     /**
-     * 处理hash冲突,递归处理,最坏打算循环26次
+     * 处理hash冲突,递归处理
      *
      * @param encode62ShortUrl
      * @param longUrl
      * @return
      */
     private String processHashCollision(String encode62ShortUrl, String longUrl) {
-        //不存在
         Cache cache = cacheManager.getCache(SHORT_URL_CACHE_KEY);
         if (cache != null && cache.get(encode62ShortUrl) != null) {
             String cacheLongUrl = cache.get(encode62ShortUrl).get().toString();
-            //产生hash冲突
             if (!longUrl.equals(cacheLongUrl.toLowerCase())) {
                 hashCollisionCounter.incrementAndGet();
                 log.info("hash冲突 encode62ShortUrl={}, longUrl={}", encode62ShortUrl, longUrl);
                 longUrl = formatLongUrl(longUrl);
-                //产生了hash碰撞,加一位随机值
                 longUrl = (char) (Math.random() * 26 + 'a') + PREFIX_SALT + longUrl;
                 encode62ShortUrl = generate62ShortUrl(longUrl);
                 return this.processHashCollision(encode62ShortUrl, longUrl);
@@ -137,7 +131,7 @@ public class TinyUrlCoreServiceImpl implements TinyUrlCoreService {
     }
 
     /**
-     * 如果长地址包含特殊前缀,
+     * 如果长地址包含特殊前缀，则去除前缀
      *
      * @param longUrl
      * @return
