@@ -74,7 +74,7 @@ struct SubmitButtonPart: View {
                 if self.style == .Login {
                     AccountVM.Login(user: user, password: password)
                 } else {
-                    AccountVM.SignUp(user: user, password: password)
+                    AccountVM.Signup(user: user, password: password)
                 }
             }, label:
                 {

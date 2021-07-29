@@ -19,6 +19,8 @@ final class AccountViewModel: ObservableObject {
     
     @Published var LoginSucess: Bool = false
     @Published var SignUpSucess: Bool = false
+    
+    @Published var userInfo: UserInfo = UserInfo()
         
     // 延迟时间 默认0.5秒
     private var delay = RunLoop.SchedulerTimeType.Stride(0.5)
@@ -28,14 +30,19 @@ final class AccountViewModel: ObservableObject {
     /// copy from : https://stackoverflow.com/questions/50302874/how-do-you-write-regular-expressions-for-a-valid-username-for-swift
     private static let predicate = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9_]{3,13}$")
     
-    let netService = AccountNetworkService.shared
+    private let repository: UserRepositoryProtocol
     
     /// ViewModel初始化
     /// ```
     /// style  :  PageStyle.Login  登录页面
     ///           PageStyle.SignUp 注册页面
     /// ```
-    init(style: PageStyle) {
+    init(style: PageStyle, repository: UserRepositoryProtocol = UserRepository()) {
+        
+        /// 初始化数据仓库
+        self.repository = repository
+        
+        /// 订阅
         if .Login == style {
             isLoginAccountValid
                 .dropFirst()
@@ -111,7 +118,6 @@ final class AccountViewModel: ObservableObject {
     /// ```
     private var isLoginAccountValid: AnyPublisher<AccountStatus, Never> {
         
-        // 结合所有Publisher判断有效性
         Publishers.CombineLatest3(
             isUsernameValided,
             isPasswordEmpty,
@@ -131,7 +137,6 @@ final class AccountViewModel: ObservableObject {
     /// ```
     private var isSignUpAccountValid: AnyPublisher<AccountStatus, Never> {
         
-        // 结合所有Publisher判断有效性
         Publishers.CombineLatest4(
             isUsernameValided,
             isPasswordEmpty,
@@ -160,16 +165,32 @@ final class AccountViewModel: ObservableObject {
     
     /// 登录请求
     func Login(user: String, password: String) {
-        netService.Login(user: user, password: password, completion: { [weak self] value in
-            self?.LoginSucess = value
+        repository.Login(user: user, password: password, completion: { result in
+            switch result {
+            case .success(let data):
+                self.userInfo = data
+                self.LoginSucess = true
+            case .failure(let error):
+                #if DEBUG
+                print(error.localizedDescription)
+                #endif
+            }
         })
     }
     
     /// 注册请求
-    func SignUp(user: String, password: String) {
-        netService.SignUp(user: user, password: password, completion: { [weak self] value in
-            self?.SignUpSucess = value
+    func Signup(user: String, password: String) {
+        repository.Signup(user: user, password: password, completion: { result in
+            switch result {
+            case .success(let data):
+                self.userInfo = data
+                self.SignUpSucess = true
+            case .failure(let error):
+                #if DEBUG
+                print(error.localizedDescription)
+                #endif
+            }
         })
-    }    
+    }
 }
 

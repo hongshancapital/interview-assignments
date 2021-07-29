@@ -24,12 +24,12 @@ struct ContentView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                 
                 VStack {
-                    Image(systemName: AccountVM.netService.userInfo.avator)
+                    Image(systemName: AccountVM.userInfo.avator)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 80, height: 80)
                         .foregroundColor(.white)
-                    Text(AccountVM.netService.userInfo.name)
+                    Text(AccountVM.userInfo.name)
                         .foregroundColor(.white)
                 }
                 .padding(.top, 40)

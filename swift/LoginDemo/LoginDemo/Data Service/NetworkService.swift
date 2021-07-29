@@ -8,36 +8,35 @@
 import Foundation
 
 protocol NetworkService {
-    func Login(user: String, password: String, completion: @escaping (Bool) -> Void)
-    func SignUp(user: String, password: String, completion: @escaping (Bool) -> Void)
+    func Login(user: String, password: String, completion: @escaping (Result<UserInfo, Error>) -> Void)
+    func SignUp(user: String, password: String, completion: @escaping (Result<UserInfo, Error>) -> Void)
 }
 
+/// 网络服务
 class AccountNetworkService: NetworkService, ObservableObject {
-    
-    static let shared = AccountNetworkService()
-    @Published var userInfo: UserInfo = UserInfo(name: "", avator: "")
-    
-    private init() {}
-    
-    func Login(user: String, password: String, completion: @escaping (Bool) -> Void) {
+ 
+    /// 登录网络请求
+    func Login(user: String, password: String, completion: @escaping (Result<UserInfo, Error>) -> Void) {
         /// Http request
         /// .....
         /// get user ifon
         /// ..... then
-        self.userInfo = UserInfo(name: "Login name", avator: "person.circle")
+        let userInfo = UserInfo(name: "Login name", avator: "person.circle")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion(true)
+            completion(.success(userInfo))
         }
     }
-    func SignUp(user: String, password: String, completion: @escaping (Bool) -> Void) {
+    
+    /// 注册网络请求
+    func SignUp(user: String, password: String, completion: @escaping (Result<UserInfo, Error>) -> Void) {
         /// Http request
         /// .....
         /// .....
         /// get user ifon
         /// ..... then
-        self.userInfo = UserInfo(name: "Signup name", avator: "person.badge.plus")
+        let userInfo = UserInfo(name: "Signup name", avator: "person.badge.plus")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion(true)
+            completion(.success(userInfo))
         }
     }
 }

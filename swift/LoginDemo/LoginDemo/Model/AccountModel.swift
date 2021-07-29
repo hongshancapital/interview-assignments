@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 错误类型
 enum AccountStatus: String {
     case nameError = "用户名不合法"
     case passwordEmpty = "密码不能为空"
@@ -15,24 +16,28 @@ enum AccountStatus: String {
     case valid = ""
 }
 
+/// 页面类型
 enum PageStyle {
     case Login
     case Signup
 }
 
+/// TextField类型
 enum TextFieldType {
     case text
     case password
 }
 
+/// Button类型
 enum ButtonStyle: String {
     case Login = "Login"
     case Signup = "Create Account"
 }
 
+/// 数据模型
 struct UserInfo: Codable {
-    var name: String
-    var avator: String
+    var name: String = ""
+    var avator: String = ""
     ///
     ///....
 }

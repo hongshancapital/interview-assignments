@@ -21,6 +21,7 @@
 		AA6607CF26B1328200AF2286 /* NavigationStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6607CB26B1328100AF2286 /* NavigationStep.swift */; };
 		AA6607D026B1328200AF2286 /* NavigationDismissStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6607CC26B1328100AF2286 /* NavigationDismissStep.swift */; };
 		AA6607D126B1328200AF2286 /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6607CD26B1328200AF2286 /* RootNavigationView.swift */; };
+		AADFB1AD26B30B4900F79C89 /* UserRepositoreis.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADFB1AC26B30B4900F79C89 /* UserRepositoreis.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		AA6607CB26B1328100AF2286 /* NavigationStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStep.swift; sourceTree = "<group>"; };
 		AA6607CC26B1328100AF2286 /* NavigationDismissStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDismissStep.swift; sourceTree = "<group>"; };
 		AA6607CD26B1328200AF2286 /* RootNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
+		AADFB1AC26B30B4900F79C89 /* UserRepositoreis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoreis.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		AA66079726B03E7000AF2286 /* LoginDemo */ = {
 			isa = PBXGroup;
 			children = (
+				AADFB1AB26B30B1E00F79C89 /* Repositories */,
 				AA6607B326B0720600AF2286 /* Data Service */,
 				AA6607A926B0441300AF2286 /* Views */,
 				AA6607A826B0440600AF2286 /* View Model */,
@@ -155,6 +158,14 @@
 			path = NavigationStep;
 			sourceTree = "<group>";
 		};
+		AADFB1AB26B30B1E00F79C89 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				AADFB1AC26B30B4900F79C89 /* UserRepositoreis.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -234,6 +245,7 @@
 				AA6607B526B0722D00AF2286 /* NetworkService.swift in Sources */,
 				AA6607CF26B1328200AF2286 /* NavigationStep.swift in Sources */,
 				AA6607D026B1328200AF2286 /* NavigationDismissStep.swift in Sources */,
+				AADFB1AD26B30B4900F79C89 /* UserRepositoreis.swift in Sources */,
 				AA6607CE26B1328200AF2286 /* UIKitNavigation.swift in Sources */,
 				AA6607AF26B04E8600AF2286 /* LoginView.swift in Sources */,
 			);
@@ -297,6 +309,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
