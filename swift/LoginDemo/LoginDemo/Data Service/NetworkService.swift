@@ -19,7 +19,7 @@ class AccountNetworkService: NetworkService, ObservableObject {
     func Login(user: String, password: String, completion: @escaping (Result<UserInfo, Error>) -> Void) {
         /// Http request
         /// .....
-        /// get user ifon
+        /// get user info
         /// ..... then
         let userInfo = UserInfo(name: "Login name", avator: "person.circle")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -32,7 +32,7 @@ class AccountNetworkService: NetworkService, ObservableObject {
         /// Http request
         /// .....
         /// .....
-        /// get user ifon
+        /// get user info
         /// ..... then
         let userInfo = UserInfo(name: "Signup name", avator: "person.badge.plus")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

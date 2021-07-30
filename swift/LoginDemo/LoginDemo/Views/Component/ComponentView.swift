@@ -14,8 +14,8 @@ struct CustomTextField: View {
     
     var type: TextFieldType
     var placeholder: String
-    @Binding var text: String
     
+    @Binding var text: String
     @State var tap: Bool = false
     
     var body: some View {

@@ -13,6 +13,7 @@ enum AccountStatus: String {
     case passwordEmpty = "密码不能为空"
     case passwordLess = "密码不能小于8位"
     case repeatWrong = "两次密码不相同"
+    case repeatWarning = " "
     case valid = ""
 }
 

@@ -17,17 +17,20 @@ final class AccountViewModel: ObservableObject {
     @Published var valid: Bool = false
     @Published var tip: String = " "
     
+    @Published var name_err_tip: String = " "
+    @Published var password_err_tip: String = " "
+    
     @Published var LoginSucess: Bool = false
     @Published var SignUpSucess: Bool = false
     
     @Published var userInfo: UserInfo = UserInfo()
         
-    // 延迟时间 默认0.5秒
-    private var delay = RunLoop.SchedulerTimeType.Stride(0.5)
+    // 延迟时间 默认1秒
+    private var delay = RunLoop.SchedulerTimeType.Stride(1.0)
     private var cancllable = Set<AnyCancellable>()
     
-    /// 正则表达式 验证用户名长度是否在(3...13)且是否有特殊字符
-    /// copy from : https://stackoverflow.com/questions/50302874/how-do-you-write-regular-expressions-for-a-valid-username-for-swift
+    // 正则表达式 验证用户名长度是否在(3...13)且是否有特殊字符
+    // copy from : https://stackoverflow.com/questions/50302874/how-do-you-write-regular-expressions-for-a-valid-username-for-swift
     private static let predicate = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9_]{3,13}$")
     
     private let repository: UserRepositoryProtocol
@@ -36,46 +39,63 @@ final class AccountViewModel: ObservableObject {
     /// ```
     /// style  :  PageStyle.Login  登录页面
     ///           PageStyle.SignUp 注册页面
+    ///
+    /// Modify at 07.30.2021 @Chr1s78
     /// ```
     init(style: PageStyle, repository: UserRepositoryProtocol = UserRepository()) {
         
-        /// 初始化数据仓库
+        // 初始化数据仓库
         self.repository = repository
         
-        /// 订阅
+        // 订阅用户名是否合法，注入到 name_err_tip 字符串
+        isUsernameValided
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .map {
+                $0 ? AccountStatus.valid.rawValue : AccountStatus.nameError.rawValue
+            }
+            .assign(to: \.name_err_tip, on: self)
+            .store(in: &cancllable)
+        
+        // 订阅密码是否合法，注入到 password_err_tip 字符串
         if .Login == style {
-            isLoginAccountValid
+            isLoginPasswordValid
                 .dropFirst()
                 .receive(on: RunLoop.main)
                 .map {
                     $0.rawValue
                 }
-                .assign(to: \.tip, on: self)
+                .assign(to: \.password_err_tip, on: self)
                 .store(in: &cancllable)
             
         } else {
-            isSignUpAccountValid
+            isSignUpPasswordValid
                 .dropFirst()
                 .receive(on: RunLoop.main)
                 .map {
                     $0.rawValue
                 }
-                .assign(to: \.tip, on: self)
+                .assign(to: \.password_err_tip, on: self)
                 .store(in: &cancllable)
         }
         
-        isPageButtonValided
+        // 订阅是否可以点击按钮
+        isContinueValid
             .receive(on: RunLoop.main)
             .assign(to: \.valid, on: self)
             .store(in: &cancllable)
     }
-    
-    /// 判断用户名长度是否有效
+}
+
+// Publisher
+extension AccountViewModel {
+    /// 判断用户名是否有效
     /// ```
     /// 长度应在3与13字符之间
+    /// 且不能有特殊字符
     /// ```
     private var isUsernameValided: AnyPublisher<Bool, Never> {
-        $name
+         $name
             .debounce(for: delay, scheduler: RunLoop.main)
             .removeDuplicates()
             .map {
@@ -105,63 +125,103 @@ final class AccountViewModel: ObservableObject {
     }
     
     /// 判断密码和重复密码是否相同
-    private var isPasswordAndRepeatedSame: AnyPublisher<Bool, Never> {
+    /// ```
+    /// 如果密码和重复密码有一个为空，返回.repeatWarning
+    /// 如果密码相同，返回.valid
+    /// 如果密码不同，返回.repeatWrong
+    /// Modify at 07.30.2021 @Chr1s78
+    /// ```
+    private var isPasswordAndRepeatedSame: AnyPublisher<AccountStatus, Never> {
          Publishers.CombineLatest($password, $repeatpwd)
             .debounce(for: delay, scheduler: RunLoop.main)
-            .map { $0 == $1 }
+            .map {
+                if $0.count == 0 || $1.count == 0 {
+                    return AccountStatus.repeatWarning
+                } else if $0 == $1 {
+                    return AccountStatus.valid
+                } else {
+                    return AccountStatus.repeatWrong
+                }
+            }
             .eraseToAnyPublisher()
     }
     
-    /// 判断用户名和密码是否都有效
+    /// 判断密码是否都有效
     /// ```
     /// 用于Login页面,username & password
     /// ```
-    private var isLoginAccountValid: AnyPublisher<AccountStatus, Never> {
+    private var isLoginPasswordValid: AnyPublisher<AccountStatus, Never> {
         
-        Publishers.CombineLatest3(
-            isUsernameValided,
+        Publishers.CombineLatest(
             isPasswordEmpty,
             isPasswordStrong)
             .map {
-                if !$0 { return AccountStatus.nameError }
-                if  $1 { return AccountStatus.passwordEmpty }
-                if !$2 { return AccountStatus.passwordLess }
+                if  $0 { return AccountStatus.passwordEmpty }
+                if !$1 { return AccountStatus.passwordLess }
                 return AccountStatus.valid
             }
             .eraseToAnyPublisher()
     }
     
-    /// 判断用户名和密码是否都有效
+    /// 判断密码是否都有效
     /// ```
     /// 用于Sign up页面,username & password & repeated password
     /// ```
-    private var isSignUpAccountValid: AnyPublisher<AccountStatus, Never> {
+    private var isSignUpPasswordValid: AnyPublisher<AccountStatus, Never> {
         
-        Publishers.CombineLatest4(
-            isUsernameValided,
+        Publishers.CombineLatest3(
             isPasswordEmpty,
             isPasswordStrong,
             isPasswordAndRepeatedSame)
             .map {
-                if !$0 { return AccountStatus.nameError }
-                if  $1 { return AccountStatus.passwordEmpty }
-                if !$2 { return AccountStatus.passwordLess }
-                if !$3 { return AccountStatus.repeatWrong }
-                return AccountStatus.valid
+                if  $0 { return AccountStatus.passwordEmpty }
+                if !$1 { return AccountStatus.passwordLess }
+                return $2
             }
             .eraseToAnyPublisher()
     }
     
-    /// 获得页面按钮是否有效标志
+    /// 订阅用户名错误信息
     /// ```
-    /// true  : 有效
-    /// false : 无效
+    /// AccountStatus.valid  : 无错误
+    /// 其他                  : 错误
     /// ```
-    private var isPageButtonValided: AnyPublisher<Bool, Never> {
-        $tip
+    private var isNameTipValided: AnyPublisher<Bool, Never> {
+        $name_err_tip
             .map { $0 == AccountStatus.valid.rawValue }
             .eraseToAnyPublisher()
     }
+    
+    /// 订阅密码错误信息
+    /// ```
+    /// AccountStatus.valid  : 无错误
+    /// 其他                  : 错误
+    /// ```
+    private var isPasswordTipValided: AnyPublisher<Bool, Never> {
+        $password_err_tip
+            .map { $0 == AccountStatus.valid.rawValue }
+            .eraseToAnyPublisher()
+    }
+    
+    /// 订阅两个错误描述字段
+    /// ```
+    /// password_err_tip and name_err_tip
+    /// both equal "" : true
+    /// else          : false
+    /// ```
+    private var isContinueValid: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest(
+            isNameTipValided,
+            isPasswordTipValided)
+            .map {
+                $0 && $1
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+// 数据请求
+extension AccountViewModel {
     
     /// 登录请求
     func Login(user: String, password: String) {

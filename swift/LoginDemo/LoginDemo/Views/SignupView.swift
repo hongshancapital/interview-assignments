@@ -12,24 +12,26 @@ struct SignupView: View {
     @StateObject var AccountVM = AccountViewModel(style: .Signup)
     @State var username: String = ""
     @State var password: String = ""
+    @State var showUserTip: Bool = false
     
     var body: some View {
-        
-        
-        VStack(alignment: .center, spacing: 20.0) {
-            
+        VStack(alignment: .leading, spacing: 20.0) {
+
             /// User Name
             CustomTextField(type: .text, placeholder: "Name", text: $AccountVM.name)
+            
             /// Password
             CustomTextField(type: .password, placeholder: "Password", text: $AccountVM.password)
+            
             /// Repeat Password
             CustomTextField(type: .password, placeholder: "Repeat Password", text: $AccountVM.repeatpwd)
-            
+
             /// Tips Row
-            TipsRow()
+            TipsRow
+            
             /// Login Row
             SubmitButtonPart(style: .Signup, user: username, password: password)
-            
+
             Spacer()
         }
         .environmentObject(AccountVM)
@@ -47,11 +49,10 @@ struct SignupView_Previews: PreviewProvider {
 }
 
 // Tips Row
-struct TipsRow: View {
-    @EnvironmentObject var AccountVM: AccountViewModel
-    var body: some View {
+extension SignupView {
+    var TipsRow: some View {
         HStack {
-            Text(AccountVM.tip)
+            Text(AccountVM.password_err_tip == "" ? AccountVM.name_err_tip : AccountVM.password_err_tip)
                 .font(.footnote)
                 .foregroundColor(.red)
             Spacer()
