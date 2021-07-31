@@ -1,0 +1,21 @@
+.carousel {
+  &-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  &-slices {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    transition: left .6s ease-in;
+    transform: translate3d(0, 0, 0);
+  }
+  &-indicators {
+    position: absolute;
+    bottom: 60px;
+  }
+}
