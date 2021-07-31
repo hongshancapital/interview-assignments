@@ -13,7 +13,7 @@ afterEach(() => {
 test("the timer should tick periodically", () => {
   const INTERVAL = 3000;
   const onTick = jest.fn();
-  const timer = new Timer({
+  new Timer({
     interval: INTERVAL,
     onTick,
   });
@@ -27,7 +27,7 @@ test("the timer should tick periodically", () => {
 test("the timer should not auto start", () => {
   const INTERVAL = 3000;
   const onTick = jest.fn();
-  const timer = new Timer({
+  new Timer({
     interval: INTERVAL,
     autoStart: false,
     onTick,

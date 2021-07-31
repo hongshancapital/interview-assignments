@@ -29,7 +29,7 @@ test("renders carousel with multiple slices", () => {
 
 test("the carousel should switch periodically and circularly", () => {
   const SWITCH_INTERVAL = 4000;
-  const {queryAllByText} = render(
+  render(
     <Carousel switchInterval={SWITCH_INTERVAL}>
       <div>slice1</div>
       <div>slice2</div>
@@ -37,25 +37,25 @@ test("the carousel should switch periodically and circularly", () => {
   );
   const sliceContainerElement = document.getElementsByClassName("carousel-slices")[0];
   expect(sliceContainerElement).toBeInTheDocument();
-  expect(sliceContainerElement.style.left).toBe("0%");
+  expect((sliceContainerElement as HTMLElement).style.left).toBe("0%");
   // the carousel should switch to the 2nd slice after 1 switch interval
   act(() => {
     jest.advanceTimersByTime(SWITCH_INTERVAL);
   });
-  expect(sliceContainerElement.style.left).toBe("-100%");
+  expect((sliceContainerElement as HTMLElement).style.left).toBe("-100%");
   const indicatorElements = document.getElementsByClassName("carousel-indicator");
   expect(indicatorElements[1].classList).toContain("carousel-indicator-actived");
   // the carousel should switch back to the 1st slice after 2 switch interval
   act(() => {
     jest.advanceTimersByTime(SWITCH_INTERVAL);
   });
-  expect(sliceContainerElement.style.left).toBe("0%");
+  expect((sliceContainerElement as HTMLElement).style.left).toBe("0%");
   expect(indicatorElements[0].classList).toContain("carousel-indicator-actived");
 });
 
 test("the carousel should pause and resume switching when mouse hovered and leaved", () => {
   const SWITCH_INTERVAL = 3000;
-  const {queryAllByText} = render(
+  render(
     <Carousel pauseOnHover={true} switchInterval={SWITCH_INTERVAL}>
       <div>slice1</div>
       <div>slice2</div>
@@ -70,7 +70,7 @@ test("the carousel should pause and resume switching when mouse hovered and leav
   act(() => {
     jest.advanceTimersByTime(SWITCH_INTERVAL);
   });
-  expect(sliceContainerElement.style.left).toBe("-100%");
+  expect((sliceContainerElement as HTMLElement).style.left).toBe("-100%");
   const indicatorElements = document.getElementsByClassName("carousel-indicator-actived");
   expect(indicatorElements.length).toBe(0);
   // should resume switching when mouse leaved from the slice
@@ -78,7 +78,7 @@ test("the carousel should pause and resume switching when mouse hovered and leav
   act(() => {
     jest.advanceTimersByTime(SWITCH_INTERVAL + 1000);
   });
-  expect(sliceContainerElement.style.left).toBe("0%");
+  expect((sliceContainerElement as HTMLElement).style.left).toBe("0%");
   expect(indicatorElements.length).toBe(1);
 });
 
@@ -132,7 +132,7 @@ test("renders carousel slices lazily", () => {
 
 test("renders carousel with custom class name", () => {
   const CLS_NAME = "test-cls";
-  const {getAllByText} = render(
+  render(
     <Carousel className={CLS_NAME}>
       <div>slice</div>
     </Carousel>

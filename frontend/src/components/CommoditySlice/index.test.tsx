@@ -36,7 +36,7 @@ test("renders commodity with multi-line desc", () => {
 });
 
 test("renders commodity without desc", () => {
-  const { getByText } = render(
+  render(
     <CommoditySlice title="testTitle" />
   );
   const descElements = document.getElementsByClassName("commodity-desc");
@@ -44,7 +44,7 @@ test("renders commodity without desc", () => {
 });
 
 test("renders commodity without pic", () => {
-  const { getByText } = render(
+  render(
     <CommoditySlice title="testTitle" />
   );
   const picElements = document.getElementsByClassName("commodity-pic");
