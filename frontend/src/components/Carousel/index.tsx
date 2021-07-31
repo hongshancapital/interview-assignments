@@ -21,11 +21,14 @@ function Carousel(props: CarouselProps): JSX.Element {
     children,
     switchInterval = DEFAULT_SWITCHING_INTERVAL,
     pauseOnHover = true,
-    lazyRenderEnabled = true,
     className: customClassName,
   } = props;
-  // validate options and normalize it
+  // validate props and normalize it
   switchInterval = Math.max(MIN_SWITCHING_INTERVAL, switchInterval) || DEFAULT_SWITCHING_INTERVAL;
+  const carouselProps = {
+    ...props,
+    switchInterval,
+  };
   const slices = children == null ? [] : Array.isArray(children) ? children : [children];
   const sliceCount = slices.length;
 
@@ -33,22 +36,15 @@ function Carousel(props: CarouselProps): JSX.Element {
   const {activeIndex, timerRef} = switchingState;
   // pause switching when mouse hover and resume switching when mouse leave
   const pauseState = useSwitchingPause(pauseOnHover, timerRef);
-  const {paused} = pauseState;
+  const carouselState = {
+    ...switchingState,
+    ...pauseState,
+  };
 
   return (
     <div className={classNames("carousel-container", customClassName)}>
-      {renderCarouselSlices(slices, lazyRenderEnabled, {...switchingState, ...pauseState}, activeIndex)}
-      <div className="carousel-indicators">
-        {slices.map((slice, indicatorIndex) => {
-          return (
-            <CarouselIndicator
-              actived={activeIndex === indicatorIndex && !paused}
-              switchInterval={switchInterval}
-              key={`CarouselIndicator${indicatorIndex}`}
-            />
-          );
-        })}
-      </div>
+      {renderCarouselSlices(slices, carouselProps, carouselState, activeIndex)}
+      {renderSliceIndicators(slices, carouselProps, carouselState, activeIndex)}
     </div>
   );
 }
@@ -56,12 +52,13 @@ function Carousel(props: CarouselProps): JSX.Element {
 /**
  * render the carousel slices
  * @param {JSX.Element[]} slices  the carousel slices to be rendered
- * @param {boolean} lazyRenderEnabled  whether lazy render slices
+ * @param {CarouselProps} carouselProps  the carousel props
  * @param {CarouselState} carouselState  the carousel state
  * @param {number} [activeIndex]  the index of the current carousel slice
  * @returns {JSX.Element}  the carousel slice elements
  */
-function renderCarouselSlices(slices: JSX.Element[], lazyRenderEnabled: boolean, {pause, resume}: CarouselState, activeIndex?: number): JSX.Element {
+function renderCarouselSlices(slices: JSX.Element[], carouselProps: CarouselProps, {pause, resume}: CarouselState, activeIndex?: number): JSX.Element {
+  let {lazyRenderEnabled = true} = carouselProps;
   // calculate the left position of the next slice
   const position = activeIndex == null ? 0 : activeIndex * -100;
   const sliceCount = slices.length;
@@ -83,6 +80,36 @@ function renderCarouselSlices(slices: JSX.Element[], lazyRenderEnabled: boolean,
           >
             {slice}
           </CarouselSlice>
+        );
+      })}
+    </div>
+  );
+}
+
+/**
+ * render the carousel slice indicators
+ * @param {JSX.Element[]} slices  the carousel slices to be rendered
+ * @param {CarouselProps} carouselProps  the carousel props
+ * @param {CarouselState} carouselState  the carousel state
+ * @param {number} [activeIndex]  the index of the current carousel slice
+ * @returns {JSX.Element}  the carousel slice indicator elements
+ */
+function renderSliceIndicators(slices: JSX.Element[], carouselProps: CarouselProps, {paused}: CarouselState, activeIndex?: number): JSX.Element {
+  const {switchInterval} = carouselProps;
+  return (
+    <div className="carousel-indicators">
+      {slices.map((slice, indicatorIndex) => {
+        if (!slice) {
+          return null;
+        }
+        let {props: sliceProps, type: elementType} = slice;
+        return (
+          <CarouselIndicator
+            actived={activeIndex === indicatorIndex && !paused}
+            switchInterval={switchInterval}
+            className={typeof elementType === "string" ? sliceProps["data-indicatorclass"] : sliceProps.indicatorClassName}
+            key={`CarouselIndicator${indicatorIndex}`}
+          />
         );
       })}
     </div>

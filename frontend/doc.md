@@ -29,14 +29,18 @@
 
 1. 轮播组件（components/Carousel）
 * 轮播内容（包括：结构、样式、帧数量）可随意定制，通过子组件传入。
-* 支持循环、定时切换下一帧，“定时切换时间”（switchInterval）可设置，默认 3 秒（最短 600 毫秒）。
-* 当鼠标位于轮播图上时，可设置停止切换，便于用户查看当前轮播内容 (pauseOnHover)，默认 false。
+* switchInterval：支持定时切换到下一帧，“定时切换时间” 可设置，默认 3 秒（最短 600 毫秒）。
+* pauseOnHover：当鼠标位于轮播图上时，可停止切换，便于用户查看当前轮播内容，默认 true。
+* lazyRenderEnabled：支持延迟渲染，初始时，仅渲染当前帧及相邻帧，其余帧不渲染，以提高渲染性能，默认 true。
+* className：自定义类名，用于覆盖默认轮播样式。
 
 2. 轮播指示器组件（components/CarouselIndicator）
 * 动画显示当前帧的切换进度。
+* 样式可定制。
 
 3. 轮播帧组件（components/CarouselSlice）
 * 轮播内容的包装。
+* 支持延迟渲染：初始时，仅渲染当前帧及相邻帧，其余帧不渲染，以提高渲染性能。
 
 4. 商品轮播内容组件（components/CommoditySlice）
 * 用于展示商品标题、描述、图片等信息。

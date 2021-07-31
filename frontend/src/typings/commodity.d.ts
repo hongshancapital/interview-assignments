@@ -8,4 +8,6 @@ interface CommoditySliceProps {
   pic?: string;
   // the class name of the slice (use to overwrite default styles)
   className?: string;
+  // the class name of the slice indicator (use to overwrite default styles)
+  indicatorClassName?: string;
 }
