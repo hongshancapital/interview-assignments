@@ -21,7 +21,7 @@ interface CarouselIndicatorProps extends CarouselProps {
 // the carousel slice props
 interface CarouselSliceProps {
   // whether lazy render the slice
-  lazy: boolean;
+  lazy?: boolean;
   // the carousel slice
   children: JSX.Element | JSX.Element[];
 }
