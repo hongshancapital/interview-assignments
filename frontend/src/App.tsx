@@ -11,10 +11,11 @@ function App() {
     <div className="App">
       <Carousel pauseOnHover={false} className="commodity-carousel">
         {COMMODITY_SLICE_DATA.map((sliceData, sliceIndex) => {
+          let {id} = sliceData;
           return (
             <CommoditySlice
               {...sliceData}
-              key={`CommoditySlice${sliceIndex}`}
+              key={`CommoditySlice${id}`}
             />
           );
         })}
@@ -25,6 +26,7 @@ function App() {
 
 // the commodity data
 const COMMODITY_SLICE_DATA = [{
+  id: "xPhone",
   title: "xPhone",
   desc: [
     "Lots to love. Less to spend.",
@@ -33,11 +35,13 @@ const COMMODITY_SLICE_DATA = [{
   pic: iphonePic,
   className: "commodity-xphone",
 }, {
+  id: "tablet",
   title: "Tablet",
   desc: "Just the right amount of everything.",
   pic: tabletPic,
   className: "commodity-tablet",
 }, {
+  id: "arPods",
   title: [
     "Buy a Tablet or xPhone for college.",
     "Get arPods.",

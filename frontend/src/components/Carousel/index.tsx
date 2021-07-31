@@ -17,17 +17,17 @@ import "./index.scss";
  * }
  */
 function Carousel(props: CarouselProps): JSX.Element {
-  let {
+  const {
     children,
     switchInterval = DEFAULT_SWITCHING_INTERVAL,
     pauseOnHover = true,
     className: customClassName,
   } = props;
   // validate props and normalize it
-  switchInterval = Math.max(MIN_SWITCHING_INTERVAL, switchInterval) || DEFAULT_SWITCHING_INTERVAL;
+  const validSwitchInterval = Math.max(MIN_SWITCHING_INTERVAL, switchInterval) || DEFAULT_SWITCHING_INTERVAL;
   const carouselProps = {
     ...props,
-    switchInterval,
+    switchInterval: validSwitchInterval,
   };
   const slices = children == null ? [] : Array.isArray(children) ? children : [children];
   const sliceCount = slices.length;
@@ -58,7 +58,7 @@ function Carousel(props: CarouselProps): JSX.Element {
  * @returns {JSX.Element}  the carousel slice elements
  */
 function renderCarouselSlices(slices: JSX.Element[], carouselProps: CarouselProps, {pause, resume}: CarouselState, activeIndex?: number): JSX.Element {
-  let {lazyRenderEnabled = true} = carouselProps;
+  const {lazyRenderEnabled = true} = carouselProps;
   // calculate the left position of the next slice
   const position = activeIndex == null ? 0 : activeIndex * -100;
   const sliceCount = slices.length;
@@ -73,10 +73,12 @@ function renderCarouselSlices(slices: JSX.Element[], carouselProps: CarouselProp
         if (!slice) {
           return null;
         }
+        const {props: sliceProps, type: elementType} = slice;
+        const sliceId = typeof elementType === "string" ? sliceProps["data-id"] : sliceProps.id;
         return (
           <CarouselSlice
             lazy={lazyRenderEnabled && !isAdjacentSlice(sliceIndex, sliceCount, activeIndex)}
-            key={`CarouselSlice${sliceIndex}`}
+            key={`CarouselSlice${sliceId == null ? sliceIndex : sliceId}`}
           >
             {slice}
           </CarouselSlice>
@@ -102,13 +104,14 @@ function renderSliceIndicators(slices: JSX.Element[], carouselProps: CarouselPro
         if (!slice) {
           return null;
         }
-        let {props: sliceProps, type: elementType} = slice;
+        const {props: sliceProps, type: elementType} = slice;
+        const sliceId = typeof elementType === "string" ? sliceProps["data-id"] : sliceProps.id;
         return (
           <CarouselIndicator
             actived={activeIndex === indicatorIndex && !paused}
             switchInterval={switchInterval}
             className={typeof elementType === "string" ? sliceProps["data-indicatorclass"] : sliceProps.indicatorClassName}
-            key={`CarouselIndicator${indicatorIndex}`}
+            key={`CarouselIndicator${sliceId == null ? indicatorIndex : sliceId}`}
           />
         );
       })}

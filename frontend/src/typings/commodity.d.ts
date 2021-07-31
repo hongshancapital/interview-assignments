@@ -1,5 +1,7 @@
 // the commodity slice props
 interface CommoditySliceProps {
+  // the commodity ID
+  id: string;
   // the title text (can be multi-line)
   title: string | string[];
   // the description text (can be multi-line)
