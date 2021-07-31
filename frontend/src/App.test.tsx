@@ -1,9 +1,13 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("renders commodity carousel", () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const phoneSliceElement = getByText("xPhone");
+  expect(phoneSliceElement).toBeInTheDocument();
+  const tabletSliceElement = getByText("Tablet");
+  expect(tabletSliceElement).toBeInTheDocument();
+  const podSliceElement = getByText("Get arPods.");
+  expect(podSliceElement).toBeInTheDocument();
 });
