@@ -36,7 +36,7 @@ public class AccessFilter implements Filter {
         //根据timestamp,保持一段时间内过期
         String timestamp=httpRequest.getHeader("timestamp");
         String token=httpRequest.getHeader("token");
-
+        //具体校验代码，非本项目核心，先省略
         //用于日志追踪
         String requestId = UUID.randomUUID().toString();
         MDC.put("REQUESTID", requestId);

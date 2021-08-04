@@ -6,6 +6,7 @@ import com.sequoia.shortdomain.common.ShortDomainCreate;
 import com.sequoia.shortdomain.service.IShortDomainService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,17 +24,14 @@ public class ShortDomainServiceImpl implements IShortDomainService {
             return Strings.EMPTY;
         }
 
-        String shortDomain=ShortDomainCache.getCache(longDomain);
-        if(StringUtils.isNotBlank(shortDomain)){
-            return shortDomain;
-        }
-        shortDomain= ShortDomainCreate.shortenCodeUrl(longDomain, ShortDomainConst.SHORT_DOMAIN_LENGTH);
+
+        String shortDomain= ShortDomainCreate.shortenCodeUrl(longDomain, ShortDomainConst.SHORT_DOMAIN_LENGTH);
         if(StringUtils.isBlank(shortDomain)){
             return Strings.EMPTY;
         }
 
-        ShortDomainCache.addCache(shortDomain,longDomain);
-        ShortDomainCache.addCache(longDomain,shortDomain);
+        ShortDomainCache.getShortDomainCache().addCache(shortDomain,longDomain);
+
 
         return shortDomain;
     }
@@ -44,7 +42,7 @@ public class ShortDomainServiceImpl implements IShortDomainService {
             return Strings.EMPTY;
         }
 
-        String longDomain=ShortDomainCache.getCache(shortDomain);
+        String longDomain=ShortDomainCache.getShortDomainCache().getCache(shortDomain);
         if(StringUtils.isNotBlank(shortDomain)){
             return longDomain;
         }else{

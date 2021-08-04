@@ -18,14 +18,9 @@ public class ShortDomainAPIServiceTest {
 
         Assert.isTrue(StringUtils.isNotBlank(shortDomain),"ok");
     }
+
     @Test
-    public void testGetShortDomainByLongDomainForCache(){
-        String shortDomain=  service.getShortDomainByLongDomain("https://github.com/softprog/interview-assignments/tree/master/java");
-        shortDomain=  service.getShortDomainByLongDomain("https://github.com/softprog/interview-assignments/tree/master/java");
-        Assert.isTrue(StringUtils.isNotBlank(shortDomain),"ok");
-    }
-    @Test
-    public void testGetLongDomainByLongDomain(){
+    public void testGetLongDomainByShortDomain(){
         String shortDomain=  service.getShortDomainByLongDomain("https://github.com/softprog/interview-assignments/tree/master/java");
 
         String longDomain=service.getLongDomainByShortDomain(shortDomain);
