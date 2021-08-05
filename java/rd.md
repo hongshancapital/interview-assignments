@@ -19,5 +19,9 @@
 ![](https://github.com/softprog/interview-assignments/blob/master/java/%E6%9E%B6%E6%9E%84.png)
 #### 代码实现测试情况
 ![](https://github.com/softprog/interview-assignments/blob/master/java/screenshot_20210803184642.png)
+#### 服务假设
++ 缓存可配置，可清理
++ 接口支持可扩展，方便替换进程内缓存为分布式缓存
++ 接口支持filter进行安全性校验
 
 
