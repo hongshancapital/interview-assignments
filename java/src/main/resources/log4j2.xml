@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off">
+	<Properties>
+		<!-- 日志存储路径 -->
+		<Property name="baseDir">./logs</Property>
+	</Properties>
+	<CustomLevels>
+		<CustomLevel name="AUDIT" intLevel="50" />
+	</CustomLevels>
+	
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout charset="UTF-8" pattern="[%-5p] [%d{HH:mm:ss}]%c [%L] - %m%n" />
+		</Console>
+		
+		<!-- 自定义 -->
+		<RollingFile name="RollingFileAUDIT" 
+				fileName="${baseDir}/logservice-web/audit-log/audit-log.log" filePattern="${baseDir}/logservice-web/audit-log/audit-log-%i.log">
+			<ThresholdFilter level="AUDIT" onMatch="ACCEPT" onMismatch="DENY" />
+			<PatternLayout pattern="[%d{yyyy/MM/dd HH:mm:ssS}][%p][LOGSERVICE][日志系统][%L]%m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<!-- 保存最大文件个数 -->
+			<DefaultRolloverStrategy max="50" />
+		</RollingFile>
+		
+		<!--Trace级别日志输出-->
+		<RollingFile name="system-trace"
+				fileName="${baseDir}/logservice-web/trace.log" filePattern="${baseDir}/logservice-web/trace-%i.log">
+			<Filters>
+                <ThresholdFilter level="debug" onMatch="DENY" onMismatch="NEUTRAL"/>  
+                <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+			<PatternLayout charset="UTF-8" pattern="[%d{yyyy/MM/dd HH:mm:ssSSS}][%p][LOGSERVICE][日志系统][%l]%n%m%n" />
+			<Policies>
+				<!-- 日志文件大小 -->
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<!-- 保存最大文件个数 -->
+			<DefaultRolloverStrategy max="50" />
+		</RollingFile>
+		<!--Info级别日志输出-->
+		<RollingFile name="system-info"
+				fileName="${baseDir}/logservice-web/info.log" 
+				filePattern="${baseDir}/logservice-web/info-%i.log">
+			<Filters>
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>  
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+			<PatternLayout charset="UTF-8" pattern="[%d{yyyy/MM/dd HH:mm:ssSSS}][%p][LOGSERVICE][日志系统][%l]%n%m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="50" />
+		</RollingFile>
+		<!--Debug级别日志输出-->
+		<RollingFile name="system-debug"
+				fileName="${baseDir}/logservice-web/debug.log" filePattern="${baseDir}/logservice-web/debug-%i.log">
+			<Filters>
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>  
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+			<PatternLayout charset="UTF-8" pattern="[%d{yyyy/MM/dd HH:mm:ssSSS}][%p][LOGSERVICE][日志系统][%l]%n%m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="50" />
+		</RollingFile>
+		<!--Error级别日志输出-->
+		<RollingFile name="system-error"
+				fileName="${baseDir}/logservice-web/error.log" filePattern="${baseDir}/logservice-web/error-%i.log">
+			<Filters>
+				<ThresholdFilter level="AUDIT" onMatch="DENY" onMismatch="NEUTRAL" />
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+			<PatternLayout charset="UTF-8" pattern="[%d{yyyy/MM/dd HH:mm:ssSSS}][%p][LOGSERVICE][日志系统][%l]%n%m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="50" />
+		</RollingFile>
+	</Appenders>
+<Loggers>
+		<logger name="io.netty" level="INFO"></logger>
+		<logger name="org.springframework" level="INFO"></logger>
+		<logger name="org.elasticsearch" level="INFO"></logger>
+		<root level="INFO">
+			<appender-ref ref="console" />
+			<appender-ref ref="system-info" />
+			<appender-ref ref="system-trace" />
+			<appender-ref ref="system-debug" />
+			<appender-ref ref="system-error" />
+			<appender-ref ref="RollingFileAUDIT" />
+		</root>
+	</Loggers>
+</configuration>
