@@ -18,5 +18,6 @@
 #### 服务架构
 ![](https://github.com/softprog/interview-assignments/blob/master/java/%E6%9E%B6%E6%9E%84.png)
 #### 代码实现测试情况
+![](https://github.com/softprog/interview-assignments/blob/master/java/screenshot_20210803184642.png)
 
 
