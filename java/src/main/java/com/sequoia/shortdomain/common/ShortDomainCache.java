@@ -20,6 +20,7 @@ public class ShortDomainCache {
      */
     private static final List<String> lruList = new LinkedList<>();
     private final static Object syncLock = new Object();
+    private final static Object cacheLock = new Object();
     public static ShortDomainCache shortDomainCache;
     LinkedHashMap map=new LinkedHashMap();
     private ShortDomainCache(){
@@ -58,25 +59,56 @@ public class ShortDomainCache {
         Objects.isNull(shortDomainCache);
         return shortDomainCache;
     }
+
+    /**
+     * 增加缓存
+     * @param key
+     * @param value
+     */
     public  void addCache(String key ,String value){
-        if(chm.size()==this.shortDomainCacheMax){
-           this.clearCache();
+        //此处应该加锁，防止高并发的情况下，缓存的容量限制无效
+        synchronized(syncLock){
+            if(chm.size()==this.shortDomainCacheMax){
+                this.clearCacheFirst();
+            }
         }
+
         chm.put(key.intern(), value);
-        lruList.add(key);
+        if(!lruList.contains(key.intern())){
+            lruList.add(key);
+        }
+
     }
 
+    /**
+     * 根据key获取缓存数据
+     * @param key
+     * @return
+     */
     public  String getCache(String key){
         if(lruList.contains(key.intern())){
             lruList.remove(key.intern());
-            lruList.add(key);
+            lruList.add(key.intern());
         }
-        return chm.get(key);
+        return chm.get(key.intern());
     }
 
+    /**
+     * 用于定时清理缓存，链表最上头的为最近很少使用的
+     */
     public  void clearCache(){
+        if(chm.size()<=0){
+            return;
+        }
         for(int i=0;i<this.shortDomainCacheClearNum;i++){
             chm.remove(lruList.get(i));
         }
+    }
+
+    /**
+     * 当添加缓存数据时，如果满了，则调用此方法，清理缓存，只清理一个最近很少使用的
+     */
+    public  void clearCacheFirst(){
+        chm.remove(lruList.get(0));
     }
 }
