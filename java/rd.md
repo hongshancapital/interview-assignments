@@ -11,6 +11,6 @@
 + 采用jacoco进行覆盖率测试
 + 依赖包管理利用maven来进行处理
 #### 服务架构
-
+![](https://github.com/softprog/interview-assignments/blob/master/java/%E6%9E%B6%E6%9E%84.png)
 
 
