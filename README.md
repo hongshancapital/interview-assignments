@@ -12,7 +12,7 @@
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
 - [QA](qa/)
-<!-- - [DevOps](dev-ops/)  -->
+- [DevOps](dev-ops/)  
 - [UI 设计师](design/)
 
 上海/深圳/香港/北京：
