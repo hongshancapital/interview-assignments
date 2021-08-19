@@ -1,0 +1,173 @@
+<html class="login-268" <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>注册</title>
+    <style type="text/css">
+        /*=============commonalityStyle=============*/
+        body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,img,div{margin:0;padding:0;border:0;}
+        body{font:12px/20px 'Hiragino Sans GB','Helvetica Neue',\5FAE\8F6F\96C5\9ED1,"SimHei",Tohoma,'sans-serif';}
+        html,body {height: 100%;width: 100%;}
+        /*.lt-ie9.lt-ie8 body,.lt-ie9 body {background:#209DA6 url(/static/common/admin/images/loginBg.jpg) no-repeat center top;}*/
+        ul,ol,li{list-style:none}
+        a{text-decoration:none;}
+        a,img{border:0 none;}
+        input,button{vertical-align:middle;outline:none;}
+        .ml10 {margin-left: 10px;}
+        .wrap {width: 100%;position: relative;height: 100%;}
+        .loginWrap {height: 540px;width: 400px;position: absolute;top: 95%;left: 50%;margin: -315px 0 0 -200px;z-index: 9;}
+        .loginIner {background: rgba(46,64,80,0.6);border-radius: 8px;overflow: hidden;position: relative;width: 400px;height: 100%;}
+        .lt-ie9.lt-ie8 .loginIner,.lt-ie9 .loginIner {background: #172736;}
+        .loginLogo h1 {height: 45px;text-align: center;padding-top: 60px;font-size: 32px;font-weight: normal;color: #CFCFCF;}
+        /*.loginLogo h1 a {background: url(http://static.miaocaiwang.com/upload/eduplat/websiteLogo/20170526/1495766718000143158.png) no-repeat 50% 50%;display: block;height: 100%;text-indent: -99999px;width: 100%;}*/
+        .loginMain {position: relative;}
+        .loginFoot {height: 65px;text-align: center;}
+        .lfTxt {color: #666;font-size: 16px;line-height: 65px;}
+        .loginMain ul {display: block;padding: 50px 20px 0;}
+        .loginMain ul li {background: rgba(61,64,63,0.5);height: 60px;margin-bottom: 20px;}
+        .lt-ie9.lt-ie8 .loginMain ul li,.lt-ie9 .loginMain ul li {background: #2E3439;}
+        .loginMain ul li label {display: block;overflow: hidden;clear: both;}
+        .loginMain ul li label>small,.loginMain ul li span {display: inline-block;vertical-align: middle;}
+        .loginMain ul li label>small {color: #CFCFCF;width: 65px;text-align: right;padding: 0 14px 0 8px;font-size: 18px;}
+        .loginMain ul li span input {background-color: transparent;border: none;color: #CFCFCF;font-size: 18px;width: 270px;height: 60px;line-height: 60px;font-family: 'Hiragino Sans GB','Helvetica Neue',\5FAE\8F6F\96C5\9ED1,"SimHei",Tohoma,'sans-serif';}
+        .loginMain ul li span input:-webkit-autofill {background-color: rgb(44,51,55);background-image: none;color: #CFCFCF;-webkit-text-fill-color: #CFCFCF !important;-webkit-transition: background-color 5000s ease-in-out 0s;}
+        .loginMain ul li span.vCode input {width: 150px;}
+        .loginMain ul li span input,.loginBtn {font-family: 'Hiragino Sans GB','Helvetica Neue',\5FAE\8F6F\96C5\9ED1,"SimHei",Tohoma,'sans-serif';}
+        .loginMain center {padding-top: 10px;}
+        .loginBtn {background: #126D5E;border: none;color: #CFCFCF;cursor: default;display: block;height: 60px;font-size: 22px;line-height: 60px;width: 358px;}
+        .loginBtn:active {background: #19AA8D;}
+        .tipsWrap {background: url(/static/common/admin/images/icon1.png) no-repeat 10px center;border: 1px solid #D17225;text-align: center;height: 30px;line-height: 30px;width: 88%;position: absolute;top: 10px;left: 50%;margin-left: -44%;}
+        .tipsTxt {color: #D17225;}
+        /*.lt-ie9.lt-ie8 .videoBx,.lt-ie9 .videoBx {display: none;}*/
+        .videoBx {width: 100%;height: 100%;position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: -1;}
+        #bgvid {height: auto;min-height: 100%;min-width: 100%;width: auto;}
+        .v-b-shadow {background: url(/image/v-b-shadow.jpg) no-repeat 0 bottom;background-size: cover;bottom: 0;height: 100%;left: 0;position: absolute;top: 0;width: 100%;z-index: 0;}
+    </style>
+    <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/layui.css"/>
+    <script type="text/javascript" src="/js/layer/layer.js"></script>
+    <script src="/js/layer/layui.js"></script>
+</head>
+<body id="login-bg">
+<div class="wrap" id="wrap" style="height: 435px;">
+    <div id="loginWrap" class="loginWrap">
+        <div class="loginIner">
+            <div class="loginLogo">
+                <h1 title="">注册</h1>
+            </div>
+            <div class="loginMain">
+                <form action="http://sxy.miaocaiwang.com/admin/sys/login" name="loginForm" id="loginForm" method="post">
+                    <input type="hidden" name="codeName" id="codeName" value="codeName_1599653621533">
+                    <ul>
+                        <li><label><small>用户名</small><span><input type="text" value="" id="username" name="username"></span></label></li>
+                        <li><label><small>密&nbsp;&nbsp;码</small><span><input  id="passwd" type="password" name="passwd"></span></label></li>
+
+                    </ul>
+                    <center>
+                        <label class="subWrap"><input type="button" name="" value="登 录" class="loginBtn" onclick="tologin()"></label>
+                    </center>
+                </form>
+
+                <div class="tipsWrap" id="errorDiv" style="display: none;">
+                    <span class="tipsTxt" id="errorTipsTxt"></span>
+                </div>
+            </div>
+            <div class="loginFoot">
+                <span class="lfTxt">管理注册</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="errorMsg" style="display: none"></div>
+<div class="videoBx">
+    <div class="v-b-shadow"></div>
+</div>
+<!-- End: login-holder -->
+<!--  jquery core -->
+
+<script type="text/javascript" charset="utf-8">
+    var successurl = "/";
+    //回车事件
+    document.onkeydown = function (event) {
+        var e = event || window.event;
+        if (e && e.keyCode == 13) { //回车键的键值为13
+            tologin();
+        }
+    };
+    function tologin() {
+        var username = $('#username');
+        var passwd = $('#passwd');
+        // var yzmcode = $('#yzmcode');
+        var loginform = $('#loginform');
+
+        if(username.val() == '' || username.val() == '请输入用户名/邮箱/手机号') {
+
+            layer.tips('请输入用户名/邮箱/手机号', username, {
+                tips: [1, '#FF0000'],
+                time: 5000
+            });
+            return false;
+        }
+
+        if(passwd.val() == '' || passwd.val() == '请输入密码') {
+            layer.tips('请输入密码', passwd, {
+                tips: [1, '#FF0000'],
+                time: 5000
+            });
+            return false;
+        }
+
+        // if(passwd.val().length<6) {
+        //     layer.tips('密码长度在大于6个字符', passwd, {
+        //         tips: [1, '#FF0000'],
+        //         time: 5000
+        //     });
+        //     return false;
+        // }
+
+        // if(yzmcode.val() == '' || yzmcode.val() == '请输入验证码') {
+        //     layer.tips('请输入验证码', yzmcode, {
+        //         tips: [1, '#FF0000'],
+        //         time: 5000
+        //     });
+        //     return false;
+        // }
+        //alert('111');
+        //登录
+        $.ajax( {
+            url:"/api/register",
+            data:{
+                username:username.val(),
+                passwd:passwd.val(),
+                // yzmcode:yzmcode.val()
+            },
+            type:'post',
+            cache:false,
+            async:false,
+            success:function(data) {
+                var data = JSON.parse(data)
+                // console.log(data);
+                // console.log(data.msg);
+                if(data.code == '200') {
+                    layer.msg(data.msg);
+                    username.val('');
+                    passwd.val('');
+                    // window.location.href = successurl;
+                }else{
+                    $("#yzmcode").val('')
+                    refreshVerify();
+                        layer.msg(data.msg);
+                        return false;
+                }
+            }
+        });
+
+    }
+
+    function refreshVerify() {
+        var ts = Date.parse(new Date())/1000;
+        $('#verify_img').attr("src", "/captcha?id="+ts);
+    }
+</script>
+
+
+</body></html>
