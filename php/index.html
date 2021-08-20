@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+Username：<input type="text" name="username" id="username"><br/>
+Password：<input type="password" name="password" id="password"><br/>
+Repeat Password：<input type="password" name="repeat_password" id="repeat-password"><br/>
+<input type="submit" onclick="submit()">
+</body>
+<script>
+    function submit() {
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let repeat_password = document.getElementById("repeat-password").value;
+
+        // 简单判断
+        if (isEmpty(username)) {
+            alert("Username不能为空")
+            return false;
+        }
+        if (isEmpty(password)) {
+            alert("Password不能为空")
+            return false;
+        }
+        if (isEmpty(repeat_password)) {
+            alert("Repeat Password不能为空")
+            return false;
+        }
+        if (password != repeat_password) {
+            alert("两次密码输入不一样")
+            return false;
+        }
+        if (password.length < 6) {
+            alert("Password长度在 6 位以上")
+            return false;
+        }
+
+        let postStr = "username=" + username + "&password=" + password + "&repeat_password=" + repeat_password;
+        let ajax = new XMLHttpRequest();
+        ajax.open("post", "http://localhost/register.php");
+        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        ajax.send(postStr);
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                alert(ajax.responseText);
+            }
+        }
+    }
+
+    function isEmpty(str) {
+        if (typeof str == "undefined" || str == null || str == "") {
+            return true;
+        }
+
+        return false;
+    }
+</script>
+</html>
