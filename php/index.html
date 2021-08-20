@@ -39,7 +39,7 @@ Repeat Password：<input type="password" name="repeat_password" id="repeat-passw
 
         let postStr = "username=" + username + "&password=" + password + "&repeat_password=" + repeat_password;
         let ajax = new XMLHttpRequest();
-        ajax.open("post", "http://localhost/register.php");
+        ajax.open("post", "http://localhost:3000/api/register.php");
         ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         ajax.send(postStr);
         ajax.onreadystatechange = function () {
