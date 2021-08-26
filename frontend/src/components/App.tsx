@@ -22,10 +22,12 @@ function App() {
     <div
       className="App"
       onClick={goToNextPage}
+      data-testid="app"
     >
       <div
         className="carousel"
         style={carouselStyle}
+        data-testid={`current-page-index-${currentIndex}`}
       >
         {list.map(({
           title, text, iconType, backgroundColor, fontColor,
