@@ -23,12 +23,15 @@ Jacoco单元测试覆盖率截图(行覆盖率和分支覆盖率85%+)
 长短域名实现架构示意图
      在大并发量的查询情形下，可以参考下图分层构建，client端，硬件负载均衡，软负载均衡，网关，长短域名应用服务，缓存存储层，日志监控管理分析等。
    在nginx和网关这一层，可以实现安全，权限，路由转发，限流，降级等功能。  
+![1629945190](https://user-images.githubusercontent.com/36940753/130890833-83668287-6387-4bb4-8a11-ad67bc35a36b.png)
 
-![3bb5fd9fa90bd2396d19b65c1852a58c150d5b1e](3bb5fd9fa90bd2396d19b65c1852a58c150d5b1e.png)
+
 选型ConcurrentHashMap分析 
 （1）数组与链表的珠联璧合：结合了数组的查找效率为O(1) 与链表的插入和删除效率为O(1)的特性，互相取长补短，达到高效；
 （2）红黑树：为了解决冲突元素过多>8 单链表的0(N)查询问题，引入了红黑树提高查询效率到O(logN)；尤其在本设计中，通过发号器来生成KEY,该key和对应的value存储到ConcurrentHashMap 中，不会存在冲突元素过多>8的问题。经过验证测试，将1024000个具备唯一性的KEY值和对应的value存储到一个空的ConcurrentHashMap中，测试结果如下：
-![d028a035ffab2dfbf034d23a4b53c538fff6422d](d028a035ffab2dfbf034d23a4b53c538fff6422d.png)
+![1629945224(1)](https://user-images.githubusercontent.com/36940753/130890883-df07b175-4228-4a05-b539-a51d429fb5ab.png)
+
+
 将1百万条URL记录插入ConcurrentHashMap,该MAP的记录数和要插入的记录数是一致的，此情形下，记录的查询效率为O(1).
 （3）空间换时间：经常当应用缓存使用，其实是避免硬盘io，使用内存空间换时间得到了O(1)的时间查询；
 （4）粒度锁：使用数组Table[]分段锁来减小锁的粒度，提高程序的并发度；
@@ -53,16 +56,19 @@ url0=https://blog.csdn.net/justloveyou_/article/details/72783008
 
 
 短域名存储接口实现流程
-![1a7693e40858b14f8515386682afc670e8b92cbf](1a7693e40858b14f8515386682afc670e8b92cbf.png)
 
+![1629945276(1)](https://user-images.githubusercontent.com/36940753/130890956-cbf6a50e-358a-4067-9533-fc6a64d445a5.png)
 
 短域名读取接口实现流程
 
-![93759e3959097092b1505904fb99e7199ff57d09](93759e3959097092b1505904fb99e7199ff57d09.png)
+![1629945307(1)](https://user-images.githubusercontent.com/36940753/130890995-e8266669-e2b4-4ed9-b931-0df99b021069.png)
+
 
 性能测试情况
 1 Jmeter测试情况
-![356153029611ad11dfb69f8e2f5aaf4fd1aa1175](356153029611ad11dfb69f8e2f5aaf4fd1aa1175.png)
+
+![1629945341(1)](https://user-images.githubusercontent.com/36940753/130891038-3e72e929-d611-493b-9882-5700fe57799a.png)
+
 测试环境,为个人工作用笔记本电脑
 (1)操作系统：64位，WIN 10家庭版
 (2)CPU： Intel(R) Celeron(R) CPU J3455 @ 1.50GHz   1.50 GHz
@@ -71,7 +77,9 @@ url0=https://blog.csdn.net/justloveyou_/article/details/72783008
 从文件中读取10万个不同的长域名，长域名转换短域名接口服务为单线程，jmeter client端并发20线程进行请求，服务响应平均时间是9豪秒，最小时间是1毫米，最大时间是491毫秒，吞吐量为2005笔/秒。
 
 2  JVM监视情况
-![d3af4139c3c3685417606e16cc6e8c4b32d8cc0e](d3af4139c3c3685417606e16cc6e8c4b32d8cc0e.png)
+
+![1629945379(1)](https://user-images.githubusercontent.com/36940753/130891087-de1369a7-2d98-4a32-8c0e-23a364cf8e91.png)
+
 
 
 
