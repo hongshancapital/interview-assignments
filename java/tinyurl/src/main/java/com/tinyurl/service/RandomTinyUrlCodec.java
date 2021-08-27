@@ -36,11 +36,21 @@ public class RandomTinyUrlCodec {
                 if (tinyUrlMap.containsKey(shortedUrl)) {
                     continue;
                 }
-                tinyUrlMap.put(shortedUrl, longUrl);
-                reverseTinyUrlMap.put(longUrl, shortedUrl);
+                tinyUrlMap.putIfAbsent(shortedUrl, longUrl);
+                reverseTinyUrlMap.putIfAbsent(longUrl, shortedUrl);
                 return PREFIX + shortedUrl;
             }
         }
+
+//        while (true) {
+//            String shortedUrl = getRandomString(DIGITS);
+//            if (tinyUrlMap.containsKey(shortedUrl)) {
+//                continue;
+//            }
+//            tinyUrlMap.putIfAbsent(shortedUrl, longUrl);
+//            reverseTinyUrlMap.putIfAbsent(longUrl, shortedUrl);
+//            return PREFIX + shortedUrl;
+//        }
     }
 
     public String decode(String shortUrl) {
@@ -49,4 +59,6 @@ public class RandomTinyUrlCodec {
         }
         return tinyUrlMap.get(shortUrl.substring(PREFIX.length()));
     }
+
+
 }
