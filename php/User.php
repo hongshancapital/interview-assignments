@@ -26,11 +26,10 @@ class User extends Model
         $result = [];
 
         $time = date('Y-m-d H:i:s');
-        $params['status'] = self::STATUS_OK;
         $indata = [
             'user_name' => $params['user_name'],
             'password' => $this->createPassword($params['password']),
-            'status' => $params['password'],
+            'status' => self::STATUS_OK,
             'create_time' => $time,
             'update_time' => $time,
         ];

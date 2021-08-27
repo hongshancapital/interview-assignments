@@ -36,11 +36,11 @@ class ApiController extends AppController
 
         $comment = new User();
         if ($comment->check_user_name($data['user_name'])) {
-            $this->response(1, ['msg' => '该用户已注册...', 'data' => []]);
+            $this->response(1, ['msg' => '该用户已注册...']);
         }
         $rest = $comment->add($data);
         if (empty($rest)) {
-            $this->response(1, ['msg' => '用户注册失败...', 'data' => []]);
+            $this->response(1, ['msg' => '用户注册失败...']);
         }
 
         $this->response(0, ['msg' => '注册成功', 'data' => $rest]);
@@ -63,9 +63,11 @@ class ApiController extends AppController
         if (strlen($data['password']) <= 6) {
             $this->response(1, ['msg' => '密码长度在6位数以上']);
         }
-        if (preg_match("/\d{3}/", $data['password'], $matches) > 0) {
+
+        if (preg_match('/(0123|1234|2345|3456|4567|5678|6789|012|123|234|345|456|567|678|789)/', $data['password'], $matches) > 0) {
             $this->response(1, ['msg' => '密码不能含有3位以上的连续数字']);
         }
+
         if (!preg_match('/^(.*[A-Za-z].*\d.*|.*\d.*[A-Za-z].*|.*[A-Z].*[a-z].*|.*[a-z].*[A-Z].*)$/', $data['password'])) {
             $this->response(1, ['msg' => '必须有大写字母，小写字母或数字中的两项']);
         }
