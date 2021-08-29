@@ -1,0 +1,15 @@
+server:
+  port: 8001
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    username:
+    password:
+    jedis:
+      pool:
+        max-idle: 500
+        min-idle: 50
+        max-active: 2000
+        max-wait: 10000000
+      testOnBorrow: true
