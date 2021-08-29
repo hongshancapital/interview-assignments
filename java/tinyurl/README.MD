@@ -7,11 +7,11 @@
   一个map存储7000万数据预计耗费4G内存左右，2个map存储7000万数据，预计耗费8G内存左右。生产环境建议加缓存和数据库存储方式。
 
 #### 项目流程图
-![流程图](./image/flow.png)
+![流程图](image/flow.png?raw=true)
 
 
 #### Jacoco测试报告
-![测试报告](./image/jacoco.png)
+![测试报告](image/jacoco.png?raw=true)
 
 
 #### Benchmark
