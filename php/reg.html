@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<form action="/api/register" method="post" id="formdata">
+    <div style="clear:both; line-height: 30px;height: 30px">
+        <div style="width: 200px;float: left">用户名：</div>
+        <div style="float: left;"><input type="username" name="username" id="username" placeholder="请输入用户名" /></div>
+    </div>
+    <div style="clear:both; line-height: 30px;height: 30px">
+        <div style="width: 200px;float: left">密码：</div>
+        <div style="float: left;">
+            <input type="text" name="pwd" id="pwd" placeholder="请输入密码" />
+        </div>
+    </div>
+    <div style="clear:both; line-height: 30px;height: 30px">
+        <div style="width: 200px;float: left">重复密码：</div>
+        <div style="float: left;"><input type="password" name="repwd" id="repwd" placeholder="请再次输入密码" /></div>
+    </div>
+    <div style="clear:both; ">
+        <div>
+            <input type="button" value="注册" id="reg" />
+        </div>
+    </div>
+</form>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script type="application/javascript">
+    function checkCompx(pwd){
+        let cnt = 0;
+        var pwdRegex = /[0-9]/;
+        if(pwdRegex.test(pwd)){
+            cnt ++;
+        }
+        pwdRegex = /[a-z]/;
+        if(pwdRegex.test(pwd)){
+            cnt ++;
+        }
+        pwdRegex = /[A-Z]/;
+        if(pwdRegex.test(pwd)){
+            cnt ++;
+        }
+        if(cnt > 1){
+            return true;
+        }
+        return false;
+    }
+
+    $(function(){
+        $("#reg").click(function(){
+            var username = $("#username").val();
+            if(username == ""){
+                return alert("用户名不能为空");
+            }
+            var reg= /^([a-zA-Z_])([a-zA-Z_0-9])+$/;
+            if(!reg.test(username)){
+                return alert("用户名只能以英文字母或下划线开头，且只能包含英文字母，下划线或数字");
+            }
+            var pwd = $("#pwd").val();
+            if(pwd == ""){
+                return alert("密码不能为空");
+            }
+            if(pwd.length < 6){
+                return alert("密码长度至少为6位");
+            }
+            var pwdRegex = /[0-9]{3}/;
+            if (pwdRegex.test(pwd)) {
+                return alert("您的密码不能含有3位或以上的连续数字");
+            }
+            if(!checkCompx(pwd)){
+                return alert("密码中必须有大写字母，小写字母或数字中的两项");
+            }
+            var repwd = $("#repwd").val();
+            if(repwd != pwd){
+                return alert("两次密码不一致，请确认");
+            }
+            $.post("localhost:3000/api/register", {
+                username: username,
+                pwd: pwd,
+                repwd: repwd,
+            }, function(data){
+                if(data.succ == 1){
+                    window.location ="/reg_succ.html";
+                }else {
+                    alert(data.msg)
+                }
+            }, 'json');
+        })
+    })
+</script>
+</body>
+</html>
