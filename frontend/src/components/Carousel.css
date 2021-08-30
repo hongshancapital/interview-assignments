@@ -1,0 +1,111 @@
+@keyframes slide-in {
+    0% {
+        transform: translateX(100%);
+    }
+    100% { transform: translateX(0)}
+}
+
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% {
+        transform: translateX(-100%);
+    }
+
+}
+
+@keyframes progress-bar {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 40px;
+    }
+}
+.__interview__item-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.__interview__carousel-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 1s ease-in;
+
+}
+.__interview__carousel-item.active {
+    animation: slide-in .8s linear;
+    visibility: visible;
+    opacity: 1;
+}
+.__interview__carousel-item.inactive {
+    animation: slide-out .8s linear;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.__interview__indicator-wrapper {
+    display: flex;
+    width: 100%;
+    position: absolute;
+}
+
+.__interview__indicator-wrapper.bottom {
+    bottom: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.__interview__indicator-wrapper.top {
+    top: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.__interview__indicator-item {
+    background-color: gray;
+    width: 40px;
+    height: 2px;
+    z-index: 1;
+    display: block;
+    margin-right: 10px;
+    border-radius: 2px;
+    position: relative;
+}
+
+.__interview__indicator-item::after {
+    transition: all 3s ease-in;
+    animation: progress-bar var(--delay, 3s) linear;
+}
+
+.__interview__indicator-item.inactive::after {
+    width: 0;
+}
+
+.__interview__indicator-item.inactive::before {
+    position: absolute;
+    left: 0;
+    content: '';
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+
+.__interview__indicator-item.active::after {
+    z-index: 2;
+    content: '';
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background-color: azure;
+    position: absolute;
+    left: 0;
+}
