@@ -1,0 +1,75 @@
+.carousel {
+  position: relative;
+  overflow: auto;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* firefox去除滚动条 */
+  scrollbar-width: none;
+}
+.carousel::-webkit-scrollbar {
+  /* webkit去除滚动条 */
+  display: none;
+}
+
+.carousel-item {
+  width: 100vw;
+  height: 100%;
+  min-height: 200px;
+  display: inline-block;
+  vertical-align: top;
+  /* 移动端滚动吸附 */
+  scroll-snap-align: start;
+}
+
+.carousel-item[data-theme="black"] {
+  color: #fff;
+  background: #000;
+}
+
+.carousel-bar {
+  position: sticky;
+  bottom: 1em;
+  left: 0px;
+  pointer-events: none;
+}
+.carousel-bar-item {
+  display: inline-block;
+  width: 3em;
+  height: 0.5em;
+
+  margin: 0.3em;
+  /* 灰色透明，同时兼容黑白主题，无需定义额外样式 */
+  background-color: rgba(189, 189, 189, 0.5);
+  pointer-events: initial;
+  opacity: 0.6;
+  overflow: hidden;
+}
+
+.carousel-bar-item:hover {
+  opacity: 1;
+}
+
+.carousel-bar-item::before {
+  width: 0px;
+  content: "";
+  height: 100%;
+  display: block;
+  background: red;
+}
+
+.carousel-bar-item[data-active="true"]::before {
+  animation: timing 2s backwards;
+}
+.carousel-bar:hover .carousel-bar-item::before {
+  animation-play-state: paused;
+}
+
+@keyframes timing {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
