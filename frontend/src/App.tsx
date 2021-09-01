@@ -26,7 +26,7 @@ const data = [
 function App() {
   return (
     <div className="App">
-      <Carousel data={data} style={{ height: "100vh" }} />
+      <Carousel data={data} />
     </div>
   );
 }
