@@ -28,7 +28,12 @@
 }
 
 .carousel-bar {
+  
+  /* sticky 会占用空间，定义高度再抵消占用 */
   position: sticky;
+  height: 2em;
+  margin-top: -2em;
+  
   bottom: 1em;
   left: 0px;
   pointer-events: none;
