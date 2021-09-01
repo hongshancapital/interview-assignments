@@ -9,7 +9,7 @@ import "./style.css";
 
 export interface Props {
   active?: boolean;
-  onFinish?(): any;
+  onFinish?(): void;
   attr?: HTMLAttributes<HTMLSpanElement>;
 }
 
