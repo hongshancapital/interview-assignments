@@ -3,12 +3,75 @@
   position: relative;
 }
 
-.title {
-  font-size: 56px;
-  font-weight: 600;
+
+/*slides*/
+.color {
+	mix-blend-mode: difference;
+  	color: #fff;
 }
 
-.text {
-  font-size: 28px;
-  font-weight: 400;
+.slides {
+	width: 500px;
+	height: 300px;
+	overflow: hidden;
+	margin: auto;
+	position: relative;
+}
+
+.slides-item {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	transition: transform 1s;
+}
+
+.slide {
+	position: relative;
+	width: 100%;
+	background-color: #000;
+}
+
+.slide-img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	object-fit: cover;
+}
+
+.slide-title {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.slide-text {
+	padding: 0;
+	margin: 0;
+	font-size: 18px;
+}
+
+.slides-nav {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.nav-bar {
+	width: 30px;
+	height: 3px;
+	background-color: rgba(0,0,0, 0.5);
+	margin-right: 5px;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.nav-process {
+	background-color: #fff;
+	background-blend-mode: difference;
+	width: 0;
+	height: 100%;
 }
