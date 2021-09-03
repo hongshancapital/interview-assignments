@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -31,7 +32,6 @@ class TestController extends Controller
             return $this->error($validator->errors()->first());
         }
 
-//        $firstLetter = substr($request->Username, 0, 1);
         if(!preg_match('/^[a-zA-Z_]/', $request->Username,$matchFirstLetter)){
             return $this->error("Username 只能以英文字母或下划线开头");
         }
@@ -40,7 +40,7 @@ class TestController extends Controller
             return $this->error("Username 只能包含英文字母，下划线或数字");
         }
 
-        if(!preg_match('/[a-zA-Z]|[A-Z]0-9|[a-z]0-9/', $request->Password, $matchPassword)){
+        if(!preg_match('/^(?![0-9]+$)(?![a-z]+$)(?![A-Zz]+$)[0-9A-Za-z]*$/', $request->Password, $matchPassword)){
             return $this->error("Password 必须有大写字母，小写字母或数字中的两项");
         }
 
@@ -52,8 +52,17 @@ class TestController extends Controller
             return $this->error("两次输入的密码不一致");
         }
 
-        return $this->success($request->all());
+        // 数据存储
+        $model = new User();
+        if($model::query()->where(['username' => $request->Username])->first()){
+            return $this->error("用户名已存在，请更换一个新的");
+        }
+
+        $model->create($request->all());
+
+        return $this->success();
     }
+
 
     protected function success($data = null, $message = '操作成功', $code = 200){
         return \response()->json(['code' => $code, 'message' => $message, 'data' => $data, 'status' => 'success']);

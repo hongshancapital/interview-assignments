@@ -11,3 +11,7 @@
 #### 后端控制器 TestControlle.php
 
 #### 路由 Route::post('register', 'TestController@register');
+
+#### 数据表 SQL schemas.txt
+
+#### 用户Model App\User.php
