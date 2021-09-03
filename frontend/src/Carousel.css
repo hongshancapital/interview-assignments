@@ -1,0 +1,65 @@
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-list {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  transition: left ease-out 0.3s;
+}
+
+.slide-item {
+  position: relative;
+  flex: 1;
+}
+
+.indicator-list {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.indicator-item {
+  position: relative;
+  width: 64px;
+  height: 14px;
+  padding: 0;
+  margin-inline: 6px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.indicator-item::before,
+.indicator-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 2px;
+  border-radius: 2px;
+  transform: translateY(-50%);
+}
+
+.indicator-item::before {
+  width: 100%;
+  background: #ccc;
+}
+
+.indicator-item::after {
+  width: 0;
+  background: #fff;
+}
+
+.indicator-item:hover::before {
+  background: #999;
+}
+
+.indicator-list.alive .indicator-item.active::after {
+  width: 100%;
+  transition: width linear var(--duration);
+}
