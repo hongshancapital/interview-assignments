@@ -4,13 +4,18 @@ import { useProgressCount } from "../hooks";
 
 const ProgressBar = ({ 
   isCurrent, 
-  time, 
+  time
 } : ProgressBarType) => {
-  const progressCount = useProgressCount(time); 
-  // console.log(processCount);
+  const progressCount = useProgressCount(time, isCurrent); 
+
   return (
     <div className="nav-bar">
-      <div className="nav-process" style={isCurrent ? {width: `${progressCount * 100}%`} : {}}></div>
+      <div 
+        className="nav-progress" 
+        data-testid="nav-progress" 
+        style={{width: `${Math.round(progressCount * 100)}%`}}
+       >
+      </div>
     </div>
   );
 }

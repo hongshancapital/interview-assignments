@@ -18,7 +18,7 @@ const Carousel = ({
 	
   return (
   	<div className="slides">
-  		<div className="slides-item" style={{
+  		<div className="slides-item" data-testid="slides-item" style={{
   			width: `${slides.length * 100}%`, 
   			transform: `translateX(${-100/slides.length*currentIndex}%)`
   		}}>
