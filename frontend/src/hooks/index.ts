@@ -9,7 +9,7 @@ export const useProgressCount = (time: number, isCurrent: boolean) => {
 			const animation = (startTime: number) => {
 				preTime = preTime || startTime;
 				const progress = startTime - preTime;
-				setCount(startTime - preTime);
+				setCount(progress);
 
 				if (progress < time) {
 					rafId = requestAnimationFrame(animation);

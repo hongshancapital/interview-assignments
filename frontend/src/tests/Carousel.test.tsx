@@ -15,11 +15,12 @@ describe('Carousel Component', () => {
     jest.useRealTimers();
   });
 
-  test.skip('测试正常渲染slide和nav', () => {
-		const { container, queryAllByTestId } = render(<Carousel slides={SLIDES_DATA} delay={TIME} />);
+  test('测试正常渲染slide和nav', () => {
+		const { queryAllByTestId, unmount } = render(<Carousel slides={SLIDES_DATA} delay={TIME} />);
 		
-		expect(queryAllByTestId('slide')).toBeInTheDOM(container);
-		expect(queryAllByTestId('nav-progress')).toBeInTheDOM(container);
+		expect(queryAllByTestId('slide')).toBeTruthy();
+		expect(queryAllByTestId('nav-progress')).toBeTruthy();
+		unmount();
 	});
 
   test('测试slide是否正常滚动', () => {
