@@ -8,57 +8,57 @@
 ## 部署方法
 - 部署 docker-commpose
 ```.env
+
 version: '3'
 networks:
-    local-net-imoowi:
-        driver: bridge
+  local-net-imoowi:
+    driver: bridge
 services:
-    mysql5.6:
-        container_name: mysql5.6
-        image: mysql:5.6
-        ports:
-            - 3306:3306
-        environment:
-            MYSQL_ROOT_PASSWORD: 123456
-        restart: always
-        networks:
-            - local-net-imoowi
-    nginx:
-        container_name: nginx
-        image: nginx:1.19.2
-        ports:
-            - 3000:3000
-        volumes:
-            - ~/wwwroot:/data/wwwroot
-            - $PWD/nginx/conf.d:/etc/nginx/conf.d
-        depends_on:
-            - mysql5.6
-            - redis
-            - php7.4
-        restart: always
-        networks:
-            - local-net-imoowi
-    php7.4:
-        container_name: php7.4
-        build: ./php7.4
-        # image: imoowi/php7.4:v3
-        ports:
-            - 9000:9000
-        volumes:
-            - ~/wwwroot:/data/wwwroot
-        depends_on:
-            - redis
-        restart: always
-        networks:
-            - local-net-imoowi
-    redis:
-        container_name: redis
-        image: redis:6.2.1
-        ports: 
-            - 6379:6379
-        restart: always
-        networks:
-            - local-net-imoowi
+  mysql5.6:
+    container_name: mysql5.6
+    image: mysql:5.6
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    restart: always
+    networks:
+      - local-net-imoowi
+  nginx:
+    container_name: nginx
+    image: nginx:1.19.2
+    ports:
+      - 3000:3000
+    volumes:
+      - ~/wwwroot:/data/wwwroot
+      - $PWD/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - mysql5.6
+      - redis
+      - php7.4
+    restart: always
+    networks:
+      - local-net-imoowi
+  php7.4:
+    container_name: php7.4
+    image: imoowi/php7.4:v3
+    ports:
+      - 9000:9000
+    volumes:
+      - ~/wwwroot:/data/wwwroot
+    depends_on:
+      - redis
+    restart: always
+    networks:
+      - local-net-imoowi
+  redis:
+    container_name: redis
+    image: redis:6.2.1
+    ports:
+      - 6379:6379
+    restart: always
+    networks:
+      - local-net-imoowi
 ```
 
 - 部署 nginx vhost
