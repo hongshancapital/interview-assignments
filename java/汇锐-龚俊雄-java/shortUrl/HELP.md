@@ -30,7 +30,7 @@
 
 3.  长域名生成短域名的业务流程图如下：
 
-   ![](E:\itellij-projects\shortUrl\files\imgs\shortUrlProcess.png)
+   ![](files\imgs\shortUrlProcess.png)
 
 ##### 通过短域名查询长域名
 
