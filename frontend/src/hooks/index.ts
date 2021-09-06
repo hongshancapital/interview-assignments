@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const useProgressCount = (time: number, isCurrent: boolean) => {
-	const [count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<number>(0);
 
-	useEffect(() => {
-		if (isCurrent) {
-			let preTime = 0, rafId = 0;
-			const animation = (startTime: number) => {
-				preTime = preTime || startTime;
-				const progress = startTime - preTime;
-				setCount(progress);
+  useEffect(() => {
+    if (isCurrent) {
+      let preTime = 0, rafId = 0;
+      const animation = (startTime: number) => {
+        preTime = preTime || startTime;
+        const progress = startTime - preTime;
+        setCount(progress);
 
-				if (progress < time) {
-					rafId = requestAnimationFrame(animation);
-				} 
-			}
+        if (progress < time) {
+          rafId = requestAnimationFrame(animation);
+        } 
+      }
+      rafId = requestAnimationFrame(animation);
 
-			rafId = requestAnimationFrame(animation);
+      return () => cancelAnimationFrame(rafId);
+    }
+  }, [time, isCurrent]);
 
-			return () => cancelAnimationFrame(rafId);
-		}
-	}, [time, isCurrent]);
-
-	return count / time;
+  return count / time;
 }

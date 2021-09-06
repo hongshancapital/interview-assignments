@@ -5,9 +5,9 @@ import "../assets/css/App.css";
 
 function App() {
   return (
-  	<div className="App">
-  		<Carousel slides={SLIDES_DATA} delay={DELAY_TIME} />
-  	</div>
+    <div className="App">
+      <Carousel slides={SLIDES_DATA} delay={DELAY_TIME} />
+    </div>
   );
 }
 
