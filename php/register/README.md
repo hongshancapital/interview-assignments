@@ -113,4 +113,6 @@ docker exec -i php7.4 sh -c "cd /data/wwwroot/php/scdt-china/php/register && com
 - 启动数据库，导入 sql 文件
 ```.env
 数据库文件在 db 文件夹里
+./db/imoowi_register.sql
 ```
+- 在浏览其中访问 http://localhost:3000
