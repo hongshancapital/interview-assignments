@@ -14,13 +14,21 @@ describe('ProgressBar Component', () => {
     cleanup();
   });
 
+  test('测试可以自定义style', () => {
+    const { container } = render(<ProgressBar isCurrent={true} time={TIME} style={{width: 50}} />);
+    
+    expect(container.firstChild).toHaveStyle('width: 50px;');
+  });
+
   test('测试当前的进度', () => {
     const { getByTestId } = render(<ProgressBar isCurrent={true} time={TIME} />);
 
     expect(getByTestId('nav-progress')).toHaveAttribute('style', 'width: 0%;');
     
     // 执行第2帧 每帧1000毫秒
-    act(() => requestAnimationFrame.step(2,1000));
+    act(() => {
+      requestAnimationFrame.step(2,1000)
+    });
     
     // 进度为50%
     expect(getByTestId('nav-progress')).toHaveAttribute('style', 'width: 50%;');

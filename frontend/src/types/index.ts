@@ -1,3 +1,5 @@
+import { ReactNode, CSSProperties } from "react";
+
 export type SlideType = {
   id: number,
   title: string,
@@ -8,10 +10,14 @@ export type SlideType = {
 
 export type ProgressBarType = {
   isCurrent: boolean,
-  time: number
+  time: number,
+  key?: string,
+  style?: CSSProperties
 }
 
 export type CarouselType = {
   delay: number,
-  slides: SlideType[]
+  slides: SlideType[],
+  renderNavItem?: (navProps: ProgressBarType) => ReactNode,
+  style?: CSSProperties
 }

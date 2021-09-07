@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Slide from "./SlideItem";
-import ProgressBar from "./ProgressBar";
 import { CarouselType } from "../types";
 
 const Carousel = ({ 
   slides,
-  delay
+  delay,
+  renderNavItem, 
+  ...args
 }: CarouselType) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   useEffect(() => {
@@ -17,7 +18,7 @@ const Carousel = ({
   }, [currentIndex, delay, slides]);
   
   return (
-    <div className="slides">
+    <div className="slides" {...args}>
       <div className="slides-item" data-testid="slides-item" style={{
         width: `${slides.length * 100}%`, 
         transform: `translateX(${-100/slides.length*currentIndex}%)`
@@ -33,15 +34,19 @@ const Carousel = ({
            />
         ))}
       </div>
-      <div className="slides-nav">
-        {slides.map((item, index) => (
-          <ProgressBar
-            key={`${currentIndex}-${index}`} 
-            isCurrent={currentIndex === index} 
-            time={delay}
-          />
-        ))}
-      </div>
+      {renderNavItem && (
+        <div className="slides-nav">
+          {slides.map((item, index) => (
+            renderNavItem(
+              {
+                isCurrent: currentIndex === index, 
+                time: delay,
+                key: `${currentIndex}-${item.id}`
+              }
+            )
+          ))}
+        </div>
+      )}
     </div>
   );
 }

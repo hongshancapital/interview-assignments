@@ -4,12 +4,13 @@ import { useProgressCount } from "../hooks";
 
 const ProgressBar = ({ 
   isCurrent, 
-  time
+  time,
+  ...args
 } : ProgressBarType) => {
   const progressCount = useProgressCount(time, isCurrent); 
 
   return (
-    <div className="nav-bar">
+    <div className="nav-bar" {...args}>
       <div 
         className="nav-progress" 
         data-testid="nav-progress" 

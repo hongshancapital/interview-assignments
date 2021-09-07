@@ -5,19 +5,20 @@ export const useProgressCount = (time: number, isCurrent: boolean) => {
 
   useEffect(() => {
     if (isCurrent) {
-      let preTime = 0, rafId = 0;
+      const raf = { preTime: 0, id: 0 };
+
       const animation = (startTime: number) => {
-        preTime = preTime || startTime;
-        const progress = startTime - preTime;
+        raf.preTime = raf.preTime || startTime;
+        const progress = startTime - raf.preTime;
         setCount(progress);
 
         if (progress < time) {
-          rafId = requestAnimationFrame(animation);
+          raf.id = requestAnimationFrame(animation);
         } 
       }
-      rafId = requestAnimationFrame(animation);
+      raf.id = requestAnimationFrame(animation);
 
-      return () => cancelAnimationFrame(rafId);
+      return () => cancelAnimationFrame(raf.id);
     }
   }, [time, isCurrent]);
 

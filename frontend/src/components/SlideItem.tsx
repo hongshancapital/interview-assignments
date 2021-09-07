@@ -18,4 +18,4 @@ const Slide = ({
   );
 }
 
-export default Slide;
+export default React.memo(Slide);

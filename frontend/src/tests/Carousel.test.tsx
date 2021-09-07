@@ -14,11 +14,25 @@ describe('Carousel Component', () => {
     jest.useRealTimers();
   });
 
-  test('测试正常渲染slide和nav', () => {
+  test('测试正常渲染slide', () => {
     const { queryAllByTestId, unmount } = render(<Carousel slides={SLIDES_DATA} delay={TIME} />);
     
     expect(queryAllByTestId('slide')).toBeTruthy();
-    expect(queryAllByTestId('nav-progress')).toBeTruthy();
+    unmount();
+  });
+
+  test('测试slides可以自定义style', () => {
+    const { container, unmount } = render(<Carousel slides={SLIDES_DATA} delay={TIME} style={{width: 100}} />);
+    
+    expect(container.firstChild).toHaveStyle('width: 100px;');
+    unmount();
+  });
+
+  test('测试是否可以自定义nav组件', () => {
+    const NavNode = (props: { key?: string }) => (<div {...props}>Bottom Nav</div>);
+    const { queryAllByText, unmount } = render(<Carousel slides={SLIDES_DATA} delay={TIME} renderNavItem={({ key }) => <NavNode key={key} />}  />);
+    
+    expect(queryAllByText('Bottom Nav')).toBeTruthy();
     unmount();
   });
 
@@ -33,19 +47,27 @@ describe('Carousel Component', () => {
     expect(node).toHaveAttribute('style', `${styleWidth} ${styleTransform(0)}`);
     
     // 等待2秒
-    act(() => jest.advanceTimersByTime(TIME));
+    act(() => {
+      jest.advanceTimersByTime(TIME)
+    });
     expect(node).toHaveAttribute('style', `${styleWidth} ${styleTransform(1)}`);
   
     // 再等待2秒
-    act(() => jest.advanceTimersByTime(TIME));
+    act(() => {
+      jest.advanceTimersByTime(TIME)
+    });
     expect(node).toHaveAttribute('style', `${styleWidth} ${styleTransform(2)}`);
 
     // 再再等待2秒
-    act(() => jest.advanceTimersByTime(TIME));
+    act(() => {
+      jest.advanceTimersByTime(TIME)
+    });
     expect(node).toHaveAttribute('style', `${styleWidth} ${styleTransform(0)}`);
 
     // 再再再等待2秒
-    act(() => jest.advanceTimersByTime(TIME));
+    act(() => {
+      jest.advanceTimersByTime(TIME)
+    });
     expect(node).toHaveAttribute('style', `${styleWidth} ${styleTransform(1)}`);
   });
 
