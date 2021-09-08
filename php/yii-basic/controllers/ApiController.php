@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\SignupForm;
 use Yii;
+use const Grpc\STATUS_OK;
 
 class ApiController extends ActiveController
 {
@@ -19,7 +20,7 @@ class ApiController extends ActiveController
                 throw new \Exception(current($model->errors)[0]);
             }
             $data=$model;
-            return $this->send($data,'','注册成功');
+            return $this->send($data,200,'注册成功');
         }catch (\Exception $e){
             return $this->error($e);
         }
