@@ -1,0 +1,28 @@
+#!/bin/bash
+
+project_name="TIGER_EYE"
+
+# `eval echo '$'"${project_name}_PROFILE"`
+
+devmod=`eval echo '$'"${project_name}_DEVMOD"`
+resource_path=`eval echo '$'"${project_name}_RESOURCE"`
+publish_path=`eval echo '$'"${project_name}_PUBLISH"`
+active_profile=`eval echo '$'"${project_name}_PROFILE"`
+
+full_module=${build_module}
+
+if [[ -n $full_module ]];then
+    full_module=${full_module}/
+fi
+
+if [[ -n $target_module ]];then
+    full_module=${full_module}${target_module}/
+fi
+
+echo "========== Module name : $full_module"
+
+parameter=$@
+
+violet_bg="\E[7;35m"
+violet_font="\E[1;35m"
+end_style="\E[0m"

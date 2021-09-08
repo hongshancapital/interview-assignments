@@ -1,0 +1,40 @@
+
+#服务器端口号
+server:
+  port: 8080
+
+spring:
+  thymeleaf:
+    mode: HTML
+    cache: false
+  profiles:
+    active: dev
+
+  #redis配置信息
+  redis:
+    database: 2
+    host: 127.0.0.1
+    port: 6379
+    #password: 'openl'
+    lettuce:
+      pool:
+        max-active: 10
+        max-wait: 10s
+
+logging:
+  level:
+    root: info
+    com:
+      moonciki:
+        interview:
+          commons:
+            aop: debug
+            tools: debug
+          mybatis: debug
+
+swagger:
+  enabled: true
+  base-package: com.moonciki.interview.controller
+  title: 面试任务API
+  version: 1.0.0
+
