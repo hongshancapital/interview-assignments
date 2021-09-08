@@ -48,25 +48,29 @@ struct LoginView: View {
                         Text("Create Account").font(.body).foregroundColor(.gray)
                     }).padding()
                 }
-                Button.init(action: {
-                    if (username.isEmpty || password.count < 8) {
-                        return
+                
+                HStack {
+                    Button.init(action: {
+                        if (username.isEmpty || password.count < 8) {
+                            return
+                        }
+                        presentToMain.toggle()
+                    }) {
+                        HStack {
+                            Text("Login")
+                                .font(.title)
+                        }
+                        .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 44, alignment: .center)
+                        .foregroundColor(.white)
+                        .background((username.isEmpty || password.count < 8) ? grayColor : greenColor)
+                        .cornerRadius(22)
                     }
-                    presentToMain.toggle()
-                }) {
-                    Text("Login")
-                        .font(.body)
-                        .foregroundColor(Color.white)
-                }
-                .padding(EdgeInsets(top: 16, leading: 32, bottom: 16, trailing: 32))
-                .frame(width:350, height: 44, alignment: .center)
-                .background((username.isEmpty || password.count < 8) ? grayColor : greenColor)
-                .cornerRadius(22)
+                }.padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 
                 
             }
             
-        }.navigationBarTitle("首页", displayMode: .inline)
+        }
         .fullScreenCover(isPresented: $presentToCreate, content: {
             CreateView()
         })

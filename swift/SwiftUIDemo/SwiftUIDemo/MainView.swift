@@ -14,18 +14,11 @@ struct MainView: View {
     var body: some View {
         VStack(alignment: .leading) {
             ZStack {
-                Image.init("")
-                    .resizable()
-                    .ignoresSafeArea(edges: .top)
-                    .frame(height: 120)
+                Text("")
+                    .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 250, alignment: .center)
                     .background(greenColor)
-                    .offset(y: -200)
-                Image.init("")
-                    .resizable()
                     .ignoresSafeArea(edges: .top)
-                    .frame(height: 300)
-                    .background(greenColor)
-                    .cornerRadius(16)
+
                 VStack {
                     Text(String(username.first!))
                         .font(.title)
@@ -54,8 +47,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            MainView(username: "Manfred")
-        }
+        MainView(username: "Manfred")
     }
 }
