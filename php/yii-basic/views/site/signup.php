@@ -51,12 +51,11 @@ $js = <<<JS
     $(document).ready(function(){
         $("#submit").on("click",function(){
             $.post('/api/register',$('#signup-form').serialize(),function(result){
-                if (result.data.code == 200) {
-                    alert("SUCCESS");
+                if (result.code == 200) {
+                    $('#err-text').text('注册成功')
                 }else{
                     $('#err-text').text(result.message)
                 }
-                
             })
         });
     });
