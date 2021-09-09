@@ -19,7 +19,6 @@ class UserController extends Controller
      * @params['username'] 用户名
      * @params['password'] 密码
      * @params['confirm_password'] 确认密码
-     * @return void
      */
     public function register(Request $request)
     {
