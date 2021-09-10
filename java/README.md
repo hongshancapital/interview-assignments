@@ -81,7 +81,12 @@
 
 ### 效果图
 
-![单元测试结果](doc/img/jobResult.png)
+![效果图](doc/img/jobResult.png)
+
+
+### 演示地址
+
+http://114.67.231.40:8000/page/url/shortUrl.html
 
 # 参考资料
 
