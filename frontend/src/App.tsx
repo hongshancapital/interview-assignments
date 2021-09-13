@@ -1,16 +1,16 @@
 import React from "react";
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import "./App.css";
-import TurnPageBtn from './component/turnPageBtn';
+import TurnPage from './component/turnPage';
 function App() {
-  let elements=[
-    (<div className="class1"><h2>iphone6</h2></div>),
-    (<div className="class2"><h2>iphoneX</h2></div>),
-    (<div className="class3"><h2>iphone12</h2></div>),
+  let elements = [
+    (<div className="class1" key='class1'><h2>iphone6</h2></div>),
+    (<div className="class2" key='class2'><h2>iphoneX</h2></div>),
+    (<div className="class3" key='class3'><h2>iphone12</h2></div>),
   ]
   return <div className="App">
-      <TurnPageBtn >{elements}</TurnPageBtn>
-    </div>;
+    <TurnPage>{elements}</TurnPage>
+  </div>;
 }
 
 export default App;

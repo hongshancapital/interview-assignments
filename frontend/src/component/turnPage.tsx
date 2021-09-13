@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './turnPageBtn.css';
+// import ReactDOM from 'react-dom';
+import './turnPage.css';
 interface IProps {
     items: JSX.Element[]
 }
@@ -48,7 +48,7 @@ export default class TurnPageBtn extends React.Component {
         let endIndex = -1
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
-            if (i == index) {
+            if (i === index) {
                 item.isShow = true
             } else {
                 if (item.isShow) {
@@ -72,7 +72,7 @@ export default class TurnPageBtn extends React.Component {
     render() {
         let contentHtmls = this.state.items.map((item, index) => {
             let classNames = ["page-content-item"];
-            if (index == this.state.endIndex) {
+            if (index === this.state.endIndex) {
                 classNames.push("animation-left-end")
             } else if (item.isShow) {
                 classNames.push("animation-left-start")
