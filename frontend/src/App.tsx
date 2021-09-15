@@ -1,7 +1,6 @@
 import React from "react";
-// import ReactDOM from 'react-dom';
 import "./App.css";
-import TurnPage from './component/turnPage';
+import Carousel from './component/Carousel';
 function App() {
   let elements = [
     (<div className="class1" key='class1'><h2>iphone6</h2></div>),
@@ -9,7 +8,7 @@ function App() {
     (<div className="class3" key='class3'><h2>iphone12</h2></div>),
   ]
   return <div className="App">
-    <TurnPage>{elements}</TurnPage>
+    <Carousel>{elements}</Carousel>
   </div>;
 }
 

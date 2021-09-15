@@ -11,7 +11,7 @@
     height: 100%;
     overflow-x: hidden;
 }
-.turn-page {
+.carousel {
     position:absolute;
     width: 100%;
     height: 0.2rem;
@@ -19,7 +19,7 @@
     text-align: center;
 }
 
-.turn-page-btn{
+.carousel-btn{
     position:relative;
     display: inline-block;
     margin:0 0.2rem;
@@ -29,7 +29,7 @@
     line-height: 0.2rem;
     cursor: pointer;
 }
-.turn-page-btn>span{
+.carousel-btn>span{
     position:absolute;
     top: 0;
     left: 0;
@@ -44,7 +44,7 @@
     to {width:100%;}
 }
 
-.turn-page-btn.animation>span{
+.carousel-btn.animation>span{
     animation:animationWidth 3s;
     animation-fill-mode: both;
 }
@@ -64,13 +64,13 @@
     animation:animationLeftEnd 3s;
     animation-fill-mode: both;
 }
-.page-content-item{
+.carousel-content-item{
     position:absolute;
     width: 100%;
     height: 100%;
     top: 0%;
     left:100%;
 }
-.page-content-item>*{
+.carousel-content-item>*{
     font-size: 28px;
 }
