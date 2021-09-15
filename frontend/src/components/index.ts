@@ -1,4 +1,3 @@
 export {
-  Caroussel
+  Caroussel,
 } from './Carousel';
-export type { CarouselProps } from './Carousel';
