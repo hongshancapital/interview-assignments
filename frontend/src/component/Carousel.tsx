@@ -13,7 +13,7 @@ interface iItem {
 export default function Carousel(prop: iProps) {
     let btns: JSX.Element[] = [];//每页的下标按钮
     let htmls: JSX.Element[] = [];//每页的内容
-    let newItems:iItem[]=[]
+    let newItems: iItem[] = []
     React.Children.forEach(prop.children, (child, index) => {
         let item = {
             id: index,
@@ -24,9 +24,7 @@ export default function Carousel(prop: iProps) {
         newItems.push(item);
 
     })
-    console.log('newItems',newItems)
     const [items, setItems] = useState<iItem[]>(newItems); //滚动的子项目
-    
     /**
      * 播放动画的下标
      *
@@ -52,6 +50,12 @@ export default function Carousel(prop: iProps) {
         }
         setItems(newItems);
     }
+    /**
+     * 下标按钮className
+     *
+     * @param {number} index
+     * @returns {string}
+     */
     let btnClassNames = (index: number): string => {
         let item = items[index]
         if (item.isShow) {
@@ -60,6 +64,12 @@ export default function Carousel(prop: iProps) {
             return "carousel-btn"
         }
     }
+    /**
+     * 内容容器className
+     *
+     * @param {number} index
+     * @returns {string}
+     */
     let htmlClassNames = (index: number): string => {
         let item = items[index]
         let arr = ["carousel-content-item"];
@@ -72,14 +82,13 @@ export default function Carousel(prop: iProps) {
     };
     //生成 每页的下标按钮和内容   
     for (let index = 0; index < items.length; index++) {
-        let item=items[index];
+        let item = items[index];
         btns.push(<span key={item.id} className={btnClassNames(index)} onMouseEnter={() => { animationEnd(index) }} >
             <span onAnimationEnd={() => animationEnd(index + 1)}></span>
         </span>);
         //添加内容部分
         htmls.push(<div key={item.id} className={htmlClassNames(index)}>{item.html}</div>)
     }
-    console.log('items',items)
     return (<div className='page'>
         <div className='page-content'>
             {htmls}
