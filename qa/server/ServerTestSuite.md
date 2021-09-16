@@ -1,15 +1,17 @@
 # Server Test Suite
 
 如何测试：
-* step 1. 执行yarn
-* step 2. 执行yarn start
-* step 3. 执行yarn test ( 测试代码在 scripts/test 目录下，使用python编写，请确保安装了python3，并且确保安装过 pytest，requests 这几个package。若没有，可使用python自带的包管理器pip进行安装，使用命令 pip install ${PackageName} )
+* step 1. 执行 yarn
+* step 2. 执行 yarn start
+* step 3. 执行 yarn test ( 测试代码在 scripts/test 目录下，使用python编写，请确保安装了python3，并且确保安装过 pytest，requests 这几个package。若没有，可使用python自带的包管理器pip进行安装，使用命令 pip install ${PackageName} )
+
+测试结果截图请查看当前目录下的 TestReport.png
 
 ## **/toolbox/create 接口**
 
-test_create.py 包含该接口的测试代码
+scripts/test/testcase/test_create.py 包含该接口的测试代码
 
-test_create.json 包含测试用例
+scripts/test/testcase/test_create.json 包含测试用例
 
 功能性上设计了如下测试用例：
 1. 添加数据库中无记录的数据。应可正常添加
@@ -26,9 +28,9 @@ test_create.json 包含测试用例
 
 ## **/toolbox 接口**
 
-test_toolbox.py 包含该接口的测试代码
+scripts/test/testcase/test_toolbox.py 包含该接口的测试代码
 
-test_toolbox.json 包含测试用例
+scripts/test/testcase/test_toolbox.json 包含测试用例
 
 这个接口在设计有些缺陷，因为没加分页查询，即添加参数 pageNum 和 pageSize
 
@@ -38,13 +40,14 @@ test_toolbox.json 包含测试用例
 
 ## **/toolbox/options 接口**
 
-test_options.py 包含该接口的测试代码
+scripts/test/testcase/test_options.py 包含该接口的测试代码
 
-test_options.json 包含测试用例
+scripts/test/testcase/test_options.json 包含测试用例
 
 数据从代码直接生成返回，无其他功能测试用例
 
 ## 最后
+
 有些测试用例无法在代码中体现，如下：
 
 网络方向测试用例:
