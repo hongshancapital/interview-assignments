@@ -18,6 +18,14 @@ public class DomainServiceImpl implements DomainService {
     private final LRUCache <String,String> cacheByShortUrl = new LRUCache<>(Constants.LRU_CACHE_MAX_LEN);
     private final LRUCache <String,String> cacheByFullUrl = new LRUCache<>(Constants.LRU_CACHE_MAX_LEN);
 
+    public int getCacheByShortUrlSize() {
+        return cacheByShortUrl.size();
+    }
+
+    public int getCacheByFullUrlSize() {
+        return cacheByFullUrl.size();
+    }
+
     @Override
     public String generateShortUrl(String fullUrl) throws ModuleException {
 
