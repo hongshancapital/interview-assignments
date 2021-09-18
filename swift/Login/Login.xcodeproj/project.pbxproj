@@ -3,13 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		DA0AF20726DDF0AC008334C3 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0AF20626DDF0AC008334C3 /* RegisterView.swift */; };
 		DA0AF20F26DE0906008334C3 /* ConfirmButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0AF20E26DE0906008334C3 /* ConfirmButton.swift */; };
 		DA0AF21A26DE165D008334C3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0AF21926DE165D008334C3 /* HomeView.swift */; };
+		DA0AF22726DF4413008334C3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0AF22626DF4413008334C3 /* Extensions.swift */; };
+		DA0AF23726DF68EA008334C3 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0AF23626DF68EA008334C3 /* Data.swift */; };
+		DA0AF24026DF6B1E008334C3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0AF23F26DF6B1E008334C3 /* Model.swift */; };
+		DA0AF24B26DF6F01008334C3 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0AF24A26DF6F01008334C3 /* UserData.swift */; };
+		DA67A62526F31CBD00389839 /* ImageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A62426F31CBD00389839 /* ImageListView.swift */; };
+		DA67A62A26F323E900389839 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA67A62926F323E900389839 /* 1.jpg */; };
+		DA67A63326F345E600389839 /* QGrid in Frameworks */ = {isa = PBXBuildFile; productRef = DA67A63226F345E600389839 /* QGrid */; };
 		DAFFF75E26DCB21100BBC753 /* LoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFFF75D26DCB21100BBC753 /* LoginApp.swift */; };
 		DAFFF76026DCB21100BBC753 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFFF75F26DCB21100BBC753 /* LoginView.swift */; };
 		DAFFF76226DCB21300BBC753 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAFFF76126DCB21300BBC753 /* Assets.xcassets */; };
@@ -41,6 +48,14 @@
 		DA0AF20626DDF0AC008334C3 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		DA0AF20E26DE0906008334C3 /* ConfirmButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButton.swift; sourceTree = "<group>"; };
 		DA0AF21926DE165D008334C3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DA0AF22626DF4413008334C3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DA0AF23426DF4673008334C3 /* login.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
+		DA0AF23526DF469A008334C3 /* register.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = register.json; sourceTree = "<group>"; };
+		DA0AF23626DF68EA008334C3 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		DA0AF23F26DF6B1E008334C3 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		DA0AF24A26DF6F01008334C3 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		DA67A62426F31CBD00389839 /* ImageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListView.swift; sourceTree = "<group>"; };
+		DA67A62926F323E900389839 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		DAFFF75A26DCB21100BBC753 /* Login.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Login.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFFF75D26DCB21100BBC753 /* LoginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginApp.swift; sourceTree = "<group>"; };
 		DAFFF75F26DCB21100BBC753 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -62,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA67A63326F345E600389839 /* QGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +98,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA0AF23126DF452E008334C3 /* mock */ = {
+			isa = PBXGroup;
+			children = (
+				DA0AF23426DF4673008334C3 /* login.json */,
+				DA0AF23526DF469A008334C3 /* register.json */,
+			);
+			path = mock;
+			sourceTree = "<group>";
+		};
+		DA0AF23226DF454C008334C3 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFF7A726DCBB4200BBC753 /* LoginTextFieldView.swift */,
+				DA0AF20E26DE0906008334C3 /* ConfirmButton.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		DA0AF23326DF4569008334C3 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				DA0AF22626DF4413008334C3 /* Extensions.swift */,
+				DAFFF7AC26DCDEEA00BBC753 /* ValidatedValue.swift */,
+				DA0AF23626DF68EA008334C3 /* Data.swift */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		DA0AF23E26DF6B0B008334C3 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				DA0AF23F26DF6B1E008334C3 /* Model.swift */,
+				DA0AF24A26DF6F01008334C3 /* UserData.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		DAFFF75126DCB21000BBC753 = {
 			isa = PBXGroup;
 			children = (
@@ -105,13 +158,16 @@
 		DAFFF75C26DCB21100BBC753 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				DA67A62926F323E900389839 /* 1.jpg */,
+				DA0AF23E26DF6B0B008334C3 /* models */,
+				DA0AF23326DF4569008334C3 /* util */,
+				DA0AF23226DF454C008334C3 /* components */,
+				DA0AF23126DF452E008334C3 /* mock */,
 				DAFFF75D26DCB21100BBC753 /* LoginApp.swift */,
+				DA67A62426F31CBD00389839 /* ImageListView.swift */,
 				DAFFF75F26DCB21100BBC753 /* LoginView.swift */,
 				DA0AF21926DE165D008334C3 /* HomeView.swift */,
 				DA0AF20626DDF0AC008334C3 /* RegisterView.swift */,
-				DAFFF7AC26DCDEEA00BBC753 /* ValidatedValue.swift */,
-				DAFFF7A726DCBB4200BBC753 /* LoginTextFieldView.swift */,
-				DA0AF20E26DE0906008334C3 /* ConfirmButton.swift */,
 				DAFFF76126DCB21300BBC753 /* Assets.xcassets */,
 				DAFFF76626DCB21400BBC753 /* Info.plist */,
 				DAFFF76326DCB21400BBC753 /* Preview Content */,
@@ -161,6 +217,9 @@
 			dependencies = (
 			);
 			name = Login;
+			packageProductDependencies = (
+				DA67A63226F345E600389839 /* QGrid */,
+			);
 			productName = Login;
 			productReference = DAFFF75A26DCB21100BBC753 /* Login.app */;
 			productType = "com.apple.product-type.application";
@@ -232,6 +291,9 @@
 				Base,
 			);
 			mainGroup = DAFFF75126DCB21000BBC753;
+			packageReferences = (
+				DA67A63126F345E600389839 /* XCRemoteSwiftPackageReference "QGrid" */,
+			);
 			productRefGroup = DAFFF75B26DCB21100BBC753 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -249,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAFFF76526DCB21400BBC753 /* Preview Assets.xcassets in Resources */,
+				DA67A62A26F323E900389839 /* 1.jpg in Resources */,
 				DAFFF76226DCB21300BBC753 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,10 +340,15 @@
 				DAFFF76026DCB21100BBC753 /* LoginView.swift in Sources */,
 				DA0AF21A26DE165D008334C3 /* HomeView.swift in Sources */,
 				DA0AF20726DDF0AC008334C3 /* RegisterView.swift in Sources */,
+				DA0AF22726DF4413008334C3 /* Extensions.swift in Sources */,
+				DA67A62526F31CBD00389839 /* ImageListView.swift in Sources */,
 				DA0AF20F26DE0906008334C3 /* ConfirmButton.swift in Sources */,
+				DA0AF24B26DF6F01008334C3 /* UserData.swift in Sources */,
 				DAFFF75E26DCB21100BBC753 /* LoginApp.swift in Sources */,
 				DAFFF7A826DCBB4200BBC753 /* LoginTextFieldView.swift in Sources */,
+				DA0AF23726DF68EA008334C3 /* Data.swift in Sources */,
 				DAFFF7AD26DCDEEA00BBC753 /* ValidatedValue.swift in Sources */,
+				DA0AF24026DF6B1E008334C3 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +668,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA67A63126F345E600389839 /* XCRemoteSwiftPackageReference "QGrid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Q-Mobile/QGrid";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA67A63226F345E600389839 /* QGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA67A63126F345E600389839 /* XCRemoteSwiftPackageReference "QGrid" */;
+			productName = QGrid;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DAFFF75226DCB21000BBC753 /* Project object */;
 }

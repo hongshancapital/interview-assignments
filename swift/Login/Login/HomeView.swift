@@ -11,6 +11,7 @@ struct HomeView: View {
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         VStack(alignment:.leading, spacing: 0){
+            Color("themeGreen").edgesIgnoringSafeArea(.top).frame(height:1)
             Rectangle()
                 .fill(Color("themeGreen"))
                 .frame(height:240,alignment: .top)
@@ -19,15 +20,13 @@ struct HomeView: View {
                         Circle()
                             .fill( Color("lightGray"))
                             .frame(height: 66, alignment: .bottom)
-                            .overlay(
-                                Text("S").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                            )
+                            .overlay(Text("S").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/))
                             .cornerRadius(33)
                             .padding()
                         Text("Simon")
                     }
                 )
-                .cornerRadius(24)
+                .anyCornerRadius(24, corners: [.bottomLeft, .bottomRight])
             Spacer()
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
