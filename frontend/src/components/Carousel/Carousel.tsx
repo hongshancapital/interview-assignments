@@ -19,74 +19,43 @@ const EmptyPage = () => (
 export function Caroussel(props: ICarouselProps) {
   const [passedTime, setPassedTime] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
-  const [offsets, setOffsets] = useState<number[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  let timer = useRef<number | null>(null);
-  const { width, height, customCSS, items, wait } = props;
+  const { customCSS, items, wait } = props;
 
-  useEffect(() => {
-    if (containerRef && containerRef.current) {
-      const baseOffset: number = containerRef.current.offsetWidth || 0;
-      const newOffsets = items.map((_, i) => {
-        let currentOffset = offsets[i];
-        if (currentOffset === undefined) {
-          currentOffset = i * baseOffset;
-        } else {
-          currentOffset =
-            i * baseOffset - (pageIndex % items.length) * baseOffset;
-        }
-        return currentOffset;
-      });
-      setOffsets(newOffsets);
-    }
-  }, [pageIndex]);
   // start the loop
   useEffect(() => {
     window.setTimeout(() => {
       setPageIndex(pageIndex + 1);
     }, wait);
   }, [pageIndex]);
-  const style: CSSProperties = {};
-  if (width) {
-    style.width = `${width}px`;
-  }
-  if (height) {
-    style.height = `${height}px`;
-  }
   if (items.length === 0) return <EmptyPage />;
-  console.log(offsets);
   return (
     <div
-      className={classNames("w-full h-full relative border-4 border-yellow-200", customCSS || "")}
+      className={classNames("w-full h-full relative overflow-hidden", customCSS || "")}
       ref={containerRef}
-      style={style}
     >
-      {items.map((e, i) => {
-        const style = {
-          top: 0,
-          left: `${offsets[i]}px`,
-        };
+      {items.map((e, i) => {      
+        const activeCardIdx = pageIndex % items.length;
+        let animation = activeCardIdx === i
+          ? 'active'
+          : (i < activeCardIdx ? 'previous' : 'next');
         return (
           <div
             className={classNames(
-              "w-full h-full absolute carousel-card",
-              i === pageIndex % items.length ? "visible" : "invisible"
+              "w-full h-full carousel-card hidden",
+              animation,
             )}
-            style={style}
           >
             {e}
           </div>
         );
       })}
-      <div className="container flex flex-row items-center absolute p-1">
-        {items.map(() => {
-          const width = `${passedTime / wait}%`;
+      <div className="indicators flex flex-row items-center absolute p-1">
+        {items.map((_, i) => {
           return (
-            <div className="w-6 h-2">
+            <div className="m-1 w-12 h-2 bg-gray-400">
               <div
-                style={{
-                  width: `${width}`,
-                }}
+                className={classNames("h-full indicator-inner", i === (pageIndex % items.length) ? 'bg-red-300 w-full' : 'w-0')}
               />
             </div>
           );

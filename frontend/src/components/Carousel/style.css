@@ -1,3 +1,45 @@
+@keyframes sliding {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 .carousel-card {
-  transition: left 1s, visibility 1s;
+  transition: transform 0.6s ease-in-out;
+}
+
+.active,
+.previous,
+.next {
+  display: block;
+}
+
+.next,
+.previous {
+  position: absolute;
+  top: 0;
+}
+
+.active {
+  transform: translate(0%,0%);
+}
+
+.previous {
+  transform: translate(-100%,0%);
+}
+.next {
+  transform: translate(100%,0%);
+}
+
+.indicators {
+  bottom: 0.25em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.indicators .indicator-inner {
+  transition: width 3s;
 }

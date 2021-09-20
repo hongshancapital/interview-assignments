@@ -18,6 +18,11 @@ export const Slides = () => {
       bgImage: '',
       bgColor: 'green', 
     },
+    {
+      title: 'test-4',
+      bgImage: '',
+      bgColor: 'yellow', 
+    },
   ];
   const getItems = () => {
     return items.map(({title, bgColor, bgImage}) => {
@@ -33,7 +38,5 @@ export const Slides = () => {
   return (<Caroussel
     items={getItems()}
     wait={3000}
-    width={400}
-    height={300}
   />);
 }
