@@ -37,6 +37,11 @@ export const Slides = () => {
   }
   return (<Caroussel
     items={getItems()}
-    wait={3000}
+    interval={1500}
+    keyboard
+    indicators
+    pasued="hover"
+    cycle
+    control
   />);
 }
