@@ -40,7 +40,7 @@ export const CarouselWrapper = React.forwardRef<
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const wrapperCls = classnames(getPrefixCls('carousel-wrapper'), className);
-  const [ready, setReady] = useState(false);
+  // const [ready, setReady] = useState(false);
 
   React.useImperativeHandle(ref, () => ({
     goTo: (nextIndex) => carousel.slideTo(nextIndex),
@@ -119,7 +119,7 @@ export const CarouselWrapper = React.forwardRef<
     wrapperRef,
     () => true,
     (wrapperSize: IElementSize) => {
-      setReady(true);
+      // setReady(true);
       carousel.setCarouselSize(wrapperSize);
     },
   );
@@ -129,7 +129,7 @@ export const CarouselWrapper = React.forwardRef<
   return (
     <div ref={wrapperRef} className={wrapperCls} {...extra}>
       <div ref={containerRef} className={containerCls}>
-        {ready &&
+        {
           Children.map(carousel.sliders, (child: any, index) =>
             cloneElement(child, {
               key: index,

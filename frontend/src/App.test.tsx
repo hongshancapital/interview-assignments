@@ -1,9 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('first Slider will be cloned to last position', () => {
+  render(<App />);
+  
+  expect(screen.getAllByText(/\$399/)).toHaveLength(2);
 });
