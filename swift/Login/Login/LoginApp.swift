@@ -13,8 +13,7 @@ struct LoginApp: App {
 //    @State private var password = ""
     var body: some Scene {
         WindowGroup {
-            //LoginView().environmentObject(UserData())
-            ImageListView()
+            LoginView().environmentObject(UserData())
         }
     }
 }
