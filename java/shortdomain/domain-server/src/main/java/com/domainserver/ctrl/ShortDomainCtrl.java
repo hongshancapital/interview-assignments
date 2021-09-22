@@ -9,10 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 短域名服务控制器
@@ -41,7 +38,7 @@ public class ShortDomainCtrl {
     @ApiImplicitParam(name = "longDomain", value = "长域名", dataType = "String", required = true)
     @ApiResponse(code = 200, message = "获取成功")
     @PostMapping(value = "getShortDomain")
-    public Object getShortDomain(@RequestParam(required = true) String longDomain) {
+    public Object getShortDomain(@RequestBody(required = true) String longDomain) {
         return shortDomainService.getShortDomain(longDomain);
     }
 
@@ -59,7 +56,7 @@ public class ShortDomainCtrl {
     @ApiImplicitParam(name = "shortDomain", value = "短域名,最大长度为8", dataType = "String", required = true)
     @ApiResponse(code = 200, message = "获取成功")
     @PostMapping(value = "getLongDomain")
-    public Object getLongDomain(@RequestParam(required = true) String shortDomain) {
+    public Object getLongDomain(@RequestBody(required = true) String shortDomain) {
         return shortDomainService.getLongDomain(shortDomain);
     }
 }
