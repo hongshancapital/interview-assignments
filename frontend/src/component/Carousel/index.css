@@ -1,0 +1,83 @@
+[class^="carousel"]{
+    box-sizing: border-box;
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 100vh;
+}
+  
+.carousel-wrapper .carousel-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+
+.carousel-wrapper .carousel-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  color: white;
+}
+ 
+.carousel-wrapper .carousel-pagination {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 48px;
+    padding: 0 3.2%;
+    width: 100%;
+    z-index: 1;
+}
+
+.carousel-wrapper .carousel-pagination-left {
+    justify-content: flex-start;
+}
+.carousel-wrapper .carousel-pagination-center {
+    justify-content: center;
+}
+
+.carousel-wrapper .carousel-pagination-right {
+    justify-content: flex-end;
+}
+
+.carousel-wrapper .carousel-pagination-item {
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+    width: 50px;
+    height: 2px;
+    border-radius: 2px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+.carousel-wrapper .carousel-pagination-item-inner{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  height: 100%;
+}
+
+@keyframes pagination-move {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+}
+.carousel-wrapper .carousel-pagination-item-inner-active {
+
+    background-position: left center;
+    background-repeat: no-repeat;
+    animation: pagination-move linear; 
+}
