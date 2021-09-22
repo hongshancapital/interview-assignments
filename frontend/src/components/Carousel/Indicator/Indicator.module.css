@@ -1,0 +1,35 @@
+.indicator-wrap {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    width: 200px;
+    display: flex;
+    transform: translateX(-50%);
+}
+.indicator {
+    position: relative;
+    flex: 1 1 0;
+    height: 1px;
+    margin-right: 10px;
+    background-color: rgba(0,0,0, 0.5);
+}
+.indicator:last-child {
+    margin-right: 0;
+}
+.indicator-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    transform-origin: 0%;
+    transform: scaleX(0);
+    transition-property: none;
+}
+
+.indicator.active .indicator-progress {
+    transition-property: transform;
+    transition-timing-function: linear;
+    transform: scaleX(1);
+}
