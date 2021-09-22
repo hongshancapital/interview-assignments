@@ -51,20 +51,10 @@ struct LoginView: View {
                         .font(.footnote)
                         .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 25))
                 })
-                //
-//                    .fullScreenCover(isPresented: $presentedRegister, content: {
-//                        RegisterView()
-//                    })
-                
                 .sheet(isPresented: $presentedRegister, content: {
                     RegisterView()
                 })
             }
-            
-//                ConfirmButton(title: "Login", action: {
-//                    canLogin.toggle()
-//                }, isNomal: $canLogin)
-            
             Button(action: {
                 if  validateName.value.count > 0 && validatePassword.value.count > 8 {
                     showLoading = true
