@@ -18,6 +18,9 @@ public class GenerateRandomKey {
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     };
 
+    private static final String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final int scale = 62;
+
 
     /**
      * 随机生成指定长度的字符串
@@ -37,5 +40,25 @@ public class GenerateRandomKey {
             keyBuffer.append(CHARS[random.nextInt(CHARS.length)]);
         }
         return keyBuffer.toString();
+    }
+
+    /**
+     * 将 10 进制数字转化成 62 进制
+     *
+     * @param num
+     * @return
+     */
+    public static String encode62(long num) {
+        StringBuilder sb = new StringBuilder();
+        int remainder;
+        while (num > scale - 1) {
+            // 对 scale 进行求余，然后将余数追加至 sb 中，由于是从末位开始追加的，因此最后需要反转字符串
+            remainder = Long.valueOf(num % scale).intValue();
+            sb.append(chars.charAt(remainder));
+            // 除以进制数，获取下一个末尾数
+            num = num / scale;
+        }
+        sb.append(chars.charAt(Long.valueOf(num).intValue()));
+        return sb.reverse().toString();
     }
 }
