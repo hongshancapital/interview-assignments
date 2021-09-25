@@ -5,5 +5,5 @@ import App from './App';
 test('first Slider will be cloned to last position', () => {
   render(<App />);
   
-  expect(screen.getAllByText(/\$399/)).toHaveLength(2);
+  expect(screen.getAllByText(/\$399/)).toHaveLength(1);
 });

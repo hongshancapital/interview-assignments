@@ -5,6 +5,7 @@ import { shallow, configure } from 'enzyme';
 configure({adapter: new Adapter()});
 
 import Carousel from '..';
+import { act } from 'react-dom/test-utils';
 
 describe('Carousel component test case', () => {
 
@@ -28,7 +29,8 @@ describe('Carousel component test case', () => {
                 </Carousel.Slider>
             </Carousel>
         );
-        const { autoplay, speed} = instance.props();
+        const { autoplay, speed} = instance.props().extra;
+        
         expect(autoplay).toBe(true);
         expect(speed).toBe(3000);
 
@@ -70,13 +72,20 @@ describe('Carousel component test case', () => {
           </Carousel>,
         );
         const { prev, next, goTo } = ref.current;
-        goTo(3);
+        act(()=>{
+            goTo(3);
+        })
         jest.useFakeTimers();
         expect(screen.getByText('3')).toBeInTheDocument();
-        prev();
+        act(()=>{
+            prev();
+        })
+
         jest.useFakeTimers();
         expect(screen.getByText('2')).toBeInTheDocument();
-        next();
+        act(()=>{
+            next();
+        })
         jest.useFakeTimers();
         expect(screen.getByText('3')).toBeInTheDocument();
 
