@@ -1,32 +1,18 @@
 import React, {
   CSSProperties,
   Children,
-  HTMLAttributes,
   cloneElement,
-  useCallback,
-  useEffect,
   useRef,
-  useState,
+  useReducer,
+  useEffect,
+  useImperativeHandle
 } from 'react';
-import { UnionOmit } from './interface';
-import { useElementSize, useRefGetter } from '../../hooks';
-import { useCarousel } from './hooks/useCarousel';
-import { CarouselSlider } from './CarouselSlider';
-import { classnames, IElementSize, getPrefixCls } from '../../util';
-
-export interface ICarouselWrapper {
-  onActiveChange?: (currentIndex: number) => void;
-  children?: React.ReactNode;
-}
-
-export type ICarouselWrapperProps = ICarouselWrapper &
-  UnionOmit<ICarouselWrapper, HTMLAttributes<HTMLDivElement>>;
-
-interface CarouselWrapperRefType {
-  goTo: (nextIndex: number) => void;
-  prev: () => void;
-  next: () => void;
-}
+import {
+  CarouselPagination
+} from './CarouselPagination';
+import { classnames, getPrefixCls, getElementSize, IElementSize, getDefaultElementSize } from '../../util';
+import { initModelValue, modelReducer, modelContext as Context } from './model';
+import { CarouselWrapperRefType, ICarouselWrapperProps } from './model/interface';
 
 const containerCls = getPrefixCls('carousel-container');
 
@@ -34,109 +20,124 @@ export const CarouselWrapper = React.forwardRef<
   CarouselWrapperRefType,
   ICarouselWrapperProps
 >((props, ref) => {
-  const { onActiveChange, className, children, ...extra } = props;
 
-  const carousel = useCarousel();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const { className, children, extra } = props;
+
+  const {  
+    delay = 400,
+    speed = 3000,
+    autoplay = false,
+    paginationColor = '#989999',
+    paginationPosition = 'center',
+    paginationActiveColor = '#fff', 
+  } = extra;
+
   const wrapperCls = classnames(getPrefixCls('carousel-wrapper'), className);
-  // const [ready, setReady] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const carouselSizeRef= useRef<IElementSize>(getDefaultElementSize());
+  const timeId = useRef<NodeJS.Timeout | null >(null);
+  const [state, dispatch] = useReducer(modelReducer, initModelValue);
+  const {
+    currentIndex,
+    sliderLen,
+    containerTransform
+  } = state;
 
-  React.useImperativeHandle(ref, () => ({
-    goTo: (nextIndex) => carousel.slideTo(nextIndex),
+  const clearTimer = (): void => {
+    if (timeId.current) {
+      clearTimeout(timeId.current);
+      timeId.current = null;
+    }
+  }
+
+  const getTranslateStyle = (index: number, carouselSize: IElementSize): CSSProperties  => {
+    const translateSize =
+      ((sliderLen === 1) ? 0 :  -index) * carouselSize.width;
+      
+    return {
+      transform: `translateX(${translateSize}px)`,
+      transitionDuration: `${delay}ms`,
+    };
+  }
+
+  const slideTo = (nextIndex: number): void  => {
+    dispatch({
+      type: 'UPDATE_STATE',
+      payload: {
+        preIndex: currentIndex,
+        currentIndex:nextIndex,
+        containerTransform: getTranslateStyle(nextIndex, carouselSizeRef.current)
+      }
+    });
+
+    if (
+      currentIndex > sliderLen - 1 &&
+      sliderLen > 1
+    ) {
+      slideTo(0);
+    }
+
+    if (currentIndex < 0) {
+      slideTo(sliderLen - 1)
+    }
+  }
+
+  useImperativeHandle(ref, () => ({
+    goTo: (nextIndex) => slideTo(nextIndex),
     prev: () => {
-      if (carousel.sliders.length <= 1) {
-        carousel.slideTo(0);
+      if (sliderLen <= 1) {
+        slideTo(0);
       } else {
-        carousel.slideTo(carousel.currentIndex - 1);
+        slideTo(currentIndex - 1);
       }
     },
-    next: () => carousel.slideTo(carousel.currentIndex + 1),
+    next: () => slideTo(currentIndex + 1),
   }));
 
-
-
-  const handleTranslate = useCallback((style: CSSProperties) => {
-    Object.assign((containerRef.current as HTMLDivElement).style, style);
-  }, []);
-
-  const handleInitContainer = useCallback((carouselSize: IElementSize) => {
-    const { sliders } = carousel;
-    const containerDom = containerRef.current as HTMLDivElement;
-    const slidersDom = containerDom.children;
-
-    // 初始化容器&sliders
-    Object.assign(containerDom.style, {
-      width: `${sliders.length * carouselSize.width}px`,
-    });
-    for (const slider of slidersDom as any) {
-      Object.assign(slider.style, {
-        width: '100%',
-      });
-    }
-  }, []);
-
-  const handleActiveIndexChange = useRefGetter((currentIndex: number) => {
-    onActiveChange && onActiveChange(currentIndex);
-  });
-
-  const handleFilterChild = useCallback(() => {
-    const sliders: React.ReactNode[] = [];
-    const others: React.ReactNode[] = [];
-
-    Children.map(children, (child: any) => {
-      if (child.type === CarouselSlider) {
-        sliders.push(child);
-      } else {
-        others.push(child);
+  useEffect(()=>{
+    // 初始化
+    carouselSizeRef.current= getElementSize(wrapperRef.current as HTMLDivElement);
+    dispatch({
+      type: 'UPDATE_STATE',
+      payload: {
+        sliderLen: Children.count(children),
+        carouselSize: carouselSizeRef.current
       }
     });
-    return [sliders, others];
-  }, [children]);
-
-  const [originalChild, otherChild] = handleFilterChild();
+  }, [])
 
   useEffect(() => {
-    const handleActiveChange = handleActiveIndexChange();
+    if (autoplay) {
+      timeId.current = setTimeout(() => {
+        slideTo((currentIndex + 1) % Children.count(children));
+      }, speed);
+    } 
 
-    carousel.addListener('begin-translate', handleTranslate);
-    carousel.addListener('active-index-change', handleActiveChange);
-    carousel.addListener('carousel-size-change', handleInitContainer);
+    return () => clearTimer();
 
-    return () => {
-      carousel.removeListener('begin-translate', handleTranslate);
-      carousel.removeListener('active-index-change', handleActiveChange);
-      carousel.removeListener('carousel-size-change', handleInitContainer);
-    };
-  }, []);
-
-  useEffect(() => {
-    carousel.initCarouselSize();
-    carousel.initcurrentIndex();
-  }, [children]);
-
-  useElementSize(
-    wrapperRef,
-    () => true,
-    (wrapperSize: IElementSize) => {
-      // setReady(true);
-      carousel.setCarouselSize(wrapperSize);
-    },
-  );
-
-  carousel.cloneChild(originalChild);
+  }, [currentIndex]);
 
   return (
-    <div ref={wrapperRef} className={wrapperCls} {...extra}>
-      <div ref={containerRef} className={containerCls}>
-        {
-          Children.map(carousel.sliders, (child: any, index) =>
-            cloneElement(child, {
-              key: index,
-            }),
-          )}
+    <Context.Provider value={{state, dispatch}}>
+      <div ref={wrapperRef} className={wrapperCls}>
+        <div className={containerCls} style={{width: `${sliderLen * carouselSizeRef.current.width}px`, ...containerTransform}}>
+          {
+            Children.map(children, (child: any, index) =>
+              cloneElement(child, {
+                key: index,
+              }),
+            )
+          }
+        </div>
+        <CarouselPagination  
+            speed = {speed}
+            delay = {delay}
+            autoplay
+            paginationColor={paginationColor}
+            paginationPosition={paginationPosition}
+            paginationActiveColor={paginationActiveColor}  
+        />
       </div>
-      {otherChild}
-    </div>
+    </Context.Provider>
   );
 });

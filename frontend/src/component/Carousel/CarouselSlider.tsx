@@ -1,7 +1,6 @@
 
 import React, { HTMLAttributes } from 'react';
-import { classnames, getPrefixCls } from '../../util';
-import { UnionOmit } from './interface';
+import { classnames, getPrefixCls, UnionOmit } from '../../util';
 
 export interface ICarouselSlider {
   children?: React.ReactNode;

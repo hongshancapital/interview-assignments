@@ -1,35 +1,40 @@
 import React from "react";
 import "./App.css";
 import Carousel from './component/Carousel';
+const PREFIX_MAP: {[index: string]: string} = {
+  0: 'iphone',
+  1: 'tablet',
+  2: 'airpods'
+};
+
+const datasource = [{
+  title: 'xPhone',
+  subTitle: 'Lots to love. Less to spend.',
+  restInfo: 'Starting at $399.'
+},{
+  title: 'Tablet',
+  subTitle: 'Just the right amount of everything.',
+},{
+  title: 'Buy a Tablet or xPhone for college.',
+  subTitle: 'Get arPods.',
+}];
+
 function App() {
   return (
       <Carousel autoplay>
-        <Carousel.Slider className="slider-iphone-container">
-          <div className='slider-common slider-iphone'>
-              <div className='slider-inner-common slider-iphone-inner'>
-                <div>xPhone</div>
-                <div>Lots to love. Less to spend.</div>
-                <div>Starting at $399.</div>
+        {
+          datasource.map((item,index) => 
+            <Carousel.Slider key={item.title} className={`slider-${PREFIX_MAP[index]}-container`}>
+              <div className={`slider-common slider-${PREFIX_MAP[index]}`}>
+                  <div className={`slider-inner-common slider-${PREFIX_MAP[index]}-inner`}>
+                    <div>{item.title}</div>
+                    <div>{item.subTitle}</div>
+                    {item.restInfo && <div>{item.restInfo}</div>}
+                  </div>
               </div>
-          </div>
-        </Carousel.Slider>
-        <Carousel.Slider className="slider-tablet-container">
-          <div className='slider-common slider-tablet'>
-              <div className='slider-inner-common slider-tablet-inner'>
-                <div>Tablet</div>
-                <div>Just the right amount of everything.</div>
-              </div>
-          </div>
-        </Carousel.Slider>
-        <Carousel.Slider className="slider-airpods-container">
-          <div className='slider-common slider-airpods'>
-              <div className='slider-inner-common slider-airpods-inner'>
-                <div>Buy a Tablet or xPhone for college.</div>
-                <div>Get arPods.</div>
-              </div>
-          </div>
-        </Carousel.Slider>
-        <Carousel.Pagination />
+            </Carousel.Slider>
+          )
+        }
       </Carousel>
   )
      
