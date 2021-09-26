@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>注册</title>
+    <script type="text/javascript" src="jquery-1.9.1.js"></script>
+</head>
+<body>
+		用户名：<input type="text" name="username" id="username">
+		密码：<input type="password" name="pw" id="pw">
+		<input type="submit" id="submit">
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+	$("#submit").click(function(){
+		submit();
+		return false;
+	})
+})
+function submit(){
+	var username = $("#username").val();
+	var pw = $("#pw").val();
+	$.post(
+		"/api/register/",
+		{
+			"username" : username,
+			"pw" : pw,
+		},
+		function(data){
+			var json = eval("("+data+")");
+			alert(json.msg)
+		}
+	)
+}
+</script>
