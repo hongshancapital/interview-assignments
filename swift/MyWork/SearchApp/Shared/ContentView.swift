@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreData
-import SearchLibrary
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext

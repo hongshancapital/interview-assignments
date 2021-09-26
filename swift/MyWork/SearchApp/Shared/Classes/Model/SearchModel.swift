@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import SearchLibrary
 
 /// 查询Model
 class SearchModel: ObservableObject {
