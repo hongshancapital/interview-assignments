@@ -1,5 +1,5 @@
 import React from "react";
-import { Caroussel } from "../components/Carousel";
+import { Carousel } from "../components/Carousel";
 
 function getRandomColor() {
   var letters = "0123456789ABCDEF";
@@ -47,7 +47,7 @@ export const Slides = () => {
     });
   };
   return (
-    <Caroussel
+    <Carousel
       items={getItems()}
       interval={2000}
       keyboard

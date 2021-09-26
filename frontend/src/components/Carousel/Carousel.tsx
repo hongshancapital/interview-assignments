@@ -26,7 +26,7 @@ const EmptyPage = () => (
   <div className="container text-center">Opps! Nothing!</div>
 );
 
-export function Caroussel(props: ICarouselProps) {
+export function Carousel(props: ICarouselProps) {
   const { customCSS, items, interval, keyboard, indicators, control, cycle, pasued } = props;
   const [pageIndex, setPageIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);

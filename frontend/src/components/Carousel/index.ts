@@ -1,3 +1,3 @@
 export {
-  Caroussel,
+  Carousel,
 } from './Carousel';

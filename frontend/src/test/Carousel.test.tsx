@@ -1,7 +1,7 @@
 import React from "react";
 import { create, act } from "react-test-renderer";
 import { cleanup, fireEvent, render, waitFor, prettyDOM } from "@testing-library/react";
-import { Caroussel } from "../components/Carousel";
+import { Carousel } from "../components/Carousel";
 import { getConstantValue } from "typescript";
 
 afterEach(() => {
@@ -9,7 +9,7 @@ afterEach(() => {
 });
 
 test("render empty page, if no item was passed", () => {
-  const component = create(<Caroussel items={[]} />);
+  const component = create(<Carousel items={[]} />);
   let tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -36,22 +36,22 @@ test("render right tree structure when passed items", () => {
   };
   let root;
   act(() => {
-    root = create(<Caroussel items={getSlides()} />);
+    root = create(<Carousel items={getSlides()} />);
   });
   expect(root.toJSON()).toMatchSnapshot();
 
   act(() => {
-    root.update(<Caroussel items={getSlides()} indicators />);
+    root.update(<Carousel items={getSlides()} indicators />);
   });
   expect(root.toJSON()).toMatchSnapshot();
 
   act(() => {
-    root.update(<Caroussel items={getSlides()} control />);
+    root.update(<Carousel items={getSlides()} control />);
   });
   expect(root.toJSON()).toMatchSnapshot();
 
   act(() => {
-    root.update(<Caroussel items={getSlides()} control indicators />);
+    root.update(<Carousel items={getSlides()} control indicators />);
   });
   expect(root.toJSON()).toMatchSnapshot();
 });
@@ -77,7 +77,7 @@ test("do interaction when user slide the page manually", () => {
     ));
   };
   const { queryAllByRole, queryByTestId, getByText } = render(
-    <Caroussel items={getSlides()} control />
+    <Carousel items={getSlides()} control />
   );
   expect(queryAllByRole("link").length).toBe(2);
 
@@ -122,7 +122,7 @@ test("Cycle the slides", async () => {
     ));
   };
   const { container, getByText } = render(
-    <Caroussel items={getSlides()} cycle interval={500} />
+    <Carousel items={getSlides()} cycle interval={500} />
   );
   const test1 = getByText('test-1').parentElement;
   const test2 = getByText('test-2').parentElement;
