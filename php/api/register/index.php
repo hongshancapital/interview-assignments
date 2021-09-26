@@ -1,7 +1,7 @@
 <?php
 /**
 	数据库
-	 CREATE TABLE `user` (
+	 CREATE TABLE `user` ( 
 	  `id` int NOT NULL AUTO_INCREMENT,
 	  `username` varchar(20) NOT NULL DEFAULT '',
 	  `pw` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
