@@ -1,0 +1,25 @@
+name: Danger
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+    branches:
+      - stable
+
+jobs:
+  Danger:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6 # Not needed with a .ruby-version file
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      
+      - name: Danger
+        run: |
+          bundle exec danger --fail-on-errors=true
+        shell: bash
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
