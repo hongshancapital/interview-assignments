@@ -11,7 +11,7 @@ import classNames from "classnames";
 import "./style.css";
 
 export interface ICarouselProps {
-  interval: number; // ms
+  interval?: number; // ms
   items: JSX.Element[];
   pause?: boolean | string;
   customCSS?: string;
@@ -143,6 +143,7 @@ export function Caroussel(props: ICarouselProps) {
                 "w-full h-full carousel-card hidden",
                 animation
               )}
+              key={i}
             >
               {e}
             </div>
@@ -157,7 +158,7 @@ export function Caroussel(props: ICarouselProps) {
               transitionDuration: duration,
             };
             return (
-              <div className="m-1 w-12 h-2 bg-gray-400">
+              <div className="m-1 w-12 h-2 bg-gray-400" key={i}>
                 <div
                   className={classNames(
                     "h-full indicator-inner",
@@ -172,10 +173,10 @@ export function Caroussel(props: ICarouselProps) {
       ) : null}
       {control ? (
         <>
-          <a className="control-prev absolute w-1/5 h-full" onClick={nav2Prev}>
+          <a className="control-prev absolute w-1/5 h-full" data-testid="prev" role="link" onClick={nav2Prev}>
             <span />
           </a>
-          <a className="control-next absolute w-1/5 h-full" onClick={nav2Next}>
+          <a className="control-next absolute w-1/5 h-full" data-testid="next" role="link" onClick={nav2Next}>
             <span />
           </a>
         </>
