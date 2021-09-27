@@ -111,7 +111,7 @@ export function Carousel(props: ICarouselProps) {
     if (cycle && !isPausedCyCle.current) {
       timer.current = window.setTimeout(() => {
         toNext();
-      }, interval);
+      }, interval || 1000);
     }
   }, [pageIndex]);
   useEffect(() => {

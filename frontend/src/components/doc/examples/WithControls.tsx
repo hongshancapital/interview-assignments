@@ -62,5 +62,5 @@ const getSlides = () => {
 };
 
 export const DemoWithControl = () => {
-  return <Carousel control items={getSlides()} customCSS="movies" />;
+  return <Carousel control items={getSlides()} customCSS="movies" cycle />;
 };
