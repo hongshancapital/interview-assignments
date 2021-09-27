@@ -18,7 +18,7 @@ export interface ICarouselProps {
   keyboard?: boolean;
   indicators?: boolean;
   control?: boolean;
-  pasued?: string|boolean;
+  pasued?: string | boolean;
   cycle?: boolean;
 }
 
@@ -27,7 +27,16 @@ const EmptyPage = () => (
 );
 
 export function Carousel(props: ICarouselProps) {
-  const { customCSS, items, interval, keyboard, indicators, control, cycle, pasued } = props;
+  const {
+    customCSS,
+    items,
+    interval,
+    keyboard,
+    indicators,
+    control,
+    cycle,
+    pasued,
+  } = props;
   const [pageIndex, setPageIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   let timer: MutableRefObject<number | null> = useRef<number>(null);
@@ -41,25 +50,25 @@ export function Carousel(props: ICarouselProps) {
       idx = items.length - 1;
     }
     setPageIndex(idx);
-  }
+  };
   const clearCycle = () => {
     if (timer.current !== null) {
       clearTimeout(timer.current);
     }
-  }
+  };
   const pauseCycle = () => {
-    if (pasued === 'hover') {
+    if (pasued === "hover") {
       isPausedCyCle.current = true;
       clearCycle();
     }
-  }
+  };
   const startCycle = () => {
     isPausedCyCle.current = false;
-    if (cycle && pasued === 'hover') {
+    if (cycle && pasued === "hover") {
       clearCycle();
       toNext();
     }
-  }
+  };
   const onKeyUp = (e: KeyboardEvent) => {
     e.preventDefault();
     if (keyboard) {
@@ -70,12 +79,12 @@ export function Carousel(props: ICarouselProps) {
       const isHitKeyPrompt = key === "ArrowRight" || key === "ArrowLeft";
       if (isHitKeyPrompt) {
         clearCycle();
-        switch(key) {
-          case 'ArrowLeft': {
+        switch (key) {
+          case "ArrowLeft": {
             toPrevious();
             break;
           }
-          case 'ArrowRight': {
+          case "ArrowRight": {
             toNext();
             break;
           }
@@ -153,7 +162,7 @@ export function Carousel(props: ICarouselProps) {
       {indicators ? (
         <div className="indicators flex flex-row items-center absolute p-1">
           {items.map((_, i) => {
-            const duration = cycle ? `${interval}ms` : '0';
+            const duration = cycle ? `${interval}ms` : "0";
             const style = {
               transitionDuration: duration,
             };
@@ -173,11 +182,47 @@ export function Carousel(props: ICarouselProps) {
       ) : null}
       {control ? (
         <>
-          <a className="control-prev absolute w-1/5 h-full" data-testid="prev" role="link" onClick={nav2Prev}>
-            <span />
+          <a
+            className="control-prev absolute w-1/5 h-full flex justify-start items-center text-gray-400 opacity-0 hover:opacity-100 transition-opacity duration-1000"
+            data-testid="prev"
+            role="link"
+            onClick={nav2Prev}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-12 w-12"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
           </a>
-          <a className="control-next absolute w-1/5 h-full" data-testid="next" role="link" onClick={nav2Next}>
-            <span />
+          <a
+            className="control-next absolute w-1/5 h-full flex justify-end items-center text-gray-400  opacity-0 hover:opacity-100 transition-opacity duration-1000"
+            data-testid="next"
+            role="link"
+            onClick={nav2Next}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-12 w-12"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
           </a>
         </>
       ) : null}
