@@ -1,5 +1,18 @@
 <?php
 
+/**
+ * create table user
+ * (
+ *  id int auto_increment,
+ *  username varchar(255) not null,
+ *  password varchar(100) not null,
+ *  access_token varchar(255) null,
+ *  created_at timestamp default CURRENT_TIMESTAMP not null,
+ *  constraint user_pk
+ *  primary key (id)
+ * );
+ */
+
 use App\Model\YUser;
 
 class UserController
@@ -17,7 +30,7 @@ class UserController
 
         $userModel = new User();
         $userModel->username = $username;
-        $userModel->password = $password;
+        $userModel->password = md5($password);
         $userModel->access_token = uniqid("login_");
         $user = $userModel->save();
 
