@@ -1,14 +1,94 @@
-.App {
-  text-align: center;
+.carousel{
   position: relative;
+  width: 800px;
+  height: 500px;
+  margin: 20px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 10px 28px 2px rgba(0, 0, 0, 0.109);
 }
 
-.title {
-  font-size: 56px;
-  font-weight: 600;
+.carousel .carousel-item{
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
 }
 
-.text {
-  font-size: 28px;
-  font-weight: 400;
+.carousel .dots{
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
 }
+
+.carousel .next{
+  position: absolute;
+  right: 0px;
+  height: 100%;
+  width: 50px;
+}
+
+.carousel .prev{
+  position: absolute;
+  left: 0px;
+  height: 100%;
+  width: 50px;
+}
+
+.carousel .img-wrapper{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 100px;
+}
+
+.carousel img{
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.carousel .desc-wrapper{
+  text-align: center;
+  margin-top: 12vh;
+}
+
+.carousel .carousel-item:first-child .desc-wrapper{
+  color: #fff !important;
+}
+
+.carousel .desc-wrapper p{
+  font-size: 20px;
+}
+
+.box-content-vertical{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+}
+
+.carousel .dots .dots-item{
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 3px;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
+}
+
+.carousel .dots .dots-item .progress{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0px, 0px, 5px, 0px);
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+
