@@ -6,15 +6,6 @@
 
 ## 开放岗位
 
-北京 / 上海：
-- [Java](java/)
-- [TypeScript Fullstack](fullstack/)
-- [TypeScript Frontend](frontend/)
-- [Swift](swift/)
-- [QA](qa/)
-- [DevOps](dev-ops/)  
-- [UI 设计师](design/)
-
 北京/上海/武汉：
 - [Java](java/)
 - [TypeScript Fullstack](fullstack/)
