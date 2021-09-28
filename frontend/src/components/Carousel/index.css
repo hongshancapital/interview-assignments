@@ -1,0 +1,63 @@
+.carousel-wrap {
+    overflow: hidden;
+    position: relative;
+    min-height: 100px;
+    height: 100%;
+}
+.carousel-wrap .carousel-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: inherit;
+    transition: margin-left 0.5s ease-in-out;
+    will-change: margin-left;	
+}
+.carousel-wrap .carousel-content .carousel-panel {
+    flex-shrink: 0;
+    width: 100%;
+    display: flex;
+}
+.carousel-wrap .carousel-content .carousel-panel .carousel-panel-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.carousel-wrap .carousel-bar {
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+.carousel-wrap .carousel-bar .slider-item {
+    display: inline-block;
+    position: relative;
+    width: 35px;
+    height: 2px;
+    background: #ececec;
+}
+.carousel-wrap .carousel-bar .slider-item > span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 100%;
+    background: #9e9e9e;
+}
+.carousel-wrap .carousel-bar .slider-item > span.running {
+    animation-name: runAnim;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+}
+.carousel-wrap .carousel-bar .slider-item + .slider-item {
+    margin-left: 5px;
+}
+@keyframes runAnim {
+    to {
+        right: 0;
+    }
+}
