@@ -111,7 +111,7 @@ export function Carousel(props: ICarouselProps) {
     if (cycle && !isPausedCyCle.current) {
       timer.current = window.setTimeout(() => {
         toNext();
-      }, interval || 1000);
+      }, interval);
     }
   }, [pageIndex]);
   useEffect(() => {
@@ -228,4 +228,8 @@ export function Carousel(props: ICarouselProps) {
       ) : null}
     </div>
   );
+}
+
+Carousel.defaultProps = {
+  interval: 1000,
 }
