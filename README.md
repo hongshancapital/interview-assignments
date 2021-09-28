@@ -15,8 +15,19 @@
 - [DevOps](dev-ops/)  
 - [UI 设计师](design/)
 
-上海/深圳/香港/北京：
+北京/上海/武汉：
+- [Java](java/)
+- [TypeScript Fullstack](fullstack/)
+- [TypeScript Frontend](frontend/)
+- [Swift](swift/)
+- [UI 设计师](design/)
+
+
+北京/上海/香港/深圳：
 - [IT Support Engineer](it-support-engineer/)
+
+北京/上海：
+- [DevOps](dev-ops/)  
 
 链接中有更为具体的 JD。
 
