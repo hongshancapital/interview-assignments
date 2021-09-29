@@ -2,12 +2,12 @@
  * @desc 自定义hook，能在指定范围[min, max]以给定的时间间隔循环取值，
  *       这里使用requestAnimationFrame来模拟定时器
  */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export interface argTypes {
-	duration?: number,
-	max: number,
+    max: number,
     min?: number,
+	duration?: number,
     defaultIndex?: number,
 };
 
@@ -16,7 +16,7 @@ let start: DOMHighResTimeStamp;
 function useLoopIndex({ duration = 3000, max, min = 0, defaultIndex = min } : argTypes) {
     const [activeIndex, setActiveIndex] = useState(defaultIndex);
     const refActiveIndex = useRef(activeIndex); // 避免闭包引起的bug
-    const step = (timestamp: DOMHighResTimeStamp) => {
+    const step = useCallback((timestamp: DOMHighResTimeStamp) => {
         if (!refActiveIndex) { // 避免组件卸载的情况
             return;
         }
@@ -27,10 +27,10 @@ function useLoopIndex({ duration = 3000, max, min = 0, defaultIndex = min } : ar
             start = timestamp;
         }
         window.requestAnimationFrame(step);
-    };
+    }, [duration, max, min]);
     useEffect(() => {
         window.requestAnimationFrame(step);
-    }, []);
+    }, [step]);
     return activeIndex;
 }
 

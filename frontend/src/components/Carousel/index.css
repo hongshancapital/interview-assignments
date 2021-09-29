@@ -16,13 +16,44 @@
     flex-shrink: 0;
     width: 100%;
     display: flex;
+    background-repeat: no-repeat;
+    background-size: 75%;
+    background-position: center bottom;
+    background-origin: content-box;
 }
 .carousel-wrap .carousel-content .carousel-panel .carousel-panel-inner {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+}
+.carousel-wrap .slide-title {
+    font-size: 2.5em;
+    padding-top: 100px;
+}
+.carousel-wrap p {
+    margin: 0.5em auto;
+    font-size: 1.5em;
+}
+.carousel-wrap .carousel-content .carousel-panel.iphone-slide {
+    position: relative;
+    color: #fff;
+    background-size: 50%;
+    padding-bottom: 20px;
+    background-color: #111;
+    background-image: url(../../assets/iphone.png);
+}
+.carousel-wrap .carousel-content .carousel-panel.tablet-slide {
+    background-color: #fafafa;
+    padding-bottom: 20px;
+    background-image: url(../../assets/tablet.png);
+}
+.carousel-wrap .carousel-content .carousel-panel.airpods-slide {
+    background-color: #f0f0f2;
+    padding-bottom: 50px;
+    font-size: 1.5em;
+    font-weight: bold;
+    background-image: url(../../assets/airpods.png);
 }
 .carousel-wrap .carousel-bar {
     position: absolute;
