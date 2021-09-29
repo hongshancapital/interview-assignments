@@ -167,11 +167,11 @@ export function Carousel(props: ICarouselProps) {
               transitionDuration: duration,
             };
             return (
-              <div className="m-1 w-12 h-2 bg-gray-400" key={i}>
+              <div className="m-1 w-14 h-0.5 bg-gray-400" key={i}>
                 <div
                   className={classNames(
                     "h-full indicator-inner",
-                    i === pageIndex % items.length ? "bg-red-300 w-full" : "w-0"
+                    i === pageIndex % items.length ? "bg-gray-50 w-full" : "w-0"
                   )}
                   style={style}
                 />
