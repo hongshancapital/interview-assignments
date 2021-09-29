@@ -182,10 +182,9 @@ export function Carousel(props: ICarouselProps) {
       ) : null}
       {control ? (
         <>
-          <a
+          <button
             className="control-prev absolute w-1/5 h-full flex justify-start items-center text-gray-400 opacity-0 hover:opacity-100 transition-opacity duration-1000"
             data-testid="prev"
-            role="link"
             onClick={nav2Prev}
           >
             <svg
@@ -202,11 +201,10 @@ export function Carousel(props: ICarouselProps) {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-          </a>
-          <a
+          </button>
+          <button
             className="control-next absolute w-1/5 h-full flex justify-end items-center text-gray-400  opacity-0 hover:opacity-100 transition-opacity duration-1000"
             data-testid="next"
-            role="link"
             onClick={nav2Next}
           >
             <svg
@@ -223,7 +221,7 @@ export function Carousel(props: ICarouselProps) {
                 d="M9 5l7 7-7 7"
               />
             </svg>
-          </a>
+          </button>
         </>
       ) : null}
     </div>

@@ -46,12 +46,12 @@ function App() {
           {Object.keys(examples).map((example) => {
             return (
               <li>
-                <a
+                <button
                   className="hover:underline cursor-pointer"
                   onClick={() => setExample(example)}
                 >
                   {example}
-                </a>
+                </button>
               </li>
             );
           })}
