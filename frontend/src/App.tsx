@@ -41,33 +41,35 @@ function createSliders(initSlider: sliders, activeIndex: number = 0, offset: num
 }
 
 var progressAnimation = function (target: HTMLElement, durtaion: number) {
-  let aniFrameID:number, 
-      start:number = 0, 
-      percent:number = 0, 
-      step:number = 55/(60*durtaion/1000);
+  // let aniFrameID:number, 
+  //     start:number = 0, 
+  //     percent:number = 0, 
+  //     step:number = 55/(60*durtaion/1000);
 
   target.style.animationDuration = durtaion+'ms';
-  console.log(percent);
   
   const go = function () {
-    aniFrameID = requestAnimationFrame(function() {
-      const now = +new Date();
-      if(start === 0)start = now;
-      if(now - start < durtaion){
-        percent += step;
-        target.style.clip = `rect(0px, ${percent}px, 5px, 0px)`;
-        go();
-      }
-    }) 
+    // aniFrameID = requestAnimationFrame(function() {
+    //   const now = +new Date();
+    //   if(start === 0)start = now;
+    //   if(now - start < durtaion){
+    //     percent += step;
+    //     target.style.clip = `rect(0px, ${percent}px, 5px, 0px)`;
+    //     go();
+    //   }
+    // }) 
+
+    target.classList.add('animation');
 
   }
 
   return {
     go,
     cancel: () => {
-      cancelAnimationFrame(aniFrameID);
+      // cancelAnimationFrame(aniFrameID);
+      target.classList.remove('animation');
       target.style.clip = `rect(0px, 0px, 5px, 0px)`;
-      start = percent = 0;
+      // start = percent = 0;
     }
   }
 }
@@ -75,17 +77,17 @@ var progressAnimation = function (target: HTMLElement, durtaion: number) {
 const Dots:React.FC<dotsProps> = (props) => {
 
   const ref = useRef(null);
-  let ani = useRef(null);
+  const ani = useRef(null);
 
   useEffect(() => {
-    let target = (ref.current as unknown) as HTMLElement;
+    const target = (ref.current as unknown) as HTMLElement;
     (ani.current as unknown) = progressAnimation(target, props.duration);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     // let target = (ref.current as unknown) as HTMLElement;
-    let aniRef = (ani.current as unknown) as {go: () => void, cancel: ()=>void};
+    const aniRef = (ani.current as unknown) as {go: () => void, cancel: ()=>void};
     if(props.active === props.tag){
       aniRef.go()
     }else{
@@ -124,7 +126,8 @@ const Carousel:React.FC<CarouselProps> = (props) => {
 
   const next = () => {
     if(current === sliders.length-1)return;
-    var cur = current+1;
+    // var cur = current+1;
+    const cur = current+1;
     setCurrent(cur);
     clearTimeout(timer);
     autoPlay(cur);
@@ -132,7 +135,8 @@ const Carousel:React.FC<CarouselProps> = (props) => {
 
   const prev = () => {
     if(current === 0)return;
-    var cur = current-1;
+    // var cur = current-1;
+    const cur = current-1;
     setCurrent(cur);
     clearTimeout(timer);
     autoPlay(cur);
