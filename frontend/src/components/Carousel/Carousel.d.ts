@@ -14,5 +14,6 @@ interface CarouselItemProps {
 interface CarouselDotsProps {
   itemCount: number,
   duration: number,
-  onIndex: number
+  onIndex: number,
+  onAnimationEnd: () => void
 }
