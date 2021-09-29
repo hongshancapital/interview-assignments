@@ -44,7 +44,10 @@ var progressAnimation = function (target: HTMLElement, durtaion: number) {
   let aniFrameID:number, 
       start:number = 0, 
       percent:number = 0, 
-      step:number = 50/(60*durtaion/1000);
+      step:number = 55/(60*durtaion/1000);
+
+  target.style.animationDuration = durtaion+'ms';
+  console.log(percent);
   
   const go = function () {
     aniFrameID = requestAnimationFrame(function() {
@@ -55,8 +58,8 @@ var progressAnimation = function (target: HTMLElement, durtaion: number) {
         target.style.clip = `rect(0px, ${percent}px, 5px, 0px)`;
         go();
       }
-    })
-    
+    }) 
+
   }
 
   return {
@@ -77,6 +80,7 @@ const Dots:React.FC<dotsProps> = (props) => {
   useEffect(() => {
     let target = (ref.current as unknown) as HTMLElement;
     (ani.current as unknown) = progressAnimation(target, props.duration);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -87,6 +91,7 @@ const Dots:React.FC<dotsProps> = (props) => {
     }else{
       aniRef.cancel();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.active])
 
   return (
@@ -141,8 +146,8 @@ const Carousel:React.FC<CarouselProps> = (props) => {
       activeIndex++;
     }
     timer = setTimeout(function () {
-      autoPlay(activeIndex);
       setCurrent(activeIndex);
+      autoPlay(activeIndex);
     }, props.duration || settings.duration)
   }
 
@@ -153,11 +158,12 @@ const Carousel:React.FC<CarouselProps> = (props) => {
     return () => {
       clearTimeout(timer);
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     move(current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current]);
 
   const handleDotsClick = (idx: number) => {
@@ -182,7 +188,7 @@ const Carousel:React.FC<CarouselProps> = (props) => {
               <p>{item.summary}</p>
             </div>
             <div className="img-wrapper">
-              <img src={item.url} />
+              <img src={item.url} alt="" />
             </div>
           </div>
         )
