@@ -72,7 +72,7 @@ export const DemoWithControl = () => {
 
 export const DemoWithCycle = () => {
   return (
-    <Carousel cycle pasued="hover" items={getSlides()} customCSS="movies mt-12" />
+    <Carousel cycle items={getSlides()} customCSS="movies mt-12" interval={3000} />
   );
 };
 
@@ -132,6 +132,13 @@ export const DemoAppleSlides = () => {
     );
   };
   return (
-    <Carousel items={getAppleProducts()} control customCSS="apple-products" cycle interval={3000} indicators />
+    <Carousel items={getAppleProducts()} customCSS="apple-products" cycle interval={3000} indicators />
   );
 };
+export const DemoCyclePaused = () => {
+  return <Carousel cycle pasued="hover" items={getSlides()} customCSS="movies mt-12" interval={3000} />
+}
+
+export const DemoKeyboardControl = () => {
+  return <Carousel control keyboard interval={3000} items={getSlides()} customCSS="movies mt-12" />
+}
