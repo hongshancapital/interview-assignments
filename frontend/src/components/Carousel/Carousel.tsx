@@ -113,6 +113,7 @@ export function Carousel(props: ICarouselProps) {
         toNext();
       }, interval);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex]);
   useEffect(() => {
     if (inputRef) {
