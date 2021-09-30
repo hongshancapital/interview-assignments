@@ -18,9 +18,9 @@ const examples: {
   cyclePaused: () => <DemoCyclePaused />,
   keyboardControl: () => <DemoKeyboardControl />,
 };
-const getCurrentPosition = () => `${window.location.hash.split("#")[1]}||''`;
+const getCurrentPosition = () => `${window.location.hash.split("#")[1]||''}`;
 function App() {
-  const [example, setExample] = useState(window.location.hash);
+  const [example, setExample] = useState(getCurrentPosition());
   const CurrentExample = examples[example];
   useEffect(() => {
     const syncExample = () => {
@@ -38,7 +38,7 @@ function App() {
   }, [example]);
   return (
     <div className="App bg-gray-600 relative text-white">
-      {example ? (
+      {CurrentExample ? (
         <>
           <div className="w-full h-full flex justify-center">
             <CurrentExample />
