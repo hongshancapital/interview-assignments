@@ -83,7 +83,7 @@ export const DemoWithIndicators = () => {
       cycle
       items={getSlides()}
       customCSS="movies mt-12"
-      interval={1500}
+      interval={3000}
     />
   );
 };
