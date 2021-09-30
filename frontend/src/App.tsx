@@ -18,13 +18,13 @@ const examples: {
   cyclePaused: () => <DemoCyclePaused />,
   keyboardControl: () => <DemoKeyboardControl />,
 };
-const getCurrentPosition = () => `${window.location.hash.split("#")[1]||''}`;
+const getCurrentPosition = () => `${window.location.pathname.split("/")[1]||''}`;
 function App() {
   const [example, setExample] = useState(getCurrentPosition());
   const CurrentExample = examples[example];
   useEffect(() => {
     const syncExample = () => {
-      const e = `${window.location.hash.split("#")[1] || ""}`;
+      const e = getCurrentPosition();
       setExample(e);
     };
     window.addEventListener("hashchange", syncExample);
@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     const pos = getCurrentPosition();
     if (example !== pos) {
-      window.location.hash = example;
+      window.location.pathname = example;
     }
   }, [example]);
   return (
