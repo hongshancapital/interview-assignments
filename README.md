@@ -4,11 +4,6 @@
 
 作为「创业者背后的创业者」，红杉中国投资了阿里巴巴、京东、头条、美团点评等互联网头部企业。
 
-## 红杉专属T-shirt
-凡事进行第一面技术面试的同学，均可获得红杉专属T-shirt（款式随机发放）
-请留下T-shirt选型大小（180 vs 170），以及邮寄方式。
-![WechatIMG145](https://user-images.githubusercontent.com/89758/135418812-74b86ed4-b980-4b81-aa00-732daa07957f.jpeg)
-
 ## 开放岗位
 
 北京/上海/武汉：
@@ -27,11 +22,16 @@
 
 链接中有更为具体的 JD。
 
-# interview-assignments
+## interview-assignments
 
 The monorepo for interview take home assignments.
 
 Please find your assignment in subfolder accordingly.
+
+## 红杉专属T-shirt
+凡事进行第一面技术面试的同学，均可获得红杉专属T-shirt（款式随机发放）
+请留下T-shirt选型大小（180 vs 170），以及邮寄方式。
+![WechatIMG145](https://user-images.githubusercontent.com/89758/135418812-74b86ed4-b980-4b81-aa00-732daa07957f.jpeg)
 
 ## 这样一家投资公司为什么要招工程师 / 设计师？
 
