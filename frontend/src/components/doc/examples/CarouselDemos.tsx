@@ -120,10 +120,10 @@ export const DemoAppleSlides = () => {
           >
             <div className="w-full flex flex-col items-center description">
               {caption.map((c) => (
-                <h1 className="text-6xl leading-normal font-bold">{c}</h1>
+                <h1 className="text-6xl leading-normal font-bold" key={c}>{c}</h1>
               ))}
               {description?.map((d) => (
-                <p className="text-4xl font-normal">{d}</p>
+                <p className="text-4xl font-normal" key={d}>{d}</p>
               ))}
             </div>
           </div>
