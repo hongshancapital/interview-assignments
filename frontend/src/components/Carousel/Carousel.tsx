@@ -72,9 +72,6 @@ export function Carousel(props: ICarouselProps) {
     e.preventDefault();
     if (keyboard) {
       const { key } = e;
-      if (timer.current !== null) {
-        clearTimeout(timer.current);
-      }
       const isHitKeyPrompt = key === "ArrowRight" || key === "ArrowLeft";
       if (isHitKeyPrompt) {
         clearCycle();
