@@ -13,7 +13,6 @@ import "./style.css";
 export interface ICarouselProps {
   interval?: number; // ms
   items: JSX.Element[];
-  pause?: boolean | string;
   customCSS?: string;
   keyboard?: boolean;
   indicators?: boolean;
