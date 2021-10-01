@@ -13,11 +13,12 @@ class MockHttpServer: ObservableObject {
     func request(searchText: String, pageIndex: Int) async throws -> (Data?, Bool) {
         print("load page \(pageIndex) started")
         try await Task.sleep(nanoseconds: UInt64.random(in: 500_000_000..<2_000_000_000))
-        print("load ended")
 //        if "dyson" == searchText.lowercased() {
         if "dyson".hasPrefix(searchText.lowercased()) {
+            print("load dyson")
             return pageIndex == 0 ? (MockHttpServer.respIndex1, true) : (MockHttpServer.respIndex2, false)
         } else {
+            print("load nothing")
             return (nil, false)
         }
     }

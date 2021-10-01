@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var searchText = ""
+    @ObservedObject var viewModel = SearchViewModel()
     
     var body: some View {
         NavigationView {
-            SearchContent(searchText: $searchText)
+            SearchContent(searchText: $viewModel.searchTextO)
                 .navigationTitle("Search")
-        }.searchable(text: $searchText, placement: .navigationBarDrawer, prompt: "Tap here to search")
+        }.searchable(text: $viewModel.searchTextI, placement: .navigationBarDrawer, prompt: "Tap here to search")
     }
 }
 

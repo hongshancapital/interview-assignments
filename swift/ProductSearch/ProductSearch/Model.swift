@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum ProductState {
     case inStock, outOfStock
@@ -28,4 +29,19 @@ struct Product: Codable, Identifiable, Hashable {
     var name: String = ""
     var price: Double = 0
     var inStock: Bool = false
+}
+
+class SearchViewModel: ObservableObject {
+    @Published var searchTextI: String = ""
+    @Published var searchTextO: String = ""
+    private var subscriptions: Set<AnyCancellable> = []
+    
+    init() {
+        $searchTextI
+            .debounce(for: .milliseconds(800), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.searchTextO, on: self)
+            .store(in: &subscriptions)
+    }
 }
