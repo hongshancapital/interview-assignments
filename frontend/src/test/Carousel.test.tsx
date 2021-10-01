@@ -79,7 +79,7 @@ test("do interaction when user slide the page manually", () => {
   const { queryAllByRole, queryByTestId, getByText } = render(
     <Carousel items={getSlides()} control />
   );
-  expect(queryAllByRole("button").length).toBe(2);
+  expect(queryAllByRole("link").length).toBe(2);
 
   const prev = queryByTestId("prev");
   fireEvent.click(prev);

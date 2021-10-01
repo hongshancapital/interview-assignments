@@ -187,7 +187,7 @@ export function Carousel(props: ICarouselProps) {
             opacity-0 hover:opacity-100 transition-opacity duration-1000"
             data-testid="prev"
             onClick={nav2Prev}
-            role="button"
+            role="link"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +211,7 @@ export function Carousel(props: ICarouselProps) {
             opacity-0 hover:opacity-100 transition-opacity duration-1000"
             data-testid="next"
             onClick={nav2Next}
-            role="button"
+            role="link"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
