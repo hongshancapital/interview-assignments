@@ -11,11 +11,11 @@ interface iPages {
     isEnd: boolean
 }
 export default function Carousel(prop: iProps) {
-    let pagation: JSX.Element[] = [];//每页的下标按钮
-    let contents: JSX.Element[] = [];//每页的内容
-    let pages: iPages[] = []
+    const pagation: JSX.Element[] = [];//每页的下标按钮
+    const contents: JSX.Element[] = [];//每页的内容
+    const pages: iPages[] = []
     React.Children.forEach(prop.children, (child, index) => {
-        let item = {
+        const item = {
             id: index,
             content: child as JSX.Element,
             isShow: (index === 0) ? true : false,
@@ -57,7 +57,7 @@ export default function Carousel(prop: iProps) {
             cls += " animation-left-start"
         }
 
-        contents.push(<div key={item.id} className={cls}>{item.content}</div>)  
+        contents.push(<div key={item.id} className={cls}>{item.content}</div>)
         pagation.push(<div key={item.id} className={clsAnimation} onClick={() => { ainimation(i) }} >
         <span onAnimationEnd={() => ainimation(i + 1)}></span>
             </div>);

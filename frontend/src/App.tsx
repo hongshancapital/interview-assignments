@@ -2,18 +2,28 @@ import React from "react";
 import "./App.css";
 import Carousel from './component/Carousel';
 function App() {
+  const data = [
+    {
+      clss:'iphoneX',
+      text:'lots to love . Less  to spend .<br/> Starting  at $399.'
+    },
+    {
+      clss:'tablelet',
+      text:'Just the right amount of everthing.'
+    },
+    {
+      clss:'airpods',
+      text:'Buy a Table or xPhone for college.Get arPods.'
+    },
+  ]
+
+   let html = data.map((item)=>{
+   return  ( <div className={item.clss} key={item.clss}><h2>{item.clss}</h2>
+    {item.text}
+    </div>)
+  })
   return <div className="App">
-    <Carousel>{[
-    <div className="iphoneX" key='iphoneX'><h2>xPhone</h2>
-      lots to love . Less  to spend .<br/> Starting  at $399.
-    </div>,
-    <div className="tablelet" key='tablelet'><h2>Tablelet</h2>
-    Just the right amount of everthing.
-    </div>,
-    <div className="airpods" key='airpods'><h2> Buy a Table or xPhone for college.<br/>
-    Get arPods.</h2>
-    </div>,
-  ]}</Carousel>
+    <Carousel>{html}</Carousel>
   </div>;
 }
 
