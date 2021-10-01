@@ -180,9 +180,14 @@ export function Carousel(props: ICarouselProps) {
       {control ? (
         <>
           <button
-            className="control-prev absolute w-1/5 h-full flex justify-start items-center text-gray-400 opacity-0 hover:opacity-100 transition-opacity duration-1000"
+            className="control-prev
+            absolute w-1/5 h-full
+            flex justify-start items-center
+            text-gray-400
+            opacity-0 hover:opacity-100 transition-opacity duration-1000"
             data-testid="prev"
             onClick={nav2Prev}
+            role="button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -200,9 +205,13 @@ export function Carousel(props: ICarouselProps) {
             </svg>
           </button>
           <button
-            className="control-next absolute w-1/5 h-full flex justify-end items-center text-gray-400  opacity-0 hover:opacity-100 transition-opacity duration-1000"
+            className="control-next
+            absolute w-1/5 h-full 
+            flex justify-end items-center text-gray-400
+            opacity-0 hover:opacity-100 transition-opacity duration-1000"
             data-testid="next"
             onClick={nav2Next}
+            role="button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -227,4 +236,4 @@ export function Carousel(props: ICarouselProps) {
 
 Carousel.defaultProps = {
   interval: 1000,
-}
+};

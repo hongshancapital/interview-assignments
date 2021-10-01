@@ -1,6 +1,6 @@
 import React from "react";
 import { create, act } from "react-test-renderer";
-import { cleanup, fireEvent, render, waitFor, prettyDOM } from "@testing-library/react";
+import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import { Carousel } from "../components/Carousel";
 import { getConstantValue } from "typescript";
 
@@ -79,7 +79,7 @@ test("do interaction when user slide the page manually", () => {
   const { queryAllByRole, queryByTestId, getByText } = render(
     <Carousel items={getSlides()} control />
   );
-  expect(queryAllByRole("link").length).toBe(2);
+  expect(queryAllByRole("button").length).toBe(2);
 
   const prev = queryByTestId("prev");
   fireEvent.click(prev);
