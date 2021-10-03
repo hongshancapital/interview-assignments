@@ -9,7 +9,7 @@ const Carousel = (props:IProps) => {
 
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const timer = useRef<any>()
+  const timer = useRef<NodeJS.Timeout>()
 
   const carouselDom = useRef<HTMLDivElement>(null)
 
@@ -21,7 +21,7 @@ const Carousel = (props:IProps) => {
     }
 
     return () => {
-      clearInterval(timer.current)
+      timer.current && clearInterval(timer.current)
     }
   }, [props.children])
 
