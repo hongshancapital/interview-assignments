@@ -1,40 +1,24 @@
-import React, { RefObject, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import "./index.css";
 
-const LOOP_INTERVAL = 4000;
+export function useCarouselControl(
+    length: number
+): [JSX.Element, (index: number) => void] {
+    const [paginationIndex, setPaginationIndex] = useState(0);
 
-export function useCarouselControl(ref: RefObject<HTMLDivElement>) {
-    const [children, setChildren] = useState<Element[]>();
-    const [loopIndex, setLoopIndex] = useState(0);
-
-    useEffect(() => {
-        const parsedChildren = Array.from(ref.current?.children || []);
-        setChildren(parsedChildren);
-    }, [ref]);
-
-    // loop slide
-    useEffect(() => {
-        const loopHandler = () => {
-            const index = ((loopIndex || 0) + 1) % (children?.length || 0);
-            children?.[index].scrollIntoView({
-                behavior: "smooth",
-            });
-            setLoopIndex(index);
-        };
-
-        const timerId = window.setInterval(loopHandler, LOOP_INTERVAL);
-        return () => clearInterval(timerId);
-    }, [children, loopIndex]);
+    const slideTo = useCallback((index: number) => {
+        setPaginationIndex(index);
+    }, []);
 
     const Pagination = useMemo(
         () => () =>
             (
                 <div className="pagination-container">
-                    {children?.map((_, index) => {
+                    {[...new Array(length)].map((_, index) => {
                         return (
                             <div
                                 className={`pagination-bar ${
-                                    index === loopIndex ? "active" : ""
+                                    index === paginationIndex ? "active" : ""
                                 }`}
                                 key={index}
                             >
@@ -44,8 +28,8 @@ export function useCarouselControl(ref: RefObject<HTMLDivElement>) {
                     })}
                 </div>
             ),
-        [children, loopIndex]
+        [paginationIndex, length]
     )();
 
-    return [Pagination];
+    return [Pagination, slideTo];
 }

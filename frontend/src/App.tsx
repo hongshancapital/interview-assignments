@@ -24,7 +24,7 @@ function App() {
         {
             backgroundColor: "#f2f2f4",
             backgroundImg: posterThree,
-            title: "But a Tablet or xPhone for college.",
+            title: "But a Tablet or xPhone for college.\nGet arPods.",
         },
     ];
 
