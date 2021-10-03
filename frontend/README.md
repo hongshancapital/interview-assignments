@@ -2,10 +2,11 @@
 
 ## 要求
 
-- 实现 demo.mov 中的效果
-- 封装为 `<Carousel>` 组件
-- 使用 React Hooks 实现，不能用 Class Component
-- 使用 TypeScript 实现
+- √ 实现 demo.mov 中的效果
+- √ 封装为 `<Carousel>` 组件
+- √ 使用 React Hooks 实现，不能用 Class Component
+- √ 使用 TypeScript 实现
+- √ 添加测试代码(Jest snapshot测试)
 
 ## 加分项
 

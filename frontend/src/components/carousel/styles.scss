@@ -1,0 +1,52 @@
+
+.carousel-slider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .carousel-slide {
+    width: 100vw;
+    height: 100vh;
+
+    .content {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      .title {
+        padding-top: 15%;
+        h1 {
+          font-size: 4rem;
+          margin: 0;
+        }
+        p {
+          font-size: 2rem;
+        }
+      }
+    }
+
+  }
+
+  .carousel-paging {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    .progress-line {
+      display: inline-block;
+      width: 88px;
+      height: 2px;
+      background-color: gray;
+
+      .progress-timing {
+        width: 0;
+        height: 100%;
+        background-color: #fff;
+      }
+    }
+  }
+
+}

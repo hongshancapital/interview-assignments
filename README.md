@@ -1,3 +1,13 @@
+# Bodhi's SCDT frontend exams
+
+> Sequoia Frontend Interview
+
+- √ 实现 demo.mov 中的效果
+- √ 封装为 `<Carousel>` 组件
+- √ 使用 React Hooks 实现
+- √ 使用 TypeScript 实现
+- √ 添加测试代码(Jest snapshot测试)
+
 ## 如果你还没听说过「红杉」...
 
 身为工程师的你一定听说过这些公司: Apple, Google, GitHub...
