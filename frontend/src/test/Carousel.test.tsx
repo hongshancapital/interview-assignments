@@ -1,8 +1,7 @@
 import React from "react";
 import { create, act } from "react-test-renderer";
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import { cleanup, render, waitFor } from "@testing-library/react";
 import { Carousel } from "../components/Carousel";
-import { getConstantValue } from "typescript";
 
 afterEach(() => {
   cleanup();
@@ -44,61 +43,6 @@ test("render right tree structure when passed items", () => {
     root.update(<Carousel items={getSlides()} indicators />);
   });
   expect(root.toJSON()).toMatchSnapshot();
-
-  act(() => {
-    root.update(<Carousel items={getSlides()} control />);
-  });
-  expect(root.toJSON()).toMatchSnapshot();
-
-  act(() => {
-    root.update(<Carousel items={getSlides()} control indicators />);
-  });
-  expect(root.toJSON()).toMatchSnapshot();
-});
-
-test("do interaction when user slide the page manually", () => {
-  const getSlides = () => {
-    const descriptions = [];
-    for (let i = 1; i <= 3; i += 1) {
-      descriptions.push({
-        text: `test-${i}`,
-        bgColor: "red",
-      });
-    }
-    return descriptions.map(({ text, bgColor }, i) => (
-      <div
-        key={i}
-        style={{
-          backgroundColor: bgColor,
-        }}
-      >
-        {text}
-      </div>
-    ));
-  };
-  const { queryAllByRole, queryByTestId, getByText } = render(
-    <Carousel items={getSlides()} control />
-  );
-  expect(queryAllByRole("link").length).toBe(2);
-
-  const prev = queryByTestId("prev");
-  fireEvent.click(prev);
-  expect(
-    getByText("test-3")?.parentElement?.classList.contains("active")
-  ).toBeTruthy();
-
-  const next = queryByTestId("next");
-  fireEvent.click(next);
-  expect(
-    getByText("test-1")?.parentElement?.classList.contains("active")
-  ).toBeTruthy();
-
-  fireEvent.click(next);
-  fireEvent.click(next);
-  fireEvent.click(next);
-  expect(
-    getByText("test-1")?.parentElement?.classList.contains("active")
-  ).toBeTruthy();
 });
 
 test("Cycle the slides", async () => {
