@@ -1,0 +1,159 @@
+.carousel {
+  position: relative;
+}
+
+.carousel-inner {
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.carousel-item {
+  display: none;
+}
+
+.carousel-item-initial {
+  display: block;
+}
+
+.carousel-item-prev {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.carousel-item-prev-fade {
+  animation: fadeOut 1s;
+}
+
+.carousel-item-prev-slide {
+  animation: slideOut 1s;
+}
+
+.carousel-item-prev-slide-right {
+  animation: slideOutRight 1s;
+}
+
+.carousel-item-current {
+  display: block;
+  position: relative;
+  z-index: 11; 
+}
+
+.carousel-item-current-fade {
+  animation: fadeIn 1s;
+}
+
+.carousel-item-current-slide {
+  animation: slideIn 1s;
+}
+
+.carousel-item-current-slide-right {
+  animation: slideInRight 1s;
+}
+
+.carousel-dot {
+  position: absolute;
+  font-size: 0;
+  z-index: 12;
+}
+
+.carousel-dot-bottom {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 64px;
+}
+
+.carousel-dot-top {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 64px;
+}
+
+.carousel-dot-left {
+  top: 50%;
+  left: 64px;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.carousel-dot-right {
+  top: 50%;
+  right: 64px;
+  transform: translateX(100%) translate(-50%, -50%) rotate(90deg);
+}
+
+.carousel-dot-item {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  width: 60px;
+  height: 4px;
+  border-radius: 1px;
+  cursor: pointer;
+  background-color: gray;
+  transition: width .3s;
+}
+
+.carousel-dot-item+.carousel-dot-item {
+  margin-left: 6px;
+}
+
+.carousel-dot-item-active {
+  width: 60px;
+  background-color: lightblue;
+}
