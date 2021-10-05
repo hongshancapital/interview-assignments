@@ -45,7 +45,7 @@ export default function CarouselDemo() {
   ];
 
   return (
-    <Carousel autoplay={true} interval={3000} timeStep={10}>
+    <Carousel autoplay={true} interval={3000}>
       {items.map((item: any) => <div key={item.key} style={{ background: `${item.bgColor} url(${item.imageUrl}) no-repeat center /auto 100%` }} className={'carousel_wrapper'}>
         <div className={'capation'}>
           <div className={item.mainStyle}>{item.mainTitle}</div>

@@ -17,21 +17,18 @@ export interface Props {
   afterChange?: (current: number) => void //面板改变后回调函数
   beforeChange?: (from: number, to: number) => void //面板改变前回调函数
   children: ReactNode //子元素集合
-  timeStep?: number //指示点进度条步长(毫秒)
 }
 
 export default function Carousel({
   autoplay,
   effect = 'slide',
-  interval = 5000,
+  interval = 3000,
   children,
   dotPosition = 'bottom',
   beforeChange,
   afterChange,
-  timeStep = 10
 }: Props) {
   const [position, setPosition] = useState({ prev: 0, cur: 0 })
-  const [interCount, setInterCount] = useState(0)
 
   const cnt = useMemo(() =>
     Children.map(children, (it: ReactNode, index) => {
@@ -66,26 +63,18 @@ export default function Carousel({
 
   useEffect(() => {
     if (!autoplay) {
-      setInterCount(interval);
       return;
     }
-    // 如果为自动播放，则计算指示点进度条行进位置
     const handle = window.setInterval(() => {
-      if (interCount >= interval) {
-        setPosition(v => ({ prev: v.cur, cur: (v.cur + 1) % count }))
-        setInterCount(0);
-      } else {
-        setInterCount(v => (v + timeStep));
-      }
-    }, timeStep)
+      setPosition(v => ({ prev: v.cur, cur: (v.cur + 1) % count }))
+    }, interval)
     return () => window.clearInterval(handle)
-  }, [autoplay, interval, count, timeStep, interCount])
+  }, [autoplay, interval, count, position])
 
   const handleChange = useCallback(
     (value: number) => {
       beforeChange?.(position.cur, value)
       setPosition({ prev: position.cur, cur: value })
-      setInterCount(0);
     },
     [position, beforeChange]
   )
@@ -108,7 +97,7 @@ export default function Carousel({
         onChange={handleChange}
         position={dotPosition}
         dotCount={count}
-        progress={interCount / interval}
+        interval={interval}
       />
     </div>
   )
@@ -120,7 +109,7 @@ interface CarouselDotProps {
   dotCount: number //数量
   value: number //索引
   onChange: (value: number) => void, //指示点改变时回调函数
-  progress: number //进度条位置
+  interval: number //轮播间隔
 }
 
 function CarouselDot({
@@ -128,7 +117,7 @@ function CarouselDot({
   onChange,
   dotCount,
   position = 'bottom',
-  progress
+  interval
 }: CarouselDotProps) {
 
   const classNames = ['carousel-dot', `carousel-dot-${position}`].join(' ').trim()
@@ -138,7 +127,7 @@ function CarouselDot({
     const itemClassNames = ['carousel-dot-item'].join(' ').trim()
     cnt.push(
       <div key={i} className={itemClassNames} onClick={() => onChange(i)}>
-        {i === value ? (<p style={{ width: `${100 * progress}%`, backgroundColor: 'lightblue', height: '4px' }}></p>) : null}
+        {i === value ? (<p className={'progress-bar'} style={{ animationDuration: `${interval}ms` }}></p>) : null}
       </div>
     )
   }
