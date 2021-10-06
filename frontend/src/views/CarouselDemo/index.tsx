@@ -4,13 +4,13 @@ import './style.css'
 
 // 轮播测试对象
 interface CarouselItem {
-  key: String //主键
-  bgColor: String //背景色
-  imageUrl: String //图像路径
-  mainTitle: String //主标题
-  subTitle: String //副标题
-  mainStyle: String //主标题样式集合
-  subStyle: String //副标题样式集合
+  key: string //主键
+  bgColor: string //背景色
+  imageUrl: string //图像路径
+  mainTitle: string //主标题
+  subTitle: string //副标题
+  mainStyle: string //主标题样式集合
+  subStyle: string //副标题样式集合
 }
 
 export default function CarouselDemo() {

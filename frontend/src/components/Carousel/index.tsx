@@ -1,4 +1,4 @@
-import React, { Children, useState, useCallback, useEffect, cloneElement, isValidElement, ReactNode, useMemo } from "react"
+import React, { useState, useCallback, useEffect, cloneElement, isValidElement, ReactNode, useMemo } from "react"
 
 import './style.css'
 
@@ -31,31 +31,14 @@ export default function Carousel({
   const [position, setPosition] = useState({ prev: 0, cur: 0 })
 
   const cnt = useMemo(() =>
-    Children.map(children, (it: ReactNode, index) => {
+  React.Children.map(children, (it: ReactNode, index) => {
       if (!isValidElement(it)) {
         console.warn('Carousel children must be an valid element')
         return null
       }
-      // 是否当前面板
-      const isCurrent = index === position.cur && index !== position.prev
-      // 是否前一个面板
-      const isPrev = index !== position.cur && index === position.prev
-      //是否初始化状态
-      const isInitial = position.prev === position.cur && position.prev === index
-      const prefix = 'carousel-item'
-      // 如果向后播放，使用左到右动画；如果向前播放，使用右到左动画
-      const classNames = [
-        it.props.className,
-        prefix,
-        isInitial ? `${prefix}-initial` : '',
-        isCurrent ? `${prefix}-current` : '',
-        isCurrent && position.prev < position.cur ? `${prefix}-current-${effect}` : '',
-        isCurrent && position.prev > position.cur ? `${prefix}-current-${effect}-right` : '',
-        isPrev ? `${prefix}-prev` : '',
-        isPrev && position.prev < position.cur ? `${prefix}-prev-${effect}` : '',
-        isPrev && position.prev > position.cur ? `${prefix}-prev-${effect}-right` : '',
-      ].join(' ').trim();
-      return cloneElement(it, { className: classNames })
+      const classNames = [it.props.className, 'carousel-item'].join(' ').trim()
+      const styles = { ...it.props.style, transform: `translate3d(${(index - position.cur) * 100}vw, 0px, 0px)` }
+      return cloneElement(it, { className: classNames, style: styles })
     })
     , [children, position, effect,])
 
