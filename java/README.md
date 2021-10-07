@@ -1,49 +1,61 @@
-# Java Assignment
+# 实现短域名服务（细节可以百度/谷歌）
+##功能性需求
+1. 创建一个长域名转换成一个短域名（write）
+2. 根据短域名获得长域名（read）
+3. 短域名长度最大为 8 个字符
+4. 采用SpringBoot，集成Swagger API文档；
+5. JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图即刻)；
+6. 映射数据存储在JVM内存即可，防止内存溢出；
 
-## 这是什么？
+##条件假设
+1.短域名地址长度
+和写的数量有关系
 
-为了节省大家的时间，我们使用作业分配来对Java候选人进行资格预审。这使我们在面试中保持客观，专注于候选人解决​​复杂问题并捍卫他们选择技术或方法的能力。我们还评估候选人如何处理来自同事、管理层或运营团队的压力，时间压力，批评和审查。
+* 使用[a-z,A-Z,0-9,'-','_'] → 26(小写字母)+26(大写字母)+10(数字)+2(特殊符号) = 64（每种字符有64种可能）
+* 假设短域名的长度为7，那么可以生成的短域名地址有64的7次方个约等于4.39e12个短地址
+* 假设1000 writes/s => 3.15e10 writes/year => 可使用139年
+* 假设写提升100倍 100,000 writes/s => 7个短域名长度可以使用1.4年 => 将域名长度设置为8个可以使用89年
 
-***要考虑参加面试，您需要完成下面的“作业”部分。***
+2.URL长度和存储
+* 不同的浏览器设定的上限不一样，其中最短的是IE浏览器长度，length ≤ 2083 字符，为了兼容所有的浏览器我们会取最短的长度2083
+* 每条记录的长度估算：8+2083+4(过期时间) = 2095 chars
+    100,000 writes/s => 一年产生数据量：3.15e12 => 每年 6599 TB存储
 
-### Assignment
+##系统API
+```
+1. createShortUrl(String longUrl,Optional expireMills) 
+    return shortUrl
+2. getLongUrl(String shortUrl)
+    if not expired -> redirect long url
+    else not found
+```
 
-#### 实现短域名服务（细节可以百度/谷歌）
+### 架构设计
 
-撰写两个 API 接口:
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
-
-限制：
-- 短域名长度最大为 8 个字符
-- 采用SpringBoot，集成Swagger API文档；
-- JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图即刻)；
-- 映射数据存储在JVM内存即可，防止内存溢出；
-
-**递交作业内容** 
-- 源代码(按照生产级的要求编写整洁的代码，使用gitignore过滤掉非必要的提交文件，如class文件)
-- Jacoco单元测试覆盖率截图(行覆盖率和分支覆盖率85%+)
-- 文档：设计思路、简单的架构图以及所做的假设(Markdown格式)
-
-**加分项** 
-- 系统性能测试方案以及测试结果
-
-
-## Job Description
-
-### 岗位职责
-
-1. 负责公司内部自用产品开发，能够独立的按产品需求进行技术方案设计和编码实现，确保安全、可扩展性、质量和性能;
-2. 在负责的业务上有独立的见解和思考，对业务产品具有独立沟通、完善业务需求和识别方案风险的能力;
-3. 具有持续优化、追求卓越的激情和能力，能持续关注和学习相关领域的知识，并能使用到工作当中;
-4. 具备和第三方供应商进行沟通，对设计方案进行审核的能力;
-
-### 要求
-
-1. 5年软件研发/解决方案设计工作经验(金融领域经验加分)；
-2. Java基础扎实，熟悉高级特性和类库、多线程编程以及常见框架(SpringBoot等)；
-3. 具备基本系统架构能力，熟悉缓存、高可用等主流技术；
-5. 持续保持技术激情，善于快速学习，注重代码质量，有良好的软件工程知识和编码规范意识；
+![image-20211007095700430](/Users/kunliu/project/my/short-domain/readme.assets/image-20211007095700430.png)
 
 
 
+### swagger
+
+http://localhost:8080/swagger-ui.html#/
+
+![image-20211007164104171](/Users/kunliu/project/my/short-domain/readme.assets/image-20211007164104171.png)
+
+### 执行结果
+
+![image-20211007164011891](/Users/kunliu/project/my/short-domain/readme.assets/image-20211007164011891.png)
+
+![image-20211007140538538](/Users/kunliu/project/my/short-domain/readme.assets/image-20211007140538538.png
+
+![image-20211007140635237](/Users/kunliu/project/my/short-domain/readme.assets/image-20211007140635237.png)
+
+### jacoco测试结果
+
+![image-20211007163737472](/Users/kunliu/project/my/short-domain/readme.assets/image-20211007163737472.png) 
+
+### 性能测试
+
+![image-20211007171035975](/Users/kunliu/project/my/short-domain/readme.assets/image-20211007171035975.png)
+
+测试环境是运行在本地，如果要支持分布式情况会有所差异
