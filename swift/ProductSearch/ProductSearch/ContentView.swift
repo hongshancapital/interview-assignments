@@ -77,17 +77,16 @@ struct SearchContent: View {
 
 extension SearchContent {
     func load() async {
+        let urlString = "http://localhost:8080/\(searchText.lowercased().trimmingCharacters(in: .whitespaces))/\(pageIndex)"
+        guard let url = URL(string: urlString) else { return }
         do {
-//            let (data, _) = try await URLSession.shared.data(from: URL(string: "https://loadhost/request")!)
-            let (data, hasMoreItems) = try await MockHttpServer.shared.request(searchText: searchText, pageIndex: pageIndex)
-            guard let data = data else {
-                return
-            }
-            let items = try JSONDecoder().decode([Vendor].self, from: data)
-            vendors.append(contentsOf: items)
-            hasMore = hasMoreItems
+            print("load page \(pageIndex): \(urlString)")
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let resp = try JSONDecoder().decode(Response.self, from: data)
+            vendors.append(contentsOf: resp.vendors)
+            hasMore = resp.hasMore
         } catch {
-            print(error.localizedDescription)
+            print("error: " + error.localizedDescription)
         }
         pageIndex = hasMore ? pageIndex+1 : 0
     }

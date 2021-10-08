@@ -13,6 +13,7 @@
 		E9380600270620D600BD70DC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E93805FF270620D600BD70DC /* Preview Assets.xcassets */; };
 		E9380607270621B300BD70DC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9380606270621B300BD70DC /* Model.swift */; };
 		E938060B2706EC8500BD70DC /* MockHttpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938060A2706EC8500BD70DC /* MockHttpServer.swift */; };
+		E9F0D530270EDFA800A49093 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = E9F0D52F270EDFA800A49093 /* Swifter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9F0D530270EDFA800A49093 /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +93,9 @@
 			dependencies = (
 			);
 			name = ProductSearch;
+			packageProductDependencies = (
+				E9F0D52F270EDFA800A49093 /* Swifter */,
+			);
 			productName = ProductSearch;
 			productReference = E93805F5270620C800BD70DC /* ProductSearch.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +125,7 @@
 			);
 			mainGroup = E93805EC270620C800BD70DC;
 			packageReferences = (
+				E9F0D52E270EDFA800A49093 /* XCRemoteSwiftPackageReference "swifter" */,
 			);
 			productRefGroup = E93805F6270620C800BD70DC /* Products */;
 			projectDirPath = "";
@@ -357,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E9F0D52E270EDFA800A49093 /* XCRemoteSwiftPackageReference "swifter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitee.com/greatfoolbear/swifter.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E9F0D52F270EDFA800A49093 /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9F0D52E270EDFA800A49093 /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E93805ED270620C800BD70DC /* Project object */;
 }

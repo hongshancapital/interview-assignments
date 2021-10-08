@@ -12,6 +12,11 @@ enum ProductState {
     case inStock, outOfStock
 }
 
+struct Response: Codable, Hashable {
+    var hasMore: Bool = false
+    var vendors: [Vendor] = []
+}
+
 struct Vendor: Codable, Identifiable, Hashable {
     var id: Int = 0
     var name: String = ""
