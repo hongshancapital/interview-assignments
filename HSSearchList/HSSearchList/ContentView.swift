@@ -9,17 +9,13 @@ import SwiftUI
 import UIKit
 
 struct ContentView: View {
-    @State private var searchText: String = "" {
-        willSet {
-            print(newValue)
-        }
-    }
+    @State private var searchText: String = ""
     @State private var searchResult: [HSResultModel] = []
     var body: some View {
         NavigationView {
             VStack {
                 HSSearchBar(text: $searchText)
-                    .padding(/*@START_MENU_TOKEN@*/.horizontal, 15.0/*@END_MENU_TOKEN@*/)
+                    .padding(.horizontal, 15.0)
                 if searchText.count > 0 {
                     HSResultList(results: requestSearchResult(searchText))
                 }
