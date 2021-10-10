@@ -1,17 +1,19 @@
 package com.sequoiacap.cache;
 
-import com.google.common.cache.CacheBuilder;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.guava.GuavaCacheManager;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.*;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 import java.util.*;
@@ -61,7 +63,7 @@ public class CacheConfig{
     return redisCacheManager;
   }
 
-  private GuavaCacheManager guavaCacheManager() {
+  /*private GuavaCacheManager guavaCacheManager() {
     GuavaCacheManager guavaCacheManager = new GuavaCacheManager();
     guavaCacheManager.setCacheBuilder(CacheBuilder.newBuilder()
             .expireAfterWrite(shortUrlTimeout, TimeUnit.DAYS).maximumSize(GUAVA_CACHE_SIZE));
@@ -69,6 +71,16 @@ public class CacheConfig{
     guavaCacheNames.add(userCacheName);
     guavaCacheManager.setCacheNames(guavaCacheNames);
     return guavaCacheManager;
+  }*/
+  //经对比Caffeine性能较好
+  private CaffeineCacheManager caffeineCacheManager() {
+    CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager();
+    caffeineCacheManager.setCaffeine(Caffeine.newBuilder()
+            .expireAfterWrite(shortUrlTimeout, TimeUnit.DAYS).maximumSize(GUAVA_CACHE_SIZE));
+    ArrayList<String> guavaCacheNames = Lists.newArrayList();
+    guavaCacheNames.add(userCacheName);
+    caffeineCacheManager.setCacheNames(guavaCacheNames);
+    return caffeineCacheManager;
 
   }
 
@@ -82,16 +94,15 @@ public class CacheConfig{
     }catch (RuntimeException e){
       log.error("redis链接异常", e);
     }
-    GuavaCacheManager guavaCacheManager = guavaCacheManager();
+    CaffeineCacheManager caffeineCacheManager = caffeineCacheManager();
     CompositeCacheManager cacheManager = null;
     if(null == redisCacheManager){
-      cacheManager = new CompositeCacheManager(guavaCacheManager);
+      cacheManager = new CompositeCacheManager(caffeineCacheManager);
     }else {
-      cacheManager = new CompositeCacheManager(redisCacheManager, guavaCacheManager);
+      cacheManager = new CompositeCacheManager(redisCacheManager, caffeineCacheManager);
     }
     return cacheManager;
   }
-
 
 
 }
