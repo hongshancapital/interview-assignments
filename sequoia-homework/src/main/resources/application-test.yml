@@ -1,0 +1,30 @@
+server:
+  servlet:
+    context-path: /sequoia
+  port: 18000
+  undertow:
+    threads:
+      io: 4
+      worker: 20
+    buffer-size: 1024
+    direct-buffers: true
+
+spring:
+  application:
+    name: sequoia-homework
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+    password: Irvin123
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
+    timeout: 5000
+
+#日志配置
+#logging:
+#  config: classpath:log/spring-logback.xml
