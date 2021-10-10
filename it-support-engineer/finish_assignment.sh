@@ -16,7 +16,7 @@ result=$(cat $1 \
  | sed 'N;s/\n\t/ /' `# Merge the lines which begin with a TAB symbol to the upper line` \
  | sed 'N;s/\n\t/ /' `# Do the above operation once more` \
  `# The awk command below is used to get ERROR statics group by hour|deviceName|processName|processId|description` \
- `# Note that all the logs is being handled since ERROR rules was not given` \
+ `# Note that all the logs are being handled since ERROR rules was not given` \
  | awk -F' ' '{split($3,time,":"); \
  split($5,process,"["); \
  split(process[2],id_no,"]"); \
