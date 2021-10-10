@@ -6,6 +6,7 @@
 >jvm内部两个ConcurrentHashMap, 第一个map的key是长路径value是短路径，第二个map的key是长路径value是短路径，这样做数据会有冗余但是正反两种查询都比较快
 
 * 接口1 由长路径获取短路径
+>长路径传入时需使用加密（url友好,例如base64）
 
 >如果记录已经存在， 直接返回对应的短路径
 
@@ -23,3 +24,8 @@
 ######junit-jupiter单测已完成
 
 ######jacoco覆盖率报告已完成
+
+
+Author: 王晓峰
+Mobile: 13917000708
+email: sppnew111@hotmail.com
