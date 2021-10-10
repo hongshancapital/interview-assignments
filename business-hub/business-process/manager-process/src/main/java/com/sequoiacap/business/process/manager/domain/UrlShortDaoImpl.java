@@ -1,7 +1,13 @@
 package com.sequoiacap.business.process.manager.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,40 +23,49 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class UrlShortDaoImpl implements UrlShortDao{
 
+  @Value("${short.url.userCacheName:shortUrlCache}")
+  private String userCacheName;
+
+  @Autowired
+  private CacheManager cacheManager;
+  private Cache cache;
+
+  @PostConstruct
+  public void init(){
+    this.cache = cacheManager.getCache(userCacheName);
+  }
+
   private Map<String, String> url2ShortUrl = new ConcurrentHashMap<String, String>();
   private Map<String, String> shortUrl2Url = new ConcurrentHashMap<String, String>();
 
   public void save(String url, String shortUrl) {
-    //超过10万条数据，自动清除1000条，可做成异步处理
-    if(url2ShortUrl.entrySet().size()>100000){
-      Iterator<Map.Entry<String, String>> iterator = url2ShortUrl.entrySet().iterator();
-      int i = 0;
-      while (iterator.hasNext()) {
-        i++;
-        Map.Entry entry = iterator.next();
-        String key = (String) entry.getKey();
-        String value = (String) entry.getValue();
-        url2ShortUrl.remove(key);
-        shortUrl2Url.remove(value);
-        if(i>1000){
-          break;
-        }
-      }
-    }
-    url2ShortUrl.put(url, shortUrl);
-    shortUrl2Url.put(shortUrl, url);
+    this.cachePut(shortUrl,url);
+    this.cachePut(url, shortUrl);
   }
 
   public String get(String shortUrl) {
-    return shortUrl2Url.get(shortUrl);
+    return this.cacheGet(shortUrl,String.class);
   }
 
   public void clean(String url) {
-    String sortUrl = url2ShortUrl.get(url);
+    String sortUrl = this.cacheGet(url,String.class);
     if (sortUrl != null) {
-      url2ShortUrl.remove(url);
-      shortUrl2Url.remove(sortUrl);
+      this.cacheRemove(url);
+      this.cacheRemove(sortUrl);
     }
+  }
+
+
+  protected <T> void cachePut(String key, T value){
+    this.cache.put(key,value);
+  }
+
+  protected <T> T cacheGet(String key,Class<T> clazz){
+    return this.cache.get(key,clazz);
+  }
+
+  protected void cacheRemove(String key){
+    this.cache.evict(key);
   }
 
 }
