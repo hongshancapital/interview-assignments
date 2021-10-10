@@ -1,5 +1,6 @@
 package com.sequoiacap.business.process.manager.controller;
 
+import com.sequoiacap.business.process.manager.controller.vo.CommonResVO;
 import com.sequoiacap.business.process.manager.controller.vo.GetLongUrlResVO;
 import com.sequoiacap.business.process.manager.controller.vo.SaveShortUrlReqVO;
 import com.sequoiacap.business.process.manager.controller.vo.SaveShortUrlResVO;
@@ -42,20 +43,23 @@ public class UrlShortController {
      */
     @ApiOperation(value = "长域名转短域名并保存", notes = "长域名转短域名并保存")
     @PostMapping(value = "/saveShortUrl")
-    public SaveShortUrlResVO saveShortUrl(@RequestBody SaveShortUrlReqVO saveShortUrlReqVO) {
+    public CommonResVO saveShortUrl(@RequestBody SaveShortUrlReqVO saveShortUrlReqVO) {
         log.info("saveShortUrl : {}",saveShortUrlReqVO);
-        SaveShortUrlResVO saveShortUrlResVO = new SaveShortUrlResVO(ResponseCodeEnum.SUCC);
+        CommonResVO commonResVO = new CommonResVO(ResponseCodeEnum.SUCC);
+        SaveShortUrlResVO saveShortUrlResVO = new SaveShortUrlResVO();
+        commonResVO.setData(saveShortUrlResVO);
         try {
             // 参数校验
             MyValidationUtils.validate(saveShortUrlReqVO);
             String shortUrl = urlShortService.generate(saveShortUrlReqVO.getLongUrl());
             saveShortUrlResVO.setShortUrl(shortUrl);
+
         }catch (Exception e){
-            saveShortUrlResVO.setCode(ResponseCodeEnum.FAIL.getCode());
-            saveShortUrlResVO.setMessage(e.getMessage());
+            commonResVO.setCode(ResponseCodeEnum.FAIL.getCode());
+            commonResVO.setMessage(e.getMessage());
         }
 
-        return saveShortUrlResVO;
+        return commonResVO;
     }
 
     /**
@@ -65,16 +69,18 @@ public class UrlShortController {
      */
     @ApiOperation(value = "通过短域名获取长域名", notes = "通过短域名获取长域名")
     @GetMapping(value = "/getLongUrl/{shortUrl}")
-    public GetLongUrlResVO getLongUrl(@PathVariable("shortUrl") @ApiParam(value = "短域名", required = true) String shortUrl) {
+    public CommonResVO getLongUrl(@PathVariable("shortUrl") @ApiParam(value = "短域名", required = true) String shortUrl) {
         log.info("shortUrl : {}",shortUrl);
-        GetLongUrlResVO getLongUrlResVO = new GetLongUrlResVO(ResponseCodeEnum.SUCC);
+        CommonResVO commonResVO = new CommonResVO(ResponseCodeEnum.SUCC);
+        GetLongUrlResVO getLongUrlResVO = new GetLongUrlResVO();
+        commonResVO.setData(getLongUrlResVO);
         try {
             String longUrl = urlShortService.get(shortUrl);
             getLongUrlResVO.setLongUrl(longUrl);
         }catch (Exception e){
-            getLongUrlResVO.setCode(ResponseCodeEnum.FAIL.getCode());
-            getLongUrlResVO.setMessage(e.getMessage());
+            commonResVO.setCode(ResponseCodeEnum.FAIL.getCode());
+            commonResVO.setMessage(e.getMessage());
         }
-        return getLongUrlResVO;
+        return commonResVO;
     }
 }

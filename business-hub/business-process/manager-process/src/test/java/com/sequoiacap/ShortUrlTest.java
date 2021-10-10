@@ -1,6 +1,7 @@
 package com.sequoiacap;
 
 import com.sequoiacap.business.process.manager.controller.UrlShortController;
+import com.sequoiacap.business.process.manager.controller.vo.CommonResVO;
 import com.sequoiacap.business.process.manager.controller.vo.GetLongUrlResVO;
 import com.sequoiacap.business.process.manager.controller.vo.SaveShortUrlReqVO;
 import com.sequoiacap.business.process.manager.controller.vo.SaveShortUrlResVO;
@@ -34,7 +35,7 @@ public class ShortUrlTest {
   public void testGenerateShortUrl() {
     SaveShortUrlReqVO saveShortUrlReqVO = new SaveShortUrlReqVO();
     saveShortUrlReqVO.setLongUrl("test.sequoiacap.com");
-    SaveShortUrlResVO saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
+    CommonResVO saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
     Assert.assertEquals(1, saveShortUrlResVO.getCode());
   }
 
@@ -42,7 +43,7 @@ public class ShortUrlTest {
   public void testGenerateShortUrlFail() {
     SaveShortUrlReqVO saveShortUrlReqVO = new SaveShortUrlReqVO();
     saveShortUrlReqVO.setLongUrl("");
-    SaveShortUrlResVO saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
+    CommonResVO saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
     Assert.assertEquals(2, saveShortUrlResVO.getCode());
   }
 
@@ -50,8 +51,8 @@ public class ShortUrlTest {
   public void testGetLongUrl() {
     SaveShortUrlReqVO saveShortUrlReqVO = new SaveShortUrlReqVO();
     saveShortUrlReqVO.setLongUrl("test.sequoiacap.com");
-    SaveShortUrlResVO saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
-    GetLongUrlResVO getLongUrlResVO = urlShortController.getLongUrl(saveShortUrlResVO.getShortUrl());
+    CommonResVO<SaveShortUrlResVO> saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
+    CommonResVO getLongUrlResVO = urlShortController.getLongUrl(saveShortUrlResVO.getData().getShortUrl());
     Assert.assertEquals(1, getLongUrlResVO.getCode());
   }
 
@@ -72,7 +73,7 @@ public class ShortUrlTest {
   public void testCleanDao() {
     SaveShortUrlReqVO saveShortUrlReqVO = new SaveShortUrlReqVO();
     saveShortUrlReqVO.setLongUrl("test.sequoiacap.com");
-    SaveShortUrlResVO saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
-    urlShortDao.clean(saveShortUrlResVO.getShortUrl());
+    CommonResVO<SaveShortUrlResVO> saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
+    urlShortDao.clean(saveShortUrlResVO.getData().getShortUrl());
   }
 }
