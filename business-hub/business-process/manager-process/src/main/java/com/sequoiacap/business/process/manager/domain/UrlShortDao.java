@@ -16,6 +16,7 @@ public interface UrlShortDao {
    * @param shortUrl
    */
   void save(String url, String shortUrl);
+
   /**
    * 到库里查看是不是存在映射，如果不存在返回null
    * @param shortUrl
@@ -24,8 +25,15 @@ public interface UrlShortDao {
   String get(String shortUrl);
 
   /**
-   * 清除指定URL的短链接信息
-   * @param url
+   * 到库里查看是不是存在映射，如果不存在返回null
+   * @param longUrl
+   * @return
    */
-  void clean(String url);
+  String getShortUrlByLongUrl(String longUrl);
+
+  /**
+   * 清除指定URL的短链接信息
+   * @param shortUrl
+   */
+  void clean(String shortUrl);
 }

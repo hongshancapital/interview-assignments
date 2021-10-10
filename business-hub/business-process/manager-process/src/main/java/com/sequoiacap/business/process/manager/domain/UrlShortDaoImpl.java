@@ -24,48 +24,39 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UrlShortDaoImpl implements UrlShortDao{
 
   @Value("${short.url.userCacheName:shortUrlCache}")
-  private String userCacheName;
+  private String shortUrlCacheName;
+
+  @Value("${long.url.userCacheName:longUrlCache}")
+  private String longUrlCacheName;
 
   @Autowired
   private CacheManager cacheManager;
-  private Cache cache;
+  //key:shortUrl value:longUrl
+  private Cache shortUrlCache;
+  //key:longUrl value:shortUrl
+  private Cache longUrlCache;
 
   @PostConstruct
   public void init(){
-    this.cache = cacheManager.getCache(userCacheName);
+    this.shortUrlCache = cacheManager.getCache(shortUrlCacheName);
+    this.longUrlCache = cacheManager.getCache(longUrlCacheName);
   }
 
-  private Map<String, String> url2ShortUrl = new ConcurrentHashMap<String, String>();
-  private Map<String, String> shortUrl2Url = new ConcurrentHashMap<String, String>();
-
   public void save(String url, String shortUrl) {
-    this.cachePut(shortUrl,url);
-    this.cachePut(url, shortUrl);
+    this.shortUrlCache.put(shortUrl,url);
+    this.longUrlCache.put(url,shortUrl);
   }
 
   public String get(String shortUrl) {
-    return this.cacheGet(shortUrl,String.class);
+    return this.shortUrlCache.get(shortUrl,String.class);
   }
 
-  public void clean(String url) {
-    String sortUrl = this.cacheGet(url,String.class);
-    if (sortUrl != null) {
-      this.cacheRemove(url);
-      this.cacheRemove(sortUrl);
-    }
+  public String getShortUrlByLongUrl(String longUrl) {
+    return this.longUrlCache.get(longUrl,String.class);
   }
 
-
-  protected <T> void cachePut(String key, T value){
-    this.cache.put(key,value);
-  }
-
-  protected <T> T cacheGet(String key,Class<T> clazz){
-    return this.cache.get(key,clazz);
-  }
-
-  protected void cacheRemove(String key){
-    this.cache.evict(key);
+  public void clean(String shortUrl) {
+      this.shortUrlCache.evict(shortUrl);
   }
 
 }

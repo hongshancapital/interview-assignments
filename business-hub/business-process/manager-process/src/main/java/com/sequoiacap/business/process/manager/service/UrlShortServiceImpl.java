@@ -2,6 +2,7 @@ package com.sequoiacap.business.process.manager.service;
 
 import com.sequoiacap.business.process.manager.domain.UrlShortDao;
 import com.sequoiacap.business.process.manager.util.ShortNetAddressUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
@@ -24,11 +25,15 @@ public class UrlShortServiceImpl implements UrlShortService {
   }
 
   public String generate(String url) {
-    String shortUrl = ShortNetAddressUtil.generate(url);
-    while (urlShortDao.get(shortUrl) != null) {
+    //检查是否已经存在shortUrl
+    String shortUrl = urlShortDao.getShortUrlByLongUrl(url);
+    if(StringUtils.isBlank(shortUrl)) {
       shortUrl = ShortNetAddressUtil.generate(url);
+      while (urlShortDao.get(shortUrl) != null) {
+        shortUrl = ShortNetAddressUtil.generate(url);
+      }
+      urlShortDao.save(url, shortUrl);
     }
-    urlShortDao.save(url, shortUrl);
     return shortUrl;
   }
 

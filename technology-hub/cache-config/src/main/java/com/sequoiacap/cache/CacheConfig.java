@@ -29,13 +29,16 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @Slf4j
 public class CacheConfig{
+
   @Value("${short.url.timeout:10}")
   private Long shortUrlTimeout;
   @Value("${short.url.userCacheName:shortUrlCache}")
-  private String userCacheName;
+  private String shortUrlCacheName;
+  @Value("${long.url.userCacheName:longUrlCache}")
+  private String longUrlCacheName;
 
   /** 缓存项最大数量 */
-  private static final long GUAVA_CACHE_SIZE = 100000;
+  private static final long CACHE_SIZE = 100000;
 
   private RedisCacheManager redisCacheManager(RedisConnectionFactory lettuceConnectionFactory){
     RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration.defaultCacheConfig();
@@ -49,11 +52,13 @@ public class CacheConfig{
             .disableCachingNullValues();
 
     Set<String> cacheNames = new HashSet<>();
-    cacheNames.add(userCacheName);
+    cacheNames.add(shortUrlCacheName);
+    cacheNames.add(longUrlCacheName);
 
     // 对每个缓存空间应用不同的配置
     Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
-    configMap.put(userCacheName, defaultCacheConfig.entryTtl(Duration.ofDays(shortUrlTimeout)));
+    configMap.put(shortUrlCacheName, defaultCacheConfig.entryTtl(Duration.ofDays(shortUrlTimeout)));
+    configMap.put(longUrlCacheName, defaultCacheConfig.entryTtl(Duration.ofDays(shortUrlTimeout)));
 
     RedisCacheManager redisCacheManager = RedisCacheManager.builder(lettuceConnectionFactory)
             .cacheDefaults(defaultCacheConfig)
@@ -63,23 +68,16 @@ public class CacheConfig{
     return redisCacheManager;
   }
 
-  /*private GuavaCacheManager guavaCacheManager() {
-    GuavaCacheManager guavaCacheManager = new GuavaCacheManager();
-    guavaCacheManager.setCacheBuilder(CacheBuilder.newBuilder()
-            .expireAfterWrite(shortUrlTimeout, TimeUnit.DAYS).maximumSize(GUAVA_CACHE_SIZE));
-    ArrayList<String> guavaCacheNames = Lists.newArrayList();
-    guavaCacheNames.add(userCacheName);
-    guavaCacheManager.setCacheNames(guavaCacheNames);
-    return guavaCacheManager;
-  }*/
-  //经对比Caffeine性能较好
+  //经对比GuavaCache,Caffeine; Caffeine性能较好
   private CaffeineCacheManager caffeineCacheManager() {
     CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager();
     caffeineCacheManager.setCaffeine(Caffeine.newBuilder()
-            .expireAfterWrite(shortUrlTimeout, TimeUnit.DAYS).maximumSize(GUAVA_CACHE_SIZE));
-    ArrayList<String> guavaCacheNames = Lists.newArrayList();
-    guavaCacheNames.add(userCacheName);
-    caffeineCacheManager.setCacheNames(guavaCacheNames);
+            .expireAfterWrite(shortUrlTimeout, TimeUnit.DAYS).maximumSize(CACHE_SIZE));
+    ArrayList<String> cacheNames = Lists.newArrayList();
+    cacheNames.add(shortUrlCacheName);
+    cacheNames.add(longUrlCacheName);
+    caffeineCacheManager.setCacheNames(cacheNames);
+
     return caffeineCacheManager;
 
   }

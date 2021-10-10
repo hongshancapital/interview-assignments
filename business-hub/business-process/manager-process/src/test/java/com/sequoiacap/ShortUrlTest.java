@@ -73,6 +73,6 @@ public class ShortUrlTest {
     SaveShortUrlReqVO saveShortUrlReqVO = new SaveShortUrlReqVO();
     saveShortUrlReqVO.setLongUrl("test.sequoiacap.com");
     SaveShortUrlResVO saveShortUrlResVO = urlShortController.saveShortUrl(saveShortUrlReqVO);
-    urlShortDao.clean("test.sequoiacap.com");
+    urlShortDao.clean(saveShortUrlResVO.getShortUrl());
   }
 }
