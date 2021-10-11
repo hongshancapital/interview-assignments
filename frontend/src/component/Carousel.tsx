@@ -91,17 +91,15 @@ const Carousel: React.FC <props>= props => {
                 width: '50px',
                 height: '4px',
                 backgroundColor: '#ccc',
-                borderRadius:"100px",
-                border: "0px solid #ccc",
+                
               }}
             >
               <div
                 style={{
-                  width: `${index % 3 == k ? 50 * w * 0.01 : 0}px`,
+                  width: `${index % l == k ? 50 * w * 0.01 : 0}px`,
                   height: '4px',
                   backgroundColor: '#777',
-                  borderRadius:"100px",
-                  border: "0px solid #ccc",
+                 
                 }}
               ></div>
             </li>
