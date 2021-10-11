@@ -13,7 +13,7 @@ const Carousel: React.FC <props>= props => {
  const children = props.children||[]
  let l = children.length;
   const start = () => {
-    let a = setInterval(() => {
+    return setInterval(() => {
       setW(w => {
         w = 1 + w;
 
@@ -26,7 +26,10 @@ const Carousel: React.FC <props>= props => {
     }, 20);
   };
   useEffect(() => {
-    start();
+    let interval =start();
+    return ()=>{
+        clearTimeout(interval)
+    }
   }, []);
   return (
     <>
