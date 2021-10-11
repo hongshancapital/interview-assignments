@@ -1,49 +1,58 @@
-# Java Assignment
+tinyurl-converter
+该项目主要实现长域名转短域名和短域名解析，核心接口有
 
-## 这是什么？
+长域名转换成短域名接口
+通过短域名获取长域名
 
-为了节省大家的时间，我们使用作业分配来对Java候选人进行资格预审。这使我们在面试中保持客观，专注于候选人解决​​复杂问题并捍卫他们选择技术或方法的能力。我们还评估候选人如何处理来自同事、管理层或运营团队的压力，时间压力，批评和审查。
+本项目主要是单机demo，请勿直接用于生产环境，为了便于编码调试，长域名短域名映射主要存储在内存中。
+短域名核心设计
 
-***要考虑参加面试，您需要完成下面的“作业”部分。***
+采用生成自增ID，转换成62进制生成短域名的方式处理。
+只要ID不超过 281474976710656 即62的8次方，就可以保证位数在8位
+该项目运行于单机环境，如考虑分布式环境，ID需要三方生成或者使用发号器，缓存需要使用分布式缓存如redis
+guava 缓存存储长域名和短域名的映射关系，为了控制内存溢出，设置缓存大小
+短域名生成采用预生成机制，可一定程度提高长域名转短域名接口的性能和吞吐量，实际生产中短域名生成机制可能更为复杂，预热机制效果会更好，
+代码只是简单表达思想
+  @Override
+  public String generatorShortUrl(String longUrl) {
+      ShortUrl url = null;
+      try {
+          url = cahced.get(longUrl, () -> {
+              if (shortUrlQueue.size() == 0){
+                  synchronized (this){
+                      if (shortUrlQueue.size() == 0){
+                          singlePool.execute(() -> {
+                              //预生成1000个
+                              for(int i=0; i<1000; i++){
+                                  long id = idGenerator.incrId();
+                                  String shortStr = toBase62(id);
+                                  shortUrlQueue.add(shortStr);
+                              }
+                          });
+                      }
+                  }
+              }
+              String str = shortUrlQueue.take();
+              ShortUrl shortUrl = new ShortUrl(str, longUrl);
+              shortUrlMap.put(str, shortUrl);
+              return shortUrl;
+          });
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+      return url.getShortUrl();
+  }
 
-### Assignment
+  @Override
+  public String getLongUrl(String shortUrl) {
+      TinyUrl tinyUrl = shortUrlMap.get(shortUrl);
+      if (null == tinyUrl) {
+          return null;
+      }
+      return tinyUrl.getLongUrl();
+  }
+压测方案
 
-#### 实现短域名服务（细节可以百度/谷歌）
-
-撰写两个 API 接口:
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
-
-限制：
-- 短域名长度最大为 8 个字符
-- 采用SpringBoot，集成Swagger API文档；
-- JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图即刻)；
-- 映射数据存储在JVM内存即可，防止内存溢出；
-
-**递交作业内容** 
-- 源代码(按照生产级的要求编写整洁的代码，使用gitignore过滤掉非必要的提交文件，如class文件)
-- Jacoco单元测试覆盖率截图(行覆盖率和分支覆盖率85%+)
-- 文档：设计思路、简单的架构图以及所做的假设(Markdown格式)
-
-**加分项** 
-- 系统性能测试方案以及测试结果
-
-
-## Job Description
-
-### 岗位职责
-
-1. 负责公司内部自用产品开发，能够独立的按产品需求进行技术方案设计和编码实现，确保安全、可扩展性、质量和性能;
-2. 在负责的业务上有独立的见解和思考，对业务产品具有独立沟通、完善业务需求和识别方案风险的能力;
-3. 具有持续优化、追求卓越的激情和能力，能持续关注和学习相关领域的知识，并能使用到工作当中;
-4. 具备和第三方供应商进行沟通，对设计方案进行审核的能力;
-
-### 要求
-
-1. 5年软件研发/解决方案设计工作经验(金融领域经验加分)；
-2. Java基础扎实，熟悉高级特性和类库、多线程编程以及常见框架(SpringBoot等)；
-3. 具备基本系统架构能力，熟悉缓存、高可用等主流技术；
-5. 持续保持技术激情，善于快速学习，注重代码质量，有良好的软件工程知识和编码规范意识；
-
-
-
+采用apache ab进行简单压测
+ab -n 100 -c100 http://localhost:8080/api/shortUrl/getLongUrl?shortUrl=aaa
+jmeter编写脚本压测
