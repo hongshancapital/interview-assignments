@@ -38,7 +38,7 @@ const Carousel: React.FC <props>= props => {
           style={{
             width: `${l*2400}px`,
             opacity: 1,
-            transform: `translate3d(${-2400 * (index % 3)}px, 0px, 0px)`,
+            transform: `translate3d(${-2400 * (index % l)}px, 0px, 0px)`,
             transitionDuration: `${props.speed||1}s`,
             position: 'relative',
             top: 0,
