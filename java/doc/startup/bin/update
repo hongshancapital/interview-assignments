@@ -1,0 +1,41 @@
+#!/bin/sh
+
+echo -e "========== backup jars \n"
+
+mv $publish_path/target/${jar_name}*.jar $publish_path/backup/
+
+echo -e "========== change resouce dir \n"
+
+cd $resource_path/$build_module
+
+echo -e "\n\n========== update git repository ... \n"
+
+branch_name=`git name-rev --name-only HEAD`
+
+git fetch --all
+git reset --hard origin/${branch_name}
+git pull
+
+echo -e "\n\n========================================\n\n"
+
+echo -e "==========[${violet_bg}${branch_name}${end_style}]=========="
+
+git log --stat -1 | head -n100
+
+echo -e "\n\n========================================\n\n"
+
+echo -e "\n\n========== clean ... \n"
+
+mvn clean
+
+echo -e "\n\n========== build jar ... \n"
+
+mvn install -Dmaven.test.skip=true
+
+echo -e "\n\n========== copy jar ... \n"
+
+echo "$resource_path/${full_module}target/${jar_name}*.jar"
+
+cp $resource_path/${full_module}target/${jar_name}*.jar $publish_path/target/
+
+echo -e "\n\n========== UPDATE ALL DONE. SUCCESS! ==========\n"

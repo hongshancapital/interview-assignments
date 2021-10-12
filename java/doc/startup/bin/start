@@ -1,0 +1,32 @@
+#!/bin/sh
+
+echo "========== start java $jar_name ... "
+
+jvm_active_profile=""
+
+if [[ -n ${active_profile} ]];then
+    #jvm_active_profile="-Dspring.cloud.config.profile=${active_profile}"
+    jvm_active_profile="--spring.profiles.active=${active_profile}"
+fi
+
+tmp_base_dir=${publish_path}/tmp/${jar_name}
+log_base_dir=$basePath/logs
+
+if [ ! -d "${tmp_base_dir}" ];then
+    mkdir -p ${tmp_base_dir}
+fi
+
+if [ ! -d "${log_base_dir}" ];then
+    mkdir -p ${log_base_dir}
+fi
+
+if [[ "${devmod}" == "true" ]];then
+    max_mem_size="-Xmx1024m"
+fi
+
+rm -rf ${tmp_base_dir}/tomcat*
+
+jar_shell_id=${project_name}"-"${jar_name}
+
+#java -Dshell_id=${jar_shell_id} -Dfile.encoding=UTF-8 ${jvm_active_profile} -Djava.io.tmpdir=${tmp_base_dir} -jar ${max_mem_size} ./target/${jar_name}*.jar ${parameter[*]} >> ${log_base_dir}/${jar_name}-catalina.log 2>&1 &
+java -Dshell_id=${jar_shell_id} -Dfile.encoding=UTF-8 -Djava.io.tmpdir=${tmp_base_dir} -jar ${max_mem_size} ./target/${jar_name}*.jar ${parameter[*]} ${jvm_active_profile} >> ${log_base_dir}/${jar_name}-catalina.log 2>&1 &

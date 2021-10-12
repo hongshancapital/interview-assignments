@@ -1,0 +1,38 @@
+#!/bin/bash
+
+jar_shell_id=${project_name}"-"${jar_name}
+
+echo -e "========== shutdown ${jar_shell_id} \n"
+
+function stop(){
+
+    pid_get=`ps -ef | grep java | grep -e "-Dshell_id=${jar_shell_id}" | grep -v grep | awk '{print $2}'`
+    pid_count=`ps -ef | grep java | grep -e "-Dshell_id=${jar_shell_id}" | grep -v grep | wc -l`
+
+    if [ $pid_count != 0 ];then
+        echo -e "========== [${pid_count}] pids found : \n"
+        ps -ef | grep java | grep -e "-Dshell_id=${jar_shell_id}" | grep -v grep
+
+        echo -e "========== kill pids : \n"
+
+        kill -9 ${pid_get}
+    else
+        echo -e "========== no pids found ========== \n"
+    fi
+}
+
+
+if [[ -z $jar_name ]];then
+    echo "jar_name is empty."
+else
+    if [ "${jar_name}" = "all" ];then
+        echo -e "========== stop all ==========\n"
+        jar_name=''
+    fi
+    jar_shell_id=${project_name}"-"${jar_name}
+    #stop
+    stop
+fi
+
+echo -e "========== DONE =========="
+

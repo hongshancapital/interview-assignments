@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!--导入配置文件-->
+    <properties resource="generator/mybatis-generator.propertites"></properties>
+
+    <!--指定特定数据库的jdbc驱动jar包的位置-->
+    <!--<classPathEntry location="${jdbc.driverLocation}"/>-->
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!--
+        自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
+        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
+        -->
+        <property name="autoDelimitKeywords" value="false"/>
+
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <!-- 数据库 标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!--
+        <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
+            <property name="fileName" value="mybatis-config-repo.xml"/>
+            <property name="targetPackage" value="/mybatis"/>
+            <property name="targetProject" value="src/main/resources"/>
+        </plugin>
+        -->
+        <!-- include the plugin -->
+        <plugin type="com.softwareloop.mybatis.generator.plugins.LombokPlugin">
+
+            <!-- enable annotations -->
+            <property name="builder" value="false"/>
+            <!-- annotation's option(boolean) -->
+            <property name="builder.fluent" value="true"/>
+            <!-- annotation's option(String) -->
+            <property name="builder.builderMethodName" value="myBuilder"/>
+
+            <property name="accessors" value="true"/>
+            <!-- annotation's option(array of String) -->
+            <property name="accessors.prefix" value="m_, _"/>
+
+            <!-- disable annotations -->
+            <property name="allArgsConstructor" value="false"/>
+
+        </plugin>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="${basePackage}.commons.tools.CustomBaseMapper"/>
+        </plugin>
+
+        <!-- 创建class时，对注释进行控制 -->
+        <commentGenerator>
+            <!-- 抑制警告 -->
+            <property name="suppressTypeWarnings" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <!-- 是否生成注释代时间戳 -->
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!--jdbc的数据库连接 -->
+        <jdbcConnection
+                driverClass="${jdbc.driverClass}"
+                connectionURL="${jdbc.connectionURL}"
+                userId="${jdbc.userName}"
+                password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!--
+            默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal
+        -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!--
+            Model模型生成器,用来生成含有主键key的类，记录类 以及查询Example类
+            targetPackage     指定生成的model生成所在的包名
+            targetProject     指定在该项目下所在的路径
+        -->
+        <javaModelGenerator targetPackage="${basePackage}.mybatis.entity.${databaseName}"
+                            targetProject="src/main/java">
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="false"/>
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+
+        <!-- mybatis sqlMapper XML 文件的生成路径等 -->
+        <sqlMapGenerator targetPackage="mapper.${databaseName}"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- javaClientGenerator是应用接口的生成信息； -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${basePackage}.mybatis.mapper.${databaseName}"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- table  指定被生成相关信息的表，必须已经建立 -->
+        <!--
+        <table tableName="%" >
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="SELECT LAST_INSERT_ID()"
+                          identity="true"/>
+        </table>
+        <table tableName="sys_area" >
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="area_id" sqlStatement="SELECT LAST_INSERT_ID()"
+                          identity="true"/>
+        </table>
+         -->
+
+        <table tableName="fz_%" >
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="SELECT LAST_INSERT_ID()"
+                          identity="true"/>
+        </table>
+
+        <!-- 生成时记得修改 ${databaseName} 对应的 数据源 模块名，在 mybatis-generator.propertites 中 -->
+    </context>
+</generatorConfiguration>

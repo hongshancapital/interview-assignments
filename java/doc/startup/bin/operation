@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# operation
+case $1 in
+  start)
+    source ./bin/start
+  ;;
+  stop)
+    source ./bin/stop
+  ;;
+  restart)
+    source ./bin/stop
+    source ./bin/start
+  ;;
+  update)
+    source ./bin/update
+  ;;
+  cpjar)
+    source ./bin/cpjar
+  ;;
+  *)
+    echo "pluse enter correct operation: start | stop | update | cpjar | restart"
+    exit 0
+  ;;
+esac
