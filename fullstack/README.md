@@ -91,7 +91,7 @@ npm start
 open http://localhost:8080/
 
 # 框架设计图
-![image](3.jpg)
+![image](2.jpg)
 
 # 测试用例
 ![image](4.png)
