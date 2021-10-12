@@ -12,24 +12,24 @@ enum ProductState {
     case inStock, outOfStock
 }
 
-struct Response: Codable, Hashable {
+struct Response: Codable {
     var hasMore: Bool = false
     var vendors: [Vendor] = []
 }
 
-struct Vendor: Codable, Identifiable, Hashable {
+struct Vendor: Codable, Identifiable {
     var id: Int = 0
     var name: String = ""
     var kinds: [Kind] = []
 }
 
-struct Kind: Codable, Identifiable, Hashable {
+struct Kind: Codable, Identifiable {
     var id: Int = 0
     var name: String = ""
     var products: [Product] = []
 }
 
-struct Product: Codable, Identifiable, Hashable {
+struct Product: Codable, Identifiable, Equatable {
     var id: Int = 0
     var name: String = ""
     var price: Double = 0

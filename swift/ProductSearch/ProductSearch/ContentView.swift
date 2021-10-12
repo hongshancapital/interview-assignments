@@ -48,7 +48,7 @@ struct SearchContent: View {
                                             .task {
                                                 if isLastProduct(product) && hasMore {
                                                     print("load more")
-                                                    load()
+                                                    await load()
                                                 }
                                             }
                                     }
