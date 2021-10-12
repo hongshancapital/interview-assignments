@@ -23,7 +23,7 @@ public class ReturnConfig {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    @RestControllerAdvice("com.growing.talent")
+    @RestControllerAdvice("com")
     static class CommonResultResponseAdvice implements ResponseBodyAdvice<Object> {
         @Override
         public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {

@@ -42,6 +42,5 @@ public class DomainNameController {
       public String getLongUrl(@RequestParam String shortUrl) {
         domainNameValidator.validateGetLongUrl(shortUrl);
         return domainNameService.getLongUrl(shortUrl);
-
       }
     }
