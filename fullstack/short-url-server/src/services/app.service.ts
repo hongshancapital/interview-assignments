@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { getRepository } from 'typeorm';
+import { getRepository, getManager } from 'typeorm';
 import { Url } from '../entities/url';
 import { string10to62 } from '../common/stringUtil';
 import config from '../common/config';
@@ -12,19 +12,24 @@ export class AppService {
     if (existedUrl) {
       return existedUrl.shortUrl;
     }
-    const count = await repository.count();
-    const shortUrl = `${config.SERVER_URL}/${string10to62(count)}`;
-    const url = new Url(shortUrl, longUrl);
-    url.longUrl = longUrl;
-    await repository.save(url);
+    
+    const shortUrl = await getManager().transaction(async transactionalEntityManager => {
+      const count = await repository.count();
+      const cshortUrl = `${config.SERVER_URL}/${string10to62(count)}`;
+      const url = new Url(cshortUrl, longUrl);
+      url.longUrl = longUrl;
+      await repository.save(url);
+      return cshortUrl;
+    });
+    
     return shortUrl;
   }
 
   async findUrl(shortUrl: string): Promise<string> {
     const repository = getRepository(Url);
-    const url = await repository.find({ shortUrl });
-    if (url && url.length > 0) {
-      return url[0].longUrl;
+    const url = await repository.findOne({ shortUrl });
+    if (url) {
+      return url.longUrl;
     }
     return null;
   }

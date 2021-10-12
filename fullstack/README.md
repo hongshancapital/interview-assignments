@@ -22,7 +22,7 @@ npm i
 npm start
 ```
 will run server in open http://localhost:3000/
-
+安装sqlite3的时候请使用nodejs版本v14
 ## Test
 ```
 npm run test
