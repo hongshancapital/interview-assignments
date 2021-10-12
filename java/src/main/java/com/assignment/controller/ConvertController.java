@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * 域名转换服务
+ * @author mrdiyewu@gmail.com
+ * @date 2021/10/11 15:33
+ */
 @Api(tags = "域名转换服务")
 @RestController
 @RequestMapping("/convert")

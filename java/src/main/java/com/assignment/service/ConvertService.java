@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 /**
+ * 域名处理
  * @author mrdiyewu@gmail.com
  * @date 2021/10/11 18:47
  */

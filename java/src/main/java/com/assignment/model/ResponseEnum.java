@@ -2,7 +2,9 @@ package com.assignment.model;
 
 
 /**
- * @description: 数据信息状态枚举类
+ * 数据信息状态枚举类
+ * @author mrdiyewu@gmail.com
+ * @date 2021/10/11 15:33
  */
 public enum ResponseEnum {
     /**

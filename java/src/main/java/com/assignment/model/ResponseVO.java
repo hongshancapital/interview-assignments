@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * @description:  数据格式返回统一
+ * 返回统一数据格式
+ * @author mrdiyewu@gmail.com
+ * @date 2021/10/11 15:33
  */
 @ApiModel(description = "响应实体类")
 public class ResponseVO {

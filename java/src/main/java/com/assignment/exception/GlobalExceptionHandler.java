@@ -12,6 +12,11 @@ import javax.xml.bind.ValidationException;
 
 import static com.assignment.model.ResponseEnum.WRONG_REQUEST_PARAMETER;
 
+/**
+ * 全局异常处理
+ * @author mrdiyewu@gmail.com
+ * @date 2021/10/11 15:33
+ */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
