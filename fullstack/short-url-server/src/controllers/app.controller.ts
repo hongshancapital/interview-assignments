@@ -20,13 +20,6 @@ export class AppController {
 
     const url = await this.appService.insertUrl(longUrl);
 
-    if (url === `${config.SERVER_URL}/00`) {
-      return res.status(HttpStatus.OK).json({
-        code: errorCode.URL_Out_Of_Range,
-        message: `out of range url: ${longUrl}`,
-      });
-    }
-
     return res.status(HttpStatus.OK).json({
       data: url,
       code: errorCode.SUCDESS,

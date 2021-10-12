@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { getRepository, getManager } from 'typeorm';
 import { Url } from '../entities/url';
-import { string10to62 } from '../common/stringUtil';
 import config from '../common/config';
+import { nanoid } from 'nanoid';
 
 @Injectable()
 export class AppService {
@@ -12,16 +12,11 @@ export class AppService {
     if (existedUrl) {
       return existedUrl.shortUrl;
     }
-    
-    const shortUrl = await getManager().transaction(async transactionalEntityManager => {
-      const count = await repository.count();
-      const cshortUrl = `${config.SERVER_URL}/${string10to62(count)}`;
-      const url = new Url(cshortUrl, longUrl);
-      url.longUrl = longUrl;
-      await repository.save(url);
-      return cshortUrl;
-    });
-    
+
+    const shortUrl = `${config.SERVER_URL}/${nanoid(8)}`;
+    const url = new Url(shortUrl, longUrl);
+    url.longUrl = longUrl;
+    await repository.save(url);
     return shortUrl;
   }
 

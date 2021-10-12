@@ -22,8 +22,12 @@ describe('AppController', () => {
 
       const theLongUrl = await appService.findUrl(shortUrl);
       expect(theLongUrl).toBe(longUrl);
+      
+      const existLongUrl = 'https://github.com/kevenfengtest';
+      const existshortUrl = await appService.insertUrl(existLongUrl);
+      expect(existshortUrl).toBe('s.cn/zwXSVoIy');
 
-      const errorShortUrl = 's.cn/88';
+      const errorShortUrl = 's.cn/zwXSVo1Iy';
       const theErrorLongUrl = await appService.findUrl(errorShortUrl);
       expect(theErrorLongUrl).toBe(null);
     });
