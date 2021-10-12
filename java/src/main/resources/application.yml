@@ -1,0 +1,17 @@
+spring:
+  application:
+    name:Short-Domainame
+
+server:
+  port: 9603
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    cn.jay.repository: debug
+
+##测试环境配置Swagger为true，生产环境为false
+springfox:
+  documentation:
+    swagger-ui:
+      enable: true
