@@ -26,7 +26,7 @@ const data = [
     title: "Buy a Tablet or xPhone for college. Get airPods",
     describe: "",
     price: "",
-    picture: require("./assets/AirPods.png").default,
+    picture: require("./assets/airpods.png").default,
     backgroundColor: "#e7e5e5",
   },
 ];
