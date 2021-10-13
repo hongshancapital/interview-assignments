@@ -33,6 +33,7 @@
         <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
         <guava.version>24.0-jre</guava.version>
         <apache.commons-lang3.version>3.3.2</apache.commons-lang3.version>
+        <httpclient.version>4.5.13</httpclient.version>
     </properties>
 
     <dependencyManagement>
@@ -79,6 +80,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${apache.commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
             </dependency>
         </dependencies>
 

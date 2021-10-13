@@ -1,12 +1,14 @@
 package com.skg.domain.demo.base;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * @Author smith skg
@@ -32,6 +34,9 @@ public class Result<T> implements Serializable {
     @ApiModelProperty(value = "业务数据")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
+
+    @ApiModelProperty(value = "附加数据")
+    protected HashMap<String, Object> extra;
 
     private Result() {
         this.time = System.currentTimeMillis();
@@ -60,6 +65,13 @@ public class Result<T> implements Serializable {
         this.time = System.currentTimeMillis();
     }
 
+    public Result<T> put(String key, Object value) {
+        if (this.extra == null) {
+            this.extra = Maps.newHashMap();
+        }
+        this.extra.put(key, value);
+        return this;
+    }
     /**
      * 返回状态码
      *

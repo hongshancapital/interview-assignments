@@ -1,5 +1,6 @@
 package com.skg.domain.demo.controller;
 
+import com.skg.domain.demo.anno.ApiLog;
 import com.skg.domain.demo.anno.ApiVersion;
 import com.skg.domain.demo.base.Result;
 import com.skg.domain.demo.param.LongDomainParam;
@@ -31,6 +32,7 @@ public class DomainController {
     @PostMapping("/{version}/get-short-domain")
     @ApiOperation(value = "获取短域名", notes = "长域名-->短域名")
     @ApiVersion("1.1")
+    @ApiLog
     public Result<?> getShortDomain(@RequestBody @Valid LongDomainParam longDomainParam) {
         return Result.data(domainService.generateShort(longDomainParam.getLongDomain()));
     }
