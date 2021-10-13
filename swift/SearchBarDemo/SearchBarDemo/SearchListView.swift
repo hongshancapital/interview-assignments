@@ -12,7 +12,6 @@ struct SearchListView: View {
     
     var body: some View {
         if let arr = searchModels {
-            
             List{
                 ForEach(arr.indices){ i in
                     if let sectionModel = searchModels?[i] {

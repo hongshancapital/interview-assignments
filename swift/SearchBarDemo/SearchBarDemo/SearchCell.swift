@@ -32,11 +32,6 @@ struct SearchCell_Previews: PreviewProvider {
             let modle = arr[0].content[0]
             SearchCell(searchModel:modle)
         }
-//        SearchCell(searchModel: searchModels?[1].content ?? "")
-//        Group{
-//            SearchCell(searchModel: searchModels?[0].content ?? "")
-//            SearchCell(searchModel: searchModels?[1].content ?? "")
-//        }
-//        .previewLayout(.fixed(width: 300, height: 70))
+
     }
 }

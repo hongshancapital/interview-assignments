@@ -1,9 +1,8 @@
 //
-//  ContentView.swift
+//  SearchBarNew.swift
 //  SearchBarDemo
 //
-//  Created by Kristijan Kralj on 02/04/2020.
-//  Copyright © 2020 Kristijan Kralj. All rights reserved.
+//  Created by Jaydon Qin on 2021/10/12.
 //
 
 import SwiftUI
@@ -15,10 +14,17 @@ struct ContentView: View {
     @State private var isEditing : Bool = false
     
     var body: some View {
-
         NavigationView{
             VStack{
-                SearchBar(text: $searchTerm,isEditing: $isEditing)
+                SearchBarNew(placeholder: "Tap here to search", searchText: searchTerm) { (text) in
+                    self.searchTerm = text
+                } onCommit: { (text) in
+                    self.searchTerm = text
+                } editingChange:{(editing) in
+                    self.isEditing = editing
+                }
+                .background(RoundedRectangle(cornerRadius: 6).foregroundColor(.gray))
+                .padding(EdgeInsets(top: self.isEditing ? 20 : 0, leading: 15, bottom: 10, trailing: 15))
                 if self.isEditing {
                     SearchListView(searchTerm: $searchTerm)
                 }else{
