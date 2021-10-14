@@ -2,7 +2,7 @@
 
 ##  流水线设计
 
-![SCDT](../images/scdt.png)
+![SCDT](./images/scdt.png)
 
 1. 根据需求拉出 feature 或 bugfix 分支
 2. 开发完成后 push 到 gitlab ，触发 CI ，单元测试通过后部署到 QA 环境
