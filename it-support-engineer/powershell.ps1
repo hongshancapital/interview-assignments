@@ -68,4 +68,4 @@ ForEach($log_line in $log)     #逐行用核心函数处理
 
 $output_body = $outputs | Convertto-Json | Out-File .\json_output.txt    #把结果数组转变为JSON格式，同时备份到文件
 
-Invoke-WebRequest http://coolaf.com -Method POST -ContentType "application/json" -Body $output_body
+Invoke-WebRequest https://foo.com/bar -Method POST -ContentType "application/json" -Body $output_body

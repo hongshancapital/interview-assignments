@@ -1,7 +1,7 @@
 #!/bin/bash
 logpath="./interview_data_set"
 
-
+#bash的对象不太好用，所以分别建立一些数组来存储各个元素
 declare -a deviceName
 declare -a processId
 declare -a processName
@@ -9,15 +9,15 @@ declare -a description
 declare -a timeWindow
 declare -a numberOfOccurrence
 
-n=0   
+n=0    #表示目前已经处理过的数组长度，便于作为所有循环的条件
 
-
+#将一行记录拆解之后插入各个数组的函数
 function AddLineToResult()
 {
 	i=0
 	while [[ $i -lt $n ]]
 	do
-	if [[ $line_description == ${description[$i]} && $line_timeWindow == ${timeWindow[$i]} ]] 
+	if [[ $line_description == ${description[$i]} && $line_timeWindow == ${timeWindow[$i]} ]]   #如果错误信息和时间窗口相等则不需要插入，只需要次数+1
 	then
 		let numberOfOccurrence[$i]++
 		processId[$i]=${processId[$i]}","$line_processId
@@ -33,7 +33,7 @@ then
 	description[${#description[*]}]=$line_description
 	timeWindow[${#timeWindow[*]}]=$line_timeWindow
 	numberOfOccurrence[${#numberOfOccurrence[*]}]=1
-	let n++  
+	let n++    #成功添加一行新记录，各个数组长度+1
 fi
 }
 
@@ -66,7 +66,7 @@ while read line; do readlog $line; done < $logpath
 let i=0
 while [[ $i -lt $n ]]
 do
-	
+	#将数组中存储的原数据转变为JSON格式
 	if [[ $i -eq 0 ]]
 	then
 		logbody="[{\"deviceName\"=\""${deviceName[$i]}"\",\"processId\"=\""${processId[$i]}"\",\"processName\"=\""${processName[$i]}"\",\"description\"=\""${description[$i]}"\",\"timeWindow\"=\""${timeWindow[$i]}"\",\"numberOfOccurrence\"="${numberOfOccurrence[$i]}"},"
@@ -78,6 +78,6 @@ do
 	fi
 	let i++
 done
-echo $logbody>>output.txt
+echo $logbody>>bash_output.txt   #转变之后的结果存储到文件备份
 
-curl -i -k  -H "Content-type: application/json" -X POST -d "${logbody}" https://foo.com/bar
+curl -i -k  -H "Content-type: application/json" -X POST -d "${logbody}" https://foo.com/bar 
