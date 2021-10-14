@@ -1,0 +1,113 @@
+#!groovy
+
+String DOCKER_REGISTRY = "${env.DOCKER_REGISTRY}"
+String DOCKER_REGISTRY_USER = "${env.DOCKER_REGISTRY_USER}"
+String REGISTRY_PROJECT = "${env.REGISTRY_PROJECT}"
+String SERVICE = "${env.SERVICE}"
+String GIT_BRANCH = "${env.GIT_BRANCH}"
+String GIT_CREDENTIAL = "${env.GIT_CREDENTIAL}"
+String GIT_URL = "${env.GIT_URL}"
+
+pipeline {
+  agent {
+    kubernetes {
+      cloud 'scdt-dev'
+      yamlFile 'agent_pod_template.yaml'
+    }
+  }
+
+  options {
+    timestamps()
+    timeout(time: 10, unit: 'MINUTES`')
+    }
+
+  environment {
+    IMAGE = "${DOCKER_REGISTRY}/${REGISTRY_PROJECT}/${SERVICE}"
+    DOCKER_REGISTRY_PASS  = credentials('docker-hub')
+    AWS_ACCESS_KEY_ID     = credentials('scdt-aws-access-key-id')
+    AWS_SECRET_ACCESS_KEY = credentials('scdt-aws-secret-access-key')
+    AWS_DEFAULT_REGION = "cn-northwest-1"
+    ECS_SERVICE = "scdt"
+    ECS_CLUSTER = "scdt-fargate"
+    }
+
+  stages {
+    stage('Pull code') {
+      steps {
+        git branch: "${GIT_BRANCH}",
+            credentialsId: "${GIT_CREDENTIAL}",
+            url: "${GIT_URL}"
+      }
+    }
+
+    stage ('unit test') {
+      steps {
+        container ('maven') {
+          sh 'mvn clean test'
+        }
+      }
+    }
+
+    stage("Build"){
+      steps{
+        container('maven') {
+          script{
+            sh 'mvn clean package'
+          }
+        }
+      }
+    }
+
+    stage('Build image') {
+      steps {
+        container('docker') {
+          sh 'docker build -t ${IMAGE}:${BUILD_NUMBER} .'
+          sh 'echo ${DOCKER_REGISTRY_PASS} | docker login ${DOCKER_REGISTRY} --username ${DOCKER_REGISTRY_USER} --password-stdin'
+        }
+      }
+    }
+
+    stage('Push image') {
+      steps {
+        container('docker') {
+          sh 'docker push ${IMAGE}:${BUILD_NUMBER}'
+          sh 'docker logout ${DOCKER_REGISTRY}'
+        }
+      }
+    }
+
+    stage('Deploy to ECS') {
+      steps {
+        container('awscli') {
+          sh '''#!/bin/bash
+                 export ECS_SERVICE=$ECS_SERVICE
+                 export ECS_CLUSTER=$ECS_CLUSTER
+                 TASK_DEFINITION_NAME=\$(aws ecs describe-services --services \$ECS_SERVICE --cluster \$ECS_CLUSTER | jq -r '.services[0].taskDefinition')
+                 echo \$TASK_DEFINITION_NAME
+                 TASK_DEFINITION=\$(aws ecs describe-task-definition --task-def "\$TASK_DEFINITION_NAME" | jq '.taskDefinition')
+                 
+                 NEW_CONTAINER_DEFINITIONS=\$(echo "\$TASK_DEFINITION" | jq --arg NEW_IMAGE ${IMAGE}:${BUILD_NUMBER} '.containerDefinitions | [.[] | .+{image: .image | \$NEW_IMAGE}]')
+                 NEW_TASK_DEFINITION=\$(echo "\$TASK_DEFINITION" | jq ".+{containerDefinitions: \$NEW_CONTAINER_DEFINITIONS}")
+                 NEW_DEF_JQ_FILTER="family: .family, volumes: .volumes, containerDefinitions: .containerDefinitions, executionRoleArn: .executionRoleArn, requiresCompatibilities: .requiresCompatibilities, cpu: .cpu, memory: .memory"
+                 
+                 CONDITIONAL_OPTIONS=(networkMode taskRoleArn)
+                 for i in "\${CONDITIONAL_OPTIONS[@]}"; do
+                   re=".*\${i}.*"
+                   if [[ "\$NEW_TASK_DEFINITION" =~ \$re ]]; then
+                     NEW_DEF_JQ_FILTER="\${NEW_DEF_JQ_FILTER}, \${i}: .\${i}"
+                   fi
+                 done
+
+                 NEW_DEF=\$(echo \$NEW_TASK_DEFINITION | jq "{\${NEW_DEF_JQ_FILTER}}")
+                 echo \$NEW_EDF
+                 NEW_TASKDEF=`aws ecs register-task-definition --cli-input-json "\$NEW_DEF" | jq -r .taskDefinition.taskDefinitionArn`
+
+                 echo "New task definition registered, \$NEW_TASKDEF"
+                 aws ecs update-service --cluster \$ECS_CLUSTER --service \$ECS_SERVICE --task-definition "\$NEW_TASKDEF" > /dev/null
+                 echo "Service updated"
+             '''
+        }
+      }
+    }
+  }
+}

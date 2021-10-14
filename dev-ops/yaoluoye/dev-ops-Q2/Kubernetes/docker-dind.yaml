@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: docker-dind-rootless
+  namespace: devops
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: docker-dind-rootless
+  namespace: devops
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  verbs:
+  - get
+  - watch
+  - list
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: docker-dind-rootless
+subjects:
+  - kind: ServiceAccount
+    name: docker-dind-rootless
+roleRef:
+  kind: Role
+  name: docker-dind-rootless
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    namespace: devops
+    name: docker-dind
+spec:
+  serviceName: dind
+  podManagementPolicy: "Parallel"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-dind-rootless
+  template:
+    metadata:
+      labels:
+        app: docker-dind-rootless
+    spec:
+      securityContext:
+        fsGroup: 1000
+      serviceAccount: docker-dind-rootless
+      serviceAccountName: docker-dind-rootless
+      initContainers:
+        - name: sysctl
+          image: busybox:1.25.0
+          command: ["/bin/sh"]
+          args: ["-c", "sysctl -w user.max_user_namespaces=28633 && chown -R 1000 /var/lib/docker"]
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: docker-graph
+              mountPath: /var/lib/docker
+      containers:
+        - name: docker
+          image: docker:20.10.9-dind-rootless
+          env:
+          - name: DOCKER_TLS_VERIFY
+            value: ""
+          - name: DOCKER_TLS_CERTDIR
+            value: ""
+          - name: GODEBUG
+            value: "x509ignoreCN=0"
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
+          args:
+            - --data-root=/var/lib/docker
+            - --max-concurrent-downloads=10
+            - --insecure-registry=10.10.110.0/24
+            - --insecure-registry=192.168.0.0/16
+          volumeMounts:
+            - name: docker-graph
+              mountPath: /var/lib/docker
+          ports:
+            - containerPort: 2375
+              name: docker
+            - containerPort: 2376
+              name: docker-tls
+  volumeClaimTemplates:
+  - metadata:
+      name: docker-graph
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: ebs
+      resources:
+        requests:
+          storage: 100Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: docker-dind-rootless
+  namespace: devops
+  labels:
+    app: docker-dind-rootless
+spec:
+  selector:
+    app: docker-dind-rootless
+  ports:
+    - name: docker
+      port: 2375
+      protocol: TCP
+      targetPort: 2375
+    - name: docker-tls
+      port: 2376
+      protocol: TCP
+      targetPort: 2376

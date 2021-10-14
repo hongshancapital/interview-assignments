@@ -1,0 +1,5 @@
+FROM bitnami/aws-cli:1.20.58-debian-10-r2
+
+USER root
+RUN curl -s -L -o /usr/local/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+RUN chmod +x /usr/local/bin/jq

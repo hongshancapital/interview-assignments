@@ -1,0 +1,84 @@
+metadata:
+  labels:
+    app: jenkins-slave
+spec:
+  containers:
+  - name: jnlp
+    image: 'jenkins/inbound-agent:4.3-4'
+    resources:
+      limits:
+        cpu: '1'
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+    volumeMounts:
+    - mountPath: /home/jenkins/agent
+      name: workspace-volume
+    workingDir: /home/jenkins/agent
+  - name: maven
+    image: maven:3.8.3-jdk-11-openj9
+    resources:
+      limits:
+        cpu: '4'
+        memory: 4Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
+    command: ["cat"]
+    tty: true
+    workingDir: /home/jenkins/agent
+    volumeMounts:
+    - name: maven
+      mountPath: /root/.m2
+    - mountPath: /home/jenkins/agent
+      name: workspace-volume
+  - name: awscli
+    image: yaoluoye/awscli:0.1
+    resources:
+      limits:
+        cpu: '1'
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+    command: ["cat"]
+    tty: true
+    securityContext:
+      runAsUser: 0
+  - name: docker
+    image: docker:20.10.5-dind
+    command: ["cat"]
+    tty: true
+    env:
+      - name: DOCKER_HOST
+        value: tcp://docker-dind-rootless.devops.svc:2375
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    securityContext:
+      privileged: true
+      capabilities:
+        add:
+          - NET_ADMIN
+          - SYS_ADMIN
+    volumeMounts:
+    - mountPath: /home/jenkins/agent
+      name: workspace-volume
+    - name: docker-graph
+      mountPath: /var/lib/docker
+    workingDir: /home/jenkins/agent
+  serviceAccount: jenkins
+  serviceAccountName: jenkins
+  volumes:
+  - emptyDir: {}
+    name: workspace-volume
+  - emptyDir: {}
+    name: docker-graph
+  - name: maven
+    persistentVolumeClaim:
+      claimName: maven
