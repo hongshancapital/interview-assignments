@@ -29,7 +29,16 @@ const startTime = new Date().getTime();
 const Carousel: React.FC<CarouselProps> = function (props) {
   debug('[Carousel:render]');
 
-  const { overPause = false, showIndicator = true, showNavi = false, duration = 3000, children } = props
+  const {
+    width = '100%',
+    height = '100%',
+    overPause = false,
+    showIndicator = true,
+    showNavi = false,
+    duration = 3000,
+    animation = 'slideLeft',
+    children,
+  } = props;
 
   const [step, setStep] = useState(0);
 
@@ -53,14 +62,10 @@ const Carousel: React.FC<CarouselProps> = function (props) {
   }, [step, mouseover, overPause, count, duration]);
 
   return (
-    <CarouselContainer ref={rectRef as React.Ref<HTMLElement>} {...props}>
-      <CarouselTransition {...props} step={step}>
-        {props.children}
-      </CarouselTransition>
-
+    <CarouselContainer ref={rectRef as React.Ref<HTMLElement>} {...{width, height}}>
+      <CarouselTransition {...{ step, animation }}>{children}</CarouselTransition>
       {showNavi && <CarouselNavi {...props} />}
-
-      {showIndicator && <CarouselIndicator {...props} step={step} count={count} />}
+      {showIndicator && <CarouselIndicator {...{ step, duration, count }} />}
     </CarouselContainer>
   );
 };

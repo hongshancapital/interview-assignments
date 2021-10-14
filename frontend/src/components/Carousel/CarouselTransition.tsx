@@ -16,10 +16,8 @@ export interface CarouselTransitionProps {
   step: number;
 }
 
-export const CarouselTransition: React.FC<CarouselTransitionProps> = function (props) {
-  const [animation, setAnimation] = useState(slideX(props.step));
-
-  const animationName = props.animation || 'slideLeft';
+export const CarouselTransition: React.FC<CarouselTransitionProps> = function ({ step = 0, animation = 'slideLeft', children }) {
+  const [animStyle, setAnimStyle] = useState(slideX(step));
 
   debug('[CarouselTransition:render]');
 
@@ -29,19 +27,19 @@ export const CarouselTransition: React.FC<CarouselTransitionProps> = function (p
       slideRight: 1,
       slideUp: -1,
       slideDown: 1,
-    }[animationName];
+    }[animation];
 
-    setAnimation(slideX(slideDir * props.step, 1));
-  }, [animationName, props.step]);
+    setAnimStyle(slideX(slideDir * step, 1));
+  }, [animation, step]);
 
   // 1. css direction: rtl | ltr
   // 2. html dir="rtl" or dir="ltr"
   // rtl 控制 CarouselItem 从右向左排列 例如:  3 2 |1|
   // ltr 控制 CarouselItem 从左向右排列 例如:      |1| 2 3
-  const dir = animationName === 'slideRight' ? 'rtl' : 'ltr';
+  const dir = animation === 'slideRight' ? 'rtl' : 'ltr';
   return (
-    <div className={prefix('carousel-transition')} style={animation} dir={dir}>
-      {props.children}
+    <div className={prefix('carousel-transition')} style={animStyle} dir={dir}>
+      {children}
     </div>
   );
 };

@@ -1,24 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { prefix, debug } from '../util';
 
-export const CarouselIndicator: React.FC<{ step: number; count: number }> = React.memo((props) => {
-  const [start, setStart] = useState(false);
+export const CarouselIndicator: React.FC<{ step: number; count: number; duration: number }> = React.memo(
+  ({ step, count, duration }) => {
+    const [start, setStart] = useState(false);
 
-  debug('[CarouselIndicator:render]: props.step = %s', props.step);
+    debug('[CarouselIndicator:render]: props.step = %s', step);
 
-  let items = new Array(props.count).fill('');
+    let items = new Array(count).fill('');
 
-  useEffect(() => {
-    setStart(true);
-  }, []);
+    useEffect(() => {
+      setStart(true);
+    }, []);
 
-  return (
-    <div className={prefix('carousel-indicator')}>
-      {items.map((_, index) => {
-        const clss = ['carousel-indicator-item'];
-        props.step === index && start && clss.push('carousel-indicator-item__active');
-        return <span className={prefix(clss.join(' '))} key={index} />;
-      })}
-    </div>
-  );
-});
+    return (
+      <div className={prefix('carousel-indicator')}>
+        {items.map((_, index) => {
+          const clss = ['carousel-indicator-item'];
+          const styles: CSSProperties = {};
+          if (step === index && start) {
+            clss.push('carousel-indicator-item__active');
+            styles.transitionDuration = duration + 'ms';
+          }
+          return (
+            <span className={prefix(clss.join(' '))} key={index}>
+              <i style={styles} />
+            </span>
+          );
+        })}
+      </div>
+    );
+  }
+);

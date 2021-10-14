@@ -43,7 +43,7 @@ const carouselProps = defineCarouselProps({
 
 const CarouselDemo = () => {
   return (
-    <Carousel {...carouselProps} animation="slideLeft" duration={3000}>
+    <Carousel {...carouselProps} animation="slideLeft" duration={4000}>
       {CarouselItems}
     </Carousel>
   );
