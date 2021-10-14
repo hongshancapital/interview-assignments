@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useMouseInRect } from '../../hooks';
+import React from 'react';
+import { useMouse, useCounter, isMouseInRect } from '../../hooks';
 import { debug } from '../util';
 import { CarouselContainer, CarouselContainerProps } from './CarouselContainer';
 import { CarouselIndicator } from './CarouselIndicator';
@@ -23,12 +23,9 @@ export type CarouselProps = Partial<
   BaseCarouselProps & CarouselNaviProps & CarouselContainerProps & CarouselTransitionProps
 >;
 
-const startTime = new Date().getTime();
-// let renderCallCount = 0;
-
 const Carousel: React.FC<CarouselProps> = function (props) {
   debug('[Carousel:render]');
-
+  /* 属性默认值 */
   const {
     width = '100%',
     height = '100%',
@@ -40,29 +37,25 @@ const Carousel: React.FC<CarouselProps> = function (props) {
     children,
   } = props;
 
-  const [step, setStep] = useState(0);
-
-  const [rectRef, mouseover] = useMouseInRect();
-
   const count = React.Children.count(children);
+  const rectRef = React.useRef<HTMLElement>();
 
-  useEffect(() => {
-    const eatTime = Math.floor((new Date().getTime() - startTime) / 1000);
+  useMouse();
 
-    debug('[Carousel:useEffect] step=%s eatTime=%ss', step, eatTime);
-
-    const timer = setTimeout(() => {
-      if (overPause && mouseover) return;
-      setStep((step + 1) % count);
-    }, duration);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [step, mouseover, overPause, count, duration]);
+  const { current: step } = useCounter({
+    duration,
+    maxCount: count,
+    pauseWhen: () => {
+      if(!overPause) return false;
+      if(!rectRef.current) return false
+      const _isMouseInRect = isMouseInRect(rectRef.current, 10)
+      debug('[pauseWhen] isMouseInRect = %s', _isMouseInRect)
+      return _isMouseInRect
+    },
+  });
 
   return (
-    <CarouselContainer ref={rectRef as React.Ref<HTMLElement>} {...{width, height}}>
+    <CarouselContainer ref={rectRef as React.Ref<HTMLElement>} {...{ width, height }}>
       <CarouselTransition {...{ step, animation }}>{children}</CarouselTransition>
       {showNavi && <CarouselNavi {...props} />}
       {showIndicator && <CarouselIndicator {...{ step, duration, count }} />}

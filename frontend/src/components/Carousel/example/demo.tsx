@@ -35,7 +35,7 @@ const CarouselItems = imgs.map((it, index) => {
 
 const carouselProps = defineCarouselProps({
   width: '100vw',
-  height: '100vh',
+  height: '90vh',
   showIndicator: true,
   showNavi: false,
   overPause: false,
