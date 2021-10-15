@@ -78,3 +78,9 @@ const carouselProps = define({width: '100vw', height: '100vh', animation: 'slide
 </Carousel>
 
 ```
+
+## hooks
+
+useMouse 获取鼠标位置的hooks 
+
+useCounter 计数器hooks

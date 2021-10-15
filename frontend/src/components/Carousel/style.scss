@@ -1,4 +1,5 @@
-@import '../base';
+// css类名前辍
+$prefix: 'cj';
 
 .#{$prefix} {
   &-carousel {
@@ -34,6 +35,7 @@
       height: fit-content;
 
       &-item {
+        cursor: pointer;
         width: 60px;
         height: 4px;
         background-color: #ccc;
@@ -57,13 +59,14 @@
       }
     }
     &-navi {
+      cursor: pointer;
       position: absolute;
       left: 0;
       right: 0;
       top: 0;
       bottom: 0;
       margin: auto;
-      background-color: rgba(0, 0, 0, 0.616);
+      background-color: rgba(189, 177, 9, 0.616);
 
       width: fit-content;
       height: fit-content;

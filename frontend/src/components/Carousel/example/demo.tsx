@@ -7,17 +7,16 @@ import iphone from '../../../assets/iphone.png';
 import tablet from '../../../assets/tablet.png';
 
 const imgs = [
-  { url: iphone, title: 'xPhone', desc: 'lots to love.Less to spend Staring at $399', cls: 'carousel-demo-slide dark' },
+  {
+    url: iphone,
+    title: 'xPhone',
+    desc: ['lots to love.Less to spend.\nStaring at $399'],
+    cls: 'carousel-demo-slide dark',
+  },
   { url: tablet, title: 'Tablet', desc: 'Just the right amount of everything', cls: 'carousel-demo-slide light' },
   {
     url: airpods,
-    title: (
-      <span>
-        Buy a Tablet or xPhone for college.
-        <br />
-        Get airPods
-      </span>
-    ),
+    title: ['Buy a Tablet or xPhone for college.\nGet airPods'],
     cls: 'carousel-demo-slide light',
   },
 ];
@@ -35,10 +34,10 @@ const CarouselItems = imgs.map((it, index) => {
 
 const carouselProps = defineCarouselProps({
   width: '100vw',
-  height: '90vh',
+  height: '100vh',
   showIndicator: true,
-  showNavi: false,
-  overPause: false,
+  showNavi: true,
+  overPause: true,
 });
 
 const CarouselDemo = () => {
