@@ -55,6 +55,7 @@ public class UrlServiceImpl implements UrlService {
     public String long2short(String longUrl) {
         // 自增键
         if (longUrlMap.containsKey(longUrl)) {
+            // 一般情况下会封装成对象供前端处理，包含成功标识、具体的错误信息等
             return "重复请求";
         } else {
             longUrlMap.put(longUrl, VALUE);
