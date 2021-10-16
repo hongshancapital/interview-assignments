@@ -1,5 +1,6 @@
 package com.wangxingchao.shorturl.controller;
 
+import com.wangxingchao.shorturl.utils.Result;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,12 +15,18 @@ public class UrlTest {
     @Resource
     private UrlController urlController;
 
+    /**
+     * 长域名转短域名测试
+     */
     @Test
     public void long2short() {
-        String aShort = urlController.long2short("ABC");
+        Result aShort = urlController.long2short("ABC");
         System.out.println(aShort);
-        String aLong = urlController.short2long(aShort);
-        System.out.println(aLong);
+        Object data = aShort.getData();
+        if (data != null) {
+            Result aLong = urlController.short2long(data.toString());
+            System.out.println(aLong);
+        }
     }
 
 }

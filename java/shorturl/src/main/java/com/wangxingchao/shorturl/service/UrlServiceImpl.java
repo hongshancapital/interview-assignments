@@ -2,7 +2,10 @@ package com.wangxingchao.shorturl.service;
 
 import com.wangxingchao.shorturl.exception.MaxLengthException;
 import com.wangxingchao.shorturl.utils.NumberUtils;
+import com.wangxingchao.shorturl.utils.Result;
+import com.wangxingchao.shorturl.utils.enums.ResultErrorEnum;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +29,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * key-value存储，通过key（短码）获取到长码的地址
  * jvm内存的话，我直接使用的hashMap结构
  * 多服务的话可以使用redis的hash结构 + 一个自增的String类型的key实现
+ *
+ * 补充：
+ * 没对域名格式进行校验，这块可以和前端小伙伴协商看具体情况是否对全域名进行处理
+ * 假如全域名处理可使用正则截取或校验
  */
 @Service
 public class UrlServiceImpl implements UrlService {
@@ -36,6 +43,9 @@ public class UrlServiceImpl implements UrlService {
     // 短码长度
     private static final int LENGTH = 8;
 
+    // 长码长度限制
+    private static final int LENGTH_LONG = 100;
+
     // 自增键 不放内存的话 可以考虑redis的自增 避免服务重启导致问题
     private static final AtomicInteger urlCount = new AtomicInteger(1);
 
@@ -43,32 +53,36 @@ public class UrlServiceImpl implements UrlService {
     private static final Map<String, String> urlMap = new ConcurrentHashMap<>();
 
     // 校验长链接是否重复请求
-    private static final Map<String, Object> longUrlMap = new ConcurrentHashMap<>();
-    private static final Object VALUE = new Object();
+    private static final Map<String, String> longUrlMap = new ConcurrentHashMap<>();
 
     @Override
-    public String short2long(String shortUrl) {
-        return urlMap.get(shortUrl);
+    public Result short2long(String shortUrl) {
+        if (shortUrl == null || shortUrl.length() != LENGTH) {
+            return new Result(ResultErrorEnum.URL_PARAM_URL_ERROR);
+        }
+        return new Result(urlMap.get(shortUrl));
     }
 
     @Override
-    public String long2short(String longUrl) {
+    public Result long2short(String longUrl) {
+        // 长度以及参数校验
+        if (longUrl == null || longUrl.length() > LENGTH_LONG) {
+            return new Result(ResultErrorEnum.URL_PARAM_URL_ERROR);
+        }
         // 自增键
-        if (longUrlMap.containsKey(longUrl)) {
-            // 一般情况下会封装成对象供前端处理，包含成功标识、具体的错误信息等
-            return "重复请求";
-        } else {
-            longUrlMap.put(longUrl, VALUE);
+        String shortUrl = longUrlMap.get(longUrl);
+        if (shortUrl != null) {
+            return new Result(shortUrl);
         }
         int increment = urlCount.getAndIncrement();
-        String shortUrl;
         try {
             // 将自增键转换为短链接 并进行存储
             shortUrl = NumberUtils.converter(increment, SCALE, LENGTH);
             urlMap.put(shortUrl, longUrl);
+            longUrlMap.put(longUrl, shortUrl);
         } catch (MaxLengthException exception) {
-            return exception.getMessage();
+            return new Result(ResultErrorEnum.URL_MAX_LENGTH_ERROR);
         }
-        return shortUrl;
+        return new Result(shortUrl);
     }
 }
