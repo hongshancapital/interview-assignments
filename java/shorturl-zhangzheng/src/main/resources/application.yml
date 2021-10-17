@@ -1,0 +1,26 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: shorturl-zhangzheng
+  datasource:
+    url: jdbc:h2:mem:shorturl
+    driver-class-name: org.h2.Driver
+    username: zhangzheng
+    password: 123456
+    schema: classpath:db/schema.sql
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+springfox:
+  documentation:
+    swagger-ui:
+      group-name: shortUrl生成服务
+      base-package: com.zhangzheng.homework
+      title: shortUrl生成服务
