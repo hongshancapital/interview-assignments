@@ -1,0 +1,171 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "domain service",
+    "description": "Domain Service",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/domain/generate": {
+      "put": {
+        "tags": [
+          "Generate Domain"
+        ],
+        "summary": "",
+        "operationId": "put-domain-generate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "description": "Generate the short domain information of the input.",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateRequestDto"
+              },
+              "examples": {
+                "example-1": {
+                  "value": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domain/get/{shortDomainInformation}": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-domain-get",
+        "description": "Get domain name by the specific short domain information.",
+        "parameters": []
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "shortDomainInformation",
+          "in": "path",
+          "required": true,
+          "description": "Short Domain Information"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "ShortDomainInformationDto": {
+        "title": "ShortDomainInformationDto",
+        "type": "object",
+        "properties": {
+          "shortDomainInformation": {
+            "type": "string",
+            "description": "Short domain information, it's a 8 lenght character and unique for each long domain,",
+            "minLength": 8,
+            "maxLength": 8
+          }
+        },
+        "required": [
+          "shortDomainInformation"
+        ]
+      },
+      "GenerateRequestDto": {
+        "title": "GenerateRequestDto",
+        "type": "object",
+        "description": "Request of generating the short domain information.",
+        "properties": {
+          "domainName": {
+            "type": "string"
+          }
+        }
+      },
+      "GenerateResponseDto": {
+        "title": "GenerateResponseDto",
+        "type": "object",
+        "description": "Response of generating the short domain information",
+        "properties": {
+          "result": {
+            "type": "boolean",
+            "description": "Result of the service."
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message of the service."
+          },
+          "data": {
+            "$ref": "#/components/schemas/ShortDomainInformationDto"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "GetResponseDto": {
+        "title": "GetResponseDto",
+        "type": "object",
+        "description": "Response of invoking get domain information",
+        "properties": {
+          "result": {
+            "type": "boolean",
+            "description": "Result of the service"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message of the service."
+          },
+          "data": {
+            "$ref": "#/components/schemas/DomainDto"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "DomainDto": {
+        "title": "DomainDto",
+        "type": "object",
+        "description": "Domain dto",
+        "properties": {
+          "domainName": {
+            "type": "string",
+            "description": "domainName"
+          }
+        },
+        "required": [
+          "domainName"
+        ]
+      }
+    },
+    "requestBodies": {},
+    "responses": {}
+  }
+}
