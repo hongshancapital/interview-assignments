@@ -40,7 +40,8 @@ CREATE TABLE `url_storage` (
   `short_url` varchar(16) NOT NULL DEFAULT '' COMMENT 'ID',
   `long_url` varchar(2000) NOT NULL DEFAULT '' COMMENT 'ID',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_short` (`short_url`)
+  UNIQUE KEY `uk_short` (`short_url`),
+  KEY `k_long` (`long_url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='链接记录表';
 
 -- ----------------------------

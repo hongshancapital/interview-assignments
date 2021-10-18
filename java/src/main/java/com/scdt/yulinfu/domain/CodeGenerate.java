@@ -1,4 +1,4 @@
-package com.scdt.yulinfu.doamin;
+package com.scdt.yulinfu.domain;
 
 import lombok.Data;
 

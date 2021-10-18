@@ -1,11 +1,9 @@
-package com.scdt.yulinfu.doamin;
+package com.scdt.yulinfu.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Table;
 
 /**
  * @author yulinfu
@@ -14,7 +12,6 @@ import javax.persistence.Table;
  */
 @Data
 @Builder
-@Table(name = "url_storage")
 @NoArgsConstructor
 @AllArgsConstructor
 public class UrlStorage {

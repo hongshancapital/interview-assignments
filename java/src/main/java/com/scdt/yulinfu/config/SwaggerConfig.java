@@ -31,8 +31,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("swagger2 title")
-                .description("swagger2 description")
+                .title("scdt swagger")
+                .description("长短链接转换接口文档")
                 .termsOfServiceUrl("www.example.com")
                 .contact("Toroto")
                 .version("1.0")
