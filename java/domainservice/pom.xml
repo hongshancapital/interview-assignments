@@ -87,6 +87,7 @@
 						<exclude>**/*Dto.*</exclude>
 						<exclude>**/*Properties.*</exclude>
 						<exclude>**/*Service.*</exclude>
+						<exclude>**/*Enum.*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -109,7 +110,7 @@
 				</executions>
 			</plugin>
 			<!-- Swagger Code Generation Plugin -->
-			<!-- <plugin> <groupId>io.swagger.codegen.v3</groupId> <artifactId>swagger-codegen-maven-plugin</artifactId> 
+			<!--  <plugin> <groupId>io.swagger.codegen.v3</groupId> <artifactId>swagger-codegen-maven-plugin</artifactId> 
 				<version>3.0.29</version> <executions> <execution> <goals> <goal>generate</goal> 
 				</goals> <configuration> <inputSpec> ${basedir}/src/main/resources/openapi/domain-service.json 
 				</inputSpec> <output>${basedir}</output> <sourceFolder>src/main/java</sourceFolder> 
@@ -117,7 +118,8 @@
 				<language>spring</language> <modelPackage>com.jerry.domainservice.api.model</modelPackage> 
 				<apiPackage>com.jerry.domainservice.api</apiPackage> <generateSupportingFiles>false</generateSupportingFiles> 
 				<configOptions> <hideGenerationTimestamp>true</hideGenerationTimestamp> <interfaceOnly>true</interfaceOnly> 
-				</configOptions> </configuration> </execution> </executions> </plugin> -->
+				</configOptions> </configuration> </execution> </executions> </plugin>
+				 --> 
 		</plugins>
 		<pluginManagement>
 			<plugins>

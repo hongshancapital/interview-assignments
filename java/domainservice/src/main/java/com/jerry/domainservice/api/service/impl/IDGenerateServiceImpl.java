@@ -45,7 +45,7 @@ public class IDGenerateServiceImpl implements IDGenerateService {
 	public synchronized String generate(String longDomainName) {
 		
 		log.trace("Generate short domain information, longDomainName={0}",longDomainName);
-
+		
 		if (domainMapping.size() > maxCachedSize) {
 			throw new ServiceRejectException("Service Rejected.");
 		}

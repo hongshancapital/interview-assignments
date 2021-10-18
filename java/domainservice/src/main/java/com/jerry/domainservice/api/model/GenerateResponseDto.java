@@ -17,8 +17,8 @@ import javax.validation.constraints.*;
 
 
 public class GenerateResponseDto   {
-  @JsonProperty("result")
-  private Boolean result = null;
+  @JsonProperty("status")
+  private Integer status = null;
 
   @JsonProperty("message")
   private String message = null;
@@ -26,24 +26,24 @@ public class GenerateResponseDto   {
   @JsonProperty("data")
   private ShortDomainInformationDto data = null;
 
-  public GenerateResponseDto result(Boolean result) {
-    this.result = result;
+  public GenerateResponseDto status(Integer status) {
+    this.status = status;
     return this;
   }
 
   /**
-   * Result of the service.
-   * @return result
+   * Status code of the service.
+   * @return status
    **/
-  @Schema(required = true, description = "Result of the service.")
+  @Schema(required = true, description = "Status code of the service.")
       @NotNull
 
-    public Boolean isResult() {
-    return result;
+    public Integer getStatus() {
+    return status;
   }
 
-  public void setResult(Boolean result) {
-    this.result = result;
+  public void setStatus(Integer status) {
+    this.status = status;
   }
 
   public GenerateResponseDto message(String message) {
@@ -95,14 +95,14 @@ public class GenerateResponseDto   {
       return false;
     }
     GenerateResponseDto generateResponseDto = (GenerateResponseDto) o;
-    return Objects.equals(this.result, generateResponseDto.result) &&
+    return Objects.equals(this.status, generateResponseDto.status) &&
         Objects.equals(this.message, generateResponseDto.message) &&
         Objects.equals(this.data, generateResponseDto.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(result, message, data);
+    return Objects.hash(status, message, data);
   }
 
   @Override
@@ -110,7 +110,7 @@ public class GenerateResponseDto   {
     StringBuilder sb = new StringBuilder();
     sb.append("class GenerateResponseDto {\n");
     
-    sb.append("    result: ").append(toIndentedString(result)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");

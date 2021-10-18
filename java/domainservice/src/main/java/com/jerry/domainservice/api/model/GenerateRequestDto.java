@@ -25,12 +25,13 @@ public class GenerateRequestDto   {
   }
 
   /**
-   * Get domainName
+   * Domain name. The maximum length of domain name is 255.
    * @return domainName
    **/
-  @Schema(description = "")
-  
-    public String getDomainName() {
+  @Schema(required = true, description = "Domain name. The maximum length of domain name is 255.")
+      @NotNull
+
+  @Size(min=1,max=255)   public String getDomainName() {
     return domainName;
   }
 

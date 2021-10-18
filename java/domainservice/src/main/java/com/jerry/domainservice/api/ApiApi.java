@@ -35,12 +35,12 @@ import java.util.List;
 import java.util.Map;
 
 @Validated
-public interface DomainApi {
+public interface ApiApi {
 
     @Operation(summary = "Your GET endpoint", description = "Get domain name by the specific short domain information.", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = GetResponseDto.class))) })
-    @RequestMapping(value = "/domain/get/{shortDomainInformation}",
+    @RequestMapping(value = "/api/domain/get/{shortDomainInformation}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<GetResponseDto> getDomainGet(@Parameter(in = ParameterIn.PATH, description = "Short Domain Information", required=true, schema=@Schema()) @PathVariable("shortDomainInformation") String shortDomainInformation);
@@ -49,7 +49,7 @@ public interface DomainApi {
     @Operation(summary = "", description = "Generate the short domain information of the input.", tags={ "Generate Domain" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = GenerateResponseDto.class))) })
-    @RequestMapping(value = "/domain/generate",
+    @RequestMapping(value = "/api/domain/generate",
         produces = { "application/json" }, 
         consumes = { "application/json" }, 
         method = RequestMethod.PUT)

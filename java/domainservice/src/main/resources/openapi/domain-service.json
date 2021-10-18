@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "/domain/generate": {
+    "/api/domain/generate": {
       "put": {
         "tags": [
           "Generate Domain"
@@ -25,6 +25,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GenerateResponseDto"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "status": 200,
+                      "message": "string",
+                      "data": {
+                        "shortDomainInformation": "stringst"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -37,18 +48,14 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/GenerateRequestDto"
-              },
-              "examples": {
-                "example-1": {
-                  "value": {}
-                }
               }
             }
           }
         }
-      }
+      },
+      "parameters": []
     },
-    "/domain/get/{shortDomainInformation}": {
+    "/api/domain/get/{shortDomainInformation}": {
       "get": {
         "summary": "Your GET endpoint",
         "tags": [],
@@ -59,6 +66,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetResponseDto"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "status": 200,
+                      "message": "string",
+                      "data": {
+                        "domainName": "string"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -104,18 +122,25 @@
         "description": "Request of generating the short domain information.",
         "properties": {
           "domainName": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Domain name. The maximum length of domain name is 255."
           }
-        }
+        },
+        "required": [
+          "domainName"
+        ],
+        "x-examples": {}
       },
       "GenerateResponseDto": {
         "title": "GenerateResponseDto",
         "type": "object",
         "description": "Response of generating the short domain information",
         "properties": {
-          "result": {
-            "type": "boolean",
-            "description": "Result of the service."
+          "status": {
+            "description": "Status code of the service.",
+            "type": "integer"
           },
           "message": {
             "type": "string",
@@ -126,7 +151,7 @@
           }
         },
         "required": [
-          "result"
+          "status"
         ]
       },
       "GetResponseDto": {
@@ -134,9 +159,9 @@
         "type": "object",
         "description": "Response of invoking get domain information",
         "properties": {
-          "result": {
-            "type": "boolean",
-            "description": "Result of the service"
+          "status": {
+            "description": "Status code of the service.",
+            "type": "integer"
           },
           "message": {
             "type": "string",
@@ -147,7 +172,7 @@
           }
         },
         "required": [
-          "result"
+          "status"
         ]
       },
       "DomainDto": {
