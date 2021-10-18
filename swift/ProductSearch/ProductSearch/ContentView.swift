@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel = SearchViewModel()
+    @ObservedObject var viewModel = SearchTextViewModel()
     
     var body: some View {
         NavigationView {
@@ -20,17 +20,14 @@ struct ContentView: View {
 
 struct SearchContent: View {
     @Environment(\.isSearching) var isSearching
-    @State private var pageIndex: Int = 0
-    @State private var hasMore: Bool = true
-    @State private var vendors: [Vendor] = []
+    @StateObject private var viewModel = HttpViewModel()
     @Binding var searchText: String
-    var isEmpty: Bool { vendors.isEmpty }
     
     var body: some View {
 //        print(Self._printChanges()); return
         Group {
             if isSearching {
-                if isEmpty {
+                if viewModel.isVendorsEmpty {
                     VStack {
                         Spacer()
                         Text("No result")
@@ -40,15 +37,15 @@ struct SearchContent: View {
                     }
                 } else {
                     List {
-                        ForEach(vendors) { vendor in
+                        ForEach(viewModel.vendors) { vendor in
                             ForEach(vendor.kinds) { kind in
                                 Section(kind.name) {
                                     ForEach(kind.products) { product in
                                         ProductView(product: product)
                                             .task {
-                                                if isLastProduct(product) && hasMore {
+                                                if viewModel.isLastProduct(product) && viewModel.hasMore {
                                                     print("load more")
-                                                    await load()
+                                                    await viewModel.search(for: searchText)
                                                 }
                                             }
                                     }
@@ -60,40 +57,18 @@ struct SearchContent: View {
             } else {
                 Spacer()
             }
-        }.onChange(of: searchText) { searchText in
+        }
+        .animation(.default, value: viewModel.vendors)
+        .onChange(of: searchText) { searchText in
             print("searchText changed as \(searchText)")
-            pageIndex = 0
-            hasMore = true
-            vendors = []
+            viewModel.reset()
             if searchText.isEmpty {
                 return
             }
             Task {
-                await load()
+                await viewModel.search(for: searchText)
             }
         }
-    }
-}
-
-extension SearchContent {
-    func load() async {
-        let urlString = "http://localhost:8080/\(searchText.lowercased().trimmingCharacters(in: .whitespaces))/\(pageIndex)"
-        guard let url = URL(string: urlString) else { return }
-        do {
-            print("load page \(pageIndex): \(urlString)")
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let resp = try JSONDecoder().decode(Response.self, from: data)
-            vendors.append(contentsOf: resp.vendors)
-            hasMore = resp.hasMore
-        } catch {
-            print("error: " + error.localizedDescription)
-        }
-        pageIndex = hasMore ? pageIndex+1 : 0
-    }
-    
-    func isLastProduct(_ product: Product) -> Bool {
-        guard let vendor = vendors.last, let kind = vendor.kinds.last else { return false }
-        return product == kind.products.last
     }
 }
 
