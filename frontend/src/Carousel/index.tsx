@@ -1,9 +1,17 @@
+import { type } from 'os';
 import React, { useState, useRef, useEffect, CSSProperties } from 'react';
 import "./index.css";
 
 interface Props {
-    children: Array<object>
+    data: Array<{
+        backgroundImg: string,
+        backgroundColor: string,
+        title: string,
+        describe?: string,
+        fontColor: string,
+      }>
 }
+
 
 let nowIndex: number = 0;
 let length: number = 0;
@@ -14,7 +22,7 @@ function Carousel(props: Props) {
     const myRef = useRef<number>(0);
     
     useEffect(() => {
-        length = props.children.length;
+        length = props.data.length;
         openCarousel();
     }, [])
 
@@ -46,27 +54,39 @@ function Carousel(props: Props) {
                 i = i - 4;
                 setStyle({transform: `translate(${i}vw)`});
             }   
-        },50) 
+        },10) 
     }
 
     return ( 
         <div className="carousel"> 
             <div className="container" style={style}>
                 {
-                    props.children.map((value: object, index: number) => (
-                        <div className="item" key={index}>
-                            { value }
+                    props.data.map((value, index) => (
+                        <div className="item" key={index} style={{backgroundColor: value.backgroundColor}}>    
+                            <div className="item-title" style={{color: value.fontColor}}>
+                                { value.title }
+                            </div>
+                            <div className="item-describe" style={{color: value.fontColor}}>
+                                { value.describe }
+                            </div>
+                            <img className="item-img" src={value.backgroundImg} />
                         </div>   
                     ))
                 }
-                <div className="item">
-                    { props.children[0] }
+                <div className="item" style={{backgroundColor: props.data[0].backgroundColor}}>    
+                    <div className="item-title" style={{color: props.data[0].fontColor}}>
+                        { props.data[0].title }
+                    </div>
+                    <div className="item-describe" style={{color: props.data[0].fontColor}}>
+                        { props.data[0].describe }
+                    </div>
+                    <img className="item-img" src={props.data[0].backgroundImg} />
                 </div> 
                 
             </div>
             <div className="line">
                 {
-                    props.children.map(( value: object, index: number) => (
+                    props.data.map(( value, index) => (
                         <div className="line-item" key={index}>
                             <p className="line-item-top" />
                             <p className="line-item-bottom" id={myRef.current===index? "animate" : ""}/>
