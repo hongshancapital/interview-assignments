@@ -62,15 +62,17 @@ class RepositoryListViewModel: ObservableObject {
             }
             .receive(on: mainScheduler)
             .share()
-    
+
         response.map {[unowned self] res in
             if (res.1 != nil) {
                 return ViewModelState.noData
             } else {
                 if self.searchKey == "Dysonx" {
-                    return ViewModelState.noData
-                } else {
                     return ViewModelState.showData
+                } else if self.searchKey.lengthOfBytes(using: String.Encoding.utf8) == 0 {
+                    return ViewModelState.isStartInput
+                } else {
+                    return ViewModelState.noData
                 }
             }
         }.assign(to: \.state, on: self).store(in: &cancellables)
@@ -103,11 +105,6 @@ class RepositoryListViewModel: ObservableObject {
                 if let _index = index {
                     let section = self.repositorySection[_index]
                     section.list.append(singleModel)
-                }
-            }
-            self.repositorySection.enumerated().forEach { (index, section) in
-                section.list.forEach { model in
-                    debugPrint(" model.category: \(model.category)")
                 }
             }
 

@@ -53,17 +53,17 @@ struct SearchListView: View {
                                 }
                             }
                         }
-                }.onChange(of: viewModel.searchKey) { newValue in
-                    if !newValue.isEmpty {
-                        // 当用户输入的停留时长超过1s后去触发网络请求
-                        Debouncer.debounce(1) {
-                            self.viewModel.search()
+                    }.onChange(of: viewModel.searchKey) { newValue in
+                        if !newValue.isEmpty {
+                            // 当用户输入的停留时长超过1s后去触发网络请求
+                            Debouncer.debounce(1) {
+                                self.viewModel.search()
+                            }
+                        } else {
+                            self.viewModel.clear()
+                            pageIndex = 0
                         }
-                    } else {
-                        self.viewModel.clear()
-                        pageIndex = 0
                     }
-                }
             } else {
                 // Fallback on earlier versions
             }
