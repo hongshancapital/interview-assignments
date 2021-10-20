@@ -31,7 +31,14 @@ public class UrlCache {
      * @param key
      * @return
      */
-    public static String getUrl(String key) {
+    public static String get(String key) {
         return shortCache.get().get(key);
+    }
+
+    /**
+     * 清空cache中的数据
+     */
+    public static void clearCache(){
+        shortCache.get().clear();
     }
 }
