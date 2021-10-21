@@ -1,3 +1,10 @@
+//
+//  Error.swift
+//  SwiftUI_SearchExample
+//
+//  Created by Hongwei Chen on 2021/10/21.
+//
+
 import Foundation
 
 /// 错误的集合 简易例子

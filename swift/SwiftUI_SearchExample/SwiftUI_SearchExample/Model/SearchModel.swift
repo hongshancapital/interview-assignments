@@ -1,3 +1,10 @@
+//
+//  SearchModel.swift
+//  SwiftUI_SearchExample
+//
+//  Created by Hongwei Chen on 2021/10/21.
+//
+
 import Foundation
 
 struct SearchModel: Codable, Identifiable {

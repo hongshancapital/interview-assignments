@@ -1,3 +1,10 @@
+//
+//  SearchItemView.swift
+//  SwiftUI_SearchExample
+//
+//  Created by Hongwei Chen on 2021/10/21.
+//
+
 import SwiftUI
 
 /// SearchList的Cell
