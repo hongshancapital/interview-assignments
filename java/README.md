@@ -7,6 +7,8 @@
 - murmurhash值有可能为负值，造成转字符串时异常。 --转为无符号long值处理
 - murmurhash有可能冲突。 --冲突时在url后拼接当前md5值后再取md5重试
 - 充分考虑缓存击穿，重启后的缓存穿透，目前使用的rocksdb做为缓存外存储
+- 使用undertow提升系统qps
 
 #### 优化思路 
 - 可以考虑使用sqlite替换rocksdb，利用自增主键和原始url的md5的唯一主键保证不冲突、不重复
+- 后续流量更大时可以考虑集群化，前端使用openresty网关结合lua，使用一致性hash分发请求
