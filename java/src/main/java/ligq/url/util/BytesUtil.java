@@ -31,7 +31,6 @@ public class BytesUtil {
      * @return int整数
      */
     public static int bytes2Int(byte[] bytes) {
-        Assert.isTrue(bytes.length == 4);
         int b0 = bytes[0] & 0xFF;
         int b1 = bytes[1] & 0xFF;
         int b2 = bytes[2] & 0xFF;

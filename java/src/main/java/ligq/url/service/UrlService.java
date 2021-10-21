@@ -5,6 +5,7 @@ import cn.hutool.crypto.digest.DigestUtil;
 import com.google.common.cache.*;
 import ligq.url.Constants;
 import ligq.url.dao.UrlDao;
+import ligq.url.exception.RepeatUrlException;
 import ligq.url.util.UrlDigest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,39 +66,39 @@ public class UrlService {
         dao.initRecentValues(recent3Days, p -> cache.put(p.getKey(), p.getValue()));
     }
 
-    public String getLongUrl(String shortUrl) throws Exception {
+    public String getOriginUrl(String shortUrl) throws Exception {
         int id = UrlDigest.decode(shortUrl);
         return cache.get(id);
     }
 
-    public String getShortUrl(String longUrl) throws Exception {
+    public String getShortUrl(String originUrl) throws Exception {
         //根据url的hash值获取并发锁
-        int hashCode = this.urlHashCode(longUrl);
+        int hashCode = this.urlHashCode(originUrl);
         Object lock = writeLocks[(writeLocks.length - 1) & hashCode];
         //基于longUrl的md5使用murmurhash计算1个随机id，如果出现冲突使用当前md5值做为salt重新计算id值，不断重试直到不冲突为止
         String salt = "";
         int id = 0;
         boolean condition = true;
         while (condition) {
-            String md5 = DigestUtil.md5Hex(longUrl + salt);
+            String md5 = DigestUtil.md5Hex(originUrl + salt);
             id = MurmurHash.hash32(md5);
             String cacheUrl = cache.getIfPresent(id);
-            if (longUrl.equals(cacheUrl)) {
-                throw new RuntimeException("This Url is Repeat!");
+            if (originUrl.equals(cacheUrl)) {
+                throw new RepeatUrlException(originUrl);
             } else {
                 synchronized (lock) {
                     String value = dao.getValue(id);
                     if (value == null) {
-                        dao.setValue(id, longUrl);
+                        dao.setValue(id, originUrl);
                         condition = false;
-                    } else if (longUrl.equals(value)) {
-                        throw new RuntimeException("This Url is Repeat!");
+                    } else if (originUrl.equals(value)) {
+                        throw new RepeatUrlException(originUrl);
                     }
                 }
                 if (condition) {
                     salt = md5;
                 } else {
-                    cache.put(id, longUrl);
+                    cache.put(id, originUrl);
                 }
             }
         }
