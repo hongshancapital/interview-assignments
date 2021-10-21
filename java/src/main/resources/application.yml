@@ -1,0 +1,23 @@
+server:
+  port: 9966
+  servlet.encoding:
+    charset: UTF-8
+    force: true
+
+spring:
+  application.name: url-service
+  banner.charset: UTF-8
+  output.ansi.enabled: always
+
+#project info config
+info:
+  app:
+    name: ${spring.application.name}
+    description: "This is a ${spring.application.name} application"
+    spring-boot-version: "2.5.5"
+
+app:
+  domain: "http://su.cn/get"
+  rocksdb.path: "C:/Users/awm96/Desktop/ligq-rocksdb"
+  lru.capacity: 50000
+  concurrency.level: 32
