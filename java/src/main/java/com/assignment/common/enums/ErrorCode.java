@@ -10,6 +10,7 @@ public enum ErrorCode {
     REQ_PARAM_EMPTY("100000", "请求参数为空"),
     SHORT_URL_INVALID("200000", "找不到链接、链接已失效"),
     CREATE_SHORT_URL_ERROR("300000","生成短链接异常"),
+    SYSTEM_ERROR("400000","服务异常"),
 
     ;
 
