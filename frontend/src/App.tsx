@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import useCarousel from "./hooks/useCarousel";
+import Carousel from "./components/carousel";
 
 import pic0 from './assets/iphone.png';
 import pic1 from './assets/tablet.png';
@@ -37,45 +37,8 @@ const items = [
 ]
 
 function App() {
-  const {
-    activeIndex,
-    duration,
-    pass,
-    resume,
-    pause,
-    select,
-  } = useCarousel(items, 3000);
-
   return <div className="App">
-    <div className="carousel">
-      <div className="carousel-items-wrapper" style={ { transform: `translate(${- activeIndex * 100}%, 0px)` }}>
-        {
-          items?.map((item, index) => (
-            <div
-              className="carousel-item"
-              key={`c_i_${index}`}
-              style={ { backgroundImage: `url(${item.bgCover})` }}
-            >{ item.content }</div>
-          ))
-        }
-      </div>
-      <div className="carousel-anchors">
-        {
-          items?.map((item, index) => (
-            <div className="carousel-item-anchor" key={`c_i_a_${index}`}
-              onMouseOver={ () => { pause(index) } }
-              onMouseOut={ () => { resume(index) } }
-              onClick={ () => { select(index) } }
-            >
-              <div
-                className="carousel-item-anchor-body"
-                style={ { width: activeIndex === index ? `${ (pass / duration * 100).toFixed(2) }%` : '0%' } }
-              ></div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
+    <Carousel items={items} duration={3000} />
   </div>;
 }
 
