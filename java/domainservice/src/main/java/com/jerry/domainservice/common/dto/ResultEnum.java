@@ -37,7 +37,7 @@ public enum ResultEnum {
     /**
      * 999
      */
-    UNKNOW_ERROR(999, "Unknown Rrror");
+    UNKNOW_ERROR(999, "Unknown Error");
  
     private int code;
  

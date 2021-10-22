@@ -10,4 +10,7 @@ public class ServiceRejectException extends RuntimeException{
 	public ServiceRejectException(String message) {
         super(message);
     }
+	public ServiceRejectException(String message,Throwable throwable) {
+        super(message,throwable);
+    }
 }

@@ -2,6 +2,8 @@ package com.jerry.domainservice.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import com.jerry.domainservice.api.cache.properties.HashMapCacheProperties;
+
 import lombok.Data;
 
 /**
@@ -12,8 +14,5 @@ import lombok.Data;
 @ConfigurationProperties(prefix="domainservice")
 @Data
 public class DomainServiceProperties {
-	/**
-	 * Maximum size of the domain cache. if exceeded then the server will throw a ServiceRejectException.
-	 */
-	private int maxCachedSize;
+	HashMapCacheProperties hashmapcache;
 }

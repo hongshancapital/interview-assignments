@@ -1,6 +1,4 @@
 ###################spring doc start###################
-domainservice:
-  max-cached-size: 8100000
 springdoc:
   version: "0.0.1"
   api-docs:
@@ -12,3 +10,18 @@ springdoc:
     groups-order: DESC
     operationsSorter: method
     disable-swagger-default-url: true
+    
+domainservice:
+  hashmapcache: 
+    max-cache-size: 8000000 
+    number-should-be-evicted: 20 
+    survive-period: 600000 
+    
+logging:
+  level: 
+    root: INFO
+    '[com.jerry]': TRACE
+    '[org.springframework]': INFO
+  file:
+    name: assigments.log
+    path: d:/assigments/

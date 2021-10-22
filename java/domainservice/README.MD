@@ -9,9 +9,14 @@
 根据RFC 1123
 Host software MUST handle host names of up to 63 characters and SHOULD handle host names of up to 255 characters.
 假设当前需要支持最多255字符长度的域名， 且长域名以及短域名信息都是以a-zA-Z0-9组成的字符串，那么每个域名信息组将占用至少263个字节。
-假设JVM最大堆内存为2G， 理想情况下预计可以存储810万左右域名信息，当超过设定阈值时为了防止服务器内存溢出，则拒绝任何生成短域名信息的请求。
+
+假设域名信息在系统中不需要永久缓存，增加自动淘汰机制，每隔1秒执行一次evict， 尝试淘汰10条记录，如果当前记录是活跃记录，则跳过。
+假设JVM最大堆内存为2G， 理想情况下预计可以存储810万左右域名信息，当超过设定阈值，并且没有数据可以淘汰时，为了防止服务器内存溢出拒绝请求。
+
 由于短域名为8位长度，可用字符62个，本程序在生成短域名时生成一个介于10000000 到 ZZZZZZZZ的62进制随机数。
 最大缓存映射关系配置于全局配置文件(application.yml)中
+
+
 
 ### 随机数生成：
 通过java random生成范围为3521614606208L-218340105584895L的随机数，转换为62进制字符串输出。
@@ -28,9 +33,9 @@ Host software MUST handle host names of up to 63 characters and SHOULD handle ho
 
 
 ## 工具使用
-使用stoplight 设计Rest API，使用swagger codegen工具生成接口源码，任何接口改动通过改动API设计，重新生成接口源码。
+使用stoplight 设计Rest API文档，使用swagger codegen工具生成接口及接口使用的model源码，任何接口改动通过改动API设计，重新生成接口源码。
 所有的openapi描述文件存放于src/main/resources/openapi目录下。
-使用lombok简化java代码，由于dto代码由工具自动生成，因此没有使用lombok。
+使用lombok简化java代码，由于model代码由工具自动生成，因此没有使用lombok。
 
 ## 单元测试
 由于interface, dto, config, properties以及sprint-boot启动class没有承载业务逻辑，因此这部分的代码在jacoco运行时中加入了excludes列表里。
