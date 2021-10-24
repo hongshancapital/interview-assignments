@@ -75,7 +75,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如下是系统架构图，整个服务的调用方有两个：其他的微服务和外部用户，当前服务依赖的组件主要是redis和数据库，而服务内部，则主要是由`IdGenerator`和`ShortCodeHandler`来封装生成id和短码的加密和校验逻辑的：
 
-![系统架构图](https://raw.githubusercontent.com/CoderZW/ThinkingInJava/master/WeChat45f0b3db360d7b4416ce8a1c84331b31.png)
+![系统架构图](https://raw.githubusercontent.com/CoderZW/ThinkingInJava/master/WeChat984c97e3df946735d5f67123b00ddc8e.png)
 
 ### 4. 服务假设
 
