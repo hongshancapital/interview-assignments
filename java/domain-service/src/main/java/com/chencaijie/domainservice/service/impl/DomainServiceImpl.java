@@ -3,6 +3,7 @@ package com.chencaijie.domainservice.service.impl;
 import com.chencaijie.domainservice.bean.DomainStorage;
 import com.chencaijie.domainservice.service.DomainService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.message.Message;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
@@ -20,22 +21,40 @@ public class DomainServiceImpl implements DomainService {
 
     @Override
     public String getLongDomainName(String shortDomain) {
-        String longDomainName = DomainStorage.getDomainStorage().getDomainMap().get(shortDomain);
-        return longDomainName;
+        String longDomainName = "";
+        try {
+            //从内存中读取域名
+            longDomainName = DomainStorage.getDomainStorage().getDomainMap().get(shortDomain);
+            if (StringUtils.isEmpty(longDomainName)) {
+                longDomainName = "未找到对应的域名";
+            }
+        } catch (Exception e) {
+            longDomainName = "读取域名出错，错误信息：" + e.toString();
+        } finally {
+            return longDomainName;
+        }
     }
 
     @Override
     public String saveDomainName(String domainName) {
-        String[] aResult = shortUrl(domainName);//将产生4组6位字符串
-        // 打印出结果
-        for (int i = 0; i < aResult.length; i++) {
-            System.out.println("[" + i + "]:" + aResult[i]);
+        String shortDomainName="";
+        try {
+            //将产生4组6位字符串
+            String[] aResult = shortUrl(domainName);
+            Random random = new Random();
+            //产成4以内随机数
+            int j = random.nextInt(aResult.length);
+            //随机取一个作为短链
+            shortDomainName = aResult[j];
+            //把域名映射保存在内存中
+            DomainStorage.getDomainStorage().getDomainMap().put(shortDomainName, domainName);
+            return shortDomainName;
+        } catch (Exception e) {
+             shortDomainName =  "保存域名出错，错误信息：" + e.toString();
         }
-        Random random=new Random();
-        int j=random.nextInt(aResult.length);//产成4以内随机数
-        System.out.println("短链接:"+aResult[j]);//随机取一个作为短链
-        DomainStorage.getDomainStorage().getDomainMap().put(aResult[j], domainName);
-        return domainName;
+        finally {
+            return shortDomainName;
+        }
     }
 
     /**
@@ -68,13 +87,11 @@ public class DomainServiceImpl implements DomainService {
     }
 
 
-
-
     public static String[] shortUrl(String url) {
         // 可以自定义生成 MD5 加密字符传前的混合 KEY
         String key = "test";
         // 要使用生成 URL 的字符
-        String[] chars = new String[] { "a", "b", "c", "d", "e", "f", "g", "h",
+        String[] chars = new String[]{"a", "b", "c", "d", "e", "f", "g", "h",
                 "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
                 "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5",
                 "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
@@ -108,16 +125,4 @@ public class DomainServiceImpl implements DomainService {
         return resUrl;
     }
 
-    public static void main(String[] args) {
-        String sLongUrl = "https://www.sequoiacap.com/china"; // 原始链接
-        System.out.println("长链接:"+sLongUrl);
-        String[] aResult = shortUrl(sLongUrl);//将产生4组6位字符串
-        // 打印出结果
-        for (int i = 0; i < aResult.length; i++) {
-            System.out.println("[" + i + "]:" + aResult[i]);
-        }
-        Random random=new Random();
-        int j=random.nextInt(4);//产成4以内随机数
-        System.out.println("短链接:"+aResult[j]);//随机取一个作为短链
-    }
 }
