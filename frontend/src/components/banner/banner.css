@@ -1,0 +1,58 @@
+ul,li,div,span{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+.banner {
+    position: relative
+}
+.banner .img-box{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+.img-box ul{
+    display: flex;
+    position: absolute;
+}
+.img-box ul li{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+.img-box img{
+    display: block;
+    width: 100vw;
+}
+.banner .controller{
+    position: absolute;
+    bottom: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.banner .controller ul{
+    display: flex;
+    justify-content: center;
+}
+.banner .controller li{
+    margin:0 5px
+}
+.controller .ct-btn{
+    width: 100px;
+    height: 10px;
+    background: #666;
+    border-radius: 10px
+
+}
+.controller .ct-btn .ct-btn-inner{
+    width: 0;
+    height: 0;
+    background: #fff;
+    border-radius: 10px
+}
+.controller .ct-btn .active {
+    width: 100px;
+    height: 10px;
+}
