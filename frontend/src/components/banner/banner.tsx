@@ -33,7 +33,7 @@ const Banner:FC<IProps> = (props): ReactElement => {
       backgroundColor: item.backgroundColor
     }
     return (
-      <li key={item.des as string} style={styleObj as any}>
+      <li key={item.des as string} style={styleObj as object}>
         <img alt={item.des as string} src={item.image as string}/>
       </li>
     )

@@ -8,19 +8,12 @@ const BannerController:FC<IProps> = (props):ReactElement => {
 
 
   const controllerList = props.data.map( (item:IBannerImage, index:number)=>{
-    if(index === props.current){
-      return (
-        <li className="ct-btn" key={item.des as string}>
-          <div style={innerStyle} className="ct-btn-inner active"> </div>
-        </li>
-      )
-    } else {
-      return (
-        <li className="ct-btn" key={item.des as string}>
-          <div style={innerStyle}  className="ct-btn-inner"> </div>
-        </li>
-      )
-    }
+    const btnClassName = index === props.current ? 'ct-btn-inner active' : 'ct-btn-inner'
+    return (
+      <li className="ct-btn" key={item.des as string}>
+        <div style={innerStyle} className={btnClassName}> </div>
+      </li>
+    )
   })
   return (
     <div className="controller">
