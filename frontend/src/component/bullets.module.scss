@@ -1,0 +1,30 @@
+
+.bullets {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width : 100%;
+  justify-content: center;
+  bottom : 10%;
+}
+
+.bullet {
+  width : 40px;
+  height : 2px;
+  background-color: rgba(150,150,150,.5);
+  border-radius: 1px;
+  margin : 0 20px;
+  position: relative;
+  overflow : hidden
+}
+
+.transition {
+  position: absolute;
+  top : 0;
+  left : 0;
+  width : 40px;
+  height : 2px;
+  background-color: rgba(10, 133, 216, 0.8);
+  // transition : transform .5s linear;
+  transform : translateX(-100%)
+}
