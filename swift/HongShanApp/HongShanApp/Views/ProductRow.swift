@@ -23,7 +23,6 @@ struct ProductRow: View {
             }
             Spacer()
             Text("$\(productModel.price)")
-                .frame(width: .infinity, height: .infinity, alignment: .trailing)
                 .foregroundColor(.blue)
             
         }

@@ -17,6 +17,6 @@ func RGB(_ red:Double,_ green:Double,_ blue:Double) -> Color {
     return Color.init(red: red / 255.0, green: green / 255.0, blue: blue / 255.0)
 }
 
-
+let LIST_BACK_COLOR = RGB(190, 210, 174)
 
 
