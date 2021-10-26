@@ -20,10 +20,31 @@ ul,li,div,span{
     position: relative;
     width: 100vw;
     height: 100vh;
+    white-space: pre-line;
+}
+.img-box ul li .big-title{
+    position: relative;
+    z-index: 1;
+    margin-top: 20vh;
+    font-size: 60px;
+    font-weight: 500;
+}
+.img-box ul li .small-title{
+    position: relative;
+    z-index: 1;
+    margin-top: 2vh;
+    font-size: 28px;
+    font-weight: 500;
 }
 .img-box img{
+    position: absolute;
+    bottom: 15vh;
+    left: 50vw;
+    margin-left: -15vw;
+    pointer-events: none;
     display: block;
-    width: 100vw;
+    width: 30vw;
+    z-index: 0;
 }
 .banner .controller{
     position: absolute;
@@ -40,8 +61,8 @@ ul,li,div,span{
     margin:0 5px
 }
 .controller .ct-btn{
-    width: 100px;
-    height: 10px;
+    width: 40px;
+    height: 4px;
     background: #666;
     border-radius: 10px
 
@@ -53,6 +74,6 @@ ul,li,div,span{
     border-radius: 10px
 }
 .controller .ct-btn .active {
-    width: 100px;
-    height: 10px;
+    width: 40px;
+    height: 4px;
 }

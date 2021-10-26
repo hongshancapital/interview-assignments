@@ -1,12 +1,16 @@
 import React, { useState, useEffect, FC, ReactElement } from 'react'
-import {IBannerImage, IDefaultConfig, IProps} from "./typing/banner";
+import {IBannerImage, IDefaultConfig, IProps, IStyle} from "./typing/banner";
 import BannerController from "./bannerController";
 import './banner.css'
+
+
 
 const defaultConfig:IDefaultConfig = {
   stayTime: 3,
   rollTime: 1
 }
+
+
 
 const Banner:FC<IProps> = (props): ReactElement => {
   const arr = props.data;
@@ -30,10 +34,13 @@ const Banner:FC<IProps> = (props): ReactElement => {
 
   const imgList = props.data.map( (item:IBannerImage) =>{
     let styleObj = {
+      color: item.titles.color,
       backgroundColor: item.backgroundColor
     }
     return (
-      <li key={item.des as string} style={styleObj as object}>
+      <li key={item.des as string} style={styleObj as React.CSSProperties}>
+        <div className="big-title">{item.titles.big}</div>
+        <div className="small-title">{item.titles.small}</div>
         <img alt={item.des as string} src={item.image as string}/>
       </li>
     )
