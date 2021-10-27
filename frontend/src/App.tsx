@@ -4,7 +4,7 @@ import {CAROUSEL_LIST} from './carouselComponent/constants/index';
 import PageItem from './carouselComponent/pageItem/index';
 import Indicator from './carouselComponent/indicator/index';
 
-function App() {
+export default function App() {
   const DEFAULT_INDEX = 0;
   const [currentIndex, setCurrentIndex] = useState(DEFAULT_INDEX);
   const list = CAROUSEL_LIST;
@@ -45,4 +45,3 @@ function App() {
   </div>;
 }
 
-export default App;
