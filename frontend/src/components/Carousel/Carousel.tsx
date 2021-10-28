@@ -53,7 +53,7 @@ const Carousel: FC<Props> = ({ options, delay = DEFAULT_DELAY, className, style 
         {options.map((option, idx) => (
           <div
             key={idx}
-            className={clsx('carousel-item', { active: activeIdx === idx })}
+            className={clsx('carousel-item', option.className, { active: activeIdx === idx })}
             style={option.style}
           >
             {option.title && <div className="carousel-item__title">{option.title}</div>}
