@@ -1,0 +1,16 @@
+targetPatch: http://127.0.0.1:8080/s/
+
+swagger:
+  whether:
+    open: 1
+
+
+# ---------Caffeine它是 Google借助于Java 8，在GuavaCache的基础上进行了一次相当全面的优化升级
+spring:
+  cache:
+    type: caffeine
+    cache-names:
+      - getShortCode
+      - name2
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=5s
