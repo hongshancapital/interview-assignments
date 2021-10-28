@@ -1,9 +1,9 @@
 export class AsyncUtil {
 
-  static wait(time : number) {
+  static wait(time : number) : Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(null)
+        resolve()
       }, time)
     })
   }

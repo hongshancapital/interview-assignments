@@ -1,8 +1,6 @@
 import React from 'react'
 import classes from './bullets.module.scss'
-import { TransitionState, useCSSTransition } from '../hook/useCSSTransition'
-import { useBullets } from './Carousel'
-import { CarouselContextOptions } from './Carousel/CarouselContext'
+import { TransitionState, useCSSTransition } from '../../hook/useCSSTransition'
 
 /**
  * 这里架构上将bullet看作轮播图之外的【非标】组件实现
@@ -10,18 +8,22 @@ import { CarouselContextOptions } from './Carousel/CarouselContext'
  * 动画和样式全部外部实现
  * @returns 
  */
- export const MyBullets = () => {
-   const { active, state, options } = useBullets()
+ export const MyBullets = ({position, state, size, duration} : {
+   position : number,
+   size : number,
+   state : TransitionState,
+   duration : number
+ }) => {
    return (
      <div className={classes.bullets}>
-       {[...Array(options.size)].map((_, i) => {
+       {[...Array(size)].map((_, i) => {
          return (
            <BulletRender
              key={i}
              i={i}
-             active={active}
+             active={position}
              state={state}
-             options = {options}
+             wait={duration}
            />
          )
        })}
@@ -29,14 +31,14 @@ import { CarouselContextOptions } from './Carousel/CarouselContext'
    )
  }
 
-const BulletRender = ({i, active, state, options} : {
+const BulletRender = ({i, wait, active, state} : {
   i : number,
   active : number,
-  state : TransitionState,
-  options : CarouselContextOptions 
+  wait : number,
+  state : TransitionState
 }) => {
 
-  const time = `${(options.wait/1000).toFixed(2)}s`
+  const time = `${(wait/1000).toFixed(2)}s`
   const transitions = {
     prepare: {
       transform: `translateX(-100%)`,
@@ -50,12 +52,12 @@ const BulletRender = ({i, active, state, options} : {
     },
   }
 
-  let style = useCSSTransition({
+  let [, style] = useCSSTransition({
     enabled : (active === i) && (state !== TransitionState.START),
     initialStyle: transitions.prepare,
     loop: false,
     wait: 0,
-    duration: options.wait,
+    duration: wait,
     transitions
   })
 
@@ -64,3 +66,4 @@ const BulletRender = ({i, active, state, options} : {
   </div>
 
 }
+
