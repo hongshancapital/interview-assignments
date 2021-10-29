@@ -110,26 +110,26 @@ test("loop", async () => {
 })
 
 
-// const TestEnabledComponent = ({
-//   tests,
-// }: {
-//   tests: string[]
+const TestEnabledComponent = ({
+  tests,
+}: {
+  tests: string[]
 
-// }) => {
-//   const [enabled, setEnabled] = useState(false)
-//   useEffect(() => {
-//     setTimeout(() => {
-//       setEnabled(true)
-//     }, 0)
-//   })
+}) => {
+  const [enabled, setEnabled] = useState(false)
+  useEffect(() => {
+    setTimeout(() => {
+      setEnabled(true)
+    }, 0)
+  })
 
-//   return <TestTransition tests={tests} loops={1} enabled={enabled} />
-// }
+  return <TestTransition tests={tests} loops={1} enabled={enabled} />
+}
 
-// test('enabled', async () => {
-//   const tests : string[] = []
-//   const { findByText } = render(
-//     <TestEnabledComponent tests={tests} />
-//   ) 
-//   expect(await findByText('30')).toBeInTheDocument()
-// })
+test('enabled', async () => {
+  const tests : string[] = []
+  const { findByText } = render(
+    <TestEnabledComponent tests={tests} />
+  ) 
+  expect(await findByText('30')).toBeInTheDocument()
+})

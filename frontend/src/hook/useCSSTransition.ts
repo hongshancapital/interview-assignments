@@ -150,6 +150,12 @@ export function useFlow<S, T>({
     flowState.current = FlowState.Stoped
   }
 
+  useEffect(() => {
+    return () => {
+      cancel()
+    }
+  }, [])
+
   function play(i: number) {
     if (flowState.current === FlowState.Stoped) {
       return
@@ -162,7 +168,9 @@ export function useFlow<S, T>({
     }
     const { to, delay, value } = flows[i]
     skeduler(() => {
-      setState([i + 1, to, value])
+      if(flowState.current !== FlowState.Stoped) {
+        setState([i + 1, to, value])
+      }
     }, delay)
   }
 
