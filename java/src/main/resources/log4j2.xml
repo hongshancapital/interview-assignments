@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--设置log4j2的自身log级别为warn,日志级别为All < Trace < Debug < Info < Warn < Error < Fatal < OFF-->
+<configuration status="info">
+    <appenders>
+        <!-- 控制台日志 -->
+        <!--OssAppender 增加属性配置 filterLevel="OSS,EVENT,KPI"后，表示控制台日志打印过滤OSS,EVENT,KPI，上传不受影响 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss,SSS}-[%l]-[%p] %m%n"/>
+        </Console>
+        <!-- 本地日志文件 info -->
+        <RollingRandomAccessFile name="web_logs"  fileName="logs/log.log" filePattern="logs/%d{yyyy-MM-dd}/log-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d [%p][%t][%l] - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="500MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingRandomAccessFile>
+    </appenders>
+    <loggers>
+        <!--生产环境一定要将此处设置为warn-->
+        <root level="info">
+            <appender-ref ref="console"/>
+            <appender-ref ref="web_logs"/>
+        </root>
+    </loggers>
+</configuration>
