@@ -7,6 +7,7 @@ import com.example.shortlink.util.ShortLinkUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -40,6 +41,7 @@ import org.springframework.util.DigestUtils;
  *    . step 2. get the value  of longShortLinkMap by MD5(long link) key
  */
 @Service
+@Slf4j
 public class ShortLongLinkService {
 
     @Autowired
@@ -72,7 +74,7 @@ public class ShortLongLinkService {
                 memoryDB.storeShortLink(result,longLink);
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {log.error("acquireShortLink error",e);}
 
 
 
@@ -92,7 +94,7 @@ public class ShortLongLinkService {
         String result = null ;
         try{
             result = memoryDB.loadLongLink(shortLink);
-        }catch (Exception e){}
+        }catch (Exception e){log.error("acquireLongLink error",e);}
 
 
         return result ;

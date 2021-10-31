@@ -1,8 +1,6 @@
 package com.example.shortlink.util;
 
 
-import sun.security.provider.MD5;
-
 /**
  * utils for short - long link convert framework
  */
