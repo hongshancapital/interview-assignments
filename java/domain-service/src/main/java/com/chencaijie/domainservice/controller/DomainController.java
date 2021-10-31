@@ -1,5 +1,6 @@
 package com.chencaijie.domainservice.controller;
 
+import com.chencaijie.domainservice.bean.ResultObject;
 import com.chencaijie.domainservice.service.DomainService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,13 +18,13 @@ public class DomainController {
 
     @ApiOperation(value = "短域名读取接口")
     @GetMapping("/getDomainName")
-    public String getLongDomainName(@ApiParam(value = "短域名")@RequestParam String shortDomain ) {
+    public ResultObject getLongDomainName(@ApiParam(value = "短域名")@RequestParam String shortDomain ) {
         return domainService.getLongDomainName(shortDomain);
     }
 
     @ApiOperation(value = "短域名存储接口")
     @PostMapping("/saveDomainName")
-    public String saveDomainName(@ApiParam(value = "长域名")@RequestParam String domainName) {
+    public ResultObject saveDomainName(@ApiParam(value = "长域名")@RequestParam String domainName) {
         return domainService.saveDomainName(domainName);
     }
 }

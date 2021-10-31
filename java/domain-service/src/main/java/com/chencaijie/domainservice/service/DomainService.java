@@ -1,5 +1,6 @@
 package com.chencaijie.domainservice.service;
 
+import com.chencaijie.domainservice.bean.ResultObject;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,14 +11,14 @@ public interface DomainService {
      * @param shortDomain
      * @return
      */
-    public String getLongDomainName( String shortDomain);
+    public ResultObject getLongDomainName(String shortDomain);
 
     /**
      * 短域名存储接口
      * @param domainName
      * @return
      */
-    public String saveDomainName( String domainName);
+    public ResultObject saveDomainName(String domainName);
 }
 
 
