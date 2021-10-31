@@ -5,8 +5,6 @@ import com.example.shortlink.generator.GlobalIdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-
 /**
  * the Galting (AKA galting gun) , here we use it as a firing gun to get a "ticket num" for encode
  * short link with {@code Generator}. and we also provider an SPI mechanism to let them choose which

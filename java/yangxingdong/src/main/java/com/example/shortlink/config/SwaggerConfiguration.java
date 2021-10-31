@@ -1,9 +1,11 @@
 package com.example.shortlink.config;
 
 
+import com.google.gson.Gson;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -57,6 +59,13 @@ public class SwaggerConfiguration {
         // builder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
 
         return builder;
+    }
+
+
+
+    @Bean
+    public Gson getGson() {
+        return new Gson();
     }
 
 }
