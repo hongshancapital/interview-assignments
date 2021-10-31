@@ -2,6 +2,7 @@ package com.example.shortlink.galting;
 
 
 import com.example.shortlink.generator.GlobalIdGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -15,7 +16,7 @@ import javax.annotation.Resource;
 public class Galting {
 
 
-    @Resource(name = "atomicLongGenerator")
+    @Autowired
     private GlobalIdGenerator<Long> generator;
 
 

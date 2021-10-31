@@ -23,14 +23,9 @@ import java.util.concurrent.atomic.AtomicLong;
 public class AtomicLongGenerator extends StandAloneGenerator<Long> {
 
 
-    /**
-     * the offset we use ,when application restarted / redeployed.
-     */
-    private static  Long OFFSET = null ; // here we can wrap the null
-                                              // maybe use NULL Object.
 
 
-    private static final AtomicLong SEQUENCER = new AtomicLong(OFFSET) ;
+    private static AtomicLong SEQUENCER = new AtomicLong(0L) ;
 
 
 
@@ -41,7 +36,7 @@ public class AtomicLongGenerator extends StandAloneGenerator<Long> {
 
     @PostConstruct
     private void setOffset(){
-        OFFSET = offsetEnabled ? loadOffset() : 0L;
+        SEQUENCER = offsetEnabled ? new AtomicLong(loadOffset()) : new AtomicLong(0L);
     }
 
 
