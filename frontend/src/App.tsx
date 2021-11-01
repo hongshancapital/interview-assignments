@@ -2,6 +2,35 @@ import React from "react";
 import Carousel from "./Carousel";
 import "./App.css";
 
+interface CarouselFrameItem {
+  iconType: "iphone" | "airpods" | "tablet";
+  fontColor?: string;
+  backgroundColor?: string;
+  title?: string[];
+  text?: string[];
+}
+
+const CAROUSEL_FRAME_LIST: CarouselFrameItem[] = [
+  {
+    backgroundColor: "#000000",
+    fontColor: "#ffffff",
+    iconType: "iphone",
+    title: ["xPhone"],
+    text: ["Lots to love. Less to spend.", "Starting at $399."],
+  },
+  {
+    backgroundColor: "#fafafa",
+    iconType: "tablet",
+    title: ["Tablet"],
+    text: ["Just the right amount of everything."],
+  },
+  {
+    backgroundColor: "#f1f1f3",
+    iconType: "airpods",
+    title: ["Buy a Tablet or xPhone for college.", "Get airPods."],
+  },
+];
+
 function App() {
   return (
     <div className="App">
@@ -17,44 +46,47 @@ function App() {
             threshold: 100,
           }}
         >
-          <div
-            className="Frame"
-            style={{
-              backgroundImage: `url(${require("./assets/iphone.png").default})`,
-            }}
-          >
-            <div className="title">xPhone</div>
-            <div className="text">Lots to love. Less to spend</div>
-            <div className="text">Starting at $399.</div>
-          </div>
-          <div
-            className="Frame"
-            style={{
-              backgroundImage: `url(${require("./assets/tablet.png").default})`,
-            }}
-          >
-            <div className="title" style={{ color: "#000000" }}>
-              Tablet
-            </div>
-            <div className="text" style={{ color: "#000000" }}>
-              Just the right amount of everything.
-            </div>
-          </div>
-          <div
-            className="Frame"
-            style={{
-              backgroundImage: `url(${
-                require("./assets/airpods.png").default
-              })`,
-            }}
-          >
-            <div className="title" style={{ color: "#000000" }}>
-              Buy a Tablet or xPhone for college
-            </div>
-            <div className="title" style={{ color: "#000000" }}>
-              Get arpods.
-            </div>
-          </div>
+          {CAROUSEL_FRAME_LIST.map((item: CarouselFrameItem, index: number) => {
+            return (
+              <div
+                className="Frame"
+                style={{
+                  backgroundImage: `url(${
+                    require(`./assets/${item.iconType}.png`).default
+                  })`,
+                  backgroundColor: item.backgroundColor,
+                }}
+                key={index}
+              >
+                {item.title &&
+                  item.title.length > 0 &&
+                  item.title.map((i: string, _index: number) => (
+                    <div
+                      className="title"
+                      style={{
+                        color: item.fontColor ? item.fontColor : "#000000",
+                      }}
+                      key={_index}
+                    >
+                      {i}
+                    </div>
+                  ))}
+                {item.text &&
+                  item.text.length > 0 &&
+                  item.text.map((i: string, _index: number) => (
+                    <div
+                      className="text"
+                      style={{
+                        color: item.fontColor ? item.fontColor : "#000000",
+                      }}
+                      key={_index}
+                    >
+                      {i}
+                    </div>
+                  ))}
+              </div>
+            );
+          })}
         </Carousel>
       </div>
     </div>
