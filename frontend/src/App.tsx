@@ -37,13 +37,9 @@ function App() {
       <div className="container">
         <Carousel
           options={{
-            arrowColor: "#ffffff",
-            auto: true,
             dotColor: "#757c75",
             duration: 500,
-            interval: 1000,
-            loop: true,
-            threshold: 100,
+            interval: 1000
           }}
         >
           {CAROUSEL_FRAME_LIST.map((item: CarouselFrameItem, index: number) => {
