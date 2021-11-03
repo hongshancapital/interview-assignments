@@ -23,9 +23,7 @@ public class ShortUrlProcessServiceImpl {
     }
 
     private void mapReInit() {
-        if (null != recordMap && !recordMap.isEmpty()) {
-            recordMap.clear();
-        }
+        recordMap = new ConcurrentHashMap<>();
     }
 
     public String generateShorUrl(String normalUrl) {
