@@ -66,12 +66,4 @@ class SearchViewModel: ObservableObject {
             .assign(to: &$searchList)
     }
     
-    func isFirst(data: SearchModel) -> Bool {
-        return searchList.first == data
-    }
-    
-    func isLast(data: SearchModel) -> Bool {
-        return searchList.last == data
-    }
-    
 }
