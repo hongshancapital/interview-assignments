@@ -65,6 +65,7 @@ struct SearchListView: View {
             .onChange(of: searchText) { newValue in
                 /// 重新调整searchText的时候,searchIndex设置为0
                 self.searchIndex = 0
+                searchViewModel.isNotMoreData = false
                 searchViewModel.searchKeyword = newValue
             }
             .navigationTitle("Search")
