@@ -16,7 +16,7 @@
 
 ## 简单的架构图
 
-![arg.jpg](./shortlink/src/main/resources/arc.png)
+![arg.jpg](./src/main/resources/arc.png)
 
 ## 假设
 
@@ -44,4 +44,4 @@
 项目根目录执行 mvn test 后， 会在 target/site/jacoco 目录下生成测试报告，浏览器打开 index.html 即可.
 > 行覆盖率已经96+ 
 
-![cover-pic](./shortlink/src/main/resources/cover.jpg)
+![cover-pic](./src/main/resources/cover.jpg)
