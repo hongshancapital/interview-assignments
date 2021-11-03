@@ -9,11 +9,11 @@ import Foundation
 
 class SearchRequest: NSObject {
     
-    class func dataTaskPublisher(keyword: String) -> URLSession.DataTaskPublisher {
+    class func dataTaskPublisher(keyword: String, index: Int) -> URLSession.DataTaskPublisher {
         return Request(method: "GET",
                        headers: [:],
                        url: kApiHost + kApiSearch,
-                       query: ["keyword": keyword],
+                       query: ["keyword": keyword, "index": "\(index)", "count": "10"],
                        body: [:])
             .dataTaskPublisher()
     }

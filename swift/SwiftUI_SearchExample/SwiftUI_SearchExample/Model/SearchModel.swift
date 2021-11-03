@@ -52,6 +52,15 @@ struct SearchItemModel: Codable, Identifiable {
     
 }
 
+extension SearchModel: Equatable {
+    
+    /// 用于判断
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+}
+
 extension SearchItemModel: Equatable {
     
     /// 用于判断

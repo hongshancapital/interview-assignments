@@ -23,8 +23,15 @@ class LocalServerManager: NSObject {
     func addDefaultHandler() {
         webServer.addDefaultHandler(forMethod: "GET", request: GCDWebServerRequest.self) { request in
             if request.path == kApiSearch {
-                if let query = request.query, query["keyword"] == "Dyson" {
-                    return self.buildDataResponse(code: 0, msg: "success", data: buildSearchListData().JSONValue())
+                if let query = request.query,
+                   let keyword = query["keyword"],
+                    let index = query["index"],
+                    let count = query["count"] {
+                    let dataList = buildSearchListData().filter { searchModel in
+                        return searchModel.title.hasPrefix(keyword) && keyword.count != 0
+                    }
+                    let pageList = selectPageList(index: Int(index) ?? 0, count: Int(count) ?? 10, searchList: dataList)
+                    return self.buildDataResponse(code: 0, msg: "success", data: pageList.JSONValue())
                 }
                 return self.buildDataResponse(code: 0, msg: "success", data: [])
             } else {
