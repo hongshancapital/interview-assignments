@@ -22,6 +22,7 @@ struct SearchListView: View {
                 ForEach(searchViewModel.searchList) { data in
                     if searchViewModel.isFirst(data: data) {
                         Button("Tap here to refresh", action: refresh)
+                            .foregroundColor(Color.gray)
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                     }
@@ -36,13 +37,21 @@ struct SearchListView: View {
                     .listSectionSeparator(.hidden)
                     .padding(.vertical, 5)
                     if searchViewModel.isLast(data: data)  {
-                        ProgressView()
-                            .frame(width: UIScreen.main.bounds.size.width - 40, height: 50, alignment: .center)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                            .onAppear {
-                                loadMore()
-                            }
+                        if searchViewModel.isNotMoreData {
+                            Text("Not more data")
+                                .foregroundColor(Color.secondary)
+                                .frame(width: UIScreen.main.bounds.size.width - 40, height: 50, alignment: .center)
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                        } else {
+                            ProgressView()
+                                .frame(width: UIScreen.main.bounds.size.width - 40, height: 50, alignment: .center)
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                                .onAppear {
+                                    loadMore()
+                                }
+                        }
                     }
                 }
             }

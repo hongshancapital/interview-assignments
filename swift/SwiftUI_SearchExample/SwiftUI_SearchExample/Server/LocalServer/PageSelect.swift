@@ -26,7 +26,7 @@ func selectPageList(index: Int, count: Int, searchList: [SearchModel]) -> [Searc
         cacheUUIDs = []
     }
     var result: [SearchModel] = []
-    if searchList.count == 0 || start > searchList.count {
+    if searchList.count == 0 || start >= searchList.count {
         return result
     }
     for index in start...searchList.count - 1 {
