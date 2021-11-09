@@ -19,9 +19,9 @@ public class NumericConvertUtils {
      * @return 指定进制的字符串
      */
     public static String toOtherNumberSystem(long number, int seed) {
-        if (number < 0) {
+        /*if (number < 0) {
             number = ((long) 2 * 0x7fffffff) + number + 2;
-        }
+        }*/
         char[] buf = new char[32];
         int charPos = 32;
         while ((number / seed) > 0 && buf.length - charPos < 8) {

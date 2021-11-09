@@ -96,4 +96,21 @@ public class ShortUrlControllerTests {
         }
     }
 
+    @Test
+    public void testInvalidUrlError() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/create")
+                        .param("longUrl","ss")
+                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testUrlIsNullError() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/create")
+                        .param("longUrl","")
+                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
 }
