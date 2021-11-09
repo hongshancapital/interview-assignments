@@ -1,49 +1,22 @@
-# Java Assignment
+# 短链接服务
 
-## 这是什么？
+## 架构思路
 
-为了节省大家的时间，我们使用作业分配来对Java候选人进行资格预审。这使我们在面试中保持客观，专注于候选人解决​​复杂问题并捍卫他们选择技术或方法的能力。我们还评估候选人如何处理来自同事、管理层或运营团队的压力，时间压力，批评和审查。
+1. 用snowflask算法生成分布式id,然后转换62进制，生成短链接。
+2. 存入缓存，缓存按LRU淘汰不常用的链接，防止内存溢出。
+3. 同时更新持久层。
+4. spingboot实现，restful api风格规范实现服务接口。
 
-***要考虑参加面试，您需要完成下面的“作业”部分。***
+#### 架构图
 
-### Assignment
+![avatar](https://raw.githubusercontent.com/jackieralf3/interview-assignments/master/java/short-url/src/main/resources/structure.png)
 
-#### 实现短域名服务（细节可以百度/谷歌）
+#### swagger
 
-撰写两个 API 接口:
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+地址：http://localhost:8081/swagger-ui.html
 
-限制：
-- 短域名长度最大为 8 个字符
-- 采用SpringBoot，集成Swagger API文档；
-- JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图即刻)；
-- 映射数据存储在JVM内存即可，防止内存溢出；
+#### 单元测试jacoco
 
-**递交作业内容** 
-- 源代码(按照生产级的要求编写整洁的代码，使用gitignore过滤掉非必要的提交文件，如class文件)
-- Jacoco单元测试覆盖率截图(行覆盖率和分支覆盖率85%+)
-- 文档：设计思路、简单的架构图以及所做的假设(Markdown格式)
+报告在 /target/site/jacoco/index.html，覆盖率（97，90）
 
-**加分项** 
-- 系统性能测试方案以及测试结果
-
-
-## Job Description
-
-### 岗位职责
-
-1. 负责公司内部自用产品开发，能够独立的按产品需求进行技术方案设计和编码实现，确保安全、可扩展性、质量和性能;
-2. 在负责的业务上有独立的见解和思考，对业务产品具有独立沟通、完善业务需求和识别方案风险的能力;
-3. 具有持续优化、追求卓越的激情和能力，能持续关注和学习相关领域的知识，并能使用到工作当中;
-4. 具备和第三方供应商进行沟通，对设计方案进行审核的能力;
-
-### 要求
-
-1. 5年软件研发/解决方案设计工作经验(金融领域经验加分)；
-2. Java基础扎实，熟悉高级特性和类库、多线程编程以及常见框架(SpringBoot等)；
-3. 具备基本系统架构能力，熟悉缓存、高可用等主流技术；
-5. 持续保持技术激情，善于快速学习，注重代码质量，有良好的软件工程知识和编码规范意识；
-
-
-
+![avatar](https://raw.githubusercontent.com/jackieralf3/interview-assignments/master/java/short-url/src/main/resources/jacoco.png)
