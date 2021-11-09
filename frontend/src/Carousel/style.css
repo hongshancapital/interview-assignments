@@ -1,0 +1,88 @@
+
+html,body{
+  width: 100%;
+  height:100%;
+}
+.scroller{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}
+.scroller .inner::-webkit-scrollbar {
+  display: none;
+}
+.scroller .inner{
+  height:600px;
+  overflow: scroll;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+.scroller .inner >div{
+  display: block;
+  height:100%;
+  float: left;
+  
+}
+.scroller .inner .item-slider1_text {
+  position: absolute;
+  top:50px;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+}
+.scroller .inner .item-slider1_text p{
+  margin: 0;
+  line-height: 28px;
+  font-size: 22px;
+}
+.scroller .inner .item-slider1_text_title{
+  margin: 30px 0 !important;
+  font-size: 40px !important;
+  font-weight: bold !important;
+}
+.scroller .inner .item-slider2_text_title{
+  margin: 10px 0 !important;
+  font-size: 40px !important;
+  font-weight: bold !important;
+}
+
+
+.scroller .inner .item-slider1 {
+  position: absolute;
+  right:0;
+  left:0;
+  top:0;
+  bottom:0;
+}
+.slider-view{
+  height:20px !important;
+  position: absolute;
+  top:580px;
+  left:0;
+  right:0;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  z-index: 2;
+}
+.slider-view .slider-parent {
+  width:100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.slider-view .slider-parent div{
+  width: 30px;
+  height: 2px;
+  background: #999;
+  margin: 0 auto;
+  position: relative;
+}
+.slider-view .slider-parent >div div{
+  position: absolute;
+  left:0;
+  /* width:0; */
+  height:2px;
+  background:#fff;
+  
+}
