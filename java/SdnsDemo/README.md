@@ -81,14 +81,14 @@ SdnsDemo
 ├──README.md                    说明文档（即本文档）
 
 ```
-## 单元测试覆盖率截图
+## 单元测试：
 ![单元测试覆盖率图](https://github.com/603e/interview-assignments/tree/master/java/SdnsDemo/README_IMG/test_case_cover.png)
+从上述测试结果来看指令行覆盖率为99%，分支覆盖率为100%。由此可得测试覆盖率是能满足要求的。
 
 ## 性能测试:
     本次利用Java性能测试框架工具-JunitPerf进行测试，测试结果如下：
-## 测试结果：
 ![性能测试图](https://github.com/603e/interview-assignments/tree/master/java/SdnsDemo/README_IMG/pref.png)    
-
+从图中可以得出最小延迟为99毫秒，最大延迟为128毫秒，平均延迟为109毫秒。同理，性能也是能满足要求。
 ## 编译运行
   编译后取启动类jar包即可命令行启动
   启动命令：java -jar java -jar -Xms2048M -Xmx2048M -Xmn512M -Xss256k -XX:PermSize=512M  SdnsDemo-0.0.1-SNAPSHOT.jar<br>
