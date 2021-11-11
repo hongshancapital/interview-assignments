@@ -1,0 +1,77 @@
+spring:
+  application:
+    name: url-short
+  profiles:
+    active: dev
+  task:
+    # 定时任务线程池配置
+    scheduling:
+      # 线程池大小。默认为 1
+      pool:
+        size: 10
+      # 线程池的线程名的前缀。默认为 scheduling-
+      thread-name-prefix: cron-
+      shutdown:
+        # 应用关闭时，是否等待定时任务执行完成。默认为 false
+        await-termination: true
+        # 等待任务完成的最大时长，单位为秒。默认为 0
+        await-termination-period: 60
+    # 异步任务线程池配置
+    execution:
+      pool:
+        # 核心线程数，线程池创建时候初始化的线程数。默认为 8
+        core-size: 10
+        # 最大线程数，线程池最大的线程数，只有在缓冲队列满了之后，才会申请超过核心线程数的线程。默认为 Integer.MAX_VALUE
+        max-size: 20
+        # 允许线程的空闲时间，当超过了核心线程之外的线程，在空闲时间到达之后会被销毁。默认为 60 秒
+        keep-alive: 60s
+        # 缓冲队列大小，用来缓冲执行任务的队列的大小。默认为 Integer.MAX_VALUE
+        queue-capacity: 100
+        # 是否允许核心线程超时，即开启线程池的动态增长和缩小。默认为 true
+        allow-core-thread-timeout: true
+      # 线程池的线程名的前缀。默认为 task-
+      thread-name-prefix: async-
+      shutdown:
+        # 应用关闭时，是否等待定时任务执行完成。默认为 false
+        await-termination: true
+        # 等待任务完成的最大时长，单位为秒。默认为 0
+        await-termination-period: 60s
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+
+server:
+  servlet:
+    context-path: /api
+  port: 8080
+
+logging:
+  level:
+    org: INFO
+    com: INFO
+  file:
+    path: logs
+
+mybatis:
+  mapper-locations: classpath:/mapper/*Mapper.xml,classpath:/ext_mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# swagger文档
+swaggerInfo:
+  name: 短链接服务
+  version: 1.0.0
+  description: 长链接生成短链接，短链接解析回原始长链接
+  enable: true
+  port: 8088
+

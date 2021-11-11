@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>
+    <property name="ACCESS_LOG_FILE" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/access.log"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{39}[%line] - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.%d{yyMMdd}.%i</fileNamePattern>
+            <maxHistory>90</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="access_log_file"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss}##%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <file>${ACCESS_LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${ACCESS_LOG_FILE}.%d{yyMMdd}.%i</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="spring_log" level="info" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="access_log" level="info" additivity="false">
+        <appender-ref ref="access_log_file"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
