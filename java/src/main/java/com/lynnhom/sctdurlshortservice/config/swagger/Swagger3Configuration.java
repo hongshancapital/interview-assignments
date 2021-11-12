@@ -56,7 +56,6 @@ public class Swagger3Configuration {
         return new Docket(DocumentationType.OAS_30).pathMapping("/")
                 .enable(enable)
                 .apiInfo(apiInfo())
-                .host("http:127.0.0.1:" + port)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
