@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  ENV: dev
+  DB_HOST: 10.10.130.1
+  DB_PASSWORD: 123456
+  DB_USERNAME: appuser
+  REDIS_DATABASE: "8"
+  REDIS_HOST: 10.10.101.7
+  REDIS_PASSWORD: 123456
+  TZ: :Asia/Shanghai
+kind: ConfigMap
+metadata:
+  managedFields:
+  name: Simplest-Spring-Boot-Hello-World
+  namespace: backend

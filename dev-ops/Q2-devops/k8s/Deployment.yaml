@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: Simplest-Spring-Boot-Hello-World
+    qcloud-app: Simplest-Spring-Boot-Hello-World
+  managedFields:
+  - apiVersion: apps/v1
+    manager: kube-controller-manager
+  name: Simplest-Spring-Boot-Hello-World
+  namespace: backend
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: Simplest-Spring-Boot-Hello-World
+      qcloud-app: Simplest-Spring-Boot-Hello-World
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        k8s-app: Simplest-Spring-Boot-Hello-World
+        qcloud-app: Simplest-Spring-Boot-Hello-World
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: Simplest-Spring-Boot-Hello-World
+        image: yes-dream.tencentcloudcr.com/sprint-image/Simplest-Spring-Boot-Hello-World:27_0.0.112_dev_33
+        imagePullPolicy: IfNotPresent
+        name: Simplest-Spring-Boot-Hello-World
+        resources:
+          limits:
+            cpu: 300m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 256Mi
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

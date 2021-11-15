@@ -32,7 +32,7 @@ def extractLog(s):
     log = LogEntity.empty()
     # 提取日志头信息
     if m:
-        log.timeWindow = m.group(1)
+        log.timeWindow = timeWindowFmt(m.group(1))
         log.deviceName = m.group(2)
         log.processName = m.group(3)
         log.processId = m.group(4)
@@ -42,10 +42,14 @@ def extractLog(s):
         m = otherPattern.match(s)
         # 提取时段和内容
         if m:
-            log.timeWindow = m.group(1)
+            log.timeWindow = timeWindowFmt(m.group(1))
             log.description = m.group(2)
     return log
 
+# 时段区间函数
+def timeWindowFmt(s):
+    i = int(s, 10)
+    return '2300-0000' if i == 23 else f"{s}00-{str('%02d' % (i+1))}00"
 
 # 按时段汇总
 def partitionByTimePeriod(logs):
