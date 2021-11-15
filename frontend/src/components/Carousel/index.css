@@ -1,0 +1,49 @@
+/* 组件样式 */
+.carousel {
+  position: relative;
+}
+.carousel-list {
+  overflow: hidden;
+  background-color: aqua;
+}
+.carousel-track {
+  display: flex;
+}
+.carousel-slide {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* 指示器 */
+.carousel-dots {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  display: flex;
+  transform: translate(-50%, -50%);
+}
+.carousel-dot {
+  position: relative;
+  width: 50px;
+  height: 2px;
+  border-radius: 10%;
+  margin-right: 10px;
+  background-color: gray;
+}
+.carousel-dot:last-child {
+  margin-right: 0;
+}
+.carousel-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  animation-name: animate-process;
+}
+@keyframes animate-process {
+  100% {
+    width: 100%;
+  }
+}
