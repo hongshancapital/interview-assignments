@@ -1,0 +1,83 @@
+spring:  
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${service.ip}:3308/biz_statistics?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    #初始化时建立物理连接的个数
+#    initialSize: 20
+    #最小连接池数量
+#    minIdle: 20
+    #最大连接池数量
+#    maxActive: 100
+    #获取连接时最大等待时间，单位毫秒
+#    maxWait: 600000
+  dbcp2:
+    min-idle: 10         #数据库连接池的最小维持连接数
+    initial-size: 50     #初始化提供的连接数
+    max-total: 100          #最大的连接数
+    max-wait-millis: 200        #等待连接获取的最大超时时间
+  session: 
+    store-type: redis
+#  redis:
+#    host: ${service.ip}
+#    port: 6379
+#    database: 0
+#    password: xinhua
+#    timeout: 0
+#    pool: 
+#      max-active: 100
+#      min-idle: 1
+#      max-idle: 8
+#      max-wait: -1
+  data:
+    mongodb:
+      uri:  mongodb://${service.ip}:27017/dataStatistics
+      min-connections-per-host: 10
+      max-connections-per-host: 50
+      threads-allowed-to-block-for-connection-multiplier: 5
+      server-selection-timeout: 30000
+      max-wait-time: 120000
+      max-connection-idel-time: 0
+      max-connection-life-time: 0
+      connect-timeout: 10000
+      socket-keep-alive: false
+
+logging: 
+  level:
+    org.xinhua: DEBUG
+    org.mybatis: INFO
+service: 
+  ip: 127.0.0.1
+
+sshback1: 
+  ip: 172.22.27.91
+  userName: root
+  password: Xhs_2013
+sshback2: 
+  ip: 172.22.27.90
+  userName: ywgl
+  password: J2Rv%T
+sshjob: 
+  ip: 10.20.5.56
+  userName: ywgl
+  password: J2Rv%T
+  
+eureka:
+  client:
+    healthcheck:
+      enabled: false
+    serviceUrl:
+#      defaultZone: http://user:password123@10.20.5.56:8100/eureka    
+      defaultZone: http://user:password123@${service.ip}:8100/eureka    
+
+session.expireTime: 1800
+command:  
+  cleanMem: sync;echo@@3@@|@@sudo@@tee@@/proc/sys/vm/drop_caches
+  restart: /home/ywgl/sh/restart_master.sh
+local:
+  ip: 10.20.5.55
+manager:
+  fetchPersons: http://${local.ip}:8070/manager/Persons/getByDay?days=1
+  fetchPersonSNs: http://${local.ip}:8070/manager/Persons/getPersonSN
+  fetchDepts: http://${local.ip}:8070/manager/Persons/getDept?days=1

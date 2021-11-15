@@ -1,0 +1,30 @@
+spring.application.name: biz-back
+server:
+  port: 8040
+  undertow: 
+    buffer-size: 1024
+    buffers-per-region: 1024
+    direct-buffers: true
+    worker-threads: 256
+    io-threads: 16
+  compression: 
+    enabled: true
+    min-response-size: 512
+    mime-types: application/javascript,text/css,application/json,application/xml,text/html,text/xml,text/plain
+spring:  
+  profiles: #指定读取配置文件:dev(开发环境),prod(生产环境),qa(测试环境)
+    include: dev
+    logback: dev
+  http:
+    encoding:
+      force: true
+      enabled: true
+      charset: UTF-8
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 50MB
+  devtools.restart.exclude: WEB-INF/**  
+logging: 
+  config: classpath:logback-${spring.profiles.logback}.xml
+
+
