@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.cloud.tencent.com/direct-access: "false"
+    kubernetes.io/ingress.class: qcloud
+    kubernetes.io/ingress.extensiveParameters: '{"AddressIPVersion":"IPV4"}'
+    kubernetes.io/ingress.http-rules: "null"
+    kubernetes.io/ingress.https-rules: '[{"host":"helloword.foo.com","path":"/","backend":{"serviceName":"Simplest-Spring-Boot-Hello-World-service","servicePort":80}}]'
+    kubernetes.io/ingress.rule-mix: "true"
+  generation: 3
+  name: Simplest-Spring-Boot-Hello-World-ingress
+  namespace: backend
+  selfLink: /apis/networking.k8s.io/v1beta1/namespaces/backend/ingresses/Simplest-Spring-Boot-Hello-World-ingress
+spec:
+  rules:
+  - host: helloword.foo.com
+    http:
+      paths:
+      - backend:
+          serviceName: Simplest-Spring-Boot-Hello-World-service
+          servicePort: 80
+        path: /
+  tls:
+  - secretName: poc12-28-qajgcert
+status:
+  loadBalancer:
+    ingress:
+    - ip: 150.157.230.133
