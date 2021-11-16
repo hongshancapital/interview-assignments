@@ -9,7 +9,7 @@
 
 短域名简介：短域名在很多地方都会用到，最常见的大概就是平时收到的各个平台发送的广告短信，比如这个：
 
-![image-20211115193428818](img\image-20211115193428818.png)
+![image-20211115193428818](img/image-20211115193428818.png)
 
 其中的链接打开后的原链接为：
 
@@ -38,11 +38,11 @@ https://m.hellobike.com/ebike-h5/latest/index.html#/historyBill?queryCondition=c
 
 - 根据长域名生成短域名：
 
-  ![image-20211116095923847](img\image-2021111134343.png)
+  ![image-20211116095923847](img/image-2021111134343.png)
 
 - 根据短域名返回对应长域名：
 
-![image-20211116095923847](img\image-20211116095923847.png)
+![image-20211116095923847](img/image-20211116095923847.png)
 
 一些细节考虑：
 
@@ -102,11 +102,12 @@ http://www.sdsd.com/1JSMAdXJWik
 
 ## 成果展示
 
-启动后访问：http://localhost:8080/swagger-ui.html，可以看到和测试swagger生成的接口文档。
+启动后访问：http://localhost:8080/swagger-ui.html
+可以看到和测试swagger生成的接口文档。
 
 jacoco代码覆盖率报告：
 
-![image-20211116144131724](img\image-20211116144131724.png)
+![image-20211116144131724](img/image-20211116144131724.png)
 
 代码整体覆盖率：97%，分支覆盖率：86%。
 
