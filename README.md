@@ -102,7 +102,8 @@ http://www.sdsd.com/1JSMAdXJWik
 
 ## 成果展示
 
-启动后访问：http://localhost:8080/swagger-ui.html，可以看到和测试swagger生成的接口文档。
+启动后访问：http://localhost:8080/swagger-ui.html
+可以看到和测试swagger生成的接口文档。
 
 jacoco代码覆盖率报告：
 
