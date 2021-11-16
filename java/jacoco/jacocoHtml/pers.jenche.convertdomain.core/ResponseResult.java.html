@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResponseResult.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">convertdomain</a> &gt; <a href="index.source.html" class="el_package">pers.jenche.convertdomain.core</a> &gt; <span class="el_source">ResponseResult.java</span></div><h1>ResponseResult.java</h1><pre class="source lang-java linenums">package pers.jenche.convertdomain.core;
+
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
+import pers.jenche.convertdomain.dto.ResponseResultDTO;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @author jenche E-mail:jenchecn@outlook.com
+ * @project convertdomain
+ * @date 2021/11/15 12:24
+ * @description 输出结果数据的工具类
+ */
+<span class="fc" id="L20">@Slf4j</span>
+public class ResponseResult&lt;T&gt; {
+<span class="pc" id="L22">    private ResponseResultDTO resultDTO = new ResponseResultDTO();</span>
+
+<span class="nc" id="L24">    public ResponseResult() {</span>
+<span class="nc" id="L25">    }</span>
+
+<span class="fc" id="L27">    public ResponseResult(Object data) {</span>
+<span class="fc" id="L28">        this.resultDTO.setData(data);</span>
+<span class="fc" id="L29">    }</span>
+
+<span class="nc" id="L31">    public ResponseResult(ResponseResultDTO responseResultDTO) {</span>
+<span class="nc" id="L32">        this.resultDTO = responseResultDTO;</span>
+<span class="nc" id="L33">    }</span>
+
+<span class="nc" id="L35">    public ResponseResult(ExceptionMessage exceptionMessage) {</span>
+<span class="nc" id="L36">        this.resultDTO.setCode(exceptionMessage.getCode());</span>
+<span class="nc" id="L37">        this.resultDTO.setMessage(exceptionMessage.getMsg());</span>
+<span class="nc" id="L38">    }</span>
+
+<span class="nc" id="L40">    public ResponseResult(BindingResult bindingResult, CallBack callBack) throws SystemException {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (bindingResult.hasErrors()) {</span>
+<span class="nc" id="L42">            String defaultMessage = Objects.requireNonNull(bindingResult.getFieldError()).getField().concat(&quot; Field &quot;).concat(&quot;is Blank.&quot;);</span>
+<span class="nc" id="L43">            log.debug(&quot;&lt;{}&gt; detail:{}&quot;, ExceptionMessage.C_50_PARAMS_EXCPTION, defaultMessage);</span>
+<span class="nc" id="L44">            throw new SystemException(ExceptionMessage.C_50_PARAMS_EXCPTION, defaultMessage);</span>
+        }
+<span class="nc" id="L46">        this.resultDTO.setData(callBack.execute());</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * 将结果转成{@link String}
+     *
+     * @return 转换成string类型的结果，通过JSON转换器
+     * @throws SystemException 自定义的系统异常
+     */
+    public String toJson() throws SystemException {
+<span class="nc" id="L56">        validData();</span>
+<span class="nc" id="L57">        return JSON.toJSONString(this.resultDTO);</span>
+    }
+
+    /**
+     * 提交DTO数据
+     *
+     * @return 提交DTO数据传输实体
+     * @throws SystemException 自定义的系统异常
+     */
+    public ResponseResultDTO toDTO() throws SystemException {
+<span class="fc" id="L67">        validData();</span>
+<span class="fc" id="L68">        return this.resultDTO;</span>
+    }
+
+    public ResponseResult&lt;T&gt; succeed() {
+<span class="nc" id="L72">        this.resultDTO.setCode(0);</span>
+<span class="nc" id="L73">        this.resultDTO.setMessage(null);</span>
+<span class="nc" id="L74">        this.resultDTO.setData(true);</span>
+<span class="nc" id="L75">        return this;</span>
+    }
+
+    /**
+     * 默认转成DTO
+     *
+     * @return 使用 {@link ResponseResultDTO}
+     * @throws SystemException 自定义的系统异常
+     */
+    public ResponseResultDTO send() throws SystemException {
+<span class="fc" id="L85">        return toDTO();</span>
+    }
+
+    /**
+     * 检验检查数据，根据数据类型检查并抛出异常
+     *
+     * @throws SystemException 自定义的系统异常
+     */
+    private void validData() throws SystemException {
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (resultDTO.getCode() &gt; 0) {</span>
+<span class="nc" id="L95">            return;</span>
+        }
+
+<span class="fc" id="L98">        Object data = this.resultDTO.getData();</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if (data == null) {</span>
+<span class="nc" id="L100">            throw new SystemException(ExceptionMessage.C_50_DATA_IS_EMPTY);</span>
+        }
+
+        //如果是List
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (data instanceof List) {</span>
+<span class="nc" id="L105">            List&lt;?&gt; _ldata = (List&lt;?&gt;) data;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">            if (_ldata.size() &lt; 1) {</span>
+<span class="nc" id="L107">                throw new SystemException(ExceptionMessage.C_50_DATA_IS_EMPTY);</span>
+            }
+        }
+
+        //如果是Map
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (data instanceof Map) {</span>
+<span class="nc" id="L113">            Map&lt;?, ?&gt; _mdata = (Map&lt;?, ?&gt;) data;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            if (_mdata.size() &lt; 1) {</span>
+<span class="nc" id="L115">                throw new SystemException(ExceptionMessage.C_50_DATA_IS_EMPTY);</span>
+            }
+        }
+<span class="fc" id="L118">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

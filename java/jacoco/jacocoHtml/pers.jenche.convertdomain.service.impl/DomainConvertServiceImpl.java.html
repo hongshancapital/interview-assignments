@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DomainConvertServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">convertdomain</a> &gt; <a href="index.source.html" class="el_package">pers.jenche.convertdomain.service.impl</a> &gt; <span class="el_source">DomainConvertServiceImpl.java</span></div><h1>DomainConvertServiceImpl.java</h1><pre class="source lang-java linenums">package pers.jenche.convertdomain.service.impl;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pers.jenche.convertdomain.component.ConvertComponent;
+import pers.jenche.convertdomain.core.ExceptionMessage;
+import pers.jenche.convertdomain.core.SystemConfig;
+import pers.jenche.convertdomain.core.SystemException;
+import pers.jenche.convertdomain.service.DomainConvertService;
+import pers.jenche.convertdomain.utilitie.MatchesUtil;
+import pers.jenche.convertdomain.utilitie.VerificationUtil;
+
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @author jenche E-mail:jenchecn@outlook.com
+ * @project convertdomain
+ * @date 2021/11/15 13:59
+ * @description 域名转换服务
+ */
+<span class="fc" id="L23">@Slf4j</span>
+@Service
+public class DomainConvertServiceImpl implements DomainConvertService {
+
+    final ConvertComponent convertComponent;
+
+    @Autowired
+<span class="fc" id="L30">    public DomainConvertServiceImpl(ConvertComponent convertComponent) {</span>
+<span class="fc" id="L31">        this.convertComponent = convertComponent;</span>
+<span class="fc" id="L32">    }</span>
+
+    @Override
+    public String toShort(String strOriginalDomain) throws SystemException {
+<span class="nc" id="L36">        return toShort(strOriginalDomain, &quot;&quot;);</span>
+    }
+
+    @Override
+    public String toShort(String strOriginalDomain, String strShortDomain) throws SystemException {
+        //检查传进来的参数是不是空的，如果是空抛出异常返回至调用者
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (StringUtils.isBlank(strOriginalDomain))</span>
+<span class="nc" id="L43">            throw new SystemException(ExceptionMessage.S_20_IS_BLANK_PARAMS);</span>
+
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (!VerificationUtil.validateURI(strOriginalDomain))</span>
+<span class="nc" id="L46">            throw new SystemException(ExceptionMessage.S_20_NOT_URI);</span>
+
+<span class="fc" id="L48">        int intShortLength = 8;</span>
+
+        //开始对URL进行转换,将shortDomain短域名已盐的方式加进去
+<span class="fc" id="L51">        String convertResult = convertComponent.getShort(strShortDomain.concat(strOriginalDomain), intShortLength);</span>
+
+        //储存到临时系统变量中
+<span class="fc" id="L54">        SystemConfig.SHORT_URI_STORE.put(convertResult, strOriginalDomain);</span>
+<span class="fc" id="L55">        log.info(&quot;当前存储了{}条数据；&quot;, SystemConfig.SHORT_URI_STORE.size());</span>
+<span class="fc" id="L56">        return strShortDomain.concat(convertResult);</span>
+    }
+
+    @Override
+    public String toOriginal(String strShortUri) throws SystemException {
+        //检查传进来的参数是不是空的，如果是空抛出异常返回至调用者
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (StringUtils.isBlank(strShortUri))</span>
+<span class="nc" id="L63">            throw new SystemException(ExceptionMessage.S_20_IS_BLANK_PARAMS);</span>
+
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (!VerificationUtil.validateURI(strShortUri))</span>
+<span class="nc" id="L66">            throw new SystemException(ExceptionMessage.S_20_NOT_URI);</span>
+
+<span class="fc" id="L68">        String singleKey = MatchesUtil.getSingleKey(strShortUri);</span>
+<span class="fc" id="L69">        return SystemConfig.SHORT_URI_STORE.get(singleKey);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

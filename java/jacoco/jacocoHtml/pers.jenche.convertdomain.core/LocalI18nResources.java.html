@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LocalI18nResources.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">convertdomain</a> &gt; <a href="index.source.html" class="el_package">pers.jenche.convertdomain.core</a> &gt; <span class="el_source">LocalI18nResources.java</span></div><h1>LocalI18nResources.java</h1><pre class="source lang-java linenums">package pers.jenche.convertdomain.core;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+/**
+ *  Copyright (c) 2020 By www.jenche.cn
+ * @author jenche E-mail:jenchecn@outlook.com
+ * @date 2020/5/12 13:17
+ * @description 国际化支持
+ */
+<span class="nc" id="L13">public class LocalI18nResources {</span>
+    private static LocalI18nResources instance;
+
+    public static LocalI18nResources getInstance() {
+<span class="nc bnc" id="L17" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L18">            instance = new LocalI18nResources();</span>
+        }
+<span class="nc" id="L20">        return instance;</span>
+    }
+
+
+    /**
+     * 获取国际化信息
+     * @param key {@link String} 键
+     * @param params {@link Object} 参数
+     * @return {@link String} 返回字符串
+     */
+    public String getMessage(String key, Object... params) {
+        //Locale locale = LocaleContextHolder.getLocale(); //根据环境获取
+<span class="nc" id="L32">        Locale locale = Locale.SIMPLIFIED_CHINESE;  //可以配置成在配置文件中设定，尚未补全</span>
+<span class="nc" id="L33">        ResourceBundle message = SystemConfig.LANG_MESSAGE.get(locale.getLanguage());</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (message == null) {</span>
+<span class="nc" id="L35">            synchronized (SystemConfig.LANG_MESSAGE) {</span>
+                //在这里读取配置信息
+<span class="nc" id="L37">                message = SystemConfig.LANG_MESSAGE.get(locale.getLanguage());</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">                if (message == null) {</span>
+                    //注1
+<span class="nc" id="L40">                    message = ResourceBundle.getBundle(&quot;i18n/messages&quot;, locale);</span>
+<span class="nc" id="L41">                    SystemConfig.LANG_MESSAGE.put(locale.getLanguage(), message);</span>
+                }
+<span class="nc" id="L43">            }</span>
+        }
+        //此处获取并返回message
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (params != null) {</span>
+            String _msg;
+<span class="nc" id="L48">            _msg = new String(message.getString(key).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);</span>
+<span class="nc" id="L49">            return String.format(_msg, params);</span>
+        }
+<span class="nc" id="L51">        return message.getString(key);</span>
+    }
+
+    /**
+     * 清除国际化信息
+     */
+    public void flushMessage() {
+<span class="nc" id="L58">        SystemConfig.LANG_MESSAGE.clear();</span>
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

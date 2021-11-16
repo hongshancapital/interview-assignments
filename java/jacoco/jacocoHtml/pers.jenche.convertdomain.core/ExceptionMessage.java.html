@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionMessage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">convertdomain</a> &gt; <a href="index.source.html" class="el_package">pers.jenche.convertdomain.core</a> &gt; <span class="el_source">ExceptionMessage.java</span></div><h1>ExceptionMessage.java</h1><pre class="source lang-java linenums">package pers.jenche.convertdomain.core;
+
+import lombok.Getter;
+
+/**
+ *  Copyright (c) 2020 By www.jenche.cn
+ * @author jenche E-mail:jenchecn@outlook.com
+ * @date 2021/11/15 12:27
+ * @description 系统异常消息定义，此处只定义了异常的代码，在自定义的系统异常中定义了异常值
+ */
+<span class="nc" id="L11">public enum ExceptionMessage {</span>
+
+    //起始两位数定义为异常发生的位置
+    //10 发生在Dao层，一般为数据库操作出现的异常
+
+    //20 发生在service层，一般为业务逻辑出现的异常
+<span class="nc" id="L17">    S_20_NOT_IMPLEMENT(20, &quot;0000&quot;),     //未知的错误</span>
+<span class="nc" id="L18">    S_20_IS_BLANK_PARAMS(20, &quot;0001&quot;),   //必须参数是空的</span>
+<span class="nc" id="L19">    S_20_NOT_URI(20, &quot;0002&quot;),           //URL不合法</span>
+    //50 发生在Controller层，一般为数据的DTO传输层，一般为数据的校验或者传输的参数异常
+<span class="nc" id="L21">    C_50_DATA_IS_EMPTY(50, &quot;0001&quot;),      //返回的数据为空</span>
+<span class="nc" id="L22">    C_50_PARAMS_EXCPTION(50, &quot;0009&quot;),    //参数异常</span>
+    ;
+<span class="nc" id="L24">    @Getter</span>
+    int code;
+
+<span class="nc" id="L27">    @Getter</span>
+    String msg;
+
+<span class="nc" id="L30">    ExceptionMessage(int exType, String exCode) {</span>
+<span class="nc" id="L31">        String _code = String.valueOf(exType).concat(exCode);</span>
+<span class="nc" id="L32">        this.msg = LocalI18nResources.getInstance().getMessage(_code);</span>
+<span class="nc" id="L33">        this.code = Integer.parseInt(_code);</span>
+<span class="nc" id="L34">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
