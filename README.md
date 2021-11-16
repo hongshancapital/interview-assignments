@@ -38,11 +38,11 @@ https://m.hellobike.com/ebike-h5/latest/index.html#/historyBill?queryCondition=c
 
 - 根据长域名生成短域名：
 
-  ![image-20211116095923847](img\image-2021111134343.png)
+  ![image-20211116095923847](img/image-2021111134343.png)
 
 - 根据短域名返回对应长域名：
 
-![image-20211116095923847](img\image-20211116095923847.png)
+![image-20211116095923847](img/image-20211116095923847.png)
 
 一些细节考虑：
 
@@ -106,7 +106,7 @@ http://www.sdsd.com/1JSMAdXJWik
 
 jacoco代码覆盖率报告：
 
-![image-20211116144131724](img\image-20211116144131724.png)
+![image-20211116144131724](img/image-20211116144131724.png)
 
 代码整体覆盖率：97%，分支覆盖率：86%。
 
