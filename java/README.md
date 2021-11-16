@@ -54,7 +54,7 @@
 
 ## 测试
 
-源码内Jacoco文件夹为代码覆盖测试数据
+源码内Jacoco文件夹下jacocoHtml为代码覆盖测试数据Html版，jacocoTest.exec为单文件数据
 
 ### 逐量测试查看压力相关，100 -> 1000 --> 10000
 
