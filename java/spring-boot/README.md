@@ -14,9 +14,9 @@ http://localhost:8090/doc.html
 2）接受短域名信息，返回长域名信息
 从缓存中读取值返回给前端。
 
+![image](https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p1.png)
+![image](https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p2.png)
+![image](https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p3.png)
+![image](https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p4.png)
+![image](https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p5.png)
 
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p1.png">
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p2.png">
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p3.png">
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p4.png">
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://raw.githubusercontent.com/gwh2008/interview-assignments/master/java/spring-boot/doc/p5.png">
