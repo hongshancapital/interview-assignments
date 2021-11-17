@@ -15,8 +15,8 @@ http://localhost:8090/doc.html
 从缓存中读取值返回给前端。
 
 
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p1.png.">
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p2.png.">
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p3.png.">
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p4.png.">
-< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p5.png.">
+< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p1.png">
+< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p2.png">
+< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p3.png">
+< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p4.png">
+< img alt="Spring Boot2 项目" class="md_relative_url" src="https://github.com/gwh2008/interview-assignments/blob/master/java/spring-boot/doc/p5.png">
