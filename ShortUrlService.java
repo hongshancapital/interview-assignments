@@ -43,7 +43,7 @@ public class ShortUrlService {
 
 
     public String getLongUrl(String shortUrl){
-        return longUrlShortUrlMap.get(shortUrl);
+        return shortUrlLongUrlMap.get(shortUrl);
     }
 
 }
