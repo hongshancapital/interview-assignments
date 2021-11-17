@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icbc.gjljfl.mapper.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.icbc.gjljfl.entity.UserInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_pwd" jdbcType="VARCHAR" property="userPwd"/>
+        <result column="user_type" jdbcType="CHAR" property="userType"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="user_sex" jdbcType="CHAR" property="userSex"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="community_id" jdbcType="VARCHAR" property="communityId"/>
+        <result column="token" jdbcType="VARCHAR" property="token"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="user_statusc" jdbcType="CHAR" property="userStatusc"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="login_ip" jdbcType="VARCHAR" property="loginIp"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, user_name, user_pwd, user_type, mobile, user_sex, name, address, community_id, 
+    token, create_time, modify_time, user_statusc, last_login_time, login_ip
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.icbc.gjljfl.entity.UserInfo">
+    insert into user_info (id, user_id, user_name, 
+      user_pwd, user_type, mobile, 
+      user_sex, name, address, 
+      community_id, token, create_time, 
+      modify_time, user_statusc, last_login_time, 
+      login_ip)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPwd,jdbcType=VARCHAR}, #{userType,jdbcType=CHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{communityId,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{modifyTime,jdbcType=TIMESTAMP}, #{userStatusc,jdbcType=CHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{loginIp,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.icbc.gjljfl.entity.UserInfo">
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userPwd != null">
+                user_pwd,
+            </if>
+            <if test="userType != null">
+                user_type,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="userSex != null">
+                user_sex,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="communityId != null">
+                community_id,
+            </if>
+            <if test="token != null">
+                token,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+            <if test="userStatusc != null">
+                user_statusc,
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time,
+            </if>
+            <if test="loginIp != null">
+                login_ip,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPwd != null">
+                #{userPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                #{userType,jdbcType=CHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null">
+                #{userSex,jdbcType=CHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="communityId != null">
+                #{communityId,jdbcType=VARCHAR},
+            </if>
+            <if test="token != null">
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userStatusc != null">
+                #{userStatusc,jdbcType=CHAR},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginIp != null">
+                #{loginIp,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.icbc.gjljfl.entity.UserInfo">
+        update user_info
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPwd != null">
+                user_pwd = #{userPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType,jdbcType=CHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null">
+                user_sex = #{userSex,jdbcType=CHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="communityId != null">
+                community_id = #{communityId,jdbcType=VARCHAR},
+            </if>
+            <if test="token != null">
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userStatusc != null">
+                user_statusc = #{userStatusc,jdbcType=CHAR},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginIp != null">
+                login_ip = #{loginIp,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.icbc.gjljfl.entity.UserInfo">
+    update user_info
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=CHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=CHAR},
+      name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      community_id = #{communityId,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      user_statusc = #{userStatusc,jdbcType=CHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      login_ip = #{loginIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--根据用户名及用户类型查询用户是否存在-->
+    <select id="selectByUsernameAndUserType" parameterType="map"
+            resultType="com.icbc.gjljfl.entity.UserInfo">
+    select user_id from  user_info
+    where
+    user_name =#{userName}
+    and user_type=#{userType}
+    and user_statusc=#{userStatus}
+  </select>
+    <!--根据手机号及用户类型查询用户是否存在-->
+    <select id="selectByMobileAndUserType" parameterType="map"
+            resultType="com.icbc.gjljfl.entity.UserInfo">
+    select user_id from  user_info
+    where
+     mobile=#{mobile}
+    and user_type=#{userType}
+    and user_statusc=#{userStatus}
+  </select>
+
+    <!--多条件查询环卫工人-->
+    <select id="selectUsersByMoreCondition" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+        ui.id,
+        ui.user_id AS residentUserId,
+        ui.user_name AS residentUsername,
+        ui.mobile AS residentMobile,
+        ui.NAME AS residentName,
+        ui.address AS residentAddress,
+        CASE
+        WHEN ui.user_statusc = '0' THEN
+        '锁定' ELSE '有效'END
+        AS residentUserQrStatus,
+        DATE_FORMAT (ui.last_login_time,'%Y-%m-%d %k:%i:%S') AS residentLastLoginTime,
+        CASE WHEN
+        uc.user_id
+        IS NULL THEN
+        '未绑定' ELSE '已绑定'
+        END AS userQrStatus
+        FROM
+        user_info ui  LEFT JOIN
+        user_qr_code uc
+        on
+        ui.user_id = uc.user_id
+        where user_statusc ='1' and user_type=#{userType}
+        <if test="userName!=null and userName!=''">
+            and user_name like CONCAT(CONCAT('%',#{userName},'%'))
+        </if>
+        <if test="mobile!=null and mobile!=''">
+            and mobile =#{mobile}
+        </if>
+        <if test="name!=null and name!=''">
+            and `name` like CONCAT(CONCAT('%',#{name},'%'))
+        </if>
+        <if test="address!=null and address!=''">
+            and address like CONCAT(CONCAT('%',#{address},'%'))
+        </if>
+        <if test="beginTime!=null and beginTime!=''">
+            and create_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and create_time&lt;= #{endTime}
+        </if>
+        <if test="communityId!=null and communityId!=''">
+            and community_id = #{communityId}
+        </if>
+        order by ui.create_time DESC
+    </select>
+
+    <!--批量删除用户-->
+    <update id="deleteByUserIds" parameterType="java.util.List">
+        update user_info set
+        user_statusc='0' where
+        <foreach collection="userIds" item="userId" index="index" separator="," open="user_id in ("
+                 close=")">
+            #{userId}
+        </foreach>
+        and user_statusc='1'
+    </update>
+
+    <!--根据 userId 有选择性的更新id-->
+    <update id="updateByUserIdSelective" parameterType="com.icbc.gjljfl.entity.UserInfo">
+        update user_info
+        <set>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="userSex != null">
+                user_sex = #{userSex},
+            </if>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="communityId != null">
+                community_id = #{communityId},
+            </if>
+
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userStatusc != null">
+                user_statusc = #{userStatusc,jdbcType=CHAR},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType},
+            </if>
+        </set>
+        where user_id=#{userId}
+    </update>
+    <!--根据 userId 查询用户信息-->
+    <select id="selectByUserId" parameterType="java.lang.String" resultType="com.icbc.gjljfl.entity.UserInfo">
+        select
+        id, user_id, user_name, user_pwd, user_type, mobile, user_sex, `name`, address, community_id,
+        token, create_time, modify_time, user_statusc, last_login_time, login_ip
+        from user_info
+        where user_id=#{userId}
+    </select>
+
+  <select id="selectByuserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+
+    <!--查询本社区的用户-->
+    <select id="selectCommunityUser" parameterType="java.lang.String" resultType="java.util.Map">
+        select
+        user_id AS workerUserId,
+        user_name AS workerUsername,
+        name AS workerName,
+        mobile AS workerMobile,
+         address AS workerAddress,
+        CASE
+        WHEN user_statusc = '0' THEN
+        '锁定' ELSE '有效'END
+         AS workerUserStatus,
+        last_login_time AS workerLastLoginTime
+        from user_info
+        <where>
+            <if test="userName!=null and userName!=''">
+                and user_name like CONCAT(CONCAT('%',#{userName},'%'))
+            </if>
+            <if test="mobile!=null and mobile!=''">
+                and mobile =#{mobile}
+            </if>
+            <if test="name!=null and name!=''">
+                and `name` like CONCAT(CONCAT('%',#{name},'%'))
+            </if>
+            <if test="address!=null and address!=''">
+                and address like CONCAT(CONCAT('%',#{address},'%'))
+            </if>
+            <if test="beginTime!=null and beginTime!=''">
+                AND DATE_FORMAT( #{beginTime}, '%Y-%m-%d' ) &lt;= DATE_FORMAT( create_time, '%Y-%m-%d' )
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                AND DATE_FORMAT( #{endTime}, '%Y-%m-%d' ) &gt;= DATE_FORMAT(create_time, '%Y-%m-%d' )
+            </if>
+            <if test="communityId!=null and communityId!=''">
+                and community_id = #{communityId}
+            </if>
+            <if test="userType!=null and userType!=''">
+                and user_type = #{userType}
+            </if>
+            order by create_time DESC
+        </where>
+    </select>
+
+
+
+</mapper>
