@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConvertComponent.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">convertdomain</a> &gt; <a href="index.source.html" class="el_package">pers.jenche.convertdomain.component</a> &gt; <span class="el_source">ConvertComponent.java</span></div><h1>ConvertComponent.java</h1><pre class="source lang-java linenums">package pers.jenche.convertdomain.component;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.stereotype.Component;
+import pers.jenche.convertdomain.utilitie.SHAEncryptUtil;
+
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @author jenche E-mail:jenchecn@outlook.com
+ * @project convertdomain
+ * @date 2021/11/15 14:57
+ * @description 转换扩展组件，在组件各方法中完成转换。
+ */
+@Component
+<span class="fc" id="L16">public class ConvertComponent {</span>
+
+    //定义一组缩短可用的数组
+<span class="fc" id="L19">    final private String[] chars = new String[]{&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;,</span>
+            &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;,
+            &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;,
+            &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;,
+            &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, &quot;P&quot;, &quot;Q&quot;, &quot;R&quot;, &quot;S&quot;, &quot;T&quot;,
+            &quot;U&quot;, &quot;V&quot;, &quot;W&quot;, &quot;X&quot;, &quot;Y&quot;, &quot;Z&quot;
+    };
+
+    /**
+     * 将一个字符串进行计算后输出成少于8位的字符串
+     * 保证转换后的字符串没有可逆性而且需要有极低的碰撞性
+     *
+     * @param str{@link String}待转换的字符串
+     * @param intShortLength    {@link int} 需要的编码字符串长度
+     * @return {@link Pair}Pair是apache公司lang3中的一个数据类型具体使用方法请查看{@link org.apache.commons.lang3.tuple.Pair}
+     */
+    public String getShort(String str, int intShortLength) {
+        //设定盐，可自行设定也可以不设定，如果不设定设置空
+<span class="fc" id="L37">        String salt = &quot;jenche&quot;;</span>
+
+        //得到当前字符串哈希值
+<span class="fc" id="L40">        String strHashCode = SHAEncryptUtil.getSHA256Str(salt.concat(str).concat(String.valueOf(str.length())));</span>
+
+        //缩短处理
+<span class="fc" id="L43">        return this.shortenHandle(strHashCode).substring(0, intShortLength);</span>
+    }
+
+    /**
+     * 使用SHA256加密后的字符串
+     *
+     * @param strHashCode {@link String} SHA256字符串
+     * @return {@link String} 缩短后的字符串
+     */
+    private String shortenHandle(String strHashCode) {
+        //定义输出数据
+<span class="fc" id="L54">        String outData = &quot;&quot;;</span>
+
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (int i = 0; i &lt; (strHashCode.length() / 8); i++) {</span>
+            //取样1，取出前8位为一个16进制数据
+<span class="fc" id="L58">            String strSpecimen1 = strHashCode.substring(i * 8, i * 8 + 8);</span>
+<span class="fc" id="L59">            outData = outData.concat(this.hexShortHandle(strSpecimen1));</span>
+        }
+
+<span class="fc" id="L62">        return outData;</span>
+    }
+
+    /**
+     * 通过Hex计算出对应的字符
+     *
+     * @param strSpecimen {@link String} 计算的样本
+     * @return {@link String} 输出一组计算的数据
+     */
+    private String hexShortHandle(String strSpecimen) {
+<span class="fc" id="L72">        String outData = &quot;&quot;;</span>
+        //取得Long数据结果
+<span class="fc" id="L74">        long longSpecimen = 0x3FFFFFFF &amp; Long.parseLong(strSpecimen, 16);</span>
+
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        for (int i = 0; i &lt; 6; i++) {</span>
+<span class="fc" id="L77">            outData = outData.concat(chars[(int) (0x3D &amp; longSpecimen)]);</span>
+<span class="fc" id="L78">            longSpecimen &gt;&gt;= 5;</span>
+        }
+<span class="fc" id="L80">        return outData;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

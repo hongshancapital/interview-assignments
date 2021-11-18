@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SystemException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">convertdomain</a> &gt; <a href="index.source.html" class="el_package">pers.jenche.convertdomain.core</a> &gt; <span class="el_source">SystemException.java</span></div><h1>SystemException.java</h1><pre class="source lang-java linenums">package pers.jenche.convertdomain.core;
+
+import lombok.Getter;
+
+/**
+ *  Copyright (c) 2020 By www.jenche.cn
+ * @author jenche E-mail:jenchecn@outlook.com
+ * @date 2020/5/12 12:17
+ * @description
+ */
+public class SystemException extends Exception {
+
+<span class="nc" id="L13">    @Getter</span>
+    private int errCode = -1;
+
+    public SystemException() {
+<span class="nc" id="L17">        super();</span>
+<span class="nc" id="L18">    }</span>
+
+    /**
+     * @param exceptionMessage 异常消息的枚举
+     */
+    public SystemException(ExceptionMessage exceptionMessage) {
+<span class="nc" id="L24">        super(exceptionMessage.getMsg());</span>
+<span class="nc" id="L25">        this.errCode = exceptionMessage.getCode();</span>
+<span class="nc" id="L26">    }</span>
+
+    public SystemException(ExceptionMessage exceptionMessage, String message) {
+<span class="nc" id="L29">        super(exceptionMessage.getMsg().concat(message));</span>
+<span class="nc" id="L30">        this.errCode = exceptionMessage.getCode();</span>
+<span class="nc" id="L31">    }</span>
+
+    public SystemException(ExceptionMessage exceptionMessage, Throwable cause) {
+<span class="nc" id="L34">        super(exceptionMessage.getMsg(), cause);</span>
+<span class="nc" id="L35">        this.errCode = exceptionMessage.getCode();</span>
+<span class="nc" id="L36">    }</span>
+
+    public SystemException(String message) {
+<span class="nc" id="L39">        super(message);</span>
+<span class="nc" id="L40">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

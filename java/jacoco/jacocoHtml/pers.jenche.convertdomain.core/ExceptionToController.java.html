@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionToController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">convertdomain</a> &gt; <a href="index.source.html" class="el_package">pers.jenche.convertdomain.core</a> &gt; <span class="el_source">ExceptionToController.java</span></div><h1>ExceptionToController.java</h1><pre class="source lang-java linenums">package pers.jenche.convertdomain.core;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import pers.jenche.convertdomain.dto.ResponseResultDTO;
+
+/**
+ *  Copyright (c) 2020 By www.jenche.cn
+ * @author jenche E-mail:jenchecn@outlook.com
+ * @date 2020/5/24 16:47
+ * @description 定义异常处理输出的Controller
+ */
+@ControllerAdvice
+<span class="fc" id="L15">public class ExceptionToController {</span>
+    @ExceptionHandler({SystemException.class})
+    @ResponseBody
+    public ResponseResultDTO ServiceException(SystemException ex) throws SystemException {
+<span class="nc" id="L19">        ResponseResultDTO result = new ResponseResultDTO();</span>
+<span class="nc" id="L20">        result.setCode(ex.getErrCode());</span>
+<span class="nc" id="L21">        result.setMessage(ex.getMessage());</span>
+<span class="nc" id="L22">        return new ResponseResult&lt;String&gt;(result).toDTO();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
