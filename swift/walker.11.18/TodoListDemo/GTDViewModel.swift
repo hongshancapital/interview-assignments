@@ -24,6 +24,7 @@ class GTDViewModel: ObservableObject {
             addTask(group: "Framework Intergration", content: "Interfacing With UIKit")
             addTask(group: "Framework Intergration", content: "Creating a watchOS App")
             addTask(group: "Framework Intergration", content: "Creating a macOS App", checked: true)
+            
         }
         
         // todo: restore from userdefaults

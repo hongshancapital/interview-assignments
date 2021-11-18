@@ -24,33 +24,44 @@ struct GTDHomeView: View {
     @State private var editingId = ""               // 编辑任务-ID
     @State private var editingText = ""             // 编辑任务-内容
     @State private var offsetY: CGFloat = 0.0       // 底部菜单偏移(监测键盘弹出)
+    @State private var longPressLocation = CGPoint.zero  // 用来追踪长按的时候的位置（靠下的条目会被键盘挡住，视图需要上移）
+    
+    // 文本框状态
+    private enum Field: Int, Hashable {
+        case add, edit
+    }
+    @FocusState private var focusedField: Field?
     
     // views
     var body: some View {
-        
         ZStack(alignment: .bottom) {
             backgroundColor
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    Spacer(minLength: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0.0)  // fix height for ignoring safe area (为了铺满屏幕的底色)
-                    Text("List")
-                        .bold()
-                        .font(.system(.largeTitle))
-                        .padding(.bottom, 10)
-                    bodyView
-                    Spacer(minLength: 120.0)
+            ScrollViewReader { reader in
+                ScrollView(axes: [.vertical], showsIndicators: false) { point in
+                    if point.y > 100.0 {
+                        // 模仿Reminders应用，列表往下拉就关闭键盘
+                        endEditing()
+                    }
+                } content: {
+                    VStack(alignment: .leading) {
+                        Spacer(minLength: UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0.0)  // fix height for ignoring safe area (为了铺满屏幕的底色)
+                        Text("List")
+                            .bold()
+                            .font(.system(.largeTitle))
+                            .padding(.bottom, 10)
+                        bodyView(scroll: reader)
+                        Spacer(minLength: 120.0)
+                    }
+                    .padding()
+                    .foregroundColor(fontColor)
                 }
-                .padding()
-                .foregroundColor(fontColor)
             }
             if(isAdding) {
                 Color.black.opacity(0.0001) // fix Color.clear bug
                     .onTapGesture {
-                        print("taptap")
                         // 响应关闭键盘事件的透明层
-                        UIApplication.shared.endEditing()
-                        isAdding = false
-                        editingText = ""
+//                        UIApplication.shared.endEditing()
+                        endEditing()
                     }
             }
             addTaskView
@@ -60,63 +71,79 @@ struct GTDHomeView: View {
         .adaptsToKeyboard(offset: $offsetY)
     }
     
-    var bodyView: some View {
-        VStack(alignment: .leading) {
-            // extract group from tasks
-            ForEach(viewModel.tasks.map(\.group).unique(), id: \.self) { title in
-                Text(title)
-                    .font(.system(size: 12.0))
-                    .fontWeight(.heavy)
-                    .padding(.vertical, 10)
-                VStack(alignment: .leading) {
-                    // get task by group
-                    // 用过滤+去重提取组名
-                    // 用checked来排序
-                    ForEach(viewModel.tasks.filter{$0.group == title}.sorted{!$0.checked && $1.checked}){ task in
-                        HStack {
-                            Image(systemName: task.checked ? "record.circle" : "circle")
-                                .foregroundColor(task.checked ? deactiveColor : fontColor)
-                                .onTapGesture {
-                                    // 点击单选框切换完成状态
-                                    withAnimation {
-                                        viewModel.toggleTaskStatus(for: task.id)
-                                    }
-                                }
-                            // 编辑ID与当前ID一致时，显示编辑界面
-                            if task.id == editingId {
-                                TextField("", text: $editingText, onCommit: {
-                                    // 内容删完理解为删除当前记录，放到viewModel里处理
-                                    // UI层只传数据
-                                    withAnimation {
-                                        viewModel.updateTaskContent(for: task.id, editingText)
-                                    }
-                                    editingId = ""
-                                    editingText = ""
-                                })
-//                                    .keyboardType(UIKit.UIKeyboardType.webSearch)
-                                    .font(.system(size: fontSize))
-                            } else {
-                                Text(task.content)
-                                    .strikethrough(task.checked)
-                                    .foregroundColor(task.checked ? deactiveColor : fontColor)
-                                    .font(.system(size: fontSize))
-                                    .fontWeight(.heavy)
-                                    .onLongPressGesture(minimumDuration: 0.5) { pressing in
-                                        //
-                                    } perform: {
-                                        //
-                                        editingId = task.id
-                                        editingText = task.content
-                                    }
+    @ViewBuilder
+    func bodyView(scroll reader: ScrollViewProxy) -> some View {
+        // extract group from tasks
+        ForEach(viewModel.tasks.map(\.group).unique(), id: \.self) { title in
+            Text(title)
+                .font(.system(size: 12.0))
+                .fontWeight(.heavy)
+                .padding(.vertical, 10)
+            // get task by group
+            // 用过滤+去重提取组名
+            // 用checked来排序
+            ForEach(viewModel.tasks.filter{$0.group == title}.sorted{!$0.checked && $1.checked}){ task in
+                HStack {
+                    Image(systemName: task.checked ? "record.circle" : "circle")
+                        .foregroundColor(task.checked ? deactiveColor : fontColor)
+                        .onTapGesture {
+                            // 点击单选框切换完成状态
+                            withAnimation {
+                                viewModel.toggleTaskStatus(for: task.id)
                             }
-                            Spacer()
                         }
-                        .frame(maxWidth: .infinity) // full length of a cell
-                        .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 20))
-                        .background(Color.white)
-                        .cornerRadius(12.0)
+                    // 编辑ID与当前ID一致时，显示编辑界面
+                    if task.id == editingId {
+                        TextField("", text: $editingText, onCommit: {
+                            // 内容删完理解为删除当前记录，放到viewModel里处理
+                            // UI层只传数据
+                            withAnimation {
+                                viewModel.updateTaskContent(for: task.id, editingText)
+                            }
+                            endEditing()
+                        })
+                            .focused($focusedField, equals: .edit)
+                        //                                    .keyboardType(UIKit.UIKeyboardType.webSearch)
+                            .font(.system(size: fontSize))
+                    } else {
+                        Text(task.content)
+                            .strikethrough(task.checked)
+                            .foregroundColor(task.checked ? deactiveColor : fontColor)
+                            .font(.system(size: fontSize))
+                            .fontWeight(.heavy)
                     }
+                    Spacer()
                 }
+                .id(task.id)
+                .frame(maxWidth: .infinity) // full length of a cell
+                .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 20))
+                .background(Color.white)
+                .cornerRadius(12.0)
+                .onTapGesture{} // 解决scroll与longpress的手势冲突
+                .gesture(LongPressGesture(minimumDuration: 0.3)
+                                        .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .global))
+                                        .onEnded { value in
+                    switch value {
+                    case .second(true, let drag):
+//                        print(drag?.location)
+                        // 用drag手势记下长按的位置（用来判断是否该滚动视图以响应键盘拉起拉住下半截）
+                        // 键盘origin.y 与 当前元素point.y的差即为需要上移的大概值
+                        longPressLocation = drag?.location ?? .zero
+                        if longPressLocation.y - 550.0 > 5.0 {   // 先写死键盘高度
+                            reader.scrollTo(task.id, anchor: .center)
+                        }
+                        editingId = task.id
+                        editingText = task.content
+                        focusedField = Field.edit
+                        // 让“添加新任务”区域不响应键盘弹出
+                        // 键盘动画的时间差不多为0.3秒
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                            offsetY = 0.0
+                        }
+                    default:
+                        break
+                    }
+                })
             }
         }
     }
@@ -125,9 +152,9 @@ struct GTDHomeView: View {
     var addTaskView: some View {
         Group {
             if(isAdding) {
-                add_view_edit
+                addViewEdit
             } else {
-                add_view_button
+                addViewButton
             }
         }
         .padding(.horizontal, isAdding ? 10 : 30)
@@ -137,9 +164,10 @@ struct GTDHomeView: View {
     }
     
     // the "Add new..." Button
-    var add_view_button: some View {
+    var addViewButton: some View {
         Button {
             isAdding = true
+            focusedField = .add
         } label: {
             Text("Add new...")
                 .foregroundColor(.gray)
@@ -163,7 +191,7 @@ struct GTDHomeView: View {
     }
     
     // the "Add new..." Edit View
-    var add_view_edit: some View {
+    var addViewEdit: some View {
         HStack {
             TextField("Add new...", text: $editingText, onCommit: {
                 if(editingText.trimmingCharacters(in: .whitespaces).count > 0) {
@@ -172,9 +200,9 @@ struct GTDHomeView: View {
                     }
                     isAdding = false
                 }
-                editingText = ""
+                endEditing()
             })
-//                .keyboardType(.webSearch)
+                .focused($focusedField, equals: .add)
                 .padding()
                 .background(Color.white)
                 .cornerRadius(12.0)
@@ -221,6 +249,14 @@ struct GTDHomeView: View {
                 showGroupChooser = false
             }
         }
+    }
+    
+    // 退出编辑状态的统一方法
+    func endEditing() {
+        editingId = ""
+        editingText = ""
+        isAdding = false
+        focusedField = nil
     }
 }
 
