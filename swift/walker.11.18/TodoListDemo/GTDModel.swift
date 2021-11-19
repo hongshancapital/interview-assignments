@@ -9,22 +9,22 @@ import Foundation
 
 struct GTDTaskModel: Identifiable {
     
-    let id: String
+    let id: Int
     var content: String
     var checked: Bool
     var group: String
     
     // hide default initializer
-    private init(id: String, group: String, content: String, checked: Bool) {
-        self.id = UUID().uuidString
-        self.group = group
+    init(id: Int, group: String, content: String, checked: Bool = false) {
+        self.id      = id
+        self.group   = group
         self.content = content
         self.checked = checked
     }
     
     // auto gen id
-    init(group: String, content: String, checked: Bool = false) {
-        self = GTDTaskModel(id: UUID().uuidString, group: group, content: content, checked: checked)
-    }
+//    init(id: Int, group: String, content: String, checked: Bool = false) {
+//        self = GTDTaskModel(id: id, group: group, content: content, checked: checked)
+//    }
 }
 

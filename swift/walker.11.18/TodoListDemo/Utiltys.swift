@@ -26,7 +26,7 @@ extension UIApplication {
 // MARK: - Keyboard listener
 
 struct AdaptsToKeyboard: ViewModifier {
-    @Binding var offset_y: CGFloat
+    @Binding var keyboardHeight: CGFloat
     
     // 在任一个View出现在屏幕上的时候，注册监听键盘拉起隐藏的事件
     // 再通过Combine的一些方法转成我们感兴趣的height（即键盘高度）
@@ -43,22 +43,22 @@ struct AdaptsToKeyboard: ViewModifier {
                         }
                     }
                     .map { rect in
-                        -rect.height  // 转成offset需要的值(还未对safearea做优化)
+                        rect.height  // 转成offset需要的值(还未对safearea做优化)
                     }
-                    .subscribe(Subscribers.Assign(object: self, keyPath: \.offset_y))
+                    .subscribe(Subscribers.Assign(object: self, keyPath: \.keyboardHeight))
                 
                 NotificationCenter.Publisher(center: NotificationCenter.default, name: UIResponder.keyboardWillHideNotification)
                     .compactMap { notification in
                         CGFloat.zero
                     }
-                    .subscribe(Subscribers.Assign(object: self, keyPath: \.offset_y))
+                    .subscribe(Subscribers.Assign(object: self, keyPath: \.keyboardHeight))
             })
     }
 }
 
 extension View {
     func adaptsToKeyboard(offset y: Binding<CGFloat>) -> some View {
-        return modifier(AdaptsToKeyboard(offset_y: y))
+        return modifier(AdaptsToKeyboard(keyboardHeight: y))
     }
 }
 
