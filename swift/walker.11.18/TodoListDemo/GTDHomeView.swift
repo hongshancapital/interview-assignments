@@ -263,6 +263,7 @@ struct GTDHomeView: View {
                     }.onTapGesture {
                         groupName = group
                         showGroupChooser = false
+                        groupName_input = ""     // 选中任意一项都清空自定义的文本框里的内容
                     }
                 }
                 TextField("Add new group...", text: $groupName_input)
@@ -272,7 +273,6 @@ struct GTDHomeView: View {
                 if groupName_input.count > 0 {
                     // 优先读取文本框里的值
                     groupName = groupName_input
-                    groupName_input = ""
                 }
                 showGroupChooser = false
             }
