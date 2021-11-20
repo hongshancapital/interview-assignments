@@ -1,6 +1,15 @@
 .App {
   text-align: center;
   position: relative;
+  width: 100vw;
+  height: 100vh;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.carousel-wrap {
+  width: 100%;
+  height: calc(100% - 40px);
 }
 
 .title {
@@ -11,4 +20,91 @@
 .text {
   font-size: 28px;
   font-weight: 400;
+}
+
+
+.item-wapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.item-wapper .text-wrapper {
+  margin-top: 100px;
+}
+
+.bg1 {
+  background-image: url(./assets/iphone.png);
+}
+
+.bg2 {
+  background-image: url(./assets/tablet.png);
+}
+
+.bg3 {
+  background-image: url(./assets/airpods.png);
+}
+
+.color-white {
+  color: #fff;
+}
+
+.color-black {
+  color: #000;
+}
+
+.flex-rows {
+  display: flex;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+.mt-2 {
+  margin-top: 2px;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.btn {
+  color: white;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  outline: none;
+  border: none;
+  background-color: pink;
+}
+
+.btn:hover {
+  cursor: pointer;
+  animation: jelly 0.5s;
+}
+
+@keyframes jelly {
+
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+
+  75% {
+    transform: scale(0.95, 1.05);
+  }
 }
