@@ -7,9 +7,9 @@ export interface CarouselProps extends CommonProps {
 }
 
 export interface CarouselHandle {
-  go: (index: number) => void;
-  next: () => void;
-  prev: () => void;
+  go: (index: number) => void; // 跳转到指定条目
+  next: () => void; // 下一条
+  prev: () => void; // 上一条
 }
 
 const Carousel: React.ForwardRefRenderFunction<CarouselHandle, CarouselProps> =

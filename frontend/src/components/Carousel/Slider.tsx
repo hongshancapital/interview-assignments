@@ -9,9 +9,9 @@ import React, {
 import { classNames } from "../../utils";
 
 export interface CommonProps {
-  autoPlay?: boolean;
-  sliderPosition?: string;
-  shape?: string;
+  autoPlay?: boolean; // 是否自动轮播
+  sliderPosition?: "left" | "right" | "top" | "bottom"; // 轮播进度条位置
+  shape?: "rect" | "round"; // 轮播进度条形状
 }
 
 export interface SliderProps extends CommonProps {
