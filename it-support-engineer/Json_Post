@@ -1,0 +1,10 @@
+powershell:
+$json = '{"deviceName":"hp","processId":86,"processName":"nginx","description":"rrrrr","timeWindow":"0100-0200","numberOfOccurrence":2}'
+
+$response = Invoke-WebRequest -Uri "https://foo.com/bar" -Method Post -Body $json -ContentType "application/json"
+
+
+shell 
+url=https://foo.com/bar
+curl -i -k  -H "Content-type: application/json" -X POST -d '{"deviceName":"hp","processId":86,"processName":"nginx","description":"rrrrr","timeWindow":"0100-0200","numberOfOccurrence":2}' $url
+
