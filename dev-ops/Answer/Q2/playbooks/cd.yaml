@@ -1,0 +1,49 @@
+---
+- hosts: localhost
+  remote_user: xuchao
+  tasks:
+        - name: Create VPC
+          ec2_vpc:
+            region: {{ region_name }}
+            cidr_block: 172.22.0.0/16
+            resource_tags: { "Env":"assignment" }
+            subnets:
+              - cidr: 172.22.1.0/24
+                az: us-west-2b
+                resource_tags: { "Env":"assignment", "Role" : "App" }
+            internet_gateway: True
+            route_tables:
+              - subnets:
+                  - 172.22.1.0/24
+                routes:
+                  - dest: 0.0.0.0/0
+                    gw: igw
+            state: present
+          wait: true
+          register: vpc
+        # - debug: msg="{{ vpc.stdout }}"
+        - name: create cloudwatch log group
+          cloudwatchlogs_log_group:
+            state: present
+            log_group_name: app-log-group
+            tags: { "Name": "app-log-group", "Env" : "assignment" }
+            kms_key_id: arn:aws:kms:region:account-id:key/key-id
+        - name: Create task definition
+          ecs_taskdefinition:
+            family: assignment
+            region: {{ region_name }}
+            containers:
+            - name: {{ app_name }}
+              image: "{{ docker_repo }}/{{ app_name }}"
+              essential: true
+              cpu: 0.5
+              memory: 2
+              portMappings:
+              - containerPort: 80
+                hostPort: 80
+            state: present
+          launch_type: FARGATE
+          # awsvpc need use ansible version above 2.5
+          network_mode: awsvpc
+          register: task_output
+        # - debug: msg="{{ task_output.stdout }}"

@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  remote_user: xuchao
+  tasks:
+        - name: Create alert notification
+          sns:
+            region: {{ region_name }}
+            msg: 'There are something wrong on Service'
+            subject: Error Log
+            topic: Alert
+            email: OPS@mail.com
+          delegate_to: localhost

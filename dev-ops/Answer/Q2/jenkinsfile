@@ -1,0 +1,75 @@
+pipeline {
+  agent {
+    agent {
+      docker {
+        image 'java:openjdk-8u111-jre-alpine'
+        workdir ./
+      }
+    }
+  }
+  environment {
+     git_url = "https://github.com/goxr3plus/Simplest-Spring-Boot-Hello-World.git"
+     git_branch_name = "{{BRANCH_NAME}}"
+     build_cmd = "mvn clean package"
+     app_name = "hello-world"
+     docker_repo = "assignment"
+     build_num = "${BUILD_NUMBER}"
+     version = "${BUILD_VERSION}"
+ }
+  stages {
+    stage('Checkout') {
+      environment {
+        GIT_ACCESS_Key = credentials('git-clone-key')
+      }
+      steps {
+        checkout([$class: 'GitSCM', branches: [[name: "${git_branch_name}"]],
+        doGenerateSubmoduleConfigurations: false,
+        // extensions: [],
+        // submoduleCfg: [],
+        userRemoteConfigs: [[credentialsId: 'git', url: "${git_url}"]]])
+      }
+    }
+    stage('Build') {
+      steps {
+        script {
+          sh "mvn clean package -Dmaven.test.skip=true"
+        }
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+      post{
+        always {
+          junit 'target/surefire-reports/*.xml'
+        }
+      }
+    }
+    stage('Docker') {
+      steps {
+        script {
+            sh "docker image build -t ${app_name}"
+        }
+      }
+    }
+    stage('Registry') {
+      environment {
+        Docker_Repo_ACCESS_Key = credentials('docker-repo-key')
+      }
+      steps {
+        script {
+          sh "docker tag ${version} ${docker_repo}/${app_name}:${version}"
+        }
+      }
+    }
+    stage('Push image') {
+      steps {
+        script {
+        sh "docker push ${docker_repo}/${app_name}:${version}"
+        echo "APP_NAME: ${app_name} Verion: ${version}"
+        }
+      }
+    }
+  }
+}
