@@ -1,0 +1,160 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ShortUrlFilter</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.zhouhongbing.shorturl.filter</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ShortUrlFilter (com.zhouhongbing.shorturl.filter)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShortUrlFilter</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.zhouhongbing.shorturl.filter;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSON;
+<i>4</i>&nbsp;import com.zhouhongbing.shorturl.entity.ShorterUrl;
+<i>5</i>&nbsp;import com.zhouhongbing.shorturl.utils.LRUCache;
+<i>6</i>&nbsp;import org.apache.commons.lang3.StringUtils;
+<i>7</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>8</i>&nbsp;import org.springframework.beans.factory.annotation.Value;
+<i>9</i>&nbsp;import org.springframework.http.HttpStatus;
+<i>10</i>&nbsp;import org.springframework.stereotype.Service;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import javax.servlet.*;
+<i>13</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>14</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>15</i>&nbsp;import java.io.IOException;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;//@Service   //打开注释课开启过滤器
+<b class="nc"><i>18</i>&nbsp;public class ShortUrlFilter extends GenericFilter {</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @Value(&quot;${url.shorturl.prefix}&quot;)
+<i>21</i>&nbsp;    private String shortUrlPrefix;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    @Autowired
+<i>24</i>&nbsp;    private LRUCache map;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Override
+<i>28</i>&nbsp;    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;        //完整的项目应该先判断token的有效性
+<i>32</i>&nbsp;        // String token = exchange.getRequest().getQueryParams().getFirst(&quot;authToken&quot;);
+<b class="nc"><i>33</i>&nbsp;        String token=&quot;token demo&quot;;</b>
+<b class="nc"><i>34</i>&nbsp;        HttpServletRequest request = (HttpServletRequest) servletRequest;</b>
+<b class="nc"><i>35</i>&nbsp;        HttpServletResponse response = (HttpServletResponse) servletResponse;</b>
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;//        String uri = request.getRequestURI().toString();
+<b class="nc"><i>38</i>&nbsp;        String uri = request.getRequestURL().toString();</b>
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;        if(uri.contains(&quot;swagger&quot;)) {</b>
+<i>41</i>&nbsp;            //过滤器放入链中,放行
+<b class="nc"><i>42</i>&nbsp;            filterChain.doFilter(servletRequest,servletResponse);</b>
+<b class="nc"><i>43</i>&nbsp;            return;</b>
+<i>44</i>&nbsp;        }
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        if(uri.startsWith(shortUrlPrefix+&quot;shortUrl&quot;)) {</b>
+<i>47</i>&nbsp;            //过滤器放入链中,放行
+<b class="nc"><i>48</i>&nbsp;            filterChain.doFilter(servletRequest,servletResponse);</b>
+<b class="nc"><i>49</i>&nbsp;            return;</b>
+<i>50</i>&nbsp;        }
+<b class="nc"><i>51</i>&nbsp;        if(uri.startsWith(shortUrlPrefix)){</b>
+<i>52</i>&nbsp;            //重定向(redirect)到长地址
+<b class="nc"><i>53</i>&nbsp;            if (!StringUtils.isBlank(token)) {</b>
+<b class="nc"><i>54</i>&nbsp;                String shortUrlBeanStr = map.get(uri);</b>
+<i>55</i>&nbsp;                //如果shortUrlkey不为空或不为空字符串
+<b class="nc"><i>56</i>&nbsp;                if (shortUrlBeanStr!=null &amp;&amp; !StringUtils.isBlank(shortUrlBeanStr)) {</b>
+<i>57</i>&nbsp;                    //取出对应的json字符串
+<i>58</i>&nbsp;                    //将json字符串转化为shorterUrl对象
+<b class="nc"><i>59</i>&nbsp;                    ShorterUrl shorterUrl = JSON.parseObject(shortUrlBeanStr, ShorterUrl.class);</b>
+<i>60</i>&nbsp;                    //从shorterUrl对象取出longUrl字符串
+<b class="nc"><i>61</i>&nbsp;                    String url = shorterUrl.getLongUrl();</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;                    //303状态码表示由于请求对应的资源存在着另一个URI，应使用GET方法定向获取请求的资源
+<b class="nc"><i>64</i>&nbsp;                    response.setStatus(HttpStatus.SEE_OTHER.value());</b>
+<b class="nc"><i>65</i>&nbsp;                    response.sendRedirect(url);</b>
+<b class="nc"><i>66</i>&nbsp;                    return;</b>
+<i>67</i>&nbsp;                }
+<b class="nc"><i>68</i>&nbsp;            }</b>
+<i>69</i>&nbsp;        }else{
+<i>70</i>&nbsp;            //过滤器放入链中,放行
+<b class="nc"><i>71</i>&nbsp;            filterChain.doFilter(servletRequest,servletResponse);</b>
+<b class="nc"><i>72</i>&nbsp;            return;</b>
+<i>73</i>&nbsp;        }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;
+<b class="nc"><i>76</i>&nbsp;    }</b>
+<i>77</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-11-22 00:03</div>
+</div>
+</body>
+</html>

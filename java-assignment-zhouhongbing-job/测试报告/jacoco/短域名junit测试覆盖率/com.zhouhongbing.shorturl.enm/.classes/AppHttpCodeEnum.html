@@ -1,0 +1,130 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AppHttpCodeEnum</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.zhouhongbing.shorturl.enm</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AppHttpCodeEnum (com.zhouhongbing.shorturl.enm)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppHttpCodeEnum</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.zhouhongbing.shorturl.enm;
+<i>2</i>&nbsp;
+<b class="nc"><i>3</i>&nbsp;public enum AppHttpCodeEnum {</b>
+<i>4</i>&nbsp;
+<b class="nc"><i>5</i>&nbsp;    TEXT_ILLEGAL(1004, &quot;内容非法&quot;),</b>
+<b class="nc"><i>6</i>&nbsp;    DATA_CAN_NOT_DEL(1003,&quot;数据不能删除&quot;),</b>
+<i>7</i>&nbsp;    // 成功段0
+<b class="nc"><i>8</i>&nbsp;    SUCCESS(0,&quot;操作成功&quot;),</b>
+<i>9</i>&nbsp;    // 登录段1~50
+<b class="nc"><i>10</i>&nbsp;    NEED_LOGIN(1,&quot;需要登录后操作&quot;),</b>
+<b class="nc"><i>11</i>&nbsp;    LOGIN_PASSWORD_ERROR(2,&quot;密码错误&quot;),</b>
+<i>12</i>&nbsp;    // TOKEN50~100
+<b class="nc"><i>13</i>&nbsp;    TOKEN_INVALID(50,&quot;无效的TOKEN&quot;),</b>
+<b class="nc"><i>14</i>&nbsp;    TOKEN_EXPIRE(51,&quot;TOKEN已过期&quot;),</b>
+<b class="nc"><i>15</i>&nbsp;    TOKEN_REQUIRE(52,&quot;TOKEN是必须的&quot;),</b>
+<i>16</i>&nbsp;    // SIGN验签 100~120
+<b class="nc"><i>17</i>&nbsp;    SIGN_INVALID(100,&quot;无效的SIGN&quot;),</b>
+<b class="nc"><i>18</i>&nbsp;    SIG_TIMEOUT(101,&quot;SIGN已过期&quot;),</b>
+<i>19</i>&nbsp;    // 参数错误 500~1000
+<b class="nc"><i>20</i>&nbsp;    PARAM_REQUIRE(500,&quot;缺少参数&quot;),</b>
+<b class="nc"><i>21</i>&nbsp;    PARAM_INVALID(501,&quot;无效参数&quot;),</b>
+<b class="nc"><i>22</i>&nbsp;    PARAM_IMAGE_FORMAT_ERROR(502,&quot;图片格式有误&quot;),</b>
+<b class="nc"><i>23</i>&nbsp;    SERVER_ERROR(503,&quot;服务器内部错误&quot;),</b>
+<i>24</i>&nbsp;    // 数据错误 1000~2000
+<b class="nc"><i>25</i>&nbsp;    DATA_EXIST(1000,&quot;数据已经存在&quot;),</b>
+<b class="nc"><i>26</i>&nbsp;    AP_USER_DATA_NOT_EXIST(1001,&quot;ApUser数据不存在&quot;),</b>
+<b class="nc"><i>27</i>&nbsp;    DATA_NOT_EXIST(1002,&quot;数据不存在&quot;),</b>
+<i>28</i>&nbsp;    // 数据错误 3000~3500
+<b class="nc"><i>29</i>&nbsp;    NO_OPERATOR_AUTH(3000,&quot;无权限操作&quot;),</b>
+<b class="nc"><i>30</i>&nbsp;    NEED_ADMIND(3001,&quot;需要管理员权限&quot;);</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    int code;
+<i>33</i>&nbsp;    String errorMessage;
+<i>34</i>&nbsp;
+<b class="nc"><i>35</i>&nbsp;    AppHttpCodeEnum(int code, String errorMessage){</b>
+<b class="nc"><i>36</i>&nbsp;        this.code = code;</b>
+<b class="nc"><i>37</i>&nbsp;        this.errorMessage = errorMessage;</b>
+<b class="nc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    public int getCode() {
+<b class="nc"><i>41</i>&nbsp;        return code;</b>
+<i>42</i>&nbsp;    }
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    public String getErrorMessage() {
+<b class="nc"><i>45</i>&nbsp;        return errorMessage;</b>
+<i>46</i>&nbsp;    }
+<i>47</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-11-22 00:03</div>
+</div>
+</body>
+</html>
