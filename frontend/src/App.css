@@ -1,14 +1,75 @@
 .App {
   text-align: center;
   position: relative;
+  float: left;
+  width: 300%;
 }
 
 .title {
   font-size: 56px;
   font-weight: 600;
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  z-index: 9999;
 }
 
 .text {
   font-size: 28px;
   font-weight: 400;
+  max-width: 400px;
+  margin: auto;
+  padding-top: 10px;
+  position: relative;
+  z-index: 9999;
 }
+
+
+.img {
+  height: 400px;
+  max-width: 100%;
+  padding-bottom: 30px;
+  position: relative;
+  bottom: 100px;
+  z-index: 1;
+}
+
+.textChunkStyle {
+  padding-top: 150px;
+  width: 33.333%;
+  float: left;
+  transition-duration: 3s;
+}
+
+.progressBar {
+  background: #a9a9a9;
+  width: 120px;
+  border-radius: 10px;
+  margin-left: 5px;
+  position: relative;
+  display: inline-block;
+  height: 5px;
+}
+
+.active {
+  background: #fff;
+  width: 0px;
+  border-radius: 10px;
+  margin-left: 5px;
+  position: absolute;
+  display: inline-block;
+  top: 10px;
+  left: 533px;
+  height: 5px;
+  z-index: 10;
+}
+
+.progressBarChunk {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 33.34%;
+  margin-bottom: 20px;
+  height: 30px;
+}
+
