@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	
+	<!--可自定义，这里指定的是项目环境-->
+	<!--xxx.tar.gz-->
+	<id>${name}</id>
+	
+	<!--打包的类型，如果有N个，将会打N个类型的包-->
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	
+	<includeBaseDirectory>true</includeBaseDirectory>
+	
+	<fileSets>
+		<!--配置文件打包-打包至config目录下-->
+		<fileSet>
+			<directory>${basedir}/src/main/resources/${conf-dir}</directory>
+			<outputDirectory>conf</outputDirectory>
+			<fileMode>0644</fileMode>
+			<includes>
+				<include>application.properties</include>
+				<include>logback.xml</include>
+			</includes>
+		</fileSet>
+		
+	</fileSets>
+	<dependencySets>
+		<!--依赖库-->
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+			<scope>runtime</scope>
+			<fileMode>0644</fileMode>
+			<excludes>
+				<exclude>${project.groupId}:${project.artifactId}</exclude>
+			</excludes>
+		</dependencySet>
+		
+		<!--主程序-->
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<fileMode>0774</fileMode>
+			<includes>
+				<include>${project.groupId}:${project.artifactId}</include>
+			</includes>
+		</dependencySet>
+	</dependencySets>
+</assembly>
+
+
+
