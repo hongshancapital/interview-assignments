@@ -17,24 +17,23 @@ function App(props: CarouselProps) {
   const { renderPicObj } = props;
   const [activeNumer, set_activeNumer] = useState(1);
   const [activeWidth, set_activeWidth] = useState(0);
-  const left =
-    activeNumer === 1 ? "533px" : activeNumer === 2 ? "658px" : "783px";
+  const clientWidth = window.screen.availWidth; // 得到当前屏幕宽度
 
   // 一个定时器控制 两个开关的切换
   useEffect(() => {
     if (activeWidth === 120) {
       set_activeWidth(0);
-      if (activeNumer < 3) {
-        set_activeNumer(activeNumer + 1); // 1，2时向右推进
+      if (activeNumer < renderPicObj.length) {
+        set_activeNumer(activeNumer + 1); // 小于renderPicObj.length时向右推进
       } else {
-        set_activeNumer(1); // 等于3时，则回到1
+        set_activeNumer(1); // 等于renderPicObj.length时，则回到1
       }
     } else {
       setTimeout(() => {
         set_activeWidth(activeWidth + 1);
       }, 25);
     }
-  }, [activeWidth, activeNumer]);
+  }, [activeWidth, activeNumer, renderPicObj.length]);
 
   return (
     <div className="App">
@@ -44,7 +43,7 @@ function App(props: CarouselProps) {
             style={{
               background: item.bgColor,
               color: item.color,
-              transform: `translateX(-${(activeNumer - 1) * 1440}px)`,
+              transform: `translateX(-${(activeNumer - 1) * clientWidth}px)`,
             }}
             className="textChunkStyle"
             key={item.number}
@@ -66,7 +65,7 @@ function App(props: CarouselProps) {
         <span
           style={{
             width: activeWidth,
-            left,
+            left: (activeNumer - 1) * 125, // (item的宽度+边距)
           }}
           className="active"
         ></span>
