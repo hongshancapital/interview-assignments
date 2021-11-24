@@ -17,7 +17,6 @@ function App(props: CarouselProps) {
   const { renderPicObj } = props;
   const [activeNumer, set_activeNumer] = useState(1);
   const [activeWidth, set_activeWidth] = useState(0);
-  const clientWidth = window.screen.availWidth; // 得到当前屏幕宽度
 
   // 一个定时器控制 两个开关的切换
   useEffect(() => {
@@ -43,7 +42,7 @@ function App(props: CarouselProps) {
             style={{
               background: item.bgColor,
               color: item.color,
-              transform: `translateX(-${(activeNumer - 1) * clientWidth}px)`,
+              transform: `translateX(-${(activeNumer - 1) * 100}%)`,
             }}
             className="textChunkStyle"
             key={item.number}
