@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import SnapKit
 
 class ViewController: UIViewController {
     
+    private var originY: CGFloat = 0.0
     private let defalultPlaceholder = "Add new"
     @IBOutlet weak var tableView: UITableView!
     private var selectIndexPath: IndexPath?
@@ -19,28 +19,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.register(STListTableViewCell.self, forCellReuseIdentifier: "STListTableViewCell")
-        self.tableView.contentInsetAdjustmentBehavior = .never
-        
-        self.viewModel.addToDoList(title: "SwiftUI Essentials", content: "Building Lists and Navigation")
-        self.viewModel.addToDoList(title: "SwiftUI Essentials", content: "Creating and Combining Views")
-        self.viewModel.addToDoList(title: "SwiftUI Essentials", content: "Handling User Input")
-
-        self.viewModel.addToDoList(title: "Drawing and Animation", content: "Animating Views and Transitions")
-        self.viewModel.addToDoList(title: "Drawing and Animation", content: "Drawing Paths and Shapes")
-
-        self.viewModel.addToDoList(title: "App Design and Layout", content: "Handling User Input")
-    
         self.title = "List"
         self.definesPresentationContext = true
         self.navigationItem.hidesSearchBarWhenScrolling = true
         self.navigationItem.searchController = self.searchController
-        self.view.addSubview(self.bottomView)
-        self.bottomView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-20)
-            make.height.equalTo(50)
-        }
+        
+        self.addSubViewToView()
+        self.configDataSource()
         
         NotificationCenter.default.addObserver(self, selector:#selector(keyBoardWillShowNotification(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
@@ -48,6 +33,25 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
+    }
+    
+    func addSubViewToView() {
+        self.tableView.contentInsetAdjustmentBehavior = .never
+        self.tableView.register(STListTableViewCell.self, forCellReuseIdentifier: "STListTableViewCell")
+        self.view.addSubview(self.bottomView)
+        self.bottomView.frame = CGRect.init(x: 0, y: self.view.bounds.size.height - 40 - 30, width: self.view.bounds.size.width, height: 50)
+        self.bottomView.addSubview(self.textField)
+        self.textField.frame = CGRect.init(x: 20, y: 0, width: self.view.bounds.size.width - 40, height: 50)
+        originY = self.bottomView.frame.origin.y
+    }
+    
+    func configDataSource() {
+        self.viewModel.addToDoList(title: "SwiftUI Essentials", content: "Building Lists and Navigation")
+        self.viewModel.addToDoList(title: "SwiftUI Essentials", content: "Creating and Combining Views")
+        self.viewModel.addToDoList(title: "SwiftUI Essentials", content: "Handling User Input")
+        self.viewModel.addToDoList(title: "Drawing and Animation", content: "Animating Views and Transitions")
+        self.viewModel.addToDoList(title: "Drawing and Animation", content: "Drawing Paths and Shapes")
+        self.viewModel.addToDoList(title: "App Design and Layout", content: "Handling User Input")
     }
     
     @objc func itemClick(sender: STCircleButton) {
@@ -79,8 +83,6 @@ class ViewController: UIViewController {
     
     func hiddenSelectView() {
         self.navigationController?.navigationBar.isHidden = false
-        self.selectView.removeFromSuperview()
-        self.view.addSubview(self.selectView)
         UIView.animate(withDuration: 0.5) {
             self.selectView.frame = CGRect.init(x: 0, y: UIScreen.main.bounds.size.height, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         } completion: { result in
@@ -97,9 +99,7 @@ class ViewController: UIViewController {
                 if height < 20 {
                     height = 20
                 }
-                self.bottomView.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview().offset(-height)
-                }
+                self.bottomView.frame.origin.y = self.originY - height
                 let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
                 UIView.animate(withDuration: duration) {
                     self.view.layoutIfNeeded()
@@ -121,12 +121,6 @@ class ViewController: UIViewController {
     private lazy var bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = STConstant.f6f6f6()
-        view.addSubview(self.textField)
-        self.textField.snp.makeConstraints { make in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
-            make.bottom.height.equalToSuperview()
-        }
         return view
     }()
     
@@ -141,12 +135,11 @@ class ViewController: UIViewController {
         textField.config(orginLeft: 15, orginRight: 10)
         textField.layer.borderColor = STConstant.titleColor().cgColor
         textField.layer.borderWidth = 1
-        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
     private lazy var selectView: STSelectListView = {
-        let view = STSelectListView()
+        let view = STSelectListView.init(frame: CGRect.init(x: 0, y: UIScreen.main.bounds.size.height, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
         view.delegate = self
         view.layer.cornerRadius = 10
         view.backgroundColor = UIColor.black
@@ -214,18 +207,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headView = UIView()
         headView.backgroundColor = STConstant.f6f6f6()
-
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor.black
         titleLabel.backgroundColor = UIColor.clear
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        
         headView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(0)
-            make.centerY.equalTo(headView.snp.centerY)
-        }
+        headView.addConstraints([
+            NSLayoutConstraint.init(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: headView, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint.init(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: headView, attribute: .centerY, multiplier: 1, constant: 0),
+        ])
         titleLabel.text = self.viewModel.viewForHeaderInSection(section: section)
         return headView
     }
@@ -239,6 +230,15 @@ extension ViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        self.textFieldChange(textField: textField)
+    }
+        
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldChange(textField: UITextField) {
         if let field = textField as? STTextField {
             switch(field.type) {
             case .inputContent:
@@ -313,11 +313,6 @@ extension ViewController: UITextFieldDelegate {
                 }
             }
         }
-    }
-        
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.textFieldDidEndEditing(textField)
-        return true
     }
     
     func deleteToDo(isDelete: Bool, indexPath: IndexPath?) {

@@ -22,15 +22,8 @@ class STSelectListView: UIView {
         super.init(frame: frame)
         self.addSubview(self.bgBtn)
         self.addSubview(self.tableView)
-        self.bgBtn.snp.makeConstraints { make in
-            make.left.right.bottom.top.equalToSuperview()
-        }
-        self.tableView.snp.makeConstraints { make in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
-            make.height.equalTo(150)
-            make.centerY.equalTo(self.snp.centerY)
-        }
+        self.bgBtn.frame = CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
+        self.tableView.frame = CGRect.init(x: 20, y: (frame.size.height - 150) / 2, width: frame.size.width - 40, height: 150)
     }
     
     required init?(coder: NSCoder) {
@@ -53,7 +46,6 @@ class STSelectListView: UIView {
         view.separatorStyle = .none
         view.tableFooterView = UIView()
         view.backgroundColor = UIColor.white
-        view.tableFooterView = UIView()
         return view
     }()
     

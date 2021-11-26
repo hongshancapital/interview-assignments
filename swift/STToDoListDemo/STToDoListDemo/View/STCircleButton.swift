@@ -14,11 +14,12 @@ class STCircleButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(self.smallCircleView)
-        self.smallCircleView.snp.makeConstraints { make in
-            make.centerX.equalTo(self.snp.centerX)
-            make.centerY.equalTo(self.snp.centerY)
-            make.width.height.equalTo(16)
-        }
+        self.addConstraints([
+            NSLayoutConstraint.init(item: self.smallCircleView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint.init(item: self.smallCircleView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 16),
+            NSLayoutConstraint.init(item: self.smallCircleView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 16),
+            NSLayoutConstraint.init(item: self.smallCircleView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
+        ])
     }
     
     func beginDrawCircle(lineWidth: CGFloat, fillColor: UIColor, strokeColor: UIColor) {

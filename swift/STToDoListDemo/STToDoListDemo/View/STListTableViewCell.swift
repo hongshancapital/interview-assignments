@@ -30,24 +30,25 @@ class STListTableViewCell: UITableViewCell {
         self.bgContentView.addSubview(self.bigCircleView)
         self.bgContentView.addSubview(self.contentLabel)
         
-        self.bgContentView.snp.makeConstraints { make in
-            make.left.equalTo(0)
-            make.right.equalTo(-0)
-            make.top.equalTo(5)
-            make.bottom.equalTo(-5)
-        }
+        self.addConstraints([
+            NSLayoutConstraint.init(item: self.bgContentView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint.init(item: self.bgContentView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 5),
+            NSLayoutConstraint.init(item: self.bgContentView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -5),
+            NSLayoutConstraint.init(item: self.bgContentView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
+        ])
     
-        self.bigCircleView.snp.makeConstraints { make in
-            make.left.equalTo(20)
-            make.width.height.equalTo(30)
-            make.centerY.equalTo(self.bgContentView.snp.centerY)
-        }
+        self.addConstraints([
+            NSLayoutConstraint.init(item: self.bigCircleView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 20),
+            NSLayoutConstraint.init(item: self.bigCircleView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30),
+            NSLayoutConstraint.init(item: self.bigCircleView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30),
+            NSLayoutConstraint.init(item: self.bigCircleView, attribute: .centerY, relatedBy: .equal, toItem: self.bgContentView, attribute: .centerY, multiplier: 1, constant: 0)
+        ])
         
-        self.contentLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(self.bgContentView.snp.centerY)
-            make.left.equalTo(self.bigCircleView.snp.right).offset(10)
-            make.right.equalTo(-10)
-        }
+        self.addConstraints([
+            NSLayoutConstraint.init(item: self.contentLabel, attribute: .left, relatedBy: .equal, toItem: self.bigCircleView, attribute: .right, multiplier: 1, constant: 10),
+            NSLayoutConstraint.init(item: self.contentLabel, attribute: .centerY, relatedBy: .equal, toItem: self.bgContentView, attribute: .centerY, multiplier: 1, constant: 0),
+            NSLayoutConstraint.init(item: self.contentLabel, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -10)
+        ])
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
