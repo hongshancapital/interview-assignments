@@ -1,1 +1,1 @@
-export * from './CarouselDemo'
+export * from './CarouselDemo/CarouselDemo'

@@ -1,7 +1,7 @@
 import {CarouselConfig} from "./Carousel";
 import {RefObject, useEffect, useRef, useState} from "react";
 import {usePersistFn} from '../../../hooks'
-import {Timer, TimerState} from '../../../services'
+import {Timer, TimerState} from '../../../services/Timer'
 
 const timer = new Timer()
 
