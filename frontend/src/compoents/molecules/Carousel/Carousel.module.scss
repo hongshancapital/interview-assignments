@@ -1,0 +1,38 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  .slide-container{
+    white-space: nowrap;
+    .slide-item{
+      display: inline-block;
+      width: 100%;
+    }
+  }
+}
+
+
+.carousel-indicator-container{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  .indicator-item{
+    cursor: pointer;
+    margin-left: 8px;
+    position: relative;
+    width: 44px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #A9A9A9;
+    .progress-bar{
+      position: absolute;
+      width: 50%;
+      height: 4px;
+      border-radius: 2px;
+      background: #FAFAFA;
+    }
+  }
+}
