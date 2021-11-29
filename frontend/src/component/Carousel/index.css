@@ -1,0 +1,92 @@
+/* carousel */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-content {
+    display: flex;
+    transition: all .5s ease-in-out;
+}
+
+/* carousel-item */
+.carousel-item-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 500px;
+}
+
+.carousel-item-img {
+    position: absolute;
+    z-index: 100;
+    bottom: 100px;
+    width: 100%;
+    height: 400px;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.carousel-item-info {
+    position: absolute;
+    width: 100%;
+    top: 25%;
+    z-index: 200;
+}
+
+.carousel-item-info .title {
+    font-size: 56px;
+}
+
+.carousel-item-info .content {
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+/* indicator */
+.indicator-container {
+    position: absolute;
+    left: 50%;
+    bottom: 60px;
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-direction: row;
+}
+
+.indicator-item {
+    position: relative;
+    height: 2px;
+    width: 40px;
+    margin: 0 4px;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #999;
+}
+
+.indicator-item .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    content: '';
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.indicator-item .slider.active {
+    animation-name: indicator-slider;
+    animation-timing-function: linear;
+}
+
+@keyframes indicator-slider {
+    from {
+      width: 0;
+    }
+  
+    to {
+      width: 100%;
+    }
+}
