@@ -21,7 +21,20 @@ export interface IImgConProps {
 
 export interface ISwitchProps {
   duration: number;
-  dotNum: number;
+  dotNum?: number;
   curIndex: number;
+  imgSrcs: IMgscrs;
   onChange?: (i: number) => void;
+}
+export interface IImgProps {
+     url:string,
+     id:string
+}
+
+export  interface ListenObj {
+  [eventName: string]: (( (e: any) => void) | null)[];
+}
+export interface ListenIndex {
+  eventName: string;
+  index: number;
 }

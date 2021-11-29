@@ -1,8 +1,7 @@
 import React, { ReactElement, useRef, useState,useEffect } from "react";
 import { ICarouselProps, IForwardRef } from "./CommonTypes";
-import ImgContainer from "./ImgContainer";
+import ImgContainer from "./ImgContainer/index copy";
 import { SwitchDot } from "./SwitchDot";
-import eventBus from "../../utils/eventBus";
 import "./index.css";
 
 export default function Carousel(props: ICarouselProps): ReactElement {
@@ -10,6 +9,7 @@ export default function Carousel(props: ICarouselProps): ReactElement {
   
   const { imgSrcs, autoDuration, duration } = props;
   const [curIndex, setIndex] = useState<number>(0);
+  const ImgRef = useRef<IForwardRef>();
   const timer = useRef<number>();
 
   //自动播放
@@ -37,10 +37,9 @@ export default function Carousel(props: ICarouselProps): ReactElement {
    */
   const handleSwitch = (i: number) => {
     setIndex(i);
-    eventBus.emit('switchTo',i)
-    // if (ImgRef.current) {
-    //   ImgRef.current.switchTo(i);
-    // }
+    if (ImgRef.current) {
+      ImgRef.current.switchTo(i);
+    }
   };
 
   return (
@@ -56,6 +55,7 @@ export default function Carousel(props: ICarouselProps): ReactElement {
       }}
     >
       <ImgContainer
+        ref={ImgRef}
         imgSrcs={props.imgSrcs}
         imgWidth={props.width}
         imgHeight={props.height}

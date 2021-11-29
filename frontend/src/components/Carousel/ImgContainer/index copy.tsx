@@ -1,14 +1,22 @@
 import React, {  useRef, useImperativeHandle } from "react";
 import { IImgConProps } from "../CommonTypes";
-import eventBus from "../../../utils/eventBus";
+
 import "./index.css";
 
-const ImgContainer = (props: IImgConProps) => {
+const ImgContainer = (props: IImgConProps, ref: any) => {
   const { imgSrcs, duration, imgWidth, imgHeight } = props;
   const imgConRef = useRef<HTMLDivElement>(null);
   const timer = useRef<number>();
   const tick = 16;
- 
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        switchTo,
+      };
+    },
+    []
+  );
 
   //给外部调用
   const switchTo = (index: number) => {
@@ -53,9 +61,6 @@ const ImgContainer = (props: IImgConProps) => {
       }, tick);
     }
   };
-
-  eventBus.on('switchTo',switchTo)
-  
   //根据imgSrcs生成banner
   const imgs = imgSrcs.map((item, i) => (
     <div
@@ -83,5 +88,4 @@ const ImgContainer = (props: IImgConProps) => {
   );
 };
 
-// export default React.forwardRef(ImgContainer);
-export default ImgContainer;
+export default React.forwardRef(ImgContainer);
