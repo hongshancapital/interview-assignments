@@ -11,8 +11,6 @@
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
 - [UI 设计师](design/)
-
-北京:
 - [Java](java/)
 
 北京/上海/香港/深圳：
