@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UrlServiceImplTest {
     private static final String ORIGIN_URL = "https://image.baidu.com/user/logininfo?src=pc&page=searchresult&time=1637927056021";
-    private static final String SHORT_URL = "https://short.com/2Bi";
+    private static final String SHORT_URL = "https://short.com/2Bj";
 
     @Autowired
     private UrlService urlService;

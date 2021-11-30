@@ -1,5 +1,6 @@
 package com.domain.url.service.impl;
 
+import com.domain.url.cache.LRUCache;
 import com.domain.url.constant.Constants;
 import com.domain.url.exception.ServiceException;
 import com.domain.url.helper.AssertHelper;
@@ -9,9 +10,8 @@ import com.domain.url.service.UrlService;
 import com.domain.url.service.codes.UrlServiceExceptionCode;
 import com.domain.url.web.data.UrlReq;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 短链接服务接口实现
@@ -19,6 +19,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 @Slf4j
 public class UrlServiceImpl implements UrlService {
+
+    @Autowired
+    private LRUCache lruCache;
+
     @Override
     public String shorten(UrlReq req) throws ServiceException {
         log.info("[shorten] start... longUrl({})", req.getUrl());
@@ -30,7 +34,7 @@ public class UrlServiceImpl implements UrlService {
         final String shortUrl = Constants.DOMAIN_SHORT + DigitHelper.generateHex62();
 
         // 2 存储 短 -> 长链接映射关系
-        Constants.URL_MAP.putIfAbsent(shortUrl, req.getUrl());
+        this.lruCache.put(shortUrl, req.getUrl());
 
         log.info("[shorten] end. shortUrl({})", shortUrl);
         return shortUrl;
@@ -42,7 +46,7 @@ public class UrlServiceImpl implements UrlService {
 
         AssertHelper.isTrue(StringHelper.isUrl(shortUrl), UrlServiceExceptionCode.__URL_E_0002__);
 
-        String longUrl = Constants.URL_MAP.get(shortUrl);
+        String longUrl = this.lruCache.get(shortUrl);
         AssertHelper.notBlank(longUrl, UrlServiceExceptionCode.__URL_E_0003__);
 
         log.info("[original] end.");
