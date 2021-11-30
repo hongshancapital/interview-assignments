@@ -86,8 +86,7 @@ Please find your assignment in subfolder accordingly.
 
 1. 最新 MacBook Pro
 2. 外设（键鼠，升降桌，高清显示器…）
-3. 星巴克提供品牌，雀巢提供服务的免费咖啡服务
-4. 无限冷热饮/小吃供应
+3. 无限冷热饮/小吃供应
 
 至于薪水，我们想要找到合适的人而不是想一味地压缩成本。给出的 package 不输互联网大厂，相信能让你满意。
 
