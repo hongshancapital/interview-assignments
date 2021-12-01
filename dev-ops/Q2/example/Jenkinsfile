@@ -1,0 +1,46 @@
+pipeline {
+   agent any
+
+    environment {   // Local Envs inside of this test pipeline
+        env_key = 'env_value'
+        image_tag = 'lastest'
+    }
+
+   stages {
+      stage('Get image tag') {
+         steps {
+            echo 'update image_tag'
+            script {
+               image_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+            }
+            echo "image_tag is: ${image_tag}"
+         }
+      }
+      stage('Build&Push image') {
+         steps {
+            withCredentials([usernamePassword(credentialsId: 'git-pass-credentials-ID', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+               sh('git clone https://github.com/goxr3plus/Simplest-Spring-Boot-Hello-World.git')
+               sh('docker run -it --rm --name my-maven-project -v "$(pwd)/Simplest-Spring-Boot-Hello-World":/usr/src/mymaven -w /usr/src/mymaven maven:3.3-jdk-8 mvn clean install')
+               sh("docker build -t wyangsun/helloworld:${image_tag} .")
+               sh("docker push wyangsun/helloworld:${image_tag}")
+            }
+         }
+      }
+      stage('Deploy QA') {
+         steps {
+            dir("Infrastructure/terraform") {
+               withCredentials([usernamePassword(credentialsId: 'AWS_access_key', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                  sh("sed -i '/s/ECS_IMAGE/wyangsun\/helloworld:${image_tag}/' variables")
+                  sh("terraform init")
+                  sh("terraform apply -auto-approve")
+               }
+            }
+         }
+      }
+      stage ('Trigger Auto_testing job') {
+         build job: 'Auto_testing', parameters: [
+            string(name: 'var1', value:'test_param'),
+            string(name: 'var2', value: "${index}")]
+      }
+   }
+}
