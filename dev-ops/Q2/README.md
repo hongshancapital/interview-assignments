@@ -6,7 +6,7 @@ Simple CI/CD pipeline.
 
 ![This is an image](diagram/diagram.png)
 
-### Requirment
+### Component
 
 - AWS [Infrastructure](Infrastructure/terraform/)
 
