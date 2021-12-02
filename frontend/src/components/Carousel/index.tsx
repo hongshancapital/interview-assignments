@@ -3,17 +3,22 @@ import "./index.css";
 
 const ANIMATION_TIME = 4;
 
+export interface parenProps{
+  key:string;
+  style:React.CSSProperties
+}
+
 export interface RemoteData {
-  id: number;
-  title: string;
-  subTitle: string;
+  id: string;
+  titleList: Array<string>;
+  subTitleList: Array<string>;
+  backgroundImage:string;
   backgroundColor?: string;
   color?: string;
-  imgUrl: string;
 }
 export interface Part {
    /** 轮播父组件 props， 必须有key */
-  data: any;
+  data: parenProps;
    /** 轮播组件*/
   component: ReactElement;
 }
@@ -37,7 +42,7 @@ function Carousel({ list, onChange }: Props) {
         onChange && onChange(0);
       }
     }, ANIMATION_TIME * 1000);
-  }, [index, list.length]);
+  }, [index, list.length,onChange]);
 
   return (
     <div className="carousel">
@@ -89,10 +94,18 @@ const renderPart = (json: RemoteData) => {
   return (
     <div className="part">
       <div className="container">
-        <h1 className="title">{json.title}</h1>
-        <h2 className="subtitle">{json.subTitle}</h2>
+        {
+          json.titleList.map((title)=>{
+            return  <h1 className="title" key={title}>{title}</h1>
+          })
+        }
+        {
+          json.subTitleList.map((subtitle)=>{
+            return   <h2 className="subtitle" key={subtitle} >{subtitle}</h2>
+          })
+        }
+       
       </div>
-      <img className="img" src={json.imgUrl} alt={json.title}></img>
     </div>
   );
 };
@@ -103,10 +116,12 @@ Carousel.buildPartSample = (list: Array<RemoteData>) => {
       data: {
         key: item.id,
         style: {
-          backgroundColor: item.backgroundColor || "none",
+          backgroundImage: item.backgroundImage || "none",
           color: item.color || "none",
+          backgroundColor:item.backgroundColor || "none",
+          backgroundSize: "auto 100%"
         },
-      },
+      } as parenProps,
       component: renderPart(item),
     } as Part;
   });
