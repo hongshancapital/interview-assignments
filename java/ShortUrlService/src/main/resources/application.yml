@@ -1,0 +1,17 @@
+#主配置文件
+
+spring:
+  # 激活环境配置
+  profiles:
+    active: dev
+  # 文件编码 UTF8
+  mandatory-file-encoding: UTF-8
+
+config:
+  init-capacity: 100000
+  max-capacity: 10000000
+  short-url-length: 8
+  short-url-prefix: "https://url.com/"
+
+logging:
+  config: classpath:logback-spring.xml
