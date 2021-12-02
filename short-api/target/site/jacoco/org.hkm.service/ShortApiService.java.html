@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortApiService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">short-api</a> &gt; <a href="index.source.html" class="el_package">org.hkm.service</a> &gt; <span class="el_source">ShortApiService.java</span></div><h1>ShortApiService.java</h1><pre class="source lang-java linenums">package org.hkm.service;
+
+import org.hkm.AppConfigProperties;
+import org.hkm.model.ShortUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static org.hkm.enums.RedisKey.Short_Url_Prefix;
+
+@Service
+public class ShortApiService {
+
+    private AppConfigProperties appProp;
+
+<span class="fc" id="L24">    private Logger logger = LoggerFactory.getLogger(ShortApiService.class);</span>
+
+<span class="fc" id="L26">    public ShortApiService(AppConfigProperties appProp) {</span>
+<span class="fc" id="L27">        this.appProp = appProp;</span>
+<span class="fc" id="L28">    }</span>
+
+
+    /**
+     * 保存有效链接的数量
+     */
+    private static final int QUEUE_LEN = 1000000;
+
+    /**
+     * 用于处理过期以及限制有效链接数量
+     *
+     * 队列的数据按时间先后顺序插入，队列头即为最早过期的，10s循环检查一次队列头，过期消费掉
+     */
+<span class="fc" id="L41">    private static final ArrayBlockingQueue&lt;ShortUrl&gt; queue = new ArrayBlockingQueue&lt;&gt;(QUEUE_LEN);</span>
+
+    /**
+     * 短链接与原始链接的映射表
+     */
+<span class="fc" id="L46">    private static final Map&lt;String, ShortUrl&gt; cache = new ConcurrentHashMap&lt;&gt;();</span>
+
+    /**
+     * 原始链接与短链接的映射表
+     * 用于防止同一url多次转换
+     */
+<span class="fc" id="L52">    private static final Map&lt;String, String&gt; duplicateCheck = new ConcurrentHashMap&lt;&gt;();</span>
+
+    public String transfer(String url){
+
+        // 生成一个指定长度的字符串，作为短链接
+<span class="fc" id="L57">        String key = generate(appProp.getLength());</span>
+
+        // 将短链接作为key，原始链接作为value，存入cache
+<span class="fc" id="L60">        ShortUrl shortUrl = new ShortUrl(key, url, LocalDateTime.now().plusSeconds(appProp.getExpireSec()).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());</span>
+
+        // 如果已经存在，则返回之前的生成的key
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (duplicateCheck.containsKey(url)) {</span>
+<span class="fc" id="L64">            return MessageFormat.format(appProp.getDomain(), duplicateCheck.get(url));</span>
+        }
+
+        // 写操作成功后才返回短链接
+<span class="fc" id="L68">        boolean success = add(shortUrl);</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        return success?MessageFormat.format(appProp.getDomain(), key):null;</span>
+    }
+
+<span class="fc" id="L72">    private final ShortUrl empty = new ShortUrl();</span>
+
+    /**
+     * 短链接转换为原始链接
+     * @param key
+     * @return
+     */
+    public String redirect(String key){
+<span class="fc" id="L80">        return Optional</span>
+<span class="fc" id="L81">                .ofNullable(cache.get(Short_Url_Prefix.key(key)))</span>
+<span class="fc" id="L82">                .orElse(empty)</span>
+<span class="fc" id="L83">                .getOriginUrl();</span>
+    }
+
+    /**
+     * 过期删除操作
+     * 间隔10s检查一次队列最前面的是否过期
+     */
+    @Scheduled(fixedDelay = 10000)
+    public void expire(){
+
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        while (!queue.isEmpty()) {</span>
+<span class="nc" id="L94">            Long now = System.currentTimeMillis();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (queue.peek().getExpireTimeStamp() &lt; now) {// 说明到过期时间</span>
+                try {
+                    // 队列中消费掉
+<span class="nc" id="L98">                    ShortUrl data = queue.take();</span>
+
+                    // 缓存映射表中删除
+<span class="nc" id="L101">                    cache.remove(Short_Url_Prefix.key(data.getKey()));</span>
+
+                    // 防重映射表中删除
+<span class="nc" id="L104">                    duplicateCheck.remove(data.getOriginUrl());</span>
+<span class="nc" id="L105">                    logger.info(&quot;remove {} from queue &quot;, data.getKey());</span>
+<span class="nc" id="L106">                } catch (InterruptedException e) {</span>
+<span class="nc" id="L107">                    e.printStackTrace();</span>
+<span class="nc" id="L108">                }</span>
+            } else {
+                break;
+            }
+<span class="nc" id="L112">        }</span>
+<span class="nc" id="L113">    }</span>
+
+    /**
+     * 写操作
+     * @param shortUrl
+     * @return
+     */
+    private boolean add(ShortUrl shortUrl) {
+<span class="fc" id="L121">        boolean success = queue.offer(shortUrl);</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (success) {</span>
+<span class="fc" id="L123">            cache.put(Short_Url_Prefix.key(shortUrl.getKey()), shortUrl);</span>
+<span class="fc" id="L124">            duplicateCheck.put(shortUrl.getOriginUrl(), shortUrl.getKey());</span>
+<span class="fc" id="L125">            logger.info(&quot;[{}] transferd to {}&quot;, shortUrl.getOriginUrl(), shortUrl.getKey());</span>
+        } else {
+<span class="nc" id="L127">            logger.info(&quot;[{}] failed&quot;, shortUrl.getOriginUrl());</span>
+        }
+<span class="fc" id="L129">        return success;</span>
+    }
+
+<span class="fc" id="L132">    private static Random random = new Random();</span>
+<span class="fc" id="L133">    private static char[] baseChars = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9'};</span>
+
+    private String generate(int length) {
+
+<span class="fc" id="L137">        StringBuffer sb = new StringBuffer();</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc" id="L139">            sb.append(baseChars[random.nextInt(baseChars.length)]);</span>
+        }
+<span class="fc" id="L141">        return sb.toString();</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

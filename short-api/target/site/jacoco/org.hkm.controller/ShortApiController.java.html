@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">short-api</a> &gt; <a href="index.source.html" class="el_package">org.hkm.controller</a> &gt; <span class="el_source">ShortApiController.java</span></div><h1>ShortApiController.java</h1><pre class="source lang-java linenums">package org.hkm.controller;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.hkm.model.ShortUrl;
+import org.hkm.service.ShortApiService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.ServletResponse;
+import javax.validation.ValidationException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.Optional;
+import java.util.UUID;
+
+@RestController
+@RequestMapping(&quot;short&quot;)
+@Api(&quot;转换短链接&quot;)
+public class ShortApiController {
+
+
+    private ShortApiService shortApiService;
+
+<span class="fc" id="L27">    public ShortApiController(ShortApiService shortApiService){</span>
+<span class="fc" id="L28">        this.shortApiService = shortApiService;</span>
+<span class="fc" id="L29">    }</span>
+
+    @GetMapping(&quot;/{key}&quot;)
+    @ApiOperation(&quot;获取原始链接&quot;)
+    public ResponseEntity&lt;String&gt; redirect(@PathVariable(&quot;key&quot;) String key) {
+        try {
+<span class="fc" id="L35">            String url = shortApiService.redirect(key);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (url == null) {</span>
+<span class="fc" id="L37">                return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+            } else {
+<span class="fc" id="L39">                return new ResponseEntity&lt;&gt;(URLEncoder.encode(url,&quot;UTF-8&quot;), HttpStatus.OK);</span>
+            }
+<span class="nc" id="L41">        } catch (UnsupportedEncodingException e) {</span>
+<span class="nc" id="L42">            e.printStackTrace();</span>
+        }
+<span class="nc" id="L44">        return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+
+    @PostMapping
+    @ApiOperation(&quot;转换链接&quot;)
+    public ResponseEntity&lt;String&gt; transfer(@RequestBody ShortUrl url){
+        try {
+<span class="fc" id="L51">            String key = shortApiService</span>
+<span class="pc" id="L52">                    .transfer(Optional.ofNullable(URLDecoder.decode(url.getOriginUrl(), &quot;UTF-8&quot;)).orElseThrow(() -&gt; new ValidationException(&quot;request body can not be null&quot;)));</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">            if (key != null) {</span>
+<span class="fc" id="L54">                return new ResponseEntity&lt;&gt;(URLEncoder.encode(key, &quot;UTF-8&quot;), HttpStatus.CREATED);</span>
+            } else {
+<span class="nc" id="L56">                return new ResponseEntity&lt;&gt;(null, HttpStatus.TOO_MANY_REQUESTS);</span>
+            }
+<span class="nc" id="L58">        } catch (UnsupportedEncodingException e) {</span>
+<span class="nc" id="L59">            e.printStackTrace();</span>
+        }
+<span class="nc" id="L61">        return new ResponseEntity&lt;&gt;(null, HttpStatus.TOO_MANY_REQUESTS);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
