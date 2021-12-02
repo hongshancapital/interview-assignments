@@ -1,9 +1,10 @@
 package com.zhangliang.suril.util;
 
-import cn.hutool.core.util.StrUtil;
 import com.zhangliang.suril.configuration.CodeMessageConfiguration;
+import io.netty.util.internal.StringUtil;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.springframework.util.StringUtils;
 
 /**
  * 断言工具
@@ -18,12 +19,12 @@ public class AssertUtils {
      *
      * @param value 传入的URL
      */
-    public static void isUrl(CharSequence value) {
-        if (StrUtil.isBlank(value)) {
+    public static void isUrl(String value) {
+        if (StringUtil.isNullOrEmpty(value)) {
             throw new IllegalArgumentException(CodeMessageConfiguration.getMessage(90003));
         } else {
             try {
-                new URL(StrUtil.str(value));
+                new URL(value);
             } catch (MalformedURLException var2) {
                 throw new IllegalArgumentException(CodeMessageConfiguration.getMessage(90003));
             }

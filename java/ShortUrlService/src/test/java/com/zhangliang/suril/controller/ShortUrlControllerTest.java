@@ -1,18 +1,12 @@
 package com.zhangliang.suril.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.zhangliang.suril.controller.params.PostUrlParams;
-import com.zhangliang.suril.controller.view.BaseResult;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +16,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
-
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -55,8 +48,9 @@ class ShortUrlControllerTest {
                 .andReturn();
 
         String response = result.getResponse().getContentAsString();
-        JSONObject jsonObject = JSONUtil.parseObj(response);
-        String url = jsonObject.get("playLoad").toString();
+
+        ObjectMapper mapper1 = new ObjectMapper();
+        String url = mapper1.readTree(response).get("playLoad").asText();
 
         mvc.perform(get("/api/url?shortUrl=" + url))
                 .andDo(print())
