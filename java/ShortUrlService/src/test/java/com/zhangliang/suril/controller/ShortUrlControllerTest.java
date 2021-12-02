@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 class ShortUrlControllerTest {
 
     @Value("${config.short-url-length}")
@@ -88,5 +88,14 @@ class ShortUrlControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("200"));
     }
 
+
+    @Test
+    @DisplayName("测试空取回再用返回键取回")
+    public void getUrlTest_exception_all() throws Exception {
+        mvc.perform(get("/api/url?shortUrl="))
+                .andDo(print())
+                .andExpect(status().is5xxServerError())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("50000"));
+    }
 
 }

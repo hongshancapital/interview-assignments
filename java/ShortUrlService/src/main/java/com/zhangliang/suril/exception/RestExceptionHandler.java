@@ -24,27 +24,23 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class RestExceptionHandler {
 
     public static final String CURRENT_ENV_DEV = "dev";
-    public static final String CURRENT_ENV_TEST = "test";
 
     @Value("${spring.profiles.active}")
     private String env;
 
     /**
-     * Exception 如果是测试环境，返货具体的错误消息 如果是开发环境，直接抛出 如果是生产环境，注意封装错误
+     * Exception 如果是测试环境，返货具体的错误消息 如果是生产环境，注意封装错误
      */
     @ExceptionHandler({Exception.class})
     public BaseResult<String> processException(Exception exception,
             HttpServletRequest request,
             HttpServletResponse response
-    ) throws Exception {
+    ) {
         BaseResult<String> result = new BaseResult<>();
+        result.setMsg(CodeMessageConfiguration.getMessage(50000));
         log.error("请求发生错误", exception);
         if (env.equals(CURRENT_ENV_DEV)) {
-            throw exception;
-        } else if (env.equals(CURRENT_ENV_TEST)) {
             result.setMsg(exception.getMessage());
-        } else {
-            result.setMsg(CodeMessageConfiguration.getMessage(50000));
         }
 
         result.setCode(50000);
