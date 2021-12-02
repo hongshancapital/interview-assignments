@@ -3,11 +3,6 @@ import "./index.css";
 
 const ANIMATION_TIME = 4;
 
-export interface parenProps{
-  key:string;
-  style:React.CSSProperties
-}
-
 export interface RemoteData {
   id: string;
   titleList: Array<string>;
@@ -18,7 +13,7 @@ export interface RemoteData {
 }
 export interface Part {
    /** 轮播父组件 props， 必须有key */
-  data: parenProps;
+  data: React.Attributes;
    /** 轮播组件*/
   component: ReactElement;
 }
@@ -121,7 +116,7 @@ Carousel.buildPartSample = (list: Array<RemoteData>) => {
           backgroundColor:item.backgroundColor || "none",
           backgroundSize: "auto 100%"
         },
-      } as parenProps,
+      } as React.Attributes,
       component: renderPart(item),
     } as Part;
   });
