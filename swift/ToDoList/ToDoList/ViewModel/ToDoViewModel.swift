@@ -60,12 +60,30 @@ class ToDoViewModel: ObservableObject {
             .firstIndex(where: { $0.first?.tagId == tagId })
     }
     
-    private func firstCheckedTodoIndex(groupIndex: Int) -> Int? {
-        if let index = groupToDos[groupIndex]
-            .firstIndex(where: { $0.checked }) {
-            return index
+    private func firstCheckedTodoIndex(groupIndex: Int,
+                                       todo: ToDoModel) -> Int? {
+        if todo.checked {
+            if let index = groupToDos[groupIndex]
+                .firstIndex(where: { $0.checked }) {
+                return index
+            } else {
+                return nil
+            }
         } else {
-            return nil
+            let uncheckedTodo = groupToDos[groupIndex]
+                .filter({ $0.checked == false })
+            if uncheckedTodo.count <= 0 {
+                return 0
+            } else {
+                // 10 30
+                if let index = uncheckedTodo
+                    .firstIndex(where: { $0.sortIndex > todo.sortIndex }) {
+                    return index
+                } else {
+                    return uncheckedTodo.count
+                }
+            }
+            
         }
     }
     
@@ -76,8 +94,8 @@ class ToDoViewModel: ObservableObject {
         let checkedTodo = groupToDos[groupIndex]
             .remove(at: todoIndex)
         checkedTodo.checked = !checkedTodo.checked
-        let firstCheckTodoIndex =
-            firstCheckedTodoIndex(groupIndex: groupIndex)
+        let firstCheckTodoIndex = firstCheckedTodoIndex(groupIndex: groupIndex,
+                                                        todo: checkedTodo)
         if let firstCheckTodoIndex = firstCheckTodoIndex {
             // 找到了直接移到对应的位置吧
             groupToDos[groupIndex]
@@ -90,15 +108,24 @@ class ToDoViewModel: ObservableObject {
     
     /// 简单起见，不指定 tag 就默认第一个
     func createTodo(content: String, tagId: Int64 = 1) {
-        let todo = ToDoModel(content: content, checked: false, tagId: tagId)
+        var sortIndex = 10
+        let todo = ToDoModel(content: content, checked: false,
+                             tagId: tagId, sortIndex: sortIndex)
         if let groupIndex = findTodoGroup(tagId: tagId) {
+            // 找到第一个元素并取到 sort index
+            if let firstTodo = groupToDos[groupIndex].first {
+                // 每个 sort 间隔 10
+                sortIndex = firstTodo.sortIndex - 10
+                todo.sortIndex = sortIndex
+            }
             groupToDos[groupIndex].insert(todo, at: 0)
         } else {
             groupToDos.append([todo])
         }
     }
     
-    func modifyTodo(originTodo: ToDoModel, _ modifyContent: String, _ modifyTagId: Int64 = 1) {
+    func modifyTodo(originTodo: ToDoModel,
+                    _ modifyContent: String, _ modifyTagId: Int64 = 1) {
         if let (groupIndex, todoIndex) = findTodoIndex(todo: originTodo) {
             groupToDos[groupIndex].remove(at: todoIndex)
             // 也是为了简单，当组内全删的时候直接清除出组数组，业务逻辑。
@@ -111,7 +138,7 @@ class ToDoViewModel: ObservableObject {
                 if let insertGroupIndex = findTodoGroup(tagId: modifyTagId) {
                     if originTodo.checked {
                         if let checkIndex =
-                            firstCheckedTodoIndex(groupIndex: insertGroupIndex) {
+                            firstCheckedTodoIndex(groupIndex: insertGroupIndex, todo: originTodo) {
                             groupToDos[insertGroupIndex].insert(originTodo, at: checkIndex)
                         } else {
                             groupToDos[insertGroupIndex].append(originTodo)

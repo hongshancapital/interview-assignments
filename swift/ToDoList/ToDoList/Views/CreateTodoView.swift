@@ -21,10 +21,11 @@ struct CreateTodoView: View {
         HStack {
             Spacer(minLength: 10)
             HStack {
+                let prompt = Text("Add New ...")
+                    .font(Font.system(size: 8, weight: .medium,
+                                      design: .monospaced))
                 TextField("", text: $viewModel.newTodoContent,
-                          prompt: Text("Add New ...")
-                            .font(Font.system(size: 8, weight: .medium,
-                                              design: .monospaced)))
+                          prompt: prompt)
                     .focused($focusedField, equals: .modify)
                     .focused($focusedField, equals: .create)
                     .frame(minHeight: height, alignment: .center)

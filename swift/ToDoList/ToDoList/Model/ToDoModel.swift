@@ -26,11 +26,13 @@ class ToDoModel: ObservableObject, Identifiable, Hashable {
     @Published var content: String? = nil
     @Published var checked: Bool = false
     @Published var tagId: Int64? = nil
+    @Published var sortIndex: Int = -1
     
-    init(content: String, checked: Bool, tagId: Int64) {
+    init(content: String, checked: Bool, tagId: Int64, sortIndex: Int) {
         self.content = content
         self.checked = checked
         self.tagId = tagId
+        self.sortIndex = sortIndex
     }
     
     
@@ -41,30 +43,30 @@ func createTestToDoDatas() -> [[ToDoModel]] {
     return [
         [
             ToDoModel(content: "Building Lists and Navigation",
-                      checked: false, tagId: 1),
+                      checked: false, tagId: 1, sortIndex: 10),
             ToDoModel(content: "Creating and Combining Views",
-                      checked: false, tagId: 1),
+                      checked: false, tagId: 1, sortIndex: 20),
             ToDoModel(content: "Handling User Input",
-                      checked: true, tagId: 1)],
+                      checked: true, tagId: 1, sortIndex: 30)],
         
         [
             ToDoModel(content: "Animating Views and Transitions",
-                      checked: false, tagId: 2),
+                      checked: false, tagId: 2, sortIndex: 10),
             ToDoModel(content: "Drawing Paths and Shapes",
-                      checked: true, tagId: 2)],
+                      checked: true, tagId: 2, sortIndex: 20)],
         
         [
             ToDoModel(content: "Composing Comples iInterfaces",
-                      checked: false, tagId: 3),
+                      checked: false, tagId: 3, sortIndex: 10),
             ToDoModel(content: "Working with UI Controls",
-                      checked: false, tagId: 3)],
+                      checked: false, tagId: 3, sortIndex: 20)],
         
         [
             ToDoModel(content: "Interfacing With UIKit",
-                      checked: false, tagId: 4),
+                      checked: false, tagId: 4, sortIndex: 10),
             ToDoModel(content: "Creating a watchOS App",
-                      checked: true, tagId: 4),
+                      checked: true, tagId: 4, sortIndex: 20),
             ToDoModel(content: "Creating a macOS App",
-                      checked: true, tagId: 4)]
+                      checked: true, tagId: 4, sortIndex: 30)]
     ]
 }

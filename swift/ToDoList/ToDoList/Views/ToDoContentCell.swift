@@ -40,6 +40,6 @@ struct ToDoContentCell: View {
 struct ToDoContentCell_Previews: PreviewProvider {
     static var previews: some View {
         ToDoContentCell(todoModel: ToDoModel(content: "Building Lists and Navigation",
-                                  checked: false, tagId: 1))
+                                             checked: false, tagId: 1, sortIndex: 10))
     }
 }
