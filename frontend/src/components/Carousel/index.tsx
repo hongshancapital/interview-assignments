@@ -1,25 +1,47 @@
-import React from "react";
-import './index.css'
-export interface ICarouselProps{
+import React, { useState, useEffect } from "react";
+import "./index.css";
+import pic1 from "./pic1.png";
+import pic2 from "./pic2.png";
+export interface ICarouselProps {
   // loop?: boolean,
   // delay?:number,
   // autoPlay?: boolean,
   // imageList?:string[]
 }
-export const Carousel=(props:ICarouselProps)=>{
-    // const {
-    //   loop,
-    //   delay,
-    //   autoPlay,
-    //   imageList
-    // }=props
-  return <div className="carousel-wrapper">
-    <div className="carousel-content">
-    <p>this is a test</p>
+export const Carousel = (props: ICarouselProps) => {
+  // const {
+  //   loop,
+  //   delay,
+  //   autoPlay,
+  //   imageList
+  // }=props
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const list = [pic1, pic2, pic1];
+  const itemLength = list.length;
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentIndex(currentIndex + 1 === itemLength ? 0 : currentIndex + 1);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [currentIndex]);
+
+  return (
+    <div className="carousel-wrapper">
+      <div
+        className="carousel-content"
+        style={{
+          transform: `translateX(${currentIndex * 100 * -1}%)`,
+        }}
+      >
+        {list.map((url, index) => (
+          <div key={url + index} className="img-wrapper">
+            <img className="image" alt="img" src={url} />
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
+  );
+};
 
-}
-
-export default Carousel
+export default Carousel;
