@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import pic1 from "./pic1.png";
-import pic2 from "./pic2.png";
+import pic1 from "./pic1.jpeg";
+import pic2 from "./pic2.jpeg";
+import pic3 from "./pic3.jpeg";
 export interface ICarouselProps {
   // loop?: boolean,
   // delay?:number,
@@ -16,7 +17,7 @@ export const Carousel = (props: ICarouselProps) => {
   //   imageList
   // }=props
   const [currentIndex, setCurrentIndex] = useState(0);
-  const list = [pic1, pic2, pic1];
+  const list = [pic1, pic2, pic3];
   const itemLength = list.length;
 
   useEffect(() => {
