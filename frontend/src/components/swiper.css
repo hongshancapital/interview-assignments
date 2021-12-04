@@ -1,0 +1,75 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.swiperContainer{
+    overflow: hidden;
+    position: relative;
+}
+
+.swiper{
+    display: flex;
+}
+
+.dots{
+    position: absolute;
+    display: flex;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: space-between;
+    bottom: 40px;
+}
+
+.dot{
+    margin-right: 20px;
+    width: 50px;
+    height: 3px;
+    background-color: #666;
+    border-radius: 10px;
+}
+
+.dot>div{
+    width: 0;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.swiper-item{
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.t0{
+    color: #fff;
+}
+
+.t0,.t1,.t2{
+    margin-top: 200px;
+}
+
+.t0>p,.t1>p{
+    font-size: 24px;
+}
+
+.t0>p:nth-child(2){
+    margin-top:40px;
+}
+
+.t1>p:nth-child(2){
+    margin-top: 20px;
+}
+
+
+.t0>p:first-child,.t1>p:first-child,.t2{
+    font-size: 60px;
+}
+
+.t2{
+    font-weight: bold;
+}
+
+.t2>p:nth-child(2){
+    margin-top: 10px;
+}
