@@ -1,0 +1,62 @@
+:root {
+  --imageWidth: 100%;
+  --height: 100%;
+}
+.box {
+  position:relative;
+  width:var(--imageWidth);
+  height:var(--height);
+  overflow: hidden;
+  .main-content {
+    position:absolute;
+    left: 0;
+    top:0;
+    z-index: 1;
+    width:calc(var(--imageWidth)*3);
+    height:var(--height);
+    transition: left 1s;
+  }
+  .multi-circles {
+    position:absolute;
+    right:50%;
+    transform: translateX(50%);
+    bottom:50px;
+    z-index: 2;
+    ul {
+      width: 100%;
+      text-align: center;
+      list-style-type: none;
+      padding: 0px;
+      li {
+        width: 40px;
+        height: 2px;
+        float: left;
+        div {
+          background: rgb(153, 153, 153);
+          height:2px;
+          display: flex;
+          border-radius: 1px;
+          width: 100%;
+          text-align: left;
+          .button {
+            width: 0px;
+            height: 2px;
+            opacity: 0;
+            border-radius: 1px;
+            background: rgb(249, 249, 249);
+            transition: width 3s linear;
+          }
+        }
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+        &.active {
+          .button {
+            width: 100%;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
