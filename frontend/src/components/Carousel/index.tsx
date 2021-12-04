@@ -3,6 +3,7 @@ import "./index.css";
 import pic1 from "./pic1.jpeg";
 import pic2 from "./pic2.jpeg";
 import pic3 from "./pic3.jpeg";
+import Indicator from './components/Indicator'
 export interface ICarouselProps {
   // loop?: boolean,
   // delay?:number,
@@ -25,10 +26,11 @@ export const Carousel = (props: ICarouselProps) => {
       setCurrentIndex(currentIndex + 1 === itemLength ? 0 : currentIndex + 1);
     }, 3000);
     return () => clearTimeout(timer);
-  }, [currentIndex]);
+  }, [currentIndex,itemLength]);
 
   return (
     <div className="carousel-wrapper">
+      <Indicator length={3} delay={3000} index={0}></Indicator>
       <div
         className="carousel-content"
         style={{
