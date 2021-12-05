@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-
 import Indicator from "./components/Indicator";
+
 const defaultProps = {
   showIndicator: true,
   delay: 3000,
