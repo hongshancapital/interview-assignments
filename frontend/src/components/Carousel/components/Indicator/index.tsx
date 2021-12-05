@@ -1,16 +1,31 @@
-import React from "react"
-import './index.css'
+import React from "react";
+import "./index.css";
 export interface IndecatorProps {
-  length: number,
-  delay:number,
-  index:number,
-
+  length: number;
+  delay: number;
+  index: number;
 }
-export const Indecator=(props:IndecatorProps)=>{
-  const itemList=Array.from({length:props.length}).fill(0)
-  return <div className="indecator-wrapper">
-    {itemList.map((_,index)=>(<div key={index} className={props.index===index?'item current':'item'}  ></div>))}
-  </div>
-}
+export const Indecator = (props: IndecatorProps) => {
+  const { index: currentItemIndex, length, delay } = props;
+  const itemList = Array.from({ length })
+    .fill(0)
+    .map((_, index) => index);
 
-export default Indecator
+  return (
+    <div className="indecator-wrapper">
+      {itemList.map((item) => (
+        <div key={item} className={"item"}>
+          <div
+            style={{
+              transition: item === currentItemIndex ? `${delay}ms` : "0ms",
+              width: item === currentItemIndex ? "100%" : "0%",
+            }}
+            className="inner-color"
+          ></div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Indecator;

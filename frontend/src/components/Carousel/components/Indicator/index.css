@@ -1,12 +1,28 @@
 .indecator-wrapper{
   position: absolute;
   z-index: 1;
-  top:10px;
+  bottom:40px;
   margin-left: 50%;
   transform: translateX(-50%);
-  width : 100px;
+  width : 160px;
   height: 10px;
-  background: red;
   display: flex;
+  justify-content: center;
+  align-items: center;
 
+}
+
+.indecator-wrapper .item{
+  display: flex;
+  width:48px;
+  height: 2px;
+  background: #ccc;
+  margin: 0 4px;
+  border-radius: 1px;
+}
+
+.indecator-wrapper .item .inner-color{
+  display: flex;
+  height: 100%;
+  background: white;
 }
