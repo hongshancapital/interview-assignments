@@ -1,6 +1,5 @@
 import React from "react";
 import { render } from "@testing-library/react";
-
 import Carousel from ".";
 import pic1 from "../../assets/pic1.jpeg";
 import pic2 from "../../assets/pic2.jpeg";
