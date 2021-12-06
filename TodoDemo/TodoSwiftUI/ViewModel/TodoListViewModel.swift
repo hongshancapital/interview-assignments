@@ -10,6 +10,7 @@ import Foundation
 
 class TodoListViewModel: ObservableObject {
     @Published var groups : [TodoListGroup] = []
+    @Published var editingItem: TodoItem = TodoItem(content: "", compeleted: false)
     
     init() {
         getGoups()
@@ -57,6 +58,11 @@ class TodoListViewModel: ObservableObject {
         }
         groups[indexG].todos.removeAll(where: { $0.id == id })
     }
+    
+    func editing(item: TodoItem) {
+        self.editingItem = item
+    }
+    
 }
 
 extension TodoListViewModel {

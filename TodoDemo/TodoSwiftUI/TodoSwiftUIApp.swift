@@ -25,7 +25,7 @@ UI原型 1：1 (需要花点时间研究下ui层面的api）
 Search
  
 已知bug：
-长按进入编辑页面 对于新增的item会有问题。 NavigationLink 的这种用法还不太适应。
+长按进入编辑页面 对于新增的item会有问题。 NavigationLink 的这种用法还不太适应。 (fixed)
  
 ps:
  之前没接触过swiftUI，12月3号拿到的需求，研究了下，12月5号边看边写大概花了5个小时。
@@ -36,12 +36,12 @@ ps:
 struct TodoSwiftUIApp: App {
     
     @StateObject var listViewModel: TodoListViewModel = TodoListViewModel()
-    
-    init() {
-        UITableView.appearance().backgroundColor = .clear
-        UITableView.appearance().separatorStyle = .none
-        UITableViewCell.appearance().selectionStyle = .none
-    }
+//    
+//    init() {
+//        UITableView.appearance().backgroundColor = .clear
+//        UITableView.appearance().separatorStyle = .none
+//        UITableViewCell.appearance().selectionStyle = .none
+//    }
     
     var body: some Scene {
         WindowGroup {

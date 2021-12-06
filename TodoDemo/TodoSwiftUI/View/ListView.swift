@@ -17,7 +17,7 @@ struct ListView: View {
                  TodoGroupView(todoList: $0)
             }
         }
-        .listRowBackground(Color.gray)
+        .listStyle(.plain)
         .navigationTitle("List")
         .navigationBarItems(
             trailing: NavigationLink("add", destination: AddItemView())

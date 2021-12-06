@@ -16,28 +16,34 @@ struct TodoGroupView: View {
     var todoList: TodoListGroup
     
     var body: some View {
-        Text(todoList.groupName)
-            .font(.system(size: 14, weight: .bold))
-            .foregroundColor(.black)
-        Group {
+        Section(header: Text(todoList.groupName)
+                    .textCase(nil)
+                    .foregroundColor(.black)
+                    .font(.system(size: 14, weight: .bold))
+        ) {
             ForEach(todoList.todos) { item in
-                NavigationLink(
-                    destination: EditItemView(item: jumpItem, group: todoList),
-                    isActive: $jumpleAble,
-                    label: {
-                        TodoListItemView(todoItem: item)
-                            .onTapGesture {
-                                withAnimation(.linear) {
-                                    listViewModel.updateItemCompletion(item: item, in: todoList)
-                                }
+                    NavigationLink(
+                        destination: EditItemView(group: todoList),
+                        isActive: $jumpleAble) {
+                            VStack (spacing: 1) {
+                                TodoListItemView(todoItem: item)
                             }
-                            .onLongPressGesture {
-                                jumpItem = item
-                                jumpleAble = true
-                            }
-                    })
+                    }
+                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: -20))
+                    .frame(height: 50)
+                    .background(.gray.opacity(0.1))
+                    .cornerRadius(10)
+                    .listRowSeparator(.hidden)
+                    .onTapGesture {
+                        withAnimation(.linear) {
+                            listViewModel.updateItemCompletion(item: item, in: todoList)
+                        }
+                    }
+                    .onLongPressGesture {
+                        listViewModel.editing(item: item)
+                        jumpleAble = true
+                    }
             }
-            .padding(8)
         }
         .onAppear {
             jumpleAble = false

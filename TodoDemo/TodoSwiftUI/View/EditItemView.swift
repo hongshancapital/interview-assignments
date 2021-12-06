@@ -12,7 +12,6 @@ struct EditItemView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var listViewModel: TodoListViewModel
     @State private var content = ""
-    let item: TodoItem
     let group: TodoListGroup
     
     var body: some View {
@@ -38,17 +37,17 @@ struct EditItemView: View {
             }.padding(14)
             
         }.onAppear(perform: {
-            content = item.content
+            content = listViewModel.editingItem.content
         })
         .navigationTitle("Edit an todo Item")
     }
     
     private func saveAction() {
         if content.trimmingCharacters(in: .whitespaces).count == 0 {
-            listViewModel.remoteItem(id: item.id, in: group)
+            listViewModel.remoteItem(id: listViewModel.editingItem.id, in: group)
         }
         else {
-            listViewModel.updateItemContent(item: item, content: content, in: group)
+            listViewModel.updateItemContent(item: listViewModel.editingItem, content: content, in: group)
         }
         presentationMode.wrappedValue.dismiss()
     }
@@ -57,6 +56,6 @@ struct EditItemView: View {
 
 struct EditItemView_Previews: PreviewProvider {
     static var previews: some View {
-        EditItemView(item: TodoItem(content: "abc", compeleted: false), group: TodoListGroup(todos: [], groupName: "test group"))
+        EditItemView(group: TodoListGroup(todos: [], groupName: "test group"))
     }
 }
