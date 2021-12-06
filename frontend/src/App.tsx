@@ -1,18 +1,22 @@
 import React from "react";
 import "./App.css";
 import Carousel from "./components/Carousel";
-import { getBannerList } from "./getBannerList";
+import { getSlideDataList } from "./getSlideDataList";
+import { getSlideFunctionByData } from "./getSlideFunctionByData";
+
+const slideDataList=getSlideDataList()
+const functionList=slideDataList.map(slide => getSlideFunctionByData(slide))
 
 function App() {
   return (
     <div className="App">
       <div
         className="wrapper"
-        style={{ height: "900px", width: "100%", display: "flex" }}
+        style={{ height: "100vh", width: "100vw", display: "flex" }}
       >
-        <Carousel itemList={getBannerList()}></Carousel>
+        <Carousel itemList={functionList}></Carousel>
       </div>
-      <a href="#test"> learn react</a>
+      <a href="#test" className="link"> learn react</a>
     </div>
   );
 }

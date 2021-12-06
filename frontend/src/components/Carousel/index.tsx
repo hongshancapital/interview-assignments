@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactNode } from "react";
 import "./index.css";
 import Indicator from "./components/Indicator";
 
@@ -7,9 +7,10 @@ const defaultProps = {
   delay: 3000,
   initialIndex: 0,
 };
+type DefaultProps = typeof defaultProps;
 export type CarouselProps = {
-  itemList: Array<string>;
-} & typeof defaultProps;
+  itemList: (() => ReactNode)[];
+} & DefaultProps;
 
 const Carousel = (props: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(props.initialIndex);
@@ -29,15 +30,11 @@ const Carousel = (props: CarouselProps) => {
       <div
         className="carousel-content"
         style={{
-          transform: `translateX(${currentIndex * 100 * -1}%)`,
+          transform: `translateX(${(currentIndex/itemLength) * 100 * -1}%)`,
           width: `${100 * itemLength}%`,
         }}
       >
-        {list.map((item) => (
-          <div key={item} className="img-wrapper">
-            <img className="image" alt="img" src={item} />
-          </div>
-        ))}
+        {list.map((item) => item())}
       </div>
       {props.showIndicator ? (
         <Indicator

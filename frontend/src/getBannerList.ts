@@ -3,5 +3,5 @@ import pic2 from "./assets/pic2.jpeg";
 import pic3 from "./assets/pic3.jpeg";
 
 export const getBannerList = () => {
-  return [pic1, pic2, pic3];
+  return [pic1, pic2, pic3]
 };
