@@ -24,7 +24,6 @@ const Slide = (props: { data: SlideProps }) => {
           {content}
         </p>
       ))}
-     
     </div>
   );
 };
