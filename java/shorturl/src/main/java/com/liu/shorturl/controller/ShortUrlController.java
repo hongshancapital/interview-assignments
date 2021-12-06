@@ -34,12 +34,9 @@ public class ShortUrlController {
      * @param surl 短域名
      * @return 对应的长域名
      */
-    @GetMapping(value = "/get")
+    @GetMapping(value = "/getLongUrlByShorUrl")
     @ApiOperation(value="根据短域名获取对应的长域名", tags = "")
-    public RestResponse<String> getUrlByShorUrl(@ApiParam(value = "短域名" ) @RequestParam String surl) {
-        if(! validateUrl(surl)){
-            throw new BusinessException("域名不合法");
-        }
+    public RestResponse<String> getLongUrlByShorUrl(@ApiParam(value = "短域名" ) @RequestParam String surl) {
         String urlByShortUrl = shortUrlServicce.getUrlByShortUrl(surl);
         return RestResponse.success(urlByShortUrl);
     }
@@ -49,9 +46,9 @@ public class ShortUrlController {
      * @param url 长域名
      * @return 对应的短域名
      */
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/addShortUrlByLongUrl")
     @ApiOperation(value="长域名转换为短域名", tags = "")
-    public RestResponse<String> addShortUrlByUrl(@ApiParam(value = "长域名") @RequestParam String url) {
+    public RestResponse<String> addShortUrlByLongUrl(@ApiParam(value = "长域名") @RequestParam String url) {
         if(! validateUrl(url)){
             throw new BusinessException("域名不合法");
         }

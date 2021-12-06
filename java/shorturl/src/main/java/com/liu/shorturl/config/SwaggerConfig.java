@@ -47,15 +47,12 @@ public class SwaggerConfig {
      * @return
      */
     private ApiInfo apiInfo() {
+        Contact contact = new Contact("域名转换接口文档", "", "hgvghh@qq.com");
         return new ApiInfoBuilder()
-                // 页面标题
-                .title("短域名服务RESTful API接口文档")
-                // 创建人信息
-                .contact(new Contact("xx", "xx", "xx"))
-                // 版本号
+                .title("长短域名转换")
+                .description("1. 给定长域名转换为短域名；2. 给定短域名返回真实长域名")
+                .contact(contact)
                 .version("1.0")
-                // 描述
-                .description("API 描述")
                 .build();
     }
 }

@@ -27,10 +27,10 @@ public class GuavaCacheUtils {
     static {
         build = CacheBuilder.newBuilder()
                 .maximumSize(1000)
-                //定时回收：没有写访问12分钟后失效清理
+                //定时回收：没有写访问小时分钟后失效清理
                 .expireAfterWrite(12, TimeUnit.HOURS)
                 //定时刷新缓存
-                .refreshAfterWrite(3, TimeUnit.SECONDS)
+                .refreshAfterWrite(30, TimeUnit.SECONDS)
                 .build(new CacheLoader<String, Object>() {
                     //get为空时候的处理
                     @Override
@@ -49,7 +49,7 @@ public class GuavaCacheUtils {
         try {
             return build.get(key);
         } catch (Exception e) {
-            logger.info("guava cache操作失败，key : {}, 失败信息：{}", key, e.getMessage());
+            logger.error("load cache from guava cache failed, key: {}, error message: {}", key, e.getMessage());
         }
         return null;
     }

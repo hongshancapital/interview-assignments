@@ -21,19 +21,13 @@ import java.util.Objects;
 @Service
 public class ShortUrlServiceImpl implements ShortUrlServicce {
 
-    private static final String PREFIX_URL = "http://www.sds.com/";
-
     @Override
     public String getUrlByShortUrl(String shortUrl) {
         if(StringUtils.isEmpty(shortUrl)) {
             return null;
         }
-        //获取短域名链接最后的字符
-        String suffixUrl = shortUrl.split("/")[shortUrl.split("/").length - 1];
-        if(StringUtils.isEmpty(suffixUrl)) {
-            return null;
-        }
-        Object longUrl = GuavaCacheUtils.get(suffixUrl);
+
+        Object longUrl = GuavaCacheUtils.get(shortUrl);
         if(Objects.isNull(longUrl)) {
             return null;
         }
@@ -48,7 +42,7 @@ public class ShortUrlServiceImpl implements ShortUrlServicce {
 
         //判断缓存中是否已经存在该字符对应的长链接,如果有，直接返回
         if(GuavaCacheUtils.containsValue(url)) {
-            return PREFIX_URL + GuavaCacheUtils.getKeyByValue(url);
+            return GuavaCacheUtils.getKeyByValue(url).toString();
         }
 
         //生成短链接后缀唯一ID
@@ -60,6 +54,6 @@ public class ShortUrlServiceImpl implements ShortUrlServicce {
 
         //缓存中存储对应的ID62位字符与长链接的对应关系
         GuavaCacheUtils.put(idStr, url);
-        return PREFIX_URL + idStr;
+        return idStr;
     }
 }
