@@ -47,4 +47,17 @@ public class ShortUrlControllerTest {
                 .andReturn();
     }
 
+    @Test
+    public void addShortUrlByLongUrlException() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/shorturl/addShortUrlByLongUrl?url=eirierere"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+        mockMvc.perform(MockMvcRequestBuilders.post("/shorturl/addShortUrlByLongUrl?url="))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+    }
+
+
 }

@@ -105,11 +105,17 @@ http://www.sdsd.com/1JSMAdXJWik
 启动后访问：http://localhost:8080/swagger-ui.html
 可以看到和测试swagger生成的接口文档。
 
+jacoco生成代码测试率报告命令：
+
+```maven
+mvn clean test -Dmaven.test.failure.ignore=true
+```
+
 jacoco代码覆盖率报告：
 
-![image-20211116144131724](img/image-20211116144131724.png)
+![image-20211207111529741](img\image-20211207111529741.png)
 
-代码整体覆盖率：97%，分支覆盖率：86%。
+代码整体覆盖率：100%，分支覆盖率：87%。
 
 
 

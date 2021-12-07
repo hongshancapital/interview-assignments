@@ -7,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Description： 雪花算法生成唯一ID测试
  * Author: liujiao
@@ -24,6 +22,26 @@ public class SnowFlakeIdWorkerTest {
     public void testNextId() {
         IdWorker worker = new SnowFlakeIdWorker(1, 1, 1);
         Assert.assertNotNull(worker.nextId());
+
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextIdWorkerIdException() {
+        IdWorker worker = new SnowFlakeIdWorker(-1, 1, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextIdWorkerIdMaxException() {
+        IdWorker worker = new SnowFlakeIdWorker(50, 1, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextIdDateCenterIdException() {
+        IdWorker worker = new SnowFlakeIdWorker(1, -1, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextIdDateCenterIdMaxException() {
+        IdWorker worker = new SnowFlakeIdWorker(1, 1000, 1);
+    }
 }

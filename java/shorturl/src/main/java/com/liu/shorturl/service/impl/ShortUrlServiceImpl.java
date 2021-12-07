@@ -36,6 +36,7 @@ public class ShortUrlServiceImpl implements ShortUrlServicce {
 
     @Override
     public String addShortUrlByUrl(String url) {
+
         if(StringUtils.isEmpty(url)) {
             return null;
         }

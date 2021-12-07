@@ -22,6 +22,8 @@ public class NumericConvertUtilsTest {
     public void test() {
         long number = 12189343;
         Assert.assertNotNull(NumericConvertUtils.toOtherNumberSystem(number, 62));
+        number = -10;
+        Assert.assertNotNull(NumericConvertUtils.toOtherNumberSystem(number, 62));
     }
 
 }

@@ -5,10 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Description： guava cache jvm缓存工具类测试
@@ -30,6 +27,9 @@ public class GuavaCacheUtilsTest {
         String res = (String) GuavaCacheUtils.get(key);
 
         Assert.assertEquals(res, value);
+
+        Object val2 = GuavaCacheUtils.get("test2");
+        Assert.assertNull(val2);
     }
 
 }

@@ -7,10 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Description： TODO
@@ -36,6 +33,10 @@ public class ShortUrlServiceImplTest {
         String shortUrlRes = shortUrlServicce.addShortUrlByUrl(longUrl);
 
         Assert.assertNotNull(shortUrlRes);
+        String repeatShortUrlRes = shortUrlServicce.addShortUrlByUrl(longUrl);
+
+        Assert.assertEquals(shortUrlRes, repeatShortUrlRes);
+
 
         //根据短链接返回对应的长链接测试
         Assert.assertNull(shortUrlServicce.getUrlByShortUrl(""));

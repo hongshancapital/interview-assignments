@@ -24,12 +24,11 @@ public class BaseExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public RestResponse handlerException(Exception e) {
-        if(e instanceof BusinessException) {
+        /*if(e instanceof BusinessException) {
             //业务异常
             return RestResponse.failure(ResultCodeEnum.SERVER_ERROR);
-        }
+        }*/
         // ....可以增加其他更多异常判断
-
         //系统异常
         return RestResponse.failure(ResultCodeEnum.SERVER_ERROR);
     }
