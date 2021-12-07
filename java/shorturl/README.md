@@ -115,7 +115,7 @@ mvn clean test -Dmaven.test.failure.ignore=true
 
 jacoco代码覆盖率报告：
 
-![image-20211207111529741](img\image-20211207111529741.png)
+![image-20211207111529741](img/image-20211207111529741.png)
 
 代码整体覆盖率：100%，分支覆盖率：87%。
 
