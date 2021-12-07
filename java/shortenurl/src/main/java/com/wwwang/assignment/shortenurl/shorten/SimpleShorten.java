@@ -1,6 +1,5 @@
 package com.wwwang.assignment.shortenurl.shorten;
 
-import com.wwwang.assignment.shortenurl.entity.ShortUrl;
 import com.wwwang.assignment.shortenurl.shorten.scissor.IScissor;
 
 /**
@@ -13,7 +12,7 @@ public class SimpleShorten extends AbstractShorten{
     }
 
     @Override
-    public ShortUrl shorten(String info){
+    public String shorten(String info){
         return scissor.cut(info);
     }
 

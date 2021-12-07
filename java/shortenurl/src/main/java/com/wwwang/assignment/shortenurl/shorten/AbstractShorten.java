@@ -1,6 +1,5 @@
 package com.wwwang.assignment.shortenurl.shorten;
 
-import com.wwwang.assignment.shortenurl.entity.ShortUrl;
 import com.wwwang.assignment.shortenurl.shorten.scissor.IScissor;
 
 /**
@@ -19,6 +18,6 @@ public abstract class AbstractShorten {
      * @param info
      * @return
      */
-    public abstract ShortUrl shorten(String info);
+    public abstract String shorten(String info);
 
 }

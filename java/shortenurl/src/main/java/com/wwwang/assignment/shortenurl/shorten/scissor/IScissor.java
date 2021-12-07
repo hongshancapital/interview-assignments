@@ -1,7 +1,5 @@
 package com.wwwang.assignment.shortenurl.shorten.scissor;
 
-import com.wwwang.assignment.shortenurl.entity.ShortUrl;
-
 /**
  * 裁剪长字符串的剪刀
  */
@@ -12,6 +10,6 @@ public interface IScissor {
      * @param info
      * @return
      */
-    ShortUrl cut(String info);
+    String cut(String info);
 
 }

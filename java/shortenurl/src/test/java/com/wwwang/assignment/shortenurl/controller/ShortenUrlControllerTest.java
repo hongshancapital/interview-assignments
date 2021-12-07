@@ -12,10 +12,44 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+import java.util.concurrent.*;
+import java.util.stream.IntStream;
+
 public class ShortenUrlControllerTest extends ShortenUrlApplicationTests {
 
     @Autowired
     private ShortenUrlController controller;
+    @Test
+    void testLoop() {
+        CompletionService<String> completionService = new ExecutorCompletionService(Executors.newFixedThreadPool(8));
+        int times = 100000;
+        IntStream.range(0,times).forEach(a->{
+            completionService.submit(()->{
+                String longUrl = "http://"+UUID.randomUUID().toString().replace("-","")+".baidu.com";
+                GetShortUrlReq shortReq = new GetShortUrlReq();
+                shortReq.setUrl(longUrl);
+                String shortUrl = controller.getShortUrl(shortReq).getData().getShortUrl();
+                System.out.println(Thread.currentThread().getName()+"--生成的短链接是："+shortUrl);
+                GetLongUrlReq longReq = new GetLongUrlReq();
+                longReq.setShortUrl(shortUrl);
+                String finalUrl = controller.getLongUrl(longReq).getData().getUrl();
+                Assert.assertEquals(longUrl, finalUrl);
+                return shortUrl+"--"+longUrl;
+            });
+        });
+
+        for(int i=1;i<=times;i++) {
+            try {
+                System.out.println(completionService.take().get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @Test
     void test() {
@@ -23,11 +57,24 @@ public class ShortenUrlControllerTest extends ShortenUrlApplicationTests {
         GetShortUrlReq shortReq = new GetShortUrlReq();
         shortReq.setUrl(longUrl);
         String shortUrl = controller.getShortUrl(shortReq).getData().getShortUrl();
+
         GetLongUrlReq longReq = new GetLongUrlReq();
         longReq.setShortUrl(shortUrl);
         String finalUrl = controller.getLongUrl(longReq).getData().getUrl();
         Assert.assertEquals(longUrl,finalUrl);
+
+        String longUrl2 = "http://baidu2.com";
+        GetShortUrlReq shortReq2 = new GetShortUrlReq();
+        shortReq2.setUrl(longUrl2);
+        String shortUrl2 = controller.getShortUrl(shortReq2).getData().getShortUrl();
+
+        GetLongUrlReq longReq2 = new GetLongUrlReq();
+        longReq2.setShortUrl(shortUrl2);
+        String finalUrl2 = controller.getLongUrl(longReq2).getData().getUrl();
+        Assert.assertEquals(longUrl2,finalUrl2);
     }
+
+
 
     @Test
     void testError() {

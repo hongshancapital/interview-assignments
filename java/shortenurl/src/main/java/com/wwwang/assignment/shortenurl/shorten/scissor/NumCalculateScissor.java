@@ -1,7 +1,6 @@
 package com.wwwang.assignment.shortenurl.shorten.scissor;
 
 import com.wwwang.assignment.shortenurl.exception.BizException;
-import com.wwwang.assignment.shortenurl.entity.ShortUrl;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -24,14 +23,16 @@ public class NumCalculateScissor implements IScissor {
      * 62进制中的3个字符表示的最小值减去1，因为生成的短字符串最小3位
      */
     protected AtomicLong num = new AtomicLong(3843);
+    //起始8位
+    //protected AtomicLong num = new AtomicLong(3521614606207L);
 
     @Override
-    public ShortUrl cut(String info) {
+    public String cut(String info) {
         long generateNum = num.incrementAndGet();
         if(generateNum > MAX_NUM || generateNum>=Long.MAX_VALUE){
             throw new BizException("本服务已经无法提供更多短链接，请联系服务提供方",null);
         }
-        return new ShortUrl(generateNum,toOtherBaseString(generateNum,DIGITS.length));
+        return toOtherBaseString(generateNum,DIGITS.length);
     }
 
     /**
