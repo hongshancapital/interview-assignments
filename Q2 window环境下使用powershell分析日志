@@ -1,0 +1,66 @@
+
+# 作者：赵晓波 <qq：2829376494> <email：2829376494@qq.com>
+# 日期：2021/12/07
+# 分析系统日志得到关键信息，用 Json 的格式 POST 上传至服务器 ( https://foo.com/bar )，key 的名称在括号里
+#设备名称: (deviceName)
+#错误的进程号码: (processId)
+#进程/服务名称: (processName)
+#错误的原因（描述）(description)
+#发生的时间（小时级），例如 0100-0200，0300-0400, (timeWindow)
+#在小时级别内发生的次数 (numberOfOccurrence)
+#
+# 适用：Windows PowerShell 
+# 语言：中文
+#
+#------------------------------------------------------------
+
+#读取日志文件
+$log_data_all=Get-Content -Path D:\interview_data_set 
+#清洗数据
+$log_data=$log_data_all -match 'error' -replace '\):','@' -replace '\]:','@'-replace '\(' -replace '\[','.' -replace '\]' -replace 'com.apple.xpc.launchd.1 '
+#定义变量后边使用
+$qianzhui='May 13 '
+$i
+#创建并清空D:\json.log文件，以备写入json格式数据使用
+echo ""|Out-File D:\json.log
+#循环读取清洗后的数据每一行，并提取所需参数
+foreach($dline in $log_data){
+    $deviceName=$dline.split('@')[0].split(' ')[3]
+    $temptmp=$dline.split('@')[1]
+    $processId=$dline.split('@')[0].split('.')[-1]
+    $processName=$dline.split('@')[0].split(' ')[4] -replace ('.'+$processId )
+    $description=$dline.split('@')[1]
+    $Atime=$dline.split(':')[0].split(' ')[2]
+    $numberOfOccurrence=($log_data |Select-String $processName | Select-String $qianzhui+$Atime+':').count
+    
+   
+    $AtimeE='{0:d4}' -f ([int]$Atime+[int]1)
+    $AtimeF='{0:d4}' -f [int]$Atime
+    $timeWindow=$AtimeF+'-'+$AtimeE
+
+   $json=@"
+   {
+   "deviceName":"$deviceName",
+   "processId":"$processId",
+   "processName":"$processName",
+   "description":"$description",
+   "timeWindow":"$timeWindow",
+   "numberOfOccurrence":"$numberOfOccurrence",
+   
+   }
+ 
+"@
+    #Post方式提交到服务器
+    $url="https://foo.com/bar"
+    #$Result=invoke-restmethod -Method Post -Uri $url -body $json
+    #$Result
+
+   #输出运行显示内容
+    $json
+    #输出json格式到本地文件D:\json.log
+    $json |Out-File -Append D:\json.log 
+  
+}
+#运行结束提示
+Read-Host "程序运行结束请按Enter键退出..." 
+exit 
