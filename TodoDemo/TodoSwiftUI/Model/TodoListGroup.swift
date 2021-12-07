@@ -25,11 +25,3 @@ struct TodoListGroup: Identifiable {
 }
 
 
-
-//extension TodoListGroup: Hashable {
-//    static func == (lhs: TodoListGroup, rhs: TodoListGroup) -> Bool {
-//        return lhs.groupId == rhs.groupId
-//    }
-//}
-
-

@@ -27,6 +27,7 @@ class TodoListViewModel: ObservableObject {
         }
         let newItem = TodoItem(content: content, compeleted: false)
         groups[index].todos.insert(newItem, at: 0)
+        sortGoups(at: index)
     }
     
     func updateItemCompletion(item: TodoItem, in group: TodoListGroup) {
@@ -37,8 +38,7 @@ class TodoListViewModel: ObservableObject {
             return
         }
         groups[indexG].todos[indexI] = item.updateCompletion()
-        let group = groups[indexG]
-        groups[indexG] = group.sortTodos()
+        sortGoups(at: indexG)
 
     }
     
@@ -61,6 +61,10 @@ class TodoListViewModel: ObservableObject {
     
     func editing(item: TodoItem) {
         self.editingItem = item
+    }
+    
+    func sortGoups(at index: Int) {
+        groups[index] = groups[index].sortTodos()
     }
     
 }
