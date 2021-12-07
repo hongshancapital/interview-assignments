@@ -20,7 +20,7 @@ $log_data_all=Get-Content -Path D:\interview_data_set
 $log_data=$log_data_all -match 'error' -replace '\):','@' -replace '\]:','@'-replace '\(' -replace '\[','.' -replace '\]' -replace 'com.apple.xpc.launchd.1 '
 #定义变量后边使用
 $qianzhui='May 13 '
-$i
+
 #创建并清空D:\json.log文件，以备写入json格式数据使用
 echo ""|Out-File D:\json.log
 #循环读取清洗后的数据每一行，并提取所需参数
