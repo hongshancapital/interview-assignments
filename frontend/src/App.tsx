@@ -1,5 +1,6 @@
 import React from 'react';
 import Carousel from './components/Carousel';
+// // 解开下一行注释可查看默认效果
 // import { ICarouselItem } from './components/Carousel';
 import './App.css';
 
@@ -62,9 +63,7 @@ function App() {
     },
   ];
 
-  /**
-   * 组件默认行为数据，解开注释可查看默认效果
-   */
+  // //解开下方注释可查看默认效果
   // const defaultItems: ICarouselItem[] = [
   //   { url: iphonePng, title: 'xPhone', style: { color: 'white' } },
   //   { url: tabletPng, title: 'Tablet' },
@@ -77,6 +76,7 @@ function App() {
 
   return (
     <div className='App'>
+      {/* 解开下方注释可查看组件默认效果 */}
       {/* <Carousel items={defaultItems} auto onClick={onClickItem}></Carousel> */}
       <Carousel auto>
         {items.map((item) => (

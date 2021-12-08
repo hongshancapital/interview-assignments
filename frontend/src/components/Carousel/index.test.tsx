@@ -31,9 +31,7 @@ describe('Test Carousel', () => {
     const itemsPanel = container.querySelectorAll('.carousel_panel__items');
     expect(itemsPanel.length).toBe(1);
     const [panel] = itemsPanel;
-    // expect(panel.style.transform).toBe(
-    //   `translateX(-${(currIndex * 100) / items.length}%)`
-    // );
+    expect(panel.style.transform).toBe('translateX(-0%)');
     expect(panel.style.width).toBe(`${items.length}00%`);
 
     const indicators = container.querySelectorAll('.carousel_panel__indicator');
