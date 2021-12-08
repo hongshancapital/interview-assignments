@@ -75,37 +75,39 @@ const data = [
 
 function App() {
     return (
-        <Box maxWidth="l">
-            <Carousel>
-                {data.map(
-                    (
-                        { textParentDiv, textComponents, imageComponent },
-                        carouselItemIndex
-                    ) => (
-                        <CarouselItem key={`${carouselItemIndex}`}>
-                            <div className={textParentDiv.className}>
-                                {textComponents.map(
-                                    (textComponent, textIndex) => (
-                                        <Text
-                                            variant={
-                                                textComponent.variant as TextVariant
-                                            }
-                                            text={textComponent.text}
-                                            key={`${carouselItemIndex}-${textIndex}`}
-                                        />
-                                    )
-                                )}
-                            </div>
-                            <img
-                                src={imageComponent.src}
-                                className={imageComponent.className}
-                                alt={imageComponent.alt}
-                            />
-                        </CarouselItem>
-                    )
-                )}
-            </Carousel>
-        </Box>
+        <div className="App">
+            <Box maxWidth="l">
+                <Carousel>
+                    {data.map(
+                        (
+                            { textParentDiv, textComponents, imageComponent },
+                            carouselItemIndex
+                        ) => (
+                            <CarouselItem key={`${carouselItemIndex}`}>
+                                <div className={textParentDiv.className}>
+                                    {textComponents.map(
+                                        (textComponent, textIndex) => (
+                                            <Text
+                                                variant={
+                                                    textComponent.variant as TextVariant
+                                                }
+                                                text={textComponent.text}
+                                                key={`${carouselItemIndex}-${textIndex}`}
+                                            />
+                                        )
+                                    )}
+                                </div>
+                                <img
+                                    src={imageComponent.src}
+                                    className={imageComponent.className}
+                                    alt={imageComponent.alt}
+                                />
+                            </CarouselItem>
+                        )
+                    )}
+                </Carousel>
+            </Box>
+        </div>
     );
 }
 
