@@ -1,0 +1,31 @@
+.carousel_indicator {
+  position: relative;
+  height: 3px;
+  width: 50px;
+  margin: 0 3px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #a9a9a9;
+}
+.carousel_indicator__active {
+  animation-name: indicator-slider;
+  animation-timing-function: linear;
+}
+.carousel_indicator__process {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: #fafafa;
+  border-radius: 2px;
+}
+
+@keyframes indicator-slider {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
