@@ -6,7 +6,7 @@
 
 ## 开放岗位
 
-北京/武汉：
+武汉：
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
