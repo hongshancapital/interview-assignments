@@ -4,6 +4,7 @@ import "./App.css";
 import { airpods, iphone, tablet } from "../../assets";
 import Carousel, { CarouselItem } from "../Carousel";
 import Text, { TextVariant } from "../Text";
+import Box from "../Box";
 
 const data = [
     {
@@ -74,20 +75,26 @@ const data = [
 
 function App() {
     return (
-        <div className="App">
+        <Box maxWidth="l">
             <Carousel>
                 {data.map(
-                    ({ textParentDiv, textComponents, imageComponent }) => (
-                        <CarouselItem>
+                    (
+                        { textParentDiv, textComponents, imageComponent },
+                        carouselItemIndex
+                    ) => (
+                        <CarouselItem key={`${carouselItemIndex}`}>
                             <div className={textParentDiv.className}>
-                                {textComponents.map((textComponent) => (
-                                    <Text
-                                        variant={
-                                            textComponent.variant as TextVariant
-                                        }
-                                        text={textComponent.text}
-                                    />
-                                ))}
+                                {textComponents.map(
+                                    (textComponent, textIndex) => (
+                                        <Text
+                                            variant={
+                                                textComponent.variant as TextVariant
+                                            }
+                                            text={textComponent.text}
+                                            key={`${carouselItemIndex}-${textIndex}`}
+                                        />
+                                    )
+                                )}
                             </div>
                             <img
                                 src={imageComponent.src}
@@ -98,7 +105,7 @@ function App() {
                     )
                 )}
             </Carousel>
-        </div>
+        </Box>
     );
 }
 

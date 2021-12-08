@@ -3,11 +3,16 @@ import React, { FC, useCallback, useState, useEffect } from "react";
 import "./Carousel.css";
 import CarouselIndicator from "./CarouselIndicator";
 
-const ANTIMATION_TIME = 2000;
+const DEFAULT_ANTIMATION_TIME = 2000;
 
-interface CarouselProps {}
+export interface CarouselProps {
+    animationTime?: number;
+}
 
-const Carousel: FC<CarouselProps> = ({ children }) => {
+const Carousel: FC<CarouselProps> = ({
+    children,
+    animationTime = DEFAULT_ANTIMATION_TIME,
+}) => {
     const [activeItem, setActiveItem] = useState<number>(0);
     const childrenNum = React.Children.count(children);
 
@@ -30,30 +35,32 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             switchToNextItem();
-        }, ANTIMATION_TIME);
+        }, animationTime);
 
         return () => {
             if (interval) {
                 clearInterval(interval);
             }
         };
-    }, [switchToNextItem]);
+    }, [switchToNextItem, animationTime]);
 
     return (
         <div className="carousel">
             <div
-                className="carousel__inner"
+                className="carousel__inner "
                 style={{ transform: `translateX(-${activeItem * 100}%)` }}
             >
                 {children}
             </div>
-            <div className="carousel__indicators">
-                {React.Children.map(children, (child, index) => (
-                    <CarouselIndicator
-                        active={activeItem === index}
-                        animationTime={ANTIMATION_TIME}
-                    />
-                ))}
+            <div className="carousel__indicators-wrapper">
+                <div className="carousel__indicators">
+                    {React.Children.map(children, (child, index) => (
+                        <CarouselIndicator
+                            active={activeItem === index}
+                            animationTime={animationTime}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
