@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icbc.gjljfl.mapper.AreaMapper">
+
+  <!--查全部省级-->
+  <select id="queryProvinceList" resultType="map">
+    select  DISTINCT province_code as value,province_name as text  from nxzw_zhsl_employ_area
+  </select>
+  <!--查全部市级-->
+  <select id="queryCityByProvinceCode" resultType="map">
+   select DISTINCT city_code as value,city_name as text from nxzw_zhsl_employ_area where province_code=#{provinceCode}
+  </select>
+  <!--查全部区级-->
+  <select id="queryAreaByCityCode"  resultType="map">
+    select DISTINCT county_code as value,county_name as text from nxzw_zhsl_employ_area where city_code=#{cityCode}
+  </select>
+  <!--查全部街道-->
+  <select id="queryCountyByArea"  resultType="map">
+    select DISTINCT town_code as value,town_name as text from nxzw_zhsl_employ_area where county_code=#{countyCode}
+  </select>
+  <!--查全部社区-->
+  <select id="queryAreaByTownCode"  resultType="map">
+		select DISTINCT area_code as value,area_name as text from nxzw_zhsl_employ_area where town_code =#{townCode}
+  </select>
+
+
+  <update id="addressUpdat">
+    update user_info set address=#{address} where user_id=#{userId}
+
+  </update>
+  <select id="queryUserAddress" resultType="java.lang.String">
+    select address from user_info where user_id =#{userId}
+  </select>
+  <select id="queryRecipientProvinceName" resultType="java.lang.String">
+     select DISTINCT province_name  from nxzw_zhsl_employ_area where province_code =#{recipientProvinceCode}
+  </select>
+  <select id="queryRecipientCityName" resultType="java.lang.String">
+     	select DISTINCT city_name  from nxzw_zhsl_employ_area where city_code = #{recipientCityCode}
+  </select>
+  <select id="queryRecipientRegionName" resultType="java.lang.String">
+     select DISTINCT county_name  from nxzw_zhsl_employ_area where county_code =#{recipientCityCode}
+  </select>
+  <select id="queryRecipientTownName" resultType="java.lang.String">
+     select DISTINCT town_name  from nxzw_zhsl_employ_area where town_code =#{recipientTownCode}
+  </select>
+  <select id="queryRecipientShequName" resultType="java.lang.String">
+    select DISTINCT area_name  from nxzw_zhsl_employ_area where area_code =#{recipientShequCode}
+  </select>
+
+  <select id="selectAreaCodeFullInfo" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT DISTINCT
+	  na.province_name AS provinceName,na.city_name AS cityName,na.county_name AS countyName,na.town_name AS townName,na.area_name AS areaName
+    FROM
+	  nxzw_zhsl_employ_area na
+    WHERE
+      na.area_code = #{areaCode}
+      and na.city_code = #{cityCode}
+      and na.county_code = #{countyCode}
+      and na.town_code = #{townCode}
+      and na.province_code = #{provinceCode}
+  </select>
+
+  <update id="updateUserShequId" >
+    update user_info set community_id=#{shequId} where user_id =#{userId}
+  </update>
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--<properties resource="jdbc.properties"/>-->
+    <context id="testTables" targetRuntime="MyBatis3">
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://127.0.0.1:3306/nxzw_ljfl?useUnicode=true&amp;&amp;characterEncoding=utf-8&amp;&amp;serverTimezone=Asia/Shanghai"
+                userId="root"
+                password="root">
+        </jdbcConnection>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!-- targetProject:生成PO类的位置 -->
+        <javaModelGenerator
+                targetPackage="com.icbc.gjljfl.entity"
+                targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- targetProject:mapper映射文件生成的位置 -->
+        <sqlMapGenerator
+                targetPackage="mapper"
+                targetProject=".\src\main\resources">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <!-- targetPackage：mapper接口生成的位置 ANNOTATEDMAPPER -->
+        <javaClientGenerator
+                type="XMLMAPPER"
+                targetPackage="com.icbc.gjljfl.mapper"
+                targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+        <!-- 指定数据库表 -->
+        <table tableName="user_qr_code" domainObjectName="UserQrCode" enableCountByExample="false"
+               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <!-- <table tableName="city" domainObjectName="City">
+             <property name="useActualColumnNames" value="false"/>
+         </table>
+           <table tableName="area" domainObjectName="Area">
+               <property name="useActualColumnNames" value="false"/>
+           </table>-->
+        <!--<table tableName="detail_type" domainObjectName="DetailType">
+            <property name="useActualColumnNames" value="false"/>
+        </table>&ndash;&gt;-->
+        <!--<table tableName="tb_local_auth" domainObjectName="LocalAuth">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_person_info" domainObjectName="PersonInfo">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_phone_auth" domainObjectName="PhoneAuth">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_product" domainObjectName="Product">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_product_category" domainObjectName="ProductCategory">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+
+
+        <table tableName="tb_product_img" domainObjectName="ProductImg">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+
+        <table tableName="tb_shop" domainObjectName="Shop">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_shop_auth_map" domainObjectName="ShopAuthMap">
+            &lt;!&ndash;-配置使用驼峰式 将数据库的下划线去掉 设置flase代表这么做&ndash;&gt;
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+
+
+        <table tableName="tb_shop_category" domainObjectName="ShopCategory">
+            &lt;!&ndash;-配置使用驼峰式 将数据库的下划线去掉 设置flase代表这么做&ndash;&gt;
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_user_product_map" domainObjectName="UserProductMap">
+            &lt;!&ndash;-配置使用驼峰式 将数据库的下划线去掉 设置flase代表这么做&ndash;&gt;
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_user_shop_map" domainObjectName="UserShopMap">
+            &lt;!&ndash;-配置使用驼峰式 将数据库的下划线去掉 设置flase代表这么做&ndash;&gt;
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_wechat_auth" domainObjectName="WechatAuth">
+            &lt;!&ndash;-配置使用驼峰式 将数据库的下划线去掉 设置flase代表这么做&ndash;&gt;
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="tb_user_award_map" domainObjectName="UserAwardMap">
+            &lt;!&ndash;-配置使用驼峰式 将数据库的下划线去掉 设置flase代表这么做&ndash;&gt;
+            <property name="useActualColumnNames" value="false"/>
+        </table>-->
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) --><!-- 6 -->
+        <!--	<table tableName="sys_user" domainObjectName="SysUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+            <table tableName="sys_dept" domainObjectName="SysDept" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+            <table tableName="sys_acl" domainObjectName="SysAcl" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+            <table tableName="sys_acl_module" domainObjectName="SysAclModule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+            <table tableName="sys_role" domainObjectName="SysRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+            <table tableName="sys_role_acl" domainObjectName="SysRoleAcl" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+            <table tableName="sys_role_user" domainObjectName="SysRoleUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+            <table tableName="sys_log" domainObjectName="SysLog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    -->
+    </context>
+</generatorConfiguration>
