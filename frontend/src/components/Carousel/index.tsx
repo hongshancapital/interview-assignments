@@ -44,22 +44,20 @@ export default function Carousel({
   children,
 }: ICarousel) {
   const [currIndex, setCurrIndex] = useState<number>(0);
-  let timer: NodeJS.Timeout;
   let count = children && children.length > 0 ? children.length : items.length;
 
   useEffect(() => {
     if (!auto) return;
-    timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setCurrIndex((index) => {
         return index === count - 1 ? 0 : index + 1;
       });
     }, interval);
     return () => clearTimeout(timer);
-  }, [currIndex, interval, count]);
+  });
 
   const onClickIndicator = (index: number) => {
     if (index === currIndex) return;
-    clearTimeout(timer);
     setCurrIndex(index);
   };
 
