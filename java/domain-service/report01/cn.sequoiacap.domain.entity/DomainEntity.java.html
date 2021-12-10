@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DomainEntity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">cn.sequoiacap.domain.entity</a> &gt; <span class="el_source">DomainEntity.java</span></div><h1>DomainEntity.java</h1><pre class="source lang-java linenums">package cn.sequoiacap.domain.entity;
+
+/**
+ *  瀵瑰簲鐨勫疄浣撳璞�
+ * @author liuhao
+ * @date 2021/12/10
+ */
+<span class="fc" id="L8">public class DomainEntity {</span>
+
+    /**
+     * 鍞竴鏍囪瘑
+     */
+    private String uuid;
+    /**
+     * 鐭煙鍚�
+     */
+    private String shortDomain;
+    /**
+     * 闀垮煙鍚�
+     */
+    private String longDomain;
+    /**
+     * 璁剧疆涓�涓繃鏈熸椂闂� 杩欎釜鐪嬪叿浣撲笟鍔℃潵瀹氫箟锛屼篃鍙互涓�鐩翠繚鐣欙紝浣嗘槸鍦ㄧ綉涓婄湅鍒颁竴绉嶆柟妗堬紝灏辨槸濡傛灉灏嗙煭杩炴帴璁剧疆涓轰复鏃剁殑锛屼細鏈夊埄浜庢暟鎹殑鏀堕泦
+     * 瀵圭敤鎴疯繘琛岀敾鍍忔垨鏄ぇ鏁版嵁鍒嗘瀽锛屽鏋滄槸鍥哄畾鐨勶紝灏辨病鏈夐偅涔堟柟渚匡紝鍥犱负姣忔閮芥槸鍚屼竴涓煭杩炴帴銆傝繖涓湅鍏蜂綋涓氬姟銆傝繖閲屾垜灏辨病鏈夊疄鐜颁簡
+     *
+     */
+    private long expiredTime;
+
+    public String getUuid() {
+<span class="fc" id="L30">        return uuid;</span>
+    }
+
+    public void setUuid(String uuid) {
+<span class="fc" id="L34">        this.uuid = uuid;</span>
+<span class="fc" id="L35">    }</span>
+
+    public String getShortDomain() {
+<span class="nc" id="L38">        return shortDomain;</span>
+    }
+
+    public void setShortDomain(String shortDomain) {
+<span class="fc" id="L42">        this.shortDomain = shortDomain;</span>
+<span class="fc" id="L43">    }</span>
+
+    public String getLongDomain() {
+<span class="fc" id="L46">        return longDomain;</span>
+    }
+
+    public void setLongDomain(String longDomain) {
+<span class="fc" id="L50">        this.longDomain = longDomain;</span>
+<span class="fc" id="L51">    }</span>
+
+    public long getExpiredTime() {
+<span class="nc" id="L54">        return expiredTime;</span>
+    }
+
+    public void setExpiredTime(long expiredTime) {
+<span class="nc" id="L58">        this.expiredTime = expiredTime;</span>
+<span class="nc" id="L59">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

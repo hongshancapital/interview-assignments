@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DomianDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">cn.sequoiacap.domain.dao</a> &gt; <span class="el_source">DomianDao.java</span></div><h1>DomianDao.java</h1><pre class="source lang-java linenums">package cn.sequoiacap.domain.dao;
+
+import cn.sequoiacap.domain.entity.DomainEntity;
+import org.springframework.stereotype.Repository;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * 鐭煙鍚嶅拰闀垮煙鍚嶅搴斿叧绯诲瓨鍌�
+ * &lt;br&gt;
+ * 杩欓噷鐩墠娌℃湁鑰冭檻浣跨敤鏁版嵁搴擄紝鍙互鏍规嵁淇敼淇敼鏈被涓殑瀹炵幇鍗冲彲
+ *
+ * @author liuhao
+ * @date 2021/12/10
+ */
+@Repository
+<span class="fc" id="L18">public class DomianDao {</span>
+
+    /**
+     * 杩欎釜鏄瓨鍦ㄥ唴瀛樹腑锛屽疄闄呮儏鍐靛彲鑳芥槸redis鎴栨槸鏁版嵁搴擄紝鐢变簬杩欎釜鐨刣emo锛屽湪鏋佺鎯呭喌涓嬩細鏈夊唴瀛樻孩鍑洪棶棰橈紝
+     * 鍒氬紑濮嬫湁鑰冭檻杩囧唴瀛樻孩鍑虹殑闂锛屽湪DomainEntity涓繕鍔犲叆杩囪繃鏈熷瓧娈碉紝鏈潵鎯冲啓鐨勶紝鍚姩涓�涓嚎绋嬶紝鎴栨槸鐢╯pring涓殑瀹氭椂浠诲姟杩涜澶勭悊
+     * 鍦ㄨ瀹氱殑鏃堕棿鍐呭皢杩囨湡鐨勮繘琛屾竻闄ゃ�傜敱浜庤繖绉嶆儏鍐靛湪瀹為檯鐢熶骇鐜涓笉瀛樺湪锛屽洜姝ゅ氨娌℃湁鍐欎簡
+     */
+<span class="fc" id="L25">    private Map&lt;String, DomainEntity&gt; domainStore = new ConcurrentHashMap&lt;&gt;();</span>
+
+
+    /**
+     * 鏍规嵁鐭煙鍚嶈繑鍥炲搴旂殑鍩熷悕瀹炰綋淇℃伅
+     * @param uuid 鐭煙鍚嶄俊鎭敮涓�鏍囪瘑
+     * @return
+     */
+    public DomainEntity getDomainEntityByUuid(String uuid){
+<span class="fc" id="L34">        return domainStore.get(uuid);</span>
+    }
+
+
+    /**
+     * 淇濆瓨涓�涓猟omainentity
+     *
+     * @param domainEntity
+     */
+    public void saveDomainEntity(DomainEntity domainEntity) {
+<span class="fc" id="L44">        domainStore.put(domainEntity.getUuid(), domainEntity);</span>
+<span class="fc" id="L45">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

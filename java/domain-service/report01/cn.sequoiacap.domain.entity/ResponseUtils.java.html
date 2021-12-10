@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResponseUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">cn.sequoiacap.domain.entity</a> &gt; <span class="el_source">ResponseUtils.java</span></div><h1>ResponseUtils.java</h1><pre class="source lang-java linenums">package cn.sequoiacap.domain.entity;
+
+import org.springframework.http.HttpStatus;
+
+/**
+ * 灏佽缁熶竴鍝嶅簲瀵硅薄
+ *
+ * @author liuhao
+ * @date 2021/12/10
+ */
+<span class="nc" id="L11">public class ResponseUtils {</span>
+
+    public static ResponseVO success() {
+<span class="fc" id="L14">        ResponseVO responseVO = new ResponseVO();</span>
+<span class="fc" id="L15">        responseVO.setCode(HttpStatus.OK.value());</span>
+<span class="fc" id="L16">        responseVO.setMessage(&quot;success&quot;);</span>
+<span class="fc" id="L17">        return responseVO;</span>
+    }
+
+    public static ResponseVO success(Object object) {
+<span class="fc" id="L21">        ResponseVO responseVO = success();</span>
+<span class="fc" id="L22">        responseVO.setData(object);</span>
+<span class="fc" id="L23">        return responseVO;</span>
+    }
+
+
+    public static ResponseVO fail(String message) {
+<span class="fc" id="L28">        ResponseVO responseVO = new ResponseVO();</span>
+<span class="fc" id="L29">        responseVO.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());</span>
+<span class="fc" id="L30">        responseVO.setMessage(message);</span>
+<span class="fc" id="L31">        return responseVO;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
