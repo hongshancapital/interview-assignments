@@ -5,7 +5,7 @@
 1.短域名:由[0-9|a-z|A-Z]中的字符组成的不超过8位的字符串,总共有63^8-1中可能,可由long型整数表示,因此可通过递增的方式生成短域名。
 2.长短域名映射关系存储:长域名用双向字符树存储,短域名用多个数组分段存储,长短域名通过指针关联.如下图:
 ![image info](doc/idea.png)
-
+上图表示：www.baidu-->cdd; www.bai.com-->0; www.baidu.com-->cdf...
 ## 根据短域名查找长域名
 
 url: POST /url_mapping/long2short 
@@ -17,9 +17,13 @@ url: POST /url_mapping/long2short
 url: GET /url_mapping/short2long/{shortUrl}
 
 流程：
+
 1.从字符树中查找，若已存在，则直接返回对应的短域名；
+
 2.若不存在，则将该长域名插入到字符树中，并生成下一个短域名id（long型整数）
+
 3.将短域名数组的第id个元素指向长域名在字符树中的最后一个节点。
+
 4.将long型的短域名id转换成63进制的字符串当短域名返回。
 
 
