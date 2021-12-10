@@ -12,7 +12,7 @@ url: POST /url_mapping/long2short
 
 流程：根据短域名算出对应的long型整数，据此计算出短域名存储的数组下标，根据数组下标查找对应的长域名。
 
-## 长域名到短域名存储
+## 根据长域名获取短域名
 
 url: GET /url_mapping/short2long/{shortUrl}
 
