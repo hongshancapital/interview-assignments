@@ -1,0 +1,89 @@
+// css类名前辍
+$prefix: 'cj';
+
+.#{$prefix} {
+  &-carousel {
+    * {
+      box-sizing: border-box;
+    }
+    &-container {
+      position: relative;
+      overflow: hidden;
+    }
+    &-transition {
+      position: relative;
+      width: 100%;
+      height: inherit;
+      white-space: nowrap;
+    }
+    &-item {
+      display: inline-flex;
+      width: 100vw;
+      height: inherit;
+      align-items: center;
+      justify-content: center;
+    }
+    &-indicator {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      margin-bottom: 40px;
+      width: fit-content;
+      height: fit-content;
+
+      &-item {
+        cursor: pointer;
+        width: 60px;
+        height: 4px;
+        background-color: #ccc;
+        display: inline-block;
+        margin: 0px 2px;
+        overflow: hidden;
+
+        & > i {
+          background-color: white;
+          display: block;
+          width: 0%;
+          height: 100%;
+        }
+        &__active {
+          & > i {
+            transition-property: width;
+            transition-timing-function: linear;
+            width: 100%;
+          }
+        }
+      }
+    }
+    &-navi {
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background-color: rgba(189, 177, 9, 0.616);
+
+      width: fit-content;
+      height: fit-content;
+      /* 通过百分比扩展导航按钮响应区域 */
+      /* width: 50%;  */
+      /* height: 100%; */
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      &__prev {
+        margin-left: 0;
+      }
+      &__next {
+        margin-right: 0;
+      }
+    }
+  }
+}
