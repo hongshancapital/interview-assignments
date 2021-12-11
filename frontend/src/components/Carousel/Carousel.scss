@@ -1,0 +1,123 @@
+.carousel-wrap {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+
+  .carousel-list {
+    display: flex;
+    height: 100%;
+    transition: all 0.5s ease;
+    transform: translateX(0%);
+
+    .carousel-item {
+      transition: transform 0.5s ease;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+      min-width: 100%;
+      position: relative;
+
+      &__title {
+        margin-top: 10%;
+        font-size: 38px;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      &__content {
+        font-weight: 400;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .carousel-item__title + .carousel-item__content {
+        margin-top: 12px;
+      }
+    }
+
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      display: none;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: none;
+    }
+  }
+
+  .carousel-indicator {
+    position: absolute;
+    bottom: 24px;
+    display: flex;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .carousel-indicator__item {
+      width: 36px;
+      height: 4px;
+      background-color: lightgrey;
+      cursor: pointer;
+
+      &.active {
+        .carousel-indicator__timer {
+          background-color: white;
+          width: 0;
+          height: 100%;
+          animation-iteration-count: infinite;
+          animation-delay: 0s;
+          animation-name: indicator;
+        }
+      }
+
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .carousel-nav-bar__prev, .carousel-nav-bar__next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    background-color: lightgrey;
+    color: black;
+    opacity: 0;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s ease;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  .carousel-nav-bar__prev {
+    left: 0;
+  }
+
+  .carousel-nav-bar__next {
+    right: 0;
+  }
+}
+
+@keyframes indicator {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
