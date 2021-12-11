@@ -3,31 +3,34 @@ import Carousel from "./components/Carousel";
 
 import "./App.css";
 
-// import airpodsImg from "./assets/airpods.png";
-// import iphoneImg from "./assets/iphone.png";
-// import tabletImg from "./assets/tablet.png";
+import airpodsImg from "./assets/airpods.png";
+import iphoneImg from "./assets/iphone.png";
+import tabletImg from "./assets/tablet.png";
 
 function App() {
   const data = [
     {
-      backgroundColor: "#000",
+      // backgroundColor: "#000",
+      backgroundImage: iphoneImg,
       color: "#fff",
       mainText: ["xPhone"],
       subText: ["Lots to Love.Less to spend.", "Starting at $399."],
-      img: "https://www.apple.com/v/iphone/home/bc/images/overview/compare/compare_iphone_13__ejsyn7suyw02_small_2x.jpg",
+      // img: "https://www.apple.com/v/iphone/home/bc/images/overview/compare/compare_iphone_13__ejsyn7suyw02_small_2x.jpg",
     },
     {
-      backgroundColor: "#fff",
+      // backgroundColor: "#fff",
+      backgroundImage: tabletImg,
       color: "#000",
       mainText: ["Tablet"],
       subText: ["Just the right amount of everything"],
-      img: "https://www.apple.com/v/iphone/home/bc/images/overview/compare/compare_iphone_13__ejsyn7suyw02_small_2x.jpg",
+      // img: "https://www.apple.com/v/iphone/home/bc/images/overview/compare/compare_iphone_13__ejsyn7suyw02_small_2x.jpg",
     },
     {
-      backgroundColor: "#ccc",
+      // backgroundColor: "#ccc",
+      backgroundImage: airpodsImg,
       color: "#000",
       mainText: ["Buy a Tablet or xPhone for colleage.", "Get airPods."],
-      img: "https://www.apple.com/v/iphone/home/bc/images/overview/compare/compare_iphone_13__ejsyn7suyw02_small_2x.jpg",
+      // img: "https://www.apple.com/v/iphone/home/bc/images/overview/compare/compare_iphone_13__ejsyn7suyw02_small_2x.jpg",
     },
   ];
 
@@ -40,7 +43,7 @@ function App() {
             className="item"
             style={{
               color: item.color,
-              backgroundColor: item.backgroundColor,
+              backgroundImage: `url(${item.backgroundImage})`,
             }}
           >
             <div className="desc">
@@ -55,7 +58,6 @@ function App() {
                 </p>
               ))}
             </div>
-            <img src={item.img} alt="" />
           </div>
         ))}
       </Carousel>
