@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: scdt-china-shorturl
+
+# 布隆过滤器的大小
+urlBloomFilter:
+  total: 1000000
+
+shortUrl:
+  dataType: cache
+  host: "http://localhost:${server.port}/"
