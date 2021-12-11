@@ -1,0 +1,36 @@
+.carousel {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.carousel .content {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+}
+
+.carousel .content .carousel-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dots {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.dots .dot {
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.dots .dot + .dot {
+  margin-left: 10px;
+}

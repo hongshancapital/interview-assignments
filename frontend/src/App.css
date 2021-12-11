@@ -3,12 +3,36 @@
   position: relative;
 }
 
-.title {
-  font-size: 56px;
-  font-weight: 600;
+.item {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 200px 0 100px 0;
 }
 
-.text {
+.item .desc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item .desc .mainText {
+  font-size: 56px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.item .desc .subText {
   font-size: 28px;
   font-weight: 400;
+  margin: 0;
+}
+
+.item img {
+  height: 80px;
 }
