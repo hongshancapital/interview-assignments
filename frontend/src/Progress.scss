@@ -1,0 +1,29 @@
+/* 进度条 */
+.process {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    padding: 0;
+
+    li {
+        display: inline-block;
+        width: 40px;
+        height: 2px;
+        background-color: #ddd;
+        margin-right: 10px;
+        border-radius: 2px;
+        position: relative;
+
+        span {
+            border-radius: 2px;
+            display: inline-block;
+            background-color: #fff;
+            height: 2px;
+            position: absolute;
+            left: 0;
+            width: 0;
+            transition-duration: 0ms;
+        }
+    }
+}
