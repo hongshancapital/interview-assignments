@@ -73,8 +73,10 @@ definitions:
     properties:
       shortUrl:
         type: "string"
+        pattern: ^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]
       longUrl:
         type: "string"
+        pattern: ^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]
 
   ShortUrlBizException:
     type: "object"
