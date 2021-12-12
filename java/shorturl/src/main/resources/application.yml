@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: shorturl
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+server:
+  port: 6161
+  servlet:
+    context-path: /shorturl
+
+# 日志级别
+logging:
+  level:
+    root: info
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: debug
+
+
+
