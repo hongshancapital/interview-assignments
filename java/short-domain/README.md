@@ -22,52 +22,17 @@ ID连续自增，不会重复，转换成62进制也不会重复，同时进制�
 对于相同长域名，生成同样的短域名，避免短域名被消耗。
 
 生成短域名流程图
+![](https://github.com/niklai-star/images/blob/main/img1/hash_flow_1.png)
 
-```mermaid
-flowchart TD
-    s((start))-->输入长域名-->map1{是否生成过短域名}--No-->分配自增ID-->ID转换成62进制-->生成短域名-->e((end))
-    map1--Yes-->从缓存获取短域名编码-->生成短域名
-    生成短域名-->保存短域名编码和长域名的对应关系到缓存
-```
 生成的短域名编码和长域名的对应关系分别放在两个HashMap里：
 
 - 一个Map保存短域名编码 - 长域名的对应关系，通过短域名获取长域名时先从缓存map里查找。
 - 一个Map保存长域名与短域名编码的关系，当有相同长域名生成短域名时可以从缓存中直接查询获取历史生成的短域名对应编码。
 
+![](https://github.com/niklai-star/images/blob/main/img1/hash_flow_2.png)
 
-
-```mermaid
-flowchart TD
-	s((start))-->输入短域名-->截取编码-->从对应关系缓存中查找长域名-->获取长域名-->e((end))
-```
-
-代码中类图关系如下：
-
-```mermaid
-classDiagram
-class UrlConvertor {
-	-CodeGenerator codeGenerator
-	+createShortUrl(String longUrl) String
-	+getLongUrlByShortCode(String shortCode) String
-}
-class CodeGenerator {
-    <<interface>>
-    String : createNewCode()
-}
-class CodeGeneratorWithAutoId {
-	+createNewCode() String
-}
-class UrlCache {
-	-Map~String, String~ shortCodeAndLongUrlMap$
-	-Map~String, String~ longUrlAndShortCodeMap$
-	+add(String shortCode, String longUrl)$ void
-	+getLongUrl(String shortCode)$ String
-	+getShortCode(String longUrl)$ String
-}
-UrlConvertor..>UrlCache
-CodeGenerator<|..CodeGeneratorWithAutoId
-UrlConvertor-->CodeGenerator
-```
+代码中类图关系如下：  
+![](https://github.com/niklai-star/images/blob/main/img1/hash_class_1.png)
 
 在当前代码里自增ID通过在同步锁下对long型正整数从1开始自增操作实现。
 
@@ -87,33 +52,8 @@ UrlConvertor-->CodeGenerator
 
 Hashids开源组件可以实现将一串数字转换成多位随机编码，同时也不会出现在连续数字的情况下产生规律的编码的问题，很好的解决了上述方案的不足。
 
-代码中类图关系如下：
-
-```mermaid
-classDiagram
-class UrlConvertor {
-	-CodeGenerator codeGenerator
-	+createShortUrl(String longUrl) String
-	+getLongUrlByShortCode(String shortCode) String
-}
-class CodeGenerator {
-    <<interface>>
-    String : createNewCode()
-}
-class CodeGeneratorWithHashIds {
-	+createNewCode() String
-}
-class UrlCache {
-	-Map~String, String~ shortCodeAndLongUrlMap$
-	-Map~String, String~ longUrlAndShortCodeMap$
-	+add(String shortCode, String longUrl)$ void
-	+getLongUrl(String shortCode)$ String
-	+getShortCode(String longUrl)$ String
-}
-UrlConvertor..>UrlCache
-CodeGenerator<|..CodeGeneratorWithHashIds
-UrlConvertor-->CodeGenerator
-```
+代码中类图关系如下：  
+![](https://github.com/niklai-star/images/blob/main/img1/hash_class_2.png)
 
 Hashids的算法比较复杂，大致原理如下：
 
@@ -135,29 +75,8 @@ Hash算法可以将任意字符串进行hash后得到HashCode，因为题目限�
 
 > MurmurHash算法是一个优化的算法，有更低的碰撞率。但是仍然无法避免碰撞
 
-代码中类图关系如下：
-
-```mermaid
-classDiagram
-class UrlConvertor {
-	-CodeGeneratorWithHash codeGeneratorWithHash
-	+createShortUrl(String longUrl) String
-	+getLongUrlByShortCode(String shortCode) String
-}
-class CodeGeneratorWithHash {
-	-Set~Long~ usedNumber$
-	+createNewCode(String longUrl) String
-}
-class UrlCache {
-	-Map~String, String~ shortCodeAndLongUrlMap$
-	-Map~String, String~ longUrlAndShortCodeMap$
-	+add(String shortCode, String longUrl)$ void
-	+getLongUrl(String shortCode)$ String
-	+getShortCode(String longUrl)$ String
-}
-UrlConvertor..>UrlCache
-UrlConvertor-->CodeGeneratorWithHash
-```
+代码中类图关系如下：  
+![](https://github.com/niklai-star/images/blob/main/img1/hash_class_3.png)
 
 代码中为了避免碰撞，维护了一个HashCode缓存，每次生成新的HashCode时查询以下缓存，如果存在就再次生成。
 
@@ -174,6 +93,5 @@ UrlConvertor-->CodeGeneratorWithHash
 
 
 
-###### 测试报告截图
-
-![](.\test-report.png)
+###### 测试报告截图（项目根目录下有原图文件）
+![](https://github.com/niklai-star/images/blob/main/img1/test-report.png)
