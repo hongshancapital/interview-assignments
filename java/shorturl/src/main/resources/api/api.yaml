@@ -26,13 +26,13 @@ paths:
           description: "长域名转换为短域名"
           required: true
           schema:
-            $ref: "#/definitions/RespEntity"
+            $ref: "#/definitions/LongShortMapModel"
       responses:
         "201":
           description: "成功"
           schema:
             type: object
-            $ref: "#/definitions/RespEntity"
+            $ref: "#/definitions/LongShortMapModel"
         "400":
           description: "请求参数Url格式不正确"
           schema:
@@ -60,7 +60,7 @@ paths:
           description: "查找到原长域名"
           schema:
             type: object
-            $ref: "#/definitions/RespEntity"
+            $ref: "#/definitions/LongShortMapModel"
         "404":
           description: "未找到"
           schema:
@@ -68,14 +68,13 @@ paths:
             $ref: "#/definitions/ShortUrlBizException"
 
 definitions:
-  RespEntity:
+  LongShortMapModel:
     type: "object"
     properties:
       shortUrl:
         type: "string"
       longUrl:
         type: "string"
-        format: "int64"
 
   ShortUrlBizException:
     type: "object"
