@@ -1,0 +1,39 @@
+.btn-wrapper{
+  width: 40px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: #A9A9A9;
+  margin: 0 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.active-btn{
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background-color: #FAFAFA;
+  transform: translateX(-100%);
+  animation-name: move;
+  animation-timing-function: linear;
+  animation-fill-mode: backwards;
+}
+
+.pagination{
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+@keyframes move {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
