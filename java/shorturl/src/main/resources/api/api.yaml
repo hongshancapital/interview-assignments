@@ -1,0 +1,87 @@
+swagger: "2.0"
+info:
+  title: "Short Url Service"
+  version: "1.0.0"
+  description: "Provider Long-Short Url Mapping Service"
+  contact:
+    email: "1195843739@qq.com"
+tags:
+  - name: "ShortUrl"
+    description: "Long-Short Url Mapping Service"
+schemes:
+  - "http"
+paths:
+  /shorturl:
+    post:
+      tags:
+        - "ShortUrl"
+      operationId: "create"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "longurl"
+          description: "长域名转换为短域名"
+          required: true
+          schema:
+            $ref: "#/definitions/RespEntity"
+      responses:
+        "201":
+          description: "成功"
+          schema:
+            type: object
+            $ref: "#/definitions/RespEntity"
+        "400":
+          description: "请求参数Url格式不正确"
+          schema:
+            type: object
+            $ref: "#/definitions/ShortUrlBizException"
+        "503":
+          description: "超过最大限额"
+          schema:
+            type: object
+            $ref: "#/definitions/ShortUrlBizException"
+    get:
+      tags:
+        - "ShortUrl"
+      operationId: "queryLongUrl"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "shortUrl"
+          in: "query"
+          description: "根据短域名，查找原长域名"
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "查找到原长域名"
+          schema:
+            type: object
+            $ref: "#/definitions/RespEntity"
+        "404":
+          description: "未找到"
+          schema:
+            type: object
+            $ref: "#/definitions/ShortUrlBizException"
+
+definitions:
+  RespEntity:
+    type: "object"
+    properties:
+      shortUrl:
+        type: "string"
+      longUrl:
+        type: "string"
+        format: "int64"
+
+  ShortUrlBizException:
+    type: "object"
+    properties:
+      statusCode:
+        type: "integer"
+        format: "int64"
+      msg:
+        type: "string"
