@@ -22,7 +22,7 @@ import java.io.PrintWriter;
  * @author: zxp
  * @date: Created in 2021/12/13 15:02
  */
-/*@Component
+@Component
 @WebFilter(filterName="UrlFilter",urlPatterns="/*")
 public class UrlFilter extends OncePerRequestFilter {
 
@@ -86,4 +86,4 @@ public class UrlFilter extends OncePerRequestFilter {
 
 
 
-}*/
+}
