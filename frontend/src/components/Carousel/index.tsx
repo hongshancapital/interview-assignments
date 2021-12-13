@@ -29,17 +29,6 @@ const Dot = (props: DotProps): JSX.Element => {
   const [startTimeStamp, setStartTimeStamp] = useState(0);
   const rafRef = useRef<number>();
 
-  const animate = () => {
-    const currentTimeStamp = Date.now();
-    const diffTime = currentTimeStamp - startTimeStamp;
-
-    if (diffTime < duration) {
-      const percentage = (diffTime / duration) * 100;
-      setBarPercentage(percentage);
-      rafRef.current = requestAnimationFrame(animate);
-    }
-  };
-
   // init
   useEffect(() => {
     if (!active) {
@@ -49,16 +38,28 @@ const Dot = (props: DotProps): JSX.Element => {
     }
     setStartTimeStamp(Date.now());
     setBarPercentage(0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
   // animate
   useEffect(() => {
     if (startTimeStamp) {
+      const animate = () => {
+        const currentTimeStamp = Date.now();
+        const diffTime = currentTimeStamp - startTimeStamp;
+    
+        if (diffTime < duration) {
+          const percentage = (diffTime / duration) * 100;
+          setBarPercentage(percentage);
+          rafRef.current = requestAnimationFrame(animate);
+        }
+      };
       animate();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startTimeStamp]);
+
+    return () => {
+      rafRef.current && cancelAnimationFrame(rafRef.current);
+    }
+  }, [startTimeStamp, duration]);
 
   return (
     <div
@@ -127,8 +128,7 @@ export const Carousel = (props: CarouselProps): JSX.Element => {
     return () => {
       clearTimeout(timerRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [length, step]);
+  }, [length, step, duration]);
 
   return (
     <div className="carousel" ref={ref}>
