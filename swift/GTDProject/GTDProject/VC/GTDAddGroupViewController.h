@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class GTDViewModel;
 
-@interface GTDAddItemViewController : UIViewController
+@interface GTDAddGroupViewController : UIViewController
 
 @property (nonatomic, strong) GTDViewModel *viewModel;
 

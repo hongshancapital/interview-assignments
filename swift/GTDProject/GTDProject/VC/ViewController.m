@@ -9,7 +9,7 @@
 #import "GTDItemCell.h"
 #import "GTDBottomView.h"
 #import "GTDViewModel.h"
-#import "GTDAddItemViewController.h"
+#import "GTDAddGroupViewController.h"
 #import "GTDEditItemViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UITextFieldDelegate>
@@ -62,10 +62,10 @@
 // MARK: - Private
 
 - (void)addBtnClick {
-    GTDAddItemViewController *addItemVC = [[GTDAddItemViewController alloc] init];
-    addItemVC.viewModel = self.viewModel;
+    GTDAddGroupViewController *addGroupVC = [[GTDAddGroupViewController alloc] init];
+    addGroupVC.viewModel = self.viewModel;
     
-    [self.navigationController pushViewController:addItemVC animated:YES];
+    [self.navigationController pushViewController:addGroupVC animated:YES];
 }
 
 - (void)initView {

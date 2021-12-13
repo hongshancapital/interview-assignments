@@ -5,10 +5,10 @@
 //  Created by fang on 2021/12/10.
 //
 
-#import "GTDAddItemViewController.h"
+#import "GTDAddGroupViewController.h"
 #import "GTDViewModel.h"
 
-@interface GTDAddItemViewController ()
+@interface GTDAddGroupViewController ()
 
 @property (nonatomic, strong) UITextField *addGroupTF;
 
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation GTDAddItemViewController
+@implementation GTDAddGroupViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
