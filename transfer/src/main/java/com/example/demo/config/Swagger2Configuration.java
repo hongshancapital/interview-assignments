@@ -35,7 +35,7 @@ public class Swagger2Configuration {
                    .title("域名转换服务")
                    .description("域名转换服务 API 接口文档")
                    .version(VERSION)
-                   .termsOfServiceUrl("http://www.baidu.com")
+                   //.termsOfServiceUrl("http://www.baidu.com")
                    .build();
    }
 }
