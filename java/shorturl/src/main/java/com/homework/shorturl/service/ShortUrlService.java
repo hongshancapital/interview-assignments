@@ -1,6 +1,7 @@
 package com.homework.shorturl.service;
 
 import com.homework.shorturl.api.ShorturlApiDelegate;
+import com.homework.shorturl.cache.LongShortMapCache;
 import com.homework.shorturl.model.LongShortMapModel;
 import com.homework.shorturl.translator.Long2ShortUrlTranslator;
 import org.slf4j.Logger;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ShortUrlService implements ShorturlApiDelegate {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -17,15 +20,23 @@ public class ShortUrlService implements ShorturlApiDelegate {
     @Autowired
     private Long2ShortUrlTranslator translator;
 
+    @Autowired
+    private LongShortMapCache cache;
+
     @Override
     public ResponseEntity<LongShortMapModel> create(LongShortMapModel longurl) {
+        Optional<LongShortMapModel> byLong = cache.getByLong(longurl.getLongUrl());
+        if (byLong.isPresent()) {
+            return new ResponseEntity<>(byLong.get(), HttpStatus.CREATED);
+        }
         String shortUrl = translator.getShortUrl(longurl.getLongUrl());
-        LongShortMapModel mapModel = new LongShortMapModel().shortUrl(shortUrl);
+        LongShortMapModel mapModel = new LongShortMapModel().longUrl(longurl.getLongUrl()).shortUrl(shortUrl);
+        cache.addOrUpdate(mapModel);
         return new ResponseEntity<>(mapModel, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<LongShortMapModel> queryLongUrl(String shortUrl) {
-        return null;
+        return cache.getByShort(shortUrl).map(mapModel -> new ResponseEntity<>(mapModel, HttpStatus.OK)).get();
     }
 }
