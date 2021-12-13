@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import java.nio.charset.Charset;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,12 +19,18 @@ import com.google.common.hash.Hashing;
 public class DomainNameTransferService implements IDomainNameTransferService {
 	private static final String SHORT_NAME_PREFIX = "https://tu.com/";
 	
+	private static final int MAX_COLLISION_TIMES = 2 ^ 12;
 	private static final ConcurrentMap<Long, String> HASH64_TO_SHORTNAME_MAP = new ConcurrentHashMap<>();
 	private static final ConcurrentMap<String, String> SHORTDOMAIN_TO_ORIGNAL_MAP = new ConcurrentHashMap<>();
-	private static final ConcurrentMap<String, AtomicLong> SHORTDOMAIN_DOUBLE_TIME_MAP = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String, AtomicInteger> SHORTDOMAIN_DOUBLE_TIME_MAP = new ConcurrentHashMap<>();
 	
 	/**
-	 * 获得短域名
+	 * 获得短域名，设计思路：
+	 * 
+	 * 1.计算url的hash，由于短域名最多允许显示8位字符，故计算长hash时使用64位算法，并在此基础上检查是否有碰撞和碰撞次数；
+     * 2.每个hash32(32位hash)最多允许有2^12次碰撞(2^12位2个64进制数字)，超出则该短域名代表其他的长域名；
+     * 3.为便于碰撞处理，每个hash32转成6个64进制字符，不够的左补0。第一个新计算的hash32的短域名为6位字符，之后产生的有7到8位；
+     * 4.6个64进制数字可以表达36位数字，超出了32位无符号数字的表达范围，故32位数字内不会有碰撞。
 	 */
     public Response<String> getShortDomainName(String longDomainName) {  
     	if (StringUtils.isBlank(longDomainName)) {
@@ -59,30 +65,29 @@ public class DomainNameTransferService implements IDomainNameTransferService {
     	if (StringUtils.isNotBlank(shortName)) {
     		return SHORT_NAME_PREFIX + shortName;
     	} else {
-    		String shortNameSuffix = Utils.numToStr(hasCode32);
+    		String shortNameSuffix = Utils.numToStr(hasCode32, 6);
     		
-    		AtomicLong atomicLong = null;
+    		AtomicInteger atomicInteger = null;
         	synchronized (SHORTDOMAIN_DOUBLE_TIME_MAP) {
-        		atomicLong = SHORTDOMAIN_DOUBLE_TIME_MAP.get(shortNameSuffix);
+        		atomicInteger = SHORTDOMAIN_DOUBLE_TIME_MAP.get(shortNameSuffix);
         		
-        		if (atomicLong == null) {
-        			SHORTDOMAIN_DOUBLE_TIME_MAP.put(shortNameSuffix, new AtomicLong(0));
+        		if (atomicInteger == null) {
+        			SHORTDOMAIN_DOUBLE_TIME_MAP.put(shortNameSuffix, new AtomicInteger(0));
         			SHORTDOMAIN_TO_ORIGNAL_MAP.put(shortNameSuffix, originalUrl);
         			HASH64_TO_SHORTNAME_MAP.put(hasCode64, shortNameSuffix);
         			return SHORT_NAME_PREFIX + shortNameSuffix;
         		}
         	}
         	
-        	long maxTimes = (2 ^ ((8 - shortNameSuffix.length()) * 6));
-        	synchronized (atomicLong) {
-        		long count = atomicLong.get();
-        		if (maxTimes >= atomicLong.get()) {
+        	synchronized (atomicInteger) {
+        		int count = atomicInteger.get();
+        		if (MAX_COLLISION_TIMES >= atomicInteger.get()) {
         			count = 0;
         		} else {
         			count++;
         		}
         		
-        		atomicLong.set(count);
+        		atomicInteger.set(count);
         		
         		shortName = shortNameSuffix + (count == 0 ? "" :Utils.numToStr(count));
         		
