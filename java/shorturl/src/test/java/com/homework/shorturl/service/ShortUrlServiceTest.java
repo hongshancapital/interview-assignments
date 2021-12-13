@@ -3,9 +3,7 @@ package com.homework.shorturl.service;
 import com.homework.shorturl.model.LongShortMapModel;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ShortUrlServiceTest {
 
     @Autowired
@@ -29,22 +28,20 @@ class ShortUrlServiceTest {
     }
 
     @Test
+    @Order(1)
     void create_expectIncrementId_whenCreateShortUrlOneByOne() {
         for (int i = 0; i < longUrls.size(); i++) {
             String longUrl = longUrls.get(i);
-            ResponseEntity<LongShortMapModel> resp = createShortUrl(longUrl);
+            LongShortMapModel req = new LongShortMapModel();
+            req.longUrl(longUrl);
+            ResponseEntity<LongShortMapModel> resp = service.create(req);
             Assertions.assertNotNull(resp.getBody());
             Assertions.assertEquals(String.valueOf(i), resp.getBody().getShortUrl());
         }
     }
 
-    private ResponseEntity<LongShortMapModel> createShortUrl(String longUrl) {
-        LongShortMapModel req1 = new LongShortMapModel();
-        req1.longUrl(longUrl);
-        return service.create(req1);
-    }
-
     @Test
+    @Order(2)
     void queryLongUrl_expectLongUrl_whenQueryByShortUrl() {
         for (int i = 0; i < longUrls.size(); i++) {
             ResponseEntity<LongShortMapModel> resp = service.queryLongUrl(String.valueOf(i));
