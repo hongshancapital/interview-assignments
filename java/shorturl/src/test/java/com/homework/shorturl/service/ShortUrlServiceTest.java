@@ -29,7 +29,7 @@ class ShortUrlServiceTest {
     }
 
     @Test
-    void create() {
+    void create_expectIncrementId_whenCreateShortUrlOneByOne() {
         for (int i = 0; i < longUrls.size(); i++) {
             String longUrl = longUrls.get(i);
             ResponseEntity<LongShortMapModel> resp = createShortUrl(longUrl);
@@ -45,7 +45,7 @@ class ShortUrlServiceTest {
     }
 
     @Test
-    void queryLongUrl() {
+    void queryLongUrl_expectLongUrl_whenQueryByShortUrl() {
         for (int i = 0; i < longUrls.size(); i++) {
             ResponseEntity<LongShortMapModel> resp = service.queryLongUrl(String.valueOf(i));
             Assertions.assertNotNull(resp.getBody());
