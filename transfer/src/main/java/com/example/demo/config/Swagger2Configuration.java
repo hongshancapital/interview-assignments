@@ -25,7 +25,7 @@ public class Swagger2Configuration {
        return new Docket(DocumentationType.SWAGGER_2)
                    .apiInfo(apiInfo())
                    .select()
-.apis(RequestHandlerSelectors.basePackage(SWAGGER_SCAN_BASE_PACKAGE)) 
+                   .apis(RequestHandlerSelectors.basePackage(SWAGGER_SCAN_BASE_PACKAGE)) 
                    .paths(PathSelectors.any())
                    .build();
    }
@@ -35,7 +35,7 @@ public class Swagger2Configuration {
                    .title("域名转换服务")
                    .description("域名转换服务 API 接口文档")
                    .version(VERSION)
-                   // .termsOfServiceUrl("http://www.baidu.com")
+                   .termsOfServiceUrl("http://www.baidu.com")
                    .build();
    }
 }

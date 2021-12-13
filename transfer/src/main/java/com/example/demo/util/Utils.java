@@ -1,29 +1,27 @@
 package com.example.demo.util;
 
-import org.apache.commons.lang3.StringUtils;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class Utils {
    private static String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-";
    private static int scale = 64;
    
-   public static String numToStr(int num, int length) {
+   /*
+    * 数字到字符串
+    * 
+    * @param num 数字，大于等于0，如果小于0被转成正整数
+    */
+   public static String numToStr(long num) {
 	   StringBuilder builder = new StringBuilder();
 	   
-	   long longNum = Integer.toUnsignedLong(num);
-   	   log.info("int to long: " + num + "->" + longNum);
-	   
+	   num = Math.abs(num);
 	   int remainder = 0; 
-	   while (longNum > scale - 1) {
-		   remainder = Long.valueOf(longNum % scale).intValue();
+	   while (num > scale - 1) {
+		   remainder = Long.valueOf(num % scale).intValue();
 		   builder.append(chars.charAt(remainder));
 		   
-		   longNum = longNum / scale;
+		   num = num / scale;
 	   }
 	   
-	   builder.append(chars.charAt(Long.valueOf(longNum).intValue()));
-	   String value = builder.reverse().toString();
-	   return StringUtils.rightPad(value, length, '0');
+	   builder.append(chars.charAt(Long.valueOf(num).intValue()));
+	   return builder.reverse().toString();
    }
 }

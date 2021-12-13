@@ -27,4 +27,19 @@ public class Response<T> implements Serializable {
    
    @ApiModelProperty(value="成功时返回的数据", required = false)
    private T data;
+   
+   public static Response<String> fail(int code, String message) {
+	   return Response.<String>builder()
+			   .code(code)
+			   .message(message)
+			   .build();
+   }
+   
+   public static Response<Object> success(String message, Object data) {
+	   return Response.builder()
+			   .code(0)
+			   .message(message)
+			   .data(data)
+			   .build();
+   }
 }
