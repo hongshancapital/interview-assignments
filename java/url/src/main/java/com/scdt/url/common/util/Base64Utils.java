@@ -9,6 +9,10 @@ public final class Base64Utils {
     private static final String CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final int SCALE = 62;
 
+    public static int getScale() {
+        return SCALE;
+    }
+
     /**
      * 将10进制数字转为62进制
      *
@@ -40,7 +44,7 @@ public final class Base64Utils {
         int index = 0;
         for (int i = 0; i < str.length(); i++) {
             index = CHARS.indexOf(str.charAt(i));
-            num += (long) (index * (Math.pow(SCALE, str.length() - i - 1)));
+            num += (long) (index * (Math.pow(SCALE, str.length() - i - 1d)));
         }
         return num;
     }

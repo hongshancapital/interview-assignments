@@ -17,7 +17,7 @@ class TinyUrlStoragesComponentTest extends BaseComponentTest {
     @Test
     void testPutTinyUrlStorages() {
         String key1 = "key1";
-        String key2 = "key22";
+        String key2 = "key2";
         var value = TinyUrl.create(tinyUrlId(key1), key2);
         tinyUrlStorages.putIfAbsent(key1, value);
         var saved = tinyUrlStorages.get(key1);

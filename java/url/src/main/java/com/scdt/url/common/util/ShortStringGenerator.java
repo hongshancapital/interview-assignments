@@ -9,13 +9,23 @@ import lombok.extern.slf4j.Slf4j;
 public class ShortStringGenerator {
 
 
-    public static String generate(String url, Integer tinyUrlLength) {
-        if (url.length() < tinyUrlLength) {
-            return url;
+    public static String generate(String originalString, Integer limitStringLength) {
+        if (originalString.length() < limitStringLength) {
+            return originalString;
         }
-        //将String hash之后转为long
-        long s = Hashing.murmur3_32().hashUnencodedChars(url).padToLong();
+        long numId = newId(originalString);
         //将10进制转为62进制
-        return Base64Utils.encode(s, tinyUrlLength);
+        return Base64Utils.encode(numId, limitStringLength);
+    }
+
+
+    /**
+     * 获取哈希的数字id
+     *
+     * @param originalString 原始字符串
+     * @return 获取哈希后的数字id
+     */
+    private static long newId(String originalString) {
+        return Hashing.murmur3_32().hashUnencodedChars(originalString).padToLong();
     }
 }
