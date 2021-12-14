@@ -85,6 +85,14 @@ class ShortUrlServiceTest {
         Assertions.assertEquals(String.valueOf(longUrlIndex), resp.getBody().getShortUrl());
     }
 
+    @Test
+    @Order(5)
+    void query_expect_short_url_not_found_when_never_create(){
+        ResponseEntity<LongShortMapModel> resp = service.queryLongUrl(String.valueOf(10_000));
+        Assertions.assertNotNull(resp);
+        Assertions.assertEquals(HttpStatus.NOT_FOUND,resp.getStatusCode());
+    }
+
     private static String randomLongUrl() {
         StringBuilder sb = new StringBuilder();
         sb.append("http://");
