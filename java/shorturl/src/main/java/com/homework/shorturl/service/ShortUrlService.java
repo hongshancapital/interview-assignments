@@ -25,14 +25,16 @@ public class ShortUrlService implements ShorturlApiDelegate {
 
     @Override
     public ResponseEntity<LongShortMapModel> create(LongShortMapModel longurl) {
+        LOGGER.info("create begin");
         Optional<LongShortMapModel> byLong = cache.getByLong(longurl.getLongUrl());
         if (byLong.isPresent()) {
+            LOGGER.info("create already in cache");
             return new ResponseEntity<>(byLong.get(), HttpStatus.CREATED);
         }
         if (alreadyFullAndDenyCreateNew()) {
+            LOGGER.warn("create short url failed for INSUFFICIENT_STORAGE");
             return ResponseEntity.status(HttpStatus.INSUFFICIENT_STORAGE).build();
         }
-
         String shortUrl = translator.getShortUrl(longurl.getLongUrl());
         LongShortMapModel mapModel = new LongShortMapModel().longUrl(longurl.getLongUrl()).shortUrl(shortUrl);
         cache.addOrUpdate(mapModel);
@@ -45,6 +47,7 @@ public class ShortUrlService implements ShorturlApiDelegate {
 
     @Override
     public ResponseEntity<LongShortMapModel> queryLongUrl(String shortUrl) {
+        LOGGER.info("query long url");
         return cache.getByShort(shortUrl)
                 .map(mapModel -> new ResponseEntity<>(mapModel, HttpStatus.OK))
                 .orElse(ResponseEntity.notFound().build());
