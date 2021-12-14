@@ -35,14 +35,9 @@ paths:
             $ref: "#/definitions/LongShortMapModel"
         "400":
           description: "请求参数Url格式不正确"
-          schema:
-            type: object
-            $ref: "#/definitions/ShortUrlBizException"
         "503":
           description: "超过最大限额"
-          schema:
-            type: object
-            $ref: "#/definitions/ShortUrlBizException"
+
     get:
       tags:
         - "ShortUrl"
@@ -63,9 +58,6 @@ paths:
             $ref: "#/definitions/LongShortMapModel"
         "404":
           description: "未找到"
-          schema:
-            type: object
-            $ref: "#/definitions/ShortUrlBizException"
 
 definitions:
   LongShortMapModel:
