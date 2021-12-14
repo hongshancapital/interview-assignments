@@ -5,6 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,14 @@ import java.util.ArrayList;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ShortUrlServiceTest {
-
     @Autowired
     private ShortUrlService service;
 
+    @Value("${shorturl.maxSupportCapacity}")
+    private int maxSupportCapacity;
+
     private static final int INITIAL_CAPACITY = 10;
     private static final ArrayList<String> longUrls = new ArrayList<>(INITIAL_CAPACITY);
-    private static final int MAX_MAP_LIMIT = 1_000;
 
 
     @BeforeAll
@@ -56,7 +58,7 @@ class ShortUrlServiceTest {
     @Test
     @Order(3)
     void create_expect_503_when_create_exceed_the_limit() {
-        int remainingCapacity = MAX_MAP_LIMIT - longUrls.size();
+        int remainingCapacity = maxSupportCapacity - longUrls.size();
         for (int i = 0; i < remainingCapacity; i++) {
             LongShortMapModel req = new LongShortMapModel();
             String longUrl = randomLongUrl();
@@ -68,7 +70,7 @@ class ShortUrlServiceTest {
         req.longUrl(randomLongUrl());
         ResponseEntity<LongShortMapModel> resp = service.create(req);
         Assertions.assertNotNull(resp);
-        Assertions.assertEquals(HttpStatus.INSUFFICIENT_STORAGE.value(), resp.getStatusCode());
+        Assertions.assertEquals(HttpStatus.INSUFFICIENT_STORAGE.value(), resp.getStatusCode().value());
     }
 
     @Test
