@@ -1,7 +1,7 @@
 package com.homework.shorturl.service;
 
+import com.homework.shorturl.TestUtil;
 import com.homework.shorturl.model.LongShortMapModel;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ class ShortUrlServiceTest {
     @BeforeAll
     static void initLongUrls() {
         for (int i = 0; i < INITIAL_CAPACITY; i++) {
-            longUrls.add(randomLongUrl());
+            longUrls.add(TestUtil.randomLongUrl());
         }
     }
 
@@ -61,13 +61,13 @@ class ShortUrlServiceTest {
         int remainingCapacity = maxSupportCapacity - longUrls.size();
         for (int i = 0; i < remainingCapacity; i++) {
             LongShortMapModel req = new LongShortMapModel();
-            String longUrl = randomLongUrl();
+            String longUrl = TestUtil.randomLongUrl();
             req.longUrl(longUrl);
             service.create(req);
             longUrls.add(longUrl);
         }
         LongShortMapModel req = new LongShortMapModel();
-        req.longUrl(randomLongUrl());
+        req.longUrl(TestUtil.randomLongUrl());
         ResponseEntity<LongShortMapModel> resp = service.create(req);
         Assertions.assertNotNull(resp);
         Assertions.assertEquals(HttpStatus.INSUFFICIENT_STORAGE.value(), resp.getStatusCode().value());
@@ -91,18 +91,5 @@ class ShortUrlServiceTest {
         ResponseEntity<LongShortMapModel> resp = service.queryLongUrl(String.valueOf(10_000));
         Assertions.assertNotNull(resp);
         Assertions.assertEquals(HttpStatus.NOT_FOUND,resp.getStatusCode());
-    }
-
-    private static String randomLongUrl() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("http://");
-        sb.append(RandomStringUtils.random(RandomUtils.nextInt(1, 128)));
-        sb.append("/");
-        sb.append(RandomStringUtils.random(RandomUtils.nextInt(1, 1024)));
-        sb.append("?");
-        sb.append(RandomStringUtils.random(RandomUtils.nextInt(1, 1024)));
-        sb.append("=");
-        sb.append(RandomStringUtils.random(RandomUtils.nextInt(1, 1024)));
-        return sb.toString();
     }
 }
