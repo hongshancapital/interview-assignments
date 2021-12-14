@@ -29,14 +29,24 @@ public class ShortUrlService implements ShorturlApiDelegate {
         if (byLong.isPresent()) {
             return new ResponseEntity<>(byLong.get(), HttpStatus.CREATED);
         }
+        if (alreadyFullAndDenyCreateNew()) {
+            return ResponseEntity.status(HttpStatus.INSUFFICIENT_STORAGE).build();
+        }
+
         String shortUrl = translator.getShortUrl(longurl.getLongUrl());
         LongShortMapModel mapModel = new LongShortMapModel().longUrl(longurl.getLongUrl()).shortUrl(shortUrl);
         cache.addOrUpdate(mapModel);
         return new ResponseEntity<>(mapModel, HttpStatus.CREATED);
     }
 
+    private boolean alreadyFullAndDenyCreateNew() {
+        return cache.isFull();
+    }
+
     @Override
     public ResponseEntity<LongShortMapModel> queryLongUrl(String shortUrl) {
-        return cache.getByShort(shortUrl).map(mapModel -> new ResponseEntity<>(mapModel, HttpStatus.OK)).get();
+        return cache.getByShort(shortUrl)
+                .map(mapModel -> new ResponseEntity<>(mapModel, HttpStatus.OK))
+                .orElse(ResponseEntity.notFound().build());
     }
 }
