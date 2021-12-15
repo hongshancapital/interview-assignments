@@ -1,0 +1,98 @@
+.carousel-view {
+  position: relative;
+  max-width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel-view .carousel-view-box {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  transition: transform .5s linear;
+}
+
+.carousel-view .carousel-view-box .carousel-view-img {
+  position: relative;
+  width: 100%;
+  flex: 1 0 auto;
+  background-position: center 85%;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+}
+
+.carousel-view .carousel-view-box .carousel-view-img img {
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+}
+
+.carousel-view .carousel-view-box .carousel-view-img .carousel-view-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-view-text {
+  color: #000000;
+}
+
+.carousel-view-text .carousel-view-title span {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.carousel-view-text .carousel-view-subTitle span {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.carousel-view .carousel-view-flag {
+  position: absolute;
+  left: 0;
+  bottom: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-view .carousel-view-flag .carousel-view-rect {
+  position: relative;
+  width: 100px;
+  height: 5px;
+  background-color: #cccccc;
+  cursor: pointer;
+}
+
+.carousel-view-rect + .carousel-view-rect {
+  margin-left: 20px;
+}
+
+.carousel-view-flag .carousel-view-rect .carousel-view-mask {
+  display: block;
+  width: 0;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+/* .carousel-view-flag .carousel-view-rect.active {
+
+}
+
+.carousel-view-flag .carousel-view-rect.active:after {
+  content: '';
+  display: block;
+  width: 10%;
+  height: 100%;
+  background-color: #ffffff;
+} */
