@@ -94,6 +94,13 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.6</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/com/homework/shorturl/*Application**</exclude>
+                        <exclude>**/com/homework/shorturl/api/**</exclude>
+                        <exclude>**/com/homework/shorturl/model/**</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
