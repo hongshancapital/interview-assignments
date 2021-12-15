@@ -4,8 +4,10 @@ import com.scdt.exception.CustomException;
 import com.scdt.model.request.UrlRequest;
 import com.scdt.util.Base62Util;
 import com.scdt.util.CacheUtil;
+import com.scdt.util.ShortUrlUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,13 +17,17 @@ import java.io.UnsupportedEncodingException;
 @Slf4j
 public class UrlService {
 
+    @Value("${shortUrl}")
     private String baseShortUrl = "http://a.com";
+
+    @Value("${randomToken}")
+    private String keyPrefix = "JtCLFWfl";
 
     public String long2Short(String url) {
         String s = CacheUtil.get(url);
         if (StringUtils.isEmpty(s)) {
             try {
-                s = Base62Util.encodeBase62(url);
+                s = ShortUrlUtil.encode(url);
                 s = new StringBuilder().append(baseShortUrl).append("/").append(s).toString();
                 CacheUtil.put(s, url);
             } catch (Exception e) {

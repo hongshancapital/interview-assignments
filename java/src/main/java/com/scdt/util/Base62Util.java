@@ -3,7 +3,6 @@ package com.scdt.util;
 import com.google.common.base.Preconditions;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 
 public class Base62Util {
 

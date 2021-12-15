@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RestController("/url")
+@RestController
+@RequestMapping("/url")
 public class UrlController {
     @Autowired
     UrlService urlService;
