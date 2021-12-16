@@ -1,0 +1,63 @@
+# JMH version: 1.33
+# VM version: JDK 11.0.12, Java HotSpot(TM) 64-Bit Server VM, 11.0.12+8-LTS-237
+# VM invoker: /Library/Java/JavaVirtualMachines/jdk-11.0.12.jdk/Contents/Home/bin/java
+# VM options: -ea -Didea.test.cyclic.buffer.size=4194304 -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=57070:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 3 iterations, 1 min each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.scdt.china.shorturl.benchmark.ShortUrlControllerBenchmark.expand
+
+# Run progress: 0.00% complete, ETA 00:06:20
+# Fork: 1 of 1
+# Warmup Iteration   1: 5204.663 ops/ms
+Iteration   1: 5641.775 ops/ms
+Iteration   2: 5504.891 ops/ms
+Iteration   3: 5442.931 ops/ms
+
+
+Result "com.scdt.china.shorturl.benchmark.ShortUrlControllerBenchmark.expand":
+  5529.866 ±(99.9%) 1856.254 ops/ms [Average]
+  (min, avg, max) = (5442.931, 5529.866, 5641.775), stdev = 101.748
+  CI (99.9%): [3673.611, 7386.120] (assumes normal distribution)
+
+
+# JMH version: 1.33
+# VM version: JDK 11.0.12, Java HotSpot(TM) 64-Bit Server VM, 11.0.12+8-LTS-237
+# VM invoker: /Library/Java/JavaVirtualMachines/jdk-11.0.12.jdk/Contents/Home/bin/java
+# VM options: -ea -Didea.test.cyclic.buffer.size=4194304 -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=57070:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 3 iterations, 1 min each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: com.scdt.china.shorturl.benchmark.ShortUrlControllerBenchmark.generate
+
+# Run progress: 50.00% complete, ETA 00:03:15
+# Fork: 1 of 1
+# Warmup Iteration   1: 2452.112 ops/ms
+Iteration   1: 2740.071 ops/ms
+Iteration   2: 2766.398 ops/ms
+Iteration   3: 2725.552 ops/ms
+
+
+Result "com.scdt.china.shorturl.benchmark.ShortUrlControllerBenchmark.generate":
+  2744.007 ±(99.9%) 377.750 ops/ms [Average]
+  (min, avg, max) = (2725.552, 2744.007, 2766.398), stdev = 20.706
+  CI (99.9%): [2366.257, 3121.757] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:06:30
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                              Mode  Cnt     Score      Error   Units
+ShortUrlControllerBenchmark.expand    thrpt    3  5529.866 ± 1856.254  ops/ms
+ShortUrlControllerBenchmark.generate  thrpt    3  2744.007 ±  377.750  ops/ms

@@ -1,0 +1,189 @@
+# JMH version: 1.33
+# VM version: JDK 11.0.12, Java HotSpot(TM) 64-Bit Server VM, 11.0.12+8-LTS-237
+# VM invoker: /Library/Java/JavaVirtualMachines/jdk-11.0.12.jdk/Contents/Home/bin/java
+# VM options: -ea -Didea.test.cyclic.buffer.size=4194304 -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=57070:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 3 iterations, 1 min each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.scdt.china.shorturl.benchmark.ShortUrlControllerBenchmark.expand
+
+# Run progress: 0.00% complete, ETA 00:06:20
+# Fork: 1 of 1
+# Warmup Iteration   1: 4055.258 ±(99.9%) 175.638 ns/op
+Iteration   1: 2769.789 ±(99.9%) 31.516 ns/op
+                 expand·p0.00:   67.000 ns/op
+                 expand·p0.50:   2180.000 ns/op
+                 expand·p0.90:   2300.000 ns/op
+                 expand·p0.95:   2668.000 ns/op
+                 expand·p0.99:   4280.000 ns/op
+                 expand·p0.999:  36480.000 ns/op
+                 expand·p0.9999: 1599488.000 ns/op
+                 expand·p1.00:   15597568.000 ns/op
+
+Iteration   2: 2852.825 ±(99.9%) 34.522 ns/op
+                 expand·p0.00:   20.000 ns/op
+                 expand·p0.50:   2172.000 ns/op
+                 expand·p0.90:   2300.000 ns/op
+                 expand·p0.95:   2652.000 ns/op
+                 expand·p0.99:   4352.000 ns/op
+                 expand·p0.999:  49536.000 ns/op
+                 expand·p0.9999: 1683456.000 ns/op
+                 expand·p1.00:   37814272.000 ns/op
+
+Iteration   3: 2700.253 ±(99.9%) 30.392 ns/op
+                 expand·p0.00:   96.000 ns/op
+                 expand·p0.50:   2108.000 ns/op
+                 expand·p0.90:   2228.000 ns/op
+                 expand·p0.95:   2628.000 ns/op
+                 expand·p0.99:   4240.000 ns/op
+                 expand·p0.999:  36480.000 ns/op
+                 expand·p0.9999: 1452032.000 ns/op
+                 expand·p1.00:   22020096.000 ns/op
+
+
+
+Result "com.scdt.china.shorturl.benchmark.ShortUrlControllerBenchmark.expand":
+  N = 57547297
+  mean =   2773.587 ±(99.9%) 18.566 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  2500000.000) = 57544687 
+    [ 2500000.000,  5000000.000) = 1695 
+    [ 5000000.000,  7500000.000) = 527 
+    [ 7500000.000, 10000000.000) = 199 
+    [10000000.000, 12500000.000) = 142 
+    [12500000.000, 15000000.000) = 31 
+    [15000000.000, 17500000.000) = 11 
+    [17500000.000, 20000000.000) = 1 
+    [20000000.000, 22500000.000) = 3 
+    [22500000.000, 25000000.000) = 0 
+    [25000000.000, 27500000.000) = 0 
+    [27500000.000, 30000000.000) = 0 
+    [30000000.000, 32500000.000) = 0 
+    [32500000.000, 35000000.000) = 0 
+    [35000000.000, 37500000.000) = 0 
+
+  Percentiles, ns/op:
+      p(0.0000) =     20.000 ns/op
+     p(50.0000) =   2148.000 ns/op
+     p(90.0000) =   2288.000 ns/op
+     p(95.0000) =   2648.000 ns/op
+     p(99.0000) =   4288.000 ns/op
+     p(99.9000) =  40448.000 ns/op
+     p(99.9900) = 1569321.370 ns/op
+     p(99.9990) = 6074589.348 ns/op
+     p(99.9999) = 12124160.000 ns/op
+    p(100.0000) = 37814272.000 ns/op
+
+
+# JMH version: 1.33
+# VM version: JDK 11.0.12, Java HotSpot(TM) 64-Bit Server VM, 11.0.12+8-LTS-237
+# VM invoker: /Library/Java/JavaVirtualMachines/jdk-11.0.12.jdk/Contents/Home/bin/java
+# VM options: -ea -Didea.test.cyclic.buffer.size=4194304 -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=57070:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8
+# Blackhole mode: full + dont-inline hint (default, use -Djmh.blackhole.autoDetect=true to auto-detect)
+# Warmup: 1 iterations, 10 s each
+# Measurement: 3 iterations, 1 min each
+# Timeout: 10 min per iteration
+# Threads: 12 threads, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.scdt.china.shorturl.benchmark.ShortUrlControllerBenchmark.generate
+
+# Run progress: 50.00% complete, ETA 00:03:17
+# Fork: 1 of 1
+# Warmup Iteration   1: 11996.085 ±(99.9%) 693.199 ns/op
+Iteration   1: 6147.365 ±(99.9%) 155.176 ns/op
+                 generate·p0.00:   54.000 ns/op
+                 generate·p0.50:   716.000 ns/op
+                 generate·p0.90:   941.000 ns/op
+                 generate·p0.95:   1048.000 ns/op
+                 generate·p0.99:   1442.000 ns/op
+                 generate·p0.999:  29440.000 ns/op
+                 generate·p0.9999: 10649600.000 ns/op
+                 generate·p1.00:   28409856.000 ns/op
+
+Iteration   2: 6722.389 ±(99.9%) 169.795 ns/op
+                 generate·p0.00:   112.000 ns/op
+                 generate·p0.50:   814.000 ns/op
+                 generate·p0.90:   1046.000 ns/op
+                 generate·p0.95:   1196.000 ns/op
+                 generate·p0.99:   1510.000 ns/op
+                 generate·p0.999:  36352.000 ns/op
+                 generate·p0.9999: 11255808.000 ns/op
+                 generate·p1.00:   35586048.000 ns/op
+
+Iteration   3: 6578.608 ±(99.9%) 169.019 ns/op
+                 generate·p0.00:   113.000 ns/op
+                 generate·p0.50:   812.000 ns/op
+                 generate·p0.90:   993.000 ns/op
+                 generate·p0.95:   1142.000 ns/op
+                 generate·p0.99:   1468.000 ns/op
+                 generate·p0.999:  29184.000 ns/op
+                 generate·p0.9999: 11157504.000 ns/op
+                 generate·p1.00:   33685504.000 ns/op
+
+
+
+Result "com.scdt.china.shorturl.benchmark.ShortUrlControllerBenchmark.generate":
+  N = 59321597
+  mean =   6476.495 ±(99.9%) 94.975 ns/op
+
+  Histogram, ns/op:
+    [       0.000,  2500000.000) = 59277109 
+    [ 2500000.000,  5000000.000) = 11367 
+    [ 5000000.000,  7500000.000) = 15113 
+    [ 7500000.000, 10000000.000) = 9662 
+    [10000000.000, 12500000.000) = 4862 
+    [12500000.000, 15000000.000) = 2127 
+    [15000000.000, 17500000.000) = 805 
+    [17500000.000, 20000000.000) = 322 
+    [20000000.000, 22500000.000) = 133 
+    [22500000.000, 25000000.000) = 50 
+    [25000000.000, 27500000.000) = 23 
+    [27500000.000, 30000000.000) = 11 
+    [30000000.000, 32500000.000) = 5 
+    [32500000.000, 35000000.000) = 5 
+    [35000000.000, 37500000.000) = 3 
+
+  Percentiles, ns/op:
+      p(0.0000) =     54.000 ns/op
+     p(50.0000) =    790.000 ns/op
+     p(90.0000) =    991.000 ns/op
+     p(95.0000) =   1138.000 ns/op
+     p(99.0000) =   1476.000 ns/op
+     p(99.9000) =  30592.000 ns/op
+     p(99.9900) = 11026432.000 ns/op
+     p(99.9990) = 17367040.000 ns/op
+     p(99.9999) = 23986176.000 ns/op
+    p(100.0000) = 35586048.000 ns/op
+
+
+# Run complete. Total time: 00:06:33
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                                                Mode       Cnt         Score    Error  Units
+ShortUrlControllerBenchmark.expand                     sample  57547297      2773.587 ± 18.566  ns/op
+ShortUrlControllerBenchmark.expand:expand·p0.00        sample                  20.000           ns/op
+ShortUrlControllerBenchmark.expand:expand·p0.50        sample                2148.000           ns/op
+ShortUrlControllerBenchmark.expand:expand·p0.90        sample                2288.000           ns/op
+ShortUrlControllerBenchmark.expand:expand·p0.95        sample                2648.000           ns/op
+ShortUrlControllerBenchmark.expand:expand·p0.99        sample                4288.000           ns/op
+ShortUrlControllerBenchmark.expand:expand·p0.999       sample               40448.000           ns/op
+ShortUrlControllerBenchmark.expand:expand·p0.9999      sample             1569321.370           ns/op
+ShortUrlControllerBenchmark.expand:expand·p1.00        sample            37814272.000           ns/op
+ShortUrlControllerBenchmark.generate                   sample  59321597      6476.495 ± 94.975  ns/op
+ShortUrlControllerBenchmark.generate:generate·p0.00    sample                  54.000           ns/op
+ShortUrlControllerBenchmark.generate:generate·p0.50    sample                 790.000           ns/op
+ShortUrlControllerBenchmark.generate:generate·p0.90    sample                 991.000           ns/op
+ShortUrlControllerBenchmark.generate:generate·p0.95    sample                1138.000           ns/op
+ShortUrlControllerBenchmark.generate:generate·p0.99    sample                1476.000           ns/op
+ShortUrlControllerBenchmark.generate:generate·p0.999   sample               30592.000           ns/op
+ShortUrlControllerBenchmark.generate:generate·p0.9999  sample            11026432.000           ns/op
+ShortUrlControllerBenchmark.generate:generate·p1.00    sample            35586048.000           ns/op
