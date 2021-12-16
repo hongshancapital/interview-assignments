@@ -21,3 +21,16 @@
    ![swagger](https://gitee.com/wenchaogong/images/blob/master/swagger.png)
    ![jacoco](https://gitee.com/wenchaogong/images/blob/master/jacoco.png)
    [看不了图片](https://gitee.com/wenchaogong/images)
+
+### 性能测试
+    1、对两个接口分别进行并发测试：
+    2、测试并发数：1、2、5、10、20、50
+    3、调用总次数12000次
+    4、使用工具JMeter
+    性能测试结论：
+    1、线程数在10个以下时，TPS随并发数的提高，提高明显，平均相应时间短
+    2、线程10到20之间，TPS 提升不大，平均相应时间增大也不明显
+    3、项目20 到50 TPS 提升缓慢，平均响应时间变长
+    4、项目正常并发控制在20一下较好，TPS稳定在6000左右，相应时间较短 1ms左右
+    
+    文档不支持导出图片，或者分辨率过低，直接提交了文件
