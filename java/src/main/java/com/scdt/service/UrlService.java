@@ -1,17 +1,12 @@
 package com.scdt.service;
 
 import com.scdt.exception.CustomException;
-import com.scdt.model.request.UrlRequest;
-import com.scdt.util.Base62Util;
 import com.scdt.util.CacheUtil;
 import com.scdt.util.ShortUrlUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 
 @Service
 @Slf4j
