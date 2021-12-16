@@ -1,0 +1,41 @@
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+.indicator-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    background-color: yellow;
+}
+
+.indicator-item {
+    width: 50px;
+    height: 3px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.indicator-item:hover {
+    height: 5px;
+}
+
+.indicator-item:not(first-child) {
+    margin-left: 10px;
+}
+
+.indicator-item-progress {
+    height: 100%;
+    background: white;
+    animation: progress 2s infinite;
+}
+
+@keyframes progress {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
