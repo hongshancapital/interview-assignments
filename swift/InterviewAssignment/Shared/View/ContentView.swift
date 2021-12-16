@@ -39,7 +39,9 @@ struct ContentView: View {
                 }.navigationBarTitle(Text("List"))
                     .searchable(text: $viewModel.searchText, placement: SearchFieldPlacement.automatic, prompt: Text(SearchPromtText))
                     .onChange(of: viewModel.searchText, perform: {newValue in
-                        viewModel.search(by: newValue)
+                        Debouncer.debounce(1, key: "file \(#file) at line #\(#line)") {
+                            viewModel.search(by: newValue)
+                        }
                     })
                     .onAppear(perform: {viewModel.loadAll()})
             }
