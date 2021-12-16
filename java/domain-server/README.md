@@ -20,3 +20,4 @@
     基本都是类似微博长链接变短链接，所以我这里域名兼用了url（基本没有对URL进行校验）
    ![swagger](https://gitee.com/wenchaogong/images/blob/master/swagger.png)
    ![jacoco](https://gitee.com/wenchaogong/images/blob/master/jacoco.png)
+   [看不了图片](https://gitee.com/wenchaogong/images)
