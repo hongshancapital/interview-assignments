@@ -18,7 +18,11 @@ public class InMemoryStorage implements IStorage {
 
     @Override
     public void put(String longUrl, Long shortUrl) {
-        storage.put(shortUrl, longUrl);
+        //向HashBiMap中插入时需要保证线程安全，否则可能会使链表变成循环链表，导致取数据是死循环
+        //见：https://my.oschina.net/u/3874284/blog/4307973
+        synchronized (storage) {
+            storage.put(shortUrl, longUrl);
+        }
     }
 
     @Override
