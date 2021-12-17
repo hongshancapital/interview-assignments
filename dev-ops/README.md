@@ -17,14 +17,17 @@
 
 - [作业代码](analyse_syslog.py)
 - 思路概览
+
 作为日志分析功能，除了日志的解析（切割）外，比较重要的是对每条日志进行频率统计。这里采用的是特征值法，代码中的LoggerTrait类对每条日志进行特征值采集，然后用一个简单map对该特征值进行存储（特征值为key），从而将特定时段内的数据统计上报。
 - 扩展
+
 作业中对处理流程和过程点进行了部分抽象。作业流程为：采集->解析->统计->上报，并且对一下实体做了简单抽象：
   + 采集器 LoggerFetcher，可以接受不同格式的文件，并预留了其它方式的日志输入
   + 解析器 LoggerContentParser，匹配日志中不同的字段，这里使用了正则，优点是匹配精确，兼容性好。缺点是计算消耗稍高
   + 特征值 LoggerTrait，目前是对日志主要字段进行hash计算，可以扩展为对message进行模板提前，这样的统计结构更具可读性
   + 处理器 LoggerProcesser，核心流程，采用callback的方式对report进行处理。
   + 统计上报 ReporterSubmitter，简单的post请求发送
+---
 
 ### Q2
 
@@ -51,7 +54,8 @@
 ---
 
 - [作业地址](https://github.com/lfbear/Simplest-Spring-Boot-Hello-World)
-- 实现：AWS CDK + Github Action
+- 实现方式：AWS CDK + Github Action
+---
 
 ## 岗位描述
 
