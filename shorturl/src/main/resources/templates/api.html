@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>长短链接API</title>
+</head>
+<body>
+<table id="bankListTable" border="0px">
+    <tr bgcolor="#F1F1F1">
+        <th>长链接</th>
+        <th>短链接</th>
+    </tr>
+    <#if banks??&&((banks?size)>0)>
+    <#list banks as bank>
+    <tr>
+        <td>${bank.bankName}</td>
+        <td>${bank.bankCode}</td>
+    </tr>
+</#list>
+</#if>
+</table>
+</body>
+</html>
