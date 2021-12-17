@@ -6,12 +6,14 @@
 
 ## 开放岗位
 
-北京/武汉：
+武汉：
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
-- [UI 设计师](design/)
 - [Java](java/)
+
+北京/武汉:
+- [UI 设计师](design/)
 
 北京/上海/香港/深圳：
 - [IT Support Engineer](it-support-engineer/)
