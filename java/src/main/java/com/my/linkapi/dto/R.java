@@ -8,8 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class R<T> {
+    // 返回代码
     private Integer code;
+    // 错误消息
     private String msg;
+    // 返回内容
     private T data;
 
     public static <T> R<T> ok(T cdata){

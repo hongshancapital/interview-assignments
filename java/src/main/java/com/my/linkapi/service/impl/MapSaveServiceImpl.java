@@ -11,6 +11,11 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * 数据存储类
+ *
+ * @author ricky
+ */
 @Service
 public class MapSaveServiceImpl implements MapSaveService {
     private static Logger logger = LoggerFactory.getLogger(LinkLengthConversionServiceImpl.class);
@@ -19,6 +24,10 @@ public class MapSaveServiceImpl implements MapSaveService {
     private static ExecutorService poll = Executors.newSingleThreadExecutor();
     private static Integer ttls = 18000;// 秒计时-5小时
 
+    /**
+     * 构造函数，初始化类时创建守护线程
+     *
+     */
     public MapSaveServiceImpl(){
         poll.submit(new Callable()
 		{
@@ -32,17 +41,36 @@ public class MapSaveServiceImpl implements MapSaveService {
 		});
     }
 
+    /**
+     * 构造函数，测试使用，无需创建守护线程
+     *
+     */
     public MapSaveServiceImpl(Boolean noInit){
     }
 
+    /**
+     * 获取map存储
+     * @param
+     * @return
+     */
     protected Map<String, String> getLmap(){
         return lmap;
     }
 
+    /**
+     * 获取追踪list存储
+     * @param
+     * @return
+     */
     protected List<TrackEntityDto> getTrackList(){
         return trackList;
     }
 
+    /**
+     * 根据追踪list 回收超过时长的长短链接
+     * @param
+     * @return
+     */
     public void reclaimMemory(){
         try {
             logger.debug("开始执行");
@@ -76,6 +104,11 @@ public class MapSaveServiceImpl implements MapSaveService {
         }
     }
 
+    /**
+     * 保存数据至jvm
+     * @param
+     * @return
+     */
     public void save(String key, String value){
         getLmap().put(key, value);
         TrackEntityDto trackEntity = new TrackEntityDto();
@@ -84,6 +117,11 @@ public class MapSaveServiceImpl implements MapSaveService {
         getTrackList().add(trackEntity);
     }
 
+    /**
+     * 从jvm中获取数据
+     * @param
+     * @return
+     */
     public String getData(String key){
         return getLmap().get(key);
     }

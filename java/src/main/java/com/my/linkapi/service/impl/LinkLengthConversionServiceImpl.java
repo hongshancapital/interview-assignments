@@ -2,6 +2,7 @@ package com.my.linkapi.service.impl;
 
 import com.my.linkapi.service.MapSaveService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import com.my.linkapi.dto.LinkShortRequestDto;
 import org.springframework.stereotype.Component;
@@ -10,11 +11,21 @@ import com.my.linkapi.service.LinkLengthConversionService;
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
 
-@Component
+/**
+ * 长短链转换短链接 和 获取长短链接匹配关系
+ *
+ * @author ricky
+ */
+@Service
 public class LinkLengthConversionServiceImpl implements LinkLengthConversionService {
     @Resource
     private MapSaveService mapSaveService;
 
+    /**
+     * 转换长链接至短连接 并保存至数据至map  调用过程
+     * @param LinkShortRequestDto link 长链接参数
+     * @return String 短链接
+     */
     public String toShort(LinkShortRequestDto linkShortRequestDto){
         String defaultShortUrl = toShort(linkShortRequestDto.getLink());
         int i = 0;
@@ -28,6 +39,11 @@ public class LinkLengthConversionServiceImpl implements LinkLengthConversionServ
         return firstShortUrl;
     }
 
+    /**
+     * 转换长链接至短连接 md5计算过程
+     * @param String 长链接参数
+     * @return String 短链接
+     */
     public String toShort(String link){
         String key = "key";
         String[] chars = new String[] { "a", "b", "c", "d", "e", "f", "g", "h",
@@ -55,6 +71,11 @@ public class LinkLengthConversionServiceImpl implements LinkLengthConversionServ
         return firstShortUrl;
     }
 
+    /**
+     * 通过短链接获取 map中保存长链接
+     * @param String 短链接参数
+     * @return String 长链接
+     */
     public String toLong(String link){
         return mapSaveService.getData(link);
     }
