@@ -1,5 +1,7 @@
 package com.my.linkapi.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,12 +9,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@ApiModel("返回对象")
 public class R<T> {
-    // 返回代码
+    @ApiModelProperty("返回代码 200正常 500错误")
     private Integer code;
-    // 错误消息
+    @ApiModelProperty("错误消息")
     private String msg;
-    // 返回内容
+    @ApiModelProperty("返回内容")
     private T data;
 
     public static <T> R<T> ok(T cdata){
