@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortUrlServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">short-url</a> &gt; <a href="index.source.html" class="el_package">com.shycier.shorturl.service.impl</a> &gt; <span class="el_source">ShortUrlServiceImpl.java</span></div><h1>ShortUrlServiceImpl.java</h1><pre class="source lang-java linenums">package com.shycier.shorturl.service.impl;
+
+import com.shycier.shorturl.service.Generator;
+import com.shycier.shorturl.service.ShortUrlService;
+import com.shycier.shorturl.service.Store;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * 短域名服务
+ */
+@Service
+<span class="fc" id="L13">public class ShortUrlServiceImpl implements ShortUrlService {</span>
+
+	/**
+	 * 短域名生成器
+	 */
+	@Autowired Generator generator;
+
+	/**
+	 * 域名映射存储器
+	 */
+	@Autowired
+	Store&lt;String, String&gt; store;
+
+	/**
+	 * 根据长域名生成短域名
+	 * 存储长/短域名映射关系
+	 * 返回短域名
+	 * @param longUrl 长域名
+	 * @return 短域名
+	 */
+	@Override
+	public String save(String longUrl) {
+		//生成短域名
+<span class="fc" id="L36">		String shortUrl = generator.generate();</span>
+		//存储短域名
+<span class="fc" id="L38">		store.save(shortUrl, longUrl);</span>
+		//返回短域名
+<span class="fc" id="L40">		return shortUrl;</span>
+	}
+
+	/**
+	 * 根据短域名获取对应长域名
+	 * @param shortUrl 短域名
+	 * @return 长域名
+	 */
+	@Override
+	public String get(String shortUrl) {
+		//从存储中获取长域名并返回
+<span class="fc" id="L51">		return store.get(shortUrl);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
