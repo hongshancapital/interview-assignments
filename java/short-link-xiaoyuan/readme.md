@@ -40,7 +40,7 @@
 
 # 3、具体实现&核心算法
 ### 3.1 自增发号器实现(有缓存)
-```java
+```
 public CacheQueueNumberGenerator(Long id, Long highMaxConfig, Long stepConfig, Integer queueSizeConfig) {
 
         this.id = id;
@@ -86,7 +86,7 @@ public CacheQueueNumberGenerator(Long id, Long highMaxConfig, Long stepConfig, I
 ```
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639903394437-5a0d8056-14c8-47c7-a478-c3c3a706e24c.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=557&id=u7f198f71&margin=%5Bobject%20Object%5D&name=image.png&originHeight=847&originWidth=476&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47056&status=done&style=none&taskId=u796e8c09-fd5a-4072-bb04-3b5891e5cc7&title=&width=313)
 ### 3.2自增发号器实现(无缓存)
-```java
+```
 public synchronized Long generateCode() {
         if (low >= highMax) {
             log.error("已用尽号码,停止服务,low={},high={},step={},highMax={}", low, high, step, highMax);
@@ -111,7 +111,7 @@ public synchronized Long generateCode() {
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639903315412-c905fba3-d04a-42bd-8f74-cf405a88fea6.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=749&id=u7f4fc07e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=827&originWidth=426&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40613&status=done&style=none&taskId=u76242839-6282-40a2-9197-2aa5470846b&title=&width=386)
 ### 3.3 选择器实现(随机)
 原理：将所有发号器放入数组array，使用随机数生成器在数组array范围内生成一个随机下标即可
-```java
+```
 public NumberGenerator selectOneRandom(List<NumberGenerator> numberGeneratorList) {
         //加读锁
         try {
@@ -129,7 +129,7 @@ public NumberGenerator selectOneRandom(List<NumberGenerator> numberGeneratorList
 ```
 ### 3.4 选择器实现(权重)
 原理：将所有发号器放入数组array，权重大的放入多次，选择步骤同3.3同
-```java
+```
 public NumberGenerator selectOneWeight(List<NumberGenerator> numberGeneratorList) {
         //加读锁
         try {
