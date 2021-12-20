@@ -171,9 +171,7 @@ app.model = emit
 
 **特变注意,还需要新建一个machineId文件,里面是当前微服务的ID。这里可以加拓展，用zooKeeper记录机器ID每台服务启动时去zookeeper获取**
 ### 4.1 项目目录
-
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639904201496-dd1cec88-fc83-4837-bada-7f6ce73348bb.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=350&id=u8ac546c1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1294&originWidth=1062&originalType=binary&ratio=1&rotation=0&showTitle=false&size=826593&status=done&style=none&taskId=u7da5da99-7908-4a0c-880e-b3580a9f15e&title=&width=287)
-
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639904201496-dd1cec88-fc83-4837-bada-7f6ce73348bb.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=339&id=u8ac546c1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1294&originWidth=1062&originalType=binary&ratio=1&rotation=0&showTitle=false&size=826593&status=done&style=none&taskId=u7da5da99-7908-4a0c-880e-b3580a9f15e&title=&width=278)
 ### 4.2 单元测试完成度
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639904666785-21ed0848-19df-446d-9bfe-79a5fe016eb5.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=388&id=ufafba34e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=776&originWidth=2316&originalType=binary&ratio=1&rotation=0&showTitle=false&size=445060&status=done&style=none&taskId=ua9d8a138-664a-4ca9-a5d8-315daa9d103&title=&width=1158)
 ### 4.3 功能测试
