@@ -184,13 +184,16 @@ app.model = emit
 ### 4.4 swagger API
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639905809865-b06474a8-79b7-43f0-bad0-81a65189d669.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=334&id=udd9b7305&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1822&originWidth=3298&originalType=binary&ratio=1&rotation=0&showTitle=false&size=742070&status=done&style=none&taskId=ub4d8ba60-13ee-4ea1-9b9f-99ee50f1fce&title=&width=604)
 # 5、性能测试
-**测试工具：**jmeter
+**测试工具**
+jmeter
 **机器配置**（办公电脑,开了其他软件,如idea）：
+
 处理器：2.6 GHz 六核Intel Core i7
 内存：16 GB 2667 MHz DDR4
+
 **JVM配置(保守配置，用2G堆内存，1.6G年轻代)**：
 
-   - 版本：JDK8
+   - 版本：JDK1.8.0_151
    - JVM设置：-Xms2048M -Xmx2048M -Xmn1640M -Xss1M -XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=5 -XX:PretenureSizeThreshold=1M -XX:+UseParNewGC -XX:+UseConcMarkSweepGC
    - 62个缓存队列
 
