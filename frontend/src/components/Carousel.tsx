@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from "react";
-interface Props {
-  data: any;
-  attr: any;
-}
+import { IProps, IImageData } from "./interface"
 
 
-export const Carousel: any = (props: Props) => {
+export const Carousel = (props: IProps) => {
   const [postIndex, setPostIndex] = useState(0)
   // change post index
   const progress = () => {
@@ -19,10 +16,6 @@ export const Carousel: any = (props: Props) => {
   // move slide
   const generateMove = (i: number, postIndex: number) => {
     let style = {
-      zIndex: 1,
-      WebkitTransition: `left ${props.attr.interval/1000}s ${props.attr.slideTransitionTiming} 0s`,/* Safari 和 Chrome */
-      MozTransition: `left ${props.attr.interval/1000}s ${props.attr.slideTransitionTiming} 0s`,/* Firefox 4 */
-      OTransition: `left ${props.attr.interval/1000}s ${props.attr.slideTransitionTiming} 0s`, /* Opera */
       left:  ''
     }
     if (i < postIndex) {
@@ -36,24 +29,6 @@ export const Carousel: any = (props: Props) => {
     if (i > postIndex) {
       style.left = (i-postIndex)*100 + '%'
       return style
-    }
-  }
-
-  // fill the bar progress
-  const generateFill = (i: number, postIndex: number) => {
-    let fillStyle = {
-      zIndex: 1,
-      width: '0%',
-      height: 'inherit',
-      background: props.attr.progressBarColor,
-      WebkitTransition: `width ${props.attr.interval/1000}s ${props.attr.progressBarTransitionTiming} 0s`,/* Safari 和 Chrome */
-      MozTransition: `width ${props.attr.interval/1000}s ${props.attr.progressBarTransitionTiming} 0s`,/* Firefox 4 */
-      OTransition: `width ${props.attr.interval/1000}s ${props.attr.progressBarTransitionTiming} 0s`, /* Opera */
-    }
-
-    if (i === postIndex) {
-      fillStyle.width = '100%'
-      return fillStyle
     }
   }
 
@@ -71,9 +46,10 @@ export const Carousel: any = (props: Props) => {
   })
 
   // render slide, @params item: img data, index: loop slide index
-  const renderSlide = (item: any, index: number) => {
+  const renderSlide = (item: IImageData, index: number) => {
     return (
-      <div className="main-post" style={generateMove(index, postIndex)} key={index}>
+      // to do leftEaseFiveSeconds add conditions
+      <div className={['main-post', props.attr.slideTransitionClassName].join(' ')} style={generateMove(index, postIndex)} key={index}>
         <div className="image" >
           <img src={item.url} alt=""/>
         </div>
@@ -90,13 +66,13 @@ export const Carousel: any = (props: Props) => {
       if (props.attr.barClickChangeImg) {
         return (
           <div className="bar-container" key={index} onClick={() => handleBarClick(index)} style={{cursor: 'pointer'}}>
-            <div className="default-bar" style={generateFill(index, postIndex)} ></div>
+            <div className={['default-bar', index === postIndex? props.attr.progressBarClassName :''].join(' ')}></div>
           </div>
         )
       } else {
         return (
           <div className="bar-container" key={index}>
-            <div className="default-bar" style={generateFill(index, postIndex)} ></div>
+            <div className={['default-bar', index === postIndex? props.attr.progressBarClassName :''].join(' ')}></div>
           </div>
         )
       }
@@ -106,7 +82,7 @@ export const Carousel: any = (props: Props) => {
       <div className="sildes">
       {
         props.data.length?
-          props.data.map((item: any, index: any) => {
+          props.data.map((item: IImageData, index: number) => {
             return renderSlide(item, index)
           }) :    
           <div className="main-post" >
@@ -117,7 +93,7 @@ export const Carousel: any = (props: Props) => {
       }
       </div>
       <div className="progress-bar">
-        {props.data.map((item: any, index: any) => {
+        {props.data.map((item: IImageData, index: number) => {
           return (
             renderProgressBar(index)
           )

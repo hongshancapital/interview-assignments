@@ -1,0 +1,29 @@
+$transition-duration: 5s;
+$transition-timing-function: ease;
+$transition-delay: 0;
+// movement attribute class
+.leftEaseFiveSeconds {
+	transition-duration: $transition-duration;
+	transition-timing-function: $transition-timing-function;
+	transition-property: left;
+}
+.leftEaseInFiveSeconds {
+	transition-duration: $transition-duration;
+	transition-timing-function: ease-in;
+	transition-property: left;
+}
+// fill bar progress class
+.widthWhiteEaseFiveSeconds {
+	background-color: white;
+	width: 100% !important;
+	transition-duration: $transition-duration;
+	transition-timing-function: $transition-timing-function;
+	transition-property: width;
+}
+.widthRedEaseOutFiveSeconds {
+	background-color: red;
+	width: 100% !important;
+	transition-duration: $transition-duration;
+	transition-timing-function: ease-out;
+	transition-property: width;
+}
