@@ -170,18 +170,16 @@ app.config.expireSec = 3600
 app.model = emit
 
 **特变注意,还需要新建一个machineId文件,里面是当前微服务的ID。这里可以加拓展，用zooKeeper记录机器ID每台服务启动时去zookeeper获取**
-### 4.1 项目目录
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639904201496-dd1cec88-fc83-4837-bada-7f6ce73348bb.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=339&id=u8ac546c1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1294&originWidth=1062&originalType=binary&ratio=1&rotation=0&showTitle=false&size=826593&status=done&style=none&taskId=u7da5da99-7908-4a0c-880e-b3580a9f15e&title=&width=278)
-### 4.2 单元测试完成度
+### 4.1 单元测试完成度
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639904666785-21ed0848-19df-446d-9bfe-79a5fe016eb5.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=388&id=ufafba34e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=776&originWidth=2316&originalType=binary&ratio=1&rotation=0&showTitle=false&size=445060&status=done&style=none&taskId=ua9d8a138-664a-4ca9-a5d8-315daa9d103&title=&width=1158)
-### 4.3 功能测试
+### 4.2 功能测试
 1、获取短链
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639905159270-aecf39b3-0bc6-4c8c-9274-51ad9c0494e1.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=190&id=u939c37ad&margin=%5Bobject%20Object%5D&name=image.png&originHeight=440&originWidth=1340&originalType=binary&ratio=1&rotation=0&showTitle=false&size=115326&status=done&style=none&taskId=u0e4d5826-b14b-4b29-b219-b47d3736382&title=&width=579)
 2、通过短链获取长链
 ​
 
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639905175993-0d192d02-8b60-4103-b7b3-8dd5b8ace11c.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=208&id=u51ea7c4d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=462&originWidth=1272&originalType=binary&ratio=1&rotation=0&showTitle=false&size=127312&status=done&style=none&taskId=u00215ad0-5556-47e5-9ef5-5a882ca46c7&title=&width=573)
-### 4.4 swagger API
+### 4.3 swagger API
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639905809865-b06474a8-79b7-43f0-bad0-81a65189d669.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=334&id=udd9b7305&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1822&originWidth=3298&originalType=binary&ratio=1&rotation=0&showTitle=false&size=742070&status=done&style=none&taskId=ub4d8ba60-13ee-4ea1-9b9f-99ee50f1fce&title=&width=604)
 # 5、性能测试
 **测试工具**
@@ -203,7 +201,11 @@ jmeter
 QPS：9195
 
 发现：性能瓶颈在tomcat上，后端开了62个缓存队列，只有0号队列在返回数据，也就是说所有队列都返回的情况下，理论上可达到9k*62 = 54w QPS
-# 6、展望
+# 6、项目结构
+
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639904201496-dd1cec88-fc83-4837-bada-7f6ce73348bb.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=339&id=u8ac546c1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1294&originWidth=1062&originalType=binary&ratio=1&rotation=0&showTitle=false&size=826593&status=done&style=none&taskId=u7da5da99-7908-4a0c-880e-b3580a9f15e&title=&width=278)
+
+# 7、展望
 
 1. 机器ID获取可以改进，使用zookeeper注册并动态获取。(架构图中虚线部分)
 1. 由于没有持久化，每次重启服务，编码又从0开始计数。这里可以在生成器中，每次加步长的时候持久化高水位，之后再启动直接读上次的高水位。(架构图中虚线部分)
@@ -211,7 +213,7 @@ QPS：9195
 1. 单个发号器的码号达到最高水位80%时，可以加上报警功能，提前感知。
 1. 此系统可拓展性比较强，可以用来当唯一编号获取系统，比如为订单ID的获取。
 1. 性能瓶颈不在发号器上，在tomcat上，可以继续优化tomcat
-# 7、作者信息
+# 8、作者信息
 **基本信息** 
 
 姓名：肖源    地址：杭州市五常街道福鼎家园    电话：13657235345    Email：1214118459@qq.com 
