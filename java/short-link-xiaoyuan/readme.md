@@ -199,7 +199,7 @@ jmeter
 
 **测试结果：**
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2437188/1639918400744-f4694d81-c571-4407-9196-62c62e241975.png#clientId=u7d376f79-0c33-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=139&id=ua1ad06d7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=480&originWidth=2112&originalType=binary&ratio=1&rotation=0&showTitle=false&size=222476&status=done&style=none&taskId=uab1d644a-fcb1-4c7d-9d0f-fa647f6711f&title=&width=612)
-平均响应时间：36ms,最大响应时间360ms
+平均响应时间：36ms,最大响应时间360ms,
 QPS：9195
 发现：性能瓶颈在tomcat上，后端开了62个缓存队列，只有0号队列在返回数据，也就是说所有队列都返回的情况下，理论上可达到9k*62 = 54w QPS
 # 6、展望
