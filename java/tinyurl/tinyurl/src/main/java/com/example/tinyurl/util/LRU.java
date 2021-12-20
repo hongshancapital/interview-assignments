@@ -35,7 +35,7 @@ public class LRU {
         /**
          * 按每条数据100B算，总占用内存在1G左右，超过的数据被淘汰
          */
-        capcity = (int)(Math.pow(2,20));
+        capcity = (int)(Math.pow(2,24));
         caches = new ConcurrentHashMap<String, Node>(capcity);
     }
 

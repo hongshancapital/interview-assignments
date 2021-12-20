@@ -52,7 +52,7 @@ class TinyurlApplicationTests {
     @Test
     void testMemory() {
 
-        int totalSize = (int)(Math.pow(2,20));//缓存总容量
+        int totalSize = (int)(Math.pow(2,24));//缓存总容量
         AtomicInteger size = new AtomicInteger();
         for(int i =0; i < threadSize; i++) {
             int finalI = i;
