@@ -1,3 +1,4 @@
+如有格式问题可访问(https://www.yuque.com/docs/share/17e99d09-c21d-4ad6-a07b-8d2dc7f712dd)
 # 1、需求
 #### 实现短域名服务（细节可以百度/谷歌）
 撰写两个 API 接口:
