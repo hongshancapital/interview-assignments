@@ -1,34 +1,6 @@
 spring:
   application:
     name: tinyurl
-  datasource:
-    url: jdbc:mysql://81.69.250.51:3306/tinyurl?serverTimezone=UTC&useUnicode=true@characterEncoding=utf-8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 123456
-  mybatis-plus:
-    mapper-locations: classpath:mapper/*.xml
-    type-aliases-package: com.example.tinyurl.entity
-    global-config:
-      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
-      id-type: 0
-      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
-      field-strategy: 2
-      #驼峰下划线转换
-      db-column-underline: true
-      #刷新mapper 调试神器
-      refresh-mapper: true
-      #数据库大写下划线转换
-      #capital-mode: true
-      # Sequence序列接口实现类配置
-      #key-generator: com.baomidou.mybatisplus.incrementer.OracleKeyGenerator
-      #逻辑删除配置
-      logic-delete-value: -1
-      logic-not-delete-value: 0
-      #自定义填充策略接口实现
-      #meta-object-handler: com.baomidou.springboot.xxx
-      #自定义SQL注入器
-      sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
 server:
   port: 8081
 swagger:
