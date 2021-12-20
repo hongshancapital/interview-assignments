@@ -151,22 +151,22 @@ public NumberGenerator selectOneWeight(List<NumberGenerator> numberGeneratorList
 # 4、单元&功能测试
 **配置说明（application.properties）：**
 
-#每位编号的进制
+**每位编号的进制**
 app.config.redix = 62
 
-#短链接总长度
+**短链接总长度**
 app.config.totalBit = 8
 
-#机器占位
+**机器占位**
 app.config.machineBit = 1
 
-#计数器占位
+**计数器占位**
 app.config.counterBit = 1
 
-#缓存过期时长
+**缓存过期时长**
 app.config.expireSec = 3600
 
-#发号器选择（emit、counter）
+**发号器选择（emit、counter）**
 app.model = emit
 
 **特变注意,还需要新建一个machineId文件,里面是当前微服务的ID。这里可以加拓展，用zooKeeper记录机器ID每台服务启动时去zookeeper获取**
