@@ -13,7 +13,7 @@ function Carousel(props: ItemProps): ReactElement {
   const wrapper = useRef(null);
 
   useEffect(() => {
-    let timer: any = null;
+    let timer: NodeJS.Timeout | null = null;
     let count: number = 0;
     const dots: Array<HTMLElement> = Array.from(
       document.querySelectorAll(".dot-hover")
