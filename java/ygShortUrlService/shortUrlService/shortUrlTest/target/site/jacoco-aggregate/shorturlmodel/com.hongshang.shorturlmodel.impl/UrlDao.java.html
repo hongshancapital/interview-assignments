@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>UrlDao.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">shortUrlTest</a> &gt; <a href="../index.html" class="el_bundle">shorturlmodel</a> &gt; <a href="index.source.html" class="el_package">com.hongshang.shorturlmodel.impl</a> &gt; <span class="el_source">UrlDao.java</span></div><h1>UrlDao.java</h1><pre class="source lang-java linenums">package com.hongshang.shorturlmodel.impl;
+
+import com.hongshang.common.BaseHolder;
+import com.hongshang.shorturlmodel.api.IGetShortStrStrategy;
+import com.hongshang.shorturlmodel.api.IUrlDao;
+import com.hongshang.shorturlmodel.po.AddrUrlPo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * 地址存储类
+ *
+ * @author kobe
+ * @date 2021/12/19
+ */
+@Repository
+<span class="fc" id="L23">public class UrlDao implements IUrlDao {</span>
+
+    @Value(&quot;${long.url.maxcapacity}&quot;)
+    private Long maxcapacity;
+
+    /**
+     * 存储超时时长，单位为天
+     */
+    @Value(&quot;${long.url.timeout}&quot;)
+    private Long shortUrlTimeout;
+
+    /**
+     * 产生短地址的策略
+     */
+    @Value(&quot;${short.url.strStrategy}&quot;)
+    private String strStrategy;
+
+    /**
+     * 存储地址的容器
+     */
+<span class="fc" id="L43">    private static Map&lt;String, AddrUrlPo&gt; map = new ConcurrentHashMap&lt;&gt;();</span>
+
+    @Override
+    public String getByKey(String key) {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        return map.get(key)==null?null:map.get(key).getUrlStr();</span>
+    }
+
+    /**
+     *  保存存地址对
+     *
+     * @param key  长地址或短地址
+     * @param value 应相的短地址或长地址
+     * @return boolean 是否成功 true: 成功 ， false:失败
+     */
+    @Override
+    public boolean putKeyValue(String key, String value) {
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if(map.containsKey(key)){</span>
+<span class="nc" id="L60">            return false;</span>
+        }
+<span class="fc" id="L62">        AddrUrlPo addrUrlPo = new AddrUrlPo();</span>
+<span class="fc" id="L63">        addrUrlPo.setStartDate(new Date());</span>
+<span class="fc" id="L64">        addrUrlPo.setUrlStr(value);</span>
+<span class="fc" id="L65">        map.put(key,addrUrlPo);</span>
+<span class="fc" id="L66">        return true;</span>
+    }
+
+    /**
+     * 清除过期的数据
+     */
+    @Override
+    public void removeDelayData(){
+<span class="fc" id="L74">        Iterator&lt;Map.Entry&lt;String, AddrUrlPo&gt;&gt; entries = map.entrySet().iterator();</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        while (entries.hasNext()) {</span>
+<span class="fc" id="L76">            Date d2 = new Date();</span>
+<span class="fc" id="L77">            Map.Entry&lt;String, AddrUrlPo&gt; entry = entries.next();</span>
+<span class="fc" id="L78">            Date d1 =  (Date)entry.getValue().getStartDate();</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if(diffDate(d2,d1)&gt;shortUrlTimeout) {</span>
+<span class="nc" id="L80">                map.remove(entry.getKey());</span>
+            }
+<span class="fc" id="L82">        }</span>
+<span class="fc" id="L83">    }</span>
+
+    /**
+     * 获取短地址
+     *
+     * @return String
+     */
+    @Override
+    public String getShortUrl() {
+<span class="fc" id="L92">        IGetShortStrStrategy getShortStrStrategy = (IGetShortStrStrategy)BaseHolder.getBean(strStrategy);</span>
+<span class="fc" id="L93">        return getShortStrStrategy.getNextShortStr();</span>
+    }
+
+
+    /**
+     * d2-d1=几天
+     *
+     * @param d2 第二个日期
+     * @param d1 第一个日期
+     * @return int 第二个 比 第一个日期  过去了多少天
+     */
+    private long diffDate(Date d2,Date d1){
+        //毫秒ms
+<span class="fc" id="L106">        long diff = d2.getTime() - d1.getTime();</span>
+<span class="fc" id="L107">        long diffDays = diff / (24 * 60 * 60 * 1000);</span>
+<span class="fc" id="L108">        return diffDays;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
