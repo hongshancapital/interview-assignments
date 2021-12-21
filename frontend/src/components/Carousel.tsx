@@ -9,22 +9,26 @@ type ItemProps = {
 function Carousel(props: ItemProps): ReactElement {
   let { children, autoplay, duration = 2000 } = props;
   if (!Array.isArray(children)) children = [children];
-  const number = children.length;
+  const childrenNumber: number = children.length;
   const wrapper = useRef(null);
 
   useEffect(() => {
     let timer: any = null;
-    let count = 0;
-    const dots = Array.from(document.querySelectorAll(".dot-hover"));
-    const dotshoverDOM: any = document.querySelector(".dots-hover-wrapper");
-
-    dotshoverDOM.style.width = number * 50 + 15 * (number - 1) + "px";
+    let count: number = 0;
+    const dots: Array<HTMLElement> = Array.from(
+      document.querySelectorAll(".dot-hover")
+    );
+    const dotshoverDOM: HTMLElement = document.querySelector(
+      ".dots-hover-wrapper"
+    ) as HTMLElement;
+    dotshoverDOM.style.width =
+      childrenNumber * 50 + 15 * (childrenNumber - 1) + "px";
     dots[0].classList.add("animation");
 
     if (autoplay) {
       timer = setInterval(() => {
         count++;
-        if (count === number) {
+        if (count === childrenNumber) {
           count = 0;
         }
         dots.forEach((item, index) => {
@@ -50,14 +54,14 @@ function Carousel(props: ItemProps): ReactElement {
         {children.map((item: ReactElement) => item)}
       </div>
       <div className="dots-wrapper">
-        {Array(number)
+        {Array(childrenNumber)
           .fill(1)
           .map((item, index) => (
             <div className="dot" key={index}></div>
           ))}
       </div>
       <div className="dots-hover-wrapper">
-        {Array(number)
+        {Array(childrenNumber)
           .fill(1)
           .map((item, index) => (
             <div className="dot-hover" key={index}></div>

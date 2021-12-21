@@ -13,15 +13,10 @@ const CarouselItem = (props: ItemProps): ReactElement => {
 
   return (
     <div
+      className="carousel-item"
       style={{
-        display: "inline-block",
-        width: "100vw",
-        height: "100%",
         color: textColor,
         backgroundImage: `url(${bgSrc})`,
-        overflow: "hidden",
-        backgroundSize: "cover",
-        backgroundPosition: "center -300px",
       }}
     >
       <div className="title" dangerouslySetInnerHTML={{ __html: title }}></div>
