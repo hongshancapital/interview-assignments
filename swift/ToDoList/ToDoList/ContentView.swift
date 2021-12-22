@@ -20,8 +20,8 @@ struct ContentView: View {
                 let group = model.groups[section]
                 Section(group.name) {
                     ForEach(group.items) { item in
-                        ToDoListRow(content: item.content ?? "", inputText: item.content ?? "", isCompleted: item.isFinished, completedAction: {
-                            item.isFinished = true
+                        ToDoListRow(content: item.content ?? "", inputText: item.content ?? "", isCompleted: item.isFinished, completedAction: { isCompleted in
+                            item.isFinished = isCompleted
                             self.updateItem(item: item)
                         }) { content in
                             if content.count > 0 {
@@ -36,8 +36,13 @@ struct ContentView: View {
                             self.deleteItem(item: group.items[index])
                         }
                     }
+                    .background(Color.white)
+                    .frame(height:40)
+                    .cornerRadius(8.0)
+                    .padding(.bottom, 10)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
                 }
             }
         }

@@ -12,7 +12,7 @@ struct ToDoListRow: View {
     var content: String
     @State var inputText: String
     @State var isCompleted: Bool = false
-    var completedAction: (() -> Void)?
+    var completedAction: ((Bool) -> Void)?
     var contentChangedAction: ((String) -> Void)?
     
     @State private var isEditing: Bool = false
@@ -20,8 +20,8 @@ struct ToDoListRow: View {
     var body: some View {
         HStack {
             Button {
-                self.isCompleted = true
-                completedAction?()
+                self.isCompleted = !isCompleted
+                completedAction?(self.isCompleted)
             } label: {
                 Image(systemName: self.isCompleted ? "circle.inset.filled" : "circle")
                     .padding(.leading, 10)
