@@ -38,7 +38,7 @@ public class ShortUrlController {
         }
 
         //获取短域名信息
-        String shortUrl = shortUrlService.getShortUrl(requestDTO.getLongUrl(), requestDTO.getDigest());
+        String shortUrl = shortUrlService.getShortUrl(requestDTO.getLongUrl(), StringUtils.isBlank(requestDTO.getDigest()) ? "MD5" : requestDTO.getDigest());
         if (StringUtils.isBlank(shortUrl)) {
             return Result.newErrorResult(SystemErrorCode.SYSTEM_ERROR.getErrorCode(), SystemErrorCode.SYSTEM_ERROR.getErrorMessage());
 
