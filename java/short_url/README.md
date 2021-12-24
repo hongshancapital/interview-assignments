@@ -13,7 +13,7 @@
 > 
 >  假设3：相同长网址 ``urlEncode(longUrl)`` 生成相同的短网址，做到幂等性？
 
-![usecase](https://github.com/hardenCN/interview-assignments/tree/master/java/short_url/src/main/resources/images/usecase.jpg)
+![usecase](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/usecase.jpg)
 
 
 - **短域名存储接口：接受长域名信息，返回短域名信息**
@@ -26,7 +26,7 @@
   | 值 | 2 * 1024 * 1024 | 1.0f | 8 |
   | 说明 | 1个长域名映射记录(UTF-8)限制1KB，LRUCache 2G内存 | 为了cache size和ConcurrentHashMap threshold保持一致，减少一次rehash | webflux work线程数量为6，这里设置8 |
 
-![LRU](https://github.com/hardenCN/interview-assignments/tree/master/java/short_url/src/main/resources/images/LRU.png)
+![LRU](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/LRU.png)
 
   * 为了实现【``常数级别时间复杂度``】，两种方案：
   1. 一个容器方案，(不幂等)长域名不判断重复(一次请求一条记录)，允许长域名重复：``Key-Value : 短域名-长域名``
@@ -44,13 +44,13 @@
 
   > 短域名生成，常规操作：AtmoticLong 生成唯一数字id，然后转成Base62 字符串，参考 [hashids](https://hashids.org/) -> 假设，短域名如果出现 ``FuckYou0`` ``FuckYou1`` 这种单词怎么办? ``hashid``帮我们解决了这个问题
 
-![class](https://github.com/hardenCN/interview-assignments/tree/master/java/short_url/src/main/resources/images/class.jpg)
+![class](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/class.jpg)
 
 - **采用SpringBoot，集成Swagger API文档；**
   > ``springboot-webflux``
 - **JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图)；**
 
-![jacoco](https://github.com/hardenCN/interview-assignments/tree/master/java/short_url/src/main/resources/images/jacocoReport.jpg)
+![jacoco](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/jacocoReport.jpg)
 
   > 可能是我用了一些函数式编程，我好像遇到了一个jacoco和lambda 表达式的 [问题](https://github.com/jacoco/jacoco/issues/885) 无法做到**数据上**的行级覆盖 :(
 
@@ -65,5 +65,5 @@
 - 系统性能测试方案以及测试结果
 
 
-![jmeter1](https://github.com/hardenCN/interview-assignments/tree/master/java/short_url/src/main/resources/images/jmeter1.jpg)
-![jmeter1](https://github.com/hardenCN/interview-assignments/tree/master/java/short_url/src/main/resources/images/jmeter2.jpg)
+![jmeter1](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/jmeter1.jpg)
+![jmeter1](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/jmeter2.jpg)
