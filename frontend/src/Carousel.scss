@@ -1,0 +1,61 @@
+.carousel {
+  .wrap {
+    .slide {
+      height: 100%;
+      width: 100%;
+      list-style: none;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      padding-top: 30px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      p {
+        margin-top: 12px;
+      }
+      &:nth-child(1) {
+        background-image: url('./assets/airpods.png');
+        background-color: #f1f1f3;
+        color: #212121;
+      }
+      &:nth-child(2) {
+        background-image: url('./assets/iphone.png');
+        color: #ffffff;
+      }
+      &:nth-child(3),
+      &:nth-child(3) + .slide {
+        background-image: url('./assets/tablet.png');
+        background-color: #fafafa;
+        color: #212121;
+      }
+    }
+  }
+  .pagination {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    li {
+      list-style: none;
+      height: 2px;
+      width: 24px;
+      background-color: #9c9c9c;
+      border-radius: 4px;
+      overflow: hidden;
+      & + li {
+        margin-left: 10px;
+      }
+      &.active {
+        div {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+      &.inactive {
+        div {
+          transition: none;
+        }
+      }
+    }
+  }
+}
