@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import "./index.css"
 import { getIdentifierAnimationStyle, getSlickPositionLeft } from "./tools";
 
-export interface Props {
+interface Props {
     children: Array<ReactElement>, // the children's length should be more than 1
     duration?: number // unit is millisecond, default value is 2500
     className?: string
@@ -55,3 +55,22 @@ function Carousel({ children, duration = 2500, className }: Props) {
 }
 
 export default Carousel;
+
+interface SliderProps {
+    className?: string
+    title: string
+    description?: string
+}
+
+export function Slider({ className, title, description }: SliderProps) {
+    return (
+        <main className={`main-wrap w-full h-full${className ? ` ${className}` : ''}`}>
+            <header className="title">
+                {title}
+            </header>
+            <article className="text">
+                {description}
+            </article>
+        </main>
+    )
+}
