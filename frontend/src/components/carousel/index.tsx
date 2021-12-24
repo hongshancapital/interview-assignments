@@ -8,7 +8,7 @@ export interface Props {
     className?: string
 }
 
-let timer: any
+let timer: number
 
 function Carousel({ children, duration = 2500, className }: Props) {
     const [active, setActive] = useState(-1)
@@ -22,7 +22,7 @@ function Carousel({ children, duration = 2500, className }: Props) {
             clearTimeout(timer)
         }
 
-        timer = setTimeout(() => {
+        timer = window.setTimeout(() => {
             const newActive = (active + 1) % children.length // if next is equal with children.length, active will return 0
             setActive(newActive)
         }, duration)
