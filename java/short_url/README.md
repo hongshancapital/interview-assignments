@@ -18,15 +18,15 @@
 
 - **短域名存储接口：接受长域名信息，返回短域名信息**
   1. 验证：长度，格式，token
-  2. 根据2-8规则，80%的流量将由20%的长域名生成，考虑用``ConcurrentHashMap``实现 ``LRUCache`` 来存储 ，满量的情况用不到的短域名会被剔除，但是``Map.containsValue()``时间复杂度为O(logN)
+  2. 根据2-8规则，80%的流量将由20%的长域名生成，考虑用``ConcurrentHashMap``实现 ``LRUCache`` 来存储 ，满量的情况用不到的短域名会被剔除，但是``Map.containsValue()``时间复杂度为O(logN), <img alt="LRU" height="250" src="https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/LRU.png"/>
+
   3. 在此基础上应该考虑结合 ConcurrentHashMap 构造参数，减少``rehash``
 
-  | 参数 | initialCapacity | loadFactor | concurrencyLevel |
+   | 参数 | initialCapacity | loadFactor | concurrencyLevel |
   | :----:|:----:|:----:|:----:|
   | 值 | 2 * 1024 * 1024 | 1.0f | 8 |
   | 说明 | 1个长域名映射记录(UTF-8)限制1KB，LRUCache 2G内存 | 为了cache size和ConcurrentHashMap threshold保持一致，减少一次rehash | webflux work线程数量为6，这里设置8 |
 
-![LRU](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/LRU.png)
 
   * 为了实现【``常数级别时间复杂度``】，两种方案：
   1. 一个容器方案，(不幂等)长域名不判断重复(一次请求一条记录)，允许长域名重复：``Key-Value : 短域名-长域名``
@@ -38,13 +38,14 @@
   > 
   > 对于查询接口，要支持跨域请求，后端 ``CORS`` 或 ``jsonp``跨域。
 
+![class](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/class.jpg)
+
 
 **限制：**
 - **短域名长度最大为 8 个字符**
 
   > 短域名生成，常规操作：AtmoticLong 生成唯一数字id，然后转成Base62 字符串，参考 [hashids](https://hashids.org/) -> 假设，短域名如果出现 ``FuckYou0`` ``FuckYou1`` 这种单词怎么办? ``hashid``帮我们解决了这个问题
 
-![class](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/class.jpg)
 
 - **采用SpringBoot，集成Swagger API文档；**
   > ``springboot-webflux``
