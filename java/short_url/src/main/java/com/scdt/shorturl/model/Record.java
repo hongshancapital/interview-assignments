@@ -36,4 +36,30 @@ public class Record implements Serializable {
         this.longUrl = longUrl;
         return this;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Record record = (Record) o;
+
+        if (shortUrl != null ? !shortUrl.equals(record.shortUrl) : record.shortUrl != null) return false;
+        return longUrl != null ? longUrl.equals(record.longUrl) : record.longUrl == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = shortUrl != null ? shortUrl.hashCode() : 0;
+        result = 31 * result + (longUrl != null ? longUrl.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "shortUrl='" + shortUrl + '\'' +
+                ", longUrl='" + longUrl + '\'' +
+                '}';
+    }
 }

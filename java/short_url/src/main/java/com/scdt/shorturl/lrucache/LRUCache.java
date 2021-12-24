@@ -11,7 +11,7 @@ public class LRUCache<K, V> implements Cache<K, V>, Serializable {
 
     //todo 设置负载因子和并发级别
     private static final float LOAD_FATOR = 1.0f;
-    private static final int CONCURRENCY_LEVEL = 20;
+    private static final int CONCURRENCY_LEVEL = 8;
     private int size;
     private Map<K, LinkedListNode<CacheElement<K, V>>> linkedListNodeMap;
     private DoublyLinkedList<CacheElement<K, V>> doublyLinkedList;

@@ -9,7 +9,7 @@
 
 >  假设1：大量IO非计算密集服务，放弃``一请求一线程同步阻塞`` 改成 ``响应式异步非阻塞``，拥抱 ``eventloop`` ，增加吞吐量？
 > 
->  假设2：短域名读多写少，假设要这个服务的时间复杂度为O(1)，用什么数据结构存？（我始终优先考虑空间换时间，因为用户体验更重要）
+>  假设2：短域名读多写少，假设要这个服务的时间复杂度为O(1)，用什么数据结构存？（空间换时间？）
 > 
 >  假设3：相同长网址 ``urlEncode(longUrl)`` 生成相同的短网址，做到幂等性？
 
@@ -23,8 +23,8 @@
 
   | 参数 | initialCapacity | loadFactor | concurrencyLevel |
   | :----:|:----:|:----:|:----:|
-  | 值 | 2 * 1024 * 1024 | 1.0f | 20 |
-  | 说明 | 1个长域名映射记录(UTF-8)限制1KB，LRUCache 2G内存 | 为了cache size和ConcurrentHashMap threshold保持一致，减少一次rehash | 保持和业务线程池核心线程数量一致 |
+  | 值 | 2 * 1024 * 1024 | 1.0f | 8 |
+  | 说明 | 1个长域名映射记录(UTF-8)限制1KB，LRUCache 2G内存 | 为了cache size和ConcurrentHashMap threshold保持一致，减少一次rehash | webflux work线程数量为6，这里设置8 |
 
 ![LRU](C:\Users\a\Downloads\interview-assignments\java\short_url\src\main\resources\images\LRU.png)
 
@@ -44,20 +44,26 @@
 
   > 短域名生成，常规操作：AtmoticLong 生成唯一数字id，然后转成Base62 字符串，参考 [hashids](https://hashids.org/) -> 假设，短域名如果出现 ``FuckYou0`` ``FuckYou1`` 这种单词怎么办? ``hashid``帮我们解决了这个问题
 
-![LRU](C:\Users\a\Downloads\interview-assignments\java\short_url\src\main\resources\images\class.jpg)
+![class](C:\Users\a\Downloads\interview-assignments\java\short_url\src\main\resources\images\class.jpg)
 
 - **采用SpringBoot，集成Swagger API文档；**
   > ``springboot-webflux``
 - **JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图)；**
 
-![LRU](C:\Users\a\Downloads\interview-assignments\java\short_url\src\main\resources\images\jacocoReport.jpg)
+![jacoco](C:\Users\a\Downloads\interview-assignments\java\short_url\src\main\resources\images\jacocoReport.jpg)
 
   > 可能是我用了一些函数式编程，我好像遇到了一个jacoco和lambda 表达式的 [问题](https://github.com/jacoco/jacoco/issues/885) 无法做到**数据上**的行级覆盖 :(
 
 - **映射数据存储在JVM内存即可，防止内存溢出；**
-  > 已限制LRU缓存为2G（每条记录最大1KB，每次记录2条(最大2KB)，则最大缓存条数2*1024*1024=2097152条 ）
+  > 已限制LRU缓存为2G（每条记录最大1KB，每次记录2条(最大2KB)，则最大缓存映射条数1024*1024=1048576条 ）
+  > 
+  > 给堆空间2.5G，使用G1垃圾回收算法，默认启动 AdaptiveSizePolicy 动态调整即可
 
 
 **加分项**
 
 - 系统性能测试方案以及测试结果
+
+
+![jmeter1](C:\Users\a\Downloads\interview-assignments\java\short_url\src\main\resources\images\jmeter1.jpg)
+![jmeter1](C:\Users\a\Downloads\interview-assignments\java\short_url\src\main\resources\images\jmeter2.jpg)
