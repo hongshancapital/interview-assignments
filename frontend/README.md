@@ -1,5 +1,13 @@
 # TypeScript Frontend Engineer Assignment
 
+## 实现
+<p align="center">
+  <strong>
+    <a href="https://tanjing9406.github.io/interview-assignments/">Live code demo</a> | 
+    <a href="https://tanjing9406.github.io/interview-assignments/my-resume-tanjing.pdf">My Resume</a>
+  </strong>
+</p>
+
 ## 要求
 
 - 实现 demo.mov 中的效果
