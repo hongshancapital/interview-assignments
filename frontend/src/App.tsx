@@ -14,34 +14,44 @@ import Carousel from "./Carousel";
  */
 function App() {
   return <div className="App">
-      <Carousel
-        width={700}
-        height={400}
-        delay={3000}
-        speed={500}
-      >
-        <div key={1} className='slide'>
-          <h3>
-            Buy a Tablet or xPhone for college.
-            <br />
-            Get airPods.
-          </h3>
-        </div>
-        <div key={2} className='slide'>
-          <h3>xPhone</h3>
-          <p>
-            Lots to love. Less to spend.
-            <br />
-            Starting at $399
-          </p>
-        </div>
-        <div key={3} className='slide'>
-          <h3>Tablet</h3>
-          <p>
-            Just the right amount of everything
-          </p>
-        </div>
-      </Carousel>
+    <Carousel
+      width={700}
+      height={400}
+      delay={3000}
+      speed={500}
+    >
+      <div key={1} className='slide'>
+        <h3>
+          Buy a Tablet or xPhone for college.
+          <br />
+          Get airPods.
+        </h3>
+      </div>
+      <div key={2} className='slide'>
+        <h3>xPhone</h3>
+        <p>
+          Lots to love. Less to spend.
+          <br />
+          Starting at $399
+        </p>
+      </div>
+      <div key={3} className='slide'>
+        <h3>Tablet</h3>
+        <p>
+          Just the right amount of everything
+        </p>
+      </div>
+      <div key={4} className='slide'>
+        <h3>常恩会</h3>
+        <p>
+          前端开发
+          <br />
+          changenhui@outlook.com
+          <br />
+          15810967170
+        </p>
+      </div>
+    </Carousel>
   </div>;
 }
 
