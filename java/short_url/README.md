@@ -20,7 +20,7 @@
 >  问题4：应用服务可以K8s直接集群部署；那映射数据存储在JVM，是否要做分布式可扩展的集群，是要CP还是AP？
 > 
 >  问题5：显然这个短域名服务要保证存储后一定能查询到，因此需要保证一致性（Raft,Paxos...）？
->> 上班很忙的，题目限制只能用jdk和springboot，这得手写一致性协议实现，写完还要保证代码行分支覆盖率(加钱另算！)
+>> 上班很忙的，题目限制只能用jdk和springboot，这得手写一致性协议实现，写完还要保证代码行分支覆盖率(加钱另算)
 
 ![class](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/class.jpg)
 
