@@ -6,6 +6,9 @@ import com.sequoia.web.mapper.ExpireNode;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 基于字典树的实现
+ */
 public class TrieMapUrlMappingStrategy extends AbstractExpirableUrlMappingStrategy{
     Map trie = new TrieMap <String, ExpireNode> ();
 

@@ -8,6 +8,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 键值对定期清理抽象基类
+ */
 public abstract class ExpireMap {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExpireMap.class);
     protected long ttl;

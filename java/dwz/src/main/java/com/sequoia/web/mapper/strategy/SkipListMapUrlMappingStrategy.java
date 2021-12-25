@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 基于跳跃表的实现
+ */
 public class SkipListMapUrlMappingStrategy extends AbstractExpirableUrlMappingStrategy{
     Map<String, ExpireNode> skipListMapMap = new ConcurrentSkipListMap<String, ExpireNode>();
 

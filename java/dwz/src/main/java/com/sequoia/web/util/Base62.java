@@ -1,5 +1,8 @@
 package com.sequoia.web.util;
 
+/**
+ * 62进制转换
+ */
 public class Base62 {
     private static final char[] CHARS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',

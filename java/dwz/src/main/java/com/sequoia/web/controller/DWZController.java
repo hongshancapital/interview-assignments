@@ -40,6 +40,7 @@ public class DWZController {
         }
         if(!url.contains("://"))
             url = HTTP_PROTOCOL + url;
+        // 如有中文，默认以UTF-8进行encode
         url = UriUtils.encodePath(url, encoding);
         String shortUrl = service.saveShortUrlByLongUrl(url);
         return Result.ok("生成短链接成功", shortUrl);
@@ -53,7 +54,7 @@ public class DWZController {
         if (longURL != null) {
             return "redirect:" + longURL;
         }
-        // 这里改一下
+        // 定义编码为UTF-8
         response.setCharacterEncoding("UTF-8");
         response.setHeader("content-type", "application/json;charset=UTF-8");
         try {

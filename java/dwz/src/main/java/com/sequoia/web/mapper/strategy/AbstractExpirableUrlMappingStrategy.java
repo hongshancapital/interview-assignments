@@ -6,6 +6,9 @@ import com.sequoia.web.mapper.UrlMappingStrategy;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 键值存储的抽象基类，各策略可继承此类
+ */
 public abstract class AbstractExpirableUrlMappingStrategy extends ExpireMap implements UrlMappingStrategy {
 
     public AbstractExpirableUrlMappingStrategy(boolean enableExpire, long ttl, long initialDelay, long period, TimeUnit unit) {

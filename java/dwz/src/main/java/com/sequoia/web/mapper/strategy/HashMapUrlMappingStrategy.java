@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 基于ConcurrentHashMap的实现
+ */
 public class HashMapUrlMappingStrategy extends AbstractExpirableUrlMappingStrategy{
     Map<String, ExpireNode> hashMap = new ConcurrentHashMap<String, ExpireNode>();
 
