@@ -3,6 +3,10 @@
 
 ###实现短域名服务
 
+**用例图**
+
+![usecase](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/usecase.jpg)
+
 
 **撰写两个 API 接口：**
 
@@ -13,13 +17,12 @@
 > 
 >  假设3：相同长网址 ``urlEncode(longUrl)`` 生成相同的短网址，做到幂等性？
 
-![usecase](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/usecase.jpg)
-
+![class](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/class.jpg)
 
 - **短域名存储接口：接受长域名信息，返回短域名信息**
   1. 验证：长度，格式，token
   2. 根据2-8规则，80%的流量将由20%的长域名生成，考虑用``ConcurrentHashMap``实现 ``LRUCache`` 来存储 ，满量的情况用不到的短域名会被剔除，但是``Map.containsValue()``时间复杂度为O(logN),
-     <img alt="LRU" height="320" src="https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/LRU.png"/>
+     <img alt="LRU" height="320" src="https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/LRU.png"/>
   3. 在此基础上应该考虑结合 ConcurrentHashMap 构造参数，减少``rehash``
 
    | 参数 | initialCapacity | loadFactor | concurrencyLevel |
@@ -38,20 +41,24 @@
   > 
   > 对于查询接口，要支持跨域请求，后端 ``CORS`` 或 ``jsonp``跨域。
 
-![class](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/class.jpg)
-
 
 **限制：**
 - **短域名长度最大为 8 个字符**
 
-  > 短域名生成，常规操作：AtmoticLong 生成唯一数字id，然后转成Base62 字符串，参考 [hashids](https://hashids.org/) -> 假设，短域名如果出现 ``FuckYou0`` ``FuckYou1`` 这种单词怎么办? ``hashid``帮我们解决了这个问题
+  > 短域名生成，常规操作：AtmoticLong 生成唯一数字id，转 ``62进制`` 字符串
+  > 
+  > 我这里参考了 [hashids](https://hashids.org/) ；
+  > 
+  > **假设，短域名如果出现 ``FuckFuck`` ``ShitShit`` 这种单词怎么办? ``hashid``帮我们解决了这个问题**
+  
+![jacoco](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/badhash.jpg)
 
 
 - **采用SpringBoot，集成Swagger API文档；**
   > ``springboot-webflux``
 - **JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图)；**
 
-![jacoco](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/jacocoReport.jpg)
+![jacoco](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/jacocoReport.jpg)
 
   > 可能是我用了一些函数式编程，我好像遇到了一个jacoco和lambda 表达式的 [问题](https://github.com/jacoco/jacoco/issues/885) 无法做到**数据上**的行级覆盖 :(
 
@@ -66,5 +73,5 @@
 - 系统性能测试方案以及测试结果
 
 
-![jmeter1](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/jmeter1.jpg)
-![jmeter1](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/src/main/resources/images/jmeter2.jpg)
+![jmeter1](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/jmeter1.jpg)
+![jmeter1](https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/jmeter2.jpg)
