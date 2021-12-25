@@ -2,11 +2,76 @@
 
 ## 实现
 <p align="center">
+  您可以点击
   <strong>
-    <a href="https://tanjing9406.github.io/interview-assignments/">Live code demo</a> | 
-    <a href="https://tanjing9406.github.io/interview-assignments/my-resume-tanjing.pdf">My Resume</a>
+    <a href="https://tanjing9406.github.io/interview-assignments/">在线演示</a>
   </strong>
+  查看效果
 </p>
+
+### 用法
+
+#### Carousel 用法
+
+```javascript
+import React from 'react';
+import Carousel, { Slider } from "./components/carousel";
+
+const CAROUSEL_CONFIG_DATA = [
+    {
+        className: 'iphone color-white',
+        title: 'xPhone',
+        description: 'Lots to love. Less to spend.\nStarting at $399.'
+    },
+    {
+        className: 'tablet',
+        title: 'Tablet',
+        description: 'Just the right amount of everything.'
+    },
+    {
+        className: 'airpods',
+        title: 'Buy a Tablet or xPhone for college.\nGet airPods.'
+    }
+]
+
+const MyCarousel = () => (
+  <Carousel className="my-carousel-warp">
+    {CAROUSEL_CONFIG_DATA.map((data, index) => <Slider key={index} {...data} />)}
+  </Carousel>
+);
+
+export default MyCarousel;
+```
+#### Carousel props
+
+| Prop | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| children | *ReactNode* | true | `null` | The children's length should be more than 1 |
+| duration | *number* | false | `2500` | Determines transition duration in milliseconds |
+| className | *string* | false | `undefined` | Carousel's className |
+
+
+#### Slider 用法
+```javascript
+import React from 'react';
+import { Slider } from "./components/carousel";
+
+const SliderPage = () => (
+  <Slider className="tablet" title="Tablet" description="Just the right amount of everything." />
+);
+
+export default SliderPage;
+```
+![This is a slider demo image](https://tanjing9406.github.io/interview-assignments/readme.png)
+
+#### Slider props
+
+| Prop | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| className | *string* | false | `undefined` | Slider's className |
+| title | *string* | true | `undefined` | Slider's title |
+| description | *string* | false | `undefined` | Slider's description |
+
 
 ## 要求
 
