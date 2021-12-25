@@ -8,19 +8,30 @@
 import SwiftUI
 import CoreData
 
+struct ListHeader: View {
+    var title: String
+    var body: some View {
+        Text(title)
+            .font(Font.system(size: 15))
+            .foregroundColor(Color.black)
+            .frame(height:40, alignment: .leading)
+    }
+}
+
 struct ContentView: View {
     @EnvironmentObject private var model: TodoListViewModel
     
     @State private var isPresented: Bool = false
+    @State private var isEditing: Bool = false
     @State private var inputText: String?
     
     var listView: some View {
         List {
             ForEach(0..<model.groups.count, id: \.self) { section in
                 let group = model.groups[section]
-                Section(group.name) {
+                Section(header: ListHeader(title: group.name)) {
                     ForEach(group.items) { item in
-                        ToDoListRow(content: item.content ?? "", inputText: item.content ?? "", isCompleted: item.isFinished, completedAction: { isCompleted in
+                        ToDoListRow(content: item.content ?? "", isEditing: $isEditing, inputText: item.content ?? "", isCompleted: item.isFinished, completedAction: { isCompleted in
                             item.isFinished = isCompleted
                             self.updateItem(item: item)
                         }) { content in
@@ -41,9 +52,9 @@ struct ContentView: View {
                     .cornerRadius(8.0)
                     .padding(.bottom, 10)
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                 }
+                .listRowInsets(EdgeInsets())
             }
         }
     }
@@ -51,7 +62,7 @@ struct ContentView: View {
     var inputView: some View {
         VStack {
             Spacer()
-            if model.groupNames.count > 0 {
+            if model.groupNames.count > 0 && !self.isEditing {
                 ToDoListInputView(groups: model.groupNames, commitAction: { inputText, groupName in
                     if inputText.count <= 0 {
                         print("inputText can't be empty")
@@ -78,8 +89,10 @@ struct ContentView: View {
                         
                         self.isPresented = true
                     }, label: {
-                        Label("Add Group", systemImage: "plus")
-                            .tint(Color.black)
+                        if !self.isEditing {
+                            Label("Add Group", systemImage: "plus")
+                                .tint(Color.black)
+                        }
                     })
                     
                 }

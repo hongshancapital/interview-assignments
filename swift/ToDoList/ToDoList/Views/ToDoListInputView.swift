@@ -54,7 +54,7 @@ struct ToDoListInputView: View {
             }
         }
         .foregroundColor(Color.black)
-        .padding(.horizontal,  20)
+        .padding(.horizontal,  self.isEditing ? 20 : 35)
         .confirmationDialog("请选择分组信息", isPresented: $isPresented, presenting: self.groups) { groups in
             ForEach(groups, id: \.self) {group in
                 VStack {
