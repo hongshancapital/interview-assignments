@@ -26,7 +26,7 @@
 
 - **短域名存储接口：接受长域名信息，返回短域名信息**
   1. 验证：长度，格式，token
-  2. 根据2-8规则，80%的流量将由20%的长域名生成，考虑用``ConcurrentHashMap``实现 ``LRUCache`` 来存储 ，满量的情况用不到的短域名会被剔除，但是``Map.containsValue()``时间复杂度为O(logN),
+  2. 根据2-8规则，80%的流量将由20%的长域名生成，考虑用``ConcurrentHashMap``实现 ``LRUCache`` 来存储 ，满量的情况用不到的短域名会被剔除，但是``Map.containsValue()``时间复杂度为O(N),
      <img alt="LRU" height="320" src="https://github.com/hardenCN/interview-assignments/raw/master/java/short_url/doc/LRU.png"/>
   3. 在此基础上应该考虑结合 ConcurrentHashMap 构造参数，减少``rehash``
 
