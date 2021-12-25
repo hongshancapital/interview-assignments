@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 public class SnowFlakeIdGenerator implements IdGenerator {
     private final static long START_TIMESTAMP = 1609430400000L; // 起始时间戳 2021.01.01 00:00:00
 
-    private final static long SEQUENCE_BIT = 12;   //序列号占用的位数
-    private final static long MACHINE_BIT = 5;     //机器标识占用的位数
-    private final static long DATA_CENTER_BIT = 5; //数据中心占用的位数
+    private final static long SEQUENCE_BIT = 14;   //序列号占用的位数
+    private final static long MACHINE_BIT = 1;     //机器标识占用的位数
+    private final static long DATA_CENTER_BIT = 1; //数据中心占用的位数
 
     private final static long MAX_SEQUENCE = ~(-1L << SEQUENCE_BIT);
     private final static long MAX_MACHINE_NUM = ~(-1L << MACHINE_BIT);
