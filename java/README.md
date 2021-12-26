@@ -12,13 +12,13 @@
 #### 系统架构
 系统分层架构，涉及到三端流程，内务业务系统访问服务转换短域名，C端通过短域名访问具体内容
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/framework.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/framework.png)
 
 ### 四、流程设计
 * * *
 #### 核心流程
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/process.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/process.png)
 
 ### 五、系统实现
 #### 技术方案
@@ -49,7 +49,7 @@
 **单元测试数据：**
 单元测试覆盖率整体90%以上
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/junit.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/junit.png)
 
 
 **性能压测数据：**
@@ -65,28 +65,28 @@ jemter压测情况：
 循环次数：10000
 压测接口：长域名转短域名接口、短域名code查询长域名接口
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/thread-param.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/thread-param.png)
 
 长域名转短域名压测数据如下：
 接口RT：95Line 25ms  99Line 59ms  QPS：13513
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/tansferurl.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/tansferurl.png)
 
 短code查询长域名压测数据如下：
 接口RT：95Line 8ms  99Line 29ms  QPS：17731
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/query.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/query.png)
 
 JVM内存：
 在上述并发请求下，堆内存最高使用接近300M，CPU使用率峰值50%，线程数峰值127，堆外内存使用60M
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/jvm1.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/jvm1.png)
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/jvm2.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/jvm2.png)
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/jvm3.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/jvm3.png)
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/jvm4.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/jvm4.png)
 
 ### 六、未来展望
 #### 崩溃恢复
@@ -95,7 +95,7 @@ JVM内存：
 a: 实时持久化：每次转换之后，需缓存和持久化完成才可以返回成功，不会丢失数据，但是效率低
 b: 异步持久化：使用一个阻塞队列，每次转换完成之后将数据发送到阻塞队列中，后台异步线程消费数据进行持久化，效率高，但是可能数据丢失
 
-![image](https://github.com/lirui001/shorturl/blob/master/images/persistence.png)
+![image](https://github.com/lirui001/interview-assignments/blob/master/java/images/persistence.png)
 
 **数据恢复：**
 系统重启之后，加载数据进内存中，同时在查询的时候如果内存中没有，可以去持久化组件（数据库）中查询
