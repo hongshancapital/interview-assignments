@@ -1,0 +1,19 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8080
+  servlet:
+    context-path: /domain
+
+app:
+  domain:
+    url_prefix: ${SHORT_DOMAIN_PREFIX:https://m.sequoia.cn}
+  cache:
+    init_capacity: ${CACHE_INIT_CAPACITY:1024}
+    max_capacity: ${CACHE_MAX_CAPACITY:1048576}
+  id:
+    generator:
+      algorithm: ${ID_GENERATOR_ALGO:self_increase}
+      init_value: ${ID_INIT_VALUE:0}
+      data_center_id: ${DATA_CENTER_ID:1}
+      machine_Id: ${MACHINE_ID:1}
