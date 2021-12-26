@@ -1,10 +1,10 @@
-package com.scdt.shorturl.service;
+package com.scdt.shorturl.distributed;
 
 import com.scdt.shorturl.lrucache.LRUCache;
 import com.scdt.shorturl.model.Record;
 import com.scdt.shorturl.model.Res;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.scdt.shorturl.service.Hashids;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -22,15 +22,17 @@ import java.util.stream.Collectors;
  * 短域名服务实现
  */
 @Service
-public class URLService {
-    private static final Logger log = LoggerFactory.getLogger(URLService.class);
+@Slf4j
+public class LocalLRUCacheService {
 
+    public boolean isLeader;
+    public Long startUpTime;
     private final Hashids hashids;
     //实际情况，短域名不可能和长域名相等，所以每次都是存储两条记录，两个合并成一个操作
     private final LRUCache<String,String> lruCache;
     private final AtomicLong idGenerator = new AtomicLong(0);
-    public URLService(Hashids hashids,
-                      LRUCache<String, String> lruCache) {
+    public LocalLRUCacheService(Hashids hashids,
+                                LRUCache<String, String> lruCache) {
         this.hashids = hashids;
         this.lruCache = lruCache;
     }

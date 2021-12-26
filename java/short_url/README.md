@@ -1,7 +1,7 @@
 
 # Java Assignment
 
-###实现短域名服务  （单机版）
+###实现短域名服务  （单机版） [分布式集群版点这里](https://github.com/hardenCN/interview-assignments/tree/master/java/short_url_distributed)
 
 **用例图**
 
@@ -50,7 +50,7 @@
 **限制：**
 - **短域名长度最大为 8 个字符**
 
-  > 短域名生成，常规操作：AtmoticLong 生成唯一数字id，转 ``62进制`` 字符串
+  > 短域名生成，常规操作：AtmoticLong 生成唯一数字id，转 ``62进制`` 字符串 （分布式环境使用全局自增id）
   > 
   > 我这里参考了 [hashids](https://hashids.org/) ；
   > 
@@ -69,8 +69,8 @@
 
 - **映射数据存储在JVM内存即可，防止内存溢出；**
   > 已限制LRU缓存为2G（每条记录最大1KB，每次记录2条(最大2KB)，则最大缓存映射条数1024*1024=1048576条 ）
-  > 
-  > 给堆空间2.5G，使用G1垃圾回收算法，默认启动 AdaptiveSizePolicy 动态调整即可
+  >
+  > 给堆空间2.5G，默认垃圾回收器是G1，默认启用了 AdaptiveSizePolicy 不会OOM
 
 
 **加分项**

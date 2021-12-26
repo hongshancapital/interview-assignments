@@ -1,0 +1,51 @@
+server:
+  port: 8088
+
+# 系统设置
+scdt:
+  # 一个短域名-长域名映射不能超过1KB
+  long-url-max-byte-length: 1016
+  # 短域名设置成8位字符
+  short-url-id-max-byte-length: 8
+  # LRUCache 内存最大2G
+  lru-cache-size: 2097152
+  # 用于生成唯一字符串id的salt
+  hashids-salt: scdt-china
+  # 生成8位字符的最大自增id
+  id-generated-max-size: 319277809663
+
+springdoc:
+  version: '${version}'
+  swagger-ui:
+    disable-swagger-default-url: true
+    use-root-path: true
+    # swagger
+    path: /swagger-ui.html
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env, health, info, metrics, mappings, shutdown, threaddump
+endpoints:
+  zookeeper:
+    enabled: true
+
+spring:
+  application:
+    name: short_url_distributed
+  cloud:
+    # 和zookeeper配置 保持一致
+    zookeeper:
+      connect-string: ${ZOOKEEPER_HOST:localhost:2181}
+      discovery:
+        enabled: true
+        instance-id: ${NODE_ID:1}
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+logging:
+  level:
+    org.apache.zookeeper.ClientCnxn: WARN

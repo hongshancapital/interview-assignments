@@ -16,14 +16,14 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = App.class)
-public class URLServiceTest {
+public class LocalLRUCacheServiceTest {
 
     @Autowired
-    private URLService urlService;
+    private LocalLRUCacheService localLRUCacheService;
 
     @Test
     public void createShortUrlByLongUrlTest(){
-        Res<List<Record>> res = urlService.createShortUrlByLongUrl(new HashSet<>(Arrays.asList("asdasdsda"))).block();
+        Res<List<Record>> res = localLRUCacheService.createShortUrlByLongUrl(new HashSet<>(Arrays.asList("asdasdsda"))).block();
         Assertions.assertTrue(res.isSuccess());
     }
 
