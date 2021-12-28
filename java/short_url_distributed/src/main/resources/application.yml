@@ -36,11 +36,13 @@ spring:
   application:
     name: short_url_distributed
   cloud:
-    # 和zookeeper配置 保持一致
     zookeeper:
-      connect-string: ${ZOOKEEPER_HOST:localhost:2181}
+      connect-string: 127.0.0.1:2181
+      #  分步式id root node
+      sequence-path: /distribute-id/
       discovery:
         enabled: true
+        # zookeeper myid
         instance-id: ${NODE_ID:1}
     loadbalancer:
       ribbon:
