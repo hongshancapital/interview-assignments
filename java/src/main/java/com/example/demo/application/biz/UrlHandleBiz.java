@@ -31,7 +31,7 @@ public class UrlHandleBiz {
     public String transferLongUrl(String longUrl) {
         Preconditions.checkState(StringUtils.isNotBlank(longUrl), DemoErrorEnum.PARAM_ERROR);
 
-        String key = urlTransferService.transferToShortUrl(longUrl);
+        String key = urlTransferService.transferToShortUrlKey(longUrl);
 
         String value = urlDao.queryLongUrl(key);
         if (StringUtils.isEmpty(value)) {
