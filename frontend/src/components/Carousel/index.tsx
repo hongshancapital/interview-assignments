@@ -1,9 +1,8 @@
-import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useRef, useState, useCallback } from "react";
 import "./style.css";
 
-import { formateTextToArray } from './config';
+import { formateTextToArray, boxRole, flagRole } from './config';
 import { ICarouselPropsType, ICarouselViewType, ICarouselRefType } from './type';
-
 
 /**
  * 工具函数
@@ -82,15 +81,18 @@ const Carousel = (props: ICarouselPropsType): JSX.Element => {
     }
     const width = 100 / config.length + 'px';
     return config.map(item => {
-      const { title, subTitle, img } = item;
+      const { title, subTitle, backgroundColor, imgWidth } = item;
       return {
         ...item,
         title: formateTextToArray(title),
         subTitle: formateTextToArray(subTitle),
         imgStyle: {
+          width: imgWidth,
+        },
+        boxStyle: {
           width,
-          // backgroundColor: `${backgroundColor}`
-          backgroundImage: `url(${img})`
+          backgroundColor: `${backgroundColor}`,
+          // backgroundImage: `url(${img})`
         }
       }
     });
@@ -99,60 +101,61 @@ const Carousel = (props: ICarouselPropsType): JSX.Element => {
   // 动画完成需要多少帧
   const frames = useMemo<number>(() => delay === 0 ? 1 : Math.round(delay / 16), [delay]);
 
-  const autoPlay = (index: number) => {
+  const autoPlay = useCallback((index: number) => {
     const last = lastActive(index, list.length);
     const curEl = flagRef.current[index];
     const lastEl = flagRef.current[last];
     resetMaskState(lastEl);
     playFlagMask(curEl, frames);
-  };
+  }, [frames, list.length]);
 
-  const handlePlay = (index: number) => {
+  const handlePlay = useCallback((index: number) => {
     if (index < 0 || index >= list.length) {
       return
     }
     setActive(v => {
-      if (animateFlag) {
-        cancelAnimationFrame(animateFlag);
-      }
       resetMaskState(flagRef.current[v]);
       const x = Math.round(100 / list.length * index * 100) / 100;
       setTranslateX(`translateX(-${x}%)`);
-      if (auto) {
-        autoPlay(index);
-      } else {
-        resetMaskState(flagRef.current[index], 100);
-      }
       return index;
     });
-  };
+  }, [list.length]);
 
   const handleClick = (index: number) => {
+    if (index === active) {
+      return;
+    }
     clearTimeout(timerFlag);
     handlePlay(index);
   }
 
   useEffect(() => {
     clearTimeout(timerFlag);
-    if (auto) {  
+    if (auto) {
       timerFlag = window.setTimeout(() => handlePlay(nextActive(active, list.length)), delay);
     }
-  }, [auto, delay, active, list]);
-
-  useEffect(() => onChange && onChange(active), [active, onChange]);
+  }, [auto, delay, active, list, handlePlay]);
 
   useEffect(() => {
+    if (animateFlag) {
+      cancelAnimationFrame(animateFlag);
+    }
     if (auto) {
       autoPlay(active);
     } else {
       resetMaskState(flagRef.current[active], 100);
     }
+  }, [active, auto, autoPlay])
+
+  useEffect(() => onChange && onChange(active), [active, onChange]);
+
+  useEffect(() => {
+    setActive(0);
     return () => {
       clearTimeout(timerFlag);
       cancelAnimationFrame(animateFlag);
     };
   }, []);
-
   
   if (!list.length) {
     return <Fragment></Fragment>;
@@ -160,25 +163,25 @@ const Carousel = (props: ICarouselPropsType): JSX.Element => {
 
   return (
     <div className="carousel-view">
-      <div className="carousel-view-box" style={{
+      <div className="carousel-view-box" role={boxRole} style={{
         width: `${list.length * 100}%`,
         transform: translateX
       }}>
         {
           list.map(item => {
             return (
-              <div className="carousel-view-img" key={item.id} style={item.imgStyle}>
-                {/* <img src={item.img} alt="not found" /> */}
+              <div className="carousel-view-img" key={item.id} style={item.boxStyle}>
                 <div className="carousel-view-text">
                   {renderTitle(item.title, item?.color)}
                   {renderSubTitle(item.subTitle, item?.color)}
                 </div>
+                <img src={item.img} alt="not found" style={item.imgStyle} />
               </div>
             );
           })
         }
       </div>
-      <div className="carousel-view-flag">
+      <div className="carousel-view-flag" role={flagRole}>
         {
           list.map((item, index) => {
             const isActive = index === active;

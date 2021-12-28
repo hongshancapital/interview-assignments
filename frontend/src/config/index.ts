@@ -11,7 +11,8 @@ export const CarouselConfig: ICarouselConfigType[] = [
     title: 'xPhone',
     subTitle: ['Lots to love. Less to spend.', 'Starting at $399.'],
     color: '#ffffff',
-    backgroundColor: '#111111'
+    backgroundColor: '#111111',
+    imgWidth: '70%',
   },
   {
     id: 2,
@@ -19,13 +20,15 @@ export const CarouselConfig: ICarouselConfigType[] = [
     title: 'Tablet',
     subTitle: 'Just the right amount of everything.',
     color: '#000000',
-    backgroundColor: '#FAFAFA'
+    backgroundColor: '#FAFAFA',
+    imgWidth: '130%',
   },
   {
     id: 3,
     img: airpodsPng,
     title: ['Buy a Tablet or xPhone for college.', 'Get arPods.'],
     color: '#000000',
-    backgroundColor: '#F1F1F3'
+    backgroundColor: '#F1F1F3',
+    imgWidth: '180%',
   }
 ];

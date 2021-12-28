@@ -4,7 +4,8 @@ export interface ICarouselConfigType {
   title: string[] | string,
   subTitle?: string[] | string,
   color?: string,
-  backgroundColor?: string
+  backgroundColor?: string,
+  imgWidth: string,
 }
 
 export interface ICarouselPropsType {
@@ -16,6 +17,7 @@ export interface ICarouselPropsType {
 
 export interface ICarouselViewType extends ICarouselConfigType {
   imgStyle: React.CSSProperties,
+  boxStyle: React.CSSProperties,
   title: string[],
   subTitle: string[]
 }

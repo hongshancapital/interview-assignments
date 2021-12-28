@@ -21,14 +21,16 @@
   background-position: center 85%;
   background-repeat: no-repeat;
   /* background-attachment: fixed; */
+  overflow: hidden;
 }
 
 .carousel-view .carousel-view-box .carousel-view-img img {
   position: absolute;
   width: 100%;
   left: 50%;
-  bottom: 0;
+  bottom: 10%;
   transform: translate(-50%, 0);
+  
 }
 
 .carousel-view .carousel-view-box .carousel-view-img .carousel-view-text {
@@ -41,6 +43,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  z-index: 1000;
 }
 
 .carousel-view-text {
@@ -84,15 +87,3 @@
   height: 100%;
   background-color: #ffffff;
 }
-
-/* .carousel-view-flag .carousel-view-rect.active {
-
-}
-
-.carousel-view-flag .carousel-view-rect.active:after {
-  content: '';
-  display: block;
-  width: 10%;
-  height: 100%;
-  background-color: #ffffff;
-} */

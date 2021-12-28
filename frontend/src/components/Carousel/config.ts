@@ -9,3 +9,7 @@ export const formateTextToArray = (text: string | string[] | undefined): string[
   }
   return result;
 };
+
+export const boxRole = "carousel-box";
+
+export const flagRole = "carousel-flag";
