@@ -8,5 +8,5 @@ package com.example.demo.application;
 
 public interface UrlTransferService {
 
-    String transferToShortUrl(String longUrl);
+    String transferToShortUrlKey(String longUrl);
 }
