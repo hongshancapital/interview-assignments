@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class UrlTransferServiceImpl implements UrlTransferService {
 
     @Override
-    public String transferToShortUrl(String longUrl) {
+    public String transferToShortUrlKey(String longUrl) {
         return UrlUtils.generateKey(longUrl);
     }
 }
