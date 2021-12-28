@@ -24,7 +24,7 @@ public enum DemoErrorEnum {
     PARAM_ERROR(400, "参数错误"),
     SYSTEM_EXCEPTION(500, "系统异常"),
 
-    URL_TRANSFER_ERROR(600, "系统异常");
+    URL_TRANSFER_ERROR(600, "url转换异常");
 
     @Getter
     private final int code;
