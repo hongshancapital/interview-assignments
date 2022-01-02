@@ -1,6 +1,6 @@
 # 设计思路
 
-![Image](https://github.com/oldnoop/interview-assignments/edit/master/java/jacpic.png)
+![Image](https://github.com/oldnoop/interview-assignments/edit/master/java/jacpic.jpg)
 
 对每一个长链接，
 
@@ -76,7 +76,7 @@ API文档
 
  采用spring-test测试框架，Mockito框架实现Mock, jacoco生成代码覆盖率的测试报告
 
- ![Image](https://github.com/oldnoop/interview-assignments/edit/master/java/jacoco.png) 
+ ![Image](https://github.com/oldnoop/interview-assignments/edit/master/java/jacoco.jpg) 
 
 性能测试
 
