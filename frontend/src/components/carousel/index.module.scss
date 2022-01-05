@@ -11,21 +11,34 @@
     .carouselItem {
       min-width: 100vw;
       height: 100vh;
-      background-size: cover;
-      background-position: center -250px;
 
-      .title {
-        margin-top: 200px;
-        font-size: 100px;
-        font-weight: bold;
+      .textbox {
+        display: flex;
+        flex-direction: column;
+        height: 1000px;
+
+        .title {
+          margin-top: 200px;
+          font-size: 100px;
+          font-weight: bold;
+        }
+
+        .description {
+          font-size: 50px;
+        }
+
+        .price {
+          font-size: 30px;
+        }
+
       }
 
-      .description {
-        font-size: 50px;
-      }
-
-      .price {
-        font-size: 30px;
+      .image {
+        height: 500px;
+        margin-top: -600px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center bottom;
       }
     }
   }
@@ -37,13 +50,13 @@
   .dotWrapper {
     position: absolute;
     bottom: 100px;
-    left: calc(50% - 150px);
+    left: calc(50% - 100px);
     display: flex;
-    width: 300px;
+    width: 200px;
     justify-content: space-between;
 
     .dotItem {
-      width: 90px;
+      width: 60px;
       height: 6px;
       background: #bbb;
       border-radius: 3px;
@@ -60,8 +73,6 @@
         animation-name: widthChange;
       }
     }
-
-
   }
 }
 

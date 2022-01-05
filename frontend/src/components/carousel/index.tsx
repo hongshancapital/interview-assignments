@@ -2,14 +2,25 @@ import React, { ReactElement, useEffect, useState } from "react";
 import style from './index.module.scss'
 import { IData } from "../../interface";
 
+
+/**
+ * @interface CarouselProps
+ * @param duration 轮换间隔，默认3000毫秒
+ * @param data 轮播单元的数据列表 IData[]
+ */
 interface CarouselProps {
-  duration?: number // ms
+  duration?: number
   data: IData[]
 }
 
 function Carousel(props: CarouselProps): ReactElement {
+  // props
   let { data, duration = 3000 } = props;
+
+  // state
   let [activeIndex, setActiveIndex] = useState(0);
+
+  // custom variables
   let carouselLength = data.length
 
   useEffect(() => {
@@ -24,7 +35,7 @@ function Carousel(props: CarouselProps): ReactElement {
 
   return (
     <div id={style.carousel}>
-      {/* 轮播图 */}
+      {/* 轮播，空数据显示nodata占位 */}
       <div className={style.carouselContainer} style={{
         transform: `translateX(-${100 * activeIndex}vw)`
       }}>
@@ -34,18 +45,20 @@ function Carousel(props: CarouselProps): ReactElement {
               <div className={style.carouselItem} key={index} style={{
                 color: item.color,
                 backgroundColor: item.bgColor,
-                backgroundImage: `url(${item.imgUrl})`
               }}>
-                <p className={style.title} dangerouslySetInnerHTML={{ __html: item.title }}></p>
-                <p className={style.description}>{item.description}</p>
-                <p className={style.price}>{item.price}</p>
+                <div className={style.textbox}>
+                  <p className={style.title} dangerouslySetInnerHTML={{ __html: item.title }}></p>
+                  <p className={style.description}>{item.description}</p>
+                  <p className={style.price}>{item.price}</p>
+                </div>
+                <div className={style.image} style={{ backgroundImage: `url(${item.imgUrl})` }}></div>
               </div>
             ))
             :
             <div id={style.nodata}>nodata</div>
         }
       </div >
-      {/* 进度条 */}
+      {/* 进度条，空数据情况不展示 */}
       <div className={style.dotWrapper}>
         {
           carouselLength ? data.map((item, index) => (
