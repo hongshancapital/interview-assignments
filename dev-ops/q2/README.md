@@ -1,7 +1,7 @@
 # Assignment Q2
 ## 0. 思路
 ### 0.1 架构图
-
+![image](q2架构设计图.png)
 ### 0.2 业务逻辑
     1. Github 生成 webhook，并在Jenkins中配置Github 的 webhook
     2. CI/CD 部分主要使用 JenkinsFile 来实现：
@@ -19,3 +19,4 @@
     2. AWS Code Deploy 和 AWS Code Pipeline 简单了解过，应该可以替代Jenkins进行CI/CD，但没有深入使用
     3. AWS ECS Fargate 没有使用过，故没有进行相关部分的设计
     4. 最近的Devops平台项目的架构图如下仅供参考
+![image](DevOps平台架构图.png)
