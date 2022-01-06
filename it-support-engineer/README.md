@@ -1,3 +1,6 @@
+John upload a json file: errorReport.json, 01/06/2022
+燃果—杜志军（John Du）—IT Support Engineer
+
 # IT Support Engineer Assignment
 
 ### 分析系统日志：interview_data_set.gz
