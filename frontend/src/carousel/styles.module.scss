@@ -1,0 +1,72 @@
+@keyframes toNextSlide {
+  from {
+    background-position: right;
+  }
+
+  to {
+    background-position: left;
+  }
+}
+
+.container {
+  position: relative;
+  overflow: hidden;
+  .slideBgScale1 {
+    background-size: 50%;
+  }
+
+  .slideBgScale2 {
+    background-size: 100%;
+  }
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-position: 50% 72%;
+    background-repeat: no-repeat;
+    transition-duration: 500ms;
+
+    .title {
+      padding-top: 15%;
+
+      h2 {
+        margin: 0;
+        line-height: 1.25;
+        font-size: 2.5em;
+      }
+    }
+
+    .desc {
+      padding: 0;
+      margin: 16px;
+      font-size: 1.5em;
+      font-weight: 400;
+    }
+  }
+  .indicatorContainer {
+    position: absolute;
+    bottom: 7%;
+    z-index: 1000;
+    width: 100%;
+    .indicator {
+      display: inline-block;
+      height: 3px;
+      width: 56px;
+      margin: 0 8px;
+      background: linear-gradient(to left, #9a9a9a 50%, #f0f0f0 50%) right;
+      background-size: 200% 100%;
+      border-radius: 1.5px;
+      cursor: pointer;
+      z-index: 1;
+      animation-timing-function: linear;
+    }
+
+    .indicatorInProgress {
+      animation-name: toNextSlide;
+    }
+
+    .indicatorActive {
+      background-position: left;
+    }
+  }
+}

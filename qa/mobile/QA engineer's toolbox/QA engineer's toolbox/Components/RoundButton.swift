@@ -1,5 +1,5 @@
 //
-//  Button.swift
+//  Indicator.swift
 //  QA engineer's toolbox
 //
 //  Created by Boxiang Yu - Ciic on 2021/1/5.
@@ -56,7 +56,7 @@ struct RoundButton: View {
     var body: some View {
         HStack {
             Spacer(minLength: RoundButton.buttonHorizontalMargins)
-            Button(action:self.action) {
+            Indicator(action:self.action) {
                 Text(self.title)
                     .frame(maxWidth:.infinity)
             }
