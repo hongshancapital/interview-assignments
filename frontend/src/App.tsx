@@ -1,58 +1,69 @@
 import React from "react";
 import "./App.css";
 import Carousel from "./Carousel";
+const airpods = require("./assets/airpods.png").default;
+const iphone = require("./assets/iphone.png").default;
+const tablet = require("./assets/tablet.png").default;
+
 /**
  * Carousel组件说明
  * width {Number} - 外层容器宽度
  * height {Number} - 外层容器高度
  * delay {Number} - 每次轮播的时间
  * speed {Number} - 每次轮播的速度
- * 
- * 基础版的轮播，自动轮播。子元素(slide) 需要加上 className='slide'
- * 可自定义个数，目前超过三个的slide都使用了第三个的背景图。
- * 
+ * data {IData} - 内容数据配置
+ *
  */
+
+interface IStyle {
+	color: string;
+	backgroundImage: string;
+}
+export interface IData {
+	title: string[];
+	desc: string[];
+	style: IStyle;
+}
+const data: IData[] = [
+	{
+		title: ["Buy a Tablet or xPhone for college.", "Get airPods."],
+		desc: [],
+		style: {
+			color: "#212121",
+			backgroundImage: airpods,
+		},
+	},
+	{
+		title: ["xPhone"],
+		desc: ["Lots to love. Less to spend.", "Starting at $399"],
+		style: {
+			color: "#fff",
+			backgroundImage: iphone,
+		},
+	},
+	{
+		title: ["Tablet"],
+		desc: ["Just the right amount of everything"],
+		style: {
+			color: "#212121",
+			backgroundImage: tablet,
+		},
+	},
+  {
+		title: ["常恩会"],
+		desc: ["电话: 15810967170", "邮箱: changenhui@outlook.com"],
+		style: {
+			color: "#fff",
+			backgroundImage: iphone,
+		},
+	},
+];
 function App() {
-  return <div className="App">
-    <Carousel
-      width={700}
-      height={400}
-      delay={3000}
-      speed={500}
-    >
-      <div key={1} className='slide'>
-        <h3>
-          Buy a Tablet or xPhone for college.
-          <br />
-          Get airPods.
-        </h3>
-      </div>
-      <div key={2} className='slide'>
-        <h3>xPhone</h3>
-        <p>
-          Lots to love. Less to spend.
-          <br />
-          Starting at $399
-        </p>
-      </div>
-      <div key={3} className='slide'>
-        <h3>Tablet</h3>
-        <p>
-          Just the right amount of everything
-        </p>
-      </div>
-      <div key={4} className='slide'>
-        <h3>常恩会</h3>
-        <p>
-          前端开发
-          <br />
-          changenhui@outlook.com
-          <br />
-          15810967170
-        </p>
-      </div>
-    </Carousel>
-  </div>;
+	return (
+		<div className="App">
+			<Carousel data={data} width={700} height={400} delay={3000} speed={500} />
+		</div>
+	);
 }
 
 export default App;
