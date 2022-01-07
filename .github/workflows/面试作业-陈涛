@@ -1,0 +1,32 @@
+$log = cat "D:\interview_data_set"|where {$_ -match 'error'}|foreach{$_ -replace '\):','#' -replace '\]:','#'-replace '\(' -replace '\[','.' -replace '\]' }
+
+$url = "https://foo.com/bar"
+$date ='May 13 '
+
+
+foreach ($line in $Log)
+{
+    $dev_Name = $line.split('#')[0].split(' ')[3]
+    $process_Id = $line.split('#')[0].split('.')[-1]
+    $process_Name = $line.split('#')[0].split(' ')[4] -replace ('.'+$process_Id )
+    $error_Msg = $line.split('#')[1]
+    $time = $line.split(':')[0].split(' ')[2]
+    $time_Window=('{0:d4}' -f [int]$time)+'-'+('{0:d4}' -f ([int]$time+[int]1))
+    $Occour_msg = ($Log | Select-String $process_Name | Select-String $date+$time+':').count
+
+$data_out = @{
+        
+        "deviceName" = "$dev_Name"
+        "processName" = "$process_Name"
+        "processId" = "$process_Id"
+        "description" = "$error_Msg"
+        "timeWindow" = "$time_Window"
+        "numberOfOccurrence" = "$Occour_msg"
+   
+    }
+
+    $body_out = $data_out | ConvertTo-Json
+    #$unlock = Invoke-RestMethod -Method Post -ContentType 'application/json;charset=utf-8' -Uri $url -Body $body_out
+
+
+}
