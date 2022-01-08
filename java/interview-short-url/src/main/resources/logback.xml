@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>logback</contextName>
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %level [%thread] [%logger{36}] - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 主日志 -->
+    <appender name="log-file-appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Prudent>true</Prudent>
+        <!-- 过滤器，只打印ERROR级别的日志 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <FileNamePattern>
+                logs/short-url-%d{yyyyMMdd}.log
+            </FileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <MaxHistory>60</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} %level [%thread] [%logger{36}] - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- 设置程序包默认输出级别 -->
+    <logger name="interview.shorturl" level="INFO"/>
+
+    <!-- 指定某些类的日志级别 -->
+    <logger name="org.springframework" level="WARN"/>
+
+    <!-- 开发环境下的日志配置 -->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="log-file-appender"/>
+    </root>
+
+</configuration>
