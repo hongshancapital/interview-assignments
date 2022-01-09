@@ -2,20 +2,18 @@ package com.tizzy.business.service;
 
 import com.tizzy.business.dto.UrlLongRequest;
 import com.tizzy.business.exception.EntityNotFoundException;
-import com.tizzy.business.repository.DataManager;
 import com.tizzy.business.repository.Url;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+
 
 @RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class ShortUrlServiceTest {
-
-    @Mock
-    DataManager dataManager;
 
     @InjectMocks
     ShortUrlService shortUrlService;
