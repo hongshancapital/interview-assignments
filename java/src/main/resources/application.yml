@@ -1,0 +1,12 @@
+spring:
+  mvc:
+    pathmatch:
+      # 解决swagger冲突
+      matching-strategy: ANT_PATH_MATCHER
+filter:
+  bloom:
+    expected-insertions: 20
+
+url-mapping:
+  ttl: 1
+  period: 1
