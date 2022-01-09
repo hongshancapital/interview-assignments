@@ -38,7 +38,7 @@ public class ShortUrlService {
         return longUrl;
     }
 
-    private String getShortUrlAndRefreshTime(long urlCode, String longUrl, long expiresTime) {
+    public String getShortUrlAndRefreshTime(long urlCode, String longUrl, long expiresTime) {
         String shortKey = ConversionUtil.encode(urlCode);
         DataManager.getInstance().put(urlCode, longUrl, expiresTime);
         return shortKey;
