@@ -1,0 +1,31 @@
+# 自定义配置
+app:
+  short-link:
+    # 缺省的生成短连接的域名，为空则取访问服务时的域名
+    shortUri:
+    # 起始地址
+    startSerialNumber: 3844
+    # 缓存短连接最大数量
+    cacheSize: 100000
+    # 缓存短连接过期时间，单位秒
+    cacheExpire: 7200
+
+# 端口号
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /
+
+# Spring相关配置
+spring:
+  # 应用配置
+  application:
+    # 模块名称
+    name: short-link-service
+
+# 日志级别
+logging:
+  level:
+    root: info
