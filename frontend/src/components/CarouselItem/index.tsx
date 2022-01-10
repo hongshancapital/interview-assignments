@@ -7,12 +7,12 @@ export function CarouselItem ({ title = "", description = "", image, background,
     <div className={Style['carousel-item']} style={{background, color}}>
       <div className={Style['item-title']} style={{whiteSpace: 'pre-wrap'}}>
         {
-          title.split('\\n').map((item, index) => (<span key={index}>{item}<br/></span>))
+          title.split('\n').map((item, index) => (<span key={index}>{item}<br/></span>))
         }
       </div>
       <div className={Style['item-description']}>
         {
-          description.split('\\n').map((item, index) => (<span key={index}>{item}<br/></span>))
+          description.split('\n').map((item, index) => (<span key={index}>{item}<br/></span>))
         }
       </div>
       <div className={Style['item-image']}>
