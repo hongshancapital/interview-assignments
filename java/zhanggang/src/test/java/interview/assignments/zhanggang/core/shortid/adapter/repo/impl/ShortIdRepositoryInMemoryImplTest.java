@@ -1,10 +1,8 @@
 package interview.assignments.zhanggang.core.shortid.adapter.repo.impl;
 
 import interview.assignments.zhanggang.core.shortid.model.ShortId;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -12,20 +10,20 @@ import reactor.test.StepVerifier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-@ExtendWith(MockitoExtension.class)
 class ShortIdRepositoryInMemoryImplTest {
+    private ShortIdRepositoryInMemoryImpl shortIdRepository;
 
-    @InjectMocks
-    public ShortIdRepositoryInMemoryImpl shortIdRepository;
+    @BeforeEach
+    void setup() {
+        shortIdRepository = new ShortIdRepositoryInMemoryImpl();
+    }
 
     @Test
     void test_generate_new_short_code() {
         final Mono<ShortId> shortId = shortIdRepository.newShortId();
 
-        StepVerifier.create(shortId)
-                .assertNext(it -> assertThat(it.getId()).isEqualTo(1))
+        StepVerifier.create(shortId.map(ShortId::getId))
+                .expectNext(1L)
                 .verifyComplete();
     }
 
