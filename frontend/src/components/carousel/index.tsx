@@ -47,7 +47,11 @@ function Carousel(props: CarouselProps): ReactElement {
                 backgroundColor: item.bgColor,
               }}>
                 <div className={style.textbox}>
-                  <p className={style.title} dangerouslySetInnerHTML={{ __html: item.title }}></p>
+                  <p className={style.title}>
+                    {
+                      item.title.split('\n').map((element, i) => (<span key={i}>{element}<br /></span>))
+                    }
+                  </p>
                   <p className={style.description}>{item.description}</p>
                   <p className={style.price}>{item.price}</p>
                 </div>
@@ -58,10 +62,10 @@ function Carousel(props: CarouselProps): ReactElement {
             <div id={style.nodata}>nodata</div>
         }
       </div >
-      {/* 进度条，空数据情况不展示 */}
+      {/* 进度条，空数据情况不展示; 一条数据不展示； */}
       <div className={style.dotWrapper}>
         {
-          carouselLength ? data.map((item, index) => (
+          carouselLength > 1 ? data.map((item, index) => (
             <div className={style.dotItem} key={index} >
               <div
                 className={[style.dotProgress, activeIndex === index ? style.dotActive : ''].join(' ')}

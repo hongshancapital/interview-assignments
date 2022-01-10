@@ -3,6 +3,7 @@ import IPhone from "../assets/iphone.png";
 import Tablet from "../assets/tablet.png";
 import AirPods from "../assets/airpods.png";
 
+// title换行用\n,js截取
 export const CarouselData: IData[] = [
   {
     imgUrl: IPhone,
@@ -22,7 +23,7 @@ export const CarouselData: IData[] = [
   {
     imgUrl: AirPods,
     color: "#000000",
-    title: "Buy a Tablet or xPhone for college.<br>Get airPods.",
+    title: "Buy a Tablet or xPhone for college.\nGet airPods.",
     bgColor: "#F1F1F3"
   },
 ];
