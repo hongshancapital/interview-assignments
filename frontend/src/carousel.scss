@@ -1,0 +1,51 @@
+.Carousel {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: aqua;
+
+    .content {
+        width: 100%;
+        height: 100%;
+        border: 1px solid red;
+        
+        .fragment {
+            width: 100%;
+            height: 100%;
+            border: 1px solid blue;
+            display: inline-block;
+        }
+
+        .transform-container {
+            width: 100%;
+            height: 100%;
+            transform: translateX(-100%, 0);
+            transition: width 2s;
+        }
+    }
+    
+    .banner {
+        position: absolute;
+        bottom: 100px;
+        width: 300px;
+        left: auto;
+        right: auto;
+        display: inline-block;
+        
+        .bar {
+            width: 100px;
+            height: 20px;
+            background-color: #df1200;
+            margin-right: 20px;
+            
+            .active {
+                z-index: 1;
+                position: absolute;
+                width: 100px;
+                height: 20px;
+                background-color: '#ffdddd'
+            }
+        }
+    }
+}
+
