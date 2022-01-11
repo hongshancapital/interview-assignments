@@ -15,10 +15,10 @@
 北京/武汉:
 - [UI 设计师](design/)
 
-北京/上海/香港/深圳：
+北京/香港/深圳：
 - [IT Support Engineer](it-support-engineer/)
 
-北京/上海：
+北京：
 - [DevOps](dev-ops/)  
 
 链接中有更为具体的 JD。
