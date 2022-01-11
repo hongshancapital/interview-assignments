@@ -6,6 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.concurrent.TimeUnit;
+
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "short-code")
@@ -13,4 +15,12 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 public class ShortCodeProperties {
     private int maxLength;
+    private LockConfig lockConfig;
+
+    @Getter
+    @Setter
+    public static class LockConfig {
+        private long timeout;
+        private TimeUnit timeunit;
+    }
 }
