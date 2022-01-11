@@ -10,7 +10,7 @@ import java.time.Instant;
 @RequiredArgsConstructor
 @Getter
 public class Shortener {
-    private final long id;
+    private final String id;
     private final String originalUrl;
     private final Instant createAt;
 }

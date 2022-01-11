@@ -18,7 +18,7 @@ class ShortenerRepositoryInMemoryImplTest {
 
     @Test
     void test_save_shortener() {
-        final Shortener shortener = new Shortener(1, "https://shortener-zg.com", Instant.now());
+        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com", Instant.now());
         final Mono<Shortener> save = shortenerRepositoryInMemory.save(shortener);
 
         StepVerifier.create(save)
@@ -28,10 +28,10 @@ class ShortenerRepositoryInMemoryImplTest {
 
     @Test
     void test_find_shortener_by_a_valid_id() {
-        final Shortener shortener = new Shortener(1, "https://shortener-zg.com", Instant.now());
+        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com", Instant.now());
         shortenerRepositoryInMemory.save(shortener).block();
 
-        final Mono<Shortener> byId = shortenerRepositoryInMemory.findById(1);
+        final Mono<Shortener> byId = shortenerRepositoryInMemory.findById("a12a");
         StepVerifier.create(byId)
                 .expectNext(shortener)
                 .verifyComplete();
@@ -39,7 +39,7 @@ class ShortenerRepositoryInMemoryImplTest {
 
     @Test
     void test_find_shortener_by_a_invalid_id() {
-        final Mono<Shortener> byId = shortenerRepositoryInMemory.findById(99);
+        final Mono<Shortener> byId = shortenerRepositoryInMemory.findById("99aa");
         StepVerifier.create(byId)
                 .expectNextCount(0)
                 .verifyComplete();
@@ -47,20 +47,20 @@ class ShortenerRepositoryInMemoryImplTest {
 
     @Test
     void test_an_exist_shortener() {
-        final Shortener shortener = new Shortener(1, "https://shortener-zg.com", Instant.now());
+        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com", Instant.now());
         shortenerRepositoryInMemory.save(shortener).block();
 
-        final Mono<Shortener> isExist = shortenerRepositoryInMemory.isExist("https://shortener-zg.com");
+        final Mono<Boolean> isExist = shortenerRepositoryInMemory.isExist("https://shortener-zg.com");
         StepVerifier.create(isExist)
-                .expectNext(shortener)
+                .expectNext(true)
                 .verifyComplete();
     }
 
     @Test
     void test_an_not_exist_shortener() {
-        final Mono<Shortener> isExist = shortenerRepositoryInMemory.isExist("https://test-zg.com");
+        final Mono<Boolean> isExist = shortenerRepositoryInMemory.isExist("https://test-zg.com");
         StepVerifier.create(isExist)
-                .expectNextCount(0)
+                .expectNext(false)
                 .verifyComplete();
     }
 }

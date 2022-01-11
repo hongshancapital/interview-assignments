@@ -7,10 +7,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ShortIdTest {
 
     @Test
-    void test_short_code_value_success() {
-        final long id = 115_000_000;
-        final ShortId shortId = new ShortId(id);
+    void test_short_id_value() {
+        final long seed = 115_000_000;
+        final ShortId shortId = new ShortId(seed);
 
-        assertThat(shortId.getId()).isEqualTo(id);
+        assertThat(shortId.getSeed()).isEqualTo(seed);
+        assertThat(shortId.getValue()).isEqualTo("seed");
     }
 }

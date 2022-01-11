@@ -22,7 +22,7 @@ class ShortIdRepositoryInMemoryImplTest {
     void test_generate_new_short_code() {
         final Mono<ShortId> shortId = shortIdRepository.newShortId();
 
-        StepVerifier.create(shortId.map(ShortId::getId))
+        StepVerifier.create(shortId.map(ShortId::getSeed))
                 .expectNext(1L)
                 .verifyComplete();
     }

@@ -4,31 +4,25 @@ import interview.assignments.zhanggang.config.exception.SystemException;
 import interview.assignments.zhanggang.config.properties.ShortCodeProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Component
-public class ReadWriteLockHandler {
+public class LockHandler {
     private final ShortCodeProperties.LockConfig lockConfig;
-    private final ReadWriteLock readWriteLock;
+    private final Map<String, Lock> lockMap;
 
-    public ReadWriteLockHandler(ShortCodeProperties shortCodeProperties) {
+    public LockHandler(ShortCodeProperties shortCodeProperties) {
         this.lockConfig = shortCodeProperties.getLockConfig();
-        this.readWriteLock = new ReentrantReadWriteLock();
+        this.lockMap = new HashMap<>();
     }
 
-    public <T> T read(Callable<? extends T> callable) {
-        return tryLock(readWriteLock.readLock(), callable);
-    }
-
-    public <T> T write(Callable<? extends T> callable) {
-        return tryLock(readWriteLock.writeLock(), callable);
-    }
-
-    private <T> T tryLock(Lock lock, Callable<? extends T> callable) {
+    public <T> T lock(String lockId, Callable<? extends T> callable) {
         try {
+            final Lock lock = getLock(lockId);
             if (lock.tryLock(lockConfig.getTimeout(), lockConfig.getTimeunit())) {
                 try {
                     return callable.call();
@@ -40,6 +34,12 @@ public class ReadWriteLockHandler {
         } catch (Exception e) {
             Thread.currentThread().interrupt();
             throw new SystemException(e);
+        }
+    }
+
+    private Lock getLock(String id) {
+        synchronized (lockMap) {
+            return lockMap.computeIfAbsent(id, k -> new ReentrantLock());
         }
     }
 }

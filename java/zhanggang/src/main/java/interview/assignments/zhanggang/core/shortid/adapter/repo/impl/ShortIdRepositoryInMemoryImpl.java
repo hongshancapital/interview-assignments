@@ -10,14 +10,14 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class ShortIdRepositoryInMemoryImpl implements ShortIdRepository {
     private static final long INITIAL_VALUE = 1;
-    private final AtomicLong seed;
+    private final AtomicLong seeds;
 
     public ShortIdRepositoryInMemoryImpl() {
-        seed = new AtomicLong(INITIAL_VALUE);
+        seeds = new AtomicLong(INITIAL_VALUE);
     }
 
     @Override
     public Mono<ShortId> newShortId() {
-        return Mono.fromCallable(() -> new ShortId(seed.getAndIncrement()));
+        return Mono.fromCallable(() -> new ShortId(seeds.getAndIncrement()));
     }
 }

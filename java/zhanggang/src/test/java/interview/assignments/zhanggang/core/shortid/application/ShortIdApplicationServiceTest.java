@@ -25,7 +25,7 @@ class ShortIdApplicationServiceTest {
 
         final Mono<ShortId> shortIdMono = shortIdApplicationService.newShortId();
 
-        StepVerifier.create(shortIdMono.map(ShortId::getId))
+        StepVerifier.create(shortIdMono.map(ShortId::getSeed))
                 .expectNext(100L)
                 .verifyComplete();
     }

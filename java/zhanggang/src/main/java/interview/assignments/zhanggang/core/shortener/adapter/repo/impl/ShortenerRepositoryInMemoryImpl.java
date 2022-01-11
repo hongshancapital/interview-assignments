@@ -5,29 +5,22 @@ import interview.assignments.zhanggang.core.shortener.model.Shortener;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
-    private final Map<Long, Shortener> values;
-    private final Map<String, Long> urls;
+    private final Map<String, Shortener> values;
+    private final Map<String, String> urls;
 
     public ShortenerRepositoryInMemoryImpl() {
-        values = new HashMap<>();
-        urls = new HashMap<>();
+        values = new ConcurrentHashMap<>();
+        urls = new ConcurrentHashMap<>();
     }
 
     @Override
-    public Mono<Shortener> isExist(String url) {
-        return Mono.fromCallable(() -> {
-            final Long id = urls.get(url);
-            if (id != null) {
-                return values.get(id);
-            } else {
-                return null;
-            }
-        });
+    public Mono<Boolean> isExist(String url) {
+        return Mono.fromCallable(() -> urls.containsKey(url));
     }
 
     @Override
@@ -40,7 +33,7 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
     }
 
     @Override
-    public Mono<Shortener> findById(long id) {
+    public Mono<Shortener> findById(String id) {
         return Mono.fromCallable(() -> values.get(id));
     }
 }
