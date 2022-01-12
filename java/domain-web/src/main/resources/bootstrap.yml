@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: domain-parent
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    static-path-pattern: /*
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.xinluo.mgt.mapper: DEBUG
+  file:
+    path: ./logs/
+
+
