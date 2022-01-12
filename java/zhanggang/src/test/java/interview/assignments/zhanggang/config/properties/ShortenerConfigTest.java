@@ -10,16 +10,16 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
-@SpringBootTest(classes = ShortCodeProperties.class)
-class ShortCodePropertiesTest {
+@SpringBootTest(classes = ShortenerConfig.class)
+class ShortenerConfigTest {
 
     @Autowired
-    private ShortCodeProperties shortCodeProperties;
+    private ShortenerConfig shortenerConfig;
 
     @Test
     void getMaxLength() {
-        assertThat(shortCodeProperties.getMaxLength()).isEqualTo(10);
-        assertThat(shortCodeProperties.getLockConfig().getTimeout()).isEqualTo(10);
-        assertThat(shortCodeProperties.getLockConfig().getTimeunit()).isEqualTo(TimeUnit.MILLISECONDS);
+        assertThat(shortenerConfig.getMaxLength()).isEqualTo(10);
+        assertThat(shortenerConfig.getLockConfig().getTimeout()).isEqualTo(10);
+        assertThat(shortenerConfig.getLockConfig().getTimeunit()).isEqualTo(TimeUnit.MILLISECONDS);
     }
 }

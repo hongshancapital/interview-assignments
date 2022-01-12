@@ -13,7 +13,7 @@ public class ShortIdContextApplicationServiceImpl implements ShortIdContext {
     private final ShortIdApplicationService shortIdApplicationService;
 
     @Override
-    public Mono<String> newShortenerId() {
+    public Mono<String> newShortId() {
         return shortIdApplicationService.newShortId().map(ShortId::getValue);
     }
 }

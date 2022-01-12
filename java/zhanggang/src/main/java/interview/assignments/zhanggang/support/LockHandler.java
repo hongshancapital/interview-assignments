@@ -1,7 +1,7 @@
 package interview.assignments.zhanggang.support;
 
-import interview.assignments.zhanggang.config.exception.SystemException;
-import interview.assignments.zhanggang.config.properties.ShortCodeProperties;
+import interview.assignments.zhanggang.config.exception.base.SystemException;
+import interview.assignments.zhanggang.config.properties.ShortenerConfig;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -12,11 +12,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Component
 public class LockHandler {
-    private final ShortCodeProperties.LockConfig lockConfig;
+    private final ShortenerConfig.LockConfig lockConfig;
     private final Map<String, Lock> lockMap;
 
-    public LockHandler(ShortCodeProperties shortCodeProperties) {
-        this.lockConfig = shortCodeProperties.getLockConfig();
+    public LockHandler(ShortenerConfig shortenerConfig) {
+        this.lockConfig = shortenerConfig.getLockConfig();
         this.lockMap = new HashMap<>();
     }
 

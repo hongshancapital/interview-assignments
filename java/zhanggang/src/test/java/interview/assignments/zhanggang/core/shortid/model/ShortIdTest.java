@@ -12,6 +12,6 @@ class ShortIdTest {
         final ShortId shortId = new ShortId(seed);
 
         assertThat(shortId.getSeed()).isEqualTo(seed);
-        assertThat(shortId.getValue()).isEqualTo("seed");
+        assertThat(shortId.getValue()).isEqualTo("hWGUS");
     }
 }

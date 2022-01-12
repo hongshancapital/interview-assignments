@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @ConfigurationProperties(prefix = "short-code")
 @Getter
 @Setter
-public class ShortCodeProperties {
+public class ShortenerConfig {
     private int maxLength;
     private LockConfig lockConfig;
 

@@ -1,6 +1,6 @@
 package interview.assignments.zhanggang.support;
 
-import interview.assignments.zhanggang.config.exception.SystemException;
+import interview.assignments.zhanggang.config.exception.base.SystemException;
 import lombok.experimental.UtilityClass;
 
 import java.security.MessageDigest;

@@ -15,7 +15,7 @@ class Base62UtilTest {
 
     @Test
     void test_base62_convert_to_base10() {
-        final long base10 = Base62Util.base62to10("rLHWfKd");
-        assertThat(base10).isEqualTo(999_999_999_999L);
+        final long base10 = Base62Util.base62to10("76Tu7Est");
+        assertThat(base10).isEqualTo(211_111_211_112_111L);
     }
 }
