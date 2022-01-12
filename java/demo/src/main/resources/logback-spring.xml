@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+    <property name="log_dir" value="/home/demo/logs/demo"/>
+    <property name="maxHistory" value="30"/>
+    <property name="pattern"
+              value="%d{HHmmss.SSS}-%-5level-[%thread].[%X{log_token}%X{msg_trans_code}]-%lo{5}: %msg %n"/>
+    <property name="charset" value="utf8"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charset}</charset>
+        </encoder>
+    </appender>
+
+    <appender name="WARN_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log_dir}/%d{yyyyMMdd}/error-%i.log</fileNamePattern>
+            <maxFileSize>20MB</maxFileSize>
+            <maxHistory>${maxHistory}</maxHistory>
+            <totalSizeCap>40MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charset}</charset>
+        </encoder>
+    </appender>
+
+    <appender name="LOG_SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>sys_channel_name</key>
+            <defaultValue>sys</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="TRANS_LOG_FILE"
+                      class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>${log_dir}/%d{yyyyMMdd}/${sys_channel_name}-%i.log</fileNamePattern>
+                    <maxFileSize>200MB</maxFileSize>
+                    <maxHistory>${maxHistory}</maxHistory>
+                    <totalSizeCap>500MB</totalSizeCap>
+                </rollingPolicy>
+                <encoder>
+                    <pattern>${pattern}</pattern>
+                    <charset>${charset}</charset>
+                </encoder>
+            </appender>
+        </sift>
+    </appender>
+
+    <logger name="com.demo" level="DEBUG"/>
+    <logger name="org.springframework" level="DEBUG"/>
+    <logger name="ch.qos.logback" level="WARN"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOG_SIFT"/>
+        <appender-ref ref="WARN_LOG"/>
+    </root>
+</configuration>
