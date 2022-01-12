@@ -49,6 +49,30 @@ final class WMModelData: ObservableObject {
         }
     }
     
+    func changeTheMessage(todo: WMModel, _ message: String?) {
+        var newTodo = todo
+        if message != nil {
+            newTodo.message = message!
+        }
+        
+        if todoKeys.contains(newTodo.type.rawValue) {
+            
+            var temp = todos[newTodo.type.rawValue]
+            if temp!.count == 1 {return}
+            
+            for i in 0..<temp!.count {
+                let model:WMModel = temp![i]
+                if model.id == newTodo.id {
+                    temp?[i] = newTodo
+                    break
+                }
+            }
+            todos[todo.type.rawValue] = temp
+            
+        }
+        
+    }
+    
     func changeTodoCheck(todo: WMModel) {
         if todoKeys.contains(todo.type.rawValue) {
             

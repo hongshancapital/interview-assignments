@@ -49,6 +49,8 @@ struct WMTodoRow: View, Identifiable{
                         print(message)
                         if message.count == 0 {
                             todoLists.deleteTodo(todo: todo)
+                        } else {
+                            todoLists.changeTheMessage(todo: todo, message)
                         }
                     }
                 )
