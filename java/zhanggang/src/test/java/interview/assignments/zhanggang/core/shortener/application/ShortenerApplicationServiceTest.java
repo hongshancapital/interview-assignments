@@ -5,7 +5,6 @@ import interview.assignments.zhanggang.config.exception.error.ShortenerNotFoundE
 import interview.assignments.zhanggang.core.shortener.adapter.context.impl.ShortIdContextApplicationServiceImpl;
 import interview.assignments.zhanggang.core.shortener.adapter.repo.ShortenerRepository;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
-import interview.assignments.zhanggang.support.LockHandler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,35 +13,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.concurrent.Callable;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ShortenerApplicationServiceTest {
-
     @InjectMocks
     private ShortenerApplicationService shortenerApplicationService;
-
-    @Mock
-    private LockHandler lockHandler;
     @Mock
     private ShortenerRepository shortenerRepository;
     @Mock
     private ShortIdContextApplicationServiceImpl shortIdContext;
 
-    private void mockLockHandler() {
-        when(lockHandler.lock(any(), any())).thenAnswer(invocation -> {
-            final Callable<Mono<Shortener>> callable = invocation.getArgument(1);
-            return callable.call();
-        });
-    }
 
     @Test
     void test_create_new_shortener_success() {
-        mockLockHandler();
         final String originalUrl = "https://github.com/scdt-china/interview-assignments";
         when(shortenerRepository.isExist(originalUrl)).thenReturn(Mono.just(false));
         final String shortId = "huAsd1";
@@ -62,7 +48,6 @@ class ShortenerApplicationServiceTest {
 
     @Test
     void test_create_new_shortener_when_url_already_exist() {
-        mockLockHandler();
         final String originalUrl = "https://github.com/scdt-china/interview-assignments";
         when(shortenerRepository.isExist(originalUrl)).thenReturn(Mono.just(true));
 
