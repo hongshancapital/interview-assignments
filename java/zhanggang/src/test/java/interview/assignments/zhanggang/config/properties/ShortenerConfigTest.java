@@ -19,6 +19,8 @@ class ShortenerConfigTest {
     @Test
     void test_shortener_config() {
         assertThat(shortenerConfig.getMaxLength()).isEqualTo(10);
+        assertThat(shortenerConfig.getMaxStoreSize()).isEqualTo(2000);
+        assertThat(shortenerConfig.getGcRate()).isEqualTo(0.5f);
         assertThat(shortenerConfig.getShortUrlHost()).isEqualTo("https://shortener.com");
         assertThat(shortenerConfig.getLockConfig().getTimeout()).isEqualTo(10);
         assertThat(shortenerConfig.getLockConfig().getTimeunit()).isEqualTo(TimeUnit.MILLISECONDS);

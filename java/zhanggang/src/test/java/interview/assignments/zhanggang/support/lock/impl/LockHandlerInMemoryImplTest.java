@@ -203,17 +203,4 @@ class LockHandlerInMemoryImplTest {
         assertThatThrownBy(futures::join).hasCauseInstanceOf(SystemException.class);
         assertThat(counter.get()).isEqualTo(1);
     }
-
-    @Test
-    void get_lock() {
-        final AtomicInteger counter = new AtomicInteger(0);
-        final CompletableFuture<Void>[] completableFutures = new CompletableFuture[100];
-        for (int i = 0; i < 100; i++) {
-            completableFutures[i] = CompletableFuture.runAsync(() ->
-                    lockHandler.write("1", counter::incrementAndGet)
-            );
-        }
-        CompletableFuture.allOf(completableFutures).join();
-        assertThat(counter.get()).isEqualTo(100);
-    }
 }

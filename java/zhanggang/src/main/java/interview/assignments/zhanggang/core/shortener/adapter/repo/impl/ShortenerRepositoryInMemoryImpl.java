@@ -1,5 +1,6 @@
 package interview.assignments.zhanggang.core.shortener.adapter.repo.impl;
 
+import interview.assignments.zhanggang.config.properties.ShortenerConfig;
 import interview.assignments.zhanggang.core.shortener.adapter.repo.ShortenerRepository;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
 import interview.assignments.zhanggang.support.lock.LockHandler;
@@ -11,19 +12,28 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.IntStream;
 
 @Repository
 public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
-    private final LockHandler lockHandler;
     private final Map<String, Shortener> idToShortener;
     private final Map<String, String> originalUrlToId;
     private final Queue<String> ids;
+    private final Lock gcLock;
 
-    public ShortenerRepositoryInMemoryImpl(LockHandler lockHandler) {
-        this.lockHandler = lockHandler;
+    private final LockHandler lockHandler;
+    private final ShortenerConfig shortenerConfig;
+
+    public ShortenerRepositoryInMemoryImpl(LockHandler lockHandler, ShortenerConfig shortenerConfig) {
         idToShortener = new ConcurrentHashMap<>();
         originalUrlToId = new LinkedHashMap<>();
         ids = new ConcurrentLinkedQueue<>();
+        gcLock = new ReentrantLock();
+
+        this.lockHandler = lockHandler;
+        this.shortenerConfig = shortenerConfig;
     }
 
     @Override
@@ -47,6 +57,9 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
                     if (id != null) {
                         return idToShortener.get(id);
                     }
+                    if (idToShortener.size() >= shortenerConfig.getMaxStoreSize()) {
+                        gc();
+                    }
                     idToShortener.put(shortener.getId(), shortener);
                     originalUrlToId.put(shortener.getOriginalUrl(), shortener.getId());
                     ids.add(shortener.getId());
@@ -58,5 +71,21 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
     @Override
     public Mono<Shortener> findById(String id) {
         return Mono.fromCallable(() -> idToShortener.get(id));
+    }
+
+    private void gc() {
+        gcLock.lock();
+        try {
+            if (idToShortener.size() < shortenerConfig.getMaxStoreSize()) {
+                return;
+            }
+            IntStream.range(0, (int) (shortenerConfig.getMaxStoreSize() * shortenerConfig.getGcRate())).forEach(i -> {
+                final String id = ids.poll();
+                final Shortener shortener = idToShortener.remove(id);
+                originalUrlToId.remove(shortener.getOriginalUrl());
+            });
+        } finally {
+            gcLock.unlock();
+        }
     }
 }

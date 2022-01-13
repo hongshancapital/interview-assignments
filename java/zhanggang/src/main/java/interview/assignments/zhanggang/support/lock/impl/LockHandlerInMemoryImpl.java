@@ -11,16 +11,19 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Component
 public class LockHandlerInMemoryImpl implements LockHandler {
     private final ShortenerConfig shortenerConfig;
-    private final Map<Integer, ReadWriteLock> lockMap;
+    private final Map<Integer, ReadWriteLock> readWriteLocks;
+    private final Lock mapLock;
 
     public LockHandlerInMemoryImpl(ShortenerConfig shortenerConfig) {
         this.shortenerConfig = shortenerConfig;
-        this.lockMap = new HashMap<>();
+        this.mapLock = new ReentrantLock();
+        this.readWriteLocks = new HashMap<>();
     }
 
     @Override
@@ -50,10 +53,13 @@ public class LockHandlerInMemoryImpl implements LockHandler {
         throw new LockTimeoutException();
     }
 
-    ReadWriteLock getLock(String id) {
-        int lockId = id.hashCode() % shortenerConfig.getLockConfig().getMaxPoolSize();
-        synchronized (lockMap) {
-            return lockMap.computeIfAbsent(lockId, k -> new ReentrantReadWriteLock());
+    private ReadWriteLock getLock(String id) {
+        final int lockId = id.hashCode() % shortenerConfig.getLockConfig().getMaxPoolSize();
+        mapLock.lock();
+        try {
+            return readWriteLocks.computeIfAbsent(lockId, k -> new ReentrantReadWriteLock());
+        } finally {
+            mapLock.unlock();
         }
     }
 }
