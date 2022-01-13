@@ -5,8 +5,7 @@ import App from './App'
 jest.mock('./components/carousel', () => () => <div data-testid="carousel" />)
 
 test('the Demo renders the Carousel component', () => {
-    const { getByText, getByTestId } = render(<App />)
+    const { getByTestId } = render(<App />)
 
-    expect(getByText('Bruce FE Homework')).toBeInTheDocument()
     expect(getByTestId('carousel')).toBeInTheDocument()
 })

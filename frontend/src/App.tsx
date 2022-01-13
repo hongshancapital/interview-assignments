@@ -6,62 +6,50 @@ import iphoneImg from './assets/iphone.png'
 import tabletImg from './assets/tablet.png'
 import airpodsImg from './assets/airpods.png'
 
+const slides = [
+    {
+        titles: ['xPhone'],
+        contents: ['Lots to love. Less to spend.', 'Starting at $399.'],
+        image: iphoneImg,
+        alt: 'iphone',
+        background: style.bg_black,
+    },
+    {
+        titles: ['Tablet'],
+        contents: ['Just the right amount of everything.'],
+        image: tabletImg,
+        alt: 'tablet',
+        background: style.bg_white,
+    },
+    {
+        titles: ['Buy a Tablet or xPhone for college.', 'Get airPods.'],
+        contents: [],
+        image: airpodsImg,
+        alt: 'airpods',
+        background: style.bg_gray,
+    },
+]
+
 function App() {
     return (
         <div className={style.main}>
-            <h1 className={style.title}>Bruce FE Homework</h1>
-            <h3>使用说明:</h3>
-            <p>
-                Carousel为自适应大小，如要控制Carousel的大小和展示位置，请提供一个容器来包裹Carousel。
-                <br />
-                每一个div节点为一个幻灯片，div里面为你要设置的内容。
-            </p>
-            <pre>
-                {`
-<Carousel duration={3000}>
-    <div>...</div>
-    <div>...</div>
-    ...
-</Carousel>
-            `}
-            </pre>
-
-            <h4>参数：</h4>
-            <p>duration 为可选，类型：number，单位：毫秒，默认值：3000毫秒</p>
-
-            <h4>DEMO:</h4>
-            <div className={style.demo}>
-                <Carousel>
-                    <div className={cn(style.slide, style.bg_black)}>
+            <Carousel>
+                {slides.map((slide, slideKey) => (
+                    <div key={slideKey} className={cn(style.slide, slide.background)}>
                         <section className={style.content}>
-                            <h2>xPhone</h2>
-                            <p>Lots to love. Less to spend.</p>
-                            <p>Starting at $399.</p>
+                            {slide.titles.map((title, key) => (
+                                <h2 key={key}>{title}</h2>
+                            ))}
+                            {slide.contents.map((content, key) => (
+                                <p key={key}>{content}</p>
+                            ))}
                         </section>
                         <section className={style.image}>
-                            <img src={iphoneImg} alt="iphone" />
+                            <img src={slide.image} alt={slide.alt} />
                         </section>
                     </div>
-                    <div className={cn(style.slide, style.bg_white)}>
-                        <section className={style.content}>
-                            <h2>Tablet</h2>
-                            <p>Just the right amount of everything.</p>
-                        </section>
-                        <section className={style.image}>
-                            <img src={tabletImg} alt="tablet" />
-                        </section>
-                    </div>
-                    <div className={cn(style.slide, style.bg_gray)}>
-                        <section className={style.content}>
-                            <h2>Buy a Tablet or xPhone for college.</h2>
-                            <h2>Get airPods.</h2>
-                        </section>
-                        <section className={style.image}>
-                            <img src={airpodsImg} alt="airpods" />
-                        </section>
-                    </div>
-                </Carousel>
-            </div>
+                ))}
+            </Carousel>
         </div>
     )
 }
