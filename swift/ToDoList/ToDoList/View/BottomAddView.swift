@@ -23,16 +23,17 @@ struct BottomAddView: View {
     @ObservedObject var mainData: MainData
     @State var addTextFieldEditing: Bool = false
     @State var selectGroupModel: GroupModel? = nil
+    @State var offsetY: CGFloat = 22.0
 
     var body: some View {
-        VStack(spacing: 8.0) {
+        VStack {
             Spacer()
             HStack {
                 // 输入框
-                AddTextFieldView(mainData: mainData, selectGroupModel: $selectGroupModel, addTextFieldEditing: $addTextFieldEditing)
+                AddTextFieldView(mainData: mainData, selectGroupModel: $selectGroupModel, addTextFieldEditing: $addTextFieldEditing, offsetY: $offsetY)
                 // 分组菜单
                 if addTextFieldEditing {
-                    MenuView(mainData: mainData, selectGroupModel: $selectGroupModel)
+                    MenuView(mainData: mainData, selectGroupModel: $selectGroupModel, offsetY: $offsetY)
                 }
             }
             .frame(width: screenSize.width - 38, height: 50.0)
@@ -53,6 +54,7 @@ struct BottomAddView: View {
 private struct MenuView: View {
     @ObservedObject var mainData: MainData
     @Binding var selectGroupModel: GroupModel?
+    @Binding var offsetY: CGFloat
 
     var body: some View {
         Menu {
@@ -99,9 +101,9 @@ private struct MenuView: View {
                     .padding(.trailing, 8.0)
             }
             .frame(width: 130, height: 44.0)
-            .offset(y: 0)
             .background(Color.white)
             .cornerRadius(22.0)
+            .offset(y: offsetY)
         }
     }
 }
@@ -111,6 +113,7 @@ private struct AddTextFieldView: View {
     @ObservedObject var mainData: MainData
     @Binding var selectGroupModel: GroupModel?
     @Binding var addTextFieldEditing: Bool
+    @Binding var offsetY: CGFloat
     @State var addText: String = ""
 
     var body: some View {
@@ -123,15 +126,15 @@ private struct AddTextFieldView: View {
             HStack {
                 TextField("Add new...", text: $addText) { editing in
                     if editing {
-                        withAnimation {
-                            addTextFieldEditing = true
-                        }
+                        addTextFieldEditing = true
                     } else {
+                        offsetY = 0
                         withAnimation {
                             addTextFieldEditing = false
                         }
                     }
                 } onCommit: {
+                    offsetY = 0
                     // 添加事项
                     if selectGroupModel != nil, addText.count > 0 {
                         mainData.addTodo(formGroupModel: selectGroupModel!, todoModel: ToDoModel(title: addText, isCompleted: false))
