@@ -10,8 +10,8 @@ import SwiftUI
 struct CustomField: UIViewRepresentable {
     @Binding public var isFirstResponder: Bool
     @Binding public var text: String
-    public var configuration = { (view: UITextField) in }
-    public var shouldReturn : (UITextField) -> () = { (view: UITextField) in }
+    public var configuration = { (_: UITextField) in }
+    public var shouldReturn: (UITextField) -> () = { (_: UITextField) in }
     
     public init(text: Binding<String>, isFirstResponder: Binding<Bool>, configuration: @escaping (UITextField) -> () = { _ in }, shouldReturn: @escaping (UITextField) -> () = { _ in }) {
         self.shouldReturn = shouldReturn
@@ -44,16 +44,16 @@ struct CustomField: UIViewRepresentable {
     public class Coordinator: NSObject, UITextFieldDelegate {
         var text: Binding<String>
         var isFirstResponder: Binding<Bool>
-        var shouldReturn : (UITextField) -> ()
+        var shouldReturn: (UITextField) -> ()
         
-        init(_ text: Binding<String>, isFirstResponder: Binding<Bool>,  shouldReturn: @escaping (UITextField) -> ()) {
+        init(_ text: Binding<String>, isFirstResponder: Binding<Bool>, shouldReturn: @escaping (UITextField) -> ()) {
             self.shouldReturn = shouldReturn
             self.text = text
             self.isFirstResponder = isFirstResponder
         }
         
         @objc public func textViewDidChange(_ textField: UITextField) {
-            self.text.wrappedValue = textField.text ?? ""
+            text.wrappedValue = textField.text ?? ""
         }
         
         public func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -66,7 +66,7 @@ struct CustomField: UIViewRepresentable {
             DispatchQueue.main.async {
                 self.isFirstResponder.wrappedValue = false
             }
-            self.shouldReturn(textField)
+            shouldReturn(textField)
             return true
         }
         

@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-public func TextFieldAlert(title : String = "标题", message : String = "", placeholder : String = " 请输入...", onConfirm : @escaping (String) -> () = { _ in }) {
+public func TextFieldAlert(title: String = "标题", message: String = "", placeholder: String = " 请输入...", onConfirm: @escaping (String) -> () = { _ in }) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    alert.addTextField() { textField in
+    alert.addTextField { textField in
         textField.placeholder = placeholder
     }
     alert.addAction(UIAlertAction(title: "取消", style: .cancel) { _ in })
@@ -33,9 +33,9 @@ func showAlert(alert: UIAlertController) {
 
 private func keyWindow() -> UIWindow? {
     return UIApplication.shared.connectedScenes
-        .filter {$0.activationState == .foregroundActive}
-        .compactMap {$0 as? UIWindowScene}
-        .first?.windows.filter {$0.isKeyWindow}.first
+        .filter { $0.activationState == .foregroundActive }
+        .compactMap { $0 as? UIWindowScene }
+        .first?.windows.filter { $0.isKeyWindow }.first
 }
 
 private func topMostViewController() -> UIViewController? {
