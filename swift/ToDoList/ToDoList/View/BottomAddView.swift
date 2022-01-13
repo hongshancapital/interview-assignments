@@ -40,6 +40,11 @@ struct BottomAddView: View {
             .cornerRadius(12.0)
             .shadow(color: Color.black.opacity(0.2), radius: 35.0, x: 0, y: 0)
         }
+        .onChange(of: mainData.searching, perform: { newValue in
+            if newValue {
+                self.addTextFieldEditing = false
+            }
+        })
         .ignoresSafeArea(.keyboard, edges: addTextFieldEditing ? .top : .bottom)
         .onAppear {
             if mainData.groupArray.count > 0 {
@@ -61,7 +66,7 @@ private struct MenuView: View {
                     Button {
                         TextFieldAlert(title: "添加分组", placeholder: "请输入分组名称") { value in
                             if value.count > 0 {
-                                let addGroupModel = GroupModel(title: value, toDoList: [])
+                                let addGroupModel = GroupModel(title: value, toDoList: [], index: mainData.groupArray.count)
                                 mainData.addGroup(groupModel: addGroupModel) { success in
                                     if !success {
                                         ErrorAlert()
@@ -111,8 +116,8 @@ private struct AddTextFieldView: View {
     @Binding var selectGroupModel: GroupModel?
     @Binding var addTextFieldEditing: Bool
     @State var addText: String = ""
-    @State var isFocus : Bool = false
-    
+    @State var isFocus: Bool = false
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12.0)

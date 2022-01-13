@@ -43,15 +43,18 @@ class GroupModel: ObservableObject, Identifiable, Copying {
     required init(original: GroupModel) {
         self.title = original.title
         self.toDoList = original.toDoList
+        self.index = original.index
     }
     
     let id = UUID()
     @Published var title: String
     @Published var toDoList: [ToDoModel]
+    var index: Int
     
-    init(title: String, toDoList: [ToDoModel]) {
+    init(title: String, toDoList: [ToDoModel], index: Int) {
         self.title = title
         self.toDoList = toDoList
+        self.index = index
     }
 }
 
@@ -59,6 +62,9 @@ class MainData: ObservableObject {
     let id = UUID()
     static let shared = MainData()
     @Published var groupArray: [GroupModel]
+    @Published var searching: Bool
+    @Published var searchText: String
+    var searchArray: [GroupModel] = []
     
     init() {
         self.groupArray = [
@@ -66,22 +72,25 @@ class MainData: ObservableObject {
                 ToDoModel(title: "Building Lists and Navigation", isCompleted: false),
                 ToDoModel(title: "Greating and Combining Views", isCompleted: true),
                 ToDoModel(title: "Handling User Input", isCompleted: true),
-            ]),
+            ], index: 0),
             GroupModel(title: "Drawing and Animation", toDoList: [
                 ToDoModel(title: "Animating Views and Transitions", isCompleted: false),
                 ToDoModel(title: "Drawing Paths and Shapes", isCompleted: true),
                 ToDoModel(title: "Handling User Input", isCompleted: true),
-            ]),
+            ], index: 1),
             GroupModel(title: "App Design and layout ", toDoList: [
                 ToDoModel(title: "Composing Complex Interfaces", isCompleted: false),
                 ToDoModel(title: "Working with UI Controls", isCompleted: false),
-            ]),
+            ], index: 2),
             GroupModel(title: "Framework Integration", toDoList: [
                 ToDoModel(title: "Interfacing with UIKit", isCompleted: false),
                 ToDoModel(title: "Creating a watchOS App", isCompleted: false),
                 ToDoModel(title: "Creating a MacOS App", isCompleted: false),
-            ]),
+            ], index: 3),
         ]
+        self.searching = false
+        self.searchText = ""
+        self.searchArray = self.groupArray.clone()
     }
     
     // 删除事项
@@ -100,15 +109,13 @@ class MainData: ObservableObject {
     // 点击选中或取消事项
     func selectTodo(formGroupModel: GroupModel, selectTodo: ToDoModel) {
         selectTodo.isCompleted.toggle()
-        if let groupIndex = self.groupArray.firstIndex(where: { $0 === formGroupModel }) {
-            let nowGroupArray = self.groupArray
-            var todoArray = nowGroupArray[groupIndex].toDoList
-            
-            todoArray = todoArray.sorted { $0.isCompleted != true && $1.isCompleted == true }
-            nowGroupArray[groupIndex].toDoList = todoArray
-            withAnimation {
-                self.groupArray = nowGroupArray
-            }
+        let nowGroupArray = self.groupArray
+        var todoArray = nowGroupArray[formGroupModel.index].toDoList
+        
+        todoArray = todoArray.sorted { $0.isCompleted != true && $1.isCompleted == true }
+        nowGroupArray[formGroupModel.index].toDoList = todoArray
+        withAnimation {
+            self.groupArray = nowGroupArray
         }
     }
     
@@ -145,11 +152,17 @@ class MainData: ObservableObject {
     }
     
     // 按关键字搜索Todo并返回
-    func searchTodo(searchText: String) -> [GroupModel] {
-        print(self.groupArray)
-        if searchText.count == 0 {
+    func searchTodo() -> [GroupModel] {
+        if self.searchText.count == 0 {
+            for groupModel in self.groupArray {
+                let todoArray = groupModel.toDoList.filter { todo -> Bool in
+                    todo.title.count != 0
+                }
+                groupModel.toDoList = todoArray
+            }
             return self.groupArray
         }
+                
         let nowGroupArray = self.groupArray.clone()
         var resultArray: [GroupModel] = []
         for groupModel in nowGroupArray {

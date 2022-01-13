@@ -19,8 +19,6 @@ extension UIApplication {
 
 struct ContentView: View {
     @ObservedObject var mainData: MainData = .shared
-    @State var searching: Bool = false
-    @State var searchText: String = ""
 
     init(mainData: MainData) {
         self.mainData = mainData
@@ -32,21 +30,21 @@ struct ContentView: View {
                 Color("BackgroundColor").edgesIgnoringSafeArea(.all)
                 VStack {
                     // 搜索框
-                    SearchBar(searchText: $searchText, searching: $searching)
+                    SearchBar(searchText: $mainData.searchText, searching: $mainData.searching)
                     // 事项内容View
-                    ScrollContentView(mainData: mainData, searchText: $searchText, searching: $searching)
+                    ScrollContentView(mainData: mainData)
                 }
                 // 底部添加事项View
                 BottomAddView(mainData: mainData)
             }
-            .navigationBarTitle(searching ? "Searching" : "List")
+            .navigationBarTitle((mainData.searchText.count > 0 || mainData.searching) ? "Searching" : "List")
             .background(Color("BackgroundColor"))
             .toolbar {
-                if searching {
+                if mainData.searchText.count > 0 || mainData.searching {
                     Button("Cancle") {
-                        searchText = ""
+                        mainData.searchText = ""
                         withAnimation {
-                            searching = false
+                            mainData.searching = false
                             UIApplication.shared.dismissKeyboard()
                         }
                     }

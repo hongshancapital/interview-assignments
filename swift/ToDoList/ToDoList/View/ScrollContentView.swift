@@ -9,11 +9,10 @@ import SwiftUI
 
 struct ScrollContentView: View {
     @ObservedObject var mainData: MainData
-    @Binding var searchText: String
-    @Binding var searching: Bool
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false, content: {
-            ForEach(mainData.searchTodo(searchText: searchText)) { groupModel in
+            ForEach(mainData.searchTodo()) { groupModel in
                 VStack {
                     ZStack {
                         HStack {

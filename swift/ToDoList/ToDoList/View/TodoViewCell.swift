@@ -59,6 +59,11 @@ struct TodoViewCell: View {
             .padding(.horizontal, 12.0)
             .frame(height: 44.0)
         }
+        .onChange(of: mainData.searching, perform: { newValue in
+            if newValue {
+                self.isEdit = false
+            }
+        })
         .frame(width: screenSize.width - 36, height: 44)
     }
 }
