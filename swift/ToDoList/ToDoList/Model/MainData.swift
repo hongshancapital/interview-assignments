@@ -19,7 +19,32 @@ class ToDoModel: ObservableObject, Identifiable {
     }
 }
 
-class GroupModel : ObservableObject , Identifiable{
+protocol Copying {
+    init(original: Self)
+}
+
+extension Copying {
+    func copy() -> Self {
+        return Self.init(original: self)
+    }
+}
+
+extension Array where Element: Copying {
+    func clone() -> Array {
+        var copiedArray = Array<Element>()
+        for element in self {
+            copiedArray.append(element.copy())
+        }
+        return copiedArray
+    }
+}
+
+class GroupModel : ObservableObject , Identifiable , Copying{
+    required init(original: GroupModel) {
+        self.title = original.title
+        self.toDoList = original.toDoList
+    }
+    
     let id = UUID()
     @Published var title : String
     @Published var toDoList: [ToDoModel]
@@ -28,6 +53,7 @@ class GroupModel : ObservableObject , Identifiable{
         self.title = title
         self.toDoList = toDoList
     }
+
 }
 
 
@@ -66,7 +92,9 @@ class MainData : ObservableObject {
             let nowGroupArray = self.groupArray
             if let index = nowGroupArray[groupIndex].toDoList.firstIndex(where: {$0 === removeTodo}){
                 nowGroupArray[groupIndex].toDoList.remove(at: index)
-                self.groupArray = nowGroupArray
+                withAnimation {
+                    self.groupArray = nowGroupArray
+                }
             }
         }
     }
@@ -77,7 +105,7 @@ class MainData : ObservableObject {
         if let groupIndex = self.groupArray.firstIndex(where: {$0 === formGroupModel}) {
             let nowGroupArray = self.groupArray
             var todoArray = nowGroupArray[groupIndex].toDoList
-
+            
             todoArray = todoArray.sorted { $0.isCompleted != true && $1.isCompleted == true  }
             nowGroupArray[groupIndex].toDoList = todoArray
             withAnimation {
@@ -120,10 +148,11 @@ class MainData : ObservableObject {
     
     //按关键字搜索Todo并返回
     func searchTodo(searchText : String) -> [GroupModel] {
+        print(self.groupArray)
         if searchText.count == 0 {
             return self.groupArray
         }
-        let nowGroupArray = self.groupArray
+        let nowGroupArray = self.groupArray.clone()
         var resultArray : [GroupModel] = []
         for groupModel in nowGroupArray {
             let todoArray = groupModel.toDoList.filter{(todo) -> Bool in
