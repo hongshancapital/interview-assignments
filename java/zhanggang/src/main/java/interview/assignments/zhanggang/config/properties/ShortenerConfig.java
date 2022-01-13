@@ -23,5 +23,6 @@ public class ShortenerConfig {
     public static class LockConfig {
         private long timeout;
         private TimeUnit timeunit;
+        private int maxPoolSize;
     }
 }

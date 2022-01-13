@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 @Component
 public class LockHandlerInMemoryImpl implements LockHandler {
     private final ShortenerConfig shortenerConfig;
-    private final Map<String, ReadWriteLock> lockMap;
+    private final Map<Integer, ReadWriteLock> lockMap;
 
     public LockHandlerInMemoryImpl(ShortenerConfig shortenerConfig) {
         this.shortenerConfig = shortenerConfig;
@@ -50,9 +50,10 @@ public class LockHandlerInMemoryImpl implements LockHandler {
         throw new LockTimeoutException();
     }
 
-    private ReadWriteLock getLock(String id) {
+    ReadWriteLock getLock(String id) {
+        int lockId = id.hashCode() % shortenerConfig.getLockConfig().getMaxPoolSize();
         synchronized (lockMap) {
-            return lockMap.computeIfAbsent(id, k -> new ReentrantReadWriteLock());
+            return lockMap.computeIfAbsent(lockId, k -> new ReentrantReadWriteLock());
         }
     }
 }

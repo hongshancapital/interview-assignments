@@ -22,5 +22,6 @@ class ShortenerConfigTest {
         assertThat(shortenerConfig.getShortUrlHost()).isEqualTo("https://shortener.com");
         assertThat(shortenerConfig.getLockConfig().getTimeout()).isEqualTo(10);
         assertThat(shortenerConfig.getLockConfig().getTimeunit()).isEqualTo(TimeUnit.MILLISECONDS);
+        assertThat(shortenerConfig.getLockConfig().getMaxPoolSize()).isEqualTo(15);
     }
 }
