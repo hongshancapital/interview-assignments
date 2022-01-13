@@ -111,7 +111,8 @@ private struct AddTextFieldView: View {
     @Binding var selectGroupModel: GroupModel?
     @Binding var addTextFieldEditing: Bool
     @State var addText: String = ""
-
+    @State var isFocus : Bool = false
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12.0)
@@ -120,7 +121,9 @@ private struct AddTextFieldView: View {
                     !addTextFieldEditing ? DottedLineView(cornerRadius: 12.0, lineColor: Color.gray) : nil
                 )
             HStack {
-                TextField("Add new...", text: $addText, onCommit: {
+                TextField("Add new...", text: $addText) { isFocus in
+                    self.isFocus = isFocus
+                } onCommit: {
                     // 添加事项
                     if selectGroupModel != nil, addText.count > 0 {
                         mainData.addTodo(formGroupModel: selectGroupModel!, todoModel: ToDoModel(title: addText, isCompleted: false))
@@ -129,10 +132,12 @@ private struct AddTextFieldView: View {
                     withAnimation {
                         addTextFieldEditing = false
                     }
-                })
+                }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { _ in
-                    withAnimation {
-                        addTextFieldEditing = true
+                    if isFocus {
+                        withAnimation {
+                            addTextFieldEditing = true
+                        }
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)) { _ in

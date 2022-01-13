@@ -36,8 +36,5 @@ struct ScrollContentView: View {
             }
             .padding(.bottom, 60.0)
         })
-        .gesture(DragGesture().onChanged { _ in
-            UIApplication.shared.dismissKeyboard()
-        })
     }
 }

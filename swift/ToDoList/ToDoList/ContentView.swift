@@ -53,6 +53,9 @@ struct ContentView: View {
                 }
             }
         }
+        .gesture(DragGesture().onChanged { _ in
+            UIApplication.shared.dismissKeyboard()
+        })
     }
 }
 
