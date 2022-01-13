@@ -1,6 +1,5 @@
 package interview.assignments.zhanggang.core.shortener.adapter.repo.impl;
 
-import interview.assignments.zhanggang.config.exception.error.OriginalUrlAlreadyExistException;
 import interview.assignments.zhanggang.core.shortener.adapter.repo.ShortenerRepository;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
 import interview.assignments.zhanggang.support.lock.LockHandler;
@@ -41,8 +40,9 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
     public Mono<Shortener> save(Shortener shortener) {
         return Mono.fromCallable(() ->
                 lockHandler.write(shortener.getOriginalUrl(), () -> {
-                    if (urls.containsKey(shortener.getOriginalUrl())) {
-                        throw new OriginalUrlAlreadyExistException(shortener.getOriginalUrl());
+                    final String id = urls.get(shortener.getOriginalUrl());
+                    if (id != null) {
+                        return values.get(id);
                     }
                     values.put(shortener.getId(), shortener);
                     urls.put(shortener.getOriginalUrl(), shortener.getId());

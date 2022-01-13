@@ -1,6 +1,5 @@
 package interview.assignments.zhanggang.core.shortener.adapter.repo.impl;
 
-import interview.assignments.zhanggang.config.exception.error.OriginalUrlAlreadyExistException;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
 import interview.assignments.zhanggang.support.lock.LockHandler;
 import org.junit.jupiter.api.Test;
@@ -59,7 +58,8 @@ class ShortenerRepositoryInMemoryImplTest {
         final Mono<Shortener> save = shortenerRepositoryInMemory.save(shortener2);
 
         StepVerifier.create(save)
-                .verifyError(OriginalUrlAlreadyExistException.class);
+                .expectNext(shortener1)
+                .verifyComplete();
     }
 
     @Test

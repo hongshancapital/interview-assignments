@@ -33,7 +33,7 @@ public class Shortener {
         try {
             return new URL(shortUrl).getPath().replaceFirst(URL_SEPARATOR, "");
         } catch (MalformedURLException e) {
-            throw new URLFormatException(e);
+            throw new URLFormatException();
         }
     }
 }

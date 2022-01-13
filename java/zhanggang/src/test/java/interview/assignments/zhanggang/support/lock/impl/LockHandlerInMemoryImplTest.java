@@ -1,7 +1,7 @@
 package interview.assignments.zhanggang.support.lock.impl;
 
 
-import interview.assignments.zhanggang.config.exception.base.SystemException;
+import interview.assignments.zhanggang.config.exception.SystemException;
 import interview.assignments.zhanggang.config.exception.error.LockTimeoutException;
 import interview.assignments.zhanggang.config.properties.ShortenerConfig;
 import org.junit.jupiter.api.BeforeEach;
