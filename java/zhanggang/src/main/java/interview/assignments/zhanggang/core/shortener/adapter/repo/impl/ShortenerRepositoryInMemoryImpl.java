@@ -8,28 +8,31 @@ import reactor.core.publisher.Mono;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Repository
 public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
     private final LockHandler lockHandler;
-    private final Map<String, Shortener> values;
-    private final Map<String, String> urls;
+    private final Map<String, Shortener> idToShortener;
+    private final Map<String, String> originalUrlToId;
+    private final Queue<String> ids;
 
     public ShortenerRepositoryInMemoryImpl(LockHandler lockHandler) {
         this.lockHandler = lockHandler;
-        values = new ConcurrentHashMap<>();
-        urls = new LinkedHashMap<>();
-        //TODO count find times
+        idToShortener = new ConcurrentHashMap<>();
+        originalUrlToId = new LinkedHashMap<>();
+        ids = new ConcurrentLinkedQueue<>();
     }
 
     @Override
-    public Mono<Shortener> isExist(String url) {
+    public Mono<Shortener> isExist(String originalUrl) {
         return Mono.fromCallable(() ->
-                lockHandler.read(url, () -> {
-                    final String id = urls.get(url);
+                lockHandler.read(originalUrl, () -> {
+                    final String id = originalUrlToId.get(originalUrl);
                     if (id != null) {
-                        return values.get(id);
+                        return idToShortener.get(id);
                     }
                     return null;
                 })
@@ -40,12 +43,13 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
     public Mono<Shortener> save(Shortener shortener) {
         return Mono.fromCallable(() ->
                 lockHandler.write(shortener.getOriginalUrl(), () -> {
-                    final String id = urls.get(shortener.getOriginalUrl());
+                    final String id = originalUrlToId.get(shortener.getOriginalUrl());
                     if (id != null) {
-                        return values.get(id);
+                        return idToShortener.get(id);
                     }
-                    values.put(shortener.getId(), shortener);
-                    urls.put(shortener.getOriginalUrl(), shortener.getId());
+                    idToShortener.put(shortener.getId(), shortener);
+                    originalUrlToId.put(shortener.getOriginalUrl(), shortener.getId());
+                    ids.add(shortener.getId());
                     return shortener;
                 })
         );
@@ -53,6 +57,6 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
 
     @Override
     public Mono<Shortener> findById(String id) {
-        return Mono.fromCallable(() -> values.get(id));
+        return Mono.fromCallable(() -> idToShortener.get(id));
     }
 }

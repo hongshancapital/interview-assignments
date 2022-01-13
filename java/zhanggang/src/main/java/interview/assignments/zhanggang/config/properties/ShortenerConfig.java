@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Setter
 public class ShortenerConfig {
     private int maxLength;
+    private int maxStoreSize;
     private LockConfig lockConfig;
     private String shortUrlHost;
 

@@ -4,7 +4,7 @@ import interview.assignments.zhanggang.core.shortener.model.Shortener;
 import reactor.core.publisher.Mono;
 
 public interface ShortenerRepository {
-    Mono<Shortener> isExist(String url);
+    Mono<Shortener> isExist(String originalUrl);
 
     Mono<Shortener> save(Shortener shortener);
 

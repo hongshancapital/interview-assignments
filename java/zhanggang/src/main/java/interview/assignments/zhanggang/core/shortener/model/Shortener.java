@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Instant;
 
 @EqualsAndHashCode
 @RequiredArgsConstructor
@@ -17,13 +16,6 @@ public class Shortener {
 
     private final String id;
     private final String originalUrl;
-    private final Instant createAt;
-
-    public Shortener(String id, String url) {
-        this.id = id;
-        this.originalUrl = url;
-        this.createAt = Instant.now();
-    }
 
     public String getShortUrl(String host) {
         return host + URL_SEPARATOR + id;

@@ -10,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.time.Instant;
 import java.util.concurrent.Callable;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -40,7 +39,7 @@ class ShortenerRepositoryInMemoryImplTest {
     @Test
     void test_save_shortener() {
         mockWriteLockHandler();
-        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com", Instant.now());
+        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com");
         final Mono<Shortener> save = shortenerRepositoryInMemory.save(shortener);
 
         StepVerifier.create(save)
@@ -51,10 +50,10 @@ class ShortenerRepositoryInMemoryImplTest {
     @Test
     void test_save_shortener_with_an_exist_url() {
         mockWriteLockHandler();
-        final Shortener shortener1 = new Shortener("a12a", "https://shortener-zg.com", Instant.now());
+        final Shortener shortener1 = new Shortener("a12a", "https://shortener-zg.com");
         shortenerRepositoryInMemory.save(shortener1).block();
 
-        final Shortener shortener2 = new Shortener("1234", "https://shortener-zg.com", Instant.now());
+        final Shortener shortener2 = new Shortener("1234", "https://shortener-zg.com");
         final Mono<Shortener> save = shortenerRepositoryInMemory.save(shortener2);
 
         StepVerifier.create(save)
@@ -65,7 +64,7 @@ class ShortenerRepositoryInMemoryImplTest {
     @Test
     void test_find_shortener_by_a_valid_id() {
         mockWriteLockHandler();
-        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com", Instant.now());
+        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com");
         shortenerRepositoryInMemory.save(shortener).block();
 
         final Mono<Shortener> byId = shortenerRepositoryInMemory.findById("a12a");
@@ -86,7 +85,7 @@ class ShortenerRepositoryInMemoryImplTest {
     void test_is_exist_shortener() {
         mockWriteLockHandler();
         mockReadLockHandler();
-        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com", Instant.now());
+        final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com");
         shortenerRepositoryInMemory.save(shortener).block();
 
         final Mono<Shortener> isExist = shortenerRepositoryInMemory.isExist("https://shortener-zg.com");

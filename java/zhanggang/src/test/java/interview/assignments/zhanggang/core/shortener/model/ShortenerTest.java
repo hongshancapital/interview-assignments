@@ -3,8 +3,6 @@ package interview.assignments.zhanggang.core.shortener.model;
 import interview.assignments.zhanggang.config.exception.error.URLFormatException;
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -15,7 +13,6 @@ class ShortenerTest {
 
         assertThat(shortener.getId()).isEqualTo("id");
         assertThat(shortener.getOriginalUrl()).isEqualTo("url");
-        assertThat(shortener.getCreateAt()).isBeforeOrEqualTo(Instant.now());
     }
 
     @Test
