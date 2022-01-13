@@ -7,6 +7,25 @@
 
 import SwiftUI
 
+struct ClearButton: ViewModifier {
+    @Binding var text: String
+
+    public func body(content: Content) -> some View {
+        HStack {
+            content
+            if text.count > 0 {
+                Button(action: {
+                    self.text = ""
+                }) {
+                    Image(systemName: "multiply.circle.fill")
+                        .foregroundColor(.secondary)
+                        .padding(.trailing)
+                }
+            }
+        }
+    }
+}
+
 struct SearchBar: View {
     @Binding var searchText: String
     @Binding var searching: Bool
@@ -27,6 +46,7 @@ struct SearchBar: View {
                         searching = false
                     }
                 }
+                .modifier(ClearButton(text: $searchText))
             }
             .foregroundColor(.gray)
             .padding(.leading, 13)
