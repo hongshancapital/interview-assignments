@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         name="shortUrlEhcache">
+
+    <diskStore path="user.dir/ehcache"/>
+
+    <defaultCache eternal="false"
+                  timeToIdleSeconds="1200" timeToLiveSeconds="1200"
+                  overflowToDisk="false" diskPersistent="false"
+                  memoryStoreEvictionPolicy="LRU">
+    </defaultCache>
+
+    <!--key:longUrl value:shortUrl-->
+    <cache name="long2short" eternal="false"
+           timeToIdleSeconds="3600" timeToLiveSeconds="0"
+           maxBytesLocalHeap="10M"
+           overflowToDisk="false" diskPersistent="true"
+           memoryStoreEvictionPolicy="LRU">
+        <bootstrapCacheLoaderFactory
+                class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory"
+                properties="bootstrapAsynchronously=true"></bootstrapCacheLoaderFactory>
+    </cache>
+
+    <!--key:shortUrl value:longUrl 建议配置失效时间大于或等于long2short缓存的失效时间，保证short2long的失效在long2short之后-->
+    <cache name="short2long" eternal="false"
+           timeToIdleSeconds="3600" timeToLiveSeconds="0"
+           maxBytesLocalHeap="1G"
+           overflowToDisk="false" diskPersistent="true"
+           memoryStoreEvictionPolicy="LRU">
+        <bootstrapCacheLoaderFactory
+                class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory"
+                properties="bootstrapAsynchronously=true"></bootstrapCacheLoaderFactory>
+    </cache>
+</ehcache>
