@@ -73,7 +73,7 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
         return Mono.fromCallable(() -> idToShortener.get(id));
     }
 
-    private void gc() {
+    void gc() {
         gcLock.lock();
         try {
             if (idToShortener.size() < shortenerConfig.getMaxStoreSize()) {

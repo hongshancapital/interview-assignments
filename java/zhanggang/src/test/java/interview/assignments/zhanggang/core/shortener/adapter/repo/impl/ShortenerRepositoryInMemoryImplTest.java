@@ -120,6 +120,7 @@ class ShortenerRepositoryInMemoryImplTest {
 
         shortenerRepositoryInMemory.save(new Shortener("3", "https://shortener-zg3.com")).block();
 
+
         final Mono<Shortener> s1 = shortenerRepositoryInMemory.findById("1");
         final Mono<Shortener> s2 = shortenerRepositoryInMemory.findById("2");
         final Mono<Shortener> s3 = shortenerRepositoryInMemory.findById("3");
@@ -127,5 +128,21 @@ class ShortenerRepositoryInMemoryImplTest {
         StepVerifier.create(s1).expectNextCount(0).verifyComplete();
         StepVerifier.create(s2).expectNextCount(1).verifyComplete();
         StepVerifier.create(s3).expectNextCount(1).verifyComplete();
+    }
+
+    @Test
+    void test_gc_ignore() {
+        mockWriteLockHandler();
+        when(shortenerConfig.getMaxStoreSize()).thenReturn(3);
+        shortenerRepositoryInMemory.save(new Shortener("1", "https://shortener-zg1.com")).block();
+        shortenerRepositoryInMemory.save(new Shortener("2", "https://shortener-zg2.com")).block();
+
+        shortenerRepositoryInMemory.gc();
+
+        final Mono<Shortener> s1 = shortenerRepositoryInMemory.findById("1");
+        final Mono<Shortener> s2 = shortenerRepositoryInMemory.findById("2");
+
+        StepVerifier.create(s1).expectNextCount(1).verifyComplete();
+        StepVerifier.create(s2).expectNextCount(1).verifyComplete();
     }
 }
