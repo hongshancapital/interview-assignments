@@ -31,6 +31,11 @@ struct SearchBar: View {
             .foregroundColor(.gray)
             .padding(.leading, 13)
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)) { _ in
+            withAnimation {
+                searching = false
+            }
+        }
         .frame(height: 40)
         .cornerRadius(13)
         .padding()
