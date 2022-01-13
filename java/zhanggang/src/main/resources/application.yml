@@ -1,6 +1,8 @@
 spring:
   application:
     name: Shortener
+springdoc:
+  show-actuator: true
 
 short-code:
   max-length: 8
@@ -11,3 +13,10 @@ short-code:
     timeout: 10
     timeunit: SECONDS
     max-pool-size: 100
+
+api-docs:
+  title: "URL Shortener Service"
+  version: "1.0.0"
+  developer:
+    name: "张刚"
+    email: "157774105@qq.com"

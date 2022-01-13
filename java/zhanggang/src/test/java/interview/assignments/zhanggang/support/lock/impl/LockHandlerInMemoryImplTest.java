@@ -3,7 +3,7 @@ package interview.assignments.zhanggang.support.lock.impl;
 
 import interview.assignments.zhanggang.config.exception.SystemException;
 import interview.assignments.zhanggang.config.exception.error.LockTimeoutException;
-import interview.assignments.zhanggang.config.properties.ShortenerConfig;
+import interview.assignments.zhanggang.config.properties.ShortenerProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,13 +26,13 @@ class LockHandlerInMemoryImplTest {
     @InjectMocks
     private LockHandlerInMemoryImpl lockHandler;
     @Mock
-    private ShortenerConfig shortenerConfig;
+    private ShortenerProperties shortenerProperties;
     @Mock
-    private ShortenerConfig.LockConfig lockConfig;
+    private ShortenerProperties.LockConfig lockConfig;
 
     @BeforeEach
     void setup() {
-        when(shortenerConfig.getLockConfig()).thenReturn(lockConfig);
+        when(shortenerProperties.getLockConfig()).thenReturn(lockConfig);
         when(lockConfig.getTimeunit()).thenReturn(TimeUnit.SECONDS);
         when(lockConfig.getMaxPoolSize()).thenReturn(5);
     }

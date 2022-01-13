@@ -1,6 +1,6 @@
 package interview.assignments.zhanggang.core.shortener.adapter.repo.impl;
 
-import interview.assignments.zhanggang.config.properties.ShortenerConfig;
+import interview.assignments.zhanggang.config.properties.ShortenerProperties;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
 import interview.assignments.zhanggang.support.lock.LockHandler;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class ShortenerRepositoryInMemoryImplTest {
     @Mock
     private LockHandler lockHandler;
     @Mock
-    private ShortenerConfig shortenerConfig;
+    private ShortenerProperties shortenerProperties;
 
     private void mockReadLockHandler() {
         when(lockHandler.read(any(), any())).thenAnswer(invocation -> {
@@ -42,7 +42,7 @@ class ShortenerRepositoryInMemoryImplTest {
     @Test
     void test_save_shortener() {
         mockWriteLockHandler();
-        when(shortenerConfig.getMaxStoreSize()).thenReturn(20);
+        when(shortenerProperties.getMaxStoreSize()).thenReturn(20);
         final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com");
         final Mono<Shortener> save = shortenerRepositoryInMemory.save(shortener);
 
@@ -54,7 +54,7 @@ class ShortenerRepositoryInMemoryImplTest {
     @Test
     void test_save_shortener_with_an_exist_url() {
         mockWriteLockHandler();
-        when(shortenerConfig.getMaxStoreSize()).thenReturn(20);
+        when(shortenerProperties.getMaxStoreSize()).thenReturn(20);
         final Shortener shortener1 = new Shortener("a12a", "https://shortener-zg.com");
         shortenerRepositoryInMemory.save(shortener1).block();
 
@@ -69,7 +69,7 @@ class ShortenerRepositoryInMemoryImplTest {
     @Test
     void test_find_shortener_by_a_valid_id() {
         mockWriteLockHandler();
-        when(shortenerConfig.getMaxStoreSize()).thenReturn(20);
+        when(shortenerProperties.getMaxStoreSize()).thenReturn(20);
         final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com");
         shortenerRepositoryInMemory.save(shortener).block();
 
@@ -91,7 +91,7 @@ class ShortenerRepositoryInMemoryImplTest {
     void test_is_exist_shortener() {
         mockWriteLockHandler();
         mockReadLockHandler();
-        when(shortenerConfig.getMaxStoreSize()).thenReturn(20);
+        when(shortenerProperties.getMaxStoreSize()).thenReturn(20);
         final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com");
         shortenerRepositoryInMemory.save(shortener).block();
 
@@ -113,8 +113,8 @@ class ShortenerRepositoryInMemoryImplTest {
     @Test
     void test_save_shortener_with_gc() {
         mockWriteLockHandler();
-        when(shortenerConfig.getMaxStoreSize()).thenReturn(2);
-        when(shortenerConfig.getGcRate()).thenReturn(0.5f);
+        when(shortenerProperties.getMaxStoreSize()).thenReturn(2);
+        when(shortenerProperties.getGcRate()).thenReturn(0.5f);
         shortenerRepositoryInMemory.save(new Shortener("1", "https://shortener-zg1.com")).block();
         shortenerRepositoryInMemory.save(new Shortener("2", "https://shortener-zg2.com")).block();
 
@@ -133,7 +133,7 @@ class ShortenerRepositoryInMemoryImplTest {
     @Test
     void test_gc_ignore() {
         mockWriteLockHandler();
-        when(shortenerConfig.getMaxStoreSize()).thenReturn(3);
+        when(shortenerProperties.getMaxStoreSize()).thenReturn(3);
         shortenerRepositoryInMemory.save(new Shortener("1", "https://shortener-zg1.com")).block();
         shortenerRepositoryInMemory.save(new Shortener("2", "https://shortener-zg2.com")).block();
 

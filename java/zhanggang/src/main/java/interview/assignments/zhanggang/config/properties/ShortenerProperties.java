@@ -3,17 +3,15 @@ package interview.assignments.zhanggang.config.properties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-@EnableConfigurationProperties
 @ConfigurationProperties(prefix = "short-code")
 @Getter
 @Setter
-public class ShortenerConfig {
+public class ShortenerProperties {
     private int maxLength;
     private int maxStoreSize;
     private float gcRate;

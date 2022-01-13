@@ -2,7 +2,7 @@ package interview.assignments.zhanggang.support.lock.impl;
 
 import interview.assignments.zhanggang.config.exception.SystemException;
 import interview.assignments.zhanggang.config.exception.error.LockTimeoutException;
-import interview.assignments.zhanggang.config.properties.ShortenerConfig;
+import interview.assignments.zhanggang.config.properties.ShortenerProperties;
 import interview.assignments.zhanggang.support.lock.LockHandler;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +16,12 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Component
 public class LockHandlerInMemoryImpl implements LockHandler {
-    private final ShortenerConfig shortenerConfig;
+    private final ShortenerProperties shortenerProperties;
     private final Map<Integer, ReadWriteLock> readWriteLocks;
     private final Lock mapLock;
 
-    public LockHandlerInMemoryImpl(ShortenerConfig shortenerConfig) {
-        this.shortenerConfig = shortenerConfig;
+    public LockHandlerInMemoryImpl(ShortenerProperties shortenerProperties) {
+        this.shortenerProperties = shortenerProperties;
         this.mapLock = new ReentrantLock();
         this.readWriteLocks = new HashMap<>();
     }
@@ -38,7 +38,7 @@ public class LockHandlerInMemoryImpl implements LockHandler {
 
     private <T> T lock(Lock lock, Callable<? extends T> callable) {
         try {
-            final ShortenerConfig.LockConfig lockConfig = shortenerConfig.getLockConfig();
+            final ShortenerProperties.LockConfig lockConfig = shortenerProperties.getLockConfig();
             if (lock.tryLock(lockConfig.getTimeout(), lockConfig.getTimeunit())) {
                 try {
                     return callable.call();
@@ -54,7 +54,7 @@ public class LockHandlerInMemoryImpl implements LockHandler {
     }
 
     private ReadWriteLock getLock(String id) {
-        final int lockId = id.hashCode() % shortenerConfig.getLockConfig().getMaxPoolSize();
+        final int lockId = id.hashCode() % shortenerProperties.getLockConfig().getMaxPoolSize();
         mapLock.lock();
         try {
             return readWriteLocks.computeIfAbsent(lockId, k -> new ReentrantReadWriteLock());

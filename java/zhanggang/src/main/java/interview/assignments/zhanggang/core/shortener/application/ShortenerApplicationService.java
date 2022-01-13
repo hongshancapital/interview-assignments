@@ -1,7 +1,7 @@
 package interview.assignments.zhanggang.core.shortener.application;
 
 import interview.assignments.zhanggang.config.exception.error.ShortenerNotFoundException;
-import interview.assignments.zhanggang.config.properties.ShortenerConfig;
+import interview.assignments.zhanggang.config.properties.ShortenerProperties;
 import interview.assignments.zhanggang.core.shortener.adapter.context.ShortIdContext;
 import interview.assignments.zhanggang.core.shortener.adapter.repo.ShortenerRepository;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 public class ShortenerApplicationService {
     private final ShortenerRepository shortenerRepository;
     private final ShortIdContext shortIdContext;
-    private final ShortenerConfig shortenerConfig;
+    private final ShortenerProperties shortenerProperties;
 
     public Mono<String> getShortUrl(String originalUrl) {
         return shortenerRepository.isExist(originalUrl)
@@ -24,7 +24,7 @@ public class ShortenerApplicationService {
                                 .flatMap(shortenerRepository::save)
                         )
                 )
-                .map(shortener -> shortener.getShortUrl(shortenerConfig.getShortUrlHost()));
+                .map(shortener -> shortener.getShortUrl(shortenerProperties.getShortUrlHost()));
     }
 
     public Mono<String> getOriginalUrl(String shortUrl) {

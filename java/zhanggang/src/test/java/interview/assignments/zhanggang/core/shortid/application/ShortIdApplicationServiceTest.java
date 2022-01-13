@@ -1,7 +1,7 @@
 package interview.assignments.zhanggang.core.shortid.application;
 
 import interview.assignments.zhanggang.config.exception.error.ShortIdMaximumLimitException;
-import interview.assignments.zhanggang.config.properties.ShortenerConfig;
+import interview.assignments.zhanggang.config.properties.ShortenerProperties;
 import interview.assignments.zhanggang.core.shortid.adapter.repo.ShortIdRepository;
 import interview.assignments.zhanggang.core.shortid.model.ShortId;
 import org.junit.jupiter.api.Test;
@@ -21,13 +21,13 @@ class ShortIdApplicationServiceTest {
     @Mock
     private ShortIdRepository shortIdRepository;
     @Mock
-    private ShortenerConfig shortenerConfig;
+    private ShortenerProperties shortenerProperties;
 
 
     @Test
     void test_new_short_id_success() {
         when(shortIdRepository.newShortId()).thenReturn(Mono.just(new ShortId(100L)));
-        when(shortenerConfig.getMaxLength()).thenReturn(10);
+        when(shortenerProperties.getMaxLength()).thenReturn(10);
 
         final Mono<ShortId> shortIdMono = shortIdApplicationService.newShortId();
 
@@ -39,7 +39,7 @@ class ShortIdApplicationServiceTest {
     @Test
     void test_new_short_id_reached_max_length_limit_error() {
         when(shortIdRepository.newShortId()).thenReturn(Mono.just(new ShortId(1000000L)));
-        when(shortenerConfig.getMaxLength()).thenReturn(1);
+        when(shortenerProperties.getMaxLength()).thenReturn(1);
 
         final Mono<ShortId> shortIdMono = shortIdApplicationService.newShortId();
 

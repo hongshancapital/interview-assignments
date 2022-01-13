@@ -1,7 +1,7 @@
 package interview.assignments.zhanggang.core.shortener.application;
 
 import interview.assignments.zhanggang.config.exception.error.ShortenerNotFoundException;
-import interview.assignments.zhanggang.config.properties.ShortenerConfig;
+import interview.assignments.zhanggang.config.properties.ShortenerProperties;
 import interview.assignments.zhanggang.core.shortener.adapter.context.impl.ShortIdContextApplicationServiceImpl;
 import interview.assignments.zhanggang.core.shortener.adapter.repo.ShortenerRepository;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
@@ -26,7 +26,7 @@ class ShortenerApplicationServiceTest {
     @Mock
     private ShortIdContextApplicationServiceImpl shortIdContext;
     @Mock
-    private ShortenerConfig shortenerConfig;
+    private ShortenerProperties shortenerProperties;
 
     @Test
     void test_create_new_shortener() {
@@ -34,7 +34,7 @@ class ShortenerApplicationServiceTest {
         when(shortenerRepository.isExist(originalUrl)).thenReturn(Mono.empty());
         when(shortenerRepository.save(any())).thenAnswer(invocation -> Mono.just(invocation.getArgument(0)));
         when(shortIdContext.newShortId()).thenReturn(Mono.just("s1"));
-        when(shortenerConfig.getShortUrlHost()).thenReturn("https://shortener.com");
+        when(shortenerProperties.getShortUrlHost()).thenReturn("https://shortener.com");
 
         final Mono<String> shortUrl = shortenerApplicationService.getShortUrl(originalUrl);
 
@@ -49,7 +49,7 @@ class ShortenerApplicationServiceTest {
         final Shortener shortener = mock(Shortener.class);
         when(shortener.getShortUrl("https://shortener.com")).thenReturn("https://shortener.com/s1");
         when(shortenerRepository.isExist(originalUrl)).thenReturn(Mono.just(shortener));
-        when(shortenerConfig.getShortUrlHost()).thenReturn("https://shortener.com");
+        when(shortenerProperties.getShortUrlHost()).thenReturn("https://shortener.com");
 
         final Mono<String> shortUrl = shortenerApplicationService.getShortUrl(originalUrl);
 

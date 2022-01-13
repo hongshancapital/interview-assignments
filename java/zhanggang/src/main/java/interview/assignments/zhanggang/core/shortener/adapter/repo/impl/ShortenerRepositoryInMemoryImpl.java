@@ -1,6 +1,6 @@
 package interview.assignments.zhanggang.core.shortener.adapter.repo.impl;
 
-import interview.assignments.zhanggang.config.properties.ShortenerConfig;
+import interview.assignments.zhanggang.config.properties.ShortenerProperties;
 import interview.assignments.zhanggang.core.shortener.adapter.repo.ShortenerRepository;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
 import interview.assignments.zhanggang.support.lock.LockHandler;
@@ -24,16 +24,16 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
     private final Lock gcLock;
 
     private final LockHandler lockHandler;
-    private final ShortenerConfig shortenerConfig;
+    private final ShortenerProperties shortenerProperties;
 
-    public ShortenerRepositoryInMemoryImpl(LockHandler lockHandler, ShortenerConfig shortenerConfig) {
+    public ShortenerRepositoryInMemoryImpl(LockHandler lockHandler, ShortenerProperties shortenerProperties) {
         idToShortener = new ConcurrentHashMap<>();
         originalUrlToId = new LinkedHashMap<>();
         ids = new ConcurrentLinkedQueue<>();
         gcLock = new ReentrantLock();
 
         this.lockHandler = lockHandler;
-        this.shortenerConfig = shortenerConfig;
+        this.shortenerProperties = shortenerProperties;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
                     if (id != null) {
                         return idToShortener.get(id);
                     }
-                    if (idToShortener.size() >= shortenerConfig.getMaxStoreSize()) {
+                    if (idToShortener.size() >= shortenerProperties.getMaxStoreSize()) {
                         gc();
                     }
                     idToShortener.put(shortener.getId(), shortener);
@@ -76,10 +76,10 @@ public class ShortenerRepositoryInMemoryImpl implements ShortenerRepository {
     void gc() {
         gcLock.lock();
         try {
-            if (idToShortener.size() < shortenerConfig.getMaxStoreSize()) {
+            if (idToShortener.size() < shortenerProperties.getMaxStoreSize()) {
                 return;
             }
-            IntStream.range(0, (int) (shortenerConfig.getMaxStoreSize() * shortenerConfig.getGcRate())).forEach(i -> {
+            IntStream.range(0, (int) (shortenerProperties.getMaxStoreSize() * shortenerProperties.getGcRate())).forEach(i -> {
                 final String id = ids.poll();
                 final Shortener shortener = idToShortener.remove(id);
                 originalUrlToId.remove(shortener.getOriginalUrl());
