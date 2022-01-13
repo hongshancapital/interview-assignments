@@ -83,24 +83,24 @@ class ShortenerRepositoryInMemoryImplTest {
     }
 
     @Test
-    void test_an_exist_shortener() {
+    void test_is_exist_shortener() {
         mockWriteLockHandler();
         mockReadLockHandler();
         final Shortener shortener = new Shortener("a12a", "https://shortener-zg.com", Instant.now());
         shortenerRepositoryInMemory.save(shortener).block();
 
-        final Mono<Boolean> isExist = shortenerRepositoryInMemory.isExist("https://shortener-zg.com");
+        final Mono<Shortener> isExist = shortenerRepositoryInMemory.isExist("https://shortener-zg.com");
         StepVerifier.create(isExist)
-                .expectNext(true)
+                .expectNext(shortener)
                 .verifyComplete();
     }
 
     @Test
-    void test_an_not_exist_shortener() {
+    void test_is_not_exist_shortener() {
         mockReadLockHandler();
-        final Mono<Boolean> isExist = shortenerRepositoryInMemory.isExist("https://test-zg.com");
+        final Mono<Shortener> isExist = shortenerRepositoryInMemory.isExist("https://test-zg.com");
         StepVerifier.create(isExist)
-                .expectNext(false)
+                .expectNextCount(0)
                 .verifyComplete();
     }
 }

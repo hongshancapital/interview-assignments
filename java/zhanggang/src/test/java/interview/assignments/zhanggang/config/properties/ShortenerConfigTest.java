@@ -17,8 +17,9 @@ class ShortenerConfigTest {
     private ShortenerConfig shortenerConfig;
 
     @Test
-    void getMaxLength() {
+    void test_shortener_config() {
         assertThat(shortenerConfig.getMaxLength()).isEqualTo(10);
+        assertThat(shortenerConfig.getShortUrlHost()).isEqualTo("https://shortener.com");
         assertThat(shortenerConfig.getLockConfig().getTimeout()).isEqualTo(10);
         assertThat(shortenerConfig.getLockConfig().getTimeunit()).isEqualTo(TimeUnit.MILLISECONDS);
     }

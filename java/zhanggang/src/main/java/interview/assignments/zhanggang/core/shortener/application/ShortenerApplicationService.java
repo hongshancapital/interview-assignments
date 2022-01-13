@@ -1,8 +1,8 @@
 package interview.assignments.zhanggang.core.shortener.application;
 
-import interview.assignments.zhanggang.config.exception.error.OriginalUrlAlreadyExistException;
 import interview.assignments.zhanggang.config.exception.error.ShortenerNotFoundException;
-import interview.assignments.zhanggang.core.shortener.adapter.context.impl.ShortIdContextApplicationServiceImpl;
+import interview.assignments.zhanggang.config.properties.ShortenerConfig;
+import interview.assignments.zhanggang.core.shortener.adapter.context.ShortIdContext;
 import interview.assignments.zhanggang.core.shortener.adapter.repo.ShortenerRepository;
 import interview.assignments.zhanggang.core.shortener.model.Shortener;
 import lombok.RequiredArgsConstructor;
@@ -13,22 +13,24 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class ShortenerApplicationService {
     private final ShortenerRepository shortenerRepository;
-    private final ShortIdContextApplicationServiceImpl shortIdContext;
+    private final ShortIdContext shortIdContext;
+    private final ShortenerConfig shortenerConfig;
 
-    public Mono<Shortener> createNewShortener(String url) {
-        return shortenerRepository.isExist(url)
-                .flatMap(isExist -> {
-                    if (Boolean.TRUE.equals(isExist)) {
-                        return Mono.error(new OriginalUrlAlreadyExistException(url));
-                    }
-                    return shortIdContext.newShortId()
-                            .map(id -> new Shortener(id, url))
-                            .flatMap(shortenerRepository::save);
-                });
+    public Mono<String> getShortUrl(String originalUrl) {
+        return shortenerRepository.isExist(originalUrl)
+                .switchIfEmpty(
+                        Mono.defer(() -> shortIdContext.newShortId()
+                                .map(id -> new Shortener(id, originalUrl))
+                                .flatMap(shortenerRepository::save)
+                        )
+                )
+                .map(shortener -> shortener.getShortUrl(shortenerConfig.getShortUrlHost()));
     }
 
-    public Mono<Shortener> findById(String id) {
+    public Mono<String> getOriginalUrl(String shortUrl) {
+        final String id = Shortener.parseId(shortUrl);
         return shortenerRepository.findById(id)
-                .switchIfEmpty(Mono.error(new ShortenerNotFoundException(id)));
+                .map(Shortener::getOriginalUrl)
+                .switchIfEmpty(Mono.defer(() -> Mono.error(new ShortenerNotFoundException(id))));
     }
 }
