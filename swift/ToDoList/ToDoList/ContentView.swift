@@ -21,7 +21,6 @@ struct ContentView: View {
     @ObservedObject var mainData: MainData = .shared
     @State var searchText : String = ""
     @State var searching : Bool = false
-    
     init(mainData : MainData) {
         self.mainData = mainData
     }
