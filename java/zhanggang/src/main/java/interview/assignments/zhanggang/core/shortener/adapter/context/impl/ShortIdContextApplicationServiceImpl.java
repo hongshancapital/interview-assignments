@@ -4,10 +4,10 @@ import interview.assignments.zhanggang.core.shortener.adapter.context.ShortIdCon
 import interview.assignments.zhanggang.core.shortid.application.ShortIdApplicationService;
 import interview.assignments.zhanggang.core.shortid.model.ShortId;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class ShortIdContextApplicationServiceImpl implements ShortIdContext {
     private final ShortIdApplicationService shortIdApplicationService;
