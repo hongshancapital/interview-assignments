@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,58 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.content-item {
+  position: relative;
+  height: 600px;
+  text-align: center;
+}
+
+.content-item.ihpone {
+  background-color: #111111;
+}
+.content-item.ihpone img {
+  width: 600px;
+}
+.content-item.tablet {
+  background-color: #fafafa;
+}
+.content-item.tablet img {
+  width: 1000px;
+}
+.content-item.airPods {
+  background-color: #f1f1f3;
+}
+.content-item.airPods img {
+    width: 1400px;
+}
+.content-item img {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translate(-50%);
+}
+.content {
+  position: absolute;
+  left: 50%;
+  max-width: 100%;
+  transform: translate(-50%);
+  display: inline-block;
+  margin-top: 100px;
+  z-index: 1;
+}
+.content-item.ihpone .content {
+  color: white;
+}
+.content .header {
+  font-weight: 700;
+  font-size: 40px;
+}
+.content .text {
+  display: inline-block;
+  margin-top: 10px;
+  line-height: 1.5;
+  font-size: 20px;
+  font-weight: 500;
 }
