@@ -1,0 +1,79 @@
+.com-carousel {
+  overflow: hidden;
+  position: relative;
+}
+.com-carousel .carousel-container {
+  display: flex;
+  transition: all ease;
+}
+
+.com-carousel .carousel-container .container-item { 
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 80%;
+  background-clip: padding-box;
+}  
+
+.com-carousel .carousel-container .container-item .item-title {
+  margin-top: 100px;
+  font-weight: 600;
+  font-size: 80px;
+}
+
+.com-carousel .carousel-container .container-item .item-content {
+  margin-top:30px;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.com-carousel .carousel-container .container-item.theme-black {
+  color: #fff;
+}
+
+
+.com-carousel .carousel-bars {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.com-carousel .carousel-bars .bars-item{
+  width: 80px;
+  height: 3px;
+  position: relative;
+  margin: 0 8px;
+  background: #999;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.com-carousel .carousel-bars .bars-item.active::before{
+  content: '';
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  animation-name: drawWidth;
+  animation-timing-function: linear;
+  animation-duration: inherit;
+}
+
+@keyframes drawWidth{
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
