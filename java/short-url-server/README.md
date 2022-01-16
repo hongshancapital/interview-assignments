@@ -14,6 +14,8 @@
 - 常用的id自增方案有redis的increase、MySQL的auto_increase以及Zookeeper的顺序节点的方式，这里我们选择redis的自增方案
 - 将218万亿分成16个区间（按服务要求切分），每个区间约13.6万亿容量，对应16个redis的自增key
 - 服务启动时，会去zookeeper创建路径为"/short-url/node-(0-15)"的临时节点，创建某个节点成功，则获取这个节点对应的自增区间
-- 每次请求获取到自增id后，再映射成62进制的数字和大小写字母的字符串（字母和字符串经过乱序排列）
+- 每次请求获取到自增id后，再映射成62进制的数字和大小写字母的字符串（字母和字符串经过随机扰乱），拼接短URL前缀返回
+  ![Architecture](./src/main/resources/pics/architecture.jpg)
 
-### 其他设计说明
+### 其他设计
+为了保证原始URL的合法性，需要用户事先注册，标注自己注册的域名，并获取clientId和secret，申请短URL时，需要携带secret和原始链接计算的签名，服务端比对后确认是否是合法的URL
