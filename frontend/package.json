@@ -13,12 +13,15 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^4.0.3",
+    "sass": "^1.46.0",
+    "styled-components": "^5.3.3",
     "typescript": "~3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-c": "npm test -- --env=jsdom --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -35,5 +38,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-test-renderer": "^17.0.1",
+    "@types/styled-components": "^5.1.19",
+    "jest-styled-components": "^7.0.8",
+    "react-test-renderer": "^16.14.0"
   }
 }
