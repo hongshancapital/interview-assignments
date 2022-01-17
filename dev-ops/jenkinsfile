@@ -1,0 +1,115 @@
+// 指定调度slave
+
+def label = "jenkins-slave"
+
+// 定义环境变量
+def ALI_IMG_URL = "registry.cn-beijing.aliyuncs.com"
+def ALI_IMG_REPO = "ops"
+def DEPLOY_NS = "ops"
+def WEB_IMG_NAME = "ops_backend"
+def CELERY_IMG_NAME = "ops_celery"
+def NGINX_IMG_NAME = "ops_nginx"
+def CHART_DIR = "helm-ops"
+def VALUE_FILE = "ops-values.yaml"
+def PUSH_USER = "xxx"
+def GIT_USER = "xxx"
+def K3S_CONF = "xx" // 生产k8s配置
+def GIT_REPO = "xxx"
+
+def helmLint(String chartDir) {
+    println "校验 Chart 模板"
+    sh "helm lint ${chartDir}"
+}
+
+def helmDeploy(Map args) {
+    if (args.debug) {
+        println "Debug 应用"
+        sh "helm upgrade --dry-run --debug --install ${args.name} ${args.chartDir} -f ${args.valuePath} --set image.tag=${args.imageTag} --namespace ${args.namespace}"
+    } else {
+        println "部署应用"
+        sh "helm upgrade --install ${args.name} ${args.chartDir} -f ${args.valuePath} --set image.tag=${args.imageTag} --namespace ${args.namespace}"
+        echo "应用 ${args.name} 部署成功. 可以使用 helm status ${args.name} 查看应用状态"
+    }
+}
+
+node (label) {
+        properties ([parameters([
+        string(defaultValue: '', description: '请输入要发布的COMMIT_ID', name: 'COMMIT_ID'),
+        string(defaultValue: '0.0.5', description: '请输入要发布springboot的版本', name:'VERSION'),
+        choice(name: 'CHOICDE_APP', choices: ['ops_backend', 'ops_celery', 'ops_nginx'], description: '请选择发布应用'),
+        ])])
+        if (params.COMMIT_ID == '' || params.VERSION == '') {
+            error '参数输入错误'
+        }
+
+        stage("应用名称 ${CHOICDE_APP}"){
+        echo "选择编译应用"
+        if ("${CHOICDE_APP}" == "ops_backend") {
+        echo "django application docker Build"
+        env.BUILD_APP = "ops_backend"
+        env.BUILD_IMG = "web"
+        } else if ("${CHOICDE_APP}" == "ops_celery")  {
+        echo "celery application docker Build"
+        env.BUILD_APP = "ops_celery"
+        env.BUILD_IMG = "celery"
+        } else if ("${CHOICDE_APP}" == "ops_nginx") {
+            echo "nginx application docker Build"
+            env.BUILD_APP = "ops_nginx"
+            env.BUILD_IMG = "nginx"
+        }
+        }
+
+        stage("仓库克隆 ${CHOICDE_APP}"){
+            echo "Pull Git Repo"
+            git branch: "master", credentialsId: "${GIT_USER}", url: "${GIT_REPO}"
+            sh "git checkout ${params.COMMIT_ID}"
+        }
+
+        stage("Docker编译 ${env.BUILD_APP}"){
+            def customImage = docker.build("${ALI_IMG_URL}/${ALI_IMG_REPO}/${env.BUILD_APP}:${params.VERSION}", "-f compose/${env.BUILD_IMG}/Dockerfile ./")
+                echo "${env.BUILD_APP} Docker Build Push Clean"
+                docker.withRegistry("http://${ALI_IMG_URL}", "${PUSH_USER}") {
+                    echo "Push Image"
+                    customImage.push()
+                    echo "Clean Image"
+                    sh "docker rmi ${ALI_IMG_URL}/${ALI_IMG_REPO}/${env.BUILD_APP}:${params.VERSION}"
+                }
+        }
+
+        stage('运行 Helm') {
+        withCredentials([file(credentialsId: "${K3S_CONF}", variable: 'KUBECONFIG')]) {
+            sh "cp ${KUBECONFIG} ~/.kube/config && chmod 664 ~/.kube/config"
+            echo "开始 Helm 部署"
+            helmDeploy(
+                debug       : false,
+                name        : "${IMG_NAME}",
+                chartDir    : "${CHART_DIR}",
+                namespace   : "${DEPLOY_NS}",
+                valuePath   : "${CHART_DIR}/${VALUE_FILE}",
+                imageTag    : "${params.VERSION}"
+            )
+            echo "[INFO] 命名空间： ${DEPLOY_NS} Helm 部署应用 ${IMG_NAME} 成功..."
+            sh "rm -rf ~/.kube/config"
+            }
+        }
+
+        stage('快速回滚?') {
+        withCredentials([file(credentialsId: "${K8S_CONF}", variable: 'KUBECONFIG')]) {
+            sh "cp ${KUBECONFIG} ~/.kube/config && chmod 664 ~/.kube/config"
+            def userInput = input(
+                id: 'userInput',
+                message: '是否需要快速回滚？',
+                parameters: [
+                    [
+                        $class: 'ChoiceParameterDefinition',
+                        choices: "Y\nN",
+                        name: '回滚?'
+                    ]
+                ]
+            )
+            if (userInput == "Y") {
+                sh "helm rollback ${IMG_NAME} --namespace ${DEPLOY_NS}"
+            }
+        }
+    }
+}
