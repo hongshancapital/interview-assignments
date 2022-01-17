@@ -6,7 +6,7 @@ import useInterval from './useInterval'
 
 
 const Carousel:FC<ICarouselProps> = (props) => {
-  const {children, showPagination, delay, duration, height} = props
+  const {children, showPagination, delay, duration, className} = props
   let count = React.Children.count(children)
 
   const [active, setActive] = useState(0)
@@ -39,7 +39,7 @@ const Carousel:FC<ICarouselProps> = (props) => {
   }
 
   return (
-    <div className='container' ref={wrapperRef} style={{height: height}}>
+    <div className={`${className} container`} ref={wrapperRef}>
       <div className='carousel-wrapper' style={wrapperStyle}>
         {React.Children.map(children, ((child,index) => {
           return <div className='carousel-item'>

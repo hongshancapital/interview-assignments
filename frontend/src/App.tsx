@@ -2,38 +2,43 @@ import React from "react";
 import "./App.css";
 import Carousel from "./components/Carousel";
 
+const Sliders = [{
+  key: 'phone',
+  className: 'phone',
+  title: 'xPhone',
+  textClass: 'white',
+  description: 'Lots to love. Less to spend.\nStarting at $399.'
+},
+{
+  key: 'tablet',
+  className: 'tablet',
+  title: 'Tablet',
+  textClass: 'black',
+  description: 'Just the right amount of everything'
+},
+{
+  key: 'airpods',
+  className: 'airpods',
+  title: ' Buy a Tablet or xPhone for college. \nGet arPods',
+  textClass: 'black',
+}]
+
 function App() {
   return <div className="App">
-    <Carousel duration={300} delay={3000} showPagination height={window.innerHeight+'px'}>
-        <div className="wrapper phone">
+    <Carousel duration={300} delay={3000} showPagination className='carousel' >
+        {Sliders.map(item => {
+          return  <div key={item.key} className={`wrapper ${item.className}`}>
           <div className="title-wrapper">
-            <h1 className="title white">
-              xPhone
+            <h1 className={`title ${item.textClass}`}>
+              {item.title}
             </h1>
-            <p className="text white mrt20">
-              Lots to love. Less to spend. <br />
-              Starting at $399.
-            </p>
+            {item.description ? <p className={`text ${item.textClass} mrt20`}>
+             {item.description}
+            </p>:null }
           </div>
         </div>
-        <div className="wrapper tablet">
-          <div className="title-wrapper">
-            <h1 className="title black">
-              Tablet
-            </h1>
-            <p className="text black mrt20">
-              Just the right amount of everything
-            </p>
-          </div>
-        </div>
-        <div className="wrapper airpods">
-          <div className="title-wrapper">
-            <h1 className="title black">
-              Buy a Tablet or xPhone for college. <br />
-              Get arPods
-            </h1>
-          </div>
-        </div>
+        })}
+        
     </Carousel>
   </div>;
 }

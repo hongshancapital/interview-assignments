@@ -2,7 +2,7 @@ import React from "react";
 
 export interface ICarouselProps {
   children: Array<React.ReactElement>,
-  height: string,
+  className: string,
   duration: number, // 过渡动画时间
   delay: number, // 等待时间
   showPagination?: boolean, // 是否显示导航指示器
