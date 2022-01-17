@@ -39,7 +39,7 @@ struct WMSearch : View {
                     )
                         .frame(width: 100, height: 30)
                         .padding(.leading, 5)
-//                        .padding(.trailing, 5)
+                        .padding(.trailing, 5)
                         .multilineTextAlignment(.leading)
                         .font(.system(size: 13))
                         .clipShape(RoundedRectangle(cornerRadius: 10.0))
