@@ -60,7 +60,7 @@ const Carousel: React.FC<{
   }, [props.children, delay])
 
   return <div className={`carousel ${props.className || ''}`} style={{
-    height: props.height || '100%'
+    height: props.height || undefined
   }}>
     <CarouseContext.Provider value={{
       showIndex,
