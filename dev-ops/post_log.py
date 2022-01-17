@@ -48,7 +48,7 @@ if __name__ == '__main__':
         print('需要指定文件参数，如：python post_log.py <path/to/file>')
         sys.exit(1)
     try:
-        handler(file_path=file_path)
+        handler(file_path)
     except Exception as err:
         print('处理时出错，错误信息：{}'.format(err))
         sys.exit(1)
