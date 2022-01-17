@@ -11,7 +11,7 @@ def handler(file_path):
     :param file_path:
     :return:
     """
-    # 文件大小优先，可全部加载到内存中，再按行解析
+    # 文件大小有限，可全部加载到内存中，再按行解析
     # 文件大时，此方式不可取，可采用，分块加载的方式处理。
     with open(file_path) as f:
         current_time_window = None  # timeWindow
