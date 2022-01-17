@@ -17,39 +17,85 @@ final class WMModelData: ObservableObject {
         "Framework Integration",
     ]
     
+    var originDatas: [String:[WMModel]]?
+    var searching: Bool = false
+    
     var firstKey : String {
         todoKeys[0]
     }
+    
+    func searchTodo(by word:String) {
+        if word.count == 0 {
+            searching = false
+            if originDatas != nil {
+                todos = originDatas!
+                originDatas = nil
+            }
+        } else {
+            searching = true
+            if originDatas == nil {
+                originDatas = todos
+            }
+            var searchedData: [String:[WMModel]] = [:]
+            for index in 0..<todoKeys.count {
+                let key = todoKeys[index]
+                var rows = originDatas![key]
+                rows = rows?.filter({ todoModel in
+                    todoModel.message.lowercased().contains(word.lowercased())
+                })
+                searchedData[key] = rows
+            }
+            todos = searchedData
+        }
+    }
 
     func addTodo(todo: String , _ key: String?) {
+        addTodoAction(todo: todo, key, datas: &todos)
+        if searching {
+            addTodoAction(todo: todo, key, datas: &originDatas!)
+        }
+    }
+    private func addTodoAction(todo: String , _ key: String? , datas:inout [String:[WMModel]]) {
         let theGourp = key ?? firstKey
-        
         let choosedkey = WMModel.TodoType(rawValue: theGourp)
-        
         if todoKeys.contains(theGourp) {
-            var temp = todos[theGourp]
+            var temp = datas[theGourp]
             let todoModel = WMModel(id: temp?.count ?? 0, message: todo, check: false, line: false, type: choosedkey!)
             temp?.insert(todoModel, at: 0)
-            todos[theGourp] = temp
+            datas[theGourp] = temp
         }else {
             todoKeys.insert(theGourp, at: 0)
             let todoModel = WMModel(id: 0, message: todo, check: false, line: false, type: choosedkey!)
-            todos[theGourp] = [todoModel]
+            datas[theGourp] = [todoModel]
         }
     }
     
     func deleteTodo(todo: WMModel) {
+        deleteTodoAction(todo: todo, datas: &todos)
+        if searching {
+            deleteTodoAction(todo: todo, datas: &originDatas!)
+        }
+    }
+    private func deleteTodoAction(todo: WMModel, datas:inout [String:[WMModel]]) {
+        
         if todoKeys.contains(todo.type.rawValue) {
-            var temp = todos[todo.type.rawValue]
+            var temp = datas[todo.type.rawValue]
             temp = temp?.filter({ model in
                 model.id != todo.id
             })
-            todos[todo.type.rawValue] = temp
-            
+            datas[todo.type.rawValue] = temp
         }
+        
     }
     
+    
     func changeTheMessage(todo: WMModel, _ message: String?) {
+        changeTheMessageAction(todo: todo, message, datas: &todos)
+        if searching {
+            changeTheMessageAction(todo: todo, message, datas: &originDatas!)
+        }
+    }
+    private func changeTheMessageAction(todo: WMModel, _ message: String?, datas:inout [String:[WMModel]]) {
         var newTodo = todo
         if message != nil {
             newTodo.message = message!
@@ -57,7 +103,7 @@ final class WMModelData: ObservableObject {
         
         if todoKeys.contains(newTodo.type.rawValue) {
             
-            var temp = todos[newTodo.type.rawValue]
+            var temp = datas[newTodo.type.rawValue]
             if temp!.count == 1 {return}
             
             for i in 0..<temp!.count {
@@ -67,17 +113,29 @@ final class WMModelData: ObservableObject {
                     break
                 }
             }
-            todos[todo.type.rawValue] = temp
-            
+            datas[todo.type.rawValue] = temp
         }
-        
+
     }
     
+    
     func changeTodoCheck(todo: WMModel) {
+        changeTodoCheckAction(todo: todo, datas: &todos)
+        if searching {
+            changeTodoCheckAction(todo: todo, datas: &originDatas!)
+        }
+    }
+    private func changeTodoCheckAction(todo: WMModel, datas:inout [String:[WMModel]]) {
         if todoKeys.contains(todo.type.rawValue) {
             
-            var temp = todos[todo.type.rawValue]
-            if temp!.count == 1 {return}
+            var temp = datas[todo.type.rawValue]
+            if temp!.count == 1 {
+                var tempModel = temp![0];
+                tempModel.check.toggle()
+                temp![0] = tempModel
+                datas[todo.type.rawValue] = temp
+                return
+            }
             
             for i in 0..<temp!.count {
                 let model:WMModel = temp![i]
@@ -106,11 +164,10 @@ final class WMModelData: ObservableObject {
                 }
             }
             
-            todos[todo.type.rawValue] = temp
+            datas[todo.type.rawValue] = temp
             
         }
     }
-    
 }
 
 

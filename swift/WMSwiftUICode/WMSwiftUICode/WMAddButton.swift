@@ -100,7 +100,7 @@ struct keyButton : View {
         }, label: {
             VStack (spacing: 0) {
                 
-                if (chooseKey) {
+                if chooseKey {
                     
                     VStack (spacing: 0) {
                         

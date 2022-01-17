@@ -71,8 +71,16 @@ struct listView: View {
             .environment(\.defaultMinListHeaderHeight, 1)
             .environment(\.defaultMinListRowHeight, 60)
             .listStyle(GroupedListStyle())
-            .navigationTitle("List")
+            .navigationBarTitle("List")
+            .toolbar {
+                ToolbarItem(placement:.navigationBarTrailing) {
+                    WMSearch()
+                }
+
+            }
+
             
         }
+
     }
 }

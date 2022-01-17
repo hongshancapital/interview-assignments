@@ -16,10 +16,6 @@ struct WMTodoRow: View, Identifiable{
     @State var message: String  = ""
     @EnvironmentObject var check: WMStateModel
     @EnvironmentObject var todoLists : WMModelData
-
-    func wmRowLineColor() -> Color {
-        check.select ? Color.gray : Color.clear
-    }
     
     func wmRowTextColor() -> Color {
         check.select ? Color.gray : Color.black
@@ -33,13 +29,9 @@ struct WMTodoRow: View, Identifiable{
             
             ZStack (alignment: .leading) {
                 Text(message)
+                    .strikethrough(check.select, color: .gray)
                     .font(.system(size: 13))
                     .foregroundColor(Color.clear)
-                    .background(
-                        Rectangle()
-                            .fill(wmRowLineColor())
-                            .frame(height: 1, alignment: .leading)
-                    )
                 
                 TextField(
                     "something..." ,
@@ -58,7 +50,7 @@ struct WMTodoRow: View, Identifiable{
                     .foregroundColor(wmRowTextColor())
                     .padding(.leading, 0)
                     .allowsHitTesting(check.select==true ? false : true)
-                
+
             }
             
             Spacer()
