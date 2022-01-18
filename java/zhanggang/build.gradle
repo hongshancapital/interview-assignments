@@ -3,6 +3,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
+    id 'io.gatling.gradle' version "3.7.3.1"
+
 }
 
 group = 'interview.assignments'
@@ -33,11 +35,21 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'com.tngtech.archunit:archunit:0.22.0'
-
+    testImplementation 'io.gatling.highcharts:gatling-charts-highcharts:3.7.3'
 }
 
 test {
     useJUnitPlatform()
 }
 
-test.finalizedBy jacocoTestReport
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+}
+
+gatling {
+    systemProperties = ['file.encoding': 'UTF-8']
+}
