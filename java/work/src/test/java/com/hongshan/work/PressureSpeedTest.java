@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringRunner.class)
 public class PressureSpeedTest {
     private static List<String> caseList = new ArrayList<String>();
-    private static StopWatch putSw = new StopWatch("map写性能测试");
-    private static StopWatch getSw = new StopWatch("map读性能测试");
+    private static StopWatch putSw = new StopWatch("mapper写性能测试");
+    private static StopWatch getSw = new StopWatch("mapper读性能测试");
 
     @Autowired
     private SequenceGenerator sequenceGenerator;
