@@ -14,7 +14,7 @@ public class GenerateUtils {
 
     public static final Integer NUMBER_MODE = 62;
 
-    public static Long MAX_VALUE = 200000L;//218340105584896L;
+    public static Long MAX_VALUE = 218340105584896L;
 
     public static Long MIN_VALUE = 0L;
 
