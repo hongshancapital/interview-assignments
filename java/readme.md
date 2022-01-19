@@ -1,9 +1,9 @@
 # 实现短域名服务
-#####撰写两个 API 接口:
+### 撰写两个 API 接口:
   
  * 短域名存储接口：接受长域名信息，返回短域名信息
  * 短域名读取接口：接受短域名信息，返回长域名信息。
-#####限制：
+### 限制：
  ```
   短域名长度最大为 8 个字符
   采用SpringBoot，集成Swagger API文档；
@@ -19,6 +19,11 @@
 * 为了提升效率，使用线程池实现队列的并行存取
 * 依托本地Cache缓存短链，查询时可根据短链code计算出long值，再根据每台机器的区间[min, max]，分发到对应的机器上
 
-设计图：
+##### 设计图：
+###### 部署架构图：
+![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/318541572.jpg)
 
+###### 项目结构图：
+![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/project.jpg)
 
+![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/103071676.jpg)
