@@ -1,0 +1,78 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  /* item container */
+  .carousel-items {
+    display: inline-flex;
+    vertical-align: top;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    transition-property: transform;
+    height: 100%;
+  }
+  
+  /* item */
+  .carousel-item {
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    line-height: 1.4;
+    height: 100%;
+  }
+  .carousel-title {
+    font-weight: bold;
+    font-size: 54px;
+  }
+  .carousel-title:first-child {
+    margin-top: 4em;
+  }
+  .carousel-content {
+    font-size: 24px;
+  }
+  
+  /* button */
+  .carousel-buttons {
+    position: absolute;
+    left: 50%;
+    bottom: 3em;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+  }
+  .carousel-button {
+    position: relative;
+    background-color: #666;
+    width: 4em;
+    height: 2px;
+    border-radius: 1px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .carousel-button:not(:last-child) {
+    margin-right: 1em;
+  }
+  
+  /* progress */
+  .carousel-button-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    border-radius: inherit;
+    transform: translateX(-100%);
+    animation-name: progress;
+  }
+  @keyframes progress {
+    to {
+      transform: translateX(0);
+    }
+  }
+  
