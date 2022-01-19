@@ -36,7 +36,7 @@
 ![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/test-get-long-url.jpg)
 
 * 获取长链接：
-![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/test-get-short-result.jpg)
+![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/test-short-result.jpg)
 
 ##### 待优化
 * 分布式部署，存储介质选择，比如redis或者分库分表
