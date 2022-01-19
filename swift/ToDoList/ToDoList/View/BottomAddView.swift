@@ -20,7 +20,7 @@ struct DottedLineView: View {
 
 // 添加事项View
 struct BottomAddView: View {
-    @ObservedObject var mainData: MainData
+    @StateObject var mainData: MainData
     @State var addTextFieldEditing: Bool = false
     @State var selectGroupModel: GroupModel? = nil
 
@@ -32,7 +32,7 @@ struct BottomAddView: View {
                 AddTextFieldView(mainData: mainData, selectGroupModel: $selectGroupModel, addTextFieldEditing: $addTextFieldEditing)
                 // 分组菜单
                 if addTextFieldEditing {
-                    MenuView(mainData: mainData, selectGroupModel: $selectGroupModel)
+                    MenuView(mainData: mainData, selectGroupModel: $selectGroupModel, addTextFieldEditing: $addTextFieldEditing)
                 }
             }
             .frame(width: screenSize.width - 38, height: 50.0)
@@ -58,12 +58,14 @@ struct BottomAddView: View {
 private struct MenuView: View {
     @ObservedObject var mainData: MainData
     @Binding var selectGroupModel: GroupModel?
-
+    @Binding var addTextFieldEditing: Bool
+    
     var body: some View {
         Menu {
             ForEach(0 ..< mainData.groupArray.count + 1) { index in
                 if index == mainData.groupArray.count {
                     Button {
+                        UIApplication.shared.dismissKeyboard()
                         TextFieldAlert(title: "添加分组", placeholder: "请输入分组名称") { value in
                             if value.count > 0 {
                                 let addGroupModel = GroupModel(title: value, toDoList: [], index: mainData.groupArray.count)

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ScrollContentView: View {
-    @ObservedObject var mainData: MainData
-
+    @StateObject var mainData: MainData
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false, content: {
             ForEach(mainData.searchTodo()) { groupModel in

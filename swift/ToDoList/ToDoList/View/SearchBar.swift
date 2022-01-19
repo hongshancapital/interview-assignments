@@ -38,7 +38,7 @@ struct SearchBar: View {
                 TextField("请输入Todo关键字", text: $searchText) { startedEditing in
                     if startedEditing {
                         withAnimation {
-                            searching = true
+                            searching = startedEditing
                         }
                     }
                 } onCommit: {
@@ -52,6 +52,7 @@ struct SearchBar: View {
             .padding(.leading, 13)
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)) { _ in
+            // 添加键盘通知 当滚动内容scrollview关闭键盘时 退出搜索
             withAnimation {
                 searching = false
             }

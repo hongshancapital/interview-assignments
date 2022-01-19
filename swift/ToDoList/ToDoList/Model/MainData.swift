@@ -11,7 +11,7 @@ import SwiftUI
 class ToDoModel: ObservableObject, Identifiable {
     let id = UUID()
     @Published var title: String
-    @Published var isCompleted: Bool
+    var isCompleted: Bool
     
     init(title: String, isCompleted: Bool) {
         self.title = title
@@ -47,8 +47,8 @@ class GroupModel: ObservableObject, Identifiable, Copying {
     }
     
     let id = UUID()
-    @Published var title: String
-    @Published var toDoList: [ToDoModel]
+    var title: String
+    var toDoList: [ToDoModel]
     var index: Int
     
     init(title: String, toDoList: [ToDoModel], index: Int) {
@@ -60,11 +60,9 @@ class GroupModel: ObservableObject, Identifiable, Copying {
 
 class MainData: ObservableObject {
     let id = UUID()
-    static let shared = MainData()
     @Published var groupArray: [GroupModel]
     @Published var searching: Bool
     @Published var searchText: String
-    var searchArray: [GroupModel] = []
     
     init() {
         self.groupArray = [
@@ -90,18 +88,15 @@ class MainData: ObservableObject {
         ]
         self.searching = false
         self.searchText = ""
-        self.searchArray = self.groupArray.clone()
     }
     
     // 删除事项
     func removeTodo(formGroupModel: GroupModel, removeTodo: ToDoModel) {
-        if let groupIndex = self.groupArray.firstIndex(where: { $0 === formGroupModel }) {
-            let nowGroupArray = self.groupArray
-            if let index = nowGroupArray[groupIndex].toDoList.firstIndex(where: { $0 === removeTodo }) {
-                nowGroupArray[groupIndex].toDoList.remove(at: index)
-                withAnimation {
-                    self.groupArray = nowGroupArray
-                }
+        let nowGroupArray = self.groupArray
+        if let index = nowGroupArray[formGroupModel.index].toDoList.firstIndex(where: { $0 === removeTodo }) {
+            nowGroupArray[formGroupModel.index].toDoList.remove(at: index)
+            withAnimation {
+                self.groupArray = nowGroupArray
             }
         }
     }
@@ -121,16 +116,14 @@ class MainData: ObservableObject {
     
     // 添加事项
     func addTodo(formGroupModel: GroupModel, todoModel: ToDoModel) {
-        if let groupIndex = self.groupArray.firstIndex(where: { $0 === formGroupModel }) {
-            let nowGroupArray = self.groupArray
-            var todoArray = nowGroupArray[groupIndex].toDoList
-            todoArray.append(todoModel)
-            
-            todoArray = todoArray.sorted { $0.isCompleted != true && $1.isCompleted == true }
-            nowGroupArray[groupIndex].toDoList = todoArray
-            withAnimation {
-                self.groupArray = nowGroupArray
-            }
+        let nowGroupArray = self.groupArray
+        var todoArray = nowGroupArray[formGroupModel.index].toDoList
+        todoArray.append(todoModel)
+        
+        todoArray = todoArray.sorted { $0.isCompleted != true && $1.isCompleted == true }
+        nowGroupArray[formGroupModel.index].toDoList = todoArray
+        withAnimation {
+            self.groupArray = nowGroupArray
         }
     }
     

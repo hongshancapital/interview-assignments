@@ -18,11 +18,7 @@ extension UIApplication {
 }
 
 struct ContentView: View {
-    @ObservedObject var mainData: MainData = .shared
-
-    init(mainData: MainData) {
-        self.mainData = mainData
-    }
+    @StateObject var mainData: MainData = MainData()
 
     var body: some View {
         NavigationView {

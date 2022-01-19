@@ -10,12 +10,10 @@ import SwiftUI
 struct CustomField: UIViewRepresentable {
     @Binding public var isFirstResponder: Bool
     @Binding public var text: String
-    public var configuration = { (_: UITextField) in }
     public var shouldReturn: (UITextField) -> () = { (_: UITextField) in }
     
-    public init(text: Binding<String>, isFirstResponder: Binding<Bool>, configuration: @escaping (UITextField) -> () = { _ in }, shouldReturn: @escaping (UITextField) -> () = { _ in }) {
+    public init(text: Binding<String>, isFirstResponder: Binding<Bool>, shouldReturn: @escaping (UITextField) -> () = { _ in }) {
         self.shouldReturn = shouldReturn
-        self.configuration = configuration
         self._text = text
         self._isFirstResponder = isFirstResponder
     }
@@ -30,10 +28,10 @@ struct CustomField: UIViewRepresentable {
     
     public func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.text = text
-        configuration(uiView)
-        switch isFirstResponder {
-        case true: uiView.becomeFirstResponder()
-        case false: uiView.resignFirstResponder()
+        if isFirstResponder {
+            uiView.becomeFirstResponder()
+        }else {
+            uiView.resignFirstResponder()
         }
     }
     
