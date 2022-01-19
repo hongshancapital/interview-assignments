@@ -14,13 +14,13 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @Slf4j
 public class ApplicationConfiguration {
-    // 布隆过滤器预计插入大小, 按此计算bits使用量
+    // 预计插入大小
     @Value("${filter.bloom.expected-insertions}")
     private long expectedInsertion;
-    // 布隆过滤器
+    // 误差率
     @Value("${filter.bloom.fpp}")
     private double fpp;
-    // 是否清理过期键值对
+    // 是否开启自动清理过期值
     @Value("${map.enable-expire:true}")
     private Boolean enableExpire;
     // 过期时间
@@ -38,7 +38,6 @@ public class ApplicationConfiguration {
 
     @Bean
     public BloomFilter<String> getFilter(){
-        log.info("Creating BloomFilter with expectedInsertion of {} and fpp of {}",expectedInsertion,fpp);
         return BloomFilter.create(Funnels.stringFunnel(Charsets.US_ASCII), expectedInsertion, fpp);
     }
     @Bean
