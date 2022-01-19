@@ -27,3 +27,10 @@
 ![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/project.jpg)
 
 ![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/103071676.jpg)
+
+###### 测试结果：
+![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/test.jpg)
+######## 获取短链接
+![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/test-get-long-url.jpg)
+######## 获取长链接
+![image](https://github.com/yangyp8110/interview-assignments/blob/yyp_short_url/java/src/doc/test-get-short-result.jpg)
