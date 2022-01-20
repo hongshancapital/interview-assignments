@@ -12,7 +12,6 @@ const Item: React.FC<{
   delay: number;
   showIndex: number;
   duration: number;
-  chilren?: React.ReactElement[];
   animateType?: string;
 }> = (props) => {
   return <div className={`carouse-item ${props.className || ''}`} style={{

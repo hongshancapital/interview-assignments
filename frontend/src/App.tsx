@@ -2,23 +2,33 @@ import React from "react";
 import "./App.css";
 import Carousel from "./components/carousel";
 import CarouselItem from "./components/carousel/item";
-import Airpods from "./components/demo/airpods";
-import Tablet from "./components/demo/tablet";
-import XPhone from "./components/demo/xPhone";
+import Demo from "./components/demo";
 
 function App() {
+  const data: {
+    title?: string;
+    desc?: string;
+    className?: string;
+  }[] = [{
+    title: 'xPhone',
+    desc: 'Lots to love.Less to Spend. Starting at $399.',
+    className: 'x-phone'
+  }, {
+    title: 'Tablet',
+    desc: 'Just the right amount of everything.',
+    className: 'tablet'
+  }, {
+    title: 'Buy a Tablet or xPhone for college.\nGet arPods',
+    className: 'airpods'
+  }]
   return <div className="App">
     <div className="title">carousel demo</div>
     <Carousel className="demo">
-      <CarouselItem>
-        <XPhone/>
-      </CarouselItem>
-      <CarouselItem>
-        <Tablet/>
-      </CarouselItem>
-      <CarouselItem>
-        <Airpods/>
-      </CarouselItem>
+      {data.map((item, i) => {
+        return <CarouselItem key={i}>
+          <Demo title={item.title} desc={item.desc} className={item.className}/>
+        </CarouselItem>
+      })}
     </Carousel>
   </div>;
 }

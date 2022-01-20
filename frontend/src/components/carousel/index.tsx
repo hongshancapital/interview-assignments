@@ -1,6 +1,5 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CarouselDots from './dots'
-import { CarouseItemType } from './item'
 import './styles/index.css'
 
 export const CarouseContext = React.createContext({
@@ -9,6 +8,21 @@ export const CarouseContext = React.createContext({
   duration: 1000,
   animateType: 'linear'
 })
+function isArray (obj: any): boolean {
+  return Object.prototype.toString.call(obj) === '[object Array]'
+}
+function getChildrenCount (children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined): number {
+  if (!isArray(children)) return 0
+  let count = 0;
+  (children as []).forEach(item => {
+    if (isArray(item)) {
+      count += (item as []).length
+    } else {
+      count += 1
+    }
+  })
+  return count
+}
 const Carousel: React.FC<{
   className?: string;
   /**
@@ -29,7 +43,6 @@ const Carousel: React.FC<{
    * 动画类型，默认linear
    */
   animateType?: 'linear' | 'easy' | 'easy-in' | 'easy-out' | 'easy-in-out' | 'step-start' | 'step-end' | string;
-  children?: ReactElement<CarouseItemType>[];
 }> = (props) => {
   const [showIndex, setShowIndex] = useState(-1)
   const [, setTimer] = useState<NodeJS.Timeout | null>(null)
@@ -37,7 +50,7 @@ const Carousel: React.FC<{
   const defaultDelay = 2500
   
   useEffect(() => {
-    const count = props.children?.length
+    const count = getChildrenCount(props.children)
     setTimer(preTimer => {
       if (preTimer) {
         clearInterval(preTimer)
@@ -70,7 +83,7 @@ const Carousel: React.FC<{
     }}>
       {props.children}
     </CarouseContext.Provider>
-    <CarouselDots showIndex={showIndex} count={props.children?.length || 0} delay={delay || defaultDelay}/>
+    <CarouselDots showIndex={showIndex} count={getChildrenCount(props.children)} delay={delay || defaultDelay}/>
   </div>
 }
 
