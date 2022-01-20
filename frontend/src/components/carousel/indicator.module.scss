@@ -1,0 +1,30 @@
+.main {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    .line {
+        width: 30px;
+        height: 2px;
+        border-radius: 2px;
+        margin: 0 3px;
+        background-image: linear-gradient(to right, #eeeeee 50%, #444444 0%);
+        background-size: 200% 100%;
+        background-position: 100% 0%;
+        background-repeat: no-repeat;
+    }
+
+    .active {
+        animation-name: pending;
+        animation-timing-function: linear;
+    }
+
+    @keyframes pending {
+        0% {
+            background-position: 100% 0%;
+        }
+        100% {
+            background-position: 0% 0%;
+        }
+    }
+}

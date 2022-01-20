@@ -1,0 +1,64 @@
+@import-normalize;
+
+.main {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+
+    .slide {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        .content {
+            height: 65%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h2 {
+                margin: 5px 0;
+                font-size: 4vw;
+            }
+
+            p {
+                margin: 0;
+                font-size: 2vw;
+            }
+        }
+
+        .image {
+            height: 12%;
+            display: flex;
+            justify-content: center;
+
+            img {
+                height: 100%;
+            }
+        }
+    }
+
+    .bg_white {
+        background-color: #f9f9f9;
+
+        .content {
+            color: black;
+        }
+    }
+
+    .bg_gray {
+        background-color: #f0f0f0;
+
+        .content {
+            color: black;
+        }
+    }
+
+    .bg_black {
+        background-color: #111111;
+
+        .content {
+            color: white;
+        }
+    }
+}
