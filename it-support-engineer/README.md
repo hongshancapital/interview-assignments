@@ -1,5 +1,5 @@
 # MacOS System log Analysis
-A System analysis script for MacOS.  
+A System analysis script with CLI Interface for MacOS.  
 
 # Installation
 ````
