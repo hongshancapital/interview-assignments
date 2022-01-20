@@ -1,0 +1,48 @@
+.pre-container {
+  position: relative;
+  overflow: hidden;
+}
+.pre-container .sliderContainer {
+  display: flex;
+}
+.pre-container .sliderContainer .slider {
+    overflow: hidden;
+}
+.pre-container .dot-container {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translate(-50%);
+  display: flex;
+  white-space: nowrap;
+}
+.pre-container .dot-container .dot {
+  width: 30px;
+  height: 2px;
+  border-radius: 10px;
+  background-color: gray;
+  cursor: pointer;
+}
+.pre-container .dot-container .dot .bar {
+  height: 2px;
+  width: 0%;
+  background-color: white;
+}
+@keyframes wider {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.pre-container .dot-container .dot.active .bar {
+  width: 100%;
+}
+.pre-container .dot-container .dot.active.autoPlay .bar {
+  animation-name: wider;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+  animation-timing-function: linear;
+}
