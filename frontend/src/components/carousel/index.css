@@ -1,0 +1,53 @@
+.carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-slider {
+  display: flex;
+  width: 300%;
+  height: 100%;
+}
+
+.carousel-slide {
+  width: 100%;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-left: 0;
+}
+
+.carousel-dots li {
+  display: inline-block;
+  width: 48px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #aaa;
+  position: relative;
+  cursor: pointer;
+}
+
+.carousel-dots li:not(:last-child) {
+  margin-right: 8px;
+}
+.carousel-dots-highlight {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 0;
+  border-radius: 2px;
+  animation-name: progress;
+  background-color: #fff;
+}
+
+@keyframes progress {
+  to {
+    width: 100%;
+  }
+}
