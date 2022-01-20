@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -28,8 +29,10 @@ public class UrlServiceImpl implements UrlService {
     @Override
     public String getShortUrl(String longUrl) {
         String shortUrl = getAvailableCompressCode();
-        urlMap.put(shortUrl, longUrl);
-        FILTER.put(shortUrl);
+        if(StringUtils.hasLength(shortUrl)) {
+            urlMap.put(shortUrl, longUrl);
+            FILTER.put(shortUrl);
+        }
         return shortUrl;
     }
 

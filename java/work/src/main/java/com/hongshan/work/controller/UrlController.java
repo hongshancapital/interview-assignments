@@ -33,6 +33,9 @@ public class UrlController {
             url = HTTP_PROTOCOL + url;
         url = UriUtils.encodePath(url, encoding);
         String shortUrl = service.getShortUrl(url);
+        if(!StringUtils.hasLength(shortUrl)){
+            return Result.error("短域名生成失败", shortUrl);
+        }
         return Result.ok("生成短链接成功", shortUrl);
     }
 
