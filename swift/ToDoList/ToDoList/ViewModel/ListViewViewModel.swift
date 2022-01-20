@@ -10,14 +10,14 @@ import SwiftUI
 
 let savedGroupsKey: String = "savedGroups"
 
-class ListViewViewModel: ObservableObject {
-    @Published private(set) var groups: [GroupModel] = []
+final class ListViewViewModel: ObservableObject {
+    @Published private(set) var originGroups: [GroupModel] = [] //原始数据
+    
+    @Published var filterGroups: [GroupModel] = [] //展示数据
     
     @Published var selectedGroup: String = "default group"
     
-    @Published var filterGroups: [GroupModel] = []
-    
-    @Published private var selectedItem: ItemModel?
+    private var searchKey: String = ""
     
     private var throttleTimer: Timer?
     
@@ -26,38 +26,41 @@ class ListViewViewModel: ObservableObject {
     init() {
         do {
             if let savedGroups = try defaults.getCustomObject(forKey: savedGroupsKey, castTo: [GroupModel]?.self) {
-                self.groups = savedGroups
+                self.originGroups = savedGroups
             }
         } catch {
             print(error.localizedDescription)
         }
         //初始化默认数据
-        if self.groups.isEmpty {
-            self.groups = [GroupModel.init("default group", [ItemModel.init("this is the your first to do!", false)])]
+        if self.originGroups.isEmpty {
+            self.originGroups = [GroupModel.init("default group", [ItemModel.init("this is the your first to do!", false)])]
         }
+        self.filterGroups = originGroups
     }
     
     func checkItem(_ group: GroupModel, _ item: ItemModel) {
-        if let index = groups.firstIndex(where: { $0.groupTitle == group.groupTitle }) {
-            if let _index = groups[index].items.firstIndex(where: { $0.title == item.title }) {
-                groups[index].items.remove(at: _index)
+        if let index = originGroups.firstIndex(where: { $0.groupTitle == group.groupTitle }) {
+            if let _index = originGroups[index].items.firstIndex(where: { $0.title == item.title }) {
+                originGroups[index].items.remove(at: _index)
             }
             insertItem(item.title, !item.isChecked, index)
         }
     }
     
     func addGroup(_ groupTitle: String) {
-        if let _ = groups.firstIndex(where: { $0.groupTitle == groupTitle }) {
+        if let _ = originGroups.firstIndex(where: { $0.groupTitle == groupTitle }) {
             return
         }
-        groups.append(GroupModel.init(groupTitle, []))
+        originGroups.append(GroupModel.init(groupTitle, []))
+        updateFilterGroup()
         storageUpdate()
     }
     
     func removeItem(_ group: String, _ item: String) {
-        if let index = groups.firstIndex(where: { $0.groupTitle == group }) {
-            if let _index = groups[index].items.firstIndex(where: { $0.title == item }) {
-                groups[index].items.remove(at: _index)
+        if let index = originGroups.firstIndex(where: { $0.groupTitle == group }) {
+            if let _index = originGroups[index].items.firstIndex(where: { $0.title == item }) {
+                originGroups[index].items.remove(at: _index)
+                updateFilterGroup()
                 storageUpdate()
             }
         }
@@ -67,8 +70,8 @@ class ListViewViewModel: ObservableObject {
         if itemTitle.isEmpty {
             return
         }
-        if let index = groups.firstIndex(where: { $0.groupTitle == selectedGroup }) {
-            if let _ = groups[index].items.firstIndex(where: { $0.title == itemTitle }) {
+        if let index = originGroups.firstIndex(where: { $0.groupTitle == selectedGroup }) {
+            if let _ = originGroups[index].items.firstIndex(where: { $0.title == itemTitle }) {
                 return
             }
             insertItem(itemTitle, isChecked, index)
@@ -76,37 +79,43 @@ class ListViewViewModel: ObservableObject {
     }
     
     func onSearchingChanged(_ value: String) {
+        searchKey = value
         throttleTimer?.invalidate()
         throttleTimer = nil
         throttleTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false, block: { [weak self] _ in
             guard let self = self else {
                 return
             }
-            print(value)
-            let result = self.groups.map{ group -> GroupModel in
-                let items = group.items.filter{ item in
-                    Fuzzy.search(needle: value, haystack: item.title)
-                }
-                return GroupModel.init(group.groupTitle, items)
-            }
-            self.filterGroups = result
+            print(self.searchKey)
+            self.updateFilterGroup()
         })
+    }
+    
+    private func updateFilterGroup() {
+        let result = originGroups.map{ group -> GroupModel in
+            let items = group.items.filter{ item in
+                Fuzzy.search(needle: searchKey, haystack: item.title)
+            }
+            return GroupModel.init(group.groupTitle, items)
+        }
+        filterGroups = result
     }
     
     private func insertItem(_ title: String, _ isChecked: Bool, _ groupIndex: Int) {
         if isChecked {
-            let lastCheckedIdx = groups[groupIndex].items.firstIndex(where: { $0.isChecked }) ?? groups[groupIndex].items.count
-            groups[groupIndex].items.insert(ItemModel.init(title, true), at: lastCheckedIdx)
+            let lastCheckedIdx = originGroups[groupIndex].items.firstIndex(where: { $0.isChecked }) ?? originGroups[groupIndex].items.count
+            originGroups[groupIndex].items.insert(ItemModel.init(title, true), at: lastCheckedIdx)
         } else {
-            let lastUnCheckedIdx = groups[groupIndex].items.firstIndex(where: { !$0.isChecked }) ?? 0
-            groups[groupIndex].items.insert(ItemModel.init(title, false), at: lastUnCheckedIdx)
+            let lastUnCheckedIdx = originGroups[groupIndex].items.firstIndex(where: { !$0.isChecked }) ?? 0
+            originGroups[groupIndex].items.insert(ItemModel.init(title, false), at: lastUnCheckedIdx)
         }
+        updateFilterGroup()
         storageUpdate()
     }
     
     private func storageUpdate() {
         do {
-            try defaults.setCustomObject(groups, forKey: savedGroupsKey)
+            try defaults.setCustomObject(originGroups, forKey: savedGroupsKey)
         } catch {
             print(error.localizedDescription)
         }

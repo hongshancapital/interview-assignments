@@ -15,6 +15,8 @@ struct ListView: View {
     @State private var searchItemContent: String = ""
     
     @State private var isFocus: Bool = false
+    @State private var isShowSearchField: Bool = false
+    @State private var isShowAddNewField: Bool = false
     
     @FocusState private var focusField: Bool
     
@@ -22,76 +24,112 @@ struct ListView: View {
     
     @State private var editingItem: [String: ItemModel]?
     
+    init() {
+        UITableView.appearance().sectionFooterHeight = 0
+    }
+    
     var body: some View {
         List {
-            ForEach(searchItemContent.isEmpty ? viewModel.groups : viewModel.filterGroups, id: \.self) { group in
-                Section(header: Text(group.groupTitle)) {
+            ForEach(viewModel.filterGroups, id: \.self) { group in
+                Section(header: Text(group.groupTitle).font(.system(size: 10).bold())) {
                     ForEach(group.items, id: \.self) { item in
                         ListRowView(itemModel: item)
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                            .listRowBackground(Color.clear)
                             .onTapGesture {
                                 onCheckItem(group, item)
                             }
                             .onLongPressGesture {
                                 onEditItem(group, item)
+                                showAddNewField()
                             }
                     }
                 }
+                .listSectionSeparator(.hidden)
                 .allowsHitTesting(!isFocus)
                 .foregroundColor(Color.black)
             }
+            Spacer().frame(height: 0.1).listRowBackground(Color.clear).listRowSeparator(.hidden) // 防止内容被[add new]输入框遮挡
         }
+        .animation(.easeInOut(duration: 0.3), value: viewModel.filterGroups)
         .listStyle(GroupedListStyle())
+        .background(Color.clear)
         .navigationTitle("List")
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: bottomHeight, trailing: 0))
         .overlay(
             VStack {
-                HStack {
-                    TextField("Add new...", text: $addItemContent, onEditingChanged: onAddEditingChanged, onCommit: onCommit)
-                        .focused($focusField)
-                        .frame(height: 30)
-                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                        .background(Color.white).cornerRadius(6)
-                    if isFocus {
-                        Menu {
-                            Picker(selection: $viewModel.selectedGroup, label: EmptyView()) {
-                                ForEach(viewModel.groups.map{ $0.groupTitle }, id: \.self) {
-                                    Text($0)
+                if (isShowSearchField) {
+                    Color.clear.frame(height: 0)
+                } else {
+                    HStack {
+                        if (isShowAddNewField) {
+                            TextField("Add new...", text: $addItemContent, onEditingChanged: onAddEditingChanged, onCommit: onCommit)
+                                .focused($focusField)
+                                .frame(height: 30)
+                                .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
+                                .background(Color.white)
+                                .cornerRadius(8)
+                            Menu {
+                                Picker(selection: $viewModel.selectedGroup, label: EmptyView()) {
+                                    ForEach(viewModel.originGroups.map{ $0.groupTitle }, id: \.self) {
+                                        Text($0)
+                                    }
                                 }
-                            }
-                        } label: {
+                            } label: {
+                                HStack {
+                                    Text(viewModel.selectedGroup)
+                                        .frame(maxWidth: 50)
+                                        .frame(height: 20, alignment: .leading )
+                                        .lineLimit(2)
+                                    Image(systemName: "chevron.down").font(.system(size: 10)).foregroundColor(Color.gray)
+                                }
+                                .foregroundColor(Color.black)
+                                .font(.system(size: 8))
+                                .frame(height: 30)
+                                .frame(maxWidth: 70)
+                                .background(Color.white)
+                                .cornerRadius(15)
+                            }.onTapGesture { print("##########") } //拦截点击事件，使picker能响应
+                        } else {
                             HStack {
-                                Text(viewModel.selectedGroup)
-                                    .frame(maxWidth: 50)
-                                    .frame(height: 20, alignment: .leading )
-                                    .lineLimit(2)
-                                Image(systemName: "chevron.down").font(.system(size: 8)).foregroundColor(Color.gray)
+                                Text("Add new...")
+                                    .frame(height: 30)
+                                    .foregroundColor(Color.gray)
+                                Spacer()
+                                
                             }
-                            .foregroundColor(Color.black)
-                            .font(.system(size: 8))
-                            .frame(height: 30)
-                            .frame(maxWidth: 80)
+                            .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
                             .background(Color.white)
-                            .cornerRadius(15)
-                        }.onTapGesture { print("##########") } //拦截点击事件，使picker能响应
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8).stroke(style: StrokeStyle(lineWidth: 1, dash: [3])).foregroundColor(Color.gray)
+                            )
+                            .onTapGesture {
+                                addItemContent = ""
+                                showAddNewField()
+                            }
+                        }
                     }
+                    .if (isShowAddNewField) {
+                        $0.padding(EdgeInsets(top: 20, leading: 15, bottom: 10, trailing: 15))
+                    } else: {
+                        $0.padding(EdgeInsets(top: 20, leading: 35, bottom: 10, trailing: 35))
+                    }
+                    .animation(.easeInOut(duration: 0.3), value: isShowAddNewField)
                 }
-                .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 20))
             }
-                .background(Color.init(hex: 0xf7f7f8).opacity(0.9))
+                .animation(.easeInOut(duration: 0.3), value: isShowSearchField)
+                .background(isShowAddNewField ? Color.init(hex: 0xf7f7f8) : Color.init(hex: 0xf7f7f8).opacity(0.6))
                 .frame(maxWidth: .infinity, maxHeight: bottomHeight, alignment: .bottom),
             alignment: .bottomTrailing
         )
         .onTapGesture {
             if isFocus {
                 hideKeyBoard()
+                isShowAddNewField = false
+                isShowSearchField = false
             }
         }
         .navigationBarItems(
             leading: TextField("Search", text: $searchItemContent, onEditingChanged: onSearchEditingChanged)
                 .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                .modifier(ClearButton($searchItemContent))
                 .frame(width: 250, height: 30)
                 .onChange(of: searchItemContent, perform: { value in
                     viewModel.onSearchingChanged(value)
@@ -105,7 +143,6 @@ struct ListView: View {
     func onEditItem(_ group: GroupModel, _ item: ItemModel) {
         print("onEditItem: \(group.groupTitle)")
         print("onEditItem: \(item.title)")
-        focusField = true
         viewModel.selectedGroup = group.groupTitle
         addItemContent = item.title
         editingItem = [group.groupTitle: item]
@@ -124,6 +161,7 @@ struct ListView: View {
     
     func onSearchEditingChanged(focus: Bool) {
         print("onEditingChanged: \(focus)")
+        isShowSearchField = focus
         isFocus = focus
     }
     
@@ -136,12 +174,20 @@ struct ListView: View {
         }
         viewModel.addItem(addItemContent, isChecked)
         addItemContent = ""
+        isShowAddNewField = false
         editingItem = nil
     }
     
     func delete(_ group: GroupModel, _ item: ItemModel) {
         print("delete")
         viewModel.removeItem(group.groupTitle, item.title)
+    }
+    
+    private func showAddNewField() {
+        isShowAddNewField = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { //用延时解决键盘弹不出的问题
+            focusField = true
+        }
     }
 }
 
