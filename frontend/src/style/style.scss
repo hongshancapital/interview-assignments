@@ -1,0 +1,77 @@
+.carousel-wrapper {
+	width: 100vw;
+	height: 100vh;
+	.sildes {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+		.main-post {
+			position: absolute;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+			.image {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				bottom: 0;
+				z-index: 0;
+				img {
+					width: 100%;
+					height: 100%;
+					display: block;
+					object-fit: cover;
+					object-position: bottom;
+				}
+			}
+			.content {
+				position: absolute;
+				top: 40%;
+				left: 4%;
+				transform: translateY(-40%);
+				color: #fff;
+				width: 90%;
+				.title {
+					font-size: xxx-large;
+					word-break: keep-all;
+					white-space: pre-line;
+				}
+				.text {
+					font-size: xx-large;
+					word-break: keep-all;
+					white-space: pre-line;
+				}
+			}
+		}
+	}
+	.progress-bar {
+		position: absolute;
+		bottom: 5%;
+		left: 50%;
+		height: 0.5%;
+		width: 20%;
+		z-index: 2;
+		transform: translateX(-50%);
+		display: flex;
+		justify-content: center;
+		.bar-container {
+			width: 50px;
+			height: 100%;
+			background: grey;
+			margin-right: 10px;
+			border-radius: 10px;
+			.default-bar {
+				width: 0%;
+				height: 100%;
+				z-index: 1;
+			}
+		}
+	}
+}
