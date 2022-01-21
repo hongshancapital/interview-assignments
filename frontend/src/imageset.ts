@@ -2,7 +2,7 @@ import img1 from "./assets/iphone.png";
 import img2 from "./assets/tablet.png";
 import img3 from "./assets/airpods.png";
 
-interface ImageSet {
+export interface ImageSet {
   url: string;
   title?: string[];
   text?: string[];
