@@ -18,7 +18,7 @@ function App() {
     }}>
       {
         images.map((img, index) => {
-          return <div className="page bg" style={{
+          return <div className="bg" style={{
             backgroundImage: `url(${img.url})`,
             color: img.color,
             transform: `translateX(${index * 100}vw)`
@@ -42,6 +42,11 @@ function App() {
           </div>;
         })
       }
+    </div>
+    <div className={"bar"}>
+      {images.map((_, i) => {
+        return <div className={"pg " + (current === i ? "current" : "")} key={i}/>;
+      })}
     </div>
   </div>;
 }

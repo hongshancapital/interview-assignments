@@ -38,3 +38,44 @@
   top: 0;
 }
 
+.bar {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .pg {
+    background: #ccc;
+    height: 3px;
+    width: 50px;
+    margin: 3px;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+
+    &.current::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      content: " ";
+      width: 50px;
+      height: 3px;
+      background: white;
+      display: inline-block;
+      animation: slide 3s linear 0;
+      animation-iteration-count: 1;
+    }
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
