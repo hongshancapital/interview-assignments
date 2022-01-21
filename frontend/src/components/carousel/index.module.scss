@@ -1,0 +1,88 @@
+#carousel {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  overflow: hidden;
+  position: relative;
+
+  .carouselContainer {
+    display: flex;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    .carouselItem {
+      min-width: 100vw;
+      height: 100vh;
+
+      .textbox {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+
+        .title {
+          margin-top: 20vh;
+          font-size: 8vh;
+          font-weight: bold;
+        }
+
+        .description {
+          font-size: 5vh;
+        }
+
+        .price {
+          font-size: 3vh;
+        }
+
+      }
+
+      .image {
+        height: 50vh;
+        margin-top: -70vh;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+      }
+    }
+  }
+
+  #nodata {
+    font-size: 10vh;
+  }
+
+  .dotWrapper {
+    position: absolute;
+    display: flex;
+    bottom: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .dotItem {
+      width: 6vh;
+      height: 0.6vh;
+      background: #bbb;
+      border-radius: 0.3vh;
+      margin: 0 1vh;
+
+      .dotProgress {
+        width: 0;
+        height: 0.6vh;
+        background: #FFF;
+        border-radius: 0.3vh;
+        animation-name: none;
+      }
+
+      .dotActive {
+        animation-name: widthChange;
+      }
+    }
+  }
+}
+
+@keyframes widthChange {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
