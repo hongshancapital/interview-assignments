@@ -6,7 +6,7 @@ import { Carousel } from "./components/carousel";
 function App() {
   let images = getImages();
   return <div className="padding">
-    <Carousel images={images} className="container"/>
+    <Carousel images={images} className="container" delay={3000}/>
   </div>;
 }
 

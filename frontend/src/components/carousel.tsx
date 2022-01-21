@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./carousel.module.scss";
 import clsx from "clsx";
 
-export function Carousel({ images, className }: { images: ImageSet[], className: string }) {
+export function Carousel({ images, className, delay }: { images: ImageSet[], className: string, delay: number }) {
   let [current, setCurrent] = useState(0);
   let [cWidth, setCWidth] = useState(""); // 填入不合法的height，让样式不生效
   let [cHeight, setCHeight] = useState("");
@@ -22,7 +22,7 @@ export function Carousel({ images, className }: { images: ImageSet[], className:
   useEffect(() => {
     let timer = setInterval(() => {
       setCurrent((current + 1) % images.length);
-    }, 3000);
+    }, delay);
     return () => clearInterval(timer);
   });
 
@@ -62,11 +62,12 @@ export function Carousel({ images, className }: { images: ImageSet[], className:
     </div>
     <div className={styles.bar}>
       {images.map((_, i) => {
-        let cn = styles.pg;
-        if (current === i) {
-          cn += " " + styles.current;
-        }
-        return <div className={cn} key={i}/>;
+        return <div className={clsx({
+          [styles.pg]: true,
+          [styles.current]: current === i
+        })} key={i}>
+          <div className={styles.pgi} style={{ animationDuration: delay + "ms" }}/>
+        </div>;
       })}
     </div>
   </div>;
