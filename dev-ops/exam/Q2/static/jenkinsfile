@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    environment { 
+        git_url = "https://github.com/goxr3plus/Simplest-Spring-Boot-Hello-World.git"
+        branch = "master"
+        git_credential = "git"
+        docker_tag = "dockerhub.xxx.com/Simplest-Spring-Boot-Hello-World:latest"
+        ssh_credential_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+        ssh_user = "root"
+        ssh_ip = "192.168.25.5"
+    }
+    stages {
+        stage('拉取代码') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: "${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_credential}", url: "${git_url}"]]])
+            }
+        }
+        stage('构建镜像') {
+            tools {
+               docker '20.10.7'
+            }
+            steps {
+                // 考虑到题目中未声明maven环境，将编译步骤包含在构建流程中，详见：./Dockerfile
+                sh "docker build -t ${docker_tag} ."
+            }
+        }
+        stage('上传镜像') {
+            steps {
+                sh "docker push ${docker_tag}"
+            }
+        }
+    }
+} 
