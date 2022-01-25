@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import {CSSProperties, HTMLProps} from "react";
 
 export interface ICarouselProps {
   data: Omit<SlideProps, "activeIndex" | "slideIndex">[];
@@ -23,8 +23,10 @@ export interface SlideProps {
 }
 
 export interface ButtonProps {
-  onClick: (index: number) => void;
+  onMouseUp: (index: number) => void;
+  onMouseDown: (index: number) => void;
   slideIndex: number;
+  forceRefresh?: boolean;
   activeIndex?: number;
 }
 
