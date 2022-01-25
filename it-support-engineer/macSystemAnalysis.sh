@@ -135,7 +135,7 @@ PRINT_STATUS_GATHER_DATA_ERROR(){
     if [ $STATUS_GATHER_DATA_ERROR == "OK" ]; then
         COLOR_STATUS_GATHER_DATA_ERROR=$COLOR_BLUE
     fi
-    echo -e "$STRING_2 $COLOR_STATUS_UNZIP_DATA_RAW $STATUS_UNZIP_DATA_RAW $COLOR_RESET"
+    echo -e "$STRING_2 $COLOR_STATUS_UNZIP_DATA_RAW $STATUS_GATHER_DATA_ERROR $COLOR_RESET"
 }
 
 ##################
@@ -180,7 +180,7 @@ PRINT_STATUS_MACHINING_DATA_ERROR(){
 #################
 
 JSON_DATA_ERROR(){
-    echo '[' > "$DIR_SCRIPT/ERROR_SYSTEM_MAC.json"
+    echo '[' > "$DIR_SCRIPT/macERROR_SYSTEM_MAC.json"
     if [ $STATUS_MACHINING_DATA_ERROR == "OK" ]; then
 
         awk '{
@@ -198,10 +198,10 @@ JSON_DATA_ERROR(){
 
             print DEVICE_NAME PROCESS_ID PROCESS_NAME DESCRIPTION TIME_WINDOWS NUMBER_OF_OCCURRENCE;
 
-            }' "$DIR_SCRIPT/data/JSON_ERROR_SYSTEM_MAC.log" | sed '$ s/.$//' >> "$DIR_SCRIPT/ERROR_SYSTEM_MAC.json"
+            }' "$DIR_SCRIPT/data/JSON_ERROR_SYSTEM_MAC.log" | sed '$ s/.$//' >> "$DIR_SCRIPT/macERROR_SYSTEM_MAC.json"
         STATUS_JSON_DATA_ERROR=OK
     fi
-    echo ']' >> "$DIR_SCRIPT/ERROR_SYSTEM_MAC.json"
+    echo ']' >> "$DIR_SCRIPT/macERROR_SYSTEM_MAC.json"
 }
 
 PRINT_STATUS_JSON_DATA_ERROR(){
@@ -223,7 +223,7 @@ PRINT_STATUS_JSON_DATA_ERROR(){
 SERCER_POST(){
     COLOR_STATUS_SERVER_POST=$COLOR_RED
     if [ $STATUS_JSON_DATA_ERROR == "OK" ];then
-        curl -s -H "Content-Type: application/json" -X POST -d '@ERROR_SYSTEM_MAC.json' -k $VAR_DOMAIN_SERVICE > /dev/null && STATUS_SERVER_POST=OK
+        curl -s -H "Content-Type: application/json" -X POST -d '@macERROR_SYSTEM_MAC.json' -k $VAR_DOMAIN_SERVICE > /dev/null && STATUS_SERVER_POST=OK
     fi
     
     if [ $STATUS_SERVER_POST == "OK" ]; then
