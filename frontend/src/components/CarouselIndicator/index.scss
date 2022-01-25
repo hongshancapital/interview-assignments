@@ -1,0 +1,21 @@
+.carousel-indicator {
+  float: left;
+  margin: 0 4px;
+  width: 40px;
+  height: 2px;
+  background-color: #a6a6a6;
+  border-radius: 2px;
+
+  &-progress {
+    width: 0;
+    height: 100%;
+    background-color: #f6f6f6;
+    border-radius: 2px;
+    transition-property: none;
+  }
+  &-actived &-progress {
+    width: 100%;
+    transition-property: width;
+    transition-timing-function: linear;
+  }
+}
