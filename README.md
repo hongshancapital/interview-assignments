@@ -6,25 +6,32 @@
 
 ## 开放岗位
 
-北京：
-- [Java](java/)
+武汉：
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
-- [QA](qa/)
-<!-- - [DevOps](dev-ops/)  -->
+- [Java](java/)
+
+北京/武汉:
 - [UI 设计师](design/)
 
-上海/深圳/香港/北京：
+北京/香港/深圳：
 - [IT Support Engineer](it-support-engineer/)
+
+北京：
+- [DevOps](dev-ops/)  
 
 链接中有更为具体的 JD。
 
-# interview-assignments
+## interview-assignments
 
 The monorepo for interview take home assignments.
 
 Please find your assignment in subfolder accordingly.
+
+## 红杉专属T-shirt
+通过线上测试并顺利进入后续面试的同学，不论我们最终能否有幸与你共事，红杉都为技术出众的你特意准备了印有红杉logo的专属T-shirt（款式随机发放），请在面试时告知我们T-shirt尺码大小（180 vs 170），以及邮寄地址联系方式。希望你能喜欢我们准备的这份小礼物！
+![WechatIMG145](https://user-images.githubusercontent.com/89758/135418812-74b86ed4-b980-4b81-aa00-732daa07957f.jpeg)
 
 ## 这样一家投资公司为什么要招工程师 / 设计师？
 
@@ -55,7 +62,7 @@ Please find your assignment in subfolder accordingly.
 
 ## 实力如何？
 
-团队成员来自 AWS、Airbnb 等企业，深知做好技术的重要性。所以我们在尽可能的范围内将流程做到最规范：CI / CD / Code Review 一样都没落下。再厚脸皮举两个例子：
+团队成员来自 AWS、字节跳动、快手、阿里、猿辅导 等企业，深知做好技术的重要性。所以我们在尽可能的范围内将流程做到最规范：CI / CD / Code Review 一样都没落下。再厚脸皮举两个例子：
 
 1. 有工程师在入职后感叹：没想到对产品和 Code Review 的要求如此严格，不过同时也能学到很多新东西
 2. 设计师说：不再只是 “画图的”，而是能真正地思考并把握一个产品的设计与体验
@@ -81,8 +88,7 @@ Please find your assignment in subfolder accordingly.
 
 1. 最新 MacBook Pro
 2. 外设（键鼠，升降桌，高清显示器…）
-3. 星巴克提供品牌，雀巢提供服务的免费咖啡服务
-4. 无限冷热饮/小吃供应
+3. 无限冷热饮/小吃供应
 
 至于薪水，我们想要找到合适的人而不是想一味地压缩成本。给出的 package 不输互联网大厂，相信能让你满意。
 
@@ -122,6 +128,5 @@ Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提
 
 ## 还有其他要补充的吗？
 
-1. 面试不会问茴字有几种写法，甚至不会限制语言。我们看重的是解决问题的能力
-2. 办公地点在北京国贸 / 望京，交通便利，离地铁和环线都特别近
-3. IT Support Engineer 在 上海 / 香港 都有名额，其余岗位仅限北京
+1. 面试不会问茴字有几种写法，甚至不会限制语言。我们看重的是解决问题的能力，以及发散思维的能力
+2. 所有办公地点在市区，交通便利
