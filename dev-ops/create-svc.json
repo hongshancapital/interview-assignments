@@ -1,0 +1,32 @@
+{
+    "cluster": "tstest",
+    "serviceName": "tstest-svc",
+    "taskDefinition": "arn:*****************************************************************************",
+    "loadBalancers": [
+        {
+            "targetGroupArn": "arn:*****************************************************************************",
+            "containerName": "fargate-app1",
+            "containerPort": 80
+        }
+    ],
+    "desiredCount": 1,
+    "launchType": "FARGATE",
+    "platformVersion": "1.4.0",
+    "deploymentConfiguration": {
+        "maximumPercent": 200,
+        "minimumHealthyPercent": 100
+    },
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+             "subnets": [
+                  "subnet-0d16fa0c969f234d3"
+             ],
+             "securityGroups": [
+                  "sg-0b6d093d52d48bba9"
+             ],
+             "assignPublicIp": "ENABLED"		
+        }
+    },
+    "healthCheckGracePeriodSeconds": 0,
+    "schedulingStrategy": "REPLICA"
+}
