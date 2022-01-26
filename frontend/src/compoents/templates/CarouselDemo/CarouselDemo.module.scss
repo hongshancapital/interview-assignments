@@ -1,0 +1,33 @@
+.carousel-item{
+  position: relative;
+  height: 80vh;
+  width: 100%;
+  overflow: hidden;
+  .summary{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -100%);
+    height: 200px;
+  }
+  .title, .desc{
+    white-space: pre-wrap;
+    color: #000;
+  }
+  .title{
+    font-size: 64px;
+    font-weight: bold;
+  }
+  .desc{
+    margin-top: 24px;
+    font-size: 36px;
+  }
+  img{
+    height: 80vh;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
