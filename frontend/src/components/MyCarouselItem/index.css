@@ -1,0 +1,43 @@
+.my_carousel_item {
+  position: relative;
+  width: 100%;
+  z-index: 200;
+}
+.my_carousel_item__image {
+  user-select: none;
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+/* 根据图片的不同大小，调整图片缩放比 */
+.rate_1 {
+  transform: translate(-50%, 20%) scale(0.5);
+}
+.rate_2 {
+  transform: translate(-50%, 20%) scale(1, 0.5);
+}
+
+.my_carousel_item__text {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  right: 0;
+}
+.my_carousel_item__title {
+  font-size: 82px;
+  font-weight: 500;
+}
+.my_carousel_item__subtitle {
+  font-size: 46px;
+  margin-top: 10px;
+}
+
+.white {
+  color: white;
+}
+
+.black {
+  color: black;
+}
