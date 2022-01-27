@@ -4,7 +4,7 @@ export function useInterval(
   callback: EffectCallback,
   delay: number|null,
   refreshDep: number,
-  forceRefresh: boolean = false
+  forceRefreshToken: number = 0
 ) {
   const savedCallback = useRef<EffectCallback>();
 
@@ -25,5 +25,5 @@ export function useInterval(
         return clearInterval(id);
       };
     }
-  }, [delay, refreshDep, forceRefresh]);
+  }, [delay, refreshDep, forceRefreshToken]);
 }

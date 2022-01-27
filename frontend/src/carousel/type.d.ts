@@ -1,4 +1,4 @@
-import {CSSProperties, HTMLProps} from "react";
+import { CSSProperties } from "react";
 
 export interface ICarouselProps {
   data: Omit<SlideProps, "activeIndex" | "slideIndex">[];
@@ -23,10 +23,8 @@ export interface SlideProps {
 }
 
 export interface ButtonProps {
-  onMouseUp: (index: number) => void;
-  onMouseDown: (index: number) => void;
+  onClick: (index: number) => void;
   slideIndex: number;
-  forceRefresh?: boolean;
   activeIndex?: number;
 }
 
@@ -40,5 +38,5 @@ export interface CarouselConfig {
   /**
    * play the carousel automatically
    */
-  autoplay?: boolean
+  autoplay?: boolean;
 }
