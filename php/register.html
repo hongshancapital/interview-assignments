@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>注册</title>
+    <style>
+        #register {
+            width: 540px;
+            height: 407px;
+            border: 1px solid hotpink;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+            #register .row {
+                height: 50px;
+                line-height: 50px;
+                border-bottom: 1px dashed #ccc;
+            }
+
+                #register .row div {
+                    float: left;
+                    height: 50px;
+                    line-height: 50px;
+                }
+
+                #register .row .left {
+                    width: 30%;
+                    text-align: right;
+                }
+
+                #register .row .right {
+                    width: 70%;
+                }
+
+                    #register .row .right input {
+                        width: 200px;
+                        height: 25px;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        padding: 0px 4px;
+                        margin-left: 10px;
+                    }
+                #register .row button {
+                    width: 80px;
+                    height: 30px;
+                    line-height: 30px;
+                    margin: 0 auto;
+                }
+
+        #bg {
+            width: 100%;
+            height: 800px;
+            background: black;
+            opacity: 0.8;
+            position: absolute;
+            top: 0px;
+            z-index: 10;
+            display: none;
+        }
+
+        #msg-box {
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            top: 240px;
+            position: absolute;
+            z-index: 100;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="register">
+        <div class="row">
+            <div class="left">
+                用户名:
+            </div>
+            <div class="right">
+                <input type="text" name="username" id="username" placeholder="请输入用户名">
+            </div>
+        </div>
+        <div class="row">
+            <div class="left">
+                密码:
+            </div>
+            <div class="right">
+                <input type="password" name="password" id="password" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="row">
+            <div class="left">
+                确认密码:
+            </div>
+            <div class="right">
+                <input type="password" name="rpassword" id="rpassword" placeholder="请再次输入密码">
+            </div>
+        </div>
+        <div class="row">
+            <div class="left">
+            </div>
+            <div class="right">
+                <button id="savebtn">注册</button>
+            </div>
+        </div>
+    </div>
+    <div id="bg"></div>
+    <div id="msg-box"></div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        //注册
+        $(function ($) {
+            //选择注册按钮,绑定点击事件
+            $('#register').on("click", "#savebtn", function () {
+                reg();
+            });
+        });
+        //给提交按钮绑定一个点击事件,在点击事件中提交输入的内容
+        var reg = function () {
+            $.post("localhost:3000/api/register", {
+                "username": $('#username').val(),
+                "repassword": $('#rpassword').val(),
+                "password": $('#password').val()
+            },
+                function (data) {
+                    if (data.Code == 200) {
+                        // 成功
+                        alter(data.Message);
+                    } else {
+                        // 失败
+                        alter(data.Message);
+                    }
+                }, 'json');
+        }
+    </script>
+</body>
+</html>
