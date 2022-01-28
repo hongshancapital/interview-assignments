@@ -1,0 +1,54 @@
+.carousel-comp {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-comp-track {
+  height: 100%;
+  transition: transform 500ms ease 0s;
+  white-space: nowrap;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.carousel-dots {
+  position: absolute;
+  display: flex;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.current-carousel-dot {
+  cursor: pointer;
+  width: 100%;
+  width: 100% !important;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #fff !important;
+}
+
+.carousel-dot {
+  cursor: pointer;
+  width: 75px;
+  height: 5px;
+  background-color: #9f9f9f;
+  border-radius: 5px;
+  margin: 3px;
+}
+
+.carousel-dot-inside {
+  width: 0;
+  background-color: #f7f7f7;
+  transition: width 500ms linear 0s;
+}
