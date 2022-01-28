@@ -29,10 +29,3 @@ export interface CarouselProps {
    */
   onChange?: (index: number) => any
 }
-
-/**
- * 跑马灯状态
- */
-export interface CarouselState {
-  currentIndex: number
-}
