@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuxiang.dao.ShortUrlMappingDao">
+
+    <sql id="TABLE">
+        short_url_mapping
+    </sql>
+
+    <sql id="SELECT_FIELDS">
+        id, short_url, long_url, create_time
+    </sql>
+
+    <sql id="INSERT_FIELDS">
+        short_url, long_url, create_time
+    </sql>
+
+    <sql id="INSERT_COLUMN">
+        #{shortUrl}, #{longUrl}, #{createTime}
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="TABLE"/>
+        (<include refid="INSERT_FIELDS"/>) VALUES(<include refid="INSERT_COLUMN"/>)
+    </insert>
+
+    <select id="getByShortUrl" resultType="com.liuxiang.model.po.ShortUrlMappingPo">
+        select
+        <include refid="SELECT_FIELDS"/>
+        from
+        <include refid="TABLE"/>
+        where
+        short_url= #{shortUrl}
+    </select>
+
+    <select id="getListFromId" resultType="com.liuxiang.model.po.ShortUrlMappingPo">
+        select
+        <include refid="SELECT_FIELDS"/>
+        from
+        <include refid="TABLE"/>
+        where
+        id > #{id}
+        order by id
+        limit 200
+    </select>
+
+</mapper>
