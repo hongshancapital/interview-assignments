@@ -1,10 +1,19 @@
 import React from 'react'
 import { CarouselProps, CarouselState } from './interface'
 
+/**
+ * 轮播图控件
+ */
 export class Carousel extends React.Component<CarouselProps, CarouselState> {
 
+  /**
+   * 构造参数
+   */
   private arg: CarouselProps
 
+  /**
+   * 定时器，用来控制轮播图自动切换
+   */
   private timer: number | null
 
   constructor(props: CarouselProps) {
@@ -20,18 +29,21 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
     this.state = {
       currentIndex: -1
     };
-    this.timer = null;
-    (window as any).getComp = () => this
+    this.timer = null
   }
 
   componentWillUnmount () {
+    this.timer && clearTimeout(this.timer)
     this.timer = null
   }
 
   componentDidMount () {
-    setTimeout(() => { this.startCount(); }, 0)
+    setTimeout(() => { this.startCount() }, 0)
   }
 
+  /**
+   * 切换当前展示的轮播图
+   */
   public setIndex(index: number): void {
     if (index > this.arg.content.length) {
       throw new Error("u don't have such a pic")
@@ -41,6 +53,10 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
     })
   }
 
+  /**
+   * 轮播图索引在此控制逻辑
+   * @param {number} i 传递i时，将会直接把i设置为展示单页的索引
+   */
   private startCount (i?: number) {
     clearTimeout(this.timer as number)
     this.timer = null
@@ -62,6 +78,9 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
     }, this.arg.delay)
   }
 
+  /**
+   * 计算偏移量以实现单页滚动切换
+   */
   private calcLeft (): string {
     const index = this.state.currentIndex
     return `translate3d(-${index * 100}%, 0px, 0px)`

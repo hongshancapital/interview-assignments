@@ -31,7 +31,7 @@ export interface CarouselProps {
 }
 
 /**
- * 跑马灯
+ * 跑马灯状态
  */
 export interface CarouselState {
   currentIndex: number
