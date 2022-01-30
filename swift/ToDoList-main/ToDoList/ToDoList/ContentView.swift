@@ -30,7 +30,6 @@ struct ContentView: View {
                             .clipped()
                             .border(.green)
                     }
-
                 }
                 /// set background color under status bar
                 .background(Color("listbg"))

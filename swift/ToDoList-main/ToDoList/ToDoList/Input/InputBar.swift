@@ -95,7 +95,7 @@ extension InputBar {
         Menu {
             Button(Self.AddCategoryName,
                    action: self.switchCategory(categoryID: nil))
-            ForEach(store.getCurrent().sortedCategorys(),
+            ForEach(store.getCurrent().sortedCategorys().reversed(),
                     id: \.self.categoryID) { c in
                 Button(c.categoryName,
                        action: self.switchCategory(categoryID: c.categoryID))

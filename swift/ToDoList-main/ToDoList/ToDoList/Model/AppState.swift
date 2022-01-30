@@ -28,7 +28,9 @@ struct AppState: Codable, ReduxState {
     }
     
     func sortedCategorys() -> [TodoCategory] {
-        let sortDatas = Array(todoData.values)
+        let sortDatas = Array(todoData.values).sorted { prev, next in
+            return prev.createTS > next.createTS
+        }
         return sortDatas
     }
 }
