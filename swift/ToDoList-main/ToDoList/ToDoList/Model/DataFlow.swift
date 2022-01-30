@@ -37,6 +37,7 @@ func updateToDoItem(s: AppState,
        let oldItem = newCategory.itemMap[itemID] {
         /// make item
         let item = TodoItem(ID: oldItem.ID,
+                            createTS: oldItem.createTS,
                             categoryID: oldItem.categoryID,
                             todoContent: content,
                             done: oldItem.done)
