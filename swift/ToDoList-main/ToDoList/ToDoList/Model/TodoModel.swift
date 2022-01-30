@@ -64,7 +64,7 @@ struct TodoCategory: Codable {
             if (prev.done && !next.done) || (!prev.done && next.done) {
                 return prev.done ? false : true
             }
-            return prev.createTS < next.createTS
+            return prev.createTS > next.createTS
         }
     }
     
