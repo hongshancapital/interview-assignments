@@ -12,7 +12,7 @@ function App() {
       src: imgIphone,
       id: 'iphone',
       title: 'xPhone',
-      content: 'Lots to love. Less to spend. <br/>Starting at $399.',
+      content: 'Lots to love. Less to spend. \nStarting at $399.',
       theme: 'black',
       backgroundColor: '#111111'
     },
@@ -26,7 +26,7 @@ function App() {
     {
       src: imgAirpods,
       id: 'airpods',
-      title: 'Buy a Tablet or xPhone for college.<br/>Get airPods.',
+      title: 'Buy a Tablet or xPhone for college.\nGet airPods.',
       content: '',
       backgroundColor: '#f1f1f3'
     },

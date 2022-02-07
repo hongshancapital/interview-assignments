@@ -45,8 +45,8 @@ export default function Carousel(context: Args) {
               key={src.id}
               style={{backgroundImage: `url(${src.src})`, backgroundColor: src.backgroundColor}}
             >
-              <h3 className='item-title' dangerouslySetInnerHTML={{__html: src.title}}></h3>
-              <section className='item-content' dangerouslySetInnerHTML={{__html: src.content}}></section>
+              <h3 className='item-title'>{src.title}</h3>
+              <section className='item-content'>{src.content}</section>
             </li>
           ))
         }
