@@ -2,16 +2,16 @@
 
 ## 作业说明
 
-- 使用 SwiftUI 实现 [demo.mov](demo.mov) 中的效果
+- 使用 SwiftUI 实现 [demo.mov](https://www.notion.so/sequoiacap/demo.mov) 中的效果
 - Mock API 请求, 数据可参考 [Link](https://itunes.apple.com/search?entity=software&limit=50&term=chat)
-- 按实际工作标准提交代码（如正确缩进、去掉无用代码等）
+- 撰写相应的 UnitTest
+- **按实际工作标准提交代码（如正确缩进、去掉无用代码等）**
 
 ## 加分项
 
 - 合适的设计模式
-- UnitTest
 - Combine、Concurrency
-- 错误处理
+- 正确的错误处理
 
 ## 岗位职责
 
