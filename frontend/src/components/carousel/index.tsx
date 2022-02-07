@@ -19,16 +19,15 @@ interface Args {
 export default function Carousel(context: Args) {
 
   const [index, setIndex]: [number, Function] = useState(0);
-
-  const onSwipe = ()=>{
-    if (index>=context.srcs.length-1) {
-      setIndex(0)
-    } else {
-      setIndex(index+1);
-    }
-  };
-
+  
   useEffect(()=>{
+    const onSwipe = ()=>{
+      if (index>=context.srcs.length-1) {
+        setIndex(0)
+      } else {
+        setIndex(index+1);
+      }
+    };
     const timer = setInterval(onSwipe, (context.dur)*1000);
     return ()=>clearInterval(timer);
   }, [context, index]);
