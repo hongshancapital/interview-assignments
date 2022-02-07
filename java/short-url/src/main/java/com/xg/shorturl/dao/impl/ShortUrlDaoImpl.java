@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 
 /**
+ * 短链接数据访问层实现类
  * @author xionggen
  */
 @Repository

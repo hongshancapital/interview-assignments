@@ -36,31 +36,31 @@
 ### 整体结构
 - 整体架构：
 
-    ![avatar](./doc/image/短链接服务-整体架构.png)
+    ![avatar](./doc/image/整体架构-短链接服务.png)
 - 获取短链接流程：
 
-    ![avatar](./doc/image/获取短链接-整体流程.png)
+    ![avatar](./doc/image/整体流程-获取短链接.png)
 - 获取原始链接流程：
 
-    ![avatar](./doc/image/获取原始链接-整体流程.png)
+    ![avatar](./doc/image/整体流程-获取原始链接.png)
     
 ## 测试
 ### 功能测试
 - 单元测试及覆盖率：
 
-    ![avatar](./doc/image/单元测试.png)
+    ![avatar](./doc/image/测试报告-单元测试.png)
     
-    ![avatar](./doc/image/jacco.png)
+    ![avatar](./doc/image/测试报告-jacco覆盖率.png)
 - 页面测试：
   - swagger-ui：http://localhost:8080/swagger-ui.html#/short45url45controller
   
-   ![avatar](./doc/image/swagger-ui-测试报告.png)
+   ![avatar](./doc/image/测试报告-swagger-ui.png)
   -   获取8位短链接
   
-   ![avatar](./doc/image/获取8位短链接-测试报告.png)
+   ![avatar](./doc/image/测试报告-swagger-ui-获取8位短链接.png)
   - 获取原始链接
   
-   ![avatar](./doc/image/获取原始链接-测试报告.png)
+   ![avatar](./doc/image/测试报告-swagger-ui-获取原始链接.png)
 
 ### 性能测试
 #### 观测指标
@@ -89,7 +89,7 @@
     |   50   |      1368      |     35     |   375    |    90%    |  -   |
 
 - 结果分析：系统吞吐率在1400左右，并发越高，rt越低。受系统性能限制，太高的并发数反而吞吐量下降，这与cpu上下文切换、内存等因素有关。
-- 完成测试截图
+- 完整测试截图
     - 10并发-JMeter测试报告
     ![avatar](./doc/image/性能测试-JMeter测试报告-10并发.png)
     - 10并发-JVM监控
