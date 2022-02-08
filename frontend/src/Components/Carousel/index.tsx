@@ -1,6 +1,6 @@
-import React, { FC, useState, useEffect, useCallback } from "react";
+import React, { FC, useState, useEffect, useCallback, useMemo } from "react";
 import IndicatorItem from "../IndicatorItem";
-import { CarouselWrapper, LoopContainer, LoopItem, Indicator } from "./style";
+import './index.scss';
 
 export interface CarouselProps {
   duration?: number; // 停留时间 ms
@@ -44,19 +44,27 @@ const Carousel: FC<CarouselProps> = ({
     [autoPlay, clear],
   );
 
+  const transformStyle = useMemo(() => {
+    return ({
+      width: `${total * 100}%`,
+      transitionDuration: `${slideSpeed}ms`,
+      transform: `translateX(${(-currIndex / total) * 100}%)`,
+    });
+  }, [total, slideSpeed, currIndex]);
+
   return (
-    <CarouselWrapper>
-      <LoopContainer className="loop-container" total={total} slideSpeed={slideSpeed} current={currIndex}>
+    <div className="carouse-wrapper">
+      <div className="loop-container" style={transformStyle}>
         {slideItems.map((item, index) => {
-          return <LoopItem key={index} total={total}>{item}</LoopItem>;
+          return <div className="loop-item" key={index} style={{ width: (1 / total) * 100 + '%' }}> {item}</div>;
         })}
-      </LoopContainer>
-      <Indicator>
+      </div>
+      <div className="indicator">
         {slideItems.map((item, index) => {
           return <IndicatorItem key={index} active={index === currIndex} duration={duration} onClick={() => handleClk(index)} />
         })}
-      </Indicator>
-    </CarouselWrapper>
+      </div>
+    </div >
   );
 };
 

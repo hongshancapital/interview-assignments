@@ -1,14 +1,17 @@
 import React, { FC } from 'react';
-import { Item } from './style';
+import cls from 'classnames';
+import './index.scss';
 
 interface IndicatorItemProps {
-    active: boolean; 
+    active: boolean;
     duration: number;
     onClick?: React.MouseEventHandler;
 }
 
 const IndicatorItem: FC<IndicatorItemProps> = ({ active, duration, onClick }) => {
-    return <Item className='indicator' active={active} duration={duration} onClick={onClick} />;
+    return <div className='indicator-item' onClick={onClick}>
+        <span className={cls('indicator-cover', { active })} style={{ animationDuration: `${duration}ms` }} />
+    </div>;
 }
 
 export default IndicatorItem;
