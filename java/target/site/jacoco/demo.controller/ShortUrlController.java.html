@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortUrlController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java</a> &gt; <a href="index.source.html" class="el_package">demo.controller</a> &gt; <span class="el_source">ShortUrlController.java</span></div><h1>ShortUrlController.java</h1><pre class="source lang-java linenums">package demo.controller;
+
+import demo.common.R;
+import demo.service.ShortUrlService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * @ClassName: ShortUrlController
+ * @Description: 长短链接转换api接口
+ * @author Xia
+ * @version V1.0
+ * @Date 2021/12/15
+ */
+@RestController
+@RequestMapping(&quot;/url&quot;)
+@Api(value = &quot;长短链接转换接口&quot;, tags = &quot;长短链接转换接口&quot;, description = &quot;长短链接转换接口&quot;)
+<span class="fc" id="L21">public class ShortUrlController {</span>
+
+    @Autowired
+    private ShortUrlService shortUrlService;
+
+    @GetMapping(&quot;/getShortUrlByLong&quot;)
+    @ApiImplicitParam(name = &quot;longUrl&quot;, value = &quot;长链接&quot;,dataType = &quot;String&quot;,required = true)
+    @ApiOperation(value = &quot;根据长链获取短链&quot;, notes = &quot;根据长链获取短链&quot;)
+    public R getShortUrlByLong(String longUrl){
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if(longUrl == null){</span>
+<span class="nc" id="L31">            return R.error().message(&quot;缺少必填参数&quot;);</span>
+        }
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if(longUrl.isEmpty()){</span>
+<span class="nc" id="L34">            return R.error().message(&quot;参数为空&quot;);</span>
+        }
+<span class="nc" id="L36">        return R.ok().data(&quot;shortUrl&quot;,shortUrlService.getShortUrl(longUrl));</span>
+    }
+
+    @GetMapping(&quot;/getLongUrlByShort&quot;)
+    @ApiImplicitParam(name = &quot;shortUrl&quot;, value = &quot;短链接&quot;,dataType = &quot;String&quot;,required = true)
+    @ApiOperation(value = &quot;根据短链获取长链接&quot;, notes = &quot;根据短链获取长链接&quot;)
+    public R getLongUrlByShort(String shortUrl){
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if(shortUrl == null){</span>
+<span class="nc" id="L44">            return R.error().message(&quot;缺少必填参数&quot;);</span>
+        }
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if(shortUrl.isEmpty()){</span>
+<span class="nc" id="L47">            return R.error().message(&quot;参数为空&quot;);</span>
+        }
+<span class="nc" id="L49">        return R.ok().data(&quot;longUrl&quot;,shortUrlService.getLongUrl(shortUrl));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
