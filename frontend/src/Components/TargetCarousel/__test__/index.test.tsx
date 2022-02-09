@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import TargetCarousel, { TargetConfig } from '../index';
+import TargetCarousel from '../index';
 
 
 describe("TargetCarousel", () => {

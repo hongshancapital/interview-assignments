@@ -1,8 +1,7 @@
 import React from "react";
+import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent, act } from "@testing-library/react";
-import "jest-styled-components";
 import Carousel from "../index";
-import { loopFrame } from "../style";
 
 describe("Carousel", () => {
   const slideItems = [
@@ -47,12 +46,11 @@ describe("Carousel", () => {
 
     for (let i = 0; i < 3; i++) {
       // 验证点击事件
-      fireEvent.click(container.getElementsByClassName("indicator")[i]);
+      fireEvent.click(container.getElementsByClassName("indicator-item")[i]);
 
-      expect(loopContainer).toHaveStyleRule(
-        "animation-name",
-        loopFrame({ total: 3, current: i }).getName()
-      );
+      const { transform } = window.getComputedStyle(loopContainer);
+
+      expect(transform).toBe(`translateX(${(-i / 3) * 100}%)`);
     }
   });
 

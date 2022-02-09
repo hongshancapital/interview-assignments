@@ -6,7 +6,7 @@ describe('SlideItem', () => {
   const fn = jest.fn();
   test('render', () => {
     const container = render(<IndicatorItem active={true} duration={100} onClick={fn} />).container;
-    fireEvent.click(container.getElementsByClassName('indicator')[0]);
+    fireEvent.click(container.getElementsByClassName('indicator-item')[0]);
     expect(fn).toHaveBeenCalled();
   });
 })
