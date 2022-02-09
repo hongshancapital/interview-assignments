@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="LOG_HOME" value="logs" />
+	<property name="application" value="java"/>
+	<property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] [%logger{50}] method:%M line:%L - %msg%n"/>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="INFO-FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--正在记录的日志文件名-->
+		<file>${LOG_HOME}/info-${application}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名-->
+			<FileNamePattern>${LOG_HOME}/info-${application}.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<!--日志文件保留天数-->
+			<timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成1KB看效果 -->
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<!--日志文件追加-->
+		<append>true</append>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<!--当前日志记录哪种级别日志-->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="ERROR-FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--正在记录的日志文件名-->
+		<file>${LOG_HOME}/error-${application}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名-->
+			<FileNamePattern>${LOG_HOME}/errror-${application}.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<!--日志文件保留天数-->
+			<timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成1KB看效果 -->
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<!--日志文件追加-->
+		<append>true</append>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<!--当前日志记录哪种级别日志-->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	<root level="INFO">
+		<!--上线可以把STDOUT去掉-->
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="INFO-FILE" />
+		<appender-ref ref="ERROR-FILE" />
+	</root>
+
+
+</configuration>
