@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:10.10.130.1}:5432/hello_world
+    username: ${DB_USERNAME:pocsql}
+    password: ${DB_PASSWORD:WJppFcU#ry}
+  kafka:
+    bootstrap-servers: ${KAFKA_HOST:10.10.129.14}:9092
+    consumer:
+      group-id: customer-server
+  redis:
+    database: ${REDIS_DATABASE:8}
+    host: ${REDIS_HOST:10.10.131.7}
+    password: ${REDIS_PASSWORD:111111}
+
+env: ${ENV:dev}

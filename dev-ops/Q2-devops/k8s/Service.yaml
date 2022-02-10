@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  managedFields:
+  - apiVersion: v1
+    manager: service-controller
+    operation: Update
+  - apiVersion: v1
+    manager: tke-apiserver
+    operation: Update
+  name: Simplest-Spring-Boot-Hello-World-service
+  namespace: backend
+  selfLink: /api/v1/namespaces/backend/services/Simplest-Spring-Boot-Hello-World-service
+  uid: ffe81dfc-0295-4c88-9b12-5d36f5aba8bf
+spec:
+  clusterIP: 172.16.31.187
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: 8080-80-tcp
+    nodePort: 32641
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    k8s-app: Simplest-Spring-Boot-Hello-World
+    qcloud-app: Simplest-Spring-Boot-Hello-World
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 3600
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.10.128.43
