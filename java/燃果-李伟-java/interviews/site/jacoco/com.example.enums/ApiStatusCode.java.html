@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiStatusCode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">interview-assignments</a> &gt; <a href="index.source.html" class="el_package">com.example.enums</a> &gt; <span class="el_source">ApiStatusCode.java</span></div><h1>ApiStatusCode.java</h1><pre class="source lang-java linenums">package com.example.enums;
+
+/**
+ * 描述:
+ * API执行状态编码枚举
+ *
+ * @author eric
+ * @create 2021-07-21 5:08 下午
+ */
+<span class="nc" id="L10">public enum ApiStatusCode {</span>
+<span class="nc" id="L11">    SUCCESS(&quot;2000&quot;,&quot;操作成功&quot;),</span>
+
+<span class="nc" id="L13">    NO_ACCESS(&quot;4000&quot;,&quot;无访问权限&quot;),</span>
+
+<span class="nc" id="L15">    BUSINESS_EXCEPTION(&quot;5000&quot;,&quot;业务异常&quot;),</span>
+
+<span class="nc" id="L17">    PARAM_INVALID(&quot;5001&quot;,&quot;参数缺失或无效&quot;),</span>
+
+<span class="nc" id="L19">    NOT_LOGIN_IN(&quot;5002&quot;,&quot;未登录&quot;),</span>
+
+<span class="nc" id="L21">    SYSTEM_EXCEPTION(&quot;6000&quot;,&quot;系统异常&quot;),</span>
+
+<span class="nc" id="L23">    FAILED(&quot;9000&quot;,&quot;操作失败&quot;);</span>
+
+    private final String code; //状态码
+    private final String description; //描述
+
+<span class="nc" id="L28">    private ApiStatusCode(String code, String description) {</span>
+<span class="nc" id="L29">        this.code = code;</span>
+<span class="nc" id="L30">        this.description = description;</span>
+<span class="nc" id="L31">    }</span>
+
+    public String getCode() {
+<span class="nc" id="L34">        return code;</span>
+    }
+
+    public String getDescription() {
+<span class="nc" id="L38">        return description;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ServiceAroundAdvice.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">interview-assignments</a> &gt; <a href="index.source.html" class="el_package">com.example.aspect</a> &gt; <span class="el_source">ServiceAroundAdvice.java</span></div><h1>ServiceAroundAdvice.java</h1><pre class="source lang-java linenums">package com.example.aspect;
+
+import com.example.bean.result.ApiResult;
+import com.example.bean.result.ResultRpc;
+import com.example.bean.result.ResultRpcEnum;
+import com.example.exception.BusinessException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created with IntelliJ IDEA.
+ * Description:
+ *
+ * @author: wuxininfo
+ * @date: 2019-06-14
+ * @time: 14:44
+ */
+//@Aspect
+@Component
+<span class="fc" id="L28">@RequiredArgsConstructor</span>
+<span class="fc" id="L29">@Slf4j</span>
+public class ServiceAroundAdvice {
+
+    /**
+     * @param proceedingJoinPoint
+     * @return
+     * @throws Throwable
+     */
+    @Around(&quot;com.example.aspect.PointcutConfiguration.accessService()&quot;)
+    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+<span class="nc" id="L39">        MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();</span>
+<span class="nc" id="L40">        Method method = signature.getMethod();</span>
+<span class="nc" id="L41">        Class&lt;?&gt; returnType = method.getReturnType();</span>
+<span class="nc" id="L42">        Object result = null;</span>
+        try {
+<span class="nc" id="L44">            result = proceedingJoinPoint.proceed();</span>
+<span class="nc" id="L45">        } catch (IllegalArgumentException argEx) {</span>
+<span class="nc" id="L46">            result = handleException(returnType, argEx, ResultRpcEnum.RPC_PARAM_ERROR.getCode());</span>
+<span class="nc" id="L47">        } catch (BusinessException businessEx) {</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            result = handleException(returnType, businessEx, businessEx.getCode() == null ? businessEx.getCode() : ResultRpcEnum.FAILED.getCode());</span>
+<span class="nc" id="L49">        } catch (Exception ex) {</span>
+<span class="nc" id="L50">            result = handleException(returnType, ex, ResultRpc.EXCEPTION, ResultRpc.EXCEPTION_MESSAGE);</span>
+<span class="nc" id="L51">        }finally {</span>
+<span class="nc" id="L52">        }</span>
+<span class="nc" id="L53">        return result;</span>
+    }
+
+    /**
+     * handleException without message
+     *
+     * @param returnType
+     * @param ex
+     * @param exceptionCode
+     * @return
+     */
+    private Object handleException(Class&lt;?&gt; returnType, Exception ex, String exceptionCode) {
+<span class="nc" id="L65">        return handleException(returnType, ex, exceptionCode, ex.getMessage());</span>
+    }
+
+    /**
+     * handleException with message
+     *
+     * @param returnType
+     * @param ex
+     * @param exceptionCode
+     * @param message
+     * @return
+     */
+    private Object handleException(Class&lt;?&gt; returnType, Exception ex, String exceptionCode, String message) {
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (isReturnResult(returnType)) {</span>
+<span class="nc" id="L79">            return ApiResult.getErrorResultWithMsg(exceptionCode,message);</span>
+        }
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (isReturnResultList(returnType)) {</span>
+<span class="nc" id="L82">            ArrayList&lt;ApiResult&gt; results = new ArrayList&lt;&gt;(1);</span>
+<span class="nc" id="L83">            results.add(ApiResult.getErrorResultWithMsg(exceptionCode, message));</span>
+<span class="nc" id="L84">            return results;</span>
+        }
+<span class="nc" id="L86">        throw new RuntimeException(ex.getCause());</span>
+    }
+
+    /**
+     * 判断是否返回对象
+     *
+     * @param returnType
+     * @return
+     */
+    private boolean isReturnResult(Class&lt;?&gt; returnType) {
+<span class="nc" id="L96">        return returnType.isAssignableFrom(ResultRpc.class);</span>
+    }
+
+    /**
+     * 判断是否返回集合
+     *
+     * @param returnType
+     * @return
+     */
+    private boolean isReturnResultList(Class&lt;?&gt; returnType) {
+<span class="nc bnc" id="L106" title="All 4 branches missed.">        return returnType.isAssignableFrom(ArrayList.class) || returnType.isAssignableFrom(List.class);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
