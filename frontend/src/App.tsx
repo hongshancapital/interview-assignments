@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
+import { Carousel, SlideItem } from "./Carousel";
+import { Slide001, Slide002, Slide003 } from "./components/slides";
+
+//#region  slides components defined later.
 
 function App() {
-  return <div className="App">{/* write your component here */}</div>;
+  const [slides] = useState<SlideItem[]>(() => {
+    return [
+      { id: "slide01", context: <Slide001 /> },
+      { id: "slide02", context: <Slide002 /> },
+      { id: "slide03", context: <Slide003 /> },
+    ];
+  });
+
+  return (
+    <div className="App">
+      <Carousel slides={slides} timingDur={5000} />
+    </div>
+  );
 }
 
 export default App;
