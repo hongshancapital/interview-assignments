@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Carousel, SlideItem } from "./Carousel";
+import { Carousel, SlideItem } from "./components/Carousel";
 import { Slide001, Slide002, Slide003 } from "./components/slides";
 
 //#region  slides components defined later.

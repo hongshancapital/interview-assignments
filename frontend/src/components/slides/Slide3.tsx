@@ -11,7 +11,7 @@ const Slide = () => {
       </div>
       <div className="slideContent__pragraph">
         <h3>Buy a Tablet or XPhone for college.</h3>
-        <h3>Get arPods</h3>
+        <h3>Get airPods</h3>
       </div>
     </div>
   );
