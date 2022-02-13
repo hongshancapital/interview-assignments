@@ -8,15 +8,15 @@ import { Slide001, Slide002, Slide003 } from "./components/slides";
 function App() {
   const [slides] = useState<SlideItem[]>(() => {
     return [
-      { id: "slide01", context: <Slide001 /> },
-      { id: "slide02", context: <Slide002 /> },
-      { id: "slide03", context: <Slide003 /> },
+      { id: "slide01", content: <Slide001 /> },
+      { id: "slide02", content: <Slide002 /> },
+      { id: "slide03", content: <Slide003 /> },
     ];
   });
 
   return (
     <div className="App">
-      <Carousel slides={slides} timingDur={5000} />
+      <Carousel slides={slides} timingDur={6000} />
     </div>
   );
 }

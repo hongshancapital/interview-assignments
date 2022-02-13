@@ -6,7 +6,7 @@ const Slide = () => {
       className="slideContent"
       style={{ background: "#fafafa", color: "black" }}
     >
-      <div className="slideContent__bg" style={{ top: 300 }}>
+      <div className="slideContent__bg" style={{ top: "-4rem" }}>
         <img src={require("../../assets/tablet.png")} />
       </div>
       <div className="slideContent__pragraph">

@@ -6,7 +6,7 @@ const Slide = () => {
       className="slideContent"
       style={{ background: "#f1f1f3", color: "#444" }}
     >
-      <div className="slideContent__bg" style={{ top: 600 }}>
+      <div className="slideContent__bg" style={{ top: "-4rem" }}>
         <img src={require("../../assets/airpods.png")} />
       </div>
       <div className="slideContent__pragraph">

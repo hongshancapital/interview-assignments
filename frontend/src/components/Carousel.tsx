@@ -3,7 +3,7 @@ import "./Carousel.scss";
 
 export interface SlideItem {
   id: string;
-  context: React.ReactNode;
+  content: React.ReactNode;
 }
 
 export const Carousel = (props: { slides: SlideItem[]; timingDur: number }) => {
@@ -28,7 +28,7 @@ export const Carousel = (props: { slides: SlideItem[]; timingDur: number }) => {
       <div className="Carousel__slidesWindow">
         <div className="Carousel__slides" style={styleForSlides}>
           {props.slides.map((slide) => {
-            return <Slide key={slide.id} context={slide.context} />;
+            return <Slide key={slide.id} context={slide.content} />;
           })}
         </div>
       </div>
