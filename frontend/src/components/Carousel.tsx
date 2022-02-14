@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Carousel.scss";
+import { AbstractSlideProps, AbstractSlide } from "./slides/AbstractSlide";
 
-export interface SlideItem {
+export interface SlideItem extends AbstractSlideProps {
   id: string;
-  content: React.ReactNode;
 }
 
 export const Carousel = (props: { slides: SlideItem[]; timingDur: number }) => {
@@ -13,6 +13,7 @@ export const Carousel = (props: { slides: SlideItem[]; timingDur: number }) => {
 
   const styleForSlides: React.CSSProperties = {
     transform: `translate(-${translatePercent}%, 0)`,
+    width: `${total * 100}%`,
   };
 
   const nextSlide = (index?: number) => {
@@ -28,7 +29,7 @@ export const Carousel = (props: { slides: SlideItem[]; timingDur: number }) => {
       <div className="Carousel__slidesWindow">
         <div className="Carousel__slides" style={styleForSlides}>
           {props.slides.map((slide) => {
-            return <Slide key={slide.id} context={slide.content} />;
+            return <Slide key={slide.id} model={slide} />;
           })}
         </div>
       </div>
@@ -50,8 +51,12 @@ export const Carousel = (props: { slides: SlideItem[]; timingDur: number }) => {
   );
 };
 
-const Slide = (props: { context: React.ReactNode }) => {
-  return <div className="Carousel__slide">{props.context}</div>;
+const Slide = (props: { model: SlideItem }) => {
+  return (
+    <div className="Carousel__slide">
+      <AbstractSlide {...props.model} />
+    </div>
+  );
 };
 
 const Indicator = (props: {
@@ -65,9 +70,10 @@ const Indicator = (props: {
   const dur = props.timingDur / 1000;
 
   return (
-    <a
+    <div
       className="Carousel__indicator"
-      onClick={() => {
+      onClick={(e) => {
+        e.preventDefault();
         props.onItemClick(index);
       }}
     >
@@ -78,6 +84,6 @@ const Indicator = (props: {
           style={{ animationDuration: dur + "s" }}
         />
       )}
-    </a>
+    </div>
   );
 };
