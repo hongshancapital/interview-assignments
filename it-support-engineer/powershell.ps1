@@ -48,12 +48,6 @@ function analyLog($line) {
 #    echo $dataDict.values|ConvertTo-Json
 }
 
-
-
-
-
-
-
 Readlog
 #Post 数据
 Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck -Uri https://foo.com/bar -Method POST -Body $dataDict.values|ConvertTo-Json 
