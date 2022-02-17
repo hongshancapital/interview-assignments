@@ -37,7 +37,7 @@ struct NetImageView: View {
     }
     
     private func fetchImage () {
-        Task {
+        Task.init(priority: TaskPriority.high) {
             loaded = false
             let (image, err) = await ImageLoader.shared.loadImage(with: url)
             logo = image

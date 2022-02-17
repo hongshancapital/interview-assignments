@@ -62,7 +62,6 @@ extension RefreshHeaderView {
         
         @objc
         func onValueChanged() {
-            refreshing.wrappedValue = true
             action()
         }
     }

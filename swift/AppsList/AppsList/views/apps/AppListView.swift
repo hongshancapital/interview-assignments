@@ -61,9 +61,11 @@ struct AppListView: View {
     }
     
     private func refreshData() {
-        refreshing = true
-        loadData(params: Params())
-        refreshing = false
+        Task {
+            refreshing = true
+            await loadData(params: Params())
+            refreshing = false
+        }
     }
     
     private func loadMoreData() {
@@ -73,37 +75,44 @@ struct AppListView: View {
         guard !loadingMore else {
             return
         }
-        var params = Params()
-        params.pageNum = listParams.pageNum + 1
-        loadingMore = true
-        loadData(params: params)
-        loadingMore = false
+        guard !refreshing else {
+            return
+        }
+        Task {
+            var params = Params()
+            params.pageNum = listParams.pageNum + 1
+            loadingMore = true
+            await loadData(params: params)
+            loadingMore = false
+        }
     }
     
-    private func loadData(params: Params) {
-        Task {
-            let (apps, response) = await DataService.shared.fetchApps(params: params)
+    private func loadData(params: Params) async {
+        let (apps, response) = await DataService.shared.fetchApps(params: params)
+        DispatchQueue.main.async {
             appsObserver.response = response
-            guard let apps = apps else {
-                guard response.code == NetworkCode.success else {
-                    showToastIfNeed()
-                    return
-                }
-                hasMore = false
+        }
+        guard let apps = apps else {
+            guard response.code == NetworkCode.success else {
                 showToastIfNeed()
                 return
             }
+            hasMore = false
+            showToastIfNeed()
+            return
+        }
+        DispatchQueue.main.async {
             appsObserver.apps = params.pageNum > 1 ? appsObserver.apps! + apps : apps
-            guard apps.count >= params.pageSize else {
-                hasMore = false
-                updateListParams(params)
-                showToastIfNeed()
-                return
-            }
-            hasMore = true
+        }
+        guard apps.count >= params.pageSize else {
+            hasMore = false
             updateListParams(params)
             showToastIfNeed()
+            return
         }
+        hasMore = true
+        updateListParams(params)
+        showToastIfNeed()
     }
     
     private func updateListParams(_ params: Params) {
@@ -121,6 +130,9 @@ struct AppListView: View {
         }
         guard response.code != NetworkCode.success else {
             // 网络请求成功时，不会展示Toast
+            return
+        }
+        guard response.message?.count ?? 0 != 0 else {
             return
         }
         guard !showToast else {
