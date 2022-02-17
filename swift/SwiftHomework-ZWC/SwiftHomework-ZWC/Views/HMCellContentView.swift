@@ -15,8 +15,15 @@ struct CellContentView: View {
         case loading
     }
     
+    private struct ConstantValue {
+        static let appiconViewImageSize: CGFloat = 50
+        static let appiconViewCornerRadius: CGFloat = 5
+        static let appiconViewProgressViewSize: CGFloat = 50
+        static let textTrainingPadding: CGFloat = 50
+    }
+    
+    @State var appStore: HMAppstore
     @Binding var app: HMApplication
-    @State var collectIconSize: CGFloat = 30
     @State var applicationIconImage: UIImage?
     @State var appIconStates: AppIconStatus = .failure
     
@@ -40,21 +47,19 @@ struct CellContentView: View {
                 .padding([.top, .bottom])
                 Spacer()
             }
-            .padding(.trailing, 50)
+            .padding(.trailing, ConstantValue.textTrainingPadding)
             
             HStack {
                 Spacer()
                 Button {
                     withAnimation {
-                        app.isCollected = !app.isCollected
-                        app.collectImageName = app.isCollected ? "icon002" : "icon001"
-                        collectIconSize = app.isCollected ? 40 : 30
+                        appStore.collect(application: app)
                     }
                 } label: {
                     Image(app.collectImageName)
                         .resizable()
                         .aspectRatio(1, contentMode: .fit)
-                        .frame(width: collectIconSize, height: collectIconSize)
+                        .frame(width: app.collectImageSize.width, height: app.collectImageSize.height)
                     
                 }
                 .padding(.trailing, 15)
@@ -99,18 +104,18 @@ extension CellContentView {
                 Image("icon003")
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
-                    .frame(width: 50, height: 50)
-                    .cornerRadius(5)
+                    .frame(width: ConstantValue.appiconViewImageSize, height: ConstantValue.appiconViewImageSize)
+                    .cornerRadius(ConstantValue.appiconViewCornerRadius)
             case .success:
                 
                 Image(uiImage: applicationIconImage!)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
-                    .frame(width: 50, height: 50)
-                    .cornerRadius(5)
+                    .frame(width: ConstantValue.appiconViewImageSize, height: ConstantValue.appiconViewImageSize)
+                    .cornerRadius(ConstantValue.appiconViewCornerRadius)
                 
             case .loading:
-                ProgressView().frame(width: 50, height: 50)
+                ProgressView().frame(width: ConstantValue.appiconViewProgressViewSize, height: ConstantValue.appiconViewProgressViewSize)
             }
         }.padding(.leading)
     }

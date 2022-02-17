@@ -20,6 +20,13 @@ struct HMApplication:Identifiable, Codable {
     // -------- Local property --------
     var collectImageName: String
     var isCollected: Bool
+    var collectImageSize: CGSize {
+        if isCollected {
+            return CGSize(width: 40, height: 40)
+        } else {
+            return CGSize(width: 30, height: 30)
+        }
+    }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension View {
+    
     func addPullToRefresh(isHeaderRefreshing: Binding<Bool>?, onHeaderRefresh: (() -> Void)?, isHaveMoreData: Binding<Bool>?) -> some View {
         addPullToRefresh(isHeaderRefreshing: isHeaderRefreshing, onHeaderRefresh: onHeaderRefresh, isFooterRefreshing: nil, onFooterRefresh: nil,isHaveMoreData: isHaveMoreData)
     }
@@ -22,6 +23,14 @@ extension View {
 }
 
 struct PullToRefreshModifier: ViewModifier {
+    
+    private struct ConstantValue {
+        static let topDistance: CGFloat = 30
+        static let bottomDistance: CGFloat = 100
+        static let appiconViewProgressViewSize: CGFloat = 50
+        static let textTrainingPadding: CGFloat = 50
+    }
+    
     @Binding var isHeaderRefreshing: Bool
     @Binding var isFooterRefreshing: Bool
     @Binding var isHaveMoreData: Bool
@@ -93,7 +102,7 @@ extension PullToRefreshModifier {
         
         let y = headerFrame.minY
         let threshold = headerFrame.height
-        let topDistance: CGFloat = 30.0
+        let topDistance: CGFloat = ConstantValue.topDistance
         
         if threshold != headerRefreshData.threshold {
             headerRefreshData.threshold = threshold
@@ -160,7 +169,7 @@ extension PullToRefreshModifier {
         
         let footerFrameY = footerFrame.minY
         let threshold = footerFrame.height
-        let bottomDistance: CGFloat = 100
+        let bottomDistance: CGFloat = ConstantValue.bottomDistance
         
         let scrollViewHeight = min(proxy.size.height, contentFrame.height)
         

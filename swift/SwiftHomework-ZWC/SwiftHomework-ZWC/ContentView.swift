@@ -65,7 +65,7 @@ extension ContentView {
     var applicationListView: some View {
         VStack(spacing: 15) {
             ForEach(appStore.applicationList) { app in
-                CellContentView(app: $appStore.applicationList[appStore.getApplicationIndex(app: app)])
+                CellContentView(appStore: appStore, app: $appStore.applicationList[appStore.getApplicationIndex(app: app)])
                     .listRowSeparator(.hidden)
                     .padding([.leading, .trailing])
             }

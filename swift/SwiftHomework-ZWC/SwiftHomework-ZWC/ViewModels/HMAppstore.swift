@@ -13,14 +13,9 @@ class HMAppstore: ObservableObject {
         case failure
         case haveData
         case noData
-//        case inProcession
     }
     
-    var applicationListRawValue: [HMApplication] {
-        didSet {
-            refrashApplicationList()
-        }
-    }
+    var applicationListRawValue: [HMApplication] = [HMApplication]()
     
     private var currentIndexPage: Int
     private let pageSize: Int = 10
@@ -65,9 +60,15 @@ extension HMAppstore {
     
     func collect(application app: HMApplication) {
         let appIndex = applicationList.firstIndex(where: {$0.id == app.id})
+        let rawAppIndex = applicationListRawValue.firstIndex(where: {$0.id == app.id})
         guard let appIndex = appIndex else {
             return
         }
+        guard let rawAppIndex = rawAppIndex else {
+            return
+        }
+        applicationListRawValue[rawAppIndex].isCollected = !applicationListRawValue[rawAppIndex].isCollected
+        applicationListRawValue[rawAppIndex].collectImageName = applicationListRawValue[rawAppIndex].isCollected ? "icon002" : "icon001"
         applicationList[appIndex].isCollected = !applicationList[appIndex].isCollected
         applicationList[appIndex].collectImageName = applicationList[appIndex].isCollected ? "icon002" : "icon001"
     }
@@ -106,6 +107,7 @@ private extension HMAppstore {
                     self.netWorkState = .noData
                 }
                 self.applicationListRawValue = applicationList
+                self.refrashApplicationList()
             }
         }
     }
