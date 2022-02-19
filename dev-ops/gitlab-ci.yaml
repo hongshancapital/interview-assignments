@@ -1,0 +1,46 @@
+stages:
+  - build
+  - deploy
+  - test
+
+Build Image:
+  stage: build
+  image: base:docker
+  script:
+    - DEP="dep"
+    - CI_COMMIT_REF_SLUG=`echo  ${CI_COMMIT_REF_SLUG//\//\-}`
+    - CITIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
+    - TIME=$(date -d @${CITIME}  "+%Y%m%d-%H%M")
+    - IMAGE_VERSION=${TIME}-${CI_COMMIT_SHA:0:5}-${CI_COMMIT_REF_SLUG}
+    - IMAGE_URL=${DEP}/${CI_PROJECT_NAME}:${IMAGE_VERSION}
+    - sh /entrypoint.sh
+    - docker build -t ${IMAGE_URL} -f Dockerfile .
+    - docker push ${IMAGE_URL}
+
+
+Deploy Job:
+  stage: deploy
+  image: base:docker
+  script:
+    - DEP=dep
+    - CI_COMMIT_REF_SLUG=`echo  ${CI_COMMIT_REF_SLUG//\//\-}`
+    - CITIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
+    - TIME=$(date -d @${CITIME}  "+%Y%m%d-%H%M")
+    - IMAGE_VERSION=${TIME}-${CI_COMMIT_SHA:0:5}-${CI_COMMIT_REF_SLUG}
+    - NAMESAPCE=`echo ${CI_COMMIT_TAG}|cut -d '-' -f1-2`
+    - Dep=`echo ${DEP}| tr 'a-z' 'A-Z'`
+    - kubectl deploy ...
+  only:
+    - tags
+ut:
+  stage: test
+  image: base:maven
+
+  script:
+    - mvn test -ff -U -q && cat ./*/target/site/jacoco/index.html
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - ./*/target/surefire-reports/TEST-*.xml
+        - ./*/target/failsafe-reports/TEST-*.xml
