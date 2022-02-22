@@ -1,4 +1,3 @@
-# 启动环境检测，依赖安装，服务运行
 cd $(dirname "$0")/..
 
 if [[ ! -d node_modules ]]; then
@@ -14,6 +13,14 @@ if [[ ! -d node_modules ]]; then
     npm install >> /dev/null
 fi
 
-# start webpack-dev-server and express server
-npm run start&
-cd .. && npm run start
+npm run build
+# 建议使用 ng 而不是同一个 http-server 来放 html 和 assets。最好 assets 可以上 cdn
+# mv build NGINX_HTML_PATH
+
+echo '*********** web building success ***********'
+
+cd ..
+npm run build
+# pm2 is a good choice
+npm run server
+

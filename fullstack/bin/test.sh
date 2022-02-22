@@ -1,4 +1,3 @@
-# 启动环境检测，依赖安装，服务运行
 cd $(dirname "$0")/..
 
 if [[ ! -d node_modules ]]; then
@@ -15,5 +14,5 @@ if [[ ! -d node_modules ]]; then
 fi
 
 # start webpack-dev-server and express server
-npm run start&
-cd .. && npm run start
+npm run test&
+cd .. && npm run test

@@ -1,9 +1,27 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
+import { GetOriginLink, GetShortLink } from '@components';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("Smoke Test", () => {
+  beforeAll(() => {
+    global.matchMedia = global.matchMedia || function () {
+      return {
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+      };
+    };
+  });
+
+  test('App renders without crashing', () => {
+    render(<App />);
+  });
+
+  test('GetOriginLink renders without crashing', () => {
+    render(<GetOriginLink />);
+  });
+
+  test('GetShortLink renders without crashing', () => {
+    render(<GetShortLink />);
+  });
 });

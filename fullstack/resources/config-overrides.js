@@ -9,7 +9,7 @@ function resolve (dir) {
 const addCustomize = () => config => {
   if (process.env.NODE_ENV === 'production') {
     config.devtool = false;
-    config.output.path = resolve('../server/public');
+    // config.output.path = resolve('../server/public');
     config.plugins.push(
       new CompressionWebpackPlugin({
         test: /\.js$|\.css$/,
@@ -28,7 +28,6 @@ module.exports = {
       style: 'css'
     }),
     addWebpackAlias({        
-      '@': resolve('src'),        
       '@components': resolve('src/components'),        
       '@utils': resolve('src/utils')  
     }),

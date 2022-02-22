@@ -1,10 +1,10 @@
-const open = require('open');
-const cors = require("cors");
-const express = require('express');
-const bodyParser = require('body-parser');
-const logger = require('./server/utils/logger');
-const db = require('./server/models');
-const params = require('./server/middleware/params');
+import open from 'open';
+import cors from 'cors';
+import express from 'express';
+import bodyParser from 'body-parser';
+import logger from './server/utils/logger';
+import db from './server/models';
+import { preProcess } from './server/middleware/params';
 
 const port = 3001;
 const host = '127.0.0.1';
@@ -20,16 +20,15 @@ db.sequelize.sync();
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(params.preProcess);
+app.use(preProcess);
 
 app.use('/api', shortLinkRouter);
 
-app.listen(port, err => {
-  if (err) {
-    logger.error('Server error: ', err);
-    return;
-  }
+app.listen(port, () => {
+
   logger.log(`🚀🚀🚀 Server is running on port ${port}`);
 
   open(`http://${host}:${port}/api`);
 });
+
+export default app;
