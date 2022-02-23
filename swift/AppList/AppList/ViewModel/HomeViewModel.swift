@@ -11,7 +11,7 @@ import Reachability
 
 class HomeViewModel: ObservableObject {
     
-    @Published private(set) var listDatas: [ListItem] = []
+    @Published var listDatas: [ListItem] = []
     
     var allCancellables = [AnyCancellable]()
     var page: Page?
