@@ -12,7 +12,7 @@ struct DemoApp: App {
         
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(DataManager())
+            ContentView().environmentObject(Store())
         }
     }
 }
