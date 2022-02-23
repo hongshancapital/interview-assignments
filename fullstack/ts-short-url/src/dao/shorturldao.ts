@@ -30,17 +30,9 @@ export class ShortUrlDao  {
     }
 
     public save(shortUrl: string, originalUrl: string): boolean {
-        if (this.originalUrlyMap.has(originalUrl) || this.shortUrlIDMap.has(shortUrl)) {
-            return false;
-        }
+
         this.originalUrlyMap.set(originalUrl, shortUrl);
         this.shortUrlIDMap.set(shortUrl, originalUrl);
-
-        console.log("---------------save beging---------------");
-        console.log("originalUrlyMap is ", this.originalUrlyMap);
-        console.log("shortUrlIDMap is ", this.shortUrlIDMap);
-        console.log("---------------save over---------------");
-
         return true;
     }    
 }

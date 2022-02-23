@@ -1,3 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express";
+import { validationResult } from "express-validator"
+
 import { ServerCode } from "../exception/errorcode"
 import { ServerError } from "../exception/servererror"
 
@@ -7,16 +10,15 @@ export class OriginalUrlReq {
 
     constructor() {}
 
-    public init(reqBody: any): boolean {
-        let result:boolean = false;
-        try {
-            this.shortUrl = reqBody.shortUrl;                
-            result = true;
-        } catch (error) {
-            throw new ServerError(error, ServerCode.SU_REQ_ARG_ERROR);
+    public initByReq(req: Request): boolean {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return false;
         }
-        return result;
+        this.shortUrl = req.body.shortUrl;          
+        return true;
     }
+    
     public getShortUrl(): string {
         return this.shortUrl;
     }

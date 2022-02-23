@@ -2,64 +2,126 @@
 import supertest from 'supertest'
 import express from 'express'
 import http from 'http'
-import { ShortUrlService } from "../src/service/ShortUrlService"
+//import { ShortUrlService } from "../src/service/ShortUrlService"
 import {Server} from "../src/server"
+import {ShortUrlGenerator} from "../src/utils/shorturlgenerator"
 
 let server_app: express.Application;
 let httpServer: http.Server;
 
+// 启动服务
 const initServer = () => {
   server_app = Server.bootstrap().app;
   httpServer = http.createServer(server_app);
   httpServer.listen(8080);
 }
 
+// 停止服务
 const UnitServer = () =>{
   httpServer.close();
 }
 
+// 单元测试初始化
 beforeAll(async () => {
   await initServer()
 });
 
+// 单元测试结束
 afterAll(async () => {
   UnitServer();
 });
 
+// 测试shortUrl接口的正确性
 const createShortUrlApi = (originalUrl?: string) =>
   supertest(server_app)
     .post('/shortUrl')
     .set('Content-Type', 'application/json')
     .send({ originalUrl });
 
-const createOriginalUrlApi = (shortUrl?: string) =>
-  supertest(server_app)
-    .post('/originalUrl')
-    .set('Content-Type', 'application/json')
-    .send({ shortUrl });
-  
-
-
-describe('shorturl create', () => {  
-  test('base create url', async () => {
+describe('shortUrl接口测试', () => {  
+  test('shortUrl接口的正确性', async () => {
     const res = await createShortUrlApi("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k7");
     expect(res.statusCode).toEqual(200)
     expect(res.body.shortUrl).toEqual("http://s.cn/ZjA6Ebaa")
   })
 })
 
+describe('shortUrl接口测试', () => {  
+  test('shortUrl重复申请short URL测试', async () => {
+    const res = await createShortUrlApi("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k7");
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.shortUrl).toEqual("http://s.cn/ZjA6Ebaa")
+  })
+})
+
+// 异常shortUrl接口测试-参数异常
+const createShortUrlErroeApi = (unknow?: string) =>
+  supertest(server_app)
+    .post('/shortUrl')
+    .set('Content-Type', 'application/json')
+    .send({ unknow });
+
+describe('shortUrl接口测试', () => {  
+  test('shortUrl接口参数异常测试', async () => {
+    const res = await createShortUrlErroeApi("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k7");
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.isSucc).toEqual(false)
+    expect(res.body.errorMsg).toEqual("SU_REQ_ARG_ERROR")
+  })
+})
 
 
-describe('shorturl create', () => {  
-  test('base create url', async () => {
+// 测试originalUrl接口正确性
+const createOriginalUrlApi = (shortUrl?: string) =>
+  supertest(server_app)
+    .post('/originalUrl')
+    .set('Content-Type', 'application/json')
+    .send({ shortUrl });
+
+describe('originalUrl接口测试', () => {  
+  test('originalUrl接口的正确性', async () => {
     const res = await createOriginalUrlApi("http://s.cn/ZjA6Ebaa");
     expect(res.statusCode).toEqual(200)
     expect(res.body.originalUrl).toEqual("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k7")
   })
 })
 
+describe('originalUrl接口测试', () => {  
+  test('originalUrl接口查询URL不存在测试', async () => {
+    const res = await createOriginalUrlApi("http://s.cn/111111");
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.isSucc).toEqual(false);
+    expect(res.body.errorMsg).toEqual("SU_SERVER_CAN_NOT_FIND_URL");
+   })
+})
 
+// 异常originalUrl接口测试-参数异常
+const createOriginalUrlErrorApi = (unknow?: string) =>
+  supertest(server_app)
+    .post('/originalUrl')
+    .set('Content-Type', 'application/json')
+    .send({ unknow });
+
+describe('originalUrl接口测试', () => {  
+  test('originalUrl接口异常测试', async () => {
+    const res = await createOriginalUrlErrorApi("http://s.cn/ZjA6Ebaa");
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.isSucc).toEqual(false)
+    expect(res.body.errorMsg).toEqual("SU_REQ_ARG_ERROR")
+  })
+})
+
+
+
+// 
 /*
+describe('queryOrGenerateShortUrl Server', () => {
+  it('should be able to add things correctly' , () => {
+    expect(ShortUrlGenerator("www.baidu.com", 12).length).toBe(0);
+  });
+});
+
+
 let urlServer:ShortUrlService = new ShortUrlService();
 
 describe('queryOrGenerateShortUrl Server', () => {

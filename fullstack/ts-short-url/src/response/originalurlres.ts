@@ -10,6 +10,6 @@ export class OriginalurlRes extends PublicRes {
     }
 
     public buildJson(): any {
-        return {"success":this.success, "errorMsg": this.errorMsg,  "originalUrl": this.originalUrl};
+        return {"isSucc":this.success, "errorMsg": this.errorMsg,  "originalUrl": this.originalUrl};
     }
 }

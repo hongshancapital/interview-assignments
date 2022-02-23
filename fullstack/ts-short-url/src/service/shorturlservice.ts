@@ -51,19 +51,12 @@ export class ShortUrlService  {
      * 生成短链接
      */ 
     private handleDuplicate(originalUrl: string,  retryTimes: number): string {
-
-        let strurlArr: Array<string>;
-        let strurl: string = "";
-        
         if (retryTimes <= 0) {
             return "";
         }
 
-        strurlArr = ShortUrlGenerator(originalUrl, SHORT_URL_INIT.SHORT_URL_LENGTH);
-        if (strurlArr.length == 0) {
-            return "";
-        }
-
+        let strurl: string = "";
+        let strurlArr: Array<string> = ShortUrlGenerator(originalUrl, SHORT_URL_INIT.SHORT_URL_LENGTH);
         for(let i: number = 0; i<strurlArr.length; i++) {
             let OriginalUrl:string = ShortUrlService.shortUrlDao.queryOriginalUrl(strurlArr[i]);
             if (OriginalUrl == "") {

@@ -6,8 +6,4 @@ export class PublicRes {
         this.success = success;
         this.errorMsg = errorMsg;
     }
-
-    public buildJson(): any {
-        return {"success":this.success, "errorMsg": this.errorMsg};
-    }
 }

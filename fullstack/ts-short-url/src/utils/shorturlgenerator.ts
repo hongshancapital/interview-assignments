@@ -13,10 +13,6 @@ export function ShortUrlGenerator(url: string, length: number): Array<string>{
     
     let strurlArr: Array<string> = new Array<string>();
 
-    if (length*6 > 64) {
-        return strurlArr;
-    }
-
     // 对传入网址进行 MD5 计算
     let sMD5EncryptResult: string = md5(url, 32);
 

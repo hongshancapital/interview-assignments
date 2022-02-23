@@ -10,6 +10,6 @@ export class ShortUrlRes extends PublicRes {
     }
 
     public buildJson(): any {
-        return {"success":this.success, "errorMsg": this.errorMsg,  "shortUrl": this.shortUrl};
+        return {"isSucc":this.success, "errorMsg": this.errorMsg,  "shortUrl": this.shortUrl};
     }
 }
