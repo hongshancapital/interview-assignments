@@ -37,14 +37,15 @@ export class ShortUrlRoute {
 
 
     // 处理短链接申请请求
-    public ShortUrlPro(req: Request, res: Response, next: NextFunction) {
+    public async ShortUrlPro(req: Request, res: Response, next: NextFunction) {
         let issucc: boolean = false;
         let errCode:ServerCode = ServerCode.SU_SERVER_ERROR;
         let shorturl: string = "";
         let shortreq: ShortUrlReq = new ShortUrlReq();
         if (shortreq.initByReq(req)) {
-            shorturl = this.shortUrlService.queryOrGenerateShortUrl(shortreq.getOriginalUrl());
-            if (shorturl != "") {
+            let url = await this.shortUrlService.queryOrGenerateShortUrl(shortreq.getOriginalUrl());
+            if (url != null) {
+                shorturl = url;
                 errCode = ServerCode.SU_SUCCES;
                 issucc = true;
             } 
@@ -58,11 +59,12 @@ export class ShortUrlRoute {
     public OriginalUrlPro(req: Request, res: Response, next: NextFunction) {
         let issucc: boolean = false;
         let errCode:ServerCode = ServerCode.SU_SERVER_ERROR;
-        let shorturl: string = "";
+        let strLongUrl: string = "";
         let originalReq: OriginalUrlReq = new OriginalUrlReq();
         if (originalReq.initByReq(req)) {
-            shorturl = this.shortUrlService.queryOriginalUrl(originalReq.getShortUrl());
-            if (shorturl != "") {
+            let url = this.shortUrlService.queryOriginalUrl(originalReq.getShortUrl());
+            if (url != null) {
+                strLongUrl = url as unknown as string;
                 errCode = ServerCode.SU_SUCCES;
                 issucc = true;
             } else {
@@ -71,6 +73,6 @@ export class ShortUrlRoute {
         } else {
             errCode = ServerCode.SU_REQ_ARG_ERROR;
         }
-        res.json((new OriginalurlRes(issucc, errCode, shorturl)).buildJson());
+        res.json((new OriginalurlRes(issucc, errCode, strLongUrl)).buildJson());
     }
 }

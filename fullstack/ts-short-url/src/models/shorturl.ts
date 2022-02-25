@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 
 @Entity()
-export class shorturl {
+export class ShortUrl {
     @PrimaryGeneratedColumn()
     public shorturlid: string | undefined;
 

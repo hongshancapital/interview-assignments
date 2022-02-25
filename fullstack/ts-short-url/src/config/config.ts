@@ -1,5 +1,6 @@
 
 export interface Config {
+    server_port: number,
     redisUrl: string,
     port: number,
     cacheTime: number,
@@ -12,10 +13,12 @@ export interface Config {
     db_password: string,
     db_host: string,
     db_port: number,
-    db_ssl: false
+    db_ssl: false,
+    shorturl_pre: string
   }
 
   const cfgs: Config = {
+    server_port:8080,
     redisUrl: "redis://localhost:6379",
     port: 80,
     cacheTime: 1000,
@@ -28,7 +31,8 @@ export interface Config {
     db_password: 'su',
     db_host: '127.0.0.1',
     db_port: 3306,
-    db_ssl: false
+    db_ssl: false,
+    shorturl_pre: "http://s.cn/"
   }
   
   export default cfgs
