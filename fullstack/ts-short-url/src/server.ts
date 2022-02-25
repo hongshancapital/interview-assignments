@@ -6,7 +6,7 @@ import * as path from "path";
 import errorHandler = require("errorhandler");
 
 import { ShortUrlRoute } from "./routes/shorturlroute";
-
+import { DemoMain } from "./demo/mian"
 
 /**
  * The server.
@@ -43,6 +43,9 @@ export class Server {
 
     //add routes
     this.routes();
+
+    // demo
+    DemoMain();
   }
 
 

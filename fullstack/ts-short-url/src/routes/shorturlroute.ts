@@ -31,6 +31,11 @@ export class ShortUrlRoute {
         });
     }
  
+    public async ShortUrlProSync(req: Request, res: Response, next: NextFunction) {
+        
+    }
+
+
     // 处理短链接申请请求
     public ShortUrlPro(req: Request, res: Response, next: NextFunction) {
         let issucc: boolean = false;
