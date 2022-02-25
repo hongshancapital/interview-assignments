@@ -44,10 +44,12 @@ export class ShortUrlService  {
 
         // 新增到数据库和布隆过滤器
         let result = await this.shortUrlDao.create({"shorturlid":shortUrlID, "longurl":srcLongUrl, "createdata":(new Date()).toLocaleDateString()});
-        if (result) {
+        if (result == null) {
             return null;
         }
         await redisCache.BfAdd(shortUrlID);
+
+        // 添加缓存
         await redisCache.SetVal(srcLongUrl, shortUrlID);
 
         return this.addDefaultDomain(shortUrlID);
@@ -57,9 +59,25 @@ export class ShortUrlService  {
      * 查询长链接
      */
      public async queryOriginalUrl(strShortUrl: string) {
-         let shortUrl = await this.shortUrlDao.getByShortUrlid(this.RemoveDefaultDomain(strShortUrl))
+        // 先查询缓存
+        let strLongUrl = await redisCache.GetVal(strShortUrl);
+        if (strLongUrl != null) {
+            return strLongUrl;
+        }
+
+        //查询布隆过滤器
+        if (!redisCache.BfExists(strShortUrl)) {
+            return null;
+        }
+
+        // 查询数据库
+        let shortUrl = await this.shortUrlDao.getByShortUrlid(this.RemoveDefaultDomain(strShortUrl))
          if (shortUrl == null)
             return null;
+
+        // 添加缓存
+        await redisCache.SetVal(strShortUrl, shortUrl.longurl);
+
         return shortUrl.longurl;
      }
 
