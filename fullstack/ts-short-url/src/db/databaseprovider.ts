@@ -1,8 +1,6 @@
 import {Connection, createConnection} from 'typeorm';
-import { shorturl } from '../models/shorturl';
+import { ShortUrl } from '../models/shorturl';
 import cfgs  from "../config/config"
-
-
 
 export interface DatabaseConfiguration {
     type: 'postgres' | 'mysql' | 'mssql';
@@ -50,7 +48,7 @@ export class DatabaseProvider {
                 ssl
             },
             entities: [
-                shorturl
+                ShortUrl
             ],
             autoSchemaSync: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here

@@ -11,8 +11,13 @@ const blfile = new BloomFilter(cfgs.bfbyte, cfgs.bfHashCnt);
 
 export class RedisCache {
 
-    constructor() {}
+    private constructor() {}
     
+    public static RedisObj() {
+        const cache:RedisCache =  new RedisCache(); 
+        return cache;
+    } 
+
     async initCache() {
         await redisClient.connect()
     }
@@ -33,3 +38,5 @@ export class RedisCache {
         return await blfile.test(bfVal);
     }
 }
+
+export const redisCache = RedisCache.RedisObj(); 

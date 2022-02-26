@@ -7,6 +7,8 @@ import errorHandler = require("errorhandler");
 
 import { ShortUrlRoute } from "./routes/shorturlroute";
 import { DemoMain } from "./demo/mian"
+import { redisCache } from "./cache/redis"
+import { DatabaseProvider } from "./db/databaseprovider";
 
 /**
  * The server.
@@ -98,4 +100,10 @@ export class Server {
     //use router middleware
     this.app.use(router);
   }
+
+   public static async InitServer() {
+    DatabaseProvider.InitDB();
+    await Promise.all([redisCache.initCache()]);
+  }
 }
+

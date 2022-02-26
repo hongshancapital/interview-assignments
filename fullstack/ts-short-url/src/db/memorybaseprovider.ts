@@ -5,7 +5,7 @@
  *
  * @class ShortUrlDao
  */
-export class ShortUrlDao  {
+export class MemorybaseProvider  {
 
     private originalUrlyMap: Map<string, string>;   // key(originalUrl),value(shortUrlID)
     private shortUrlIDMap: Map<string, string>;   // key(shortUrlID),value(originalUrl)
