@@ -1,5 +1,5 @@
 import { createClient } from 'redis'
-import {BloomFilter}  from 'bloomfilter'
+import { BloomFilter}  from 'bloomfilter'
 
 import cfgs  from "../config/config"
 
