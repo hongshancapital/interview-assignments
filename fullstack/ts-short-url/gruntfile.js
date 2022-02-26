@@ -33,6 +33,9 @@ module.exports = function(grunt) {
           rootDir: "src",
           skipLibCheck: true,
           allowSyntheticDefaultImports: true,
+          experimentalDecorators: true,
+          emitDecoratorMetadata: true,
+      
         }
       }
     },
