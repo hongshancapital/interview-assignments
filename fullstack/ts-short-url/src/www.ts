@@ -1,4 +1,3 @@
-import http from 'http'
 import { Server } from "./server"
 import cfgs from "./config/config"
 
@@ -6,6 +5,8 @@ Server.InitServer().then(()=>{
     //create http server
     var app = Server.bootstrap().app;
     app.set("port", cfgs.server_port);
+
+    var http = require("http");
     var httpServer = http.createServer(app);
 
     //listen on provided ports
@@ -22,26 +23,6 @@ Server.InitServer().then(()=>{
     console.log(val);
 })
 
-
-
-/**
- * Normalize a port into a number, string, or false.
- */
-function normalizePort(val: string) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
 
 /**
  * Event listener for HTTP server "error" event.

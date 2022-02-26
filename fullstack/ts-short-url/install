@@ -11,22 +11,29 @@ redis-cli
 
 使用布隆过滤器命令
 bf.add name jerry
-bf.exists name hzb
+bf.exists name jerry
 
 
 安装Mysql
 docker pull mysql:latest
+docker pull mysql:5.7
 
 创建后台服务
-docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
+docker run -itd --name mysql-57-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7
+
+关闭
+docker stop 
 
 进入MySQL服务器
-docker exec -it mysql-test bash
+docker exec -it mysql-57-test bash
 
 登陆，密码123456
 mysql -h localhost -u root -p
 
 show databases
+
+查看dockers ip 
+docker-machine ip default
 
 创建数据库
 create database  short_url;
@@ -44,10 +51,10 @@ select host,user,plugin from user;
 use short_url;
 
 CREATE TABLE SHORT_URL (
-SHORT_URL_ID VARCHAR(255) COMMENT '短链接ID',
-LONG_URL VARCHAR(255) COMMENT '长连接URL',
-CREATE_DATE VARCHAR(10) COMMENT '生成日期',
-PRIMARY KEY (SHORT_URL_ID)
+shorturlid VARCHAR(255) COMMENT '短链接ID',
+longurl VARCHAR(255) COMMENT '长连接URL',
+createdata VARCHAR(10) COMMENT '生成日期',
+PRIMARY KEY (shorturlid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 查看redis和MySQL服务
@@ -57,6 +64,5 @@ docker ps
 npm outdated         # 先查询有哪些包有更新
 npm update <package> # 更新指定包
 
-安装postgres
-docker pull postgres
-docker run --name postgresTest -e POSTGRES_PASSWORD=123456 -p 5432:5432 -v pgdata:/var/lib/postgresql/data -d postgres
+删除npm
+npm uninstall

@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { validationResult } from "express-validator"
+import { check, validationResult } from "express-validator"
 
 import { ServerCode } from "../exception/errorcode"
-import { ServerError } from "../exception/servererror"
 
 export class OriginalUrlReq {
 
@@ -10,7 +9,8 @@ export class OriginalUrlReq {
 
     constructor() {}
 
-    public initByReq(req: Request): boolean {
+    public async initByReq(req: Request): Promise<boolean> {
+        await check('shortUrl', 'longUrl cannot be blank').isLength({ min: 1 }).run(req)
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return false;

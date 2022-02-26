@@ -5,10 +5,10 @@ import logger = require("morgan");
 import * as path from "path";
 import errorHandler = require("errorhandler");
 
-import { ShortUrlRoute } from "./routes/shorturlroute";
-import { DemoMain } from "./demo/mian"
+import  ShortUrlRoute  from "./routes/shorturlroute";
 import { redisCache } from "./cache/redis"
 import { DatabaseProvider } from "./db/databaseprovider";
+import { unCoughtErrorHandler } from "./exception/errorcode"
 
 /**
  * The server.
@@ -45,9 +45,6 @@ export class Server {
 
     //add routes
     this.routes();
-
-    // demo
-    DemoMain();
   }
 
 
@@ -80,7 +77,7 @@ export class Server {
     this.app.use(cookieParser("SECRET_GOES_HERE"));
 
     //error handling
-    this.app.use(errorHandler());
+    this.app.use(unCoughtErrorHandler);
   }
 
   /**
@@ -94,16 +91,16 @@ export class Server {
     let router: express.Router;
     router = express.Router();
 
-    //ShortUrlRoute
-    ShortUrlRoute.create(router);
-
     //use router middleware
-    this.app.use(router);
+    this.app.use(ShortUrlRoute);
   }
 
-   public static async InitServer() {
-    DatabaseProvider.InitDB();
-    await Promise.all([redisCache.initCache()]);
+  public static async InitServer() {
+    await Promise.all([redisCache.initCache(), DatabaseProvider.InitDB()]);
+  }
+
+  public static async UnitServer() {
+    await Promise.all([redisCache.UnitCache(), DatabaseProvider.UnitDB()]);
   }
 }
 

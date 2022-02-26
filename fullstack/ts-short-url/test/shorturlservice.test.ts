@@ -10,14 +10,18 @@ let server_app: express.Application;
 let httpServer: http.Server;
 
 // 启动服务
-const initServer = () => {
+const initServer = async () => {
+
+  await Server.InitServer();
+
   server_app = Server.bootstrap().app;
   httpServer = http.createServer(server_app);
   httpServer.listen(8080);
 }
 
 // 停止服务
-const UnitServer = () =>{
+const UnitServer = async () =>{
+  await Server.UnitServer();
   httpServer.close();
 }
 
@@ -28,7 +32,7 @@ beforeAll(async () => {
 
 // 单元测试结束
 afterAll(async () => {
-  UnitServer();
+  await UnitServer();
 });
 
 // 测试shortUrl接口的正确性
@@ -40,17 +44,17 @@ const createShortUrlApi = (originalUrl?: string) =>
 
 describe('shortUrl接口测试', () => {  
   test('shortUrl接口的正确性', async () => {
-    const res = await createShortUrlApi("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k7");
+    const res = await createShortUrlApi("https://www.baidu.com/rsv_t=b962R1RXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k71");
     expect(res.statusCode).toEqual(200)
-    expect(res.body.shortUrl).toEqual("http://s.cn/ZjA6Ebaa")
+    expect(res.body.code).toEqual("SU_OK")
   })
 })
 
 describe('shortUrl接口测试', () => {  
   test('shortUrl重复申请short URL测试', async () => {
-    const res = await createShortUrlApi("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k7");
+    const res = await createShortUrlApi("https://www.baidu.com/rsv_t=b962R1RXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k71");
     expect(res.statusCode).toEqual(200)
-    expect(res.body.shortUrl).toEqual("http://s.cn/ZjA6Ebaa")
+    expect(res.body.code).toEqual("SU_OK")
   })
 })
 
@@ -63,10 +67,10 @@ const createShortUrlErroeApi = (unknow?: string) =>
 
 describe('shortUrl接口测试', () => {  
   test('shortUrl接口参数异常测试', async () => {
-    const res = await createShortUrlErroeApi("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k7");
+    const res = await createShortUrlErroeApi("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k71");
     expect(res.statusCode).toEqual(200)
-    expect(res.body.isSucc).toEqual(false)
-    expect(res.body.errorMsg).toEqual("SU_REQ_ARG_ERROR")
+    expect(res.body.success).toEqual(false)
+    expect(res.body.code).toEqual("SU_REQ_ARG_ERROR")
   })
 })
 
@@ -80,9 +84,9 @@ const createOriginalUrlApi = (shortUrl?: string) =>
 
 describe('originalUrl接口测试', () => {  
   test('originalUrl接口的正确性', async () => {
-    const res = await createOriginalUrlApi("http://s.cn/ZjA6Ebaa");
+    const res = await createOriginalUrlApi("http://s.cn/Zi2M2ZZZ");
     expect(res.statusCode).toEqual(200)
-    expect(res.body.originalUrl).toEqual("https://www.baidu.com/rsv_t=b962RRXTbtksyRjfNOH1gNTeks%2BDGAAB64avxqan3wj8C0%2F6bjFrRdIDVFlUjVnp14k7")
+    expect(res.body.code).toEqual("SU_OK")
   })
 })
 
@@ -90,8 +94,26 @@ describe('originalUrl接口测试', () => {
   test('originalUrl接口查询URL不存在测试', async () => {
     const res = await createOriginalUrlApi("http://s.cn/111111");
     expect(res.statusCode).toEqual(200)
-    expect(res.body.isSucc).toEqual(false);
-    expect(res.body.errorMsg).toEqual("SU_SERVER_CAN_NOT_FIND_URL");
+    expect(res.body.success).toEqual(false);
+    expect(res.body.code).toEqual("SU_SERVER_CAN_NOT_FIND_URL");
+   })
+})
+
+describe('originalUrl接口测试', () => {  
+  test('originalUrl接口查询,缓存不存在，查数据库存在', async () => {
+    const res = await createOriginalUrlApi("http://s.cn/zeii7YZZ");
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.success).toEqual(true);
+    expect(res.body.code).toEqual("SU_OK");
+   })
+})
+
+describe('originalUrl接口测试', () => {  
+  test('originalUrl接口查询,再次查询，缓存已存在', async () => {
+    const res = await createOriginalUrlApi("http://s.cn/zeii7YZZ");
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.success).toEqual(true);
+    expect(res.body.code).toEqual("SU_OK");
    })
 })
 
@@ -106,8 +128,8 @@ describe('originalUrl接口测试', () => {
   test('originalUrl接口异常测试', async () => {
     const res = await createOriginalUrlErrorApi("http://s.cn/ZjA6Ebaa");
     expect(res.statusCode).toEqual(200)
-    expect(res.body.isSucc).toEqual(false)
-    expect(res.body.errorMsg).toEqual("SU_REQ_ARG_ERROR")
+    expect(res.body.success).toEqual(false)
+    expect(res.body.code).toEqual("SU_REQ_ARG_ERROR")
   })
 })
 

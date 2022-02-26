@@ -1,13 +1,9 @@
 import { createClient } from 'redis'
-import { BloomFilter}  from 'bloomfilter'
 
 import cfgs  from "../config/config"
 
 // Redis缓存
 const redisClient = createClient({url: cfgs.redisUrl,})
-
-// 布隆过滤器缓存
-const blfile = new BloomFilter(cfgs.bfbyte, cfgs.bfHashCnt);
 
 export class RedisCache {
 
@@ -19,7 +15,11 @@ export class RedisCache {
     } 
 
     async initCache() {
-        await redisClient.connect()
+        await redisClient.connect();
+    }
+
+    async UnitCache() {
+        await redisClient.disconnect();
     }
 
     async GetVal(cacheKey: any) {
@@ -31,11 +31,12 @@ export class RedisCache {
     }
 
     async BfAdd(bfVal: any) {
-        return await blfile.add(bfVal);
+        return await redisClient.sendCommand(['BF.ADD', cfgs.urlFilter, bfVal])
     }
 
     async BfExists(bfVal: any) {
-        return await blfile.test(bfVal);
+        const ret = await redisClient.sendCommand(['BF.EXISTS', cfgs.urlFilter, bfVal])
+        return ret == 1;
     }
 }
 

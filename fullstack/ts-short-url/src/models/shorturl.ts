@@ -1,14 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from "typeorm";
 
 
-@Entity()
+@Entity("short_url")
 export class ShortUrl {
-    @PrimaryGeneratedColumn()
-    public shorturlid: string | undefined;
+    @PrimaryColumn()
+    public shorturlid!: string;
 
     @Column()
-    public longurl: string | undefined;
+    public longurl!: string;
 
     @Column()
-    public createdata: string | undefined;
+    public createdata!: string;
 }

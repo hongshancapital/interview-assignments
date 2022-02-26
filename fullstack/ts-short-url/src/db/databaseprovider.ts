@@ -16,29 +16,15 @@ export class DatabaseProvider {
     private static connection: Connection;
     private static configuration: DatabaseConfiguration;
 
-    public static InitDB() {
-        DatabaseProvider.configure({
+    public static async InitDB() {
+        DatabaseProvider.configuration = {
             type: 'mysql',
-            database: cfgs.db_name,
-            username: cfgs.db_name,
-            password: cfgs.db_password,
             host: cfgs.db_host,
             port: cfgs.db_port,
+            username: cfgs.db_username,
+            password: cfgs.db_password,
+            database: cfgs.db_name,                        
             ssl: cfgs.db_ssl
-        });
-    }
-
-    private static configure(databaseConfiguration: DatabaseConfiguration): void {
-        DatabaseProvider.configuration = databaseConfiguration;
-    }
-
-    public static async getConnection(): Promise<Connection> {
-        if (DatabaseProvider.connection) {
-            return DatabaseProvider.connection;
-        }
-
-        if (!DatabaseProvider.configuration) {
-            throw new Error('DatabaseProvider is not configured yet.');
         }
 
         const { type, host, port, username, password, database, ssl } = DatabaseProvider.configuration;
@@ -53,6 +39,13 @@ export class DatabaseProvider {
             autoSchemaSync: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here
 
+    }
+
+    public static async UnitDB() {
+        await DatabaseProvider.connection.close();
+    }
+
+    public static async getConnection(): Promise<Connection> {
         return DatabaseProvider.connection;
     }
 }

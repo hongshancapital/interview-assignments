@@ -3,27 +3,19 @@ import { ShortUrlDao } from "../db/shorturldao";
 import { redisCache } from "../cache/redis"
 import cfgs from "../config/config";
 
-export enum SHORT_URL_INIT {
-    RETRY_TIMES = 5,                // 成功
-    SHORT_URL_LENGTH = 8,  // 请求参数异常
-}
-
-
 /**
- * / route
+ * 
  *
  * @class ShortUrlService
  */
-export class ShortUrlService  {
+class ShortUrlService  {
     
-    // 设置为静态全局变量，用于数据保存
     private shortUrlDao: ShortUrlDao;
-    private retryTimes: number;
-
     constructor() {
-        this.retryTimes = SHORT_URL_INIT.RETRY_TIMES;
+        
         this.shortUrlDao = new ShortUrlDao();
     }
+
     /**
      * 查询短链接
      */
@@ -35,21 +27,18 @@ export class ShortUrlService  {
             return this.addDefaultDomain(shortUrlID as string); 
         }
 
-        shortUrlID  = await this.handleDuplicate(srcLongUrl + this.retryTimes.toString(), this.retryTimes)
-
-        // 重新生成ID失败
+        // handleDuplicate通过布隆过滤器来判定是否重复生成
+        shortUrlID  = await this.handleDuplicate(srcLongUrl + cfgs.retrynum.toString(), cfgs.retrynum)
         if (shortUrlID == "") {
             return null;
         }
 
-        // 新增到数据库和布隆过滤器
+        // 新增到数据库、布隆过滤器、缓存中
         let result = await this.shortUrlDao.create({"shorturlid":shortUrlID, "longurl":srcLongUrl, "createdata":(new Date()).toLocaleDateString()});
         if (result == null) {
             return null;
         }
         await redisCache.BfAdd(shortUrlID);
-
-        // 添加缓存
         await redisCache.SetVal(srcLongUrl, shortUrlID);
 
         return this.addDefaultDomain(shortUrlID);
@@ -59,6 +48,10 @@ export class ShortUrlService  {
      * 查询长链接
      */
      public async queryOriginalUrl(strShortUrl: string) {
+
+        // 短链接ＩＤ
+        let strShortUrlID = this.RemoveDefaultDomain(strShortUrl)
+
         // 先查询缓存
         let strLongUrl = await redisCache.GetVal(strShortUrl);
         if (strLongUrl != null) {
@@ -66,17 +59,19 @@ export class ShortUrlService  {
         }
 
         //查询布隆过滤器
-        if (!redisCache.BfExists(strShortUrl)) {
+        let bfExists: Boolean = await redisCache.BfExists(strShortUrlID);
+        if (!bfExists) {
             return null;
         }
 
         // 查询数据库
-        let shortUrl = await this.shortUrlDao.getByShortUrlid(this.RemoveDefaultDomain(strShortUrl))
-         if (shortUrl == null)
+        let shortUrl = await this.shortUrlDao.getByShortUrlid(strShortUrlID)
+         if (shortUrl == null) {
             return null;
+         }
 
         // 添加缓存
-        await redisCache.SetVal(strShortUrl, shortUrl.longurl);
+        await redisCache.SetVal(strShortUrl, shortUrl.longurl); 
 
         return shortUrl.longurl;
      }
@@ -90,7 +85,7 @@ export class ShortUrlService  {
         }
 
         let strurl: string = "";
-        let strurlArr: Array<string> = ShortUrlGenerator(originalUrl, SHORT_URL_INIT.SHORT_URL_LENGTH);
+        let strurlArr: Array<string> = ShortUrlGenerator(originalUrl, cfgs.urllen);
         for(let i: number = 0; i<strurlArr.length; i++) {
             let idExists = await redisCache.BfExists(strurlArr[i]);
             if (!idExists) {
@@ -107,9 +102,8 @@ export class ShortUrlService  {
         return strurl;
     }
 
-    /**
-     * 完成链接的域名转换
-     */
+    
+    //完成链接的域名转换 
     public addDefaultDomain(shortUrlID: string): string {
         return cfgs.shorturl_pre+shortUrlID;        
     }      
@@ -118,3 +112,5 @@ export class ShortUrlService  {
         return shortUrl.substring(shortUrl.lastIndexOf('/')+1);
     }
 }
+
+export default new ShortUrlService();
