@@ -2,7 +2,7 @@
 export interface Config {
     server_port: number,
     redisUrl: string,
-    port: number,
+    bl_use: boolean,
     cacheTime: number,
     urlFilter: string,
     bfbyte: number,
@@ -22,7 +22,7 @@ export interface Config {
   const cfgs: Config = {
     server_port:8080,
     redisUrl: "redis://192.168.99.100:6379",
-    port: 80,
+    bl_use: true,
     cacheTime: 1000,
     urlFilter: 'filter',
     bfbyte: 32*256,

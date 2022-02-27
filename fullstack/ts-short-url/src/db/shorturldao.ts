@@ -1,5 +1,7 @@
 import { ShortUrl } from "../models/shorturl";
 import { DatabaseProvider } from "./databaseprovider";
+import { redisCache } from "../cache/redis"
+import cfgs from "../config/config";
 
 export class ShortUrlDao {
 
@@ -8,24 +10,43 @@ export class ShortUrlDao {
     public async create(shortUrl: ShortUrl)  {
         const newShortUrl = new ShortUrl();
         newShortUrl.createdata = shortUrl.createdata;
-        newShortUrl.longurl = shortUrl.longurl;
+        newShortUrl.originalurl = shortUrl.originalurl;
         newShortUrl.shorturlid = shortUrl.shorturlid;
 
         const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(ShortUrl).save(newShortUrl);
+        let shortUrlResult = await connection.getRepository(ShortUrl).save(newShortUrl);
+
+        if (cfgs.bl_use) {
+            await redisCache.BfAdd(newShortUrl.shorturlid);
+        }
+
+        return shortUrlResult;
     }
 
-    public async getByLongurl(strLong: string)  {
+    public async getByLongurl(strOriginalUrl: string)  {
         const connection = await DatabaseProvider.getConnection();
         const newShortUrl = new ShortUrl();
-        newShortUrl.longurl = strLong;
-        return await connection.getRepository(ShortUrl).findOne(newShortUrl);
+        newShortUrl.originalurl = strOriginalUrl;
+
+        let shortUrlResult = await connection.getRepository(ShortUrl).findOne(newShortUrl);
+
+        return shortUrlResult;
     }
 
     public async getByShortUrlid(strShortID: string)  {
         const connection = await DatabaseProvider.getConnection();
         const newShortUrl = new ShortUrl();
         newShortUrl.shorturlid = strShortID;
-        return await connection.getRepository(ShortUrl).findOne(newShortUrl);
+
+        if (cfgs.bl_use) {
+            let bfExists: Boolean = await redisCache.BfExists(strShortID);
+            if (!bfExists) {
+                return null;
+            }
+        }
+
+        let shortUrlResult  = await connection.getRepository(ShortUrl).findOne(newShortUrl);
+        
+        return shortUrlResult;
     }
 }

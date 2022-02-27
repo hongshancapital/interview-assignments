@@ -34,11 +34,11 @@ class ShortUrlService  {
         }
 
         // 新增到数据库、布隆过滤器、缓存中
-        let result = await this.shortUrlDao.create({"shorturlid":shortUrlID, "longurl":srcLongUrl, "createdata":(new Date()).toLocaleDateString()});
+        let result = await this.shortUrlDao.create({"shorturlid":shortUrlID, "originalurl":srcLongUrl, "createdata":(new Date()).toLocaleDateString()});
         if (result == null) {
             return null;
         }
-        await redisCache.BfAdd(shortUrlID);
+        
         await redisCache.SetVal(srcLongUrl, shortUrlID);
 
         return this.addDefaultDomain(shortUrlID);
@@ -53,15 +53,9 @@ class ShortUrlService  {
         let strShortUrlID = this.RemoveDefaultDomain(strShortUrl)
 
         // 先查询缓存
-        let strLongUrl = await redisCache.GetVal(strShortUrl);
+        let strLongUrl = await redisCache.GetVal(strShortUrlID);
         if (strLongUrl != null) {
             return strLongUrl;
-        }
-
-        //查询布隆过滤器
-        let bfExists: Boolean = await redisCache.BfExists(strShortUrlID);
-        if (!bfExists) {
-            return null;
         }
 
         // 查询数据库
@@ -71,9 +65,9 @@ class ShortUrlService  {
          }
 
         // 添加缓存
-        await redisCache.SetVal(strShortUrl, shortUrl.longurl); 
+        await redisCache.SetVal(strShortUrlID, shortUrl.originalurl); 
 
-        return shortUrl.longurl;
+        return shortUrl.originalurl;
      }
 
     /**
@@ -87,7 +81,7 @@ class ShortUrlService  {
         let strurl: string = "";
         let strurlArr: Array<string> = ShortUrlGenerator(originalUrl, cfgs.urllen);
         for(let i: number = 0; i<strurlArr.length; i++) {
-            let idExists = await redisCache.BfExists(strurlArr[i]);
+            let idExists = await this.shortUrlDao.getByShortUrlid(strurlArr[i]);
             if (!idExists) {
                 strurl = strurlArr[i];
                 break;

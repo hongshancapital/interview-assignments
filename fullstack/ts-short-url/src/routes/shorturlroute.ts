@@ -10,7 +10,7 @@ export class ShortUrlRoute {
     }
 
     intializeRoutes() {
-        this.router.route('/ShortUrl').post(this.shortUrlCtrl.ShortUrlPro);
+        this.router.route('/shortUrl').post(this.shortUrlCtrl.ShortUrlPro);
         this.router.route('/originalUrl').post(this.shortUrlCtrl.OriginalUrlPro);
     }
 }

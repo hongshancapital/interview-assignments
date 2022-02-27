@@ -34,9 +34,9 @@ export default class ShortUrlCtrl {
             let originalReq: OriginalUrlReq = new OriginalUrlReq();
             let bCheckVal = await originalReq.initByReq(req);
             if (bCheckVal) {
-                let strLongUrl = await ShortUrlService.queryOriginalUrl(originalReq.getShortUrl());
-                if (strLongUrl != null) {
-                    res.json((new OriginalurlRes(true, ServerCode.SU_SUCCES, strLongUrl)).buildJson());
+                let strOriginalUrl = await ShortUrlService.queryOriginalUrl(originalReq.getShortUrl());
+                if (strOriginalUrl != null) {
+                    res.json((new OriginalurlRes(true, ServerCode.SU_SUCCES, strOriginalUrl)).buildJson());
                 } else {
                     res.json((new OriginalurlRes(false, ServerCode.SU_SERVER_CAN_NOT_FIND_URL)).buildJson());
                 }

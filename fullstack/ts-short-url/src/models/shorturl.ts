@@ -7,7 +7,7 @@ export class ShortUrl {
     public shorturlid!: string;
 
     @Column()
-    public longurl!: string;
+    public originalurl!: string;
 
     @Column()
     public createdata!: string;
