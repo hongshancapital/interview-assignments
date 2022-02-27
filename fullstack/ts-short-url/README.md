@@ -5,7 +5,7 @@
 
 ## redis
 
-安装Redis 
+安装Redis
 `docker pull redislabs/rebloom:latest`
 
 启动Redis
@@ -55,3 +55,6 @@
 
 ## 单元测试
 `$ npm test`
+
+## 应用程序环境配置
+具体环境配置信息，查看./config/config.ts

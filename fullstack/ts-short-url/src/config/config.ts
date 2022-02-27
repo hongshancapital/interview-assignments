@@ -1,32 +1,28 @@
 
 export interface Config {
-    server_port: number,
-    redisUrl: string,
-    bl_use: boolean,
-    cacheTime: number,
-    urlFilter: string,
-    bfbyte: number,
-    bfHashCnt: number,
-    db_Type: string,
-    db_name: string,
-    db_username: string,
-    db_password: string,
-    db_host: string,
-    db_port: number,
-    db_ssl: false,
-    shorturl_pre: string,
-    urllen: number,
-    retrynum: number
+    server_port: number,  // 应用程序监听端口
+    redisUrl: string,     // Redis服务地址
+    bl_use: boolean,      // 是否使用布隆过滤器
+    cacheTime: number,    // 缓存时间,单位秒
+    urlFilter: string,    // 布隆过滤标识
+    db_Type: string,      // 数据库类型，默认MYSQL
+    db_name: string,      // 数据库库名
+    db_username: string,  // 数据库用户名
+    db_password: string,  // 数据库用户密码
+    db_host: string,      // 数据库地址
+    db_port: number,      // 数据库端口
+    db_ssl: false,        // 是否使用SSL链接数据库
+    shorturl_pre: string, // 短域名
+    urllen: number,       // 短域名ID长度
+    retrynum: number      // 短域名尝试生成次数
   }
 
   const cfgs: Config = {
     server_port:8080,
     redisUrl: "redis://192.168.99.100:6379",
     bl_use: true,
-    cacheTime: 1000,
+    cacheTime: 3600,
     urlFilter: 'filter',
-    bfbyte: 32*256,
-    bfHashCnt: 16,
     db_Type: 'mysql',
     db_name: 'short_url',
     db_username: 'su',
