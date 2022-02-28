@@ -1,0 +1,20 @@
+{
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+        "src/**/*.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+        "node_modules",
+        "<rootDir>/src/types.ts",
+        "<rootDir>/src/app.ts",
+        "<rootDir>/src/index.ts"
+    ],
+    "coverageDirectory": "<rootDir>/coverage/",
+    
+    "testRegex": "spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "verbose": true
+}

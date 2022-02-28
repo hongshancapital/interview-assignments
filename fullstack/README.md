@@ -1,41 +1,39 @@
-# TypeScript Fullstack Engineer Assignment
+# A short URL service with Express.js + TS + Mysql
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+## Arch
+<img width="754" alt="image" src="https://user-images.githubusercontent.com/10559010/155990246-090aa958-4022-426c-b8c9-f57197d4ac85.png">
 
-撰写两个 API 接口
+## Theory
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+The robust solution for a short url is to use a unique ID generator to generate an id for each long url, then choose some Bijective Function to convert this id to some short string and vice visa.
 
-限制：
+Redis is used for reading performance. Also notice that, it's normal if the user submit the same long url multiple times and generates different short urls each time, it's only wasting some storage, but to optimize this to a certain degree, I used an LRU cache, so that in a short time, the frequently submitted long urls will not be computed again to generate a new short url, instead, the already existed latest one will get returned.
 
-- 短域名长度最大为 8 个字符
+## Assumptions
 
-递交作业内容
+- Only support at most 8 char short url, notice that I am using base62 ([a-zA-Z0-9]), that means it can at most support 8^62 urls, which is enough for most cases.
+- This is supposed to be deployed within a containeration system (such as k8s), we can afford to have multiple instances for robustness, thus no need to make the application itself into a cluster mode(nodejs cluster).
+- To avoid one to many mapping (sort of storage wasting) of a long url, the system use an LRU cache to ease this pain, namely if a same long url is frequently been submitted to generate a short one, the system will return the already generated cache instead of generating a new short url again.
+- Assume the longest url will be 2048, this should cover most of the cases.
+- Don't support customized short url (user given short url), if need this, one easy way is to add one `short_url` column to the table and also stores the shortUrls instead of computing from ids, this way, we can index this column and also check against existence to support customized shortUrls.
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+## Test
+<img width="893" alt="image" src="https://user-images.githubusercontent.com/10559010/155990777-fb233ddb-6629-44a3-9a92-52543fb0cd57.png">
+<img width="893" alt="image" src="https://user-images.githubusercontent.com/10559010/155990841-769f7db9-e597-44fd-8158-65ece0f0f6b4.png">
 
-## 岗位职责
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+## Code Structure
+- `scripts` : the sql file used to create tables
+- `src` : where express code lies
+  - `controllers`: api routers
+  - `libs`: util libs & db connectors
+  - `middlewares`
+  - `services`
+  - `app.ts`: express application instance
+  - `index.ts` : main entry
+- `tests` : test cases
 
-## 要求
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+## ENV
+- node: v14.17.3
+- npm: 8.5.1
