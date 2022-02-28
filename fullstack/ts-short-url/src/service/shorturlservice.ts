@@ -34,7 +34,7 @@ class ShortUrlService  {
         }
 
         // 新增到数据库、布隆过滤器、缓存中
-        let result = await this.shortUrlDao.create({"shorturlid":shortUrlID, "originalurl":srcLongUrl, "createdata":(new Date()).toLocaleDateString()});
+        let result = await this.shortUrlDao.create({"shorturlid":shortUrlID, "originalurl":srcLongUrl, "createdate":(new Date()).toLocaleDateString()});
         if (result == null) {
             return null;
         }
@@ -79,7 +79,7 @@ class ShortUrlService  {
         }
 
         let strurl: string = "";
-        let strurlArr: Array<string> = ShortUrlGenerator(originalUrl, cfgs.urllen);
+        let strurlArr: Array<string> = await ShortUrlGenerator(originalUrl, cfgs.urllen);
         for(let i: number = 0; i<strurlArr.length; i++) {
             let idExists = await this.shortUrlDao.getByShortUrlid(strurlArr[i]);
             if (!idExists) {

@@ -28,7 +28,7 @@ export interface Config {
     db_username: 'su',
     db_password: 'su',
     db_host: "192.168.99.100",
-    db_port: 3306,
+    db_port: 3307,
     db_ssl: false,
     shorturl_pre: "http://s.cn/",
     urllen:8,

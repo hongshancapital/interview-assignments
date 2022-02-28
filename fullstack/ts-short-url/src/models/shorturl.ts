@@ -10,5 +10,5 @@ export class ShortUrl {
     public originalurl!: string;
 
     @Column()
-    public createdata!: string;
+    public createdate!: string;
 }

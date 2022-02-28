@@ -1,6 +1,7 @@
 import { md5 } from 'md5js';
+import { nanoid } from 'nanoid'
 
-export function ShortUrlGenerator(url: string, length: number): Array<string>{
+export async function ShortUrlGenerator(url: string, length: number): Promise<Array<string>>{
     // 映射字符数组
     const strArr: string[] = [
         "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
@@ -13,8 +14,9 @@ export function ShortUrlGenerator(url: string, length: number): Array<string>{
     
     let strurlArr: Array<string> = new Array<string>();
 
-    // 对传入网址进行 MD5 计算
-    let sMD5EncryptResult: string = md5(url, 32);
+    // 引入nanoid，用于生成分布式唯一ＩＤ，与ＵＲＬ合并进行 MD5 计算
+    let strNanoId = await nanoid();
+    let sMD5EncryptResult: string = md5(url + strNanoId, 32);
 
     for (let i: number = 0; i<4; i++){
         let sTempSubString: string = sMD5EncryptResult.substring(i*8, (i+1)*8);

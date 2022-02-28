@@ -41,7 +41,7 @@
 `use short_url;`
 
 创建表结构
-`CREATE TABLE SHORT_URL (shorturlid VARCHAR(255) COMMENT '短链接ID',originalurl VARCHAR(255) COMMENT '长连接URL',createdata VARCHAR(10) COMMENT '生成日期',PRIMARY KEY (shorturlid)) ENGINE=InnoDB DEFAULT CHARSET=utf8;`
+`CREATE TABLE short_url (shorturlid VARCHAR(255) COMMENT '短链接ID',originalurl VARCHAR(255) COMMENT '长连接URL',createdate VARCHAR(10) COMMENT '生成日期',PRIMARY KEY (shorturlid)) ENGINE=InnoDB DEFAULT CHARSET=utf8;`
 
 ## 应用程序安装
 安装依赖库

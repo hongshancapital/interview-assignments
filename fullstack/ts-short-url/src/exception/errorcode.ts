@@ -9,11 +9,10 @@ export enum ServerCode {
     SU_SERVER_CREATE_SHORTURL_FAIL = 'SU_SERVER_CREATE_SHORTURL_FAILE'     // 查询源地址失败
 }
 
-
-const file = new winston.transports.File({
-  filename: '../logs/error.log',
+const logger = winston.createLogger({
   level: 'error',
-  handleExceptions: true,
+  format: winston.format.json(),
+  transports: [new winston.transports.File({ filename: './logs/error.log', level: 'error' })]
 });
 
 export function unCoughtErrorHandler(
@@ -22,7 +21,8 @@ export function unCoughtErrorHandler(
   res: Response,
   next: NextFunction,
 ) {
-  winston.error(JSON.stringify(err));
+  const error: object = { Date: (new Date()).toLocaleString(), Reqbody: req.body, Stack: err };
+  logger.error(error);
   res.end({ error: err });
 }
 
@@ -32,7 +32,7 @@ export function apiErrorHandler(
   res: Response,
   message: string,
 ) {
-  const error: object = { Message: message, Request: req, Stack: err };
-  winston.error(JSON.stringify(error));
+  const error: object = { Date: (new Date()).toLocaleString(), Message: message, Reqbody: req.body, Stack: err };
+  logger.error(error);
   res.json({ Message: message });
 }

@@ -9,7 +9,7 @@ export class ShortUrlDao {
 
     public async create(shortUrl: ShortUrl)  {
         const newShortUrl = new ShortUrl();
-        newShortUrl.createdata = shortUrl.createdata;
+        newShortUrl.createdate = shortUrl.createdate;
         newShortUrl.originalurl = shortUrl.originalurl;
         newShortUrl.shorturlid = shortUrl.shorturlid;
 
