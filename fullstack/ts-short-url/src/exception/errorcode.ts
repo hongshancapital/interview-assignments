@@ -23,7 +23,7 @@ export function unCoughtErrorHandler(
 ) {
   const error: object = { Date: (new Date()).toLocaleString(), Reqbody: req.body, Stack: err };
   logger.error(error);
-  res.end({ error: err });
+  res.end({"success":false, "code": ServerCode.SU_SERVER_ERROR});
 }
 
 export function apiErrorHandler(
@@ -34,5 +34,5 @@ export function apiErrorHandler(
 ) {
   const error: object = { Date: (new Date()).toLocaleString(), Message: message, Reqbody: req.body, Stack: err };
   logger.error(error);
-  res.json({ Message: message });
+  res.json({"success":false, "code": ServerCode.SU_SERVER_ERROR});
 }
