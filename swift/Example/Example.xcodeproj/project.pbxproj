@@ -12,7 +12,10 @@
 		C99F536627CDFEAE00DDB7F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C99F536527CDFEAE00DDB7F2 /* Assets.xcassets */; };
 		C99F536927CDFEAE00DDB7F2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C99F536827CDFEAE00DDB7F2 /* Preview Assets.xcassets */; };
 		C99F538227CE166900DDB7F2 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C99F538127CE166900DDB7F2 /* image.xcassets */; };
-		C99F538427CE1A2500DDB7F2 /* PullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F538327CE1A2500DDB7F2 /* PullToRefresh.swift */; };
+		C99F538A27CE1E4D00DDB7F2 /* LynnRefreshDefaultViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F538627CE1E4D00DDB7F2 /* LynnRefreshDefaultViews.swift */; };
+		C99F538B27CE1E4D00DDB7F2 /* LynnRefreshState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F538727CE1E4D00DDB7F2 /* LynnRefreshState.swift */; };
+		C99F538C27CE1E4D00DDB7F2 /* LynnPullToRefreshModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F538827CE1E4D00DDB7F2 /* LynnPullToRefreshModifier.swift */; };
+		C99F538D27CE1E4D00DDB7F2 /* LynnPullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F538927CE1E4D00DDB7F2 /* LynnPullToRefresh.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,7 +25,10 @@
 		C99F536527CDFEAE00DDB7F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C99F536827CDFEAE00DDB7F2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C99F538127CE166900DDB7F2 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
-		C99F538327CE1A2500DDB7F2 /* PullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefresh.swift; sourceTree = "<group>"; };
+		C99F538627CE1E4D00DDB7F2 /* LynnRefreshDefaultViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LynnRefreshDefaultViews.swift; sourceTree = "<group>"; };
+		C99F538727CE1E4D00DDB7F2 /* LynnRefreshState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LynnRefreshState.swift; sourceTree = "<group>"; };
+		C99F538827CE1E4D00DDB7F2 /* LynnPullToRefreshModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LynnPullToRefreshModifier.swift; sourceTree = "<group>"; };
+		C99F538927CE1E4D00DDB7F2 /* LynnPullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LynnPullToRefresh.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +63,7 @@
 			children = (
 				C99F536127CDFEAB00DDB7F2 /* ExampleApp.swift */,
 				C99F536327CDFEAB00DDB7F2 /* ContentView.swift */,
-				C99F538327CE1A2500DDB7F2 /* PullToRefresh.swift */,
+				C99F538527CE1E4D00DDB7F2 /* PullToRefresh */,
 				C99F538127CE166900DDB7F2 /* image.xcassets */,
 				C99F536527CDFEAE00DDB7F2 /* Assets.xcassets */,
 				C99F536727CDFEAE00DDB7F2 /* Preview Content */,
@@ -71,6 +77,17 @@
 				C99F536827CDFEAE00DDB7F2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C99F538527CE1E4D00DDB7F2 /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				C99F538627CE1E4D00DDB7F2 /* LynnRefreshDefaultViews.swift */,
+				C99F538727CE1E4D00DDB7F2 /* LynnRefreshState.swift */,
+				C99F538827CE1E4D00DDB7F2 /* LynnPullToRefreshModifier.swift */,
+				C99F538927CE1E4D00DDB7F2 /* LynnPullToRefresh.swift */,
+			);
+			path = PullToRefresh;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,9 +161,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C99F538D27CE1E4D00DDB7F2 /* LynnPullToRefresh.swift in Sources */,
 				C99F536427CDFEAB00DDB7F2 /* ContentView.swift in Sources */,
-				C99F538427CE1A2500DDB7F2 /* PullToRefresh.swift in Sources */,
 				C99F536227CDFEAB00DDB7F2 /* ExampleApp.swift in Sources */,
+				C99F538C27CE1E4D00DDB7F2 /* LynnPullToRefreshModifier.swift in Sources */,
+				C99F538B27CE1E4D00DDB7F2 /* LynnRefreshState.swift in Sources */,
+				C99F538A27CE1E4D00DDB7F2 /* LynnRefreshDefaultViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

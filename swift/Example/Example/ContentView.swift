@@ -65,23 +65,13 @@ struct ContentView: View {
     }
     
     var body: some View {
-        return RefreshableNavigationView(title: "首页", action: {
-            print("000000")
-        }, isDone: isDone, content: {
+        return NavigationView{
             List(dataArray, id:\.self){ data in
                 Section(){
                     CellView(data: data).padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                 }
             }.navigationBarTitle(Text("首页"), displayMode:.large)
-        })
-        
-//        return NavigationView{
-//            List(dataArray, id:\.self){ data in
-//                Section(){
-//                    CellView(data: data).padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-//                }
-//            }.navigationBarTitle(Text("首页"), displayMode:.large)
-//        }
+        }
     }
 }
 
