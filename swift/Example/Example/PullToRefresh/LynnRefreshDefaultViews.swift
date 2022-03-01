@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class ListState: ObservableObject {
+class ReloadContexts: ObservableObject {
     @Published private(set) var noMore: Bool
     
     init() {
@@ -22,42 +22,21 @@ class ListState: ObservableObject {
 struct RefreshDefaultHeader: View {
     
     @Environment(\.headerRefreshData) private var headerRefreshData
-    
+    @EnvironmentObject private var listState: ReloadContexts
+
     var body: some View {
         let state = headerRefreshData.refreshState
-        let progress = headerRefreshData.progress
+        //let progress = headerRefreshData.progress
         if state == .stopped {
-            VStack(spacing: 0){
-                Image("cat")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .rotationEffect(.init(degrees: progress * 540))
-                Spacer().frame(height: 5)
-                Text("下拉刷新") // 已经到底了
-                        .font(.system(size: 18))
-                        .padding()
-                        .frame(height: 20)
-    //                    .rotationEffect(.init(degrees: progress * 180))
-            }
+            Text("下拉刷新").frame(height: 60).foregroundColor(Color.init(.sRGB, red: 0.6, green: 0.6, blue: 0.6, opacity: 1.0)).font(.system(size: 14))
         }
         if state == .triggered {
-            VStack(spacing: 0){
-                Image("cat")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .rotationEffect(.init(degrees: progress * 540))
-                Spacer().frame(height: 5)
-                Text("松手加载") // 已经到底了
-                        .font(.system(size: 18))
-                        .padding()
-                        .frame(height: 20)
-    //                    .rotationEffect(.init(degrees: progress * 180))
-            }
+            Text("松手加载").frame(height: 60).foregroundColor(Color.init(.sRGB, red: 0.6, green: 0.6, blue: 0.6, opacity: 1.0)).font(.system(size: 14))
         }
         if state == .loading {
             ProgressView("加载中...")
                 .padding()
-                .frame(height: 60)
+                .frame(height: 60).foregroundColor(Color.init(.sRGB, red: 0.6, green: 0.6, blue: 0.6, opacity: 1.0)).font(.system(size: 14))
         }
         if state == .invalid {
             Spacer()
@@ -70,59 +49,25 @@ struct RefreshDefaultHeader: View {
 struct RefreshDefaultFooter: View {
     
     @Environment(\.footerRefreshData) private var footerRefreshData
-    @EnvironmentObject private var listState: ListState
+    @EnvironmentObject private var listState: ReloadContexts
     
     var body: some View {
         let state = footerRefreshData.refreshState
-        let progress = footerRefreshData.progress
-//        self.printLog(state)
+        //let progress = footerRefreshData.progress
         if state == .stopped {
-//            if progress == 0 {
-//                Text(listState.noMore ? "没有更多了" : "上拉加载更多") // 已经到底了
-//                    .padding()
-//                    .frame(height: 60)
-//            } else {
-            VStack(spacing: 0){
-                Image("cat_walk")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .transformEffect(CGAffineTransform(translationX: CGFloat((progress - 0.5) * 200.0), y: CGFloat(10.0 * sin(progress * 31.416))))
-//                    .transformEffect(.init(translationX: (progress - 0.5) * 200, y: 10 * sin(progress * 31.416)))
-//                    .rotationEffect(.init(degrees: progress * 720))
-                Spacer().frame(height: 5)
-                Text(listState.noMore ? "没有更多了" : "上拉加载更多") // 已经到底了
-                        .font(.system(size: 18))
-                        .padding()
-                        .frame(height: 20)
-    //                    .rotationEffect(.init(degrees: progress * 180))
-            }
-//            }
+            Text(listState.noMore ? "没有更多了" : "上拉加载更多").frame(height: 60).foregroundColor(Color.init(.sRGB, red: 0.6, green: 0.6, blue: 0.6, opacity: 1.0)).font(.system(size: 14))
+            
         }
         if state == .triggered {
-            VStack(spacing: 0){
-                Image("cat_walk")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .transformEffect(CGAffineTransform(translationX: CGFloat((progress - 0.5) * 200.0), y: CGFloat(10.0 * sin(progress * 31.416))))
-//                    .transformEffect(.init(translationX: (progress - 0.5) * 200, y: 10 * sin(progress * 31.416)))
-//                    .rotationEffect(.init(degrees: progress * 720))
-                Spacer().frame(height: 5)
-                Text("松手加载") // 已经到底了
-                        .font(.system(size: 18))
-                        .padding()
-                        .frame(height: 20)
-    //                    .rotationEffect(.init(degrees: progress * 180))
-            }
+            Text("松手加载").frame(height: 60).foregroundColor(Color.init(.sRGB, red: 0.6, green: 0.6, blue: 0.6, opacity: 1.0)).font(.system(size: 14))
         }
         if state == .loading {
             ProgressView("加载中...")
                 .padding()
-                .frame(height: 60)
+                .frame(height: 60).foregroundColor(Color.init(.sRGB, red: 0.6, green: 0.6, blue: 0.6, opacity: 1.0)).font(.system(size: 14))
         }
         if state == .invalid {
-            Spacer()
-                .padding()
-                .frame(height: 60)
+            Spacer().padding().frame(height: 60)
         }
     }
     

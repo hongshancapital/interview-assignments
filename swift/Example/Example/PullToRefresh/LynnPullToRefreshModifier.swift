@@ -8,16 +8,8 @@
 import SwiftUI
 
 extension View {
-    func addPullToRefresh(isHeaderRefreshing: Binding<Bool>?, onHeaderRefresh: (() -> Void)?) -> some View {
-        addPullToRefresh(isHeaderRefreshing: isHeaderRefreshing, onHeaderRefresh: onHeaderRefresh, isFooterRefreshing: nil, onFooterRefresh: nil)
-    }
-    
-    func addPullToRefresh(isFooterRefreshing: Binding<Bool>?, onFooterRefresh: (() -> Void)?) -> some View {
-        addPullToRefresh(isHeaderRefreshing: nil, onHeaderRefresh: nil, isFooterRefreshing: isFooterRefreshing, onFooterRefresh: onFooterRefresh)
-    }
-    
-    func addPullToRefresh(isHeaderRefreshing: Binding<Bool>?, onHeaderRefresh: (() -> Void)?, isFooterRefreshing: Binding<Bool>?, onFooterRefresh: (() -> Void)?) -> some View {
-        modifier(PullToRefreshModifier(isHeaderRefreshing: isHeaderRefreshing, isFooterRefreshing: isFooterRefreshing, onHeaderRefresh: onHeaderRefresh, onFooterRefresh: onFooterRefresh))
+    func addPullToRefresh(isHeaderRefreshing: Binding<Bool>?, onHeaderRefresh: (() -> Void)?, isFooterRefreshing: Binding<Bool>?, onFooterRefresh: (() -> Void)?, isNOMore: (() -> Bool)?) -> some View {
+        modifier(PullToRefreshModifier(isHeaderRefreshing: isHeaderRefreshing, isFooterRefreshing: isFooterRefreshing, onHeaderRefresh: onHeaderRefresh, onFooterRefresh: onFooterRefresh, isNOMore:isNOMore))
     }
 }
 
@@ -25,15 +17,17 @@ extension View {
 struct PullToRefreshModifier: ViewModifier {
     @Binding var isHeaderRefreshing: Bool
     @Binding var isFooterRefreshing: Bool
-    
+
     let onHeaderRefresh: (() -> Void)?
     let onFooterRefresh: (() -> Void)?
-    
-    init(isHeaderRefreshing: Binding<Bool>?, isFooterRefreshing: Binding<Bool>?, onHeaderRefresh: (() -> Void)?, onFooterRefresh: (() -> Void)?) {
+    let isNOMore: (() -> Bool)?
+
+    init(isHeaderRefreshing: Binding<Bool>?, isFooterRefreshing: Binding<Bool>?, onHeaderRefresh: (() -> Void)?, onFooterRefresh: (() -> Void)?, isNOMore: (() -> Bool)?) {
         self._isHeaderRefreshing = isHeaderRefreshing ?? .constant(false)
         self._isFooterRefreshing = isFooterRefreshing ?? .constant(false)
         self.onHeaderRefresh = onHeaderRefresh
         self.onFooterRefresh = onFooterRefresh
+        self.isNOMore = isNOMore
     }
     
     @State private var headerRefreshData = RefreshData()
@@ -81,6 +75,7 @@ struct PullToRefreshModifier: ViewModifier {
 
 extension PullToRefreshModifier {
     private func calculateHeaderRefreshState(_ proxy: GeometryProxy, value: [HeaderBoundsPreferenceKey.Item]) {
+        
         guard let bounds = value.first?.bounds else {
             return
         }
@@ -145,6 +140,10 @@ extension PullToRefreshModifier {
     }
     
     private func calculateFooterRefreshState(_ proxy: GeometryProxy, value: [FooterBoundsPreferenceKey.Item]) {
+        let __isNOMore = isNOMore?() ?? false
+        if __isNOMore {
+            return
+        }
         // value = [content.bounds, footer.bounds]
         guard let bounds = value.last?.bounds else {
             return
