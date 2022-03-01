@@ -57,8 +57,10 @@ struct ContentView: View {
         CellData(icon: "image", title: "18.这里是主标题", subtitle: "这里是副标题", isSelected: false),
     ]
     
-    @Binding var isDone: Bool
-    
+    @State private var headerRefreshing: Bool = false
+    @State private var footerRefreshing: Bool = false
+    @State private var listState = ListState()
+
     init(){
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().accessoryType = .none
@@ -71,6 +73,49 @@ struct ContentView: View {
                     CellView(data: data).padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                 }
             }.navigationBarTitle(Text("首页"), displayMode:.large)
+        }
+    }
+    
+    // 下拉刷新、上拉加载
+    var headerFooterRefresh: some View {
+        ScrollView {
+            PullToRefreshView(header: RefreshDefaultHeader(), footer: RefreshDefaultFooter()) {
+                ListView(items: dataArray)
+            }.environmentObject(listState)
+        }
+        .addPullToRefresh(isHeaderRefreshing: $headerRefreshing, onHeaderRefresh: reloadData,
+                          isFooterRefreshing: $footerRefreshing, onFooterRefresh: loadMoreData)
+    }
+}
+
+
+struct ListView : View {
+    @State private var dataArray = [
+        CellData(icon: "image", title: "1.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "2.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "3.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "4.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "5.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "6.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "7.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "8.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "9.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "10.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "11.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "12.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "13.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "14.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "15.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "16.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "17.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+        CellData(icon: "image", title: "18.这里是主标题", subtitle: "这里是副标题", isSelected: false),
+    ]
+    
+    var body: some View {
+        VStack {
+            ForEach(items) { item in
+                itemRow(item)
+            }
         }
     }
 }
