@@ -1,7 +1,7 @@
 import { ShortUrlGenerator } from "../utils/shorturlgenerator";
 import { ShortUrlDao } from "../db/shorturldao";
 import { redisCache } from "../cache/redis"
-import cfgs from "../config/config";
+import cfg from "../config/config";
 
 /**
  * 
@@ -28,13 +28,13 @@ class ShortUrlService  {
         }
 
         // handleDuplicate通过布隆过滤器来判定是否重复生成
-        shortUrlID  = await this.handleDuplicate(srcLongUrl + cfgs.retrynum.toString(), cfgs.retrynum)
+        shortUrlID  = await this.handleDuplicate(srcLongUrl + cfg.retryNum.toString(), cfg.retryNum)
         if (shortUrlID == "") {
             return null;
         }
 
         // 新增到数据库、布隆过滤器、缓存中
-        let result = await this.shortUrlDao.create({"shorturlid":shortUrlID, "originalurl":srcLongUrl, "createdate":(new Date()).toLocaleDateString()});
+        let result = await this.shortUrlDao.create({"shorturl_id":shortUrlID, "original_url":srcLongUrl, "create_date":(new Date()).toLocaleDateString()});
         if (result == null) {
             return null;
         }
@@ -65,9 +65,9 @@ class ShortUrlService  {
          }
 
         // 添加缓存
-        await redisCache.SetVal(strShortUrlID, shortUrl.originalurl); 
+        await redisCache.SetVal(strShortUrlID, shortUrl.original_url); 
 
-        return shortUrl.originalurl;
+        return shortUrl.original_url;
      }
 
     /**
@@ -79,7 +79,7 @@ class ShortUrlService  {
         }
 
         let strurl: string = "";
-        let strurlArr: Array<string> = await ShortUrlGenerator(originalUrl, cfgs.urllen);
+        let strurlArr: Array<string> = await ShortUrlGenerator(originalUrl, cfg.urlLen);
         for(let i: number = 0; i<strurlArr.length; i++) {
             let idExists = await this.shortUrlDao.getByShortUrlid(strurlArr[i]);
             if (!idExists) {
@@ -99,7 +99,7 @@ class ShortUrlService  {
     
     //完成链接的域名转换 
     public addDefaultDomain(shortUrlID: string): string {
-        return cfgs.shorturl_pre+shortUrlID;        
+        return cfg.shortUrlPre+shortUrlID;        
     }      
 
     public RemoveDefaultDomain(shortUrl: string): string {

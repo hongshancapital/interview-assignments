@@ -1,14 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from "typeorm";
 
-
+// 类和成员名称要保持和数据库信息一致
 @Entity("short_url")
-export class ShortUrl {
+export class short_url {
     @PrimaryColumn()
-    public shorturlid!: string;
+    public shorturl_id!: string;
 
     @Column()
-    public originalurl!: string;
+    public original_url!: string;
 
     @Column()
-    public createdate!: string;
+    public create_date!: string;
 }

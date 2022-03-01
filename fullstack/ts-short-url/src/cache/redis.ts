@@ -1,9 +1,9 @@
 import { createClient } from 'redis'
 
-import cfgs  from "../config/config"
+import cfg  from "../config/config"
 
-// Redis缓存
-const redisClient = createClient({url: cfgs.redisUrl,})
+// 创建Redis客户端创建
+const redisClient = createClient({url: cfg.redisUrl,})
 
 export class RedisCache {
 
@@ -27,15 +27,15 @@ export class RedisCache {
     }
 
     async SetVal(cacheKey: any, cacheVal: any) {
-        return await redisClient.setEx(cacheKey, cfgs.cacheTime, cacheVal);
+        return await redisClient.setEx(cacheKey, cfg.cacheTime, cacheVal);
     }
 
     async BfAdd(bfVal: any) {
-        return await redisClient.sendCommand(['BF.ADD', cfgs.urlFilter, bfVal])
+        return await redisClient.sendCommand(['BF.ADD', cfg.urlFilter, bfVal])
     }
 
     async BfExists(bfVal: any) {
-        const ret = await redisClient.sendCommand(['BF.EXISTS', cfgs.urlFilter, bfVal])
+        const ret = await redisClient.sendCommand(['BF.EXISTS', cfg.urlFilter, bfVal])
         return ret == 1;
     }
 }

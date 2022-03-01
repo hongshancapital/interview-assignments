@@ -19,13 +19,13 @@ export default class ShortUrlCtrl {
                 if (strShortUrl != null) {
                     res.json((new ShortUrlRes(true, ServerCode.SU_SUCCES, strShortUrl)).buildJson());
                 } else {
-                    res.json((new ShortUrlRes(false, ServerCode.SU_SERVER_CREATE_SHORTURL_FAIL)).buildJson());
+                    res.json((new ShortUrlRes(false, ServerCode.SU_CREATE_SHORTURL_FAIL)).buildJson());
                 }
             } else {
                 res.json((new ShortUrlRes(false, ServerCode.SU_REQ_ARG_ERROR)).buildJson());
             }
         } catch (error) {
-            apiErrorHandler(error, req, res, 'ShortUrl Pro failed.');
+            apiErrorHandler(error, req, res, 'short_url Pro failed.');
         }
     }
 
@@ -38,7 +38,7 @@ export default class ShortUrlCtrl {
                 if (strOriginalUrl != null) {
                     res.json((new OriginalurlRes(true, ServerCode.SU_SUCCES, strOriginalUrl)).buildJson());
                 } else {
-                    res.json((new OriginalurlRes(false, ServerCode.SU_SERVER_CAN_NOT_FIND_URL)).buildJson());
+                    res.json((new OriginalurlRes(false, ServerCode.SU_CAN_NOT_FIND_URL)).buildJson());
                 }
             } else {
                 res.json((new OriginalurlRes(false, ServerCode.SU_REQ_ARG_ERROR)).buildJson());

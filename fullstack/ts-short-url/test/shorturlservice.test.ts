@@ -111,7 +111,7 @@ describe('originalUrl接口测试', () => {
     const res = await createOriginalUrlApi(strShortErrorUrl);
     expect(res.statusCode).toEqual(200)
     expect(res.body.success).toEqual(false);
-    expect(res.body.code).toEqual("SU_SERVER_CAN_NOT_FIND_URL");
+    expect(res.body.code).toEqual("SU_CAN_NOT_FIND_URL");
    })
 })
 

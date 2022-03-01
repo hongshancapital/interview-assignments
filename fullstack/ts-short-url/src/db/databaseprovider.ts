@@ -1,6 +1,6 @@
 import {Connection, createConnection} from 'typeorm';
-import { ShortUrl } from '../models/shorturl';
-import cfgs  from "../config/config"
+import { short_url } from '../models/shorturl';
+import cfg  from "../config/config"
 
 export interface DatabaseConfiguration {
     type: 'postgres' | 'mysql' | 'mssql';
@@ -19,12 +19,12 @@ export class DatabaseProvider {
     public static async InitDB() {
         DatabaseProvider.configuration = {
             type: 'mysql',
-            host: cfgs.db_host,
-            port: cfgs.db_port,
-            username: cfgs.db_username,
-            password: cfgs.db_password,
-            database: cfgs.db_name,                        
-            ssl: cfgs.db_ssl
+            host: cfg.dbHost,
+            port: cfg.dbPort,
+            username: cfg.dbUserName,
+            password: cfg.dbPassword,
+            database: cfg.dbName,                        
+            ssl: cfg.dbSSL
         }
 
         const { type, host, port, username, password, database, ssl } = DatabaseProvider.configuration;
@@ -34,11 +34,10 @@ export class DatabaseProvider {
                 ssl
             },
             entities: [
-                ShortUrl
+                short_url
             ],
             autoSchemaSync: true
-        } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here
-
+        } as any);
     }
 
     public static async UnitDB() {

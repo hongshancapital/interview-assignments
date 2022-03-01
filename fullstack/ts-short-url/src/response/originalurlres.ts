@@ -6,7 +6,7 @@ export class OriginalurlRes extends PublicRes {
 
     constructor(success: boolean, errorMsg: string, originalUrl?: string) {
         super(success, errorMsg);
-        this.originalUrl = originalUrl
+        this.originalUrl = originalUrl;
     }
 
     public buildJson(): any {
