@@ -70,11 +70,7 @@ struct MasterView: View {
         self.count = 0
         self.reload.setNoMore(false)
         
-        guard let url = URL(string: APIs.list) else {
-            return
-        }
-        
-        service.run(URLRequest(url: url)) { wrapped in
+        service.get(APIs.list) { wrapped in
             guard wrapped.code == 200 else {
                 //请求异常
                 return;
@@ -120,11 +116,7 @@ struct MasterView: View {
         
         Logger.print("loadMoreData ... \(footerRefreshing)")
         
-        guard let url = URL(string: APIs.list) else {
-            return
-        }
-        
-        service.run(URLRequest(url: url)) { wrapped in
+        service.get(APIs.list) { wrapped in
             guard wrapped.code == 200 else {
                 //请求异常
                 return;

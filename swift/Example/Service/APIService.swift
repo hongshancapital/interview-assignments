@@ -16,31 +16,48 @@ struct APIService {
         var data : Any? = nil
     }
     
-    
-    func run(_ request: URLRequest, completion:((_ data: APIService.Wrapped) -> ())?) { // 2
-        let task = URLSession.shared.dataTask(with: request) { data, res, error in
+    //get请求
+    func get(_ url: String, completion:((_ data: APIService.Wrapped) -> ())?) {
+        guard let url = URL(string: url) else {
+            let wrapped = APIService.Wrapped(code: 0, msg: "无效的URL:\(url)", data: nil)
+            self.returnWrapped(wrapped, completion: completion)
+            return
+        }
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, res, error in
             if let data = data {
                 do  {
                     let data = try JSONSerialization.jsonObject(with: data, options: [])
-                    Logger.print("data:\(data)")
-
                     let wrapped = APIService.Wrapped(code: 200, msg: "", data: data)
-                    completion?(wrapped)
-                    
+                    self.returnWrapped(wrapped, completion: completion)
                     return
                 }
                 catch{
                     
                 }
             }
-            else {
-                Logger.print("error:\(error?.localizedDescription ?? "")")
-            }
             
-            let wrapped = APIService.Wrapped(code: 0, msg: error?.localizedDescription ?? "", data: nil)
-            completion?(wrapped)
-            
+            let wrapped = APIService.Wrapped(code: 0, msg: error?.localizedDescription ?? "出错了", data: nil)
+            self.returnWrapped(wrapped, completion: completion)
         }
         task.resume()
+    }
+    
+    //post请求
+    func post(_ request: URLRequest, completion:((_ data: APIService.Wrapped) -> ())?) {
+        
+    }
+    
+    //全局处理异常
+    func returnWrapped(_ wrapped:APIService.Wrapped, completion:((_ data: APIService.Wrapped) -> ())?){
+        /*
+        错误处理
+         */
+        if let data = wrapped.data {
+            Logger.print("data:\(data)")
+        }
+        else {
+            Logger.print("error:\(wrapped.msg)")
+        }
+        completion?(wrapped)
     }
 }
