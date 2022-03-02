@@ -1,3 +1,9 @@
+# 系统架构设计
+web-->service-->Cache
+# 技术选项
+1.服务：使用springboot快速打架系统
+2.本地缓存：使用google Cache 实现数据缓存，满足系统LRU原则
+3.算法：使用摘要算法，
 # 工程简介
 common--基础公共包，存放返回结果及缓存工具类
 config--配置包，swagger配置
@@ -21,3 +27,12 @@ service--服务包，短域名服务接口及实现
 2. 对这四段循环处理, 取8个字节, 将他看成16进制串与0x3fffffff(30位1)与操作, 即超过30位的忽略处理；
    这30位分成6段, 每5位的数字作为字母表的索引取得特定字符, 依次进行获得6位字符串；
 3. 总的md5串可以获得4个6位串，按顺序取结果中的短域名编码，如果出现重复，则继续取下一个短域名编码
+
+#测试样例
+**测试数据**
+1. http://localhost:8080/longUrlToShortUrl?url=http://www.baidu.com
+2.http://localhost:8080/shortUrlToLongUrl?shortUrl=http://t.cn/QRrIFn
+
+#调用时序图
+1.长链接转短链接时序图
+![](Sequence_Diagram_long2short.png)

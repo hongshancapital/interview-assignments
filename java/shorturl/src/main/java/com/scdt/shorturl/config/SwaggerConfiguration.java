@@ -12,14 +12,21 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * @author leo
- * @Description Swagger配置类
- * @date 2022/2/26 09:32
- */
+* @description Swagger配置类
+* @author Leo
+* @date 2022/3/2 16:42
+**/
 @Configuration
 @EnableOpenApi
 public class SwaggerConfiguration {
 
+    /**
+    * @description: 配置 SwaggerBean
+    * @param
+    * @return: Docket
+    * @author: Leo
+    * @date: 2022/3/2 16:47
+    */
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
@@ -30,11 +37,18 @@ public class SwaggerConfiguration {
                 .build();
     }
 
+    /**
+    * @description: apiInfo
+    * @param
+    * @return:
+    * @author: Leo
+    * @date: 2022/3/2 16:48
+    */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Swagger3接口文档测试")
                 .description("文档描述：更多问题，请联系开发者")
-                .contact(new Contact("francis", "https://www.cdt.cn", "fengyunli@163.com"))
+                .contact(new Contact("Leo", "https://www.scdt.cn", "fengyunli@163.com"))
                 .version("1.0")
                 .build();
     }
