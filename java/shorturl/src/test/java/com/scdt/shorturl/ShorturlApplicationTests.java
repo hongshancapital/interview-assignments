@@ -27,21 +27,6 @@ class ShorturlApplicationTests {
 	void contextLoads() {
 	}
 
-	@Autowired
-	private ShortUrlController shortUrlController;
-
-	@Test
-	public void testLongUrlToShortUrl() {
-		String longUrl = "https://jumps.sf-express.com/ui/#/";
-		Result<Object> response = shortUrlController.longUrlToShortUrl(longUrl);
-		Assert.isTrue(StringUtils.isNotEmpty((String)response.getData()), "success");
-	}
-
-	@Test
-	public void testErrorLongUrlToShortUrl() {
-		String longUrl = "11111123131";
-		Result<Object> response = shortUrlController.longUrlToShortUrl(longUrl);
-	}
 
 	@Test
 	public void testGetUrl() throws Exception {
@@ -54,36 +39,49 @@ class ShorturlApplicationTests {
 		assertEquals(longUrl, result2.getData());
 	}
 
+	@Test
+	public void testGetUrl2() throws Exception {
+		String longUrl = "https://jumps.sf-express.com/ui/#/";
+		MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/longUrlToShortUrl").queryParam("url", longUrl)).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+		Result<String> result1 = JSONObject.parseObject(mvcResult1.getResponse().getContentAsString(), Result.class);
+		String shortUrl = result1.getData();
+		 mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/longUrlToShortUrl").queryParam("url", longUrl)).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+		result1 = JSONObject.parseObject(mvcResult1.getResponse().getContentAsString(), Result.class);
+		 shortUrl = result1.getData();
+		MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/shortUrlToLongUrl").queryParam("shortUrl", shortUrl)).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+		Result<String> result2 = JSONObject.parseObject(mvcResult2.getResponse().getContentAsString(), Result.class);
+		assertEquals(longUrl, result2.getData());
+	}
+
+	@Test
+	public void testGetUrl1() throws Exception {
+		String longUrl = "123424141";
+		MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/longUrlToShortUrl").queryParam("url", longUrl)).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+		Result<String> result1 = JSONObject.parseObject(mvcResult1.getResponse().getContentAsString(), Result.class);
+		assertEquals(500, result1.getCode());
+
+	}
+
 	/**
-	 * 获取长域名
+	 * 获取长域名 测试系统异常信息
 	 *
 	 * @throws Exception
 	 */
 	@Test
 	public void testExceptionGetUrl() throws Exception {
-		String longUrl = "https://cn.bing.com/";
-		MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/longUrlToShortUrl").queryParam("url", longUrl)).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-		Result<String> result1 = JSONObject.parseObject(mvcResult1.getResponse().getContentAsString(), Result.class);
-		String shortUrl = result1.getData();
-		MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/shortUrlToLongUrl").queryParam("shortUrl", "9999")).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+
+		String shortUrl = "http://t.cn/896950f4";
+		MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/shortUrlToLongUrl").queryParam("shortUrl", shortUrl)).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
 		Result<String> result2 = JSONObject.parseObject(mvcResult2.getResponse().getContentAsString(), Result.class);
-		//assertEquals(longUrl, result2.getData());
+		assertEquals(500, result2.getCode());
 	}
 
 	@Test
 	public void testExceptionGetUrl2() throws Exception {
-		ServerException serverException = new ServerException(500,"errr");
-	}
 
-	@Test
-	public void testcommon() throws Exception {
-		Result result = new  Result(200,"success");
-		result.equals(result);
-	}
-
-	@Test
-	public void testcommon2() throws Exception {
-		UrlCache c = new UrlCache();
-		UrlCache.contains("100");
+		String shortUrl = "http://3333";
+		MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/shortUrlToLongUrl").queryParam("shortUrl", shortUrl)).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+		Result<String> result2 = JSONObject.parseObject(mvcResult2.getResponse().getContentAsString(), Result.class);
+		assertEquals(500, result2.getCode());
 	}
 }
