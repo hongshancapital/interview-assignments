@@ -1,17 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { SHOW_TIME, TRANSITION_TIME, assets } from './options'
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { SHOW_TIME, TRANSITION_TIME } from './options'
 import styles from './index.module.css'
 
-interface Options {
+interface CarouselProps {
   // 切换时间间隔
-  interval?: number
+  interval?: number,
+  children?: React.ReactNode[]
 }
+
+interface CarouselItemProps {
+  children?: React.ReactNode
+}
+
 interface LayoutInfo {
   containerWidth: number,
   itemWidth: number
 }
 
-export default function Carousel(options: Options) {
+const CarouselContext = createContext<LayoutInfo>({
+  containerWidth: 0,
+  itemWidth: 0
+})
+
+function CarouselItem(props: CarouselItemProps) {
+  const { itemWidth } = useContext(CarouselContext)
+  return (
+    <div className={styles.carousel__item} style={{ width: itemWidth }}>{ props.children }</div>
+  )
+}
+
+export default function Carousel(props: CarouselProps) {
+  const { interval = SHOW_TIME, children = [] } = props
   const carouselRef = useRef<HTMLDivElement>(null)
   // 记录每一张幻灯片开始展示时刻
   const startTime = useRef<number>(0)
@@ -34,10 +53,10 @@ export default function Carousel(options: Options) {
   useEffect(() => {
     const { clientWidth } = carouselRef.current!
     setLayoutInfos({
-      containerWidth: clientWidth * assets.length,
+      containerWidth: clientWidth * children.length,
       itemWidth: clientWidth
     })
-  }, [])
+  }, [children])
 
   /**
    * 处理当前浏览器标签页隐藏-显示时动画衔接
@@ -66,14 +85,13 @@ export default function Carousel(options: Options) {
     startTime.current = Date.now()
 
     function startCarousel() {
-      const { interval = SHOW_TIME } = options
       const now = Date.now()
       const displayedTime = now - startTime.current
 
       if (displayedTime >= interval) {
         setProgress(0)
         startTime.current = Date.now()
-        setActive(idx => idx >= assets.length - 1 ? 0 : idx + 1)
+        setActive(idx => idx >= children.length - 1 ? 0 : idx + 1)
       } else {
         setProgress(displayedTime / interval)
       }
@@ -88,43 +106,37 @@ export default function Carousel(options: Options) {
     return () => {
       mounted = false
     }
-  }, [])
+  }, [interval, children])
 
   return (
-    <div className={styles.carousel} ref={carouselRef} data-testid="carousel">
-      <div 
-        className={styles.container} 
-        style={{
-          width: layoutInfos.containerWidth,
-          transform: `translateX(-${active * layoutInfos.itemWidth}px)`,
-          transitionDuration: `${TRANSITION_TIME}ms`
-        }}
-      >
-        {
-          assets.map(asset => (
-            <div 
-              className={styles.carousel__item} 
-              key={asset.id} 
-              style={{ width: layoutInfos.itemWidth, backgroundColor: asset.backgroundColor }}
-            >
-              { asset.children }
-            </div>
-          ))
-        }
+    <CarouselContext.Provider value={layoutInfos}>
+      <div className={styles.carousel} ref={carouselRef} data-testid="carousel">
+        <div
+          className={styles.container}
+          style={{
+            width: layoutInfos.containerWidth,
+            transform: `translateX(-${active * layoutInfos.itemWidth}px)`,
+            transitionDuration: `${TRANSITION_TIME}ms`
+          }}
+        >
+          {children}
+        </div>
+        <ul className={styles.indicators}>
+          {
+            children.map((child, idx) => (
+              <li className={styles.indicator} key={(child as React.ReactElement).key}>
+                {
+                  active === idx
+                    ? (<span className={styles.indicator__bar} style={{ width: `${progress / 1 * 100}%` }} />)
+                    : null
+                }
+              </li>
+            ))
+          }
+        </ul>
       </div>
-      <ul className={styles.indicators}>
-        {
-          assets.map((i, idx) => (
-            <li className={styles.indicator} key={i.id}>
-              {
-                active === idx
-                  ? (<span className={styles.indicator__bar} style={{ width: `${progress / 1 * 100}%` }} />)
-                  : null
-              }
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    </CarouselContext.Provider>
   )
 }
+
+Carousel.Item = CarouselItem

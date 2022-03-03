@@ -1,6 +1,6 @@
 .carousel {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   position: relative;
 }
@@ -16,7 +16,6 @@
 .carousel .container .carousel__item {
   height: 100%;
   overflow-x: hidden;
-  position: relative;
   display: inline-block;
 }
 
@@ -28,18 +27,30 @@
   z-index: 1;
 }
 
-.carousel .container .carousel__item .ads .title {
+.carousel .container .carousel__item .demo {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel .container .carousel__item .demo .ads .title {
   font-size: 50px;
   line-height: 60px;
-  color: #000;
+  color: inherit;
   margin: 0;
+  white-space: pre-line;
+  text-align: center;
 }
 
-.carousel .container .carousel__item .ads .title.white {
-  color: #fff;
+.carousel .container .carousel__item .demo .ads .subtitle {
+  font-size: 40px;
+  line-height: 50px;
+  color: inherit;
+  white-space: pre-line;
+  text-align: center;
 }
 
-.carousel .container .carousel__item .bg {
+.carousel .container .carousel__item .demo .bg {
   display: block;
   height: 60%;
   position: absolute;
