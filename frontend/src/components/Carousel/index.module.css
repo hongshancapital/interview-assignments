@@ -1,0 +1,81 @@
+.carousel {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel .container {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
+  transition-property: transform;
+  transition-timing-function: ease;
+}
+
+.carousel .container .carousel__item {
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
+  display: inline-block;
+}
+
+.carousel .container .carousel__item .ads {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.carousel .container .carousel__item .ads .title {
+  font-size: 50px;
+  line-height: 60px;
+  color: #000;
+  margin: 0;
+}
+
+.carousel .container .carousel__item .ads .title.white {
+  color: #fff;
+}
+
+.carousel .container .carousel__item .bg {
+  display: block;
+  height: 60%;
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
+}
+
+.carousel .indicators {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 30px;
+}
+
+.carousel .indicators .indicator {
+  list-style: none;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 40px;
+  height: 2px;
+  background-color: rgb(144, 144, 144);
+  border-radius: 1px;
+  outline: none;
+  border: none;
+  line-height: 0;
+}
+
+.carousel .indicators .indicator + .indicator {
+  margin-left: 8px;
+}
+
+.carousel .indicators .indicator .indicator__bar {
+  float: left;
+  border-radius: 1px;
+  height: 100%;
+  background-color: #fff;
+}
