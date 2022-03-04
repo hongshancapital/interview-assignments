@@ -5,8 +5,6 @@ import com.hongshan.homework.pojo.S2LURLMapper;
 import com.hongshan.homework.service.URLConvertService;
 import com.hongshan.homework.util.L2SConverUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.support.ExampleMatcherAccessor;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
