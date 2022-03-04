@@ -1,7 +1,12 @@
 package com.hongshan.homework.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.DigestUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+@Slf4j
 public class L2SConverUtil {
     public static String[] convert(String longURL) {
         String rlt = null;
@@ -39,9 +44,9 @@ public class L2SConverUtil {
                 hexint = hexint >> 5;
             }
             //把字符串存入对应索引的输出数组
+            log.info("resUrl[]:"+outChars);
             resUrl[i] = outChars;
         }
         return resUrl;
-
     }
 }
