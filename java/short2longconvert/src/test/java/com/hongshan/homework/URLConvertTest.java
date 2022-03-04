@@ -121,6 +121,9 @@ public class URLConvertTest {
         log.info(mvcResult.getResponse().getContentAsString());
 
         s2LURLMapperRepository.deleteById("InyqEr");
+        s2LURLMapperRepository.deleteById("JzYRfu");
+        s2LURLMapperRepository.deleteById("vuUjYf");
+        s2LURLMapperRepository.deleteById("BbYNju");
     }
 
 }
