@@ -1,56 +1,49 @@
 import React from "react";
-import classnams from "classnames";
 
 import styles from "./App.module.css";
-import Carousel from "./components/carousel";
+import { Carousel, Board, BoardProps } from "./components";
 import iphoneImg from "./assets/iphone.png";
 import tabletImg from "./assets/tablet.png";
 import airpodsImg from "./assets/airpods.png";
 
+const borads: BoardProps[] = [
+  {
+    src: iphoneImg,
+    contents: [
+      { text: "xPhone", type: "title" },
+      { text: "Lost to love. Less to spend.", type: "text" },
+      { text: "Starting at $399.", type: "text" },
+    ],
+    className: styles.iphone,
+  },
+  {
+    src: tabletImg,
+    contents: [
+      { text: "Tablet", type: "title" },
+      { text: "Just the right amount of everying.", type: "text" },
+    ],
+    className: styles.tablet,
+  },
+  {
+    src: airpodsImg,
+    contents: [
+      { text: "Bug a Tablet or xPhone for college.", type: "title" },
+      { text: "Get airPods.", type: "title" },
+    ],
+    className: styles.airpods,
+  },
+];
+
 function App() {
-  const iphoneClassName = classnams({
-    [styles.board]: true,
-    [styles.iphone]: true,
-  });
-  const tabletClassName = classnams({
-    [styles.board]: true,
-    [styles.tablet]: true,
-  });
-  const airpodsClassName = classnams({
-    [styles.board]: true,
-    [styles.airpods]: true,
-  });
+  const renderBoards = () => {
+    return borads.map((item, index) => {
+      return <Board key={index} {...item} />;
+    });
+  };
 
   return (
     <div className={styles.app}>
-      <Carousel autoplay>
-        <div className={iphoneClassName}>
-          <div className={styles.content}>
-            <span className={styles.title}>xPhone</span>
-            <span className={styles.text}>Lost to love. Less to spend.</span>
-            <span className={styles.text}>Starting at $399.</span>
-          </div>
-          <img src={iphoneImg} className={styles.img} />
-        </div>
-        <div className={tabletClassName}>
-          <div className={styles.content}>
-            <span className={styles.title}>Tablet</span>
-            <span className={styles.text}>
-              Just the right amount of everying.
-            </span>
-          </div>
-          <img src={tabletImg} className={styles.img} />
-        </div>
-        <div className={airpodsClassName}>
-          <div className={styles.content}>
-            <span className={styles.title}>
-              Bug a Tablet or xPhone for college.
-            </span>
-            <span className={styles.title}>Get airPods.</span>
-          </div>
-          <img src={airpodsImg} className={styles.img} />
-        </div>
-      </Carousel>
+      <Carousel autoplay>{renderBoards()}</Carousel>
     </div>
   );
 }

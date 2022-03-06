@@ -1,0 +1,28 @@
+.board{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+.img{
+  align-self: center;
+  height: 500px;
+  position: absolute;
+  bottom: 100px;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  padding-top: 200px;
+  z-index: 1;
+}
+.content > .title{
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+.content > .text{
+  font-size: 30px;
+}
