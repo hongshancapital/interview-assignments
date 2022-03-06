@@ -1,4 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+html{
+  width: 100%;
+  height: 100%;
+}
 body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -7,7 +18,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }

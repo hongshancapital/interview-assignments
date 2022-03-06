@@ -1,0 +1,45 @@
+.carousel{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.carouselPanel{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.carouselItem{
+  display: flex;
+  flex-direction: column;
+}
+
+.indicator{
+  display: flex;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.progress{
+  display: block;
+  margin: 0 8px;
+  height: 2px;
+  width: 40px;
+  background-color: #bbbbbb;
+  border-radius: 1px;
+  cursor: pointer;
+}
+.progress > span{
+  display: block;
+  height: 2px;
+  background-color: #ffffff;
+  width: 0px;
+}
