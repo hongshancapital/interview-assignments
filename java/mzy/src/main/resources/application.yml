@@ -1,0 +1,15 @@
+server:
+  port: 16888
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: mzy
+    password: 123
+    schema: classpath:db/schema.sql
+#    data: classpath:db/data.sql
+    platform: h2
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
