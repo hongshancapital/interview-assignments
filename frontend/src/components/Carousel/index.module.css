@@ -8,7 +8,6 @@
 .carousel .container {
   width: 100%;
   height: 100%;
-  transition: transform 0.4s ease;
   transition-property: transform;
   transition-timing-function: ease;
 }
@@ -65,28 +64,51 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .carousel .indicators .indicator {
   list-style: none;
-  display: inline-block;
   box-sizing: border-box;
   width: 40px;
-  height: 2px;
-  background-color: rgb(144, 144, 144);
+  height: 20px;
   border-radius: 1px;
-  outline: none;
-  border: none;
-  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .carousel .indicators .indicator + .indicator {
   margin-left: 8px;
 }
 
+.carousel .indicators .indicator:hover .indicator__bar {
+  animation-play-state: paused;
+}
+
+@keyframes progress-move {
+  from {
+    background-position-x: -40px;
+  }
+
+  to {
+    background-position-x: 0;
+  }
+}
+
 .carousel .indicators .indicator .indicator__bar {
-  float: left;
   border-radius: 1px;
-  height: 100%;
-  background-color: #fff;
+  width: 100%;
+  height: 2px;
+  background-color: #909090;
+  background-image: linear-gradient(to right, #fff 0%, #fff 100%);
+  background-position-x: -40px;
+  background-repeat: no-repeat;
+}
+
+.carousel .indicators .indicator .indicator__bar.indicator-active {
+  animation-name: progress-move;
+  animation-timing-function: linear;
 }

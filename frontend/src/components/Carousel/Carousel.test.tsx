@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, act } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
 import Carousel from './index'
 
 function wait(time: number) {
@@ -10,6 +10,7 @@ function wait(time: number) {
 
 describe('Carousel Component', () => {
   const interval = 1500
+  const speed = 100
   let carouselEl: HTMLDivElement
   let containerEl: HTMLDivElement
   let indicatorsEl: HTMLUListElement
@@ -21,7 +22,7 @@ describe('Carousel Component', () => {
 
   beforeEach(() => {
     const { getByTestId } = render(
-      <Carousel interval={interval}>
+      <Carousel interval={interval} speed={speed}>
         {
           data.map(i => (
             <Carousel.Item key={i.id}>
@@ -70,17 +71,25 @@ describe('Carousel Component', () => {
    */
   test('Start carousel', async () => {
     await act(async () => {
-      const [firstIndicatorEl, secondIndicatorEl] = Array.from(indicatorsEl.children) as [HTMLLIElement, HTMLLIElement, HTMLLIElement]
       expect(containerEl.style.transform).toBe(`translateX(-0px)`)
-      expect(firstIndicatorEl.querySelector('span')).toBeInTheDocument()
 
       await wait(interval + 10)
       expect(containerEl.style.transform).toBe(`translateX(-${containerEl.clientWidth}px)`)
-      expect(secondIndicatorEl.querySelector('span')).toBeInTheDocument()
 
       await wait(interval + 10)
       expect(containerEl.style.transform).toBe(`translateX(-0px)`)
-      expect(firstIndicatorEl.querySelector('span')).toBeInTheDocument()
     })
   }, 10000)
+
+  /**
+   * 点击指示器跳转
+   */
+  test('Click indicator', async () => {
+    await act(async () => {
+      const [, secondIndicatorEl] = Array.from(indicatorsEl.children) as HTMLLIElement[]
+      fireEvent.click(secondIndicatorEl)
+      await wait(speed + 10)
+      expect(containerEl.style.transform).toBe(`translateX(-${containerEl.clientWidth}px)`)
+    })
+  })
 })
