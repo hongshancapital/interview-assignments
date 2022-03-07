@@ -78,6 +78,6 @@
 1. https://xie.infoq.cn/article/483fcfbe3f942cb1fa9d9ce20
 
 
-
+简历在java目录下。
 
 感谢面试官的批阅，期待加入红杉团队中。
