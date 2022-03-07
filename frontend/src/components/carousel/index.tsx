@@ -4,6 +4,7 @@ import React, {
   FC,
   ReactNode,
   TransitionEventHandler,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -24,7 +25,6 @@ interface CarouselProps {
 
 const Carousel: FC<CarouselProps> = (props) => {
   const { children, delay = 3000, autoplay = false, onChange } = props;
-  const count = Children.count(children);
   const ref = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const size = useResizeObserver(ref);
@@ -33,6 +33,13 @@ const Carousel: FC<CarouselProps> = (props) => {
     if (!size) return 0;
     return size.width * index;
   }, [size, index]);
+  const [count, setCount] = useState(() => {
+    return Children.count(children);
+  });
+  if (count !== Children.count(children)) {
+    setCount(Children.count(children));
+    index !== 0 && setIndex(0);
+  }
   // closure trap
   const onChangeRef = useRef<CarouselProps["onChange"]>();
   onChangeRef.current = onChange;
@@ -64,13 +71,16 @@ const Carousel: FC<CarouselProps> = (props) => {
       setIndex(0);
     }
   };
-  const gotoIndex = (i: number) => {
-    if (i === index) return;
-    let realIndex = i;
-    if (i >= count) realIndex = 0;
-    setIndex(i);
-    onChangeRef.current && onChangeRef.current(realIndex);
-  };
+  const gotoIndex = useCallback(
+    (i: number) => {
+      if (i === index) return;
+      let realIndex = i;
+      if (i >= count) realIndex = 0;
+      setIndex(i);
+      onChangeRef.current && onChangeRef.current(realIndex);
+    },
+    [count, index]
+  );
 
   useEffect(() => {
     if (!autoplay) return;
@@ -80,8 +90,7 @@ const Carousel: FC<CarouselProps> = (props) => {
     return () => {
       clearTimeout(timer);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, delay, autoplay]);
+  }, [index, delay, autoplay, gotoIndex]);
 
   return (
     <div ref={ref} className={styles.carousel}>
