@@ -21,7 +21,7 @@ public class TinyUrlController {
     @ApiResponses({
             @ApiResponse(code = 201, message = "返回短网址标识"),
             @ApiResponse(code = 400, message = "参数不合法。url须符合规范"),
-            @ApiResponse(code = 503, message = "服务器限流或存储空间已满")
+            @ApiResponse(code = 503, message = "服务器限流")
     })
     public String createTinyUrl(@ApiParam("原始网址") @RequestBody String url) {
         LOGGER.info("url: {}", url);
