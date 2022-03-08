@@ -1,0 +1,18 @@
+spring:
+  redis:
+    ## 自己搭建的服务器，随便玩
+    host: 47.103.32.78
+    port: 6379
+    password:
+    database: 0 # 指定redis的分库
+  application:
+    name: demo
+
+server:
+  port: 8080
+  servlet:
+    context-path: /demo/api/
+short:
+  url:
+    prefix: http://a.cn/
+    timeout: 50000
