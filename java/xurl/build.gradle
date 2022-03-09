@@ -1,0 +1,42 @@
+plugins {
+    id "org.springframework.boot" version "2.6.3"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id "java"
+}
+
+group = "cn.sequoiacap.interview"
+version = "0.0.1-SNAPSHOT"
+
+repositories {
+    maven {
+        url "https://maven.aliyun.com/repository/central"
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter:2.6.3"
+    implementation "org.springframework.boot:spring-boot-starter-web:2.6.3"
+    implementation "ch.qos.logback:logback-core:1.2.10"
+    implementation "ch.qos.logback:logback-classic:1.2.10"
+    implementation "org.slf4j:slf4j-api:1.7.35"
+    implementation "org.projectlombok:lombok:1.18.22"
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+    implementation "io.springfox:springfox-swagger-ui:3.0.0"
+    implementation "commons-validator:commons-validator:1.7"
+
+    annotationProcessor "org.projectlombok:lombok:1.18.22"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.6.3"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:2.6.3"
+    testImplementation "org.mockito:mockito-inline:4.3.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-api:5.8.2"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-params:5.8.2"
+    testRuntimeOnly "org.junit.platform:junit-platform-suite:1.8.2"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.22"
+}
+
+tasks.named("test") {
+    useJUnitPlatform()
+}

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ${APP_NAME:xurl}
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+server:
+  tomcat:
+    accesslog:
+      enabled: false
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix:
+      file-date-format:
+    threads:
+      min-spare: 1
+      max: 1
+
+xurl:
+  short-domain: sqc.cn
+  machine-no: 0
