@@ -1,0 +1,59 @@
+.carousel-wrap {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.carousel-options-wrap {
+  width: auto;
+  height: 100%;
+}
+
+.carousel-option {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-progress-wrap {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carousel-progress-outer {
+  width: 45px;
+  height: 2px;
+  border-radius: 5px;
+  background-color:dimgray;
+}
+
+.carousel-progress-outer:nth-child(n+2) {
+  margin-left: 10px;
+}
+
+.carousel-progress-inner {
+  height: 100%;
+  width: 0;
+  background-color:#fff;
+}
+
+@keyframes progressAct {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
