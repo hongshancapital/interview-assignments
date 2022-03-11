@@ -1,0 +1,74 @@
+{
+  "ipcMode": null,
+  "executionRoleArn": "arn:aws:iam::439659027068:role/MXTASKDEFSTACK-MXTASKDEFSTACKMXFARGATETASKDEFE-1EXTZG2AZNEVJ",
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": [],
+      "environmentFiles": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": [],
+        "options": {
+          "awslogs-group": "MXLOG",
+          "awslogs-region": "us-east-2",
+          "awslogs-stream-prefix": "MX"
+        }
+      },
+      "entryPoint": [],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "protocol": "tcp",
+          "containerPort": 80
+        }
+      ],
+      "command": [],
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [],
+      "resourceRequirements": null,
+      "ulimits": [],
+      "dnsServers": [],
+      "mountPoints": [],
+      "workingDirectory": null,
+      "secrets": [],
+      "dockerSecurityOptions": [],
+      "memory": null,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "stopTimeout": null,
+      "image": "439659027068.dkr.ecr.us-east-2.amazonaws.com/mximagerepo:MXAPP",
+      "startTimeout": null,
+      "firelensConfiguration": null,
+      "dependsOn": null,
+      "disableNetworking": null,
+      "interactive": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": [],
+      "hostname": null,
+      "extraHosts": [],
+      "pseudoTerminal": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": {},
+      "systemControls": [],
+      "privileged": null,
+      "name": "MXTASKDEFSTACKMXCONTAINERDEF"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": "512",
+  "taskRoleArn": "arn:aws:iam::439659027068:role/MXTASKDEFSTACK-MXTASKDEFSTACKMXFARGATETASKDEFT-68D63U2CFT6M",
+  "family": "MXTASKDEFSTACKMXTASKDEFSTACKMXFARGATETASKDEFE1623E21",
+  "pidMode": null,
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "runtimePlatform": null,
+  "cpu": "256",
+  "inferenceAccelerators": null,
+  "proxyConfiguration": null,
+  "volumes": []
+}
