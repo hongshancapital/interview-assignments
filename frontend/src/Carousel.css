@@ -7,11 +7,22 @@
 .carousel-list {
 	height: 100%;
 	display: flex;
+	transition: transform 1s;
+}
+.carousel-position0 {
+	transform: translateX(0);
+}
+.carousel-position1 {
+	transform: translateX(calc(-100% / 3));
+}
+.carousel-position2 {
+	transform: translateX(calc(-100% * 2 / 3));
 }
 .carousel-item {
 	flex-shrink: 0;
 	width: 100%;
 	height: 100%;
+	transition: transform 1s;
 }
 
 .progress-container {
@@ -44,6 +55,6 @@
 }
 
 .progress-done {
-  transition: linear 2s;
+	transition: linear 2s;
 	transform: translateX(40px);
 }

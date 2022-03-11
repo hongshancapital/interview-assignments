@@ -18,7 +18,7 @@ export default function Carousel(props: Props) {
   const [currentCarousel, setCurrentCarousel] = useState(0);
   const [realCarousel, setRealCarousel] = useState(-1);
   // 动画时间
-  const [animationStep, setAnimationStep] = useState(0);
+  // const [animationStep, setAnimationStep] = useState(0);
 
   // 最新值存储
   const curRef = useRef(0);
@@ -26,17 +26,17 @@ export default function Carousel(props: Props) {
   // 子节点个数
   const len = useMemo(() => React.Children.count(children), [children]);
 
-  const reaLen = loop ? len + 2 : len;
+  const realLen = loop ? len + 2 : len;
   const resetLen = loop ? len + 1 : len;
   const listStyle = {
-    transition: `transform ${animationStep}s`,
-    width: `${reaLen * 100}%`,
-    transform: `translateX(${
-      (-100 / reaLen) * (currentCarousel + (loop ? 1 : 0))
-    }%)`,
+    // transition: `transform ${animationStep}s`,
+    width: `${realLen * 100}%`,
+    // transform: `translateX(${
+    //   (-100 / realLen) * (currentCarousel + (loop ? 1 : 0))
+    // }%)`,
   };
 
-  const itemStyle = { width: `${100 / reaLen}%` };
+  const itemStyle = { width: `${100 / realLen}%` };
 
   const timerID = useRef<NodeJS.Timer>();
 
@@ -51,7 +51,7 @@ export default function Carousel(props: Props) {
       if (curRef.current % resetLen !== len && curRef.current >= 0) {
         // 更新位置
         setCurrentCarousel((curRef.current + direction) % resetLen);
-        setAnimationStep(1);
+        // setAnimationStep(1);
       }
     },
     [len, resetLen]
@@ -61,11 +61,11 @@ export default function Carousel(props: Props) {
   const handlerTransitionEnd = () => {
     if (currentCarousel % resetLen === len) {
       // 末端重置
-      setAnimationStep(0);
+      // setAnimationStep(0);
       setCurrentCarousel(0);
     } else if (currentCarousel < 0) {
       // 开端重置
-      setAnimationStep(0);
+      // setAnimationStep(0);
       setCurrentCarousel(len - 1);
     }
   };
@@ -90,7 +90,7 @@ export default function Carousel(props: Props) {
   // };
 
   useEffect(() => {
-    setAnimationStep(1);
+    // setAnimationStep(1);
     startCarousel();
   }, [startCarousel]);
 
@@ -103,7 +103,7 @@ export default function Carousel(props: Props) {
   return (
     <div className="carousel-container">
       <div
-        className="carousel-list"
+        className={`carousel-list carousel-position${realCarousel}`}
         onTransitionEnd={handlerTransitionEnd}
         style={listStyle}
       >
