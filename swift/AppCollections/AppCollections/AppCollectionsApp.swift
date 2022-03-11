@@ -11,7 +11,7 @@ import SwiftUI
 struct AppCollectionsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppList(list: [])
         }
     }
 }
