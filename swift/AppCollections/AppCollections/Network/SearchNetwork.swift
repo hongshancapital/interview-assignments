@@ -11,7 +11,14 @@ import Foundation
  itunes search api 接口文档：https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api
  */
 
-class SearchNetwork {
+protocol SearchNetworkProtocol {
+    func searchChatApp<DecodableType: Decodable>(
+        limit: Int,
+        decodableType: DecodableType.Type
+    ) async throws -> DecodableType
+}
+
+class SearchNetwork: SearchNetworkProtocol {
 
     func searchChatApp<DecodableType: Decodable>(
         limit: Int,

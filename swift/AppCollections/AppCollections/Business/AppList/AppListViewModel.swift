@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor class AppListViewModel: ObservableObject {
     
-    private var searchNetwork = SearchNetwork()
+    var searchNetwork: SearchNetworkProtocol = SearchNetwork()
     private let pageSize = 10
 
     @Published var list: [AppModel] = []
@@ -22,7 +22,7 @@ import Foundation
     }
     
     @UserDefault("favoriteAppIds", defaultValue: [])
-    private var favoriteAppIds: Array<Int>
+    var favoriteAppIds: Array<Int>
     
     // MARK: - Load & Pull refresh
     
@@ -33,7 +33,7 @@ import Foundation
     
     func refresh() async {
         do {
-            let results = try await SearchNetwork().searchChatApp(
+            let results = try await searchNetwork.searchChatApp(
                 limit: pageSize,
                 decodableType: AppListResponseModel.self
             ).results
@@ -54,7 +54,7 @@ import Foundation
          */
         do {
             let currentCount = list.count
-            let results = try await SearchNetwork().searchChatApp(
+            let results = try await searchNetwork.searchChatApp(
                 limit: currentCount + pageSize,
                 decodableType: AppListResponseModel.self
             ).results
@@ -72,7 +72,7 @@ import Foundation
         }
     }
     
-    // MARK: - Favorite
+    // MARK: - Favor
     
     func favor(_ app: AppModel) {
         let id = app.trackId
