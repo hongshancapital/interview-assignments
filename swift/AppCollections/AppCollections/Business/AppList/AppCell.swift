@@ -16,6 +16,7 @@ struct AppCell: View {
         HStack {
             KFImage.url(item.artworkUrl60)
                 .placeholder { ProgressView() }
+                .retry(maxCount: 3, interval: .seconds(5))
                 .resizable()
                 .scaledToFit()
                 .frame(width: 60, height: 60)

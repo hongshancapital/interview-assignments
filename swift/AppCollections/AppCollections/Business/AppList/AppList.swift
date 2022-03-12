@@ -9,18 +9,36 @@ import SwiftUI
 
 struct AppList: View {
     
-    let list: [AppListModel.Item]
+    @ObservedObject var viewModel: AppListViewModel
     
     var body: some View {
         NavigationView {
-            List(list) { item in
-                AppCell(item: item)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-                    .listRowBackground(Color.clear)
+            Group {
+                if viewModel.isFirstLoading {
+                    ProgressView().offset(x: 0, y: -70)
+                } else {
+                    List {
+                        ForEach(viewModel.list) { item in
+                            AppCell(item: item)
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
+                                .listRowBackground(Color.clear)
+                        }
+                        if viewModel.list.count > 0 {
+                            LoadMoreView(noMoreData: viewModel.noMoreData) {
+                                await viewModel.loadMore()
+                            }
+                            .listRowBackground(Color.clear)
+                        }
+                    }
+                    .refreshable { await viewModel.refresh() }
+                }
             }
             .navigationTitle("App")
         }
+        .navigationViewStyle(.stack)
+        .alert(viewModel.alertMessage, isPresented: $viewModel.showError, actions: {})
+        .task { await viewModel.firstLoad() }
     }
 }
 
@@ -44,7 +62,10 @@ struct AppList_Previews: PreviewProvider {
             description: "WeChat is more than a messaging and social media app – it is a lifestyle for one billion users across the world.",
             artworkUrl60: URL(string: "https://is2-ssl.mzstatic.com/image/thumb/Purple126/v4/91/6f/8a/916f8a02-6467-51a7-516e-bad1a86203bc/source/60x60bb.jpg")!
         )
-        let list = [item1, item2, item3, item1, item2, item3, item1, item2, item3, item1, item2, item3]
-        return AppList(list: list)
+        let list = [item1, item2, item3]
+        let viewModel = AppListViewModel()
+        viewModel.isFirstLoading = false
+        viewModel.list = list
+        return AppList(viewModel: viewModel)
     }
 }
