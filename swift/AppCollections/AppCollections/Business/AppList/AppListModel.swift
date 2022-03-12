@@ -7,11 +7,13 @@
 
 import Foundation
 
-struct AppListModel: Decodable {
+// MARK: - HTTP Response Model
+
+struct AppListResponseModel: Decodable {
     let resultCount: Int
-    let results: [Item]
-    
-    struct Item: Decodable {
+    let results: [App]
+
+    struct App: Decodable {
         let trackId: Int
         let trackName: String
         let description: String
@@ -19,6 +21,16 @@ struct AppListModel: Decodable {
     }
 }
 
-extension AppListModel.Item: Identifiable {
-    var id: String { "\(trackId)" }
+// MARK: - UI Model
+
+struct AppModel {
+    let trackId: Int
+    let trackName: String
+    let description: String
+    let artworkUrl60: URL
+    var isFavorite: Bool
+}
+
+extension AppModel: Identifiable {
+    var id: Int { trackId }
 }
