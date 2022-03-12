@@ -31,11 +31,13 @@ class Network {
     ) async throws -> DecodableType {
         guard let url = URL(string: "\(host)\(path)") else {
             let message = "[Error] Network url is not correct, host: \(host), path: \(path) "
+            log(.error, message: message, component: .network)
             fatalError(message)
         }
         do {
             return try await AF.request(url, method: method, parameters: parameters).serializingDecodable(DecodableType.self).value
         } catch {
+            log(.error, message: error.localizedDescription, component: .network)
             throw error
         }
         
