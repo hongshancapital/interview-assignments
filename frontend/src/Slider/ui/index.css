@@ -1,0 +1,43 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%; }
+
+.swiper {
+  overflow: hidden;
+  width: 100%;
+  position: relative; }
+  .swiper .slider-list {
+    position: relative;
+    transition-property: left;
+    transition-timing-function: smooth;
+    left: 0%; }
+    .swiper .slider-list .slider {
+      display: inline-block;
+      height: auto; }
+      .swiper .slider-list .slider > img {
+        display: block;
+        height: auto;
+        width: 100%; }
+  .swiper .dot-list {
+    z-index: 99;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 25%; }
+    .swiper .dot-list .dot-item {
+      display: inline-block;
+      width: 100px;
+      height: 6px;
+      margin: 6px;
+      cursor: pointer;
+      background: #333; }
+      .swiper .dot-list .dot-item .dot-item-inner {
+        width: 0px;
+        height: 6px;
+        background: #ccc;
+        transition-property: width;
+        transition-timing-function: smooth; }
+
+/*# sourceMappingURL=index.css.map */
