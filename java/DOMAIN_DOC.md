@@ -12,11 +12,7 @@ http://127.0.0.1:11000/v2/api-docs
 ## Jacoco单元测试
 
 Jacoco单元测试代码覆盖率和分支覆盖率截图如下:
-
-<div align="center">
-<p align="center"><img alt="Databend Logo" src="img/jacoco_unit_test.png" width="70%"/></p>
-<div>
-
+![Jacoco覆盖测试](img/jacoco_unit_test.png)
 
 ## 设计文档
 
@@ -28,9 +24,7 @@ controller层直接访问数据服务层提供的域名池进行save和get操作
 
 2. **架构图**  
 
-<div align="center">
-<p align="center"><img alt="Databend Logo" src="img/architecture.png" width="70%"/></p>
-<div>
+![架构图](img/architecture.png)
 
 ## 性能测试
 
