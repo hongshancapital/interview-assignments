@@ -7,6 +7,7 @@ type CarouselType = {
   style?: CSSProperties
   contents: React.ReactNode[]
 }
+
 let timer: any = null
 /**
  * @param props CarouselType
@@ -34,12 +35,8 @@ function Index(props: CarouselType) {
 
   const renderContent = (datas: React.ReactNode[]) => (
     <div
-      className="custom-carousel-contents-container"
+      className={["custom-carousel-contents-container", `page-number-${contents.length}`, `page-current-at-${currentIndex}`].join(' ')}
       data-testid="custom-carousel-container"
-      style={{
-        width: `${datas.length * 100}%`,
-        transform: `translateX(-${(currentIndex * 100) / contents.length}%)`,
-      }}
     >
       {datas.map((data, index: number) => (
         <div

@@ -12,11 +12,12 @@ test('renders component:Carousel', async () => {
   expect(carouselCells.length).toEqual(3)
   const container = screen.getByTestId('custom-carousel-container')
   fireEvent.click(screen.getByTestId('test-carousel-dot-0'))
-  expect(container.style.transform).toEqual('translateX(-0%)')
+  console.log('container.className:', container.className)
+  expect(container.className).toContain('page-current-at-0')
   fireEvent.click(
     screen.getByTestId(`test-carousel-dot-${carouselCells.length - 1}`),
   )
-  expect(container.style.transform).toEqual(
-    `translateX(-${((contents.length - 1) * 100) / contents.length}%)`,
+  expect(container.className).toContain(
+    `page-current-at-${contents.length - 1}`,
   )
 })
