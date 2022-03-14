@@ -49,5 +49,6 @@ class UserControllerTest {
         int status = mvcResult.getResponse().getStatus();
         String responseString = mvcResult.getResponse().getContentAsString();
         Assert.assertEquals("请求正确", 200, status);
+        
     }
 }
