@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import os
 
 class Network {
     
@@ -31,17 +32,16 @@ class Network {
     ) async throws -> DecodableType {
         guard let url = URL(string: "\(host)\(path)") else {
             let message = "url is not correct, host: \(host), path: \(path) "
-            log(.error, message: message, component: .network)
+            networkLogger.error("\(message)")
             fatalError(message)
         }
         do {
-            log(.info, message: "request success, url: \(url)", component: .network)
+            networkLogger.debug("request success, url: \(url)")
             return try await AF.request(url, method: method, parameters: parameters, requestModifier: { $0.timeoutInterval = 10 })
                 .serializingDecodable(DecodableType.self).value
         } catch {
-            log(.error, message: error.localizedDescription, component: .network)
+            networkLogger.error("\(error.localizedDescription)")
             throw error
         }
-        
     }
 }

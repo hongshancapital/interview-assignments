@@ -6,36 +6,7 @@
 //
 
 import Foundation
+import os
 
-func log(_ level: Log.Level, message: String, component: Log.Component) {
-    print("[Log] [\(level.flag)] [\(component.flag)]: \(message)")
-}
-
-class Log {
-    
-    enum Component {
-        case network
-    }
-    
-    enum Level {
-        case info
-        case error
-    }
-}
-
-private extension Log.Component {
-    var flag: String {
-        switch self {
-        case .network: return "Network"
-        }
-    }
-}
-
-private extension Log.Level {
-    var flag: String {
-        switch self {
-        case .info: return "Info"
-        case .error: return "Error"
-        }
-    }
-}
+let logger = Logger(subsystem: bundleId, category: "main")
+let networkLogger = Logger(subsystem: bundleId, category: "network")
