@@ -1,0 +1,57 @@
+2022-03-13 10:25:21,733 WARN 9639 [-/::ffff:127.0.0.1/-/7ms POST /api/getByShortUrl] NotFoundError: /api/getByShortUrl Not Found
+    at notFound (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/framework.js:60:23)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/i18n/dist/middleware.js:128:17
+    at bodyParser (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/koa-bodyparser/index.js:95:5)
+    at session (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/session/dist/middleware/session.js:137:17)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/baseFramework.js:237:36
+    at midwayRootMiddleware (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/framework.js:66:13) {
+  name: 'NotFoundError',
+  code: '404',
+  cause: undefined,
+  status: 404
+}
+2022-03-13 10:28:13,919 WARN 9938 [-/::ffff:127.0.0.1/-/4ms GET /api/getByShortUrl?url=e] NotFoundError: /api/getByShortUrl Not Found
+    at notFound (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/framework.js:60:23)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/i18n/dist/middleware.js:128:17
+    at bodyParser (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/koa-bodyparser/index.js:95:5)
+    at session (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/session/dist/middleware/session.js:137:17)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/baseFramework.js:237:36
+    at midwayRootMiddleware (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/framework.js:66:13) {
+  name: 'NotFoundError',
+  code: '404',
+  cause: undefined,
+  status: 404
+}
+2022-03-13 10:29:31,162 WARN 10036 [-/::ffff:127.0.0.1/-/3ms GET /api/getByShortUrl?url=e] NotFoundError: /api/getByShortUrl Not Found
+    at notFound (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/framework.js:60:23)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/i18n/dist/middleware.js:128:17
+    at bodyParser (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/koa-bodyparser/index.js:95:5)
+    at session (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/session/dist/middleware/session.js:137:17)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/baseFramework.js:237:36
+    at midwayRootMiddleware (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/framework.js:66:13) {
+  name: 'NotFoundError',
+  code: '404',
+  cause: undefined,
+  status: 404
+}
+2022-03-13 10:36:36,623 WARN 10656 [-/::ffff:127.0.0.1/-/14ms POST /api/createByLongUrl] UnsupportedMediaTypeError: specified encoding unsupported, check bodyParser config
+    at getDecoder (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/raw-body/index.js:51:11)
+    at readStream (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/raw-body/index.js:179:15)
+    at executor (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/raw-body/index.js:106:5)
+    at new Promise (<anonymous>)
+    at getRawBody (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/raw-body/index.js:105:10)
+    at AsyncFunction.Object.<anonymous>.module.exports [as json] (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/co-body/lib/json.js:37:21)
+    at parseBody (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/koa-bodyparser/index.js:78:26)
+    at bodyParser (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/koa-bodyparser/index.js:62:25)
+    at dispatch (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/middlewareService.js:102:36)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/middleware/fav.middleware.js:31:67 {
+  message: 'specified encoding unsupported, check bodyParser config',
+  encoding: 'utf8',
+  type: 'encoding.unsupported'
+}

@@ -1,0 +1,445 @@
+2022-03-11 12:31:34,726 WARN 72471 [-/::ffff:127.0.0.1/-/12ms GET /get] NotFoundError: /get Not Found
+    at notFound (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/framework.js:60:23)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/i18n/dist/middleware.js:128:17
+    at bodyParser (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/koa-bodyparser/index.js:95:5)
+    at session (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/session/dist/middleware/session.js:137:17)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/baseFramework.js:237:36
+    at midwayRootMiddleware (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/koa/dist/framework.js:66:13) {
+  name: 'NotFoundError',
+  code: '404',
+  cause: undefined,
+  status: 404
+}
+2022-03-11 12:31:53,114 ERROR 72471 [-/::ffff:127.0.0.1/-/92ms GET /api/get] Error: 
+    at Query.run (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/mysql/query.js:46:25)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/sequelize.js:643:28
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at MySQLQueryInterface.select (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/abstract/query-interface.js:979:12)
+    at Function.findAll (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/model.js:1789:21)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:17:18)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24 {
+  name: 'SequelizeDatabaseError',
+  parent: Error: Table 'url_d1.urlmodels' doesn't exist
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_NO_SUCH_TABLE',
+    errno: 1146,
+    sqlState: '42S02',
+    sqlMessage: "Table 'url_d1.urlmodels' doesn't exist",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `UrlModels` AS `UrlModel`;',
+    parameters: undefined
+  },
+  original: Error: Table 'url_d1.urlmodels' doesn't exist
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_NO_SUCH_TABLE',
+    errno: 1146,
+    sqlState: '42S02',
+    sqlMessage: "Table 'url_d1.urlmodels' doesn't exist",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `UrlModels` AS `UrlModel`;',
+    parameters: undefined
+  },
+  sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `UrlModels` AS `UrlModel`;',
+  parameters: {}
+}
+2022-03-11 12:31:54,677 ERROR 72471 [-/::ffff:127.0.0.1/-/5ms GET /api/get] Error: 
+    at Query.run (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/mysql/query.js:46:25)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/sequelize.js:643:28
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at MySQLQueryInterface.select (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/abstract/query-interface.js:979:12)
+    at Function.findAll (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/model.js:1789:21)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:17:18)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24 {
+  name: 'SequelizeDatabaseError',
+  parent: Error: Table 'url_d1.urlmodels' doesn't exist
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_NO_SUCH_TABLE',
+    errno: 1146,
+    sqlState: '42S02',
+    sqlMessage: "Table 'url_d1.urlmodels' doesn't exist",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `UrlModels` AS `UrlModel`;',
+    parameters: undefined
+  },
+  original: Error: Table 'url_d1.urlmodels' doesn't exist
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_NO_SUCH_TABLE',
+    errno: 1146,
+    sqlState: '42S02',
+    sqlMessage: "Table 'url_d1.urlmodels' doesn't exist",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `UrlModels` AS `UrlModel`;',
+    parameters: undefined
+  },
+  sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `UrlModels` AS `UrlModel`;',
+  parameters: {}
+}
+2022-03-11 12:35:04,832 ERROR 72795 [-/::ffff:127.0.0.1/-/88ms GET /api/get] Error: 
+    at Query.run (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/mysql/query.js:46:25)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/sequelize.js:643:28
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at MySQLQueryInterface.select (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/abstract/query-interface.js:979:12)
+    at Function.findAll (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/model.js:1789:21)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:17:18)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24 {
+  name: 'SequelizeDatabaseError',
+  parent: Error: Table 'url_d1.urlmaps' doesn't exist
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_NO_SUCH_TABLE',
+    errno: 1146,
+    sqlState: '42S02',
+    sqlMessage: "Table 'url_d1.urlmaps' doesn't exist",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmaps` AS `urlmap`;',
+    parameters: undefined
+  },
+  original: Error: Table 'url_d1.urlmaps' doesn't exist
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_NO_SUCH_TABLE',
+    errno: 1146,
+    sqlState: '42S02',
+    sqlMessage: "Table 'url_d1.urlmaps' doesn't exist",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmaps` AS `urlmap`;',
+    parameters: undefined
+  },
+  sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmaps` AS `urlmap`;',
+  parameters: {}
+}
+2022-03-11 12:35:06,331 ERROR 72795 [-/::ffff:127.0.0.1/-/6ms GET /api/get] Error: 
+    at Query.run (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/mysql/query.js:46:25)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/sequelize.js:643:28
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at MySQLQueryInterface.select (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/abstract/query-interface.js:979:12)
+    at Function.findAll (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/model.js:1789:21)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:17:18)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24 {
+  name: 'SequelizeDatabaseError',
+  parent: Error: Table 'url_d1.urlmaps' doesn't exist
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_NO_SUCH_TABLE',
+    errno: 1146,
+    sqlState: '42S02',
+    sqlMessage: "Table 'url_d1.urlmaps' doesn't exist",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmaps` AS `urlmap`;',
+    parameters: undefined
+  },
+  original: Error: Table 'url_d1.urlmaps' doesn't exist
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_NO_SUCH_TABLE',
+    errno: 1146,
+    sqlState: '42S02',
+    sqlMessage: "Table 'url_d1.urlmaps' doesn't exist",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmaps` AS `urlmap`;',
+    parameters: undefined
+  },
+  sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmaps` AS `urlmap`;',
+  parameters: {}
+}
+2022-03-11 12:35:48,968 ERROR 72849 [-/::ffff:127.0.0.1/-/83ms GET /api/get] Error: 
+    at Query.run (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/mysql/query.js:46:25)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/sequelize.js:643:28
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at MySQLQueryInterface.select (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/abstract/query-interface.js:979:12)
+    at Function.findAll (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/model.js:1789:21)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:17:18)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24 {
+  name: 'SequelizeDatabaseError',
+  parent: Error: Unknown column 'name' in 'field list'
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlState: '42S22',
+    sqlMessage: "Unknown column 'name' in 'field list'",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+    parameters: undefined
+  },
+  original: Error: Unknown column 'name' in 'field list'
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlState: '42S22',
+    sqlMessage: "Unknown column 'name' in 'field list'",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+    parameters: undefined
+  },
+  sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+  parameters: {}
+}
+2022-03-11 12:35:50,259 ERROR 72849 [-/::ffff:127.0.0.1/-/5ms GET /api/get] Error: 
+    at Query.run (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/mysql/query.js:46:25)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/sequelize.js:643:28
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at MySQLQueryInterface.select (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/abstract/query-interface.js:979:12)
+    at Function.findAll (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/model.js:1789:21)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:17:18)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24 {
+  name: 'SequelizeDatabaseError',
+  parent: Error: Unknown column 'name' in 'field list'
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlState: '42S22',
+    sqlMessage: "Unknown column 'name' in 'field list'",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+    parameters: undefined
+  },
+  original: Error: Unknown column 'name' in 'field list'
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlState: '42S22',
+    sqlMessage: "Unknown column 'name' in 'field list'",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+    parameters: undefined
+  },
+  sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+  parameters: {}
+}
+2022-03-11 12:36:43,755 ERROR 72849 [-/::ffff:127.0.0.1/-/10ms GET /api/get] Error: 
+    at Query.run (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/mysql/query.js:46:25)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/sequelize.js:643:28
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at MySQLQueryInterface.select (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/abstract/query-interface.js:979:12)
+    at Function.findAll (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/model.js:1789:21)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:17:18)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24 {
+  name: 'SequelizeDatabaseError',
+  parent: Error: Unknown column 'name' in 'field list'
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlState: '42S22',
+    sqlMessage: "Unknown column 'name' in 'field list'",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+    parameters: undefined
+  },
+  original: Error: Unknown column 'name' in 'field list'
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlState: '42S22',
+    sqlMessage: "Unknown column 'name' in 'field list'",
+    sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+    parameters: undefined
+  },
+  sql: 'SELECT `id`, `name`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+  parameters: {}
+}
+2022-03-11 12:37:19,723 ERROR 73028 [-/::ffff:127.0.0.1/-/74ms GET /api/get] Error: 
+    at Query.run (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/mysql/query.js:46:25)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/sequelize.js:643:28
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at MySQLQueryInterface.select (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/dialects/abstract/query-interface.js:979:12)
+    at Function.findAll (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/sequelize/src/model.js:1789:21)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:17:18)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24 {
+  name: 'SequelizeDatabaseError',
+  parent: Error: Unknown column 'createdAt' in 'field list'
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlState: '42S22',
+    sqlMessage: "Unknown column 'createdAt' in 'field list'",
+    sql: 'SELECT `id`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+    parameters: undefined
+  },
+  original: Error: Unknown column 'createdAt' in 'field list'
+      at Packet.asError (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packets/packet.js:728:17)
+      at Query.execute (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/commands/command.js:29:26)
+      at Connection.handlePacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:456:32)
+      at PacketParser.onPacket (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:85:12)
+      at PacketParser.executeStart (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/packet_parser.js:75:16)
+      at Socket.<anonymous> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/mysql2/lib/connection.js:92:25)
+      at Socket.emit (events.js:210:5)
+      at Socket.EventEmitter.emit (domain.js:476:20)
+      at addChunk (_stream_readable.js:308:12)
+      at readableAddChunk (_stream_readable.js:289:11) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlState: '42S22',
+    sqlMessage: "Unknown column 'createdAt' in 'field list'",
+    sql: 'SELECT `id`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+    parameters: undefined
+  },
+  sql: 'SELECT `id`, `shorturl`, `origin`, `createdAt`, `updatedAt` FROM `urlmap` AS `urlmap`;',
+  parameters: {}
+}
+2022-03-11 14:04:03,735 ERROR 82924 [-/::ffff:127.0.0.1/-/33ms GET /api/get] TypeError: this.redisService.blexists is not a function
+    at LocalRedisService.get (/Users/guobinzhang/projects/node/backup/urlserver/src/service/redis.service.ts:19:55)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:18:17)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/i18n/dist/middleware.js:128:17
+    at bodyParser (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/koa-bodyparser/index.js:95:5)
+    at session (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/session/dist/middleware/session.js:137:17)
+2022-03-11 14:04:21,189 ERROR 82924 [-/::ffff:127.0.0.1/-/14ms GET /api/get] TypeError: this.redisService.blexists is not a function
+    at LocalRedisService.get (/Users/guobinzhang/projects/node/backup/urlserver/src/service/redis.service.ts:19:55)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at APIController.getUser (/Users/guobinzhang/projects/node/backup/urlserver/src/controller/api.controller.ts:18:17)
+    at APIController.Clz.<computed> (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/service/aspectService.js:89:34)
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/core/dist/common/webGenerator.js:27:28
+    at /Users/guobinzhang/projects/node/backup/urlserver/src/middleware/report.middleware.ts:13:22
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/info/dist/middleware/info.middleware.js:35:24
+    at /Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/i18n/dist/middleware.js:128:17
+    at bodyParser (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/koa-bodyparser/index.js:95:5)
+    at session (/Users/guobinzhang/projects/node/backup/urlserver/node_modules/@midwayjs/session/dist/middleware/session.js:137:17)
