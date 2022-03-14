@@ -8,7 +8,7 @@ class Swiper extends EventEmitter {
   private speed: number | undefined = 3000;
 
   /*
-   * 自动抡博停留时间 毫秒
+   * 自动轮播停留时间 毫秒
    */
   private delay: number | undefined = 3000;
 
