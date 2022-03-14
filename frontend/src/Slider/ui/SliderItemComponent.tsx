@@ -12,7 +12,10 @@ const SliderItemComponent = (
         React.isValidElement(sliderItem) ?
           sliderItem
           :
-          <img src={sliderItem.src} />
+          <>
+            <div className='title'>{sliderItem.title}</div>
+            <img src={sliderItem.src} />
+          </>
       }
     </div>
   )

@@ -1,21 +1,24 @@
 import Swiper from './Slider/ui'
+import React from 'react';
 import './App.css';
 
 function App() {
   const imgList = [
     {
-      src: require('./images/demo1.jpeg'),
+      title: 'iphone',
+      src: require('./assets/iphone.png'),
       alt: 'images-1',
     },
     {
-      src: require('./images/demo2.jpeg'),
+      title: 'tablet',
+      src: require('./assets/tablet.png'),
       alt: 'images-2',
     },
     {
-      src: require('./images/demo3.jpeg'),
+      title: 'airpods',
+      src: require('./assets/airpods.png'),
       alt: 'images-3',
-    },
-    <div>this is a react Component Dom</div>
+    }
   ];
   return (
     <div className="App">

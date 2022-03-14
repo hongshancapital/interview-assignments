@@ -11,21 +11,24 @@ body {
   .swiper .slider-list {
     position: relative;
     transition-property: left;
-    transition-timing-function: smooth;
+    transition-timing-function: linear;
     left: 0%; }
     .swiper .slider-list .slider {
       display: inline-block;
-      height: auto; }
+      height: 100vh; }
+      .swiper .slider-list .slider .title {
+        height: 200px; }
       .swiper .slider-list .slider > img {
         display: block;
-        height: auto;
+        height: 75vh;
+        object-fit: contain;
         width: 100%; }
   .swiper .dot-list {
     z-index: 99;
     text-align: center;
     width: 100%;
     position: absolute;
-    bottom: 25%; }
+    bottom: 10%; }
     .swiper .dot-list .dot-item {
       display: inline-block;
       width: 100px;
@@ -38,6 +41,6 @@ body {
         height: 6px;
         background: #ccc;
         transition-property: width;
-        transition-timing-function: smooth; }
+        transition-timing-function: linear; }
 
 /*# sourceMappingURL=index.css.map */

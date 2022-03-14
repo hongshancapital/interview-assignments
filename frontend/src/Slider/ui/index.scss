@@ -13,16 +13,21 @@ body {
   .slider-list {
     position: relative;
     transition-property: left;
-    transition-timing-function: smooth;
+    transition-timing-function: linear;
     left: 0%;
 
     .slider {
       display: inline-block;
-      height: auto;
+      height: 100vh;
+
+      .title {
+        height: 200px;
+      }
 
       &>img {
         display: block;
-        height: auto;
+        height: 75vh;
+        object-fit: contain;
         width: 100%;
       }
     }
@@ -33,7 +38,7 @@ body {
     text-align: center;
     width: 100%;
     position: absolute;
-    bottom: 25%;
+    bottom: 10%;
 
     .dot-item {
       display: inline-block;
@@ -48,7 +53,7 @@ body {
         height: 6px;
         background: #ccc;
         transition-property: width;
-        transition-timing-function: smooth;
+        transition-timing-function: linear;
       }
     }
   }

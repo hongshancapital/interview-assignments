@@ -1,9 +1,10 @@
 import DotComponent from './DotComponent';
 import SliderItemComponent from './SliderItemComponent';
 import { useSwiper } from '../application/useSwiper';
+import React from 'react';
 import './index.css'
 
-const Swiper = (props: SwiperProps) => {
+const Swiper = (props: SwiperProps & { children?: React.ReactChildren }) => {
   const {
     swiper,
     sliderList,

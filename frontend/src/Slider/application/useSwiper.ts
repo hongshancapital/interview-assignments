@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import Swiper from "../domain/Swiper"
 import { useSwiperFn } from "./useSwiperFn"
 
-const useSwiper = (props: SwiperProps) => {
+const useSwiper = (props: SwiperProps & { children?: React.ReactChildren }) => {
   // swiper 实例
   const swiper = useMemo(() => {
     const swiper = new Swiper({
-      sliderList: props.sliderList,
+      sliderList: props.sliderList || props.children,
       autoPlay: props.autoPlay,
       dots: props.dots,
       speed: props.speed,

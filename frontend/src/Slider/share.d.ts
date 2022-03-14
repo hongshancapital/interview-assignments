@@ -1,4 +1,4 @@
-type SliderProps = React.ReactElement | { src: string, alt: string }
+type SliderProps = React.ReactElement | { title: string, src: string, alt: string }
 
 type SwiperProps = {
   sliderList: Array<SliderProps>
