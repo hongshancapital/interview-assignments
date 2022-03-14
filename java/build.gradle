@@ -1,0 +1,68 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.8'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.asciidoctor.convert' version '1.5.8'
+	id 'java'
+	id 'jacoco'
+
+}
+
+jacoco {
+	toolVersion = "0.8.7"
+}
+
+group = 'com.sequoiacap'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	maven{ url 'https://maven.aliyun.com/repository/public'}
+	mavenCentral()
+	mavenLocal()
+}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+	implementation('io.springfox:springfox-boot-starter:3.0.0')
+	implementation('org.apache.commons:commons-lang3:3.12.0')
+	implementation 'commons-validator:commons-validator:1.7'
+	implementation('com.google.guava:guava:23.0')
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mockito:mockito-all:1.9.5'
+}
+
+test {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+jacocoTestReport {
+	dependsOn test
+}
+
+
+jacocoTestCoverageVerification {
+	dependsOn test
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.85
+			}
+		}
+	}
+}
