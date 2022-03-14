@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppList: View {
     
-    @ObservedObject var viewModel: AppListViewModel
+    @ObservedObject var viewModel = AppListViewModel()
     
     var body: some View {
         NavigationView {
@@ -68,9 +68,10 @@ struct AppList_Previews: PreviewProvider {
             isFavorite: false
         )
         let list = [app1, app2, app3]
-        let viewModel = AppListViewModel()
+        let listView = AppList()
+        let viewModel = listView.viewModel
         viewModel.isFirstLoading = false
         viewModel.list = list
-        return AppList(viewModel: viewModel)
+        return listView
     }
 }
