@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppList: View {
     
-    @ObservedObject var viewModel = AppListViewModel()
+    @StateObject var viewModel = AppListViewModel()
     
     var body: some View {
         NavigationView {
