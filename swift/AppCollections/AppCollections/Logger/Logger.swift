@@ -1,5 +1,5 @@
 //
-//  Log.swift
+//  Logger.swift
 //  AppCollections
 //
 //  Created by Guang Lei on 2022/3/12.
