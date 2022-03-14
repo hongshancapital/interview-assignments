@@ -31,9 +31,9 @@ class Network {
         decodableType: DecodableType.Type = DecodableType.self
     ) async throws -> DecodableType {
         guard let url = URL(string: "\(host)\(path)") else {
-            let message = "url is not correct, host: \(host), path: \(path) "
+            let message = "url is incorrect, host: \(host), path: \(path) "
             networkLogger.error("\(message)")
-            fatalError(message)
+            throw NetworkError.urlIncorrect(message)
         }
         do {
             networkLogger.debug("request success, url: \(url)")
