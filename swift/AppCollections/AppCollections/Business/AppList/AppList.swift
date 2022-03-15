@@ -68,10 +68,9 @@ struct AppList_Previews: PreviewProvider {
             isFavorite: false
         )
         let list = [app1, app2, app3]
-        let listView = AppList()
-        let viewModel = listView.viewModel
+        let viewModel = AppListViewModel()
         viewModel.isFirstLoading = false
         viewModel.list = list
-        return listView
+        return AppList(viewModel: viewModel)
     }
 }
