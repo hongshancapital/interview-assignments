@@ -16,7 +16,7 @@ function App() {
     {
       title: 'xPhone',
       className: 'component-cell-1',
-      description: 'Lots to love. Less to spend.<br/>Starting at $399.',
+      description: 'Lots to love. Less to spend.\nStarting at $399.',
       img: iphone,
     },
     {
@@ -26,7 +26,7 @@ function App() {
       img: tablet,
     },
     {
-      title: 'Buy a Tablet or xPhone for colleage.<br/>Get airPods',
+      title: 'Buy a Tablet or xPhone for colleage.\nGet airPods',
       className: 'component-cell-3',
       img: airPods,
     },
@@ -36,10 +36,8 @@ function App() {
       return (
         <div className={['component-cell', data.className || ''].join(' ')}>
           <div>
-            <h1 dangerouslySetInnerHTML={{ __html: data.title }}></h1>
-            <div
-              dangerouslySetInnerHTML={{ __html: data.description || '' }}
-            ></div>
+            <h1>{data.title}</h1>
+            <div>{data.description}</div>
           </div>
           <img className="imgs" src={data.img} width={76} />
         </div>
