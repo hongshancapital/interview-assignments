@@ -7,10 +7,10 @@ import getSlideList from "../../utils/getSlideList";
 describe(" Carousel Component Test", () => {
   const slideList = getSlideList();
 
-  test("Component images render", () => {
+  test("Component slide render", () => {
     const { container } = render(<Carousel slideList={slideList} />);
-    const imageList = container.querySelectorAll(`.slide-wrapper`);
-    expect(imageList.length).toBe(slideList.length);
+    const slideElementList = container.querySelectorAll(`.slide-wrapper`);
+    expect(slideElementList.length).toBe(slideList.length);
   });
 
   test("Component indicator render", () => {
