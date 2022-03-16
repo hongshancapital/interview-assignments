@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Indicator from "./components/Indicator";
 import SlideComponent from "./components/Slide";
@@ -15,17 +15,20 @@ interface CarouselProps {
 }
 
 function Carousel(props: CarouselProps) {
-  const { slideList, showIndicator = true, delay = 3000, defaultIndex = 2 } = props;
+  const { slideList, showIndicator = true, delay = 3000, defaultIndex = 0 } = props;
+  const timerRef = useRef<any>()
   const [currentIndex, setCurrentIndex] = useState<number>(defaultIndex);
 
   const slideLength = slideList.length;
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    timerRef.current && clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
       // 如果当前已经是最后一张，返回最开始一张
       setCurrentIndex(currentIndex + 1 === slideLength ? 0 : currentIndex + 1);
     }, delay);
-    return () => clearTimeout(timer);
+
+    return () => clearTimeout(timerRef.current);
   }, [currentIndex, delay, slideLength]);
 
   return (
