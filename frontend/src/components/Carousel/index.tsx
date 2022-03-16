@@ -16,14 +16,14 @@ interface CarouselProps {
 
 function Carousel(props: CarouselProps) {
   const { slideList, showIndicator = true, delay = 3000, defaultIndex = 0 } = props;
-  const timerRef = useRef<any>()
+  const timerRef = useRef<number>()
   const [currentIndex, setCurrentIndex] = useState<number>(defaultIndex);
 
   const slideLength = slideList.length;
 
   useEffect(() => {
     timerRef.current && clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
+    timerRef.current = window.setTimeout(() => {
       // 如果当前已经是最后一张，返回最开始一张
       setCurrentIndex(currentIndex + 1 === slideLength ? 0 : currentIndex + 1);
     }, delay);
