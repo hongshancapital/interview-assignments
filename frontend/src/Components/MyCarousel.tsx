@@ -97,8 +97,7 @@ function MyCarousel() {
   )
 }
 
-// @ts-ignore
-function Item(props) {
+function Item(props: any) {
   const {name, description, imgSrc, sequence, backgroundColor} = props.item
   const classes = useStyle()
 
