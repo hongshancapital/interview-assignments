@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppList: View {
     
-    @StateObject var viewModel = AppListViewModel()
+    @EnvironmentObject var viewModel: AppListViewModel
     
     var body: some View {
         NavigationView {
@@ -71,6 +71,6 @@ struct AppList_Previews: PreviewProvider {
         let viewModel = AppListViewModel()
         viewModel.isFirstLoading = false
         viewModel.list = list
-        return AppList(viewModel: viewModel)
+        return AppList().environmentObject(viewModel)
     }
 }
