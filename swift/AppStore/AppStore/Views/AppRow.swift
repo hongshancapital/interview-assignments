@@ -15,28 +15,38 @@ struct AppRow: View {
             HStack(alignment: .center) {
                 
                 AsyncImage(url: URL.init(string: viewModel.app.artworkUr)) { image in
-                    image.resizable()
+                    image
+                        .resizable()
+                        .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .stroke(.gray, lineWidth: 0.5)
+                            )
                 } placeholder: {
                     ProgressView()
                 }
-                .frame(width: 60, height: 60, alignment: .center)
-                .cornerRadius(6)
-                .padding(10)
+                .frame(width: 50, height: 50, alignment: .center)
+                .scaledToFit()
+                .cornerRadius(8)
                 
-                VStack(alignment: .leading, content: {
-                    Text(viewModel.app.title)
-                        .font(Font.system(size: 16))
+                
+                VStack(alignment: .leading,spacing: 4, content: {
+                    Text(viewModel.app.title.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
+                        .font(Font.system(size: 15))
                         .lineLimit(1)
-                        .padding(EdgeInsets.init(top: 10, leading: 6, bottom: 4, trailing: 6))
-                    Text(viewModel.app.description)
+                        
+                    Text(viewModel.app.description.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "\n", with: ""))
                         .font(Font.system(size: 12))
                         .foregroundColor(Color.gray)
                         .lineLimit(2)
-                        .padding(EdgeInsets.init(top: 0, leading: 6, bottom: 4, trailing: 6))
+//                        .padding(.top,0.5)
+//                        .padding(EdgeInsets.init(top: 0, leading: 6, bottom: 4, trailing: 6))
                 })
                 Spacer()
                 Image(viewModel.app.isFavorated ? "liked_icon" : "unliked_icon")
-                    .frame(width: 25)
+                    .frame(width: 15,height: 15)
+                    .padding(10)
+                    .scaleEffect(viewModel.app.isFavorated ? 0.7 : 0.6)
+                    .scaledToFit()
+                    .animation(.default, value: viewModel.app.isFavorated)
                     .onTapGesture {
                         if viewModel.app.isFavorated {
                             viewModel.excute(.unlike)
@@ -47,11 +57,11 @@ struct AppRow: View {
                     }
             }
             .frame(height: 80)
-            .padding(10)
+            .padding(.horizontal, 10)
             .background(Color.white)
-            .cornerRadius(6)
+            .cornerRadius(10)
         }
-        .frame(height: 120)
+        .frame(height: 80)
         .listRowBackground(Color.clear)
     }
 }

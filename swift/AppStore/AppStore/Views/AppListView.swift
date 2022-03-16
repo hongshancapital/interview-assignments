@@ -23,33 +23,34 @@ struct AppListView: View {
     
     var body: some View {
         NavigationView {
-            switch viewModel.state {
-            case .initial:
-                ProgressView().navigationTitle("App")
-            case .errorState:
-                VStack {
-                    Text(viewModel.errorMessage)
-                    Button(action: {
-                        viewModel.excute(.onInitial)
-                    }) {
-                        Text("retry")
-                    }
-                }
-                .navigationTitle("App")
-            default:
-                List {
-                    ForEach(viewModel.appData.results) { app in
-                        AppRow(viewModel: AppItemViewModel(app: app))
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                    }
-                    RefreshFooterView(hasMore: $viewModel.hasMore, loading: $viewModel.isFooterRefreshing)
-                        .onAppear {
-                            viewModel.excute(.onLoadMore)
+            Group {
+                switch viewModel.state {
+                case .initial:
+                    ProgressView()
+                case .errorState:
+                    VStack {
+                        Text(viewModel.errorMessage)
+                        Button(action: {
+                            viewModel.excute(.onInitial)
+                        }) {
+                            Text("retry")
                         }
+                    }
+                default:
+                    List {
+                        ForEach(viewModel.appData.results) { app in
+                            AppRow(viewModel: AppItemViewModel(app: app))
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(EdgeInsets.init(top: 10, leading: 0, bottom: 0, trailing: 0))
+                        }
+                        RefreshFooterView(hasMore: $viewModel.hasMore, loading: $viewModel.isFooterRefreshing)
+                            .onAppear {
+                                viewModel.excute(.onLoadMore)
+                            }
+                    }
                 }
-                .navigationTitle("App")
             }
+            .navigationTitle("App")
         }
         .background(content: {
             RefreshHeaderView(
