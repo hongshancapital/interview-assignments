@@ -8,7 +8,7 @@ type CarouselType = {
   contents: React.ReactNode[]
 }
 
-let timer: any = null
+let timer: null | NodeJS.Timeout = null
 /**
  * @param props CarouselType
  */
@@ -23,8 +23,10 @@ function Index(props: CarouselType) {
       timer = null
     }
     timer = setTimeout(() => {
-      clearTimeout(timer)
-      timer = null
+      if (timer) {
+        clearTimeout(timer)
+        timer = null
+      }
       if (currentIndex + 1 >= contents.length) {
         setCurrentIndex(0)
       } else {
@@ -35,7 +37,11 @@ function Index(props: CarouselType) {
 
   const renderContent = (datas: React.ReactNode[]) => (
     <div
-      className={["custom-carousel-contents-container", `page-number-${contents.length}`, `page-current-at-${currentIndex}`].join(' ')}
+      className={[
+        'custom-carousel-contents-container',
+        `page-number-${contents.length}`,
+        `page-current-at-${currentIndex}`,
+      ].join(' ')}
       data-testid="custom-carousel-container"
     >
       {datas.map((data, index: number) => (
@@ -52,7 +58,7 @@ function Index(props: CarouselType) {
   const renderBottomButtons = (datas: React.ReactNode[]) => {
     return (
       <div className={'custom-carousel-cells-container'}>
-        {datas.map((nil: any, index: number) => {
+        {datas.map((nil: React.ReactNode, index: number) => {
           return (
             <div
               key={`custom-carousel-dot-${index}`}
