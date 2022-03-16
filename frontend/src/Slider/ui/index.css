@@ -1,46 +1,91 @@
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%; }
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow: hidden;
+}
 
 .swiper {
-  overflow: hidden;
-  width: 100%;
-  position: relative; }
-  .swiper .slider-list {
-    position: relative;
-    transition-property: left;
-    transition-timing-function: linear;
-    left: 0%; }
-    .swiper .slider-list .slider {
-      display: inline-block;
-      height: 100vh; }
-      .swiper .slider-list .slider .title {
-        height: 200px; }
-      .swiper .slider-list .slider > img {
-        display: block;
-        height: 75vh;
-        object-fit: contain;
-        width: 100%; }
-  .swiper .dot-list {
-    z-index: 99;
-    text-align: center;
-    width: 100%;
-    position: absolute;
-    bottom: 10%; }
-    .swiper .dot-list .dot-item {
-      display: inline-block;
-      width: 100px;
-      height: 6px;
-      margin: 6px;
-      cursor: pointer;
-      background: #333; }
-      .swiper .dot-list .dot-item .dot-item-inner {
-        width: 0px;
-        height: 6px;
-        background: #ccc;
-        transition-property: width;
-        transition-timing-function: linear; }
+	overflow: hidden;
+	width: 100%;
+}
+.swiper .slider-list {
+	position: relative;
+	transition-property: left;
+	transition-timing-function: linear;
+	left: 0%;
+}
+.swiper .slider-list .slider {
+	position: relative;
+	display: inline-block;
+	width: 100vw;
+	height: 100vh;
+}
+.swiper .slider-list .slider .description-info {
+	position: absolute;
+	top: 245px;
+	left: 50%;
+	width: 100%;
+	z-index: 1;
+	transform: translateX(-50%);
+}
+.swiper .slider-list .slider .description-info .title {
+	font-size: 48px;
+	font-weight: bold;
+	margin: 0 0 20px 0;
+}
+.swiper .slider-list .slider .description-info .title p {
+	padding: 0;
+	margin: 0;
+}
+.swiper .slider-list .slider .description-info .description {
+	font-size: 28px;
+	font-weight: 400;
+	margin: 10px 0 0 0;
+}
+.swiper .slider-list .slider .description-info .description p {
+	padding: 0;
+	margin: 0;
+}
+.swiper .slider-list .slider .image-container {
+	width: 100%;
+	height: 100%;
+}
+.swiper .slider-list .slider .image-container > img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+}
+.swiper .dot-list {
+	z-index: 99;
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	bottom: 5%;
+}
+.swiper .dot-list .dot-item {
+	display: inline-block;
+	width: 40px;
+	height: 2px;
+	margin: 0 6px;
+	background-color: #333;
+	cursor: pointer;
+}
+@keyframes swiper-dot {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}
+.swiper .dot-list .dot-item .dot-item-inner {
+	height: 100%;
+	background: #ccc;
+	animation-name: swiper-dot;
+	animation-timing-function: linear;
+}
 
 /*# sourceMappingURL=index.css.map */

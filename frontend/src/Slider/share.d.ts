@@ -1,7 +1,18 @@
-type SliderProps = React.ReactElement | { title: string, src: string, alt: string }
+type SliderProps = {
+  id: string | number;
+  descriptionInfo: {
+    title: string[];
+    description: string[];
+  };
+  imageInfo: {
+    src: string;
+    alt: string;
+  },
+  style?: CSSProperties;
+} | React.ReactElement;
 
 type SwiperProps = {
-  sliderList: Array<SliderProps>
+  sliderList: Array<SliderProps>;
   speed?: number;
   delay?: number;
   pause?: boolean;
