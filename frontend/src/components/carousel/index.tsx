@@ -43,10 +43,12 @@ export default function Carousel({
     return () => {
       timer && clearTimeout(timer)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     handleTransformDom()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currIndex])
 
   return (
