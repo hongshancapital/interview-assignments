@@ -32,16 +32,18 @@ export const SlideContainer = styled.div`
 
     /* 自定义分页器的样式 */
     .swiper-pagination-customs {
-        width: 30px;
+        width: 45px;
         height: 4px;
         display: inline-block;
+        border-radius: 8px;
         background: rgb(169, 169, 169);
         opacity: 1;
         margin: 0 5px;
         position: relative;
         &.swiper-pagination-customs-active:after {
             content: "";
-            background-color: blue;
+            border-radius: 8px;
+            background-color: #fff;
             display: block;
             position: absolute;
             width: 0%;
