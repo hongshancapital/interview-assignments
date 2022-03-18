@@ -1,0 +1,98 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.8'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'java'
+    id 'jacoco'
+
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+group = 'com.yofei'
+version = '1.0.0'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    mavenCentral()
+    mavenLocal()
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+    implementation('io.springfox:springfox-boot-starter:3.0.0')
+    implementation('org.apache.commons:commons-lang3:3.12.0')
+    implementation('commons-validator:commons-validator:1.7')
+    implementation('com.google.guava:guava:23.0')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-redis')
+    implementation ("org.apache.commons:commons-pool2:2.11.1")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.mockito:mockito-all:1.9.5')
+    implementation('org.projectlombok:lombok:1.18.12')
+    //utils
+    implementation('commons-io:commons-io:2.6')
+    implementation('org.apache.commons:commons-lang3:3.12.0')
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    implementation("org.springframework.boot:spring-boot-starter-json")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation('org.springframework.integration:spring-integration-redis')
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("com.alibaba:druid:1.2.6")
+    // jpa
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("mysql:mysql-connector-java:5.0.4")
+    implementation("com.querydsl:querydsl-jpa:4.3.1")
+    implementation('com.vladmihalcea:hibernate-types-52:2.9.13')
+    implementation('joda-time:joda-time:2.10.1')
+    implementation('com.fasterxml.jackson.datatype:jackson-datatype-joda:2.11.2')
+
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor "org.projectlombok:lombok"
+    testCompileOnly "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
+}
+
+//dependencyManagement {
+//    imports {
+//        mavenBom "org.springframework.boot:spring-boot-dependencies:2.3.3.RELEASE"
+//    }
+//}
+
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+jacocoTestReport {
+    dependsOn test
+}
+
+
+jacocoTestCoverageVerification {
+    dependsOn test
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.85
+            }
+        }
+    }
+}
