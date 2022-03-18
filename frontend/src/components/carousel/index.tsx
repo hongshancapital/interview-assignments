@@ -2,7 +2,7 @@
  * this is a carousel component
  * author: ichenzhangdong@foxmail.com
  */
-import React, { Children, useEffect, useRef, useState } from 'react'
+import React, { Children, useCallback, useEffect, useRef, useState } from 'react'
 
 import Dots from './Dots'
 import { INIT_INDEX, DEFAULT_DURATION, prefixCls } from './constants'
@@ -20,22 +20,22 @@ export default function Carousel({
 
   const childCount = Children.count(children)
 
-  const handleLoadCarousel = () => {
+  const handleLoadCarousel = useCallback(() => {
     timer && clearTimeout(timer)
     timer = setTimeout(() => {
       setCurrIndex(idx => (childCount > idx + 1 ? idx + 1 : 0))
       handleLoadCarousel()
     }, duration)
-  }
+  }, [childCount, duration])
 
-  const handleTransformDom = () => {
+  const handleTransformDom = useCallback(() => {
     if (carouselRef.current) {
       const translateX = carouselRef.current.clientWidth / childCount
       carouselRef.current.style.transform = `translateX(-${
         translateX * currIndex
       }px)`
     }
-  }
+  }, [childCount, currIndex])
 
   useEffect(() => {
     setCurrIndex(INIT_INDEX)
@@ -47,13 +47,11 @@ export default function Carousel({
     return () => {
       timer && clearTimeout(timer)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [handleLoadCarousel])
 
   useEffect(() => {
     handleTransformDom()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currIndex])
+  }, [handleTransformDom])
 
   return (
     <div className={prefixCls}>
