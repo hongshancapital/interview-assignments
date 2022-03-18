@@ -15,7 +15,7 @@ export default function Carousel({
   duration = DEFAULT_DURATION,
   children
 }: ICarouselProps) {
-  const [currIndex, setCurrIndex] = useState(INIT_INDEX)
+  const [currIndex, setCurrIndex] = useState(-1)
   const carouselRef = useRef<HTMLDivElement | null>(null)
 
   const childCount = Children.count(children)
@@ -36,6 +36,10 @@ export default function Carousel({
       }px)`
     }
   }
+
+  useEffect(() => {
+    setCurrIndex(INIT_INDEX)
+  }, [])
 
   useEffect(() => {
     handleLoadCarousel()

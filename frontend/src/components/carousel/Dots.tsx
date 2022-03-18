@@ -12,7 +12,7 @@ const DotItem = ({ duration, isActive }: IDotItemProps) => {
   const dotLineCls = cls(`${dotPrefixCls}__item__line`, {
     [`${dotPrefixCls}__item__line--active`]: isActive
   })
-
+  
   return (
     <span className={`${dotPrefixCls}__item`}>
       <span
