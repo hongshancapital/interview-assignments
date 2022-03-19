@@ -16,7 +16,6 @@ import Foundation
 
 
 @MainActor class OTAppViewModel: ObservableObject {
-    
     @Published var appModelList: [AppModel] = [AppModel]()
     @Published var hasMoreData: Bool = false
     var hasError: Bool = false
@@ -24,6 +23,9 @@ import Foundation
     
     private let requestPath = "https://itunes.apple.com/search"
     private var requestOffset = 0
+    
+    //FIXME: 这里为了还原视频效果，手动限制加载数量
+    private let appModelCountLimit = 30
 
     //MARK: Api
     func refreshData() {
@@ -42,37 +44,28 @@ import Foundation
     }
     
     func favoriteApp(id: Int) {
-        let index = appModelList.firstIndex( where:  { $0.id == id })!
-        appModelList[index].isFavorite.toggle()
+        if let index = appModelList.firstIndex( where:  { $0.id == id }) {
+            appModelList[index].isFavorite.toggle()
+        }
     }
     
     //MARK: Helper
-    
-    private func appendAppModelList(with appendList: [AppModel]) {
-        var temAppModelList = appModelList
-        temAppModelList.append(contentsOf: appendList)
-        
-        var result = [AppModel]()
-        
-        for appModel in temAppModelList {
-            if !result.contains(where: { item in
-                return item == appModel
-            }) {
-                result.append(appModel)
-            }
+    //接口请求到的有重复数据，添加前需要先过滤
+    private func mergeAppModelList(with appendList: [AppModel]) {
+         let result = appendList.filter { item in
+            return appModelList.firstIndex(where: { $0.id == item.id }) == nil
         }
-        
-      appModelList = result
+        appModelList.append(contentsOf: result)
     }
     
     private func doRequest(with requestParams: OTNetworkParams) {
         Task {
             do {
-                let appData: AppData = try await OTNetwork.shared.getData (from: requestPath, params: requestParams)
-                appendAppModelList(with: appData.results)
+                let appData: AppData = try await OTNetwork.shared.getData(from: requestPath, params: requestParams)
+                mergeAppModelList(with: appData.results)
                 requestOffset = appModelList.count
                 //FIXME: 这里为了还原视频效果，手动限制加载数量
-                hasMoreData = (requestOffset < 30)
+                hasMoreData = (requestOffset < appModelCountLimit)
                 hasError = false
                 errorMessage = nil
             } catch {

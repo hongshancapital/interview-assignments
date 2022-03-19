@@ -12,18 +12,16 @@ struct AppData: Codable {
 }
 
 struct AppModel: Codable, Identifiable, Hashable {
-    let trackId: Int
+    var id: Int
     let artworkUrl60: String
     let trackName: String
     let description: String
-    var id: Int {trackId}
     var isFavorite: Bool = false
     
     private enum CodingKeys: String, CodingKey {
-        case trackId
+        case id = "trackId"
         case artworkUrl60
         case trackName
         case description
     }
-    
 }

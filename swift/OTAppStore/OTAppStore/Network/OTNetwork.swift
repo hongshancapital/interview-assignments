@@ -29,7 +29,13 @@ class OTNetwork {
                                  timeoutInterval: 30.0)
         request.httpMethod = "GET"
         
-        let (data, _) = try await URLSession.shared.data(for: request)
+        let (data, _): (Data, URLResponse)
+        do {
+            (data, _) = try await URLSession.shared.data(for: request)
+        } catch {
+            throw OTNetworkError.badResponse
+        }
+        
         do {
             return try decoder.decode(T.self, from:data)
         } catch {
