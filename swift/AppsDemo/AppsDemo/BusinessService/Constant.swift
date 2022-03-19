@@ -11,3 +11,8 @@ import UIKit
 let preferredPadding: CGFloat = 18
 
 let preferredCornerRadius: CGFloat = 15
+
+enum NetworkError: Error {
+    case invalidURL
+    case customer(errorMessage: String)
+}

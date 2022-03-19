@@ -8,7 +8,7 @@
 import Foundation
 
 struct LoadBundleDataService {
-    func loadJsonFromBundle<T: Decodable>(_ filename: String) async throws -> T {
+    func loadJsonFromBundle<T: Decodable>(_ filename: String) throws -> T {
         let data: Data
         
         guard let file = Bundle.main.url(forResource: filename, withExtension: nil)

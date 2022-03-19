@@ -16,7 +16,7 @@ struct AppList: View {
         NavigationView {
             List {
                 ForEach(viewModel.apps.indices, id:\.self) { index in
-                    AppInfoRow(appInfo: viewModel.apps[index], index: index) { index in
+                    AppInfoRow(appInfo: $viewModel.apps[index], index: index) { index in
                         do {
                             try viewModel.collect(index: index)
                         } catch {
@@ -75,14 +75,8 @@ extension AppList {
         
         do {
             try await viewModel.fetchNewApps()
-            
-            if viewModel.apps.isEmpty {
-                viewModel.emptyState = .empty
-            } else {
-                viewModel.emptyState = .items
-            }
         } catch {
-            viewModel.emptyState = .error
+            debugPrint(error.localizedDescription)
         }
     }
     

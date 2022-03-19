@@ -7,27 +7,31 @@
 
 import SwiftUI
 
+
 @available(iOS 15.0, *)
-class AppsViewModel: ObservableObject {
-    @Published private var model = AppsModel()
+final class AppsViewModel: ObservableObject {
+    @Published var apps: [AppInfoModel] = []
+    
+    @Published private var dataService: AppsDataServiceProtocol
+    
     @Published var headerRefreshing: Bool = false
     @Published var footerRefreshing: Bool = false
     @Published var emptyState: EmptyDataState = EmptyDataState.loading
-}
-
-// MARK: - 读写model
-
-extension AppsViewModel {
-    /// App 数据
-    var apps: [AppInfoModel] {
-        model.apps
-    }
     
     /// 是否有更多数据
-    var hasMoreData: Bool {
-        model.hasMoreData
-    }
+    var hasMoreData: Bool = false
     
+    private let pageSize = 50
+    private var currentPage = 1
+    
+    init(dataService: AppsDataServiceProtocol = AppsDataService()) {
+        self.dataService = dataService
+    }
+}
+
+// MARK: -
+
+extension AppsViewModel {
     /// 是否可以加载更多
     /// 当正在下拉刷新、上拉加载或没有数据可以加载时返回false
     var canLoadMore: Bool {
@@ -58,16 +62,49 @@ extension AppsViewModel {
     
     /// 获取最新的数据
     func fetchNewApps() async throws {
-        try await model.fetchNewApps()
+        defer {
+            currentPage = 1
+        }
+        
+        do {
+            guard let apps = try await dataService.fetchApps(page: 1) else {
+                apps = []
+                return
+            }
+            
+            self.apps = apps
+            
+            hasMoreData = self.apps.count < pageSize * 2
+            
+            if apps.isEmpty {
+                emptyState = .empty
+            } else {
+                emptyState = .items
+            }
+        } catch {
+            emptyState = .error
+            throw error
+        }
     }
     
     /// 加载更多
     func fetchNextPageApps() async throws {
-        try await model.fetchNextPageApps()
+        guard let apps = try await dataService.fetchApps(page: currentPage + 1) else {
+            return
+        }
+        
+        self.apps += apps
+        currentPage += 1
+        
+        hasMoreData = self.apps.count < pageSize * 2
     }
     
     /// 收藏
     func collect(index: Int) throws {
-        try model.collect(index: index)
+        guard index < apps.count else {
+            throw NetworkError.customer(errorMessage: "Index out of range.")
+        }
+        
+        apps[index].isCollected.toggle()
     }
 }

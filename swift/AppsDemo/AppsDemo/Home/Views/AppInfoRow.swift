@@ -11,7 +11,7 @@ import Kingfisher
 typealias AppInfoRowCollectBlock = (Int) -> Void
 
 struct AppInfoRow: View {
-    var appInfo: AppInfoModel
+    @Binding var appInfo: AppInfoModel
     var index: Int
     var collectBlock: AppInfoRowCollectBlock
 
@@ -86,9 +86,9 @@ extension AppInfoRow {
 
 struct AppInfoRow_Previews: PreviewProvider {
     static var previews: some View {
-        AppInfoRow(appInfo: AppInfoModel.init(name: "google",
+        AppInfoRow(appInfo: .constant(AppInfoModel.init(name: "google",
                                               description: "Google Chat is an intelligent and secure communication and collaboration tool, built for teams. From ad-hoc messaging to topic-based workstream collaboration, Chat makes it easy to get work done where the conversation is happening.",
-                                              imageUrlString: "https://is2-ssl.mzstatic.com/image/thumb/Purple116/v4/06/8c/e5/068ce5a0-8a33-41ee-488a-95067d2b241a/source/100x100bb.jpg"),
+                                              imageUrlString: "https://is2-ssl.mzstatic.com/image/thumb/Purple116/v4/06/8c/e5/068ce5a0-8a33-41ee-488a-95067d2b241a/source/100x100bb.jpg")),
                    index: 0, collectBlock: {index in})
             .previewLayout(.fixed(width: 375, height: 95))
     }
