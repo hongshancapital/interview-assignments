@@ -9,8 +9,7 @@ import SwiftUI
 
 struct OTAppRow: View {
     var appModel: AppModel
-    
-    @State var isFavorite = false
+    var tapFavoriteAction: (() -> Void)?
     
     var body: some View {
         Group {
@@ -33,19 +32,21 @@ struct OTAppRow: View {
                         .lineLimit(2)
                 }
                 Spacer()
-                Button {
-                    isFavorite.toggle()
-                }label: {
-                    Image(systemName: isFavorite ? "heart.fill": "heart")
-                        .foregroundColor(isFavorite ? .red : .gray)
-                        .scaleEffect(isFavorite ? 1.2 : 1.0)
-                        .animation(.default, value: isFavorite)
-                }
-            }.frame(height: 83)
+                
+                Image(systemName: appModel.isFavorite ? "heart.fill": "heart")
+                    .foregroundColor(appModel.isFavorite ? .red : .gray)
+                    .scaleEffect(appModel.isFavorite ? 1.2 : 1.0)
+                    .animation(.default, value: appModel.isFavorite)
+                    .onTapGesture {
+                        if let tapFavoriteAction = tapFavoriteAction {
+                            tapFavoriteAction()
+                        }
+                    }
+            }.frame(height: 103)
                 .padding(.horizontal, 14)
                 .background(.white)
                 .cornerRadius(8)
-        }.padding(.bottom, 10)
+        }.padding(.top, 10)
     }
 }
 

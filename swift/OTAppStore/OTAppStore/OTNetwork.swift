@@ -30,11 +30,7 @@ class OTNetwork {
         request.httpMethod = "GET"
         
         let (data, _) = try await URLSession.shared.data(for: request)
-
         do {
-            
-            print("data \(data)");
-            
             return try decoder.decode(T.self, from:data)
         } catch {
             throw OTNetworkError.parseError
@@ -51,9 +47,6 @@ class OTNetwork {
             queryItems.append(URLQueryItem(name: item.key, value: "\(item.value)"))
         }
         urlComonents.queryItems = queryItems
-        
-        print("urlComonents \(urlComonents)")
-        
         return urlComonents.url
     }
 }
