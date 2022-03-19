@@ -1,14 +1,17 @@
 //
-//  OTAppStoreTests.swift
+//  OTNetworkTests.swift
 //  OTAppStoreTests
 //
-//  Created by liuxj on 2022/3/18.
+//  Created by liuxj on 2022/3/19.
 //
 
 import XCTest
+
 @testable import OTAppStore
 
-class OTAppStoreTests: XCTestCase {
+class OTNetworkTests: XCTestCase {
+    
+    let network = OTNetwork.shared
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -18,12 +21,20 @@ class OTAppStoreTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testGetData() async throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // Any test you write for XCTest can be annotated as throws and async.
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        
+        let requestPath = "https://itunes.apple.com/search"
+        let requestParams: OTNetworkParams =  ["entity": "software",
+                                               "limit": 50,
+                                               "term": "chat"]
+
+        let appData: AppData = try await self.network.getData(from: requestPath, params: requestParams)
+        XCTAssertNotNil(appData)
     }
 
     func testPerformanceExample() throws {

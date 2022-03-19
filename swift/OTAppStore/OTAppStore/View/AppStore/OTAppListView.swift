@@ -17,7 +17,6 @@ struct OTAppListView: View {
                 if viewModel.appModelList.count == 0 {
                     ProgressView()
                         .padding(.all)
-                        .onAppear { viewModel.refreshData() }
                 } else {
                     List {
                         ForEach(viewModel.appModelList) { appModel in
@@ -32,7 +31,9 @@ struct OTAppListView: View {
                         
                         OTLoadMoreView(hasMore: viewModel.hasMoreData)
                         {
-                            viewModel.loadMoreData()
+                            Task {
+                                await viewModel.loadMoreData()
+                            }
                         }
                         .listRowBackground(Color.clear)
                     }
@@ -41,7 +42,8 @@ struct OTAppListView: View {
             .alert(viewModel.errorMessage ?? "error occur",
                    isPresented: $viewModel.hasError,
                    actions: {})
-            .refreshable { viewModel.refreshData() }
+            .refreshable { await viewModel.refreshData() }
+            .task { await viewModel.refreshData() }
             .navigationTitle("App")
         }
         .navigationViewStyle(.stack)

@@ -29,19 +29,19 @@ class OTAppViewModel: ObservableObject {
     private let appModelCountLimit = 30
     
     //MARK: Api
-    func refreshData() {
+    func refreshData() async {
         let refreshParams: OTNetworkParams = ["entity": "software",
                                               "limit": 10,
                                               "term": "chat"]
-        doRequest(with: refreshParams)
+        await doRequest(with: refreshParams, isRefresh: true)
     }
     
-    func loadMoreData() {
+    func loadMoreData() async {
         let loadMoreParams: OTNetworkParams = ["entity": "software",
                                                "limit": 10,
                                                "term": "chat",
                                                "offset": requestOffset]
-        doRequest(with: loadMoreParams)
+        await doRequest(with: loadMoreParams)
     }
     
     func favoriteApp(id: Int) {
@@ -59,19 +59,21 @@ class OTAppViewModel: ObservableObject {
         appModelList.append(contentsOf: result)
     }
     
-    private func doRequest(with requestParams: OTNetworkParams) {
-        Task {
-            do {
-                let appData: AppData = try await OTNetwork.shared.getData(from: requestPath, params: requestParams)
+    private func doRequest(with requestParams: OTNetworkParams, isRefresh: Bool = false) async {
+        do {
+            let appData: AppData = try await OTNetwork.shared.getData(from: requestPath, params: requestParams)
+            if isRefresh {
+                appModelList = appData.results
+            } else {
                 mergeAppModelList(with: appData.results)
-                requestOffset = appModelList.count
-                //FIXME: 这里为了还原视频效果，手动限制加载数量
-                hasMoreData = (requestOffset < appModelCountLimit)
-                hasError = false
-                errorMessage = nil
-            } catch {
-                dealRequestException(with: error)
             }
+            requestOffset = appModelList.count
+            //FIXME: 这里为了还原视频效果，手动限制加载数量
+            hasMoreData = (requestOffset < appModelCountLimit)
+            hasError = false
+            errorMessage = nil
+        } catch {
+            dealRequestException(with: error)
         }
     }
     

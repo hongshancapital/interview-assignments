@@ -34,8 +34,7 @@ struct OTWebImage: View {
             ProgressView()
                 .onAppear {
                 fetchImageData()
-            }
-                .padding(.all)
+            }.padding(.all)
         }
     }
 }
