@@ -44,7 +44,7 @@ struct OTAppRow: View {
                     }
             }.frame(height: 83)
                 .padding(.horizontal, 14)
-                .background(.white)
+                .background(.background)
                 .cornerRadius(8)
         }.padding(.top, 10)
     }
@@ -64,7 +64,7 @@ struct OTAppRow_Previews: PreviewProvider {
         trackName: "Viber Messenger: Chats & Calls",
         description: "Viber is the FREE, simple, fast, and secure messaging and calling app. It’s the messenger of choice for hundreds of millions of users worldwide!")
     
-    static let appModels = [appModel1, appModel2, appModel1, appModel2]
+    static let appModels = [appModel1, appModel2]
     
     static var previews: some View {
         List (appModels) {appModel in
@@ -73,7 +73,7 @@ struct OTAppRow_Previews: PreviewProvider {
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
         }
-        .previewLayout(PreviewLayout.fixed(width: 390, height: 600))
+        .previewLayout(PreviewLayout.fixed(width: 390, height: 300))
     }
 }
 
