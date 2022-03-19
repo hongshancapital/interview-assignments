@@ -17,14 +17,14 @@ struct OTLoadMoreView: View {
             if hasMore {
                 ProgressView()
             }
-            Text(hasMore ? "Loading..." : "No more Data.")
+            Text(hasMore ? "Loading..." : "No more data.")
                 .foregroundColor(.gray)
             Spacer()
         }
         .frame(height: 30)
         .onAppear {
             if hasMore,
-            let loadMoreAction = loadMoreAction {
+               let loadMoreAction = loadMoreAction {
                 loadMoreAction()
             }
         }

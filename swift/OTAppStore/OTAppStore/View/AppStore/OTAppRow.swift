@@ -26,14 +26,14 @@ struct OTAppRow: View {
                     Text(appModel.trackName)
                         .font(.title3)
                         .lineLimit(1)
-                        
+                    
                     Text(appModel.description)
                         .font(.caption)
                         .lineLimit(2)
                 }
                 Spacer()
                 
-                Image(systemName: appModel.isFavorite ? "heart.fill": "heart")
+                Image(systemName: appModel.isFavorite ? "heart.fill" : "heart")
                     .foregroundColor(appModel.isFavorite ? .red : .gray)
                     .scaleEffect(appModel.isFavorite ? 1.2 : 1.0)
                     .animation(.default, value: appModel.isFavorite)
@@ -42,7 +42,7 @@ struct OTAppRow: View {
                             tapFavoriteAction()
                         }
                     }
-            }.frame(height: 103)
+            }.frame(height: 83)
                 .padding(.horizontal, 14)
                 .background(.white)
                 .cornerRadius(8)
@@ -67,7 +67,7 @@ struct OTAppRow_Previews: PreviewProvider {
     static let appModels = [appModel1, appModel2, appModel1, appModel2]
     
     static var previews: some View {
-        List (appModels, id: \.self) {appModel in
+        List (appModels) {appModel in
             OTAppRow(appModel: appModel)
                 .listRowSeparator(.hidden)
                 .listRowInsets(EdgeInsets())

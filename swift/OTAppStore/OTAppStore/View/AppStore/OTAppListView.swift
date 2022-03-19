@@ -25,10 +25,11 @@ struct OTAppListView: View {
                             {
                                 viewModel.favoriteApp(id: appModel.id)
                             }
-                                .listRowSeparator(.hidden)
-                                .listRowInsets(EdgeInsets())
-                                .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color.clear)
                         }
+                        
                         OTLoadMoreView(hasMore: viewModel.hasMoreData)
                         {
                             viewModel.loadMoreData()

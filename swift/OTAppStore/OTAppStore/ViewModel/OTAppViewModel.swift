@@ -15,7 +15,8 @@ import Foundation
  */
 
 
-@MainActor class OTAppViewModel: ObservableObject {
+@MainActor
+class OTAppViewModel: ObservableObject {
     @Published var appModelList: [AppModel] = [AppModel]()
     @Published var hasMoreData: Bool = false
     var hasError: Bool = false
@@ -26,7 +27,7 @@ import Foundation
     
     //FIXME: 这里为了还原视频效果，手动限制加载数量
     private let appModelCountLimit = 30
-
+    
     //MARK: Api
     func refreshData() {
         let refreshParams: OTNetworkParams = ["entity": "software",
@@ -44,7 +45,7 @@ import Foundation
     }
     
     func favoriteApp(id: Int) {
-        if let index = appModelList.firstIndex( where:  { $0.id == id }) {
+        if let index = appModelList.firstIndex(where:  { $0.id == id }) {
             appModelList[index].isFavorite.toggle()
         }
     }
@@ -52,7 +53,7 @@ import Foundation
     //MARK: Helper
     //接口请求到的有重复数据，添加前需要先过滤
     private func mergeAppModelList(with appendList: [AppModel]) {
-         let result = appendList.filter { item in
+        let result = appendList.filter { item in
             return appModelList.firstIndex(where: { $0.id == item.id }) == nil
         }
         appModelList.append(contentsOf: result)

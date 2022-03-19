@@ -15,7 +15,7 @@ import Foundation
 
 actor OTWebCacheLoader {
     static let shared = OTWebCacheLoader()
-    var inMomeryCache: [String: Data] = [:]
+    private var inMomeryCache: [String: Data] = [:]
     
     //MARK: Api
     

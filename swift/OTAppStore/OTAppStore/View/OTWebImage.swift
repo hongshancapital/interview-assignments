@@ -10,11 +10,11 @@ import SwiftUI
 struct OTWebImage: View {
     @State private var imageData: Data? = nil
     var imageURL: String
-    
+
     init(_ imageURL: String) {
         self.imageURL = imageURL
     }
-    
+
     func fetchImageData() {
         Task {
             do {
@@ -27,15 +27,15 @@ struct OTWebImage: View {
 
     var body: some View {
         if let imageData = imageData,
-           let uiImage = UIImage(data: imageData) {
+            let uiImage = UIImage(data: imageData) {
             Image(uiImage: uiImage)
                 .resizable()
         } else {
             ProgressView()
-            .onAppear {
+                .onAppear {
                 fetchImageData()
             }
-            .padding(.all)
+                .padding(.all)
         }
     }
 }
@@ -47,6 +47,6 @@ struct OTWebImage_Previews: PreviewProvider {
             OTWebImage("https://is2-ssl.mzstatic.com/image/thumb/Purple116/v4/06/8c/e5/068ce5a0-8a33-41ee-488a-95067d2b241a/source/60x60bb.jpg")
             OTWebImage("https://is2-ssl.mzstatic.com/image/thumb/Purple116/v4/06/8c/e5/068ce5a0-8a33-41ee-488a-95067d2b241a/source/100x100bb.jpg")
         }
-        .previewLayout(PreviewLayout.fixed(width: 75, height: 75))
+            .previewLayout(PreviewLayout.fixed(width: 75, height: 75))
     }
 }
