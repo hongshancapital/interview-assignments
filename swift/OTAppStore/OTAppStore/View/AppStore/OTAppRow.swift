@@ -67,7 +67,7 @@ struct OTAppRow_Previews: PreviewProvider {
     static let appModels = [appModel1, appModel2]
     
     static var previews: some View {
-        List (appModels) {appModel in
+        List (appModels) { appModel in
             OTAppRow(appModel: appModel)
                 .listRowSeparator(.hidden)
                 .listRowInsets(EdgeInsets())

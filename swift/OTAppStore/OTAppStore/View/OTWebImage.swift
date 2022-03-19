@@ -26,9 +26,8 @@ struct OTWebImage: View {
     }
 
     var body: some View {
-        if let imageData = imageData,
-            let uiImage = UIImage(data: imageData) {
-            Image(uiImage: uiImage)
+        if let imageData = imageData {
+            Image(uiImage: UIImage(data: imageData) ?? UIImage())
                 .resizable()
         } else {
             ProgressView()

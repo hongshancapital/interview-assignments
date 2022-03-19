@@ -20,8 +20,7 @@ struct OTAppListView: View {
                 } else {
                     List {
                         ForEach(viewModel.appModelList) { appModel in
-                            OTAppRow(appModel: appModel)
-                            {
+                            OTAppRow(appModel: appModel) {
                                 viewModel.favoriteApp(id: appModel.id)
                             }
                             .listRowSeparator(.hidden)
@@ -29,8 +28,7 @@ struct OTAppListView: View {
                             .listRowBackground(Color.clear)
                         }
                         
-                        OTLoadMoreView(hasMore: viewModel.hasMoreData)
-                        {
+                        OTLoadMoreView(hasMore: viewModel.hasMoreData) {
                             Task {
                                 await viewModel.loadMoreData()
                             }

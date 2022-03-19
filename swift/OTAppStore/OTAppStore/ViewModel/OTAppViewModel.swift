@@ -78,7 +78,6 @@ class OTAppViewModel: ObservableObject {
     }
     
     private func dealRequestException(with error: Error) {
-        hasMoreData = false
         hasError = true
         errorMessage = "request with Error: \(error.localizedDescription)"
     }
