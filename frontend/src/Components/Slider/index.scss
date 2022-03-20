@@ -1,0 +1,66 @@
+@keyframes frame {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+.slider-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative; 
+
+  .loop-list {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    animation-fill-mode:both;
+
+    &__item {
+      display: inline-block;
+      height: 100%;
+    }
+  }
+
+  .loop-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    margin: auto;
+    font-size: 0;
+
+    .slider-btn {
+      display: inline-block;
+      position: relative;
+      width: 50px;
+      height: 3px;
+      border-radius: 3px;
+      background-color: #ccc;
+      opacity: .8;
+      margin-right: 5px;
+      cursor: pointer;
+    
+      .slider-btn-p {
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 3px;
+        background-color: white;
+        width: 0;
+        
+        &.active {
+          animation-name: frame;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+        }
+      }
+    }
+  }
+}
