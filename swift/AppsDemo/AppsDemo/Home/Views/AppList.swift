@@ -16,7 +16,7 @@ struct AppList: View {
         NavigationView {
             List {
                 ForEach(viewModel.apps.indices, id:\.self) { index in
-                    AppInfoRow(appInfo: $viewModel.apps[index], index: index) { index in
+                    AppInfoRow(appInfo: viewModel.apps[index], index: index) { index in
                         do {
                             try viewModel.collect(index: index)
                         } catch {

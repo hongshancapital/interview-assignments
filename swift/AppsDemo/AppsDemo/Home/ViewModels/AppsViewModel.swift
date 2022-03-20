@@ -10,7 +10,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 final class AppsViewModel: ObservableObject {
-    @Published var apps: [AppInfoModel] = []
+    @Published private(set) var apps: [AppInfoModel] = []
     
     @Published private var dataService: AppsDataServiceProtocol
     
