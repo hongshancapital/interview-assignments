@@ -32,7 +32,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfo("短链接-SWAGGER", "短链接API文档",
                 "1.0", "", ApiInfo.DEFAULT_CONTACT,
-                "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList<>()
+                "Apache 2.0", "https://www.apache.org/licenses/LICENSE-2.0", new ArrayList<>()
         );
     }
 
