@@ -1,0 +1,14 @@
+spring:
+  cache:
+    type: caffeine
+    cache-names: KEY_SHORT_LINK, KEY_ORIGINAL_LINK
+    caffeine:
+      #官方建议通过使用基于缓存容量的驱逐策略代替软引用
+      spec: maximumSize=1000000
+      #使用软、弱引用类型防止OOM
+      #spec: weakKeys,softValues
+
+short-link:
+  hostname: https://www.sequoiacap.com
+
+
