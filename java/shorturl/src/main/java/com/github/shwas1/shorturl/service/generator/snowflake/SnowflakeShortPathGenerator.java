@@ -9,8 +9,8 @@ import java.util.Base64;
  * 雪花算法生成器
  * 思路：可将生成的短路径视为base64格式，则一个字符可承载6比特容量。
  * 所以生成长度8的base64字符串，一共需要48比特。
- * 因此可借鉴雪花算法，48比特=40比特时间戳+8位序列号（其中时间戳单位为毫秒）
- * 则理论上每毫秒可生成2^8=256个序号，则理论TPS为2^8*1000=256000
+ * 因此可借鉴雪花算法，48比特=40比特时间戳+4比特工作Id+4比特序列号（其中时间戳单位为毫秒）
+ * 则理论上每毫秒可生成2^4=16个序号，则理论单机TPS为2^4*1000=16000
  */
 @Service
 public class SnowflakeShortPathGenerator implements ShortPathGenerator {
@@ -23,19 +23,33 @@ public class SnowflakeShortPathGenerator implements ShortPathGenerator {
      */
     private static final int TIMESTAMP_BITS = 40;
     /**
+     * WorkId比特长度
+     */
+    private static final int WORK_ID_BITS = 4;
+    /**
      * 序号比特长度
      */
-    private static final int SEQUENCE_BITS = 8;
+    private static final int SEQUENCE_BITS = 4;
 
     /**
      * 比特分配器
      */
-    private static final BitsAllocator bitsAllocator = new BitsAllocator(TOTAL_BITS, TIMESTAMP_BITS, SEQUENCE_BITS);
+    private static final BitsAllocator bitsAllocator = new BitsAllocator(TOTAL_BITS, TIMESTAMP_BITS, WORK_ID_BITS, SEQUENCE_BITS);
 
     /**
      * 上一次UUID信息
      */
     private LastUUID lastUUID;
+
+    /**
+     * 当前机器的工作Id，在启动阶段分配
+     */
+    private final long workId;
+
+
+    public SnowflakeShortPathGenerator(WorkIdAllocator workIdAllocator) {
+        this.workId = workIdAllocator.getWorkId(WORK_ID_BITS);
+    }
 
     @Override
     public String generate() {
@@ -73,7 +87,7 @@ public class SnowflakeShortPathGenerator implements ShortPathGenerator {
             currentUUID = lastUUID.increment();
         } else {
             currentUUID = new LastUUID(currentTimeMillis);
-            currentUUID.uuid = bitsAllocator.allocate(currentTimeMillis, 0);
+            currentUUID.uuid = bitsAllocator.allocate(currentTimeMillis, workId, 0); // 序号从0开始
         }
 
         this.lastUUID = currentUUID;
