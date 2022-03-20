@@ -43,7 +43,7 @@ For [interview-assignments](https://github.com/scdt-china/interview-assignments/
 
 以上方案我最终选择方案三。使用Caffeine作为本次缓存的数据结构，其底层也是HashMap。为防止内存溢出，需要注意的是数据驱逐问题。
 Caffeine有三个纬度的驱逐方式，分别是 [大小、时间和引用](https://github.com/ben-manes/caffeine/wiki/Eviction) 。
-官方建议是通过使用基于缓存容量的驱逐策略代替软引用的使用。 [配置参考文档](https://www.javadoc.io/doc/com.github.ben-manes.caffeine/caffeine/2.9.3/com/github/benmanes/caffeine/cache/CaffeineSpec.html
+***官方建议是通过使用基于缓存容量的驱逐策略代替软引用的使用***。 [配置参考文档](https://www.javadoc.io/doc/com.github.ben-manes.caffeine/caffeine/2.9.3/com/github/benmanes/caffeine/cache/CaffeineSpec.html
 )
 
 
@@ -58,13 +58,13 @@ Caffeine有三个纬度的驱逐方式，分别是 [大小、时间和引用](ht
 
 
 * 对于 Base62，每一位有 62 个可能字符串，8 位则有
-  ```
-  62^8=218340105584896
-  ```
+  
+  > 62^8 = 218340105584896
+  
   种组合，也是为了防止过于简单被爬虫，我们设计如果从 4 位数开始，则有
-  ```
-  218340105584896 - 62^4 = 218340090808560
-  ```
+  
+  > 218340105584896 - 62^4 = 218340090808560
+  
   也就是说假设每秒产生 1000 个短域名 也够用 6924 年
 
 
