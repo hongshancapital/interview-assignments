@@ -35,39 +35,40 @@
 **核心代码：**
 
 ```java
+
+    private synchronized long nextId() {
+        long currentTimeMillis = getCurrentTimeMillis();
+        LastUUID currentUUID;
+        if (lastUUID != null && lastUUID.lastTimeMillis == currentTimeMillis) {
+            // 如果uuid已经溢出，则循环等待下一毫秒获取uid
+            if (bitsAllocator.isSequenceValueOverflow(lastUUID.uuid)) {
+                waitNextTimeMillis(lastUUID.lastTimeMillis);
+                return nextId();
+            }
+            currentUUID = lastUUID.increment();
+        } else {
+            currentUUID = new LastUUID(currentTimeMillis);
+            currentUUID.uuid = bitsAllocator.allocate(currentTimeMillis, workId, 0); // 序号从0开始
+        }
+
+        this.lastUUID = currentUUID;
+        return currentUUID.uuid;
+    }
+
     /**
- * 将48位的Long转成长度为6的byte数组，进而转成长度为8的base64
- */
-private String longToBase64(long uuid){
-        byte[]bytes=new byte[6];
-        bytes[0]=(byte)(uuid>>>40);
-        bytes[5]=(byte)(uuid>>>32);
-        bytes[2]=(byte)(uuid>>>24);
-        bytes[4]=(byte)(uuid>>>16);
-        bytes[3]=(byte)(uuid>>>8);
-        bytes[1]=(byte)(uuid);
+     * 将48位的Long转成长度为6的byte数组，进而转成长度为8的base64
+     */
+    private String longToBase64(long uuid) {
+        byte[] bytes = new byte[6];
+        bytes[0] = (byte) (uuid >>> 40);
+        bytes[5] = (byte) (uuid >>> 32);
+        bytes[2] = (byte) (uuid >>> 24);
+        bytes[4] = (byte) (uuid >>> 16);
+        bytes[3] = (byte) (uuid >>> 8);
+        bytes[1] = (byte) (uuid);
 
         return Base64.getUrlEncoder().encodeToString(bytes);
-        }
-
-private synchronized long nextId(){
-        long currentTimeMillis=getCurrentTimeMillis();
-        LastUUID currentUUID;
-        if(lastUUID!=null&&lastUUID.lastTimeMillis==currentTimeMillis){
-        // 如果uuid已经溢出，则循环等待下一毫秒获取uid
-        if(bitsAllocator.isSequenceValueOverflow(lastUUID.uuid)){
-        waitNextTimeMillis(lastUUID.lastTimeMillis);
-        return nextId();
-        }
-        currentUUID=lastUUID.increment();
-        }else{
-        currentUUID=new LastUUID(currentTimeMillis);
-        currentUUID.uuid=bitsAllocator.allocate(currentTimeMillis,workId,0); // 序号从0开始
-        }
-
-        this.lastUUID=currentUUID;
-        return currentUUID.uuid;
-        }
+    }
 ```
 
 # 3. 系统架构图
