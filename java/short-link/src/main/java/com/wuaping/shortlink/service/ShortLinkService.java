@@ -50,7 +50,7 @@ public class ShortLinkService {
         // 幂等判断
         String shortLink = shortLinkRepository.findByOriginalLink(originalLink);
         if (StringUtils.isNotBlank(shortLink)) {
-            // 二次确认短域名是否存在
+            // 二次确认短域名是否存在，因为两份缓存分开独立，无法保证同步驱逐
             if (StringUtils.isNotBlank(shortLinkRepository.findByShortLink(shortLink))) {
                 return shortLink;
             }
