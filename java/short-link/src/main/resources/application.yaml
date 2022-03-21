@@ -3,8 +3,8 @@ spring:
     type: caffeine
     cache-names: KEY_SHORT_LINK, KEY_ORIGINAL_LINK
     caffeine:
-      #官方建议通过使用基于缓存容量的驱逐策略代替软引用
-      spec: maximumSize=1000000
+      #建议通过使用基于缓存容量和时间的驱逐策略代替软引用
+      spec: maximumSize=15000000,expireAfterWrite=30D
       #使用软、弱引用类型防止OOM
       #spec: weakKeys,softValues
 

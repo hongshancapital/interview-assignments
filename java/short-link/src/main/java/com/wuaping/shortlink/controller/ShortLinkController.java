@@ -41,7 +41,7 @@ public class ShortLinkController {
 
     @GetMapping("/original")
     @ApiOperation("获取原域名")
-    public RestResult<OriginalLinkResponse> originalLink(@RequestParam("shortLink") String shortLink) {
+    public RestResult<OriginalLinkResponse> originalLink(@ApiParam(value = "短域名") @RequestParam("shortLink") String shortLink) {
         log.info("[request] /link/original shortLink={}", shortLink);
 
         String originalLink = shortLinkService.originalLink(shortLink);

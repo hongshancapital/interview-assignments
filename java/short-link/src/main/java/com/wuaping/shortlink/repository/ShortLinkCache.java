@@ -18,6 +18,13 @@ public class ShortLinkCache {
     @Autowired
     private CaffeineCacheManager caffeineCacheManager;
 
+    /**
+     * 缓存读取
+     * @param name 缓存名
+     * @param key 键
+     * @param <T> 值
+     * @return 返回缓存值
+     */
     public <T> T getValue(@NonNull String name, @NonNull Object key) {
 
         Cache cache = caffeineCacheManager.getCache(name);
@@ -28,6 +35,12 @@ public class ShortLinkCache {
         return null;
     }
 
+    /**
+     * 保存缓存
+     * @param name 缓存名
+     * @param key 键
+     * @param value 值
+     */
     public void putValue(@NonNull String name, @NonNull Object key, @NonNull Object value) {
 
         caffeineCacheManager.getCache(name).put(key, value);

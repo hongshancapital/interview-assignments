@@ -25,6 +25,11 @@ public class ShortLinkRepository {
     @Autowired
     private ShortLinkCache shortLinkCache;
 
+    /**
+     * 保存短链映射关系
+     * @param shortLink 短域名
+     * @param originalLink 原域名
+     */
     public void save(String shortLink, String originalLink) {
 
         shortLinkCache.putValue(KEY_SHORT_LINK, shortLink, originalLink);
@@ -33,12 +38,21 @@ public class ShortLinkRepository {
 
     }
 
+    /**
+     * 根据短链查询原域名
+     * @param shortLink 短域名
+     * @return 原域名
+     */
     public String findByShortLink(String shortLink){
 
        return shortLinkCache.getValue(KEY_SHORT_LINK, shortLink);
-
     }
 
+    /**
+     * 根据原域名查询短域名
+     * @param originalLink 原域名
+     * @return 短域名
+     */
     public String findByOriginalLink(String originalLink){
         return shortLinkCache.getValue(KEY_ORIGINAL_LINK, originalLink);
     }

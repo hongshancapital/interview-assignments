@@ -45,6 +45,11 @@ public class ShortLinkService {
     @Value("${short-link.hostname}")
     private String hostname;
 
+    /**
+     * 生成短域名，并存储
+     * @param originalLink 原域名
+     * @return 短域名
+     */
     public String toShortLink(String originalLink) {
 
         // 幂等判断
@@ -66,7 +71,7 @@ public class ShortLinkService {
                 }
             }
 
-            shortLink = generateShortLink();
+            shortLink = Base62Util.encodeToLong(index.incrementAndGet());
 
             log.info("生成短链: {}", shortLink);
             if (shortLink.length() > MAX_LENGTH) {
@@ -82,7 +87,11 @@ public class ShortLinkService {
         return shortLink;
     }
 
-
+    /**
+     * 根据短域名查询原域名
+     * @param shortLink
+     * @return 原域名
+     */
     public String originalLink(String shortLink) {
 
         String originalLink = shortLinkRepository.findByShortLink(shortLink);
@@ -91,11 +100,6 @@ public class ShortLinkService {
         }
 
         return originalLink;
-    }
-
-
-    private String generateShortLink() {
-        return Base62Util.encodeToLong(index.incrementAndGet());
     }
 
 }
