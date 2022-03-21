@@ -1,0 +1,73 @@
+.container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.content {
+    position: relative;
+    height: 100%;
+    top: 0;
+    transition: all 0.5s linear;
+    display: flex;
+}
+.textContent {
+    margin-top: 10%;
+    text-align: center;
+}
+h1 {
+    font-size: 3em;
+}
+h2 {
+    font-size: 2em;
+    font-weight: normal;
+}
+.item{
+    top: 0;
+    height: 100%;
+    background-position: center bottom 20px;
+    background-size: cover;
+    transition: all 0.5s linear;
+}
+.select {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.select > li {
+    width: 60px;
+    height: 3px;
+    margin: 0 3px;
+    background-color: #cccccc;
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+}
+
+.select > li[data-select=true]:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: inline-block;
+    width: 0;
+    height: 3px;
+    background-color: #ffffff;
+    animation-name: selectLi;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+}
+
+@keyframes selectLi {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 60px;
+    }
+}
