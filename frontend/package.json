@@ -14,6 +14,9 @@
     "@types/node": "^17.0.13",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.0",
     "react-scripts": "^5.0.0",
     "typescript": "^4.5.5"
   },
@@ -21,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "cd .. && husky install frontend/.husky",
+    "lint": "lint-staged"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,6 +41,12 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*{.ts,.tsx}": [
+      "prettier --write --ignore-unknown",
+      "eslint --fix"
     ]
   }
 }
