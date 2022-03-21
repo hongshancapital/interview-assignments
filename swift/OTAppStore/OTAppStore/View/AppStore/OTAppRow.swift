@@ -44,7 +44,7 @@ struct OTAppRow: View {
                     }
             }.frame(height: 83)
                 .padding(.horizontal, 14)
-                .background(.background)
+                .background(Color("color.appRowBG"))
                 .cornerRadius(8)
         }.padding(.top, 10)
     }
@@ -67,13 +67,23 @@ struct OTAppRow_Previews: PreviewProvider {
     static let appModels = [appModel1, appModel2]
     
     static var previews: some View {
-        List (appModels) { appModel in
-            OTAppRow(appModel: appModel)
-                .listRowSeparator(.hidden)
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color.clear)
+        Group {
+            List (appModels) { appModel in
+                OTAppRow(appModel: appModel)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+            }
+            .previewLayout(PreviewLayout.fixed(width: 390, height: 300))
+            List (appModels) { appModel in
+                OTAppRow(appModel: appModel)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+            }
+            .preferredColorScheme(.dark)
+            .previewLayout(PreviewLayout.fixed(width: 390, height: 300))
         }
-        .previewLayout(PreviewLayout.fixed(width: 390, height: 300))
     }
 }
 
