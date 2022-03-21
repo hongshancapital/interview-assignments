@@ -7,6 +7,7 @@
 
 import Foundation
 
+typealias OTNetworkResult = (data: Data, response: URLResponse)
 typealias OTNetworkParams = [String: Any]
 
 enum OTNetworkError: Error {
@@ -29,16 +30,16 @@ class OTNetwork {
                                  timeoutInterval: 30.0)
         request.httpMethod = "GET"
         
-        let (data, _): (Data, URLResponse)
+        let result: OTNetworkResult
         
         do {
-            (data, _) = try await URLSession.shared.data(for: request)
+            result = try await URLSession.shared.data(for: request)
         } catch {
             throw OTNetworkError.badResponse
         }
         
         do {
-            return try decoder.decode(T.self, from: data)
+            return try decoder.decode(T.self, from: result.data)
         } catch {
             throw OTNetworkError.parseError
         }

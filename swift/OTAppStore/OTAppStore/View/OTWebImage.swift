@@ -20,6 +20,8 @@ struct OTWebImage: View {
             do {
                 imageData = try await OTWebCacheLoader.shared.loadData(from: imageURL)
             } catch {
+                //加载失败后 显示默认出错图  避免一直重试
+                imageData = UIImage(named: "image.netError")?.pngData()
                 print("fetchImageData with error: \(error.localizedDescription)")
             }
         }
