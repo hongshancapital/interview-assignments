@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * @author xiuyuan
+ * @author h.cn
  * @date 2022/3/17
  */
 @Api(tags = "短链接服务")

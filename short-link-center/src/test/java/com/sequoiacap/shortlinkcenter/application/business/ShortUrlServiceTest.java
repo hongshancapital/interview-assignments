@@ -17,7 +17,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 /**
- * @author xiuyuan
+ * @author h.cn
  * @date 2022/3/17
  */
 @SpringBootTest(classes = {ShortUrlServiceImpl.class, NotifierTask.class})

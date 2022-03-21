@@ -3,7 +3,7 @@ package com.sequoiacap.shortlinkcenter.common.exception;
 import com.sequoiacap.shortlinkcenter.common.enums.IErrorCode;
 
 /**
- * @author xiuyuan
+ * @author h.cn
  * @date 2022/3/17
  */
 public enum CommonErrorCodeEnum implements IErrorCode {

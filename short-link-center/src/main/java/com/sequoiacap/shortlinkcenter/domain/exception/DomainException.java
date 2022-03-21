@@ -4,7 +4,7 @@ import com.sequoiacap.shortlinkcenter.common.enums.IErrorCode;
 import com.sequoiacap.shortlinkcenter.common.exception.BaseException;
 
 /**
- * @author xiuyuan
+ * @author h.cn
  * @date 2022/3/17
  */
 public class DomainException extends BaseException {

@@ -3,7 +3,7 @@ package com.sequoiacap.shortlinkcenter.domain.shorturl.repository;
 import com.sequoiacap.shortlinkcenter.domain.shorturl.entity.UrlEntity;
 
 /**
- * @author xiuyuan
+ * @author h.cn
  * @date 2022/3/17
  */
 public interface UrlEntityRepository {

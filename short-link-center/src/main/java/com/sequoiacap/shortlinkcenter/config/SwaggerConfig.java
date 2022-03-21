@@ -13,7 +13,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * Swagger3配置
- * @author xiuyuan
+ * @author h.cn
  * @date 2022/3/17
  */
 @Configuration

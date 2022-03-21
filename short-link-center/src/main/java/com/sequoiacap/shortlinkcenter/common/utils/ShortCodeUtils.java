@@ -1,7 +1,7 @@
 package com.sequoiacap.shortlinkcenter.common.utils;
 
 /**
- * @author xiuyuan
+ * @author h.cn
  * @date 2022/3/17
  */
 public class ShortCodeUtils {
