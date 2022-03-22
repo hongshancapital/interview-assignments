@@ -19,7 +19,7 @@
 - [IT Support Engineer](it-support-engineer/)
 
 ~~北京：~~
-~~- [DevOps](dev-ops/)  ~~
+~~- [DevOps](dev-ops/)~~
 
 链接中有更为具体的 JD。
 
