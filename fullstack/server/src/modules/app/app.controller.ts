@@ -1,4 +1,4 @@
-import { Get, Controller, Param, Response } from '@nestjs/common';
+import { Get, Controller, Param, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 
@@ -11,9 +11,8 @@ export class AppController {
   ) { }
   @ApiOperation({ summary: 'Short URL 重定向到长 URL' })
   @Get('/:url')
-  async index(@Param('url') url: string, @Response() res) {
+  async index(@Param('url') url: string, @Res() res) {
     const result = await this.redis.get(url);
-    console.log('url', url, result);
     if (!!result) {
       res.status(302).redirect(result);
       return

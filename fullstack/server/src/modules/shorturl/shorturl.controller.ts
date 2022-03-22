@@ -61,15 +61,13 @@ export class ShorturlController {
   @ApiOperation({ summary: '[Admin] 创建短域名信息' })
   async create(@Body() shorturl: ShorturlEntity) {
     const { url } = shorturl;
+    shorturl.s_url = uuid(8, 16)
     setTimeout(() => {
-      shorturl.s_url = uuid(8, 16)
       if (shorturl.status) {
         const rest = this.redis.set(shorturl.s_url, url)
       } else {
         this.redis.del(shorturl.s_url)
       }
-      shorturl.s_url = uuid(8, 16)
-      this.redis.set(shorturl.s_url, url)
     }, 0)
     return await this.shorturlService.create(shorturl);
   }
@@ -96,8 +94,8 @@ export class ShorturlController {
     @Body() updateInput: ShorturlEntity,
   ) {
     const { url } = updateInput;
+    updateInput.s_url = uuid(8, 16)
     setTimeout(() => {
-      updateInput.s_url = uuid(8, 16)
       if (updateInput.status) {
         const rest = this.redis.set(updateInput.s_url, url)
       } else {

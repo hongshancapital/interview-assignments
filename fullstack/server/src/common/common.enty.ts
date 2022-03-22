@@ -42,7 +42,7 @@ export abstract class CommonEntity extends BaseEntity {
     default: 0
   })
   @Exclude()
-  deleted?: number;
+  deleted?: boolean;
 }
 
 

@@ -15,15 +15,16 @@ export interface ICarousel {
 }
 
 
-function addCurrentClass(current: number, elem: HTMLElement, className: string, newClassName: string) {
-  const elements = elem.querySelectorAll('.'+className)
-  Array.from(elements).forEach((v: any, k: number) => {
-    if (current === k) {
-      elements[k].classList.add(newClassName)
-    } else {
-      elements[k].classList.remove(newClassName)
+function addCurrentClass(current: number, elem: HTMLElement, newClassName: string) {
+  const eles = elem.childNodes
+  for (let i = 0; i < eles.length; i++) {
+    const child = eles[i].firstChild  as HTMLElement
+    if (Array.from(child.classList).includes(newClassName)) {
+      child.classList.remove(newClassName)
+    } else if (current === i) {
+      child.classList.add(newClassName)
     }
-  })
+  }
 }
 
 export const Carousel = (props: ICarousel) => {
@@ -48,7 +49,7 @@ export const Carousel = (props: ICarousel) => {
 
   useEffect(() => {
     if (myRef2 && myRef2.current) {
-      addCurrentClass(current % length, myRef2.current, 'yy-carousel-bar-span', 'yy-carousel-active')
+      addCurrentClass(current % length, myRef2.current, 'yy-carousel-active')
     }
     let timer = setInterval(() => {
       setCurrent(v => {
@@ -90,7 +91,7 @@ export const Carousel = (props: ICarousel) => {
         width: `${length * 50}px`
       }}>
         <div ref={myRef2} className="yy-carousel-bar-line">
-          {data.map((v, k) => <span className="yy-carousel-bar-item" key={k}>
+          {data.map((_v, k) => <span className="yy-carousel-bar-item" key={k}>
             <span className={`yy-carousel-bar-span`}>
             </span>
           </span>)}

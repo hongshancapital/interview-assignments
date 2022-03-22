@@ -19,6 +19,7 @@ export class ShorturlEntity extends CommonEntity {
   @ApiProperty()
   @Column({
     comment: '短域名',
+    length: 8,
     default: ''
   })
   // 注意字节数
@@ -35,6 +36,7 @@ export class ShorturlEntity extends CommonEntity {
   @ApiProperty()
   @Column({
     comment: '访问次数',
+    type: 'int',
     default: 0
   })
   visit?: number;
