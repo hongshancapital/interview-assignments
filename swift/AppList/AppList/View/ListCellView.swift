@@ -73,7 +73,7 @@ struct ListCellView: View {
     }
     
     private var favsView: some View  {
-        let indexStr = "\(index)"
+        let indexStr = "\(cellData.trackId)"
         return Image(systemName: isFav ? "heart.fill" : "heart")
             .scaleEffect(isFav ? 1.4 : 1.2)
             .foregroundColor(isFav ? .red : .gray)

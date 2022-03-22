@@ -29,7 +29,7 @@ struct ListView: View {
     private var dataList: some View  {
         List {
             ForEach(Array(vm.datas.enumerated()), id: \.offset) { i, cellModel in
-                let isFav = vm.favs["\(i)"] ?? false
+                let isFav = vm.favs["\(cellModel.trackId)"] ?? false
                 ListCellView(index: i, cellData: cellModel, isFav: isFav)
                     .environmentObject(vm)
                     .listRowSeparator(.hidden)
