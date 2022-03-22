@@ -1,0 +1,15 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /shortURL
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+#Slf4j
+logging:
+  config: classpath:logback.xml
+
+
