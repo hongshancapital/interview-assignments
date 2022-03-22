@@ -8,7 +8,7 @@ interface SliderProps {
   items: React.ReactElement[];
 }
 
-let t: any = null;
+let t: NodeJS.Timer | null = null;
 let isStop: boolean = false;
 
 const Slider: FC<SliderProps> = ({
