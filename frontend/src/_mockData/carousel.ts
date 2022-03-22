@@ -1,7 +1,7 @@
 import airpodsImg from "../assets/airpods.png";
 import iphoneImg from "../assets/iphone.png";
 import tabletImg from "../assets/tablet.png";
-import { CarouselDataType } from "../type";
+import { CarouselDataType } from "../components/carousel/type";
 
 export const carouselData: CarouselDataType[] = [
   {
