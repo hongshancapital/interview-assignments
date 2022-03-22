@@ -2,37 +2,25 @@ import React from "react";
 import "./App.css";
 import Carousel, { ICarouselItem } from "./components/Carousel";
 
-import iphone from './assets/iphone.png';
-import tablet from './assets/tablet.png';
-import airpods from './assets/airpods.png';
-
 const items: ICarouselItem[] = [
   {
-    bg: iphone,
-    bgColor: "#111",
-    textColor: "#ffffff",
+    classname: 'phone',
     title: "xPhone",
     text: "Lots to love.Less to spend.\nStarting at $399.",
   },
   {
-    bg: tablet,
-    bgColor: "#fafafa",
-    textColor: "#000",
+    classname: 'tablet',
     title: "Tablet",
     text: "Just the right amount of everything.",
-    backgroundSize: "cover",
   },
   {
-    bg: airpods,
-    bgColor: "#f1f1f1",
-    textColor: "#000",
+    classname: 'airpods',
     title: (
       <>
         <div>Buy a Tablet or xPhone for college.</div>
         <div>Get airPods.</div>
       </>
     ),
-    backgroundSize: "cover",
   },
 ];
 

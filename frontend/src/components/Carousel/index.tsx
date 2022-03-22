@@ -12,13 +12,10 @@ export interface ICarouselProps {
 }
 
 export interface ICarouselItem {
-  bg?: string;
-  bgColor: string;
-  textColor: string;
   title?: string | ReactElement;
   text?: string | ReactElement;
+  classname?: string;
   children?: ReactElement;
-  backgroundSize?: string;
 }
 
 /**
@@ -65,16 +62,7 @@ const CarouselContent = (props: { items: ICarouselItem[]; index: number; } & Rea
     <div className="content" style={{ transform: `translateX(${-index / items.length * 100}%)`, width: `${items.length * 100}%` }} {...props}>
       {items.map((item, i) => {
         return (
-          <div
-            key={`carousel_${i}`}
-            className="item"
-            style={{
-              backgroundImage: `url(${item.bg})`,
-              backgroundColor: item.bgColor,
-              color: item.textColor,
-              backgroundSize: item.backgroundSize || 'contain'
-            }}
-          >
+          <div key={`carousel_${i}`} className={classNames("item", item.classname)}>
             <div className="title pre" style={{ marginTop: "10vh" }}>{item.title}</div>
             <div className="text pre">{item.text}</div>
             {item.children}
