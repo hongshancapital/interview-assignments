@@ -2,7 +2,7 @@
 //  AppApp.swift
 //  App
 //
-//  Created by august on 2022/3/22.
+//  Created by august on 2022/3/21.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct AppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeList()
         }
     }
 }
