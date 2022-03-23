@@ -24,10 +24,10 @@ struct HomeListCell: View {
                 .frame(width: 60, height: 60)
             VStack(alignment: .leading, spacing: 8) {
                 Text(information.trackName)
-                    .font(.title3)
+                    .font(.system(size: 16, weight: .bold, design: .default))
                     .lineLimit(1)
                 Text(information.description)
-                    .font(.body)
+                    .font(.system(size: 13, weight: .regular, design: .default))
                     .lineLimit(2)
             }
             Spacer()

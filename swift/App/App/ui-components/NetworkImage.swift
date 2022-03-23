@@ -23,20 +23,20 @@ struct NetworkImage: View {
                     .resizable()
                     .cornerRadius(10)
                     .overlay {
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.gray, lineWidth: 0.5)
                     }
             }
         }
         .task(priority: .background) {
-            var data = Data()
-            do {
-                (data, _) = try await URLSession.shared.data(from: imageUrl)
-            } catch {}
-            
-            self.image = UIImage(data: data) ?? UIImage()
-            self.finished = true
+            try? await loadImage()
         }
+    }
+    
+    @MainActor func loadImage() async throws {
+        let result = try await URLSession.shared.data(from: imageUrl)
+        self.image = UIImage(data: result.0) ?? UIImage()
+        self.finished = true
     }
 }
 

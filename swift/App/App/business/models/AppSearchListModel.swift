@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class AppSearchListModel: ObservableObject {
-    var chatAppRequest = NetworkAPI<HomeListResponse>(path: "https://itunes.apple.com/search?entity=software&limit=50&term=game")
+    var chatAppRequest = NetworkAPI<HomeListResponse>(path: "https://itunes.apple.com/search?entity=software&limit=50&term=chat")
     @Published var apps = [AppInformation]()
     @Published @MainActor var hasMoreData = true
     

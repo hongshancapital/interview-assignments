@@ -13,34 +13,32 @@ struct HomeList: View {
     
     var body: some View {
         NavigationView {
-            Group {
-                if listModel.apps.count > 0 {
-                    List {
-                        //list cell
-                        ForEach(listModel.apps, id: \.trackId) { app in
-                            HomeListCell(information: app)
-                                .listRowInsets(.init(top: 8, leading: 0, bottom: 8, trailing: 0))
-                                .listRowSeparator(.hidden)
-                                .listRowBackground(Color.clear)
-                        }
-                        // load more view
-                        LoadMoreView(hasMoreData: $listModel.hasMoreData)
+            if listModel.apps.count > 0 {
+                List {
+                    //list cell
+                    ForEach(listModel.apps, id: \.trackId) { app in
+                        HomeListCell(information: app)
+                            .listRowInsets(.init(top: 8, leading: 0, bottom: 8, trailing: 0))
+                            .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
-                            .task {
-                                //delay 1s to seen load more view
-                                try? await Task.sleep(nanoseconds: 1_000_000_000)
-                                try? await listModel.loadMore()
-                            }
                     }
-                    .refreshable {
-                        try? await listModel.refresh()
-                    }
-                } else {
-                    ProgressView()
-                        .frame(alignment: .center)
+                    // load more view
+                    LoadMoreView(hasMoreData: $listModel.hasMoreData)
+                        .listRowBackground(Color.clear)
+                        .task {
+                            //delay 1s to seen load more view
+                            try? await Task.sleep(nanoseconds: 1_000_000_000)
+                            try? await listModel.loadMore()
+                        }
                 }
+                .navigationTitle("App")
+                .refreshable {
+                    try? await listModel.refresh()
+                }
+            } else {
+                ProgressView()
+                    .frame(alignment: .center)
             }
-            .navigationTitle("App")
         }
         .task {
             try? await listModel.refresh()
