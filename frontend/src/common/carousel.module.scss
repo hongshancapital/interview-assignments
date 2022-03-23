@@ -1,0 +1,36 @@
+.list,
+.list > li {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  list-style: none;
+}
+.list {
+  li {
+    float: left;
+    transition: transform 1000ms ease 0s;
+  }
+}
+
+.across {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  justify-content: center;
+  .item {
+    width: 50px;
+    height: 2px;
+    background-color: #a1a1a1;
+    margin-right: 8px;
+    border-radius: 5px;
+    .progress {
+      height: 2px;
+      border-radius: 5px;
+      background-color: #dddddd;
+    }
+  }
+}
