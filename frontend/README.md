@@ -11,11 +11,9 @@
 - useRef
 - useImperativeHandle
 
-CSS - Bem 规范格式 + 基础动画
-
 ### Demo示例
 
-功能基本实现，细节待优化
+功能基本实现，细节还要优化
 
 <video id="video" controls="" preload="none" poster="结果">
       <source id="mp4" src="./result.mp4" type="video/mp4">
