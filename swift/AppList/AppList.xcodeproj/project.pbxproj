@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E3DEAF127EABC020032188F /* ListApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3DEAF027EABC020032188F /* ListApiManager.swift */; };
 		8459903227E780AC007C68AD /* DatasCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459903127E780AC007C68AD /* DatasCheck.swift */; };
 		849E49F927E77AAD002860A9 /* AppListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E49F827E77AAD002860A9 /* AppListApp.swift */; };
 		849E49FB27E77AAD002860A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E49FA27E77AAD002860A9 /* ContentView.swift */; };
@@ -16,7 +17,6 @@
 		849E4A1427E77AAE002860A9 /* AppListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E4A1327E77AAE002860A9 /* AppListUITests.swift */; };
 		849E4A1627E77AAE002860A9 /* AppListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E4A1527E77AAE002860A9 /* AppListUITestsLaunchTests.swift */; };
 		849E4A2D27E77BD5002860A9 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E4A2B27E77BD5002860A9 /* ListViewModel.swift */; };
-		849E4A2E27E77BD5002860A9 /* mock.txt in Resources */ = {isa = PBXBuildFile; fileRef = 849E4A2C27E77BD5002860A9 /* mock.txt */; };
 		849E4A3727E77BE7002860A9 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E4A3027E77BE7002860A9 /* ListView.swift */; };
 		849E4A3927E77BE7002860A9 /* ListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E4A3227E77BE7002860A9 /* ListCellView.swift */; };
 		849E4A3A27E77BE7002860A9 /* FootLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E4A3327E77BE7002860A9 /* FootLoadingView.swift */; };
@@ -41,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E3DEAF027EABC020032188F /* ListApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListApiManager.swift; sourceTree = "<group>"; };
 		8459903127E780AC007C68AD /* DatasCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatasCheck.swift; sourceTree = "<group>"; };
 		849E49F527E77AAD002860A9 /* AppList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		849E49F827E77AAD002860A9 /* AppListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListApp.swift; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		849E4A1327E77AAE002860A9 /* AppListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListUITests.swift; sourceTree = "<group>"; };
 		849E4A1527E77AAE002860A9 /* AppListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		849E4A2B27E77BD5002860A9 /* ListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
-		849E4A2C27E77BD5002860A9 /* mock.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mock.txt; sourceTree = "<group>"; };
 		849E4A3027E77BE7002860A9 /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		849E4A3227E77BE7002860A9 /* ListCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCellView.swift; sourceTree = "<group>"; };
 		849E4A3327E77BE7002860A9 /* FootLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootLoadingView.swift; sourceTree = "<group>"; };
@@ -148,8 +148,8 @@
 		849E4A2A27E77BD5002860A9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				849E4A2C27E77BD5002860A9 /* mock.txt */,
 				849E4A2B27E77BD5002860A9 /* ListViewModel.swift */,
+				4E3DEAF027EABC020032188F /* ListApiManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -278,7 +278,6 @@
 			files = (
 				849E4A0027E77AAE002860A9 /* Preview Assets.xcassets in Resources */,
 				849E49FD27E77AAE002860A9 /* Assets.xcassets in Resources */,
-				849E4A2E27E77BD5002860A9 /* mock.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E3DEAF127EABC020032188F /* ListApiManager.swift in Sources */,
 				849E4A3727E77BE7002860A9 /* ListView.swift in Sources */,
 				849E49FB27E77AAD002860A9 /* ContentView.swift in Sources */,
 				849E4A3927E77BE7002860A9 /* ListCellView.swift in Sources */,

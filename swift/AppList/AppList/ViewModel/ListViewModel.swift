@@ -14,15 +14,17 @@ class ListViewModel: ObservableObject {
     var pageSize: Int = 20
     var isRefresh: Bool = false
     var favs: [String: Bool] = [:]
+    let apiManager: ListApiManager
     
     @Published var datas: [ListCellModel] = []
     @Published var loadingState: LoadingState = .PreLoading
     
-    private var loadMoreSubject = CurrentValueSubject<Void, Never>(())
+    private var loadMoreSubject = CurrentValueSubject<Void, ApiError>(())
     private var cancellableSet: Set<AnyCancellable> = []
     private let FavoritesSaveKey = "FavoritesSaveKey"
     
     init() {
+        apiManager = ListApiManager(path: "https://itunes.apple.com/search?entity=software&limit=50&term=chat")
         fetchFavoriteData()
     }
     
@@ -41,15 +43,10 @@ class ListViewModel: ObservableObject {
     
     // 订阅列表数据
     func subscriptionList () {
-        guard let url = Bundle.main.url(forResource: "mock", withExtension: "txt") else { return }
-        guard let data = try? Data(contentsOf: url) else { return }
-        guard let lisModel = try? JSONDecoder().decode(ListModel.self, from: data)  else { return }
-        
-        Just(lisModel.results)
-            .eraseToAnyPublisher()
+        apiManager.fetchListData()
             .flatMap { $0.publisher }
-            .collect(pageSize)
-            .zip(loadMoreSubject)
+            .collect(self.pageSize)
+            .zip(self.loadMoreSubject)
             .receive(on: RunLoop.main)
             .handleEvents(
                 receiveOutput: { [weak self] _ in
@@ -75,7 +72,7 @@ class ListViewModel: ObservableObject {
                     sf.loadingState = .LoadMore
                 }
             }
-            .store(in: &cancellableSet)
+            .store(in: &self.cancellableSet)
     }
 }
 

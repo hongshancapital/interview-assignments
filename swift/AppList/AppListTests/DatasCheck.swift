@@ -23,7 +23,7 @@ class ApiServiceTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func test_test_() throws {
+    func test_datas() throws {
         guard let url = Bundle.main.url(forResource: "mock", withExtension: "txt") else { return }
         guard let data = try? Data(contentsOf: url) else { return }
         guard let lisModel = try? JSONDecoder().decode(ListModel.self, from: data)  else { return }
@@ -41,13 +41,10 @@ class ApiServiceTests: XCTestCase {
                 }
             } receiveValue: { value in
                 XCTAssertNotNil(value.count)
-                XCTAssertEqual(value.count, 55)
+                XCTAssertEqual(value.count, 50)
                 for i in 0..<value.count {
                     let artworkUrl = value[i].artworkUrl60
-                    XCTAssertEqual(artworkUrl, "", "artworkUrl is nil!!!")
                     XCTAssertNotEqual(artworkUrl, "", "artworkUrl is nil!!!")
-                    let url = URL(string: artworkUrl)
-                    XCTAssertNotNil(url)
                 }
             }
             .store(in: &cancellableSet)
