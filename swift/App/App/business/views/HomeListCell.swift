@@ -10,13 +10,6 @@ import SwiftUI
 struct HomeListCell: View {
     
     var information: AppInformation
-    //用user defaults来记录状态
-    @AppStorage var isFavorate: Bool
-    
-    init(information: AppInformation) {
-        self.information = information
-        _isFavorate = AppStorage<Bool>.init(wrappedValue: false, "\(information.trackName)-\(information.trackId)")
-    }
         
     var body: some View {
         HStack {
@@ -31,12 +24,12 @@ struct HomeListCell: View {
                     .lineLimit(2)
             }
             Spacer()
-            Image(systemName: isFavorate ? "heart.fill" : "heart")
-                .foregroundColor(isFavorate ? .red : .gray)
-                .scaleEffect(isFavorate ? 1.2 : 1)
-                .animation(.interpolatingSpring(stiffness: 100, damping: 6), value: isFavorate)
+            Image(systemName: information.isFavorate ? "heart.fill" : "heart")
+                .foregroundColor(information.isFavorate ? .red : .gray)
+                .scaleEffect(information.isFavorate ? 1.2 : 1)
+                .animation(.interpolatingSpring(stiffness: 100, damping: 6), value: information.isFavorate)
                 .onTapGesture {
-                    isFavorate.toggle()
+                    information.isFavorate.toggle()
                 }
         }
         .padding(12)
