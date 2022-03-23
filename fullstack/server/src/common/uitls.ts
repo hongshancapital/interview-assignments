@@ -40,7 +40,7 @@ export const asyncForEach = async (array, callback) => {
  * @param radix     进制
  * @returns {string}
  */
-export const uuid = (len, radix) => {
+export const uuid = (len, radix = 62) => {
   var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
   var uuid = [], i;
   radix = radix || chars.length;

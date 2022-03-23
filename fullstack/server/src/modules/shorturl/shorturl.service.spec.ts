@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DatabaseConfigModule } from '../modules/config/database.module';
 import { ShorturlEntity } from './shorturl.entity';
 import { ShorturlService } from './shorturl.service';
 
@@ -9,7 +10,7 @@ describe('ShorturlController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot(),
+        DatabaseConfigModule,
         TypeOrmModule.forFeature([ShorturlEntity])
       ],
       providers: [ShorturlService],
@@ -19,11 +20,20 @@ describe('ShorturlController', () => {
   });
 
   it('Service should return url of the shorturl', async () => {
-    const s_url = '8C1AAA5F'
+    const s_url = '73F5DE09'
     const url = 'http://localhost:3332/api/swagger/'
     const res = await shorturlService.findOneBy({
       s_url
     });
-    return expect(res.url).toEqual(url)
+    expect(res.url).toEqual(url)
   });
+
+  // it('Service should return url not of the shorturl', async () => {
+  //   const s_url = 'XXF5DE09'
+  //   const url = 'http://localhost:3332/api/swagger/'
+  //   const res = await shorturlService.findOneBy({
+  //     s_url
+  //   });
+  //   expect(res).toEqual(null)
+  // });
 });

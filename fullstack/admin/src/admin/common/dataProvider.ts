@@ -36,7 +36,6 @@ import { fetchUtils, DataProvider } from 'ra-core';
 const simpleRestProvider = (
     apiUrl: string,
     httpClient = fetchUtils.fetchJson,
-    // countHeader: string = 'Content-Range'
 ): DataProvider => ({
     getList: (resource, params) => {
         const { page, perPage } = params.pagination;
@@ -51,8 +50,7 @@ const simpleRestProvider = (
             filter: JSON.stringify(params.filter),
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        return httpClient(url, {}).then(({ headers, json }) => {
-            console.log('json', json);
+        return httpClient(url, {}).then(({ json }) => {
             return {
                 ...json,
                 data: json.data,
@@ -81,8 +79,8 @@ const simpleRestProvider = (
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
 
-        const rangeStart = (page - 1) * perPage;
-        const rangeEnd = page * perPage - 1;
+        // const rangeStart = (page - 1) * perPage;
+        // const rangeEnd = page * perPage - 1;
 
         const query = {
             sort: JSON.stringify([field, order]),

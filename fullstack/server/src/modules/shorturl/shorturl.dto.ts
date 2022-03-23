@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class IVerifyLongUrl {
@@ -8,6 +8,9 @@ export class IVerifyLongUrl {
   })
   @IsNotEmpty({
     message: 'URL 不能为空!'
+  })
+  @IsUrl({
+    message: 'URL 格式不正确!'
   })
   url: string;
 }
@@ -19,6 +22,9 @@ export class IVerifyShortUrl {
   })
   @IsNotEmpty({
     message: '短 URL 不能为空!'
+  })
+  @MinLength(8, {
+    message: 'URL 格式不正确!'
   })
   s_url: string;
 }

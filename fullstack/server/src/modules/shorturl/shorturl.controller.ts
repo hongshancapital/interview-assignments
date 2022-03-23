@@ -8,6 +8,7 @@ import {
   Query,
   Param,
   Body,
+  HttpStatus,
 } from '@nestjs/common';
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 import {
@@ -21,6 +22,7 @@ import { ShorturlEntity } from './shorturl.entity';
 import { IFindManyOptions } from '../../common/common.dto';
 import { uuid } from '../../common/uitls';
 import { IVerifyLongUrl, IVerifyShortUrl } from './shorturl.dto';
+import { ConfigService } from '../config/config.service';
 
 @ApiBearerAuth()
 @ApiTags('Short URL')
@@ -28,32 +30,45 @@ import { IVerifyLongUrl, IVerifyShortUrl } from './shorturl.dto';
 export class ShorturlController {
   constructor(
     @InjectRedis() private readonly redis: Redis,
-    private readonly shorturlService: ShorturlService
+    private readonly shorturlService: ShorturlService,
+    private readonly configService: ConfigService
   ) { }
 
   @Get('shorturl/getlong')
   @ApiOperation({ summary: '获取长域名信息' })
-  async findUrl(@Query() query: IVerifyShortUrl) {
+  async getlong(@Query() query: IVerifyShortUrl) {
     const res = await this.shorturlService.findOneBy({
-      s_url: query.s_url
+      s_url: query.s_url.split('/').pop()
     });
-    return res.url
+    return res ? {
+      statusCode: HttpStatus.OK,
+      message: '获取成功',
+      data: res.url
+    } : {
+      statusCode: HttpStatus.NOT_FOUND,
+      message: '链接不存在',
+    }
   }
 
   @Get('shorturl/getshort')
   @ApiOperation({ summary: '获取短域名信息' })
-  async findSUrl(@Query() query: IVerifyLongUrl) {
+  async getshort(@Query() query: IVerifyLongUrl) {
+    let resultUrl = ''
     const res = await this.shorturlService.findOneBy({
       url: query.url
     });
-
-    if (res.s_url) {
-      return res.s_url
+    if (res && res.s_url) {
+      resultUrl = res.s_url
     } else {
       const urlEngtity = new ShorturlEntity()
       urlEngtity.url = query.url
       const result = await this.create(urlEngtity)
-      return result.s_url
+      resultUrl = result.s_url
+    }
+    return {
+      statusCode: HttpStatus.OK,
+      message: '获取成功',
+      data: `${this.configService.get('BASE_URL')}/${resultUrl}`
     }
   }
 
@@ -61,7 +76,7 @@ export class ShorturlController {
   @ApiOperation({ summary: '[Admin] 创建短域名信息' })
   async create(@Body() shorturl: ShorturlEntity) {
     const { url } = shorturl;
-    shorturl.s_url = uuid(8, 16)
+    shorturl.s_url = uuid(8)
     setTimeout(() => {
       if (shorturl.status) {
         const rest = this.redis.set(shorturl.s_url, url)
@@ -94,7 +109,7 @@ export class ShorturlController {
     @Body() updateInput: ShorturlEntity,
   ) {
     const { url } = updateInput;
-    updateInput.s_url = uuid(8, 16)
+    updateInput.s_url = uuid(8)
     setTimeout(() => {
       if (updateInput.status) {
         const rest = this.redis.set(updateInput.s_url, url)

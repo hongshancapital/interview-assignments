@@ -1,4 +1,8 @@
-// classnames('x-1 aa bb', 'cc', 'dd', { a:true, dd: false })
+/**
+ * classnames('x-1 aa bb', 'cc', 'dd', { a:true, dd: false })
+ * @param classes string | object
+ * @returns string
+ */
 export function classnames(...classes: string[] | {
   [key: string]: boolean
 }[]) {

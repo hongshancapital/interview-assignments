@@ -1,11 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { INestApplication } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 
 import { AppModule } from './app.module';
-import * as ormconfig from '../../../ormconfig';
 import { AppController } from './app.controller';
+import { ShorturlEntity } from '../shorturl/shorturl.entity';
+import { RedisConfigModule } from '../config/redis.module';
+import { DatabaseConfigModule } from '../config/database.module';
 
 describe('AppController', () => {
     let app: INestApplication;
@@ -14,16 +17,9 @@ describe('AppController', () => {
     beforeAll(async () => {
       const moduleRef = await Test.createTestingModule({
         imports: [
-          RedisModule.forRootAsync({
-            useFactory: () => ({
-              config: { 
-                name: ormconfig.database,
-                host: ormconfig.host,
-                port: 6379,
-                password: ormconfig.password,
-              },
-            }),
-          }),
+          RedisConfigModule,
+          DatabaseConfigModule,
+          TypeOrmModule.forFeature([ShorturlEntity]),
           AppModule
         ],
         controllers: [AppController]

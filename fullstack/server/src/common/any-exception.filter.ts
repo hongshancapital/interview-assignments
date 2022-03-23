@@ -14,8 +14,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const statusCode = exception instanceof HttpException ? exception.getStatus()
       : HttpStatus.INTERNAL_SERVER_ERROR;
     let result
+    console.log('exception', exception);
     if (exception instanceof HttpException) {
       const excep = exception.getResponse()
+
+      console.log('excep', excep);
       if (typeof excep != 'string') {
         result = {
           ...result,

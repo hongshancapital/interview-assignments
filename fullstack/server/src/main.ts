@@ -8,24 +8,17 @@ import helmet from 'helmet';
 import * as bodyParser from 'body-parser';
 
 import { MainModule } from './main.module';
-import * as URLS from './baseUrl'
 import { HttpExceptionFilter } from './common/any-exception.filter';
 import { TransformInterceptor } from './common/transform.interceptor';
 
+import { ConfigService } from './modules/config/config.service';
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(MainModule, {});
-  
+  const config = new ConfigService();
   app.enableCors({
     credentials: true,
-    origin: process.env.NODE_ENV === 'development' ? [
-      'http://api.url.co',
-      'http://admin.url.co',
-      ...URLS.URL_CORS
-    ] : [
-      'https://api.url.co',
-      'https://admin.url.co',
-      ...URLS.URL_CORS
-    ]
+    origin: config.getCrossOrigin()
   });
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());

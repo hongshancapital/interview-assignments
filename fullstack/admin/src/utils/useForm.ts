@@ -5,8 +5,12 @@ export const CODE_REGEX = /[0-9]{6}/
 export const PASSWORD_REGEX = /[0-9A-Za-z_]{6,}/
 
 export function isPristine(formState: {
-  pristine: any
-  errors: any
+  pristine: {
+    [key: string]: any
+  };
+  errors: {
+    [key: string]: string
+  };
 }, filters: string[] = []): boolean {
   const { pristine, errors } = formState
   return !!Object.keys(pristine).filter(v => !filters.includes(v)).find(

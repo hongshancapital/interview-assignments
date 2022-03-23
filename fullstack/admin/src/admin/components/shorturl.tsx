@@ -4,56 +4,69 @@ import {
     Edit, Create, SimpleForm,
     EditButton, ShowButton,
     BooleanInput, BooleanField,
-    TextField, TextInput
+    TextField, TextInput, UrlField, FunctionField,
+
+    ListProps, ShowProps, EditProps, CreateProps, Record
 } from 'react-admin';
 
-export const ShorturlList = (props) => (
+import { baseUrl } from '@/api/base'
+
+export const ShorturlList = (props: ListProps) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
-            <TextField source="s_url" />
-            <TextField source="url" />
-            <TextField source="desc" />
-            <BooleanField source="status" />
+            <FunctionField
+                label="Short url"
+                render={(record: Record) => (
+                    <a target="__blank" href={`${baseUrl}/${record.s_url}`}>{`${baseUrl}/${record.s_url}`}</a>
+                )}
+            />
+            <UrlField source="url" />
+            {/* <BooleanField source="status" /> */}
             <ShowButton basePath="/Shorturls" />
             <EditButton basePath="/Shorturls" />
         </Datagrid>
     </List>
 );
 
-const ShorturlTitle = ({ record }) => {
+const ShorturlTitle = ({ record }: { record: Record }) => {
     return <span>Shorturl {record ? `"${record.title}"` : ''}</span>;
 };
 
-export const ShorturlView = (props) => (
+export const ShorturlView = (props: ShowProps) => (
     <Show {...props}>
         <SimpleShowLayout>
-            <TextField disabled source="id" />
-            <TextField source="s_url" />
-            <TextField source="url" options={{ multiline: true }} />
-            <TextField multiline source="desc" />
-            <BooleanField source="status" />
+            <TextField source="id" />
+            <FunctionField
+                label="Short url"
+                render={(record: Record) => (
+                    <a target="__blank" href={`${baseUrl}/${record.s_url}`}>{`${baseUrl}/${record.s_url}`}</a>
+                )}
+            />
+            <UrlField source="url" />
+            <TextField source="desc" />
+            {/* <BooleanField source="status" /> */}
         </SimpleShowLayout>
     </Show>
 );
 
-export const ShorturlEdit = (props) => (
+export const ShorturlEdit = (props: EditProps) => (
     <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
             <TextInput source="url" options={{ multiline: true }} />
             <TextInput multiline source="desc" />
-            <BooleanInput source="status" />
+            {/* <BooleanInput source="status" /> */}
         </SimpleForm>
     </Edit>
 );
 
-export const ShorturlCreate = (props) => (
+export const ShorturlCreate = (props: CreateProps) => (
     <Create title="Create a Shorturl" {...props}>
         <SimpleForm>
             <TextInput source="url" options={{ multiline: true }} />
             <TextInput multiline source="desc" />
-            <BooleanInput source="status" />
+            {/* <BooleanInput source="status" /> */}
         </SimpleForm>
     </Create>
 );
