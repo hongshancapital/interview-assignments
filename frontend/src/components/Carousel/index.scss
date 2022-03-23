@@ -1,61 +1,96 @@
-.slick-dots {
+.carousel {
 
-}
+  // antd 轮播组件样式覆盖
+  .slick-dots {
+    color: gray;
 
-.ad {
-  width: 100vw;
-  height: 100vh;
-  display: flex !important;
-  align-content: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 32px;
-  text-align: center;
+    li {
+      width: 40px !important;
+      background-color: gray;
 
-  &__title {
-    font-size: 48px;
+      button {
+        background-color: darkgray !important;
+      }
+
+      &.slick-active {
+        button {
+          background-color: #ffffff !important;
+          // active 动画
+          animation: move 4s ease-in-out 0s 1 alternate forwards;
+        }
+      }
+    }
   }
 
-  &__introduce {
-    margin: 0 auto;
-    width: 40%;
-    height: 180px;
-    line-height: 40px;
+  // 广告图
+  .ad {
+    width: 100vw;
+    height: 100vh;
+    display: flex !important;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
     font-size: 32px;
-  }
+    text-align: center;
 
-  &__icon {
-    margin: 0 auto;
-    width: 180px;
-    height: 240px;
-  }
+    &__title {
+      margin: 0 auto;
+      font-size: 48px;
+      font-weight: 600;
+      width: 70%;
+    }
 
-  &.ad-xphone {
-    background-color: #364d79;
-    color: #ffffff;
-  }
-  &.ad-tablet {
-    background-color: #364d79;
-    color: #000000;
-  }
-  &.ad-airpods {
-    background-color: #364d79;
-    color: #ffffff;
+    &__introduce {
+      margin: 0 auto;
+      width: 40%;
+      height: 180px;
+      line-height: 40px;
+      font-size: 32px;
+    }
+
+    &__icon {
+      margin: 0 auto;
+      width: 180px;
+      height: 240px;
+    }
+
+    &.ad-xphone {
+      background-color: RGB(17, 17, 17);
+      color: #ffffff;
+    }
+    &.ad-tablet {
+      background-color: RGB(250, 250, 250);
+      color: #000000;
+    }
+    &.ad-airpods {
+      background-color: RGB(241, 241, 243);
+      color: #000000;
+    }
+
+    // 背景图片
+    &.bg {
+      background-size: auto 50%;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      &-airpods {
+        background-image: url('../../assets/airpods.png');
+      }
+      &-iphone {
+        background-image: url('../../assets/iphone.png');
+      }
+      &-tablet {
+        background-image: url('../../assets/tablet.png');
+      }
+    }
   }
 }
 
-.bg {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  &-airpods {
-    background-image: url('../../assets/airpods.png');
+// 关键帧
+@keyframes move {
+  from {
+    width: 0
   }
-  &-iphone {
-    background-image: url('../../assets/iphone.png');
-  }
-  &-tablet {
-    background-image: url('../../assets/tablet.png');
+  to {
+    width: 40px
   }
 }

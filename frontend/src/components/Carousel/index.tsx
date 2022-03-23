@@ -1,10 +1,9 @@
-import React, {forwardRef, useState, useImperativeHandle, useCallback, useEffect} from 'react'
-import { Carousel as AntdCarousel } from 'antd';
+import React, { forwardRef, useImperativeHandle, useRef } from "react"
+import { Carousel as AntdCarousel } from "antd"
 import './index.scss'
 
 export interface CarouselProps {
-  children?: React.ReactNode
-  dots?: boolean
+  autoplay?: boolean
 }
 
 export interface CarouselRef {
@@ -13,7 +12,7 @@ export interface CarouselRef {
   prev: () => void
 }
 
-const Carousel = forwardRef<CarouselRef, CarouselProps>((CarouselProps, ref) => {
+const Carousel = forwardRef<CarouselRef, CarouselProps>(({ autoplay }, ref) => {
   const ads = [
     {
       key: 'xPhone',
@@ -38,14 +37,23 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>((CarouselProps, ref) => 
     }
   ]
 
+  const carouselRef = useRef<any>()
+
+  useImperativeHandle(ref,() => carouselRef?.current, [carouselRef?.current])
+
   return (
     <AntdCarousel
-      // autoplay
+      autoplay={autoplay}
       dotPosition="bottom"
+      className="carousel"
+      ref={carouselRef}
     >
       {
         ads.map(ad => (
-          <div className={`ad bg ${ad.bg}`} key={ad.key}>
+          <div
+            key={ad.key}
+            className={`ad bg ${ad.bg} ${ad.class}`}
+          >
             <div className="ad__title">{ ad.title }</div>
             <div className="ad__introduce">{ ad.introduce }</div>
           </div>
