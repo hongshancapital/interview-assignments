@@ -11,6 +11,7 @@ import Foundation
 enum NetworkError: Error {
     case invalidURL(String)
     case requestError(String)
+    case unSupportedMethod(String)
 }
 
 class NetworkAPI<T: Decodable> {
@@ -33,9 +34,22 @@ class NetworkAPI<T: Decodable> {
         }
         var request = URLRequest(url: url)
         request.httpMethod = method
-        if let paramaters = paramaters {
-            request.httpBody = try JSONSerialization.data(withJSONObject: paramaters)
+        if method.lowercased() == "get" {
+            if let paramaters = paramaters {
+                var components = URLComponents(string: path)
+                components?.queryItems = paramaters.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+                if let finalUrl = components?.url {
+                    request.url = finalUrl
+                }
+            }
+        } else if method.lowercased() == "post" {
+            if let paramaters = paramaters {
+                request.httpBody = try JSONSerialization.data(withJSONObject: paramaters)
+            }
+        } else {
+            throw NetworkError.unSupportedMethod(method)
         }
+       
         let (data, response) = try await session.data(for: request)
         if let httpResponse = response as? HTTPURLResponse {
             if httpResponse.statusCode != 200 {

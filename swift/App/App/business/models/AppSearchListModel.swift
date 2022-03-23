@@ -9,12 +9,12 @@ import Foundation
 import Combine
 
 class AppSearchListModel: ObservableObject {
-    var chatAppRequest = NetworkAPI<HomeListResponse>(path: "https://itunes.apple.com/search?entity=software&limit=50&term=chat")
-    @Published var apps = [AppInformation]()
+    var chatAppRequest = NetworkAPI<HomeListResponse>(path: "https://itunes.apple.com/search")
+    @Published @MainActor var apps = [AppInformation]()
     @Published @MainActor var hasMoreData = true
     
     func refresh(limit: Int = 10) async throws {
-        let response = try await chatAppRequest.fetchResponse()
+        let response = try await chatAppRequest.fetchResponse(paramaters: ["entity":"software","limit":50,"term":"chat"])
         await MainActor.run(body: {
             let count = response.results.count
             if count > 0 {
@@ -31,7 +31,7 @@ class AppSearchListModel: ObservableObject {
     }
     
     func loadMore(limit: Int = 10) async throws {
-        let response = try await chatAppRequest.fetchResponse()
+        let response = try await chatAppRequest.fetchResponse(paramaters: ["entity":"software","limit":50,"term":"chat"])
         await MainActor.run(body: {
             let count = response.results.count
             if count > apps.count + limit {
@@ -39,7 +39,9 @@ class AppSearchListModel: ObservableObject {
                 apps.append(contentsOf: response.results[apps.count..<apps.count.advanced(by: limit)])
             } else {
                 hasMoreData = false
-                apps.append(contentsOf: response.results[apps.count..<count])
+                if count > 0 {
+                    apps.append(contentsOf: response.results[apps.count..<count])
+                }
             }
         })
     }
