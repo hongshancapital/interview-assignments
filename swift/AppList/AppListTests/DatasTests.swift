@@ -9,10 +9,10 @@ import XCTest
 import Combine
 @testable import AppList
 
-class ApiServiceTests: XCTestCase {
+class DatasTests: XCTestCase {
     
     private var cancellableSet: Set<AnyCancellable> = []
-    var loadMoreSubject = CurrentValueSubject<Void, Never>(())
+    var loadMoreSubject = CurrentValueSubject<Void, APIError>(())
     var pageSize: Int = 20
     
     override func setUpWithError() throws {
@@ -24,20 +24,16 @@ class ApiServiceTests: XCTestCase {
     }
     
     func test_datas() throws {
-        guard let url = Bundle.main.url(forResource: "mock", withExtension: "txt") else { return }
-        guard let data = try? Data(contentsOf: url) else { return }
-        guard let lisModel = try? JSONDecoder().decode(ListModel.self, from: data)  else { return }
-        
-        Just(lisModel.results)
+        let apiManager = ListAPIManager(path: "https://itunes.apple.com/search?entity=software&limit=50&term=chat")
+        apiManager.fetchListData()
             .eraseToAnyPublisher()
             .receive(on: RunLoop.main)
             .sink { completion in
                 switch completion {
                 case .finished:
-                    break
+                    print("finished")
                 case .failure(let error):
-                    print("Error--: \(error)")
-                    break
+                    XCTFail("\(error.message)")
                 }
             } receiveValue: { value in
                 XCTAssertNotNil(value.count)

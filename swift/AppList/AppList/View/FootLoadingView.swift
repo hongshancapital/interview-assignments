@@ -12,6 +12,7 @@ enum LoadingState: Int {
     case Loading = 1
     case LoadMore = 2
     case LoadComplete = 3
+    case LoadingFailed = 4
 }
 
 struct FootLoadingView: View {

@@ -1,5 +1,5 @@
 //
-//  ListApiManager.swift
+//  ListAPIManager.swift
 //  AppList
 //
 //  Created by dc on 2022/3/23.
@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 import Combine
 
-enum ApiError: Error {
+enum APIError: Error {
+    
     case resError
     case parseError
     case unknowError
@@ -26,14 +27,15 @@ enum ApiError: Error {
     }
 }
 
-final class ListApiManager {
+final class ListAPIManager {
+    
     var path: String
     
     init(path: String) {
         self.path = path
     }
     
-    func fetchListData() -> AnyPublisher<[ListCellModel], ApiError> {
+    func fetchListData() -> AnyPublisher<[ListCellModel], APIError> {
         let url = URL(string: path)
         return URLSession.shared.dataTaskPublisher(for: url!)
             .retry(3)
@@ -41,16 +43,15 @@ final class ListApiManager {
                 data
             }
             .mapError { _ in
-                ApiError.resError
+                APIError.resError
             }
             .decode(type: ListModel.self, decoder: JSONDecoder())
-            .mapError {_ in
-                ApiError.parseError
+            .mapError { _ in
+                APIError.parseError
             }
             .map { data in
                 data.results
             }
             .eraseToAnyPublisher()
     }
-    
 }

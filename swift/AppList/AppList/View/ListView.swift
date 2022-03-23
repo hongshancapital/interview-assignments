@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ListView: View {
+    
     @StateObject var vm: ListViewModel
     
     var body: some View {
@@ -15,6 +16,8 @@ struct ListView: View {
             Group {
                 if vm.loadingState == .PreLoading {
                     ProgressView()
+                } else if vm.loadingState == .LoadingFailed {
+                    Text("Failed to load data")
                 } else {
                     dataList
                 }

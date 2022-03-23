@@ -14,17 +14,17 @@ class ListViewModel: ObservableObject {
     var pageSize: Int = 20
     var isRefresh: Bool = false
     var favs: [String: Bool] = [:]
-    let apiManager: ListApiManager
+    let apiManager: ListAPIManager
     
     @Published var datas: [ListCellModel] = []
     @Published var loadingState: LoadingState = .PreLoading
     
-    private var loadMoreSubject = CurrentValueSubject<Void, ApiError>(())
+    private var loadMoreSubject = CurrentValueSubject<Void, APIError>(())
     private var cancellableSet: Set<AnyCancellable> = []
     private let FavoritesSaveKey = "FavoritesSaveKey"
     
     init() {
-        apiManager = ListApiManager(path: "https://itunes.apple.com/search?entity=software&limit=50&term=chat")
+        apiManager = ListAPIManager(path: "https://itunes.apple.com/search?entity=software&limit=1150&term=chat")
         fetchFavoriteData()
     }
     
@@ -45,8 +45,8 @@ class ListViewModel: ObservableObject {
     func subscriptionList () {
         apiManager.fetchListData()
             .flatMap { $0.publisher }
-            .collect(self.pageSize)
-            .zip(self.loadMoreSubject)
+            .collect( pageSize )
+            .zip( loadMoreSubject )
             .receive(on: RunLoop.main)
             .handleEvents(
                 receiveOutput: { [weak self] _ in
@@ -58,6 +58,7 @@ class ListViewModel: ObservableObject {
                     self?.loadingState = .LoadComplete
                 case .failure(let error):
                     print("Error--: \(error)")
+                    self?.loadingState = .LoadingFailed
                 }
             } receiveValue: { [weak self] value in
                 guard let sf = self else { return }
@@ -87,6 +88,7 @@ extension ListViewModel {
     
     func saveFavoriteData() {
         UserDefaults.standard.set(favs, forKey: FavoritesSaveKey)
+        UserDefaults.standard.synchronize()
     }
 }
 
