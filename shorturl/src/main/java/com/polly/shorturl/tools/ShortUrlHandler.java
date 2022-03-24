@@ -21,15 +21,12 @@ public class ShortUrlHandler {
         this.cache = cache;
     }
 
-    public ShortUrl insert(String url) {
+    public String insert(String url) {
         String shortUrl = transfer.convert(url);
-        if (cache.containsUrl(shortUrl)) {
-            return cache.get(shortUrl);
-        }
         long id = worker.nextId();
         ShortUrl obj = new ShortUrl(id, url);
         cache.put(shortUrl, obj);
-        return obj;
+        return shortUrl;
     }
 
     public ShortUrl getByShortUrl(String url) {

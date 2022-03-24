@@ -25,7 +25,7 @@ public class ShortUrlController {
             @ApiResponse(code = 200, message = "0", response = Integer.class),
     })
     @PostMapping("/insert")
-    public Integer insertShortUrl(@RequestParam("url") String url) {
+    public String insertShortUrl(@RequestParam("url") String url) {
         return service.insertShortUrl(url);
     }
 

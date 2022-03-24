@@ -15,10 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author polly
  * @date 2022.03.23 12:05:15
  */
-//@ExtendWith(SpringExtension.class)
 @WebMvcTest
-//@SpringBootTest
-public class ShortUrlControllerTestCase {
+public class ShortUrlControllerTest {
 
     @Autowired
     private MockMvc mvc;

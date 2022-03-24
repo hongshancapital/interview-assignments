@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2022.03.20 10:59:32
  */
 @SpringBootTest
-public class UrlCacheTestCase {
+public class UrlCacheTest {
 
     @Autowired
     private UrlCache cache;

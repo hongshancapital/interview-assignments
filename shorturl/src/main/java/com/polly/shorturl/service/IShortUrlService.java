@@ -6,7 +6,7 @@ package com.polly.shorturl.service;
  */
 public interface IShortUrlService {
 
-    Integer insertShortUrl(String url);
+    String insertShortUrl(String url);
 
     String getUrlByShortUrl(String url);
 }

@@ -2,9 +2,10 @@ package com.polly.shorturl.cache;
 
 import com.polly.shorturl.entity.ShortUrl;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author polly
@@ -18,22 +19,20 @@ public class UrlCache {
     private Node tail;
 
     public UrlCache() {
-        map = new HashMap<>();
+        map = new ConcurrentHashMap<>();
     }
 
     public void memoryClean() {
         if (CollectionUtils.isEmpty(map)) {
             return;
         }
+        long max = Runtime.getRuntime().maxMemory();
         long total = Runtime.getRuntime().totalMemory();
-        long free = Runtime.getRuntime().freeMemory();
+        long free = Runtime.getRuntime().freeMemory() + max - total;
         double rate = (double) free / (double) total;
         if (rate < THRESHOLD_RATE || free <= THRESHOLD_MEMORY) {
             for (int i = 0; i < 5; i++) {
-                Node delHead = removeHead();
-                if (delHead != null) {
-                    map.remove(delHead.k);
-                }
+                removeHead();
             }
         }
     }
@@ -117,6 +116,10 @@ public class UrlCache {
             head = res.next;
             head.pre = null;
             res.next = null;
+        }
+        String key = res.k;
+        if (!StringUtils.isEmpty(key)) {
+            map.remove(key);
         }
         return res;
     }

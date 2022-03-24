@@ -17,13 +17,12 @@ public class ShortUrlServiceImpl implements IShortUrlService {
     private ShortUrlHandler handler;
 
     @Override
-    public Integer insertShortUrl(String url) {
+    public String insertShortUrl(String url) {
         try {
-            handler.insert(url);
-            return 1;
+            return handler.insert(url);
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return null;
         }
     }
 
