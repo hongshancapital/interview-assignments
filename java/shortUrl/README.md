@@ -180,3 +180,7 @@ public String getShortUrl(String url) {
 private Cache<String, String> longUrlCache =
         CacheBuilder.newBuilder().expireAfterWrite(15, TimeUnit.MINUTES).maximumSize(1000).build();
 ```
+
+
+### 单元测试代码覆盖率
+![image](https://user-images.githubusercontent.com/4374836/159826473-4b8808ba-017f-4885-9ce2-dfe1c3f14ddb.png)
