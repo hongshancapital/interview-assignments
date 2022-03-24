@@ -46,19 +46,11 @@ const Slider: FC<SliderProps> = ({
     };
   }, [play, clear]);
 
-  const style = useMemo(() => {
-    return ({
-      transitionDuration: `${speed}ms`,
-      transform: `translateX(${(-curIndex / size) * 100}%)`,
-      width: `${size * 100}%`,
-    });
-  }, [size, speed, curIndex]);
-
   return (
     <div className='slider-wrapper'>
-      <div className='loop-list' style={style}>
+      <div className={classnames('loop-list', { [`loop-list-item${curIndex}`]: true })}>
         {items.map((item, index) => {
-          return <div className='loop-item' key={index} style={{ width: (1 / size) * 100 + '%' }}>{item}</div>;
+          return <div className='loop-item' key={index}>{item}</div>;
         })}
       </div>
       <div className='loop-btn'>
