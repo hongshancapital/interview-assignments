@@ -13,15 +13,15 @@ class AppSearchListModel: ObservableObject {
     @Published @MainActor var apps = [AppInformation]()
     @Published @MainActor var hasMoreData = true
     
-    func refresh(limit: Int = 10) async throws {
-        let response = try await chatAppRequest.fetchResponse(paramaters: ["entity":"software","limit":50,"term":"chat"])
+    func refresh(entity: String = "software", limit: Int = 50, term: String = "chat", pageSize: Int = 10) async throws {
+        let response = try await chatAppRequest.fetchResponse(paramaters: ["entity":entity,"limit":limit,"term":term])
         await MainActor.run(body: {
             let count = response.results.count
             if count > 0 {
                 apps.removeAll()
-                if count > limit {
+                if count > pageSize {
                     hasMoreData = true
-                    apps.append(contentsOf: response.results.prefix(limit))
+                    apps.append(contentsOf: response.results.prefix(pageSize))
                 } else {
                     hasMoreData = false
                     apps.append(contentsOf: response.results)
@@ -30,13 +30,13 @@ class AppSearchListModel: ObservableObject {
         })
     }
     
-    func loadMore(limit: Int = 10) async throws {
-        let response = try await chatAppRequest.fetchResponse(paramaters: ["entity":"software","limit":50,"term":"chat"])
+    func loadMore(entity: String = "software", limit: Int = 50, term: String = "chat", pageSize: Int = 10) async throws {
+        let response = try await chatAppRequest.fetchResponse(paramaters: ["entity":entity,"limit":limit,"term":term])
         await MainActor.run(body: {
             let count = response.results.count
-            if count > apps.count + limit {
+            if count > apps.count + pageSize {
                 hasMoreData = true
-                apps.append(contentsOf: response.results[apps.count..<apps.count.advanced(by: limit)])
+                apps.append(contentsOf: response.results[apps.count..<apps.count.advanced(by: pageSize)])
             } else {
                 hasMoreData = false
                 if count > 0 {
