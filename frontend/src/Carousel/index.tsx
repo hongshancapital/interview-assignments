@@ -18,21 +18,28 @@ interface CarouselProps {
   interval?: number; // 幻灯片切换的间隔时间
 }
 
-function _classnames(...args: any[]): string {
+interface ClassTypeVo {
+  [key: string]: boolean;
+}
+
+type ClassType = undefined | string | number | string[] | number[] | ClassTypeVo;
+
+function _classnames(...args: ClassType[]): string {
   let classArr: string[] = [];
   for (let i = 0; i < args.length; i++) {
-    let arg: any = args[i];
+    let arg: ClassType = args[i];
     if (!arg) {
       continue;
     }
     let argType = typeof arg;
     if (argType === "string" || argType === "number") {
-      classArr.push(arg);
+      classArr.push(arg + "");
     } else if (Array.isArray(arg) && arg.length) {
-      classArr.push(...arg);
+      classArr.push(...arg.map((item) => item + ""));
     } else if (argType === "object") {
-      for (let key in arg) {
-        if (arg[key]) {
+      let _arg = arg as ClassTypeVo;
+      for (let key in _arg) {
+        if (_arg[key]) {
           classArr.push(key);
         }
       }
@@ -58,7 +65,7 @@ const Carousel: FC<CarouselProps> = ({
 
   const [containerWidth, setContainerWidth] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [timer, setTimer] = useState<any>(null);
+  const [timer, setTimer] = useState<number>(0);
   useLayoutEffect(() => {
     let carousel = carouselRef.current;
     setContainerWidth(carousel?.clientWidth || 0); // 获取当前容器宽度
@@ -66,9 +73,9 @@ const Carousel: FC<CarouselProps> = ({
 
   // 滑动动画
   useEffect(() => {
-    let _timer: any;
+    let _timer: number;
     if (autoplay) {
-      _timer = setInterval(() => {
+      _timer = window.setInterval(() => {
         setCurrentIndex((c: number) => (c + 1) % len);
       }, duration);
       setTimer(_timer);
@@ -89,7 +96,7 @@ const Carousel: FC<CarouselProps> = ({
   const handleClick = (index: number) => {
     setCurrentIndex(index);
     clearInterval(timer);
-    let _timer = setInterval(() => {
+    let _timer: number = window.setInterval(() => {
       setCurrentIndex((c: number) => (c + 1) % len);
     }, duration);
     setTimer(_timer);
@@ -124,7 +131,6 @@ const Carousel: FC<CarouselProps> = ({
             onClick={() => handleClick(index)}
             className={_classnames("dot-item", {
               active: index === currentIndex,
-
             })}
           >
             <div
