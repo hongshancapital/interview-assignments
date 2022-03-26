@@ -1,0 +1,33 @@
+.my-carousel-dots {
+  display: flex;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  z-index: 999;
+
+  .dot {
+    width: 60px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #a9a9a9;
+    position: relative;
+    margin: 0 10px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .progress {
+    width: 0;
+    height: 100%;
+    background-color: #fafafa;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    &.active {
+      width: 100%;
+    }
+  }
+}
