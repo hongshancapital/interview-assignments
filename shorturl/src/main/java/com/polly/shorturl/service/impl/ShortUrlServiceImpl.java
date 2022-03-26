@@ -18,12 +18,7 @@ public class ShortUrlServiceImpl implements IShortUrlService {
 
     @Override
     public String insertShortUrl(String url) {
-        try {
-            return handler.insert(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return handler.insert(url);
     }
 
     @Override
@@ -33,15 +28,5 @@ public class ShortUrlServiceImpl implements IShortUrlService {
             return shortUrl.getUrl();
         }
         return "短域名不存在";
-    }
-
-    public static double memoryRate() {
-        long total = Runtime.getRuntime().totalMemory();
-        long free = Runtime.getRuntime().freeMemory();
-        return (double) free / (double) total;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(memoryRate());
     }
 }

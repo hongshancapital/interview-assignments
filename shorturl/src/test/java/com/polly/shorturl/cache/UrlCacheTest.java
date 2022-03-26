@@ -18,4 +18,10 @@ public class UrlCacheTest {
     public void clean() {
         cache.memoryClean();
     }
+
+    @Test
+    public void cleanForNull(){
+        cache.removeHead();
+        cache.memoryClean();
+    }
 }
