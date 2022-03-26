@@ -1,0 +1,35 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "commonjs": true,
+    "mocha": true
+  },
+  "extends": ['react-app','react-app/jest'],
+  "plugins": [
+    "@typescript-eslint",'prettier'],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2016,
+    "sourceType": "module"
+  },
+  /*"plugins": [
+    "eslint-plugin"
+  ],*/
+  "rules": {
+    'prettier/prettier': 'error',
+    'prefer-const': "error",
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "no-unused-vars": [
+      0,
+      { "vars": "all", "args": "none", "ignoreRestSiblings": false }
+    ],
+    "no-console": 0,
+    "no-undef": 0,
+    "no-useless-escape": 0,
+    "no-var": 2,
+    "no-inner-declarations": 0
+  }
+}
