@@ -66,8 +66,4 @@ public class UrlTransfer {
         }
         return dStr;
     }
-
-    public static void main(String[] args) {
-        System.out.println(new UrlTransfer().convert("955452444425322496"));
-    }
 }
