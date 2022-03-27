@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import classnames from 'classnames';
 import { data } from '../../../mock/data';
-import { CarouselItemData } from '../CarouselItem';
+import { CarouselItemProps } from '../CarouselItem';
 import style from './index.module.scss';
 
 export interface DotsProps {
-  data: CarouselItemData[];
+  data: CarouselItemProps[];
   interval: number;
   count: number;
   current: number;

@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { CarouselItem, CarouselItemData } from '../CarouselItem';
+import { CarouselItem, CarouselItemProps } from '../CarouselItem';
 import { Dots } from '../Dots';
 import style from './index.module.scss';
 
 export interface CarouselProps {
   interval?: number;
   showDots?: boolean;
-  data: CarouselItemData[];
+  data: CarouselItemProps[];
 }
 
 export function Carousel(props: CarouselProps) {
@@ -41,7 +41,7 @@ export function Carousel(props: CarouselProps) {
         style={{ width, left, transition: `300ms linear` }}
       >
         {data.map((item) => (
-          <CarouselItem {...item} key={item.id} current={current} />
+          <CarouselItem {...item} key={item.id} />
         ))}
       </div>
 

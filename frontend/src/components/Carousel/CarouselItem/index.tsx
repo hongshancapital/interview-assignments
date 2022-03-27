@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
+import React from 'react';
 import style from './index.module.scss';
 
-export interface CarouselItemData {
+export interface CarouselItemProps {
   id: number;
   img: string;
   title: string;
@@ -11,23 +10,14 @@ export interface CarouselItemData {
   desc?: string;
 }
 
-export interface CarouselItemProps extends CarouselItemData {
-  current: number;
-}
-
 export function CarouselItem(props: CarouselItemProps) {
-  const { id, current, img, title, desc, bgColor, color = '#000000' } = props;
-
-  const className = useMemo(
-    () =>
-      classNames(style['my-carousel-item'], {
-        [style.active]: id === current,
-      }),
-    [current, id]
-  );
+  const { img, title, desc, bgColor, color = '#000000' } = props;
 
   return (
-    <div className={className} style={{ background: bgColor, color }}>
+    <div
+      className={style['my-carousel-item']}
+      style={{ background: bgColor, color }}
+    >
       {!!title && <h3 className={style.title}>{title}</h3>}
       {!!desc && <h5 className={style.desc}>{desc}</h5>}
 

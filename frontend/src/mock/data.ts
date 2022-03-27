@@ -1,9 +1,9 @@
-import { CarouselItemData } from '../components/index';
+import { CarouselItemProps } from '../components/index';
 import iphone from '../assets/iphone.png';
 import tablet from '../assets/tablet.png';
 import airpods from '../assets/airpods.png';
 
-export const data: CarouselItemData[] = [
+export const data: CarouselItemProps[] = [
   {
     id: 1,
     img: iphone,
