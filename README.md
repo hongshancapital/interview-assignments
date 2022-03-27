@@ -16,4 +16,4 @@
 
 # 设计图
 
-![image-20220327232824939](D:\Program Files\Typora\images\README\image-20220327232824939.png)
+见项目目录：/设计图.png
