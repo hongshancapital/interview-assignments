@@ -9,9 +9,12 @@ import SwiftUI
 
 struct SocialAppListView: View {
     
-    @MainActor
-    @StateObject private var viewModel = SocialAppListViewModel()
+    @StateObject private var viewModel: SocialAppListViewModel
 
+    init() {
+        _viewModel = StateObject(wrappedValue: SocialAppListViewModel())
+    }
+    
     var body: some View {
         NavigationView {
             List {
