@@ -1,0 +1,84 @@
+.carousel-container {
+  position: relative;
+  white-space: nowrap;
+  overflow-x: hidden;
+  .carousel-item {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s ease-in-out;
+    &.current {
+      z-index: 2;
+    }
+
+    .title-wrapper {
+      position: absolute;
+      top: 15%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+      .title {
+        margin-bottom: 12px;
+        font-size: 30px;
+        font-weight: 700;
+      }
+      .subtitle {
+        font-size: 20px;
+      }
+    }
+  
+    .img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      background-position-y: 100%;
+      &.airpods {
+        background-color: #f1f1f3;
+        background-image: url(../../assets/airpods.png);
+      }
+      &.iphone {
+        background-color: #111;
+        background-image: url(../../assets/iphone.png);
+      }
+      &.tablet {
+        background-color: #fafafa;
+        background-image: url(../../assets/tablet.png);
+      }
+    }
+  }
+
+  .mod-indicator {
+    position: absolute;
+    left: 0;
+    bottom: 100px;
+    width: 100%;
+    height: 4px;
+    text-align: center;
+    z-index: 2;
+    .wrapper {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 100%;
+      margin-right: 8px;
+      background-color: gray;
+      &:last-of-type {
+        margin-right: 0;
+      }
+      .progress {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+      }
+    }
+  }
+}
