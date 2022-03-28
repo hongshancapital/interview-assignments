@@ -1,0 +1,73 @@
+@mixin keyframes($animationName) 
+    @-webkit-keyframes #{$animationName} 
+        @content;
+    
+    @-moz-keyframes #{$animationName} 
+        @content;
+    
+    @-o-keyframes #{$animationName} 
+        @content;
+    
+    @keyframes #{$animationName} 
+        @content;
+
+@include keyframes(carousel-dot)
+    0%
+        width: 0;
+    100%
+        width: 100%;
+
+    
+.c-carousel 
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+
+    .c-carousel-wrapper
+        height: 100%;
+        transition: all ease-in-out 0.4s
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+    .c-carousel-dot
+        height: 4px;
+        border-radius: 2px;
+        width: auto;
+        max-width: 75%;
+        position: absolute;
+        bottom: 10%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        // background: #0f0;
+        text-align: center;
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+
+        .c-carousel-dot-item
+            max-width: 50px;
+            height: 100%;
+            margin: 0 4px;
+            background: #B1B1B2;
+            border-radius: 2px;
+            position: relative;
+
+            &.c-carousel-dot-item-active
+                &>span
+                    content: "";
+                    height: 100%;
+                    border-radius: 2px;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    background: #F9F9F9;
+                    animation-name: carousel-dot;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+                    
