@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   position: relative;
+  height: 100vh;
 }
 
 .title {
@@ -11,4 +12,55 @@
 .text {
   font-size: 28px;
   font-weight: 400;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.wrapper h2 {
+  font-size: 48px;
+  margin: 16px 0;
+}
+
+.wrapper p {
+  font-size: 28px;
+  padding: 0;
+  margin: 0;
+}
+
+/* hard to resize */
+.wrapper > div.pic {
+  width: 600px;
+  height: 300px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.wrapper.xphone {
+  background: #111;
+  color: #fefefe;
+}
+
+.wrapper.tablet {
+  background: #fafafa;
+  color: #000;
+}
+
+.wrapper.airpods {
+  background: #f2f2f3;
+  color: #000;
+}
+
+.wrapper img {
+  width: 200px;
 }
