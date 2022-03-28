@@ -1,0 +1,36 @@
+.pagination-container {
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-bar {
+    width: 40px;
+    height: 5px;
+    background-color: #a9a9a9;
+}
+
+@keyframes move {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.progress {
+    width: 0;
+    transform-origin: 0%;
+    background-color: #fff;
+    height: 100%;
+}
+.pagination-bar.active > .progress {
+    animation: move 4s linear;
+}
+
+.pagination-bar:not(:first-child) {
+    margin-left: 10px;
+}
