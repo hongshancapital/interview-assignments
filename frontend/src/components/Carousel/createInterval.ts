@@ -1,24 +1,18 @@
+const NOOP = setTimeout(() => {}, 0);
+
+class Interval {
+  intervalTimer: NodeJS.Timeout = NOOP;
+  setInterval(callback: () => void, interval: number) {
+    return (this.intervalTimer = setTimeout(() => {
+      callback();
+      this.intervalTimer = this.setInterval(callback, interval);
+    }, interval));
+  }
+  clearInterval() {
+    clearTimeout(this.intervalTimer);
+  }
+}
+
 export function createInterval() {
-  return {
-    intervalTimer: 0,
-    setInterval(callback: () => void, interval: number) {
-      let now = Date.now;
-      let stime = now();
-      let etime = stime;
-      const loop = () => {
-        this.intervalTimer = requestAnimationFrame(loop);
-        etime = now();
-        if (etime - stime >= interval) {
-          stime = now();
-          etime = stime;
-          callback();
-        }
-      };
-      this.intervalTimer = requestAnimationFrame(loop);
-      return this.intervalTimer;
-    },
-    clearInterval() {
-      cancelAnimationFrame(this.intervalTimer);
-    },
-  };
+  return new Interval();
 }
