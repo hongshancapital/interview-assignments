@@ -5,11 +5,10 @@ export interface CarouselProps {
   children?: React.ReactNode
   duration?: number             // 每帧页面停留的时长，单位是ms，默认2600 
   transitionDuration?: number   // 页面切换的耗时，单位是ms, 默认400
-  style?: CSSProperties         // 给容器设定的样式，简单传递
   className?: string            // 给容器设置的样式名，会和容器元素本身的样式名carousel-container合并
 }
 
-const Carousel:FC<CarouselProps> = ({ duration = 2600, children, style, transitionDuration = 400, className }) => {
+const Carousel:FC<CarouselProps> = ({ duration = 2600, children, transitionDuration = 400, className }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const timer = useRef<null | number>(null);
   const len:number = React.Children.count(children);
@@ -36,7 +35,7 @@ const Carousel:FC<CarouselProps> = ({ duration = 2600, children, style, transiti
   };
   
   return (
-    <div className={`carousel-container${className ? ' ' + className : ''}`} style={style}>
+    <div className={`carousel-container${className ? ' ' + className : ''}`}>
       <div className="carousel-wrapper" style={wrapperStyle}>
         {children}
       </div>

@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <Carousel style={{height: '100vh'}}>
+      <Carousel className="h-screen">
         <div className="content-item item-one">
           <h2 className="title">xPhone</h2>
           <div className="text">Lots to love. Less to spend.</div>
