@@ -1,9 +1,7 @@
 import React, {
-  forwardRef,
-  ForwardRefRenderFunction,
+  FC,
   HTMLAttributes,
   ReactElement,
-  useImperativeHandle,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -20,13 +18,7 @@ export interface ICarouselProps extends HTMLAttributes<HTMLDivElement> {
   infinity?: boolean //Todo 视频中展示的是回头滚动，不是同方向滚动
   children: ReactElement[]
 }
-export interface ICarouselRef {
-  goTo: (slide: number) => void
-}
-const Carousel: ForwardRefRenderFunction<ICarouselRef, ICarouselProps> = (
-  props,
-  ref,
-) => {
+const Carousel: FC<ICarouselProps> = (props) => {
   const {
     autoplay,
     autoPlayInterval,
@@ -51,21 +43,19 @@ const Carousel: ForwardRefRenderFunction<ICarouselRef, ICarouselProps> = (
     () => classnames('com-carousel-wrap', className),
     [className],
   )
-  useImperativeHandle(ref, () => {
-    return {
-      goTo: setIndex,
-    }
-  })
   return (
     <div className={classes} {...restProps}>
       <div className={classnames('com-carousel', `com-offset${index}`)}>
         {React.Children.map(children, (child: ReactElement) => {
-          return React.cloneElement(child, {
-            className: classnames(
-              child.props?.className,
-              'com-carousel-item-box',
-            ),
-          })
+          return (
+            <child.type
+              {...child.props}
+              className={classnames(
+                child.props?.className,
+                'com-carousel-item-box',
+              )}
+            />
+          )
         })}
       </div>
       {dots ? (
@@ -79,10 +69,9 @@ const Carousel: ForwardRefRenderFunction<ICarouselRef, ICarouselProps> = (
   )
 }
 
-const CarouselWithRef = forwardRef<ICarouselRef, ICarouselProps>(Carousel)
-CarouselWithRef.defaultProps = {
+Carousel.defaultProps = {
   autoplay: true,
   autoPlayInterval: 2000,
   dots: true,
 }
-export default CarouselWithRef
+export default Carousel
