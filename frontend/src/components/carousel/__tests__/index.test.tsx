@@ -1,19 +1,19 @@
 import React from "react";
-import { act, fireEvent, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { carouselData } from "../../../_mockData/carousel";
 import Carousel from "../index";
 
 describe("test Carousel component", () => {
-  let setSize: jest.Mock;
+  let setWidth: jest.Mock;
   let setCurrentIndex: jest.Mock;
 
   beforeEach(() => {
-    setSize = jest.fn();
+    setWidth = jest.fn();
     setCurrentIndex = jest.fn();
 
     jest
       .spyOn(React, "useState")
-      .mockImplementationOnce(() => ["", setSize])
+      .mockImplementationOnce(() => ["", setWidth])
       .mockImplementationOnce(() => ["", setCurrentIndex]);
 
     jest.useFakeTimers();
@@ -25,26 +25,18 @@ describe("test Carousel component", () => {
   });
 
   test("should call setSize and setCurrentIndex when component mount", () => {
-    const size = {
-      width: 100,
-      height: 100,
-    };
+    const width = 100;
 
     Object.defineProperties(window.HTMLElement.prototype, {
       clientWidth: {
         get: function () {
-          return size.width;
-        },
-      },
-      clientHeight: {
-        get: function () {
-          return size.height;
+          return width;
         },
       },
     });
 
     render(<Carousel carouselData={carouselData} />);
-    expect(setSize).toHaveBeenCalledWith(size);
+    expect(setWidth).toHaveBeenCalledWith(width);
     jest.advanceTimersByTime(3000);
     expect(setCurrentIndex).toBeCalledTimes(1);
   });
