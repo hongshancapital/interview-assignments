@@ -10,22 +10,17 @@ export interface CarouselProps {
 
 const Carousel: FC<CarouselProps> = (props) => {
   const { carouselData, easing = ease.linear } = props;
-  const [size, setSize] = React.useState({
-    width: 0,
-    height: 0,
-  });
+  const [width, setWidth] = React.useState(0);
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const ref = React.useRef(0);
+  const carouselRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const parentElement = (document.getElementById("carousel") as HTMLElement)
-      .parentElement as HTMLElement;
-    const width = parentElement.clientWidth;
-    const height = parentElement.clientHeight;
-    setSize({
-      width,
-      height,
-    });
+    const carouselElement = carouselRef.current;
+    if (carouselElement) {
+      const carouselWidth = carouselElement.clientWidth;
+      setWidth(carouselWidth);
+    }
   }, []);
 
   const timeInterval = useCallback(() => {
@@ -46,24 +41,23 @@ const Carousel: FC<CarouselProps> = (props) => {
   };
 
   const contentWidth = useMemo(
-    () => size.width * carouselData.length,
-    [carouselData.length, size.width]
+    () => carouselData.length * 100,
+    [carouselData.length]
   );
 
   return (
     <div
       id="carousel"
       style={{
-        width: `${size.width}px`,
-        height: `${size.height}px`,
         transitionTimingFunction: easing,
       }}
+      ref={carouselRef}
     >
       <div
         className="content"
         style={{
-          width: `${contentWidth}px`,
-          transform: `translateX(${currentIndex * -size.width}px)`,
+          width: `${contentWidth}%`,
+          transform: `translateX(${currentIndex * -width}px)`,
         }}
       >
         {carouselData.map((item) => (
@@ -71,7 +65,7 @@ const Carousel: FC<CarouselProps> = (props) => {
             className="item"
             style={{
               backgroundImage: `url(${item.backgroundImg})`,
-              width: `${size.width}px`,
+              width: `${width}px`,
               color: item.color,
             }}
             key={item.id}
