@@ -65,10 +65,7 @@ export default (appInfo: EggAppInfo) => {
 
   config.mongoose = {
     client: {
-      // url: 'mongodb://192.168.0.251:27017/ntms',
-      // url: 'mongodb://10.255.1.5:27017/ntms',
-      url: 'mongodb://127.0.0.1:27017/test',
-      // url: 'mongodb://admin:root@192.168.0.111:27017/admin',
+    
       options: {
         // @ts-ignore
         keepAlive: 1,
