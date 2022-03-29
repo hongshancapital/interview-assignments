@@ -46,18 +46,13 @@ const Carousel: FC<CarouselProps> = (props) => {
   );
 
   return (
-    <div
-      id="carousel"
-      style={{
-        transitionTimingFunction: easing,
-      }}
-      ref={carouselRef}
-    >
+    <div id="carousel" ref={carouselRef}>
       <div
         className="content"
         style={{
           width: `${contentWidth}%`,
           transform: `translateX(${currentIndex * -width}px)`,
+          transitionTimingFunction: easing,
         }}
       >
         {carouselData.map((item) => (
