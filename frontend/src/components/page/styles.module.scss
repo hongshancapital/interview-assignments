@@ -1,0 +1,16 @@
+.page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  // 允许受父容器中变量的影响
+  // 方便配置
+  color: var(--theme-dark-color, #fff);
+  background-color: var(--theme-dark-bg, #101010);
+
+  &.isLight {
+    color: var(--theme-light-color, #000);
+    background-color: var(--theme-light-bg, #fafafa);
+  }
+}

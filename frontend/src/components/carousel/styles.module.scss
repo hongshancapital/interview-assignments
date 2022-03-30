@@ -1,0 +1,25 @@
+.carouselContainer {
+  position: relative;
+  overflow: hidden;
+
+  .carouselInnerContainer {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    list-style: none;
+    transition: transform 0.25s ease-out;
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+
+    .carouselItem {
+      flex-grow: 0;
+      flex-shrink: 0;
+      overflow: hidden;
+
+      outline: 0;
+    }
+  }
+}

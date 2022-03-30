@@ -1,0 +1,120 @@
+.button {
+  // reset all default button styles
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 1px;
+
+  background: transparent;
+  color: transparent;
+  font-size: 0;
+
+  outline: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px #1f66ee;
+  }
+}
+
+.buttonInner {
+  // 使用 css logical properties 方便设置不同方向
+  inline-size: 54px;
+  block-size: 12px; // 这里设置得比UI尺寸要大 主要是可交互区域变大 避免点击不到的情况
+  padding-inline: 6px;
+  padding-block: 0;
+  overflow: hidden;
+
+  writing-mode: var(--writing-mode);
+
+  transform-origin: center center;
+  transition: all .3s;
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover,
+  :focus-visible & {
+    transform: scale(1.1);
+  }
+
+  > .track {
+    display: block;
+    inline-size: 100%;
+    block-size: 2px;
+    margin-inline: 0;
+    margin-block: 5px;
+    overflow: hidden;
+    background: #a9a9a9;
+
+    > .progress {
+      display: block;
+      inline-size: 0;
+      block-size: 100%;
+      background: #fafafa;
+
+      .isActive & {
+        animation: progressBar 0s linear forwards;        
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .isActive & {
+          inline-size: 100%;
+          animation: none;
+        }  
+      }
+
+      .disableAnim.isActive & {
+        inline-size: 100%;
+        animation: none;
+      }
+    }
+  }
+}
+
+@keyframes progressBar {
+  from {
+    inline-size: 0;
+  }
+  to {
+    inline-size: 100%;
+  }
+}
+
+.indicators {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  writing-mode: var(--writing-mode);
+
+  &[data-placement="top"] {
+    --writing-mode: horizontal-tb;
+    top: 80px;
+    right: 0;
+    left: 0;
+  }
+
+  &[data-placement="right"] {
+    --writing-mode: vertical-lr;
+    top: 0;
+    right: 80px;
+    bottom: 0;
+  }
+
+  &[data-placement="bottom"] {
+    --writing-mode: horizontal-tb;
+    right: 0;
+    bottom: 80px;
+    left: 0;
+  }
+
+  &[data-placement="left"] {
+    --writing-mode: vertical-lr;
+    top: 0;
+    bottom: 0;
+    left: 80px;
+  }
+}
