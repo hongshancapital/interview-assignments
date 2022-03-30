@@ -1,0 +1,31 @@
+.dotList {
+  height: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dotItem {
+  width: 50px;
+  height: 2px;
+  background: #413838;
+  display: flex;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.dotFront {
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  background: #e9d9d9;
+  border-radius: 4px;
+}
+
+.active .dotFront {
+  width: 100%;
+  transition: width 3s ease;
+}
