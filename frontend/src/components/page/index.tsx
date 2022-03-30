@@ -6,11 +6,11 @@ import styles from "./styles.module.scss";
 export function Page({ theme, className, ...hostProps }: PageProps) {
   return (
     <div
-      className={classNames([
+      className={classNames(
         className,
         styles.page,
         theme === "light" ? styles.isLight : null
-      ])}
+      )}
       {...hostProps}
     />
   );

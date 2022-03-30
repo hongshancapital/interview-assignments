@@ -3,6 +3,12 @@
   overflow: hidden;
 
   .carouselInnerContainer {
+    --container-size: calc(var(--page-count) * 100%);
+    --container-transform: calc(
+      -100% * var(--current-page) / var(--page-count)
+    );
+
+    display: grid;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -12,6 +18,17 @@
     transition: transform 0.25s ease-out;
     @media (prefers-reduced-motion: reduce) {
       transition: none;
+    }
+
+    &:not([data-direction="vertical"]) {
+      width: var(--container-size);
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      transform: translateX(var(--container-transform));
+    }
+    &[data-direction="vertical"] {
+      height: var(--container-size);
+      grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+      transform: translateY(var(--container-transform));
     }
 
     .carouselItem {

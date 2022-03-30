@@ -10,28 +10,25 @@ export function Indicator({
   isActive,
   ...hostProps
 }: IndicatorProps) {
+  const progressBarStyle = isActive
+    ? {
+        animationDuration: `${duration}ms`,
+        animationPlayState: paused ? "paused" : "running",
+      }
+    : {};
+
   return (
     <button
       {...hostProps}
       className={classNames({
         [styles.button]: true,
         [styles.isActive]: isActive,
-        [styles.disableAnim]: !animation
+        [styles.disableAnim]: !animation,
       })}
     >
       <div className={styles.buttonInner}>
         <span aria-hidden={true} className={styles.track}>
-          <span
-            className={styles.progress}
-            style={
-              isActive
-                ? {
-                    animationDuration: `${duration}ms`,
-                    animationPlayState: paused ? "paused" : "running"
-                  }
-                : { animation: "none" }
-            }
-          />
+          <span className={styles.progress} style={progressBarStyle} />
         </span>
       </div>
     </button>

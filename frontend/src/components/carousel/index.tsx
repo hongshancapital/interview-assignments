@@ -3,13 +3,12 @@ import React, {
   useImperativeHandle,
   useMemo,
   useRef,
-  useState
+  useState,
 } from "react";
 
 import classNames from "classnames";
 
 import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect";
-import { useResizeObserver } from "../../hooks/use-resize-observer";
 
 import { Indicators, IndicatorsProps } from "../indicators";
 
@@ -24,61 +23,20 @@ export const Carousel = forwardRef<CarouselRefValue, CarouselProps>(
       className,
 
       autoplay = false,
-      defaultActiveIndex = 2,
+      defaultActiveIndex = 0,
       direction = "horizontal",
       indicatorPlacement = "bottom",
       interval = 3000,
+      pauseOnHover = true,
       showDefaultIndicators = true,
 
       ...hostProps
     },
     ref
   ): JSX.Element {
-    const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
     const [animPaused, setAnimPaused] = useState(false);
-
+    const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
     const listRef = useRef<HTMLUListElement | null>(null);
-    const [wrapperRef, rect] = useResizeObserver<HTMLDivElement>();
-    const width = rect?.width || 0;
-    const height = rect?.height || 0;
-    const isVertical = direction === "vertical";
-
-    // 这里处理下 children
-    const elements = (React.Children.map(children, (el) => el) || [])
-      ?.filter((el) => el != null)
-      .map((el, index) => (
-        <li
-          key={index}
-          role="group"
-          tabIndex={-1}
-          aria-label={`Slide ${index + 1}`}
-          aria-hidden={index !== activeIndex}
-          className={styles.carouselItem}
-          style={isVertical ? { height } : { width }}
-        >
-          {el}
-        </li>
-      ));
-
-    const elemCount = elements.length;
-
-    // 内部使用 & 对外通过 ref 暴露的方法
-    const ctrlUtils = useMemo<CarouselRefValue>(
-      () => ({
-        prev() {
-          setActiveIndex((prev) => ((prev || elemCount) - 1) % elemCount);
-        },
-        next() {
-          setActiveIndex((prev) => (prev + 1) % elemCount);
-        },
-        goTo(page: number) {
-          setActiveIndex(() => Math.max(page, 0) % elemCount);
-        }
-      }),
-      [elemCount]
-    );
-    useImperativeHandle(ref, () => ctrlUtils);
-
     const player = useMemo(
       () =>
         autoplay
@@ -91,12 +49,51 @@ export const Carousel = forwardRef<CarouselRefValue, CarouselProps>(
       [activeIndex, autoplay, interval]
     );
 
+    // 这里处理下 children
+    const elements = (React.Children.map(children, (el) => el) || [])
+      ?.filter((el) => el != null)
+      .map((el, index) => (
+        <li
+          key={index}
+          role="group"
+          tabIndex={-1}
+          aria-label={`Slide ${index + 1}`}
+          aria-hidden={index !== activeIndex}
+          className={styles.carouselItem}
+        >
+          {el}
+        </li>
+      ));
+    const elemCount = elements.length;
+    const cssProperties = {
+      "--page-count": elemCount,
+      "--current-page": activeIndex,
+    } as React.CSSProperties;
+
+    // 内部使用 & 对外通过 ref 暴露的方法
+    const ctrlUtils = useMemo<CarouselRefValue>(
+      () => ({
+        prev() {
+          setActiveIndex((prev) => ((prev || elemCount) - 1) % elemCount);
+        },
+        next() {
+          setActiveIndex((prev) => (prev + 1) % elemCount);
+        },
+        goTo(page: number) {
+          setActiveIndex(() => Math.max(page, 0) % elemCount);
+        },
+      }),
+      [elemCount]
+    );
+
+    useImperativeHandle(ref, () => ctrlUtils);
     useIsomorphicLayoutEffect(() => {
       if (player) {
         if (!animPaused) {
           const onEnded = () => ctrlUtils.next();
-          player.addEventListener("ended", onEnded);
+
           player.play();
+          player.addEventListener("ended", onEnded);
 
           return () => player.removeEventListener("ended", onEnded);
         } else {
@@ -108,18 +105,17 @@ export const Carousel = forwardRef<CarouselRefValue, CarouselProps>(
     return (
       <div
         {...hostProps}
-        ref={wrapperRef}
         role="region"
         aria-label="carousel"
         className={classNames(className, styles.carouselContainer)}
         onMouseEnter={(e) => {
-          if (autoplay) {
+          if (autoplay && pauseOnHover) {
             setAnimPaused(true);
           }
           hostProps.onMouseEnter?.(e);
         }}
         onMouseLeave={(e) => {
-          if (autoplay) {
+          if (autoplay && pauseOnHover) {
             setAnimPaused(false);
           }
           hostProps.onMouseLeave?.(e);
@@ -127,16 +123,9 @@ export const Carousel = forwardRef<CarouselRefValue, CarouselProps>(
       >
         <ul
           ref={listRef}
+          style={cssProperties}
+          data-direction={direction}
           className={styles.carouselInnerContainer}
-          style={{
-            display: "flex",
-            flexDirection: isVertical ? "column" : "row",
-            [isVertical ? "height" : "width"]:
-              (isVertical ? height : width) * elemCount,
-            transform: isVertical
-              ? `translateY(-${activeIndex * height}px)`
-              : `translateX(-${activeIndex * width}px)`
-          }}
         >
           {elements}
         </ul>
@@ -151,13 +140,14 @@ export const Carousel = forwardRef<CarouselRefValue, CarouselProps>(
             animation={autoplay}
             placement={indicatorPlacement}
             onChange={(page) => {
+              const el = listRef.current?.children[activeIndex];
+
               ctrlUtils.goTo(page);
-              (listRef.current?.children[
-                activeIndex
-              ] as HTMLLIElement)?.focus();
+              (el as HTMLLIElement | null)?.focus();
             }}
           />
         )}
+
         {/*  TODO: 还可以在这里预留下可供自定义的控制区 */}
       </div>
     );
@@ -173,10 +163,12 @@ export type CarouselProps = JSX.IntrinsicElements["div"] & {
   direction?: "vertical" | "horizontal";
   /** 自动播放时间间隔，默认 3000ms */
   interval?: number;
-  /** 是否展示默认的 indicators */
-  showDefaultIndicators?: boolean;
   /** indicator 位置，默认 bottom */
   indicatorPlacement?: IndicatorsProps["placement"];
+  /** autoplay 时是否启用鼠标 hover 停止切换功能 */
+  pauseOnHover?: boolean;
+  /** 是否展示默认的 indicators */
+  showDefaultIndicators?: boolean;
 };
 
 export type CarouselRefValue = {

@@ -5,6 +5,31 @@ import { Page } from "./components/page";
 
 import "./App.css";
 
+const options = [
+  {
+    title: "xPhone",
+    content: (
+      <>
+        Lots to love. Less to spend.
+        <br />
+        Starting at $399.
+      </>
+    ),
+    image: "https://tva1.sinaimg.cn/large/94d1eb77gy1h0rwyfgtooj20dy0h8gn2.jpg",
+  },
+  {
+    theme: "light" as const,
+    title: "Tablet",
+    content: "Just the right amount of everything.",
+    image: "https://tva1.sinaimg.cn/large/94d1eb77gy1h0rwyfgtooj20dy0h8gn2.jpg",
+  },
+  {
+    title: "Buy a Tablet or xPhone for collage.",
+    content: "Get arPods.",
+    image: "https://tva1.sinaimg.cn/large/94d1eb77gy1h0rwyfgtooj20dy0h8gn2.jpg",
+  },
+];
+
 export default function App() {
   const ref = useRef<CarouselRefValue | null>(null);
 
@@ -37,33 +62,17 @@ export default function App() {
         defaultActiveIndex={0}
         interval={3000}
         indicatorPlacement="bottom"
+        pauseOnHover={false}
         showDefaultIndicators
         style={{ height: "100vh" }}
       >
-        <Page className="slidePage">
-          <div className="title">xPhone</div>
-          <div className="text">
-            Lots to love. Less to spend.
-            <br />
-            Starting at $399.
-          </div>
-          <img className="image" src="https://tva1.sinaimg.cn/large/94d1eb77gy1h0rwyfgtooj20dy0h8gn2.jpg" width="120" alt=""/>
-        </Page>
-
-        <Page theme="light" className="slidePage">
-          <div className="title">Tablet</div>
-          <div className="text">Just the right amount of everything.</div>
-          <img className="image" src="https://tva1.sinaimg.cn/large/94d1eb77gy1h0rwyfgtooj20dy0h8gn2.jpg" width="120" alt=""/>
-        </Page>
-
-        <Page className="slidePage">
-          <div className="title">
-            Buy a Tablet or xPhone for collage.
-            <br />
-            Get arPods.
-          </div>
-          <img className="image" src="https://tva1.sinaimg.cn/large/94d1eb77gy1h0rwyfgtooj20dy0h8gn2.jpg" width="120" alt=""/>
-        </Page>
+        {options.map((el, i) => (
+          <Page className="slidePage" key={i} theme={el.theme}>
+            <div className="title">{el.title}</div>
+            <div className="text">{el.content}</div>
+            <img className="image" src={el.image} width="120" alt="" />
+          </Page>
+        ))}
       </Carousel>
     </div>
   );

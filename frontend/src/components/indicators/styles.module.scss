@@ -29,7 +29,7 @@
   writing-mode: var(--writing-mode);
 
   transform-origin: center center;
-  transition: all .3s;
+  transition: all 0.3s;
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
@@ -52,21 +52,22 @@
       display: block;
       inline-size: 0;
       block-size: 100%;
+
       background: #fafafa;
+      animation: none;
 
       .isActive & {
-        animation: progressBar 0s linear forwards;        
+        animation: progressBar 0s linear forwards;
+      }
+      .disableAnim.isActive & {
+        inline-size: 100%;
+        animation: none;
       }
       @media (prefers-reduced-motion: reduce) {
         .isActive & {
           inline-size: 100%;
           animation: none;
-        }  
-      }
-
-      .disableAnim.isActive & {
-        inline-size: 100%;
-        animation: none;
+        }
       }
     }
   }
