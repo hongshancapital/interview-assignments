@@ -1,0 +1,76 @@
+#容器配置
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 200
+      min-spare: 10
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+#spring配置
+spring:
+  application:
+    name: shorturl
+  profiles:
+    active: @profiles.active@
+  main:
+    allow-bean-definition-overriding: true
+
+#日志配置
+logging:
+  level:
+    # 这里设置的日志级别优先于logback.xml文件Loggers中的日志级别。
+    root: info
+
+#swagger 配置
+swagger:
+  # 工程的基础包名。
+  basePackage: org.example.shorturl
+  title: 短链接服务
+  description: 建议使用swagger的增强版knife4j, http://127.0.0.1:${server.port}/doc.html
+  version: 1.0
+
+url:
+  #是否开启https? true or false
+  ssl: false
+  #短链接前缀 -->http://bai.cn/12345678
+  prefix: bai.cn
+
+sequence:
+  #工作节点id
+  snowflakeWorkNode: 1
+
+
+cache:
+  #过期时间 毫秒 默认为1个月
+  timeout: 86400000
+  #LRU容量 个 默认为 10000000
+  capacity: 10000000
+
+#监控配置 暴露监控端点
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    jmx:
+      exposure:
+        include: '*'
+  endpoint:
+    # 与中间件相关的健康详情也会被展示
+    health:
+      show-details: always
+    configprops:
+      # 在/actuator/configprops中，所有包含password的配置，将用 * 隐藏。
+      # 如果不想隐藏任何配置项的值，可以直接使用如下被注释的空值。
+      keys-to-sanitize: password
+  server:
+    base-path: "/"
