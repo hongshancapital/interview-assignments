@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StoreService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">com.domain</a> &gt; <a href="index.source.html" class="el_package">com.domain.service.stroe</a> &gt; <span class="el_source">StoreService.java</span></div><h1>StoreService.java</h1><pre class="source lang-java linenums">package com.domain.service.stroe;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.domain.config.GlobalParametersConfig;
+import com.domain.po.StorePO;
+import com.domain.utils.Hash;
+import com.domain.utils.LRUCache;
+import com.domain.utils.MappedFile;
+import com.domain.utils.ServiceThread;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
+import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+/**
+ * 数据存储服务
+ * @author jacky
+ * @version 1.0
+ * @since 1.0
+ */
+@Service
+public class StoreService {
+
+    private static LRUCache[] STROES;  //JVM 存储缓存  槽来存储 避免多个map 扩容导致性能降低
+
+    @Autowired
+    private GlobalParametersConfig globalParametersConfig;  //全局配置
+
+    private static  final  String indexFileName=&quot;index&quot;;  //索引文件名称
+    private static MappedFile indexMappedFile;  //索引文件
+    private static  final int indexFileSize=1024;
+
+    private static  final String positionFileName=&quot;position&quot;;  //指针文件名称
+    private static MappedFile positionMappedFile;  //写指针文件
+    private static  final int positionFileSize=1024;
+
+    private static MappedFile writeMappedFile;  //当前持久化数据文件
+    private static final int dataFileSize=1024 * 1024 * 4;
+
+<span class="fc" id="L48">    private static int dataFileName=100000001;  //初始化文件名称</span>
+
+    private static final String Separator=&quot;$&quot;; //分割符号
+
+<span class="fc" id="L52">    private static int slots=1;  //槽位</span>
+
+<span class="fc" id="L54">    private ConcurrentLinkedQueue&lt;StorePO&gt; queue=new ConcurrentLinkedQueue&lt;StorePO&gt;();  //持久化队列</span>
+
+    private WriteDataThread writeDataThread; //持久化刷盘线程
+
+
+
+<span class="fc" id="L60">    public StoreService(){</span>
+<span class="fc" id="L61">        this.writeDataThread = new WriteDataThread();</span>
+<span class="fc" id="L62">    }</span>
+    /**
+     * spring init 回调
+     */
+    @PostConstruct
+    public void init(){
+<span class="fc" id="L68">        initStroe(); //初始化缓存</span>
+<span class="fc" id="L69">        initIndexFile();  //读取索引文件  获取最新持久化文件</span>
+<span class="fc" id="L70">        initPositionFile(); //读取写指针文件 获取最新持久化文件写指针</span>
+<span class="fc" id="L71">        initDataFile(); //读取最新持久化文件数据 存入缓存</span>
+<span class="fc" id="L72">        persistentData(); //读取历史数据 存入缓存</span>
+<span class="fc" id="L73">        start();</span>
+<span class="fc" id="L74">    }</span>
+    /**
+     * 存储服务启动
+     */
+    public void start(){
+<span class="fc" id="L79">        this.writeDataThread.start();  //启动刷盘服务</span>
+<span class="fc" id="L80">    }</span>
+    /**
+     * 存储服务启动
+     */
+    public void shutdown(){
+<span class="fc" id="L85">        this.writeDataThread.shutdown();  //停止刷盘服务</span>
+<span class="fc" id="L86">    }</span>
+    /**
+     * 初始化 槽位缓存
+     */
+    private void initStroe(){
+<span class="fc" id="L91">        slots=Integer.parseInt(globalParametersConfig.getSlots());</span>
+<span class="fc" id="L92">        int capacity=Integer.parseInt(globalParametersConfig.getCapacity());</span>
+<span class="fc" id="L93">        STROES=new  LRUCache[slots];</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        for(int i=0;i&lt;slots;i++){</span>
+<span class="fc" id="L95">            STROES[i]=new LRUCache&lt;String,StorePO&gt;(capacity);  //使用LRU 控制单个槽的 扩容  这样会淘汰些历史数据</span>
+        }
+<span class="fc" id="L97">    }</span>
+    /**
+     * 初始化 索引文件
+     */
+    private void initIndexFile(){
+<span class="fc" id="L102">        File dir=new File(globalParametersConfig.getConfigFilePath());</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if(!dir.exists())dir.mkdirs();</span>
+<span class="fc" id="L104">        indexMappedFile=new MappedFile(globalParametersConfig.getConfigFilePath(),indexFileName,indexFileSize);</span>
+<span class="fc" id="L105">    }</span>
+    /**
+     * 初始化 最后写指针文件
+     */
+    private void initPositionFile(){
+<span class="fc" id="L110">        File dir=new File(globalParametersConfig.getConfigFilePath());</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if(!dir.exists())dir.mkdirs();</span>
+<span class="fc" id="L112">        positionMappedFile=new MappedFile(globalParametersConfig.getConfigFilePath(),positionFileName,positionFileSize);</span>
+<span class="fc" id="L113">    }</span>
+    /**
+     * 初始化 最后持久化文件
+     */
+    private void initDataFile(){
+<span class="fc" id="L118">        File dir=new File(globalParametersConfig.getDataFilePath());</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if(!dir.exists())dir.mkdirs();</span>
+
+<span class="fc" id="L121">        String filename=indexMappedFile.readData();</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if(filename!=null)filename=filename.trim();</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">        if(StringUtils.isEmpty(filename))filename=String.valueOf(dataFileName);</span>
+<span class="fc" id="L124">        writeMappedFile=new MappedFile(globalParametersConfig.getDataFilePath(),filename,dataFileSize);</span>
+
+        //写入索引文件
+<span class="fc" id="L127">        indexMappedFile.writeData(writeMappedFile.getFileName().getBytes(),0);</span>
+
+<span class="fc" id="L129">        String position=positionMappedFile.readData();</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        if(position!=null)position=position.trim();</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if(!StringUtils.isEmpty(position))positionMappedFile.setWritePosition(Integer.parseInt(position));</span>
+<span class="fc" id="L132">        else positionMappedFile.setWritePosition(writeMappedFile.getWritePosition().intValue());</span>
+
+
+<span class="fc" id="L135">        readPersistentDataToCashe(writeMappedFile); //读取到缓存</span>
+<span class="fc" id="L136">    }</span>
+
+    /**
+     *  持久化数据
+     */
+    private void persistentData(){
+<span class="fc" id="L142">        String path=globalParametersConfig.getDataFilePath();  //数据目录</span>
+<span class="fc" id="L143">        List&lt;Integer&gt; fileNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L144">        File dir = new File(path);</span>
+<span class="fc" id="L145">        File[] array = dir.listFiles();</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        for(File file:array){</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">            if(file.getName().equals(writeMappedFile.getFileName())) continue;  //排除当前主写文件</span>
+<span class="nc" id="L148">            Integer fileName=null;</span>
+            try{
+<span class="nc" id="L150">                fileName=Integer.parseInt(file.getName());</span>
+<span class="nc" id="L151">            }catch(Exception e){</span>
+<span class="nc" id="L152">                continue;</span>
+<span class="nc" id="L153">            }</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">            if(fileName!=null)fileNames.add(fileName);</span>
+        }
+<span class="fc" id="L156">        Collections.sort(fileNames);</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        for(int i=fileNames.size()-1;i&gt;=0;i--){</span>
+            //倒序读取文件 持久换缓存中
+<span class="nc" id="L159">            MappedFile his_writeMappedFile=new MappedFile(globalParametersConfig.getDataFilePath(),String.valueOf(fileNames.get(i)),dataFileSize);</span>
+<span class="nc" id="L160">            readPersistentDataToCashe(his_writeMappedFile);</span>
+<span class="nc" id="L161">            his_writeMappedFile.close(); //清除内存映射</span>
+        }
+
+<span class="fc" id="L164">    }</span>
+    /**
+     * 持久化数据
+     * @param mappedFile  持久化文件对象
+     */
+    private void readPersistentDataToCashe(MappedFile mappedFile){
+<span class="fc" id="L170">         String filedata=mappedFile.readData();</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">         if(filedata!=null)filedata=filedata.trim();</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">         if(!StringUtils.isEmpty(filedata.trim())){</span>
+<span class="nc" id="L173">             String[] datas=filedata.split(&quot;\\&quot;+Separator);</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">             for(String data:datas){</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">                 if(!StringUtils.isEmpty(data)){</span>
+<span class="nc" id="L176">                     byte[] bytes=Base64.getDecoder().decode(data.getBytes());</span>
+<span class="nc" id="L177">                     String base64=new String(bytes);</span>
+<span class="nc" id="L178">                     JSONObject jsonObject = JSON.parseObject(base64);</span>
+<span class="nc" id="L179">                     StorePO storePO=JSON.toJavaObject(jsonObject,StorePO.class);</span>
+<span class="nc" id="L180">                     push(storePO);</span>
+                 }
+             }
+         }
+<span class="fc" id="L184">    }</span>
+
+    /**
+     * 同步数据到缓存
+     * @param storePO  数据对象
+     * @return true 存储成功
+     */
+    private void push(StorePO storePO){
+<span class="nc" id="L192">        int slot= Hash.hashSlots(storePO.getAddressCode(),slots);</span>
+<span class="nc" id="L193">        LRUCache&lt;String,StorePO&gt; lruCaches=STROES[slot];</span>
+<span class="nc" id="L194">        lruCaches.put(storePO.getAddressCode(),storePO);</span>
+<span class="nc" id="L195">    }</span>
+    /**
+     * 存储数据到缓存
+     * @param storePO  数据对象
+     * @return true 存储成功
+     */
+    public boolean save(StorePO storePO){
+<span class="fc" id="L202">        int slot= Hash.hashSlots(storePO.getAddressCode(),slots);</span>
+<span class="fc" id="L203">        LRUCache&lt;String,StorePO&gt; lruCaches=STROES[slot];</span>
+<span class="fc" id="L204">        lruCaches.put(storePO.getAddressCode(),storePO);</span>
+<span class="fc" id="L205">        queue.add(storePO); //加入到队列 持久化</span>
+<span class="fc" id="L206">        return true;</span>
+    }
+    /**
+     * 检查生成的code是否已经存在缓存中
+     * @param storePO  数据对象
+     * @return true 存储成功
+     */
+    public boolean check(StorePO storePO){
+<span class="fc" id="L214">        int slot= Hash.hashSlots(storePO.getAddressCode(),slots);</span>
+<span class="fc" id="L215">        LRUCache&lt;String,StorePO&gt; lruCaches=STROES[slot];</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">        if(lruCaches.isEmpty()) return true;</span>
+<span class="fc" id="L217">        StorePO storeRight=lruCaches.get(storePO.getAddressCode());</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        if(storeRight==null) return true;</span>
+<span class="nc" id="L219">        return false;</span>
+    }
+    /**
+     * 获取存储数据
+     * @param code  存储key
+     * @return StorePO 存储数据
+     */
+    public StorePO get(String code){
+<span class="fc" id="L227">        int slot= Hash.hashSlots(code,slots);</span>
+<span class="fc" id="L228">        LRUCache&lt;String,StorePO&gt; lruCaches=STROES[slot];</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">        if(lruCaches.isEmpty()) return null;</span>
+<span class="fc" id="L230">        return lruCaches.get(code);</span>
+    }
+    /**
+     * 存储数据到持久化
+     * @param context  写入数据
+     * @return true 存储成功
+     */
+    private void saveDisk(String context){
+<span class="pc bpc" id="L238" title="1 of 2 branches missed.">        if(!writeMappedFile.writeData(context.getBytes())){</span>
+            //未写成功 需要创建新文件
+<span class="nc" id="L240">            createNewWriteFile();</span>
+<span class="nc" id="L241">            writeMappedFile.writeData(context.getBytes());</span>
+        }
+        //写入指针文件
+<span class="fc" id="L244">        positionMappedFile.writeData(String.valueOf(writeMappedFile.getWritePosition().intValue()).getBytes(),0);</span>
+
+<span class="fc" id="L246">    }</span>
+    /**
+     * 创建新的写入文件
+     */
+    private void createNewWriteFile(){
+<span class="nc" id="L251">        Integer fileNameNumer=Integer.parseInt(writeMappedFile.getFileName());</span>
+<span class="nc" id="L252">        fileNameNumer++;</span>
+        //关闭老文件
+<span class="nc" id="L254">        writeMappedFile.close();</span>
+        //关键新文件
+<span class="nc" id="L256">        String filename=String.valueOf(fileNameNumer);</span>
+<span class="nc" id="L257">        writeMappedFile=new MappedFile(globalParametersConfig.getDataFilePath(),filename,dataFileSize);</span>
+        //写入索引文件
+<span class="nc" id="L259">        indexMappedFile.writeData(writeMappedFile.getFileName().getBytes(),0);</span>
+        //写入指针文件
+<span class="nc" id="L261">        positionMappedFile.writeData(String.valueOf(writeMappedFile.getWritePosition().intValue()).getBytes(),0);</span>
+<span class="nc" id="L262">    }</span>
+    /**
+     * 写数据线程
+     * @author jacky
+     * @version 1.0
+     * @since 1.0
+     */
+<span class="fc" id="L269">    class WriteDataThread extends ServiceThread{</span>
+
+        @Override
+        public String getServiceName() {
+<span class="fc" id="L273">            return WriteDataThread.class.getName();</span>
+        }
+
+        @Override
+        protected void isShutdown() {
+            for(;;){
+                //持久化同步 完成才能停机 避免数据丢失
+<span class="pc bpc" id="L280" title="1 of 2 branches missed.">               if(queue.size()==0)return;</span>
+            }
+        }
+
+        @Override
+        public void run() {
+              for(;;){
+                  //自旋
+<span class="fc" id="L288">                  StorePO storePO=queue.poll();</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">                  if(storePO!=null){</span>
+<span class="fc" id="L290">                      String base64  = Base64.getEncoder().encodeToString(JSON.toJSONString(storePO).getBytes());</span>
+<span class="fc" id="L291">                      saveDisk(base64+StoreService.Separator);</span>
+                  }
+<span class="fc" id="L293">              }</span>
+        }
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
