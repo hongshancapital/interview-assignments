@@ -2,13 +2,13 @@ import React, { FC, MouseEvent } from 'react';
 import classnames from 'classnames';
 
 import { CarouselIndicatorProps, InternalIndicatorProps } from './interface';
-import { isFunc } from '../../utils';
+import { isFunc } from './utils';
 
 export const INDICATOR_DISPLAY_NAME = 'Indicator';
 
 const prefixCls = 'pr-carousel-dot';
 
-const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
+export const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
   props
 ) => {
   const {
@@ -31,7 +31,7 @@ const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
     prefixCls,
     {
       [`${prefixCls}-${position}`]: isValidPosition,
-      [`${prefixCls}-${shape}`]: shape === 'line' || shape === 'slider',
+      [`${prefixCls}-${shape}`]: shape === 'line',
     },
     className
   );
@@ -77,5 +77,3 @@ const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
 };
 
 Indicator.displayName = INDICATOR_DISPLAY_NAME;
-
-export default Indicator;

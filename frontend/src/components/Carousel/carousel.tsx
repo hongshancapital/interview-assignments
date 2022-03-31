@@ -26,7 +26,7 @@ const Carousel: FC<CarouselProps> = (props) => {
     indicator,
     interval = 3000,
     direction = 'horizontal',
-    effect = 'fade',
+    effect = 'slide',
     onChange,
     children,
   } = props;

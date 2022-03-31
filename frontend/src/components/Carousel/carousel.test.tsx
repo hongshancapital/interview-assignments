@@ -5,7 +5,6 @@ import Carousel, { CarouselProps } from './index';
 
 const defaultProps: CarouselProps = {
   style: { width: 600, height: 240 },
-  controller: <Carousel.Controller />,
   indicator: <Carousel.Indicator />,
   autoplay: false,
   onChange: jest.fn(),

@@ -1,0 +1,70 @@
+$pr-carousel-dot: 'pr-carousel-dot';
+
+$pr-carousel-dot-white: $white !default;
+$pr-carousel-dot-padding-y: $padding-y !default;
+$pr-carousel-dot-padding-x: $padding-x !default;
+
+.#{$pr-carousel-dot} {
+  position: absolute;
+  z-index: 2;
+
+  &-item {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $pr-carousel-dot-white;
+    opacity: 0.25;
+    transition: all 0.3s;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover,
+    &-active {
+      opacity: 0.9;
+      transform: scale(1.15);
+    }
+  }
+}
+
+.#{$pr-carousel-dot}-top,
+.#{$pr-carousel-dot}-bottom {
+  @include flex(inline-flex);
+
+  left: 50%;
+  transform: translateX(-50%);
+  padding: $pr-carousel-dot-padding-y $pr-carousel-dot-padding-x;
+
+  .#{$pr-carousel-dot}-item {
+    margin-right: 10px;
+  }
+}
+
+.#{$pr-carousel-dot}-bottom {
+  bottom: 4px;
+}
+
+.#{$pr-carousel-dot}-top {
+  top: 4px;
+}
+
+.#{$pr-carousel-dot}-right,
+.#{$pr-carousel-dot}-left {
+  @include flex(inline-flex, column);
+
+  top: 50%;
+  transform: translateY(-50%);
+  padding: $pr-carousel-dot-padding-x $pr-carousel-dot-padding-y;
+
+  .#{$pr-carousel-dot}-item {
+    margin-bottom: 10px;
+  }
+}
+
+.#{$pr-carousel-dot}-right {
+  right: 8px;
+}
+
+.#{$pr-carousel-dot}-left {
+  left: 4px;
+}

@@ -24,7 +24,9 @@ export interface InternalCarouselItemProps {
 export interface CarouselIndicatorProps {
   className?: string;
   style?: CSSProperties;
-  shape?: 'line';
+  triggerType?: 'click' | 'hover';
+  position?: 'bottom' | 'top' | 'left' | 'right' | 'outer';
+  shape?: 'line' | 'dot';
 }
 
 export interface InternalIndicatorProps {

@@ -7,7 +7,7 @@ export const ITEM_DISPLAY_NAME = 'CarouselItem';
 
 export const itemPrefixCls = 'pr-carousel-item';
 
-const CarouselItem: FC<CarouselItemProps & InternalCarouselItemProps> = (
+export const CarouselItem: FC<CarouselItemProps & InternalCarouselItemProps> = (
   props
 ) => {
   const { className, style, index, activeIndex, children } = props;
@@ -28,5 +28,3 @@ const CarouselItem: FC<CarouselItemProps & InternalCarouselItemProps> = (
 };
 
 CarouselItem.displayName = ITEM_DISPLAY_NAME;
-
-export default CarouselItem;
