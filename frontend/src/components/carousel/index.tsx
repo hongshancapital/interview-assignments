@@ -91,7 +91,10 @@ export const Carousel = forwardRef<CarouselRefValue, CarouselProps>(
           player.play();
           player.addEventListener("ended", onEnded);
 
-          return () => player.removeEventListener("ended", onEnded);
+          return () => {
+            player.paused = true;
+            player.removeEventListener("ended", onEnded);
+          }
         } else {
           player.paused = true;
         }
