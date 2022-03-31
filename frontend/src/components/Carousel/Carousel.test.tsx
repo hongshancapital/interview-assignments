@@ -2,7 +2,7 @@ import React from "react";
 import {render} from "@testing-library/react";
 
 import Carousel from "./Carousel";
-import {CarouselConfig, CarouselBannerConfig} from "../../config/Carousel";
+import {CarouselConfig} from "../../config/Carousel";
 
 describe("Carousel Component Test", () => {
 

@@ -26,13 +26,13 @@ export interface CarouselBannerConfigInter {
     backgroundColor: string;
 }
 
-export const CarouselConfig: CarouselConfigInter = { // 用于配置轮播图
+export const CarouselConfig: CarouselConfigInter = { // 用于配置轮播图属性
     indicatorIsShow: true, // 指示器是否展示
     delay: 3000, // 轮播图展示时间 （单位毫秒）
     initialIndex: 0, //初始展示轮播图
     transitionTime: 1000 // 轮播图过渡耗时 （单位毫秒）
 }
-export const CarouselBannerConfig: CarouselBannerConfigInter[] = [
+export const CarouselBannerConfig: CarouselBannerConfigInter[] = [ // 用于配置轮播图内容
     {
         id: "xPhone",
         content: [
