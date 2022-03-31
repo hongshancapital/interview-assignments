@@ -34,19 +34,15 @@ export const Carousel = forwardRef<CarouselRefValue, CarouselProps>(
     },
     ref
   ): JSX.Element {
+    // 最小 1000ms
+    const realInterval = Math.max(interval, 1000);
+
     const [animPaused, setAnimPaused] = useState(false);
     const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
     const listRef = useRef<HTMLUListElement | null>(null);
     const player = useMemo(
-      () =>
-        autoplay
-          ? new Player(
-              // 最小 1000ms
-              Math.max(interval, 1000),
-              activeIndex
-            )
-          : null,
-      [activeIndex, autoplay, interval]
+      () => (autoplay ? new Player(realInterval, activeIndex) : null),
+      [activeIndex, autoplay, realInterval]
     );
 
     // 这里处理下 children
@@ -134,7 +130,7 @@ export const Carousel = forwardRef<CarouselRefValue, CarouselProps>(
           <Indicators
             activeIndex={activeIndex}
             count={elemCount}
-            duration={interval}
+            duration={realInterval}
             paused={animPaused}
             // 自动播放的时候才有动画
             animation={autoplay}
@@ -161,7 +157,7 @@ export type CarouselProps = JSX.IntrinsicElements["div"] & {
   defaultActiveIndex?: number;
   /** 方向，默认为 horizontal */
   direction?: "vertical" | "horizontal";
-  /** 自动播放时间间隔，默认 3000ms */
+  /** 自动播放时间间隔，要求最小 1000ms，默认 3000ms */
   interval?: number;
   /** indicator 位置，默认 bottom */
   indicatorPlacement?: IndicatorsProps["placement"];
