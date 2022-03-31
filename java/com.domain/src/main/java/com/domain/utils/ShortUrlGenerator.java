@@ -44,47 +44,5 @@ public class ShortUrlGenerator {
         return outChars;
     }
 
-    static Map<String,Boolean> map=new HashMap<>();
-    static Set<String> set=Collections.newSetFromMap(map);
 
-    static Map<String,Boolean> str_map=new HashMap<>();
-    static Set<String> str_set=Collections.newSetFromMap(str_map);
-
-    public static void main(String[] args) {
-        int thread=100;
-        int times=10000;
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(thread, new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("finish:"+str_set.size()+" "+set.size());
-            }
-        });
-        ThreadPoolExecutor threadPoolExecutor=new ThreadPoolExecutor(thread,thread,60,
-                TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(times), Executors.defaultThreadFactory());
-        for(int i=0;i<times;i++){
-            threadPoolExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    String url="http://wwww.test.com/"+ UUIDUtils.getUUID();
-                    str_set.add(url);
-
-                    String string=ShortUrlGenerator.generator(url);
-                    set.add(string);
-                    System.out.println(string );
-                    try {
-                        //在此阻塞等待所有子线程执行完
-                        cyclicBarrier.await();
-                    } catch (InterruptedException | BrokenBarrierException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-     /*   for(int i=0;i<times;i++){
-            String string=ShortUrlGenerator.generator("http://wwww.test.com/"+ UUID.randomUUID());
-            set.add(string);
-            System.out.println(Thread.currentThread().getId()+"："+string );
-        }
-        System.out.println("finish:"+thread+" "+set.size());*/
-    }
 }
