@@ -23,7 +23,7 @@ const Indicator: React.FC<SlideProps> = (props: SlideProps) => {
                                 {
                                     value.content.map((value: ContentItem) => {
                                         return (
-                                            <span style={{...value.style}}>
+                                            <span style={{...value.style}} key={value.id}>
                             {value.name}
                                 </span>
                                         )

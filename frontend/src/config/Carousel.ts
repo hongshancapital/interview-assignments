@@ -9,7 +9,7 @@ interface CarouselConfigInter {
     transitionTime: 1000;
 }
 
-export type ContentItem = { name: string } & { style: Record<string, string | Number> }
+export type ContentItem = { name: string } & { id: number } & { style: Record<string, string | Number> }
 
 export interface CarouselBannerConfigInter {
     id: string;
@@ -30,6 +30,7 @@ export const CarouselBannerConfig: CarouselBannerConfigInter[] = [
         id: "xPhone",
         content: [
             {
+                id: 1,
                 name: "xPhone",
                 style: {
                     color: '#fff',
@@ -40,6 +41,7 @@ export const CarouselBannerConfig: CarouselBannerConfigInter[] = [
                 }
             },
             {
+                id: 2,
                 name: "Lots to love. Less to spend.",
                 style: {
                     color: '#fff',
@@ -49,6 +51,7 @@ export const CarouselBannerConfig: CarouselBannerConfigInter[] = [
                 },
             },
             {
+                id: 3,
                 name: "Starting at $399.",
                 style: {
                     color: '#fff',
@@ -65,6 +68,7 @@ export const CarouselBannerConfig: CarouselBannerConfigInter[] = [
         id: "Tablet",
         content: [
             {
+                id: 1,
                 name: "Tablet",
                 style: {
                     color: '#000',
@@ -75,6 +79,7 @@ export const CarouselBannerConfig: CarouselBannerConfigInter[] = [
                 }
             },
             {
+                id: 2,
                 name: "Just the right amount of everything",
                 style: {
                     color: '#000',
@@ -91,6 +96,7 @@ export const CarouselBannerConfig: CarouselBannerConfigInter[] = [
         id: "Tablet or xPhone",
         content: [
             {
+                id: 1,
                 name: "Buy a Tablet or xPhone for college.",
                 style: {
                     color: '#000',
@@ -101,6 +107,7 @@ export const CarouselBannerConfig: CarouselBannerConfigInter[] = [
                 }
             },
             {
+                id: 2,
                 name: "Get arPods.",
                 style: {
                     color: '#000',
