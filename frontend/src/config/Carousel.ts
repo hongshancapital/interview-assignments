@@ -1,12 +1,19 @@
+/**
+ * @version 0.0.1
+ * @author curryfu
+ * @date 2022-03-30
+ * @description 轮播图配置
+ */
 import airpods from "../assets/airpods.png";
 import iphone from "../assets/iphone.png";
 import tablet from "../assets/tablet.png";
 
+
 interface CarouselConfigInter {
     indicatorIsShow: boolean;
-    delay: 3000;
-    initialIndex: 0;
-    transitionTime: 1000;
+    delay: number;
+    initialIndex: number;
+    transitionTime: number;
 }
 
 export type ContentItem = { name: string } & { id: number } & { style: Record<string, string | Number> }

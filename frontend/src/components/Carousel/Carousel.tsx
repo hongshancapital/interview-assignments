@@ -1,3 +1,9 @@
+/**
+ * @version 0.0.1
+ * @author curryfu
+ * @date 2022-03-30
+ * @description 完整轮播图UI
+ */
 import React, { useEffect, useRef, useState } from "react";
 import Indicator from "../Indicator/Indicator";
 import Slide from "../Slide/Slide";

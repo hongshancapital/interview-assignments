@@ -1,3 +1,9 @@
+/**
+ * @version 0.0.1
+ * @author curryfu
+ * @date 2022-03-30
+ * @description 指示器UI
+ */
 import React from "react";
 import {CarouselBannerConfig} from "../../config/Carousel";
 import "./Indicator.css";

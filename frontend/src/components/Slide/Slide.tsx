@@ -1,3 +1,9 @@
+/**
+ * @version 0.0.1
+ * @author curryfu
+ * @date 2022-03-30
+ * @description 纯轮播图UI
+ */
 import React from "react";
 import "./Slide.css";
 import {CarouselBannerConfig, CarouselBannerConfigInter, ContentItem} from "../../config/Carousel";
