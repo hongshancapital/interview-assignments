@@ -1,0 +1,69 @@
+.carousel-container {
+  overflow-x: hidden;
+  position: relative;
+}
+
+.carousel-container .carousel-wrapper {
+  height: 100%;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+  display: flex;
+}
+
+.carousel-container .carousel-wrapper > * {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  flex: none;
+  position: relative;
+}
+.carousel-container .indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  width: 200px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+}
+.carousel-container .indicator-item {
+  flex: 1;
+  height: 2px;
+  background-color: #555;
+  position: relative;
+  overflow: hidden;
+}
+.carousel-container .indicator-item + .indicator-item {
+  margin-left: 10px;
+}
+
+.carousel-container .indicator-item::before {
+  display: block;
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.carousel-container .indicator-item.default::before {
+  transform: translateX(-100%);
+}
+.carousel-container .indicator-item.visited::before {
+  transform: translateX(0);
+}
+.carousel-container .indicator-item.active::before {
+  animation-name: indicator-show;
+  animation-duration: inherit;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+}
+@keyframes indicator-show {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
