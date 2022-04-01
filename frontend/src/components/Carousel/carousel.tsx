@@ -99,19 +99,19 @@ const Carousel: FC<CarouselProps> = (props) => {
       cacheNextFunc.current && cacheNextFunc.current();
     }, interval);
     setAutoplay(true);
-  }, []);
+  }, [handleStop, interval]);
 
   const handleMouseEnter = useCallback(() => {
     if (propAutoplay) {
       handleStop();
     }
-  }, []);
+  }, [propAutoplay, handleStop]);
 
   const handleMouseLeave = useCallback(() => {
     if (propAutoplay) {
       handleStart();
     }
-  }, []);
+  }, [propAutoplay, handleStart]);
 
   useEffect(() => {
     cacheNextFunc.current = handleNext;
@@ -138,7 +138,7 @@ const Carousel: FC<CarouselProps> = (props) => {
     return () => {
       handleStop();
     };
-  }, []);
+  }, [autoplay, handleStart, handleStop]);
 
   const renderIndicator = () => {
     if (isValidElement(indicator)) {
