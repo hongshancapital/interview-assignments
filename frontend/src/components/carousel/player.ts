@@ -64,7 +64,7 @@ export class Player extends EventTarget {
       });
 
     this._paused = false;
-    this._raf = requestAnimationFrame(nextFrame);
+    this._raf = nextFrame();
   }
 
   reset() {
