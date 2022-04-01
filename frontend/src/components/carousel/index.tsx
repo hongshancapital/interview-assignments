@@ -9,20 +9,19 @@ import { INIT_INDEX, DEFAULT_DURATION, prefixCls } from './constants'
 import { ICarouselProps } from './types'
 import './index.css'
 
-let timer: null | ReturnType<typeof setTimeout> = null
-
 export default function Carousel({
   duration = DEFAULT_DURATION,
   children
 }: ICarouselProps) {
   const [currIndex, setCurrIndex] = useState(-1)
   const carouselRef = useRef<HTMLDivElement | null>(null)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const childCount = Children.count(children)
 
   const handleLoadCarousel = useCallback(() => {
-    timer && clearTimeout(timer)
-    timer = setTimeout(() => {
+    timerRef.current && clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
       setCurrIndex(idx => (childCount > idx + 1 ? idx + 1 : 0))
       handleLoadCarousel()
     }, duration)
@@ -45,7 +44,7 @@ export default function Carousel({
     handleLoadCarousel()
 
     return () => {
-      timer && clearTimeout(timer)
+      timerRef.current && clearTimeout(timerRef.current)
     }
   }, [handleLoadCarousel])
 
