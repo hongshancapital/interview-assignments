@@ -27,7 +27,21 @@ class HomeViewModelTests: XCTestCase {
         XCTAssertTrue(result?.results.count == result?.resultCount)
     }
 
-    func testHomeViewModelTestsGeDataShouldBeSuccess() async throws {
+    func testHomeViewModelTestsGetDataShouldBeSuccess() async throws {
+        let testItems = DemoMockData.testItems
+
+        await vm.getData(isRefreshData: true)
+
+        let testItem1 = testItems.first!
+        let requestItem1 = vm.items.first!
+
+        XCTAssert(testItem1.trackId == requestItem1.trackId)
+        XCTAssert(testItem1.trackCensoredName == requestItem1.trackCensoredName)
+        XCTAssert(testItem1.description == requestItem1.description)
+        XCTAssert(testItem1.artworkUrl60 == requestItem1.artworkUrl60)
+    }
+
+    func testHomeViewModelTestsGetDataPageableShouldBeSuccess() async throws {
         await vm.getData(isRefreshData: true)
         XCTAssertEqual(vm.pageNumber, 1)
         XCTAssertGreaterThanOrEqual(vm.pageNumber * vm.pageSize, vm.items.count)

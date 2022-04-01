@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+enum NetworkError: Error {
+    case urlIncorrect(String)
+    case badRequest(stateCode: Int?)
+    case jsonDecodeFailed
+}
+
 final class HomeViewModel: ObservableObject {
     /// 每页条目数量
     let pageSize = 20
@@ -62,18 +68,18 @@ final class HomeViewModel: ObservableObject {
 
     func requestData() async throws -> RootData {
         guard let url = URL(string: APIConstants.itemList) else {
-            fatalError("错误的URL。")
+            throw NetworkError.urlIncorrect("URL Incorrect: \(APIConstants.itemList)")
         }
         let request = URLRequest(url: url)
 
         let (data, res) = try await URLSession.shared.data(for: request)
 
         guard (res as? HTTPURLResponse)?.statusCode == 200 else {
-            fatalError("网络错误。")
+            throw NetworkError.badRequest(stateCode: (res as? HTTPURLResponse)?.statusCode)
         }
 
         guard let rootData = try? JSONDecoder().decode(RootData.self, from: data) else {
-            fatalError("数据格式异常。")
+            throw NetworkError.jsonDecodeFailed
         }
 
         return rootData

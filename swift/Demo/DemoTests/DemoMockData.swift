@@ -1,0 +1,25 @@
+//
+//  DemoMockData.swift
+//  DemoTests
+//
+//  Created by 杨立鹏 on 2022/4/1.
+//
+
+import Foundation
+
+struct DemoMockData {
+    static let testItems = [
+        Item(
+            artworkUrl60: "https://is2-ssl.mzstatic.com/image/thumb/Purple126/v4/3d/aa/70/3daa70a8-282a-ca97-3463-42b5714eca4c/source/60x60bb.jpg",
+            trackCensoredName: "Google Chat",
+            description: "Google Chat is an intelligent and secure communication and collaboration tool, built for teams. From ad-hoc messaging to topic-based workstream collaboration, Chat makes it easy to get work done where the conversation is happening.\n\n• Group collaboration that allows Google Workspace content creation and sharing (Docs, Sheets, Slides), without having to worry about granting permissions\n• Side by side editors, one click meetings, scheduling, document creation, and shared files, tasks, and events make it easy to get work done\n• Google search functionality, with options to filter for conversations and content that you’ve shared\n• Ready for Enterprise, with the full benefits of Google Workspace security and access controls including Data Loss Prevention, Compliance, Admin Settings, Vault Retention, Holds, Search, and Export",
+            trackId: 1163852619
+        ),
+        Item(
+            artworkUrl60: "https://is2-ssl.mzstatic.com/image/thumb/Purple116/v4/06/8c/e5/068ce5a0-8a33-41ee-488a-95067d2b241a/source/60x60bb.jpg",
+            trackCensoredName: "Viber Messenger: Chats & Calls",
+            description: "Viber is the FREE, simple, fast, and secure messaging and calling app. It’s the messenger of choice for hundreds of millions of users worldwide!\n\nViber is the perfect chat and video messaging app to stay connected!\n\nMake Free Audio and Video Calls\n\nMake crystal-clear audio and video calls to friends and family. A group video call with up to 20 people is a great opportunity to see your loved ones. Enjoy completely free Viber-to-Viber video calls and chat whenever you want.\n\nOpen a Group Chat\n\nCatch up with friends, family, and coworkers by opening a group chat for up to 250 members. Group chats are perfect for discussing your favorite movies or sharing family events, jokes, and photos.\n \nGet even more fun out of your group chats with polls and quizzes, and @mention any group participant you think is missing out on the fun!\n\nSend Free Messages\n\nStaying in touch has never been easier. Send a free text, photo, sticker, GIFs, or video message, along with many other types of files. Viber is a great alternative for fans of SMS texting! \n\nReact to Messages\n\nReact to messages with emojis to express exactly how you feel in your 1-on-1 and group chats! \n\nCall and Text with 100% Privacy\n\nThanks to end-to-end encryption, which is on by default in all private and group chats, messages you send make their way from your device to the recipients’ in the form of an encrypted code that only their device can translate. Encryption keys exist only on user devices and nowhere else. So no one, not even Viber, can read your messages. \n\nSelf-Destructing Messages\n\nSend Disappearing Messages in your 1-on-1 and group chats by setting a timer for each message. Choose how long the recipient has to read your message - 10 seconds, 1 minute, or up to 1 day! Available on Viber for Desktop as well.\n \nExpress Yourself with Viber lenses GIFs and Viber Stickers\nWords can only say so much! Express your every emotion and have fun with reality-altering Viber lenses. GIFs and over 55,000 stickers also await you. You can even create Viber lenses GIFs.\n\nJoin or start a Viber Community with Unlimited Members!\n\nNo matter what you’re interested in,  Viber Communities have so much to offer! Interact with an unlimited number of people, about a shared topic or passion. Enjoy more admin controls than ever before as well as new conversation features in a unique chat space where you get to call all the shots.\n\nMake Low-cost Calls to Landlines with Viber Out\n\nCall landlines, non-Viber users, or anyone who doesn’t have an internet service or a mobile phone with Viber Out’s low-cost international calling service.\n\nViber Out Subscriptions are bundled minutes to call a specific destination, which can be purchased in-app and be renewed monthly or weekly depending on your plan. If you subscribe via iTunes, payment will be charged to your account when the purchase is confirmed. Subscriptions automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your Account will be charged for this renewal up to 24 hours before the end of the current period at the rate of your selected plan. You can manage your subscription and turn off auto-renewal at any time by going to your iTunes account settings on your device.\n\nViber is part of the Rakuten Group, a world leader in e-commerce and financial services. Start using your unlimited call app for free today!\n\nTerms & Policies: https://www.viber.com/terms/",
+            trackId: 382617920
+        ),
+    ]
+}
