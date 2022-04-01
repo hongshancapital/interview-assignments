@@ -86,6 +86,9 @@ public class LinkConvertServiceImpl implements LinkConvertService {
         // TODO: 可设置超时时间避免RT太久。
         // TODO: 查询扩展TODO写在Cache Service 中, 完整系统设计需考虑数据持久化, 如考虑使用离线+搜索引擎的方式可以在service中增加
         //       二阶段查询的方法
+
+        // 记录当前时间准备
+        long start_time = System.currentTimeMillis();
         while(!succeed) {
             try {
                 readWriteLock.readLock().lock();
@@ -106,10 +109,18 @@ public class LinkConvertServiceImpl implements LinkConvertService {
             if (null == cur_code) {
                 try {
                     readWriteLock.writeLock().lock();
-                    autoIncreNumSenders.remove(selected_sender);
+                    // 发号器列表仍然有可用机器
+                    if (autoIncreNumSenders.size() > 0) {
+                        autoIncreNumSenders.remove(selected_sender);
+                    } else {
+                        throw new SystemErrorException("All Num Sender run out their counter. Stop Service");
+                    }
                 } finally {
                     readWriteLock.writeLock().unlock();
                 }
+
+                // TODO：记录当前时间 若与 start_time 差值超过配置超时时间则直接跳出 返回错误
+                long end_time = System.currentTimeMillis();
                 logger.debug("Removing GeneratorID[" + selected_sender.getCol_num() + "] from working list.");
             } else {
                 // TODO: 配置存在行ID时说明多行状态生效，即先计算行ID
