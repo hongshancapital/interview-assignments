@@ -67,7 +67,7 @@ export default function App() {
         style={{ height: "100vh" }}
       >
         {options.map((el, i) => (
-          <Page className="slidePage" key={i} theme={el.theme}>
+          <Page key={i} theme={el.theme}>
             <div className="title">{el.title}</div>
             <div className="text">{el.content}</div>
             <img className="image" src={el.image} width="120" alt="" />
