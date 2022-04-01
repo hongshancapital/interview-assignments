@@ -32,5 +32,7 @@ export interface CarouselIndicatorProps {
 export interface InternalIndicatorProps {
   slidesLength?: number;
   activeIndex?: number;
+  interval?: number;
+  autoplay?: boolean;
   slideTo?: (idx: number) => void;
 }

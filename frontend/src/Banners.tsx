@@ -73,8 +73,8 @@ export const Banners = () => {
     <div className="pr-banner-container">
       <Carousel
         style={{ height: '100%' }}
-        interval={5000}
-        autoplay={false}
+        interval={3000}
+        // autoplay={false}
         indicator={<Carousel.Indicator className="pr-banner-indicator" />}
       >
         {bannerConfig.map((banner) => (

@@ -6,7 +6,7 @@ import { isFunc } from './utils';
 
 export const INDICATOR_DISPLAY_NAME = 'Indicator';
 
-const prefixCls = 'pr-carousel-dot';
+const prefixCls = 'pr-carousel-indicator';
 
 export const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
   props
@@ -16,9 +16,11 @@ export const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
     style,
     position = 'bottom',
     triggerType = 'click',
-    shape = 'dot',
+    shape = 'line',
     slidesLength = 0,
     activeIndex = 0,
+    interval,
+    autoplay,
     slideTo,
   } = props;
   // NOTE: if the length of slides are zero, it'll return null quickly
@@ -27,14 +29,30 @@ export const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
   const isValidPosition = ['bottom', 'left', 'right', 'top', 'outer'].includes(
     position
   );
+  const isValidShape = ['dot', 'line'].includes(shape);
   const classNames = classnames(
     prefixCls,
     {
       [`${prefixCls}-${position}`]: isValidPosition,
-      [`${prefixCls}-${shape}`]: shape === 'line',
+      [`${prefixCls}-${shape}`]: isValidShape,
     },
     className
   );
+  /**
+   * NOTE: There is a bug here, maybe it's not.
+   *
+   * 1. when mouse enter the container, we'll clear the current timer of setInterval, However, the animation is running,
+   * so it'll lead to mistiming between animation and the (new) timer.
+   *
+   * 2. Why is not? In general, we don't set the「interval」long. so the effect is not obvious.
+   */
+  const itemLineStyle =
+    shape === 'line'
+      ? {
+          animationDuration: `${interval}ms`,
+          animationPlayState: autoplay ? 'running' : 'paused',
+        }
+      : {};
 
   const handleSlide = (e: MouseEvent) => {
     /**
@@ -63,14 +81,22 @@ export const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
   return (
     <div className={classNames} style={style} {...clickEvents}>
       {new Array(slidesLength).fill(0).map((_, i) => (
-        <span
+        <div
           data-index={i}
           {...hoverEvents}
           className={classnames(`${prefixCls}-item`, {
             [`${prefixCls}-item-active`]: activeIndex === i,
           })}
           key={i}
-        />
+        >
+          {shape === 'line' && activeIndex === i && (
+            <span
+              style={itemLineStyle}
+              className={`${prefixCls}-item-animate`}
+              key={i}
+            />
+          )}
+        </div>
       ))}
     </div>
   );

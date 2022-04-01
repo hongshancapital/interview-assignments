@@ -22,7 +22,7 @@ const Carousel: FC<CarouselProps> = (props) => {
   const {
     className,
     style,
-    autoplay = true,
+    autoplay: propAutoplay = true,
     indicator,
     interval = 3000,
     direction = 'horizontal',
@@ -30,8 +30,10 @@ const Carousel: FC<CarouselProps> = (props) => {
     onChange,
     children,
   } = props;
+
   const [curIndex, setCurIndex] = useState(0);
   const [slidesLength, setSlidesLength] = useState(0);
+  const [autoplay, setAutoplay] = useState(propAutoplay);
   const carouselRef = useRef(null);
   const wrapperRef = useRef<HTMLUListElement>(null);
   const intervalRef = useRef<number | null>(null);
@@ -87,6 +89,7 @@ const Carousel: FC<CarouselProps> = (props) => {
     if (intervalRef.current) {
       window.clearInterval(intervalRef.current);
       intervalRef.current = null;
+      setAutoplay(false);
     }
   }, []);
 
@@ -95,16 +98,17 @@ const Carousel: FC<CarouselProps> = (props) => {
     intervalRef.current = window.setInterval(() => {
       cacheNextFunc.current && cacheNextFunc.current();
     }, interval);
+    setAutoplay(true);
   }, []);
 
   const handleMouseEnter = useCallback(() => {
-    if (autoplay) {
+    if (propAutoplay) {
       handleStop();
     }
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    if (autoplay) {
+    if (propAutoplay) {
       handleStart();
     }
   }, []);
@@ -140,7 +144,9 @@ const Carousel: FC<CarouselProps> = (props) => {
     if (isValidElement(indicator)) {
       return React.cloneElement(indicator, {
         slidesLength,
+        interval,
         activeIndex: curIndex,
+        autoplay,
         slideTo: handleSlideTo,
       });
     }
