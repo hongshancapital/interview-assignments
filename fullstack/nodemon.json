@@ -1,0 +1,7 @@
+{
+  "ignore": ["**/*.test.ts", "**/*.spec.ts", "node_modules"],
+  "watch": ["src"],
+  "delay": "500ms",
+  "exec": "kill -9 $(lsof -i :3000) &>/dev/null | exit 0 && npm run start:dev",
+  "ext": "ts"
+}
