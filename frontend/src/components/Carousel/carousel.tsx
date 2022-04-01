@@ -78,12 +78,12 @@ const Carousel: FC<CarouselProps> = (props) => {
     handleSlideTo(nextIdx);
   };
 
-  const handlePrev = () => {
-    if (slidesLength <= 0) return;
+  // const handlePrev = () => {
+  //   if (slidesLength <= 0) return;
 
-    const prevIdx = (slidesLength + curIndex - 1) % slidesLength;
-    handleSlideTo(prevIdx);
-  };
+  //   const prevIdx = (slidesLength + curIndex - 1) % slidesLength;
+  //   handleSlideTo(prevIdx);
+  // };
 
   const handleStop = useCallback(() => {
     if (intervalRef.current) {

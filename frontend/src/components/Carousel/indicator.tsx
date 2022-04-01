@@ -89,7 +89,7 @@ export const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
           })}
           key={i}
         >
-          {shape === 'line' && activeIndex === i && (
+          {autoplay && shape === 'line' && activeIndex === i && (
             <span
               style={itemLineStyle}
               className={`${prefixCls}-item-animate`}
