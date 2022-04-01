@@ -4,6 +4,13 @@ import banner_1 from './assets/iphone.png';
 import banner_2 from './assets/tablet.png';
 import banner_3 from './assets/airpods.png';
 
+/**
+ * NOTE:
+ *
+ * 1. In general, the banner info should be flexible config by user.
+ *
+ * 2. Carousel component don't care what be rendered in the Carousel.Item .
+ */
 const bannerConfig = [
   {
     id: 1,

@@ -39,7 +39,7 @@ export const Indicator: FC<CarouselIndicatorProps & InternalIndicatorProps> = (
     className
   );
   /**
-   * NOTE: There is a bug here, maybe it's not.
+   * FIX: There is a bug here, maybe it's not.
    *
    * 1. when mouse enter the container, we'll clear the current timer of setInterval, However, the animation is running,
    * so it'll lead to mistiming between animation and the (new) timer.
