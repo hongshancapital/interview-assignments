@@ -11,20 +11,12 @@ export class Player extends EventTarget {
     super();
   }
 
-  private _stop() {
-    this._paused = true;
-
-    if (this._raf) {
-      cancelAnimationFrame(this._raf);
-    }
-  }
-
   get paused() {
     return this._paused;
   }
   set paused(val: boolean) {
     if (val) {
-      this._stop();
+      this.pause();
     } else {
       this.play();
     }
@@ -35,6 +27,14 @@ export class Player extends EventTarget {
   }
   set currentTime(time: number) {
     this._currentTime = Math.max(0, Math.min(this.duration, time));
+  }
+
+  public pause() {
+    this._paused = true;
+
+    if (this._raf) {
+      cancelAnimationFrame(this._raf);
+    }
   }
 
   play() {
@@ -57,7 +57,7 @@ export class Player extends EventTarget {
             // TODO 可以节流下
             this.dispatchEvent(new Event("timeupdate"));
           } else {
-            this._stop();
+            this.pause();
             this.dispatchEvent(new Event("ended"));
           }
         }
@@ -65,11 +65,5 @@ export class Player extends EventTarget {
 
     this._paused = false;
     this._raf = nextFrame();
-  }
-
-  reset() {
-    this.paused = true;
-    this.currentTime = 0;
-    this.duration = 0;
   }
 }
