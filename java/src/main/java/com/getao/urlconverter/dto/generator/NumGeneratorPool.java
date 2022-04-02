@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Random;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 @Slf4j
@@ -23,6 +24,8 @@ public class NumGeneratorPool {
     public final static int headLength = 1;
 
     public final static int tailLength = 7;
+
+    public final ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
 
     /**
      * 初始化Generator池
@@ -52,7 +55,7 @@ public class NumGeneratorPool {
         long resultNum = generatorPool[generatorNum].getCurNum();
         StringBuilder sb = new StringBuilder();
         sb.append(ConverterUtil.encode(generatorNum, headLength))
-            .append(ConverterUtil.encode(resultNum, tailLength));
+                .append(ConverterUtil.encode(resultNum, tailLength));
         return sb.toString();
     }
 }
