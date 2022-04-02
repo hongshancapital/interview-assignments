@@ -175,16 +175,20 @@ Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提
 ### 长链接转短链接
 1.缓存中不存在长链接
 ![image](https://user-images.githubusercontent.com/25141265/161379102-078a6cc2-fded-430d-b1f5-2f3fc921ed39.png)
+
 2.缓存中已存在该长链接
 ![image](https://user-images.githubusercontent.com/25141265/161379112-6c7887e8-c0b1-41d6-8c68-af3f8b76882c.png)
+
 3.长链接不合法
 ![image](https://user-images.githubusercontent.com/25141265/161379129-563ff281-8472-4d12-8e13-a72c867881fc.png)
 
 ### 短链接转长链接
 1.缓存中存在短链接
 ![image](https://user-images.githubusercontent.com/25141265/161379167-ccb42772-daa7-4ad3-b8a0-fe290a76f42d.png)
+
 2.缓存中该短链接不存在
 ![image](https://user-images.githubusercontent.com/25141265/161379267-8b5f9f56-dc87-407b-ba4c-e6f531643238.png)
+
 3.短链接不合法
 ![image](https://user-images.githubusercontent.com/25141265/161379360-1777edb6-e8f0-48e8-ba1b-f03feb515990.png)
 
