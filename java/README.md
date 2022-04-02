@@ -62,6 +62,7 @@ Response_code 自定义服务状态码 返回值语义：
 
 ### Jacoco 覆盖率
 ![img_6.png](img_6.png)
+![img_12.png](img_12.png)
 注释：不包含配置文件与自定义异常
 
 ### 性能测试

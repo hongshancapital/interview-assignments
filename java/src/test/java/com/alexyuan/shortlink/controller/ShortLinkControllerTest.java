@@ -42,6 +42,22 @@ public class ShortLinkControllerTest {
         assertThat(resultVariant.getResponse_code()).isEqualTo("300");
         assertThat(resultVariant.getLong_url()).isEmpty();
         assertThat(resultVariant.getShort_url()).isEqualTo(null);
+
+        resultVariant = shortLinkController.genShortLinkPress(long_link);
+        assertThat(resultVariant.getLong_url()).isEqualTo(long_link);
+        assertThat(resultVariant.getShort_url()).isNotNull();
+        assertThat(resultVariant.getShort_url()).isNotEmpty();
+        assertThat(shortLinkController.getLongLink(resultVariant.getLong_url()).getLong_url()).isEqualTo(long_link);
+        assertThat(resultVariant.getResponse_code()).isEqualTo("200");
+
+        resultVariant = shortLinkController.genShortLinkPress(null);
+        assertThat(resultVariant.getResponse_code()).isEqualTo("300");
+        assertThat(resultVariant.getLong_url()).isEqualTo(null);
+        assertThat(resultVariant.getShort_url()).isEmpty();
+
+        resultVariant = shortLinkController.genShortLinkPress(long_link);
+        assertThat(shortLinkController.getLongLink(resultVariant.getShort_url().substring(0, 1)).getLong_url())
+                .isNotEqualTo(long_link);
     }
 
 }

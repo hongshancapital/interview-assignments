@@ -24,7 +24,7 @@ public class CodecProcessor {
 
         StringBuilder sb = new StringBuilder();
         int remainder;
-        while (decimal_val > scale - 1) {
+        while (decimal_val > Long.valueOf(scale - 1)) {
             remainder = Long.valueOf(decimal_val % scale).intValue();
             sb.append(CHAR_LIST.charAt(remainder));
             decimal_val = decimal_val / scale;
@@ -44,7 +44,7 @@ public class CodecProcessor {
      *                          62进制转换十进制需要逐位叠加, 每次使用当前字符对应的十进制数字乘上当前位数获得十进制数据。
      **/
     public static long decodeToDecimal(String encoded_val, int scale) {
-        if (!encoded_val.matches(VALID_REGEX)) {
+        if (null == encoded_val || !encoded_val.matches(VALID_REGEX)) {
             throw new ImproperValueException("Input short-link url is not valid. Please Check.");
         }
         if (scale < 2) {

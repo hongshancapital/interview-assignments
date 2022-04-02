@@ -35,4 +35,33 @@ public class CodecProcessorTest {
         int scale = 6;
         CodecProcessor.encodeFromDecimal(origin_val, target_length, scale);
     }
+
+    @Test
+    public void  testNormalFunctionDecode(){
+        Long origin_val = 10L;
+        int target_length = 6;
+        int scale = 62;
+        String encode = CodecProcessor.encodeFromDecimal(origin_val, target_length, scale);
+        assertThat(CodecProcessor.decodeToDecimal(encode, 62)).isEqualTo(10L);
+    }
+
+    @Test
+    public void  testNormalFunctionDecodeV2(){
+        Long origin_val = 20L;
+        int target_length = 6;
+        int scale = 62;
+        CodecProcessor.encodeFromDecimal(origin_val, target_length, scale);
+        String encode = CodecProcessor.encodeFromDecimal(origin_val, target_length, scale);
+        assertThat(CodecProcessor.decodeToDecimal(encode, 62)).isEqualTo(20L);
+    }
+
+    @Test(expected = ImproperValueException.class)
+    public void  testNormalFunctionNotWorkingDecodeV1(){
+        assertThat(CodecProcessor.decodeToDecimal("", 62)).isEqualTo(10L);
+    }
+
+    @Test(expected = ImproperValueException.class)
+    public void  testNormalFunctionNotWorkingDecodeV2(){
+        assertThat(CodecProcessor.decodeToDecimal("-1", 62)).isEqualTo(10L);
+    }
 }
