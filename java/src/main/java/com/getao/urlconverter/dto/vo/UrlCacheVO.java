@@ -24,7 +24,7 @@ public class UrlCacheVO {
     private String oriUrl;
 
     /**
-     * 短链接生成时间
+     * 短链接生成时间,后期可以设置一个过期时间
      */
     //  private String generateTime;
 }

@@ -28,7 +28,7 @@ public class UrlConverterServiceImpl implements UrlConverterService {
     private UrlCacheServiceImpl urlCacheService;
 
     /**
-     *
+     * 初始化发号器池
      */
     @PostConstruct
     private void init() {
