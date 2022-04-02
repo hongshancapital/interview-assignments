@@ -112,11 +112,15 @@
 ![img_6.png](img_6.png)
 #### JUnit编写单元测试-jacoco信息
 ![img_10.png](img_10.png)
+#### 代码扫描-TODO
+![img_12.png](img_12.png)
 
 ### 打包部署
 
 1.mvn package 或者mvn install 可以加参数去掉测试
 2.spring boot可配成可执行jar,建议采用该方式，方法可百度
+
+
 
     
 
