@@ -27,29 +27,17 @@ public class DomainCommandServiceImpl implements DomainCommandService {
   @Override
   public String metathesisShortDomain(DomainMetathesisCommand command) {
 
-    // 原始链接
-    String sLongUrl = "http://www.51bi.com/bbs/_t_278433840/";
     // 将产生4组6位字符串
-    String[] aResult = DomainMetathesisUtil.shortUrl(sLongUrl);
+    String[] aResult = DomainMetathesisUtil.shortUrl(command.getDomain());
+
     // 打印出结果
     for (int i = DomainMetathesisUtil.Constants.INDEX_0; i < aResult.length; i++) {
       System.out.println("[" + i + "]:" + aResult[i]);
     }
-    Random random = new Random();
-    // 生成4以内随机数
-    int j = random.nextInt(DomainMetathesisUtil.Constants.INDEX_4);
-    // 随机取一个作为短链
-    System.out.println("短链接:" + aResult[j]);
 
-    String s = aResult[j];
+    String s = aResult[1];
     domainCache.save(s, command.getDomain());
-    String serverHost = "http://localhost:8080";
-    try {
-      serverHost = InetAddress.getLocalHost().getHostAddress() + ":" + environment.resolvePlaceholders("${server.port}") + "/";
 
-    } catch (UnknownHostException e) {
-      e.printStackTrace();
-    }
-    return serverHost + s;
+    return s;
   }
 }

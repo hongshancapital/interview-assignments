@@ -34,17 +34,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
+            <!--此处关闭TestScope, 主要是想修改test的源码功能, 增加Matcher扩展项-->
+            <!-- <scope>test</scope>-->
         </dependency>
 
         <!-- API docs -->
@@ -65,12 +56,12 @@
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
-  <!--      <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>-->
+        <!--      <dependency>
+                  <groupId>org.mockito</groupId>
+                  <artifactId>mockito-all</artifactId>
+                  <version>${mockito.version}</version>
+                  <scope>test</scope>
+              </dependency>-->
 
         <!--Test Report-->
         <dependency>
@@ -108,9 +99,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-              <!--  <configuration>
-                    <argLine>@{argLine} -javaagent:${settings.localRepository}/com/alibaba/testable/testable-agent/${testable.version}/testable-agent-${testable.version}.jar</argLine>
-                </configuration>-->
+                <!--  <configuration>
+                      <argLine>@{argLine} -javaagent:${settings.localRepository}/com/alibaba/testable/testable-agent/${testable.version}/testable-agent-${testable.version}.jar</argLine>
+                  </configuration>-->
             </plugin>
             <!-- JACOCO - code coverage -->
             <plugin>
@@ -118,9 +109,15 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
                 <configuration>
-             <!--       <includes>
+                    <!--排除数据对象(仅 get 和set)-->
+                    <excludes>
+                        <exclude>**/cmd/**</exclude>
+                        <exclude>**/dto/**</exclude>
+                    </excludes>
+
+                    <includes>
                         <include>**/domain/**</include>
-                    </includes>-->
+                    </includes>
                     <!-- rules里面指定覆盖规则 -->
                     <rules>
                         <rule implementation="org.jacoco.maven.RuleConfiguration">

@@ -13,7 +13,6 @@ import lombok.Data;
 @ApiModel("短域名转换命令模型")
 public class DomainMetathesisCommand {
 
-
   @ApiModelProperty("长域名")
   private String domain;
 
