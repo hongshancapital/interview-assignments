@@ -1,9 +1,11 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test("render app", () => {
+  const { container } = render(<App />);
+  const appElem = container.querySelector(".App");
+  const carouselElem = container.querySelector(".carousel");
+  expect(carouselElem).not.toBeNull();
+  expect(appElem).toContainHTML(carouselElem!.innerHTML);
 });
