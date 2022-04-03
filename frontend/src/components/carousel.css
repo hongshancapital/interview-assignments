@@ -1,0 +1,61 @@
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.pic-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    transition: transform .5s;
+    will-change: transform;
+}
+
+.pic-list .pic {
+    flex-basis: 100%;
+    flex-shrink: 0;
+}
+
+.pic-list .pic img {
+    display: block;
+    width: 100%;
+}
+
+.index-container {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.index-container .index {
+    height: 4px;
+    width: 40px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, .5);
+    margin: 0 6px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.index-container .index.current .progress {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, .9);
+    animation: progress linear;
+}
+
+@keyframes progress {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
