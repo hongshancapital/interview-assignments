@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author zhuCan
- * @description
+ * @description 服务基路径转发Api 文档
  * @since 2022/4/3 15:57
  */
 @Controller

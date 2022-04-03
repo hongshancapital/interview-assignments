@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author zhuCan
- * @description
+ * @description 测试类基类
  * @since 2022/4/3 18:09
  */
 @RunWith(SpringRunner.class)

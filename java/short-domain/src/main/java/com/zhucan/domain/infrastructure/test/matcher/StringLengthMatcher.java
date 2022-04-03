@@ -6,7 +6,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 /**
  * @author zhuCan
- * @description
+ * @description 字符长度比对器
  * @since 2022/4/3 18:06
  */
 public class StringLengthMatcher extends TypeSafeMatcher<String> {

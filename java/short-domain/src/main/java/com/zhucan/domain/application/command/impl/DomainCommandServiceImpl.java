@@ -2,21 +2,23 @@ package com.zhucan.domain.application.command.impl;
 
 import com.zhucan.domain.application.command.DomainCommandService;
 import com.zhucan.domain.application.command.cmd.DomainMetathesisCommand;
+import com.zhucan.domain.application.query.dto.ShortDomainDTO;
 import com.zhucan.domain.infrastructure.cache.DomainCache;
 import com.zhucan.domain.infrastructure.utils.DomainMetathesisUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Random;
 
 /**
  * @author zhuCan
  * @description
  * @since 2022/4/2 21:57
  */
+@Slf4j
 @Service
 @AllArgsConstructor
 public class DomainCommandServiceImpl implements DomainCommandService {
@@ -25,19 +27,30 @@ public class DomainCommandServiceImpl implements DomainCommandService {
   private final Environment environment;
 
   @Override
-  public String metathesisShortDomain(DomainMetathesisCommand command) {
+  public ShortDomainDTO metathesisShortDomain(DomainMetathesisCommand command) {
+
+    ShortDomainDTO domainDTO = new ShortDomainDTO();
 
     // 将产生4组6位字符串
-    String[] aResult = DomainMetathesisUtil.shortUrl(command.getDomain());
+    String[] shortDomains = DomainMetathesisUtil.shortUrl(command.getDomain());
 
     // 打印出结果
-    for (int i = DomainMetathesisUtil.Constants.INDEX_0; i < aResult.length; i++) {
-      System.out.println("[" + i + "]:" + aResult[i]);
+    for (String domain : shortDomains) {
+      log.info("short domain:{}", domain);
     }
 
-    String s = aResult[1];
-    domainCache.save(s, command.getDomain());
+    String shortDomain = shortDomains[0];
+    domainDTO.setShortDomain(shortDomain);
+    try {
+      String serverHost = InetAddress.getLocalHost().getHostAddress() + ":" + environment.resolvePlaceholders("${server.port}") + "/d/";
+      domainCache.save(serverHost + shortDomain, command.getDomain());
+      domainDTO.setFullShortDomain(serverHost + shortDomain);
+    } catch (UnknownHostException e) {
+      log.error("获取当前服务域名异常", e);
+    }
 
-    return s;
+    domainCache.save(shortDomain, command.getDomain());
+
+    return domainDTO;
   }
 }

@@ -1,6 +1,7 @@
 package com.zhucan.domain.application.command;
 
 import com.zhucan.domain.application.command.cmd.DomainMetathesisCommand;
+import com.zhucan.domain.application.query.dto.ShortDomainDTO;
 
 /**
  * @author zhuCan
@@ -15,7 +16,7 @@ public interface DomainCommandService {
    * @param command 域名转换命令
    * @return 长域名
    */
-  String metathesisShortDomain(DomainMetathesisCommand command);
+  ShortDomainDTO metathesisShortDomain(DomainMetathesisCommand command);
 
 
 }

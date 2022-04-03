@@ -4,6 +4,7 @@ import com.zhucan.domain.application.command.DomainCommandService;
 import com.zhucan.domain.application.command.cmd.DomainMetathesisCommand;
 import com.zhucan.domain.application.query.DomainQueryService;
 import com.zhucan.domain.application.query.dto.LongDomainDTO;
+import com.zhucan.domain.application.query.dto.ShortDomainDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,7 +28,7 @@ public class DomainController {
 
   @PostMapping("/short")
   @ApiOperation("转换短域名")
-  public String shortDomain(@RequestBody @Validated DomainMetathesisCommand command) {
+  public ShortDomainDTO shortDomain(@RequestBody @Validated DomainMetathesisCommand command) {
     return commandService.metathesisShortDomain(command);
   }
 
