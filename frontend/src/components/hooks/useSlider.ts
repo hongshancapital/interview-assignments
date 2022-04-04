@@ -23,12 +23,10 @@ const useSlider = (options: SliderOptions) => {
   const resetFirstChildOffset = (index: number) => {
     // 当前展示位最后item 移动firstChild 达到无缝展示
     if (index === count - 1) {
-      console.log('count - size', curIndex, itemRefs[0]);
       itemRefs[0].setOffset(count * size);
     }
     // 重置偏移量
     if (index === 0) {
-      console.log('count -0', curIndex, itemRefs[0]);
       itemRefs[0].setOffset(0);
     }
   };
