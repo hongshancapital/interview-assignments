@@ -97,3 +97,6 @@
 
 ## 五、性能测试方案及结果
 ![测试方案](img/performance-test.png)
+
+## 六、Jacoco单测统计
+![jacoco](img/jacoco.png)
