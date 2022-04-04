@@ -39,17 +39,22 @@ public class DomainCommandServiceImpl implements DomainCommandService {
       log.info("short domain:{}", domain);
     }
 
+    // 短域名的值
     String shortDomain = shortDomains[0];
     domainDTO.setShortDomain(shortDomain);
+
+    // 保存短连接和长连接的映射关系
+    domainCache.save(shortDomain, command.getDomain());
+
     try {
+      // 取本服务的host和port, 组成能够直接访问的短连接
       String serverHost = InetAddress.getLocalHost().getHostAddress() + ":" + environment.resolvePlaceholders("${server.port}") + "/d/";
       domainCache.save(serverHost + shortDomain, command.getDomain());
       domainDTO.setFullShortDomain(serverHost + shortDomain);
+
     } catch (UnknownHostException e) {
       log.error("获取当前服务域名异常", e);
     }
-
-    domainCache.save(shortDomain, command.getDomain());
 
     return domainDTO;
   }

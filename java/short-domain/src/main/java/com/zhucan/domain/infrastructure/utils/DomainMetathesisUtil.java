@@ -23,7 +23,7 @@ public class DomainMetathesisUtil {
   public static String[] shortUrl(String url) {
 
     log.info("原始域名:{}", url);
-    // 要使用生成 URL 的字符
+    // 要使用生成 URL 的字符 62个基字符
     String[] chars = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
         "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A",
         "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
@@ -33,6 +33,7 @@ public class DomainMetathesisUtil {
     String hex = md5ByHex(MD5_KEY + url);
 
     String[] resUrl = new String[Constants.INDEX_4];
+
     for (int i = Constants.INDEX_0; i < Constants.INDEX_4; i++) {
       // 把加密字符按照 8 位一组 16 进制与 0x3FFFFFFF 进行位与运算
       String sTempSubString = hex.substring(i * Constants.INDEX_8, i * Constants.INDEX_8 + Constants.INDEX_8);
