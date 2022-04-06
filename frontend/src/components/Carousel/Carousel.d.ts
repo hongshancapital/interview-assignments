@@ -4,7 +4,7 @@ interface CarouselProps {
 }
 
 interface CarouselItemProps {
-  children: JSX.Element[],
+  children: JSX.Element | JSX.Element[],
   bgColor: string
 }
 

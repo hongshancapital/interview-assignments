@@ -6,7 +6,7 @@ import iphoneImage from './assets/iphone.png'
 import tabletImage from './assets/tablet.png'
 import airpodsImage from './assets/airpods.png'
 
-const posters = [
+const data = [
   {
     alt: 'xPhone',
     title: 'xPhone',
@@ -43,7 +43,7 @@ function App() {
     /* write your component here */
     <Carousel>
       {
-        posters.map((item, idx) => 
+        data.map((item, idx) => 
           <Carousel.Item key={idx} bgColor={item.bgColor}>
             <Carousel.Caption title={item.title} subtitle={item.subtitle} color={item.color}/>
             <img style={imgStyle} src={item.src} alt={item.alt}/>
