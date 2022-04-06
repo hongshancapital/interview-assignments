@@ -1,0 +1,85 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+
+    ul,
+    li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .bar {
+        position: absolute;
+        width: 100%;
+        bottom: 50px;
+        left: 50%;
+        z-index: 2;
+        text-align: center;
+        transform: translateX(-50%);
+
+        &_item {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            width: 30px;
+            height: 4px;
+            border-radius: 2px;
+            margin: 0 10px;
+            background-image: linear-gradient(to left, rgba(201,205,212,0.5) 0%, rgba(201,205,212,0.5) 100%);
+            
+            &_inner {
+                position: relative;
+                display: block;
+                border-radius: 2px;
+                height: 100%;
+                width: 100%;
+                left: -100%;
+                // transition: all linear 3s;
+                background-image: linear-gradient(to left, rgba(255,255,255,.5) 0%, rgba(255,255,255,.5) 100%);
+                &_ani {
+                    animation: bgAnimation 3s linear;
+                }
+            }
+
+        }
+    }
+
+    .carousel_wrapper {
+        position: absolute;
+        display: flex;
+        height: 100%;
+        z-index: 1;
+        justify-content: flex-start;
+        align-items: stretch;
+        flex-wrap: nowrap;
+        transition: all ease-in-out 0.3s;
+        .content {
+            position: absolute;
+            width: 100%;
+            bottom: 50%;
+            transform: translate(0, -50%);
+        }
+    }
+}
+
+.carousel_item {
+    position: relative;
+    flex: 0 1 100%;
+
+    img {
+        vertical-align: bottom;
+    }
+}
+
+@keyframes bgAnimation {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0%;
+    }
+}
