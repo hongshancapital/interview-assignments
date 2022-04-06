@@ -26,7 +26,10 @@ struct AppInfoListView: View {
                             .frame(maxWidth: .infinity, minHeight: 200, alignment: .center)
                     } else {
                         ForEach(viewModel.appInfoList, id: \.appId) { appInfo in
-                            APPInfoCell(appInfo: appInfo)
+                            APPInfoCell(appInfo: appInfo, favorTap: {
+                                appId in
+                                viewModel.updateFavor(with: appId)
+                            })
                         }
                         .listRowSeparator(.hidden)
                         .listRowInsets(.init(top: 8, leading: 0, bottom: 8, trailing: 0))
@@ -57,7 +60,7 @@ struct AppInfoListView: View {
             }
         }
         .task {
-            await viewModel.refresh(pageSize: 30, limit: 20)
+            await viewModel.refresh()
         }
     }
 }

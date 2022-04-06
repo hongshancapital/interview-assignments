@@ -20,7 +20,7 @@ struct AppInfoModel: Decodable, DynamicProperty {
     let appLogoUrl: String // app logo url string
     let appName: String // app logo url string
     let description: String // app logo url string
-    @AppStorage var isFavorite: Bool // isFavorite storage by local
+    var  isFavorite: Bool // isFavorite storage by local
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AppInfoCodingKey.self)
@@ -28,14 +28,14 @@ struct AppInfoModel: Decodable, DynamicProperty {
         self.appLogoUrl = try container.decode(String.self, forKey: .artworkUrl60)
         self.appName = try container.decode(String.self, forKey: .trackName)
         self.description = try container.decode(String.self, forKey: .description)
-        _isFavorite = AppStorage<Bool>.init(wrappedValue: false, "\(self.appId)")
+        self.isFavorite = false
     }
     
-    init(appId: Int, appLogoUrl: String, appName: String, description: String) {
+    init(appId: Int, appLogoUrl: String, appName: String, description: String, isFavorite: Bool) {
         self.appId = appId
         self.appLogoUrl = appLogoUrl
         self.appName = appName
         self.description = description
-        _isFavorite = AppStorage<Bool>.init(wrappedValue: false, "\(self.appId)")
+        self.isFavorite = isFavorite
     }
 }
