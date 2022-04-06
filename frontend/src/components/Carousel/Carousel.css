@@ -8,6 +8,20 @@
   overflow: hidden;
 }
 
+.carousel__caption {
+  position: absolute;
+  top: 20vh;
+}
+
+.carousel__nav__container {
+  position: absolute;
+  bottom: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  left: auto;
+}
+
 .carousel__nav, .carousel__nav--active {
   height: 2px;
   width: 50px;
@@ -24,8 +38,8 @@
 
 .carousel__nav--active {
   background-color: #fff;
+  animation-name: slidein;
   animation-duration: 3s;
-  animation-name: carousel-nav-slide-in;
   animation-timing-function: linear;
 }
 
@@ -39,10 +53,13 @@
 }
 
 .carousel__container {
-  transition: all 2s;
+  transition: all 1s;
+  position: absolute;
+  display: flex;
+  top: 0;
 }
 
-@keyframes carousel-nav-slide-in {
+@keyframes slidein {
   0% {
     width: 0%;
   }

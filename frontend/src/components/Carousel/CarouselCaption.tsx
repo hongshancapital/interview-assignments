@@ -1,22 +1,19 @@
-const CarouselCaption = ({ title, subtitle, color }) => {
-  const divStyle = {
-    color,
-    position: 'absolute',
-    top: '20vh'
-  };
+import React from 'react'
+import CSS from 'csstype';
 
-  const titleStyle = {
+const CarouselCaption: React.FC<CarouselCaptionProps> = ({ title, subtitle, color }) => {
+  const titleStyle: CSS.Properties = {
     fontSize: '60px',
     whiteSpace: 'pre-line'
   };
 
-  const subtitleStyle = {
+  const subtitleStyle: CSS.Properties = {
     fontSize: '40px',
     marginTop: '20px'
   };
 
   return (
-    <div style={ divStyle }>
+    <div className="carousel__caption" style={{ color }}>
       <div style={ titleStyle }>
         { title }
       </div>
