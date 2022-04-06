@@ -1,14 +1,6 @@
 const CarouselItem = ({ children, bgColor }) => {
-  const divStyle = {
-    height: '100vh',
-    width: '100vw',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: bgColor
-  }
   return (
-    <div style={divStyle}>
+    <div className="carousel__item" style={{ backgroundColor: bgColor }}>
       { children }
     </div>
   )

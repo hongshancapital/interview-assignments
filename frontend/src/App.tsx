@@ -25,7 +25,7 @@ const posters = [
   },
   {
     alt: 'airpods',
-    title: 'Buy a Tablet or xPhone for college. \n Get arPods',
+    title: 'Buy a Tablet or xPhone for college. \n Get arPods.',
     subtitle: '',
     color: '#000',
     bgColor: '#f1f1f3',
