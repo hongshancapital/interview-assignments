@@ -206,6 +206,9 @@ Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提
 
 ## Swagger API文档
 ![image](https://user-images.githubusercontent.com/25141265/161379859-ee5207c5-1bee-442a-bc1d-1e259d44830a.png)
+![image](https://user-images.githubusercontent.com/25141265/161988604-5ee71187-d3b4-4fec-9c0f-d57fd02feabd.png)
+![image](https://user-images.githubusercontent.com/25141265/161988721-c06c871e-291c-4e81-aeb2-f3eaa1e95b6c.png)
+
 
 
 ## Jacoco覆盖率测试
