@@ -155,6 +155,10 @@ Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提
 流程图：
 ![shortUrlConverter流程图](https://user-images.githubusercontent.com/25141265/161380587-fd55e65b-c80d-4eee-ad51-d0d6c6301d30.jpg)
 
+架构设计图：
+![shortUrlConverter架构设计图](https://user-images.githubusercontent.com/25141265/161987494-638b3948-ef20-4c0b-8219-d964254d5d9d.jpg)
+
+
 ### 发号器实现
 1.发号器给每个长链接发送一个专属号码，号码和对应长链接互为映射。
 2.发号器采用自增的逻辑，从0号开始给发送请求的链接编号，为了在有限的长度下容纳更多号码，短链接采用62进制(a-zA-Z0-9])，那么在8位的情况下，发号器总共可以发送62^8数量的号码。
