@@ -14,56 +14,50 @@ struct AppInfoListView: View {
     
     var body: some View {
         NavigationView {
-            if viewModel.appInfoList.count > 0 {
+            if viewModel.firstLoading {
+                ProgressView()
+                    .frame(alignment: .center)
+            } else {
                 List {
-                    ForEach(viewModel.appInfoList, id: \.appId) { appInfo in
-                        APPInfoCell(appInfo: appInfo)
-                    }
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(.init(top: 8, leading: 0, bottom: 8, trailing: 0))
-                    .listRowBackground(Color.clear)
-                    // loading & no more data
-                    HStack(spacing: 8) {
-                        if viewModel.hasMore {
-                            ProgressView()
-                            Text("Loading...")
-                                .foregroundColor(Color.gray)
-                        } else {
-                            Text("No more data.").foregroundColor(Color.gray)
+                    if viewModel.shouldShowErrorView {
+                        Text(viewModel.tipsMsg)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .frame(maxWidth: .infinity, minHeight: 200, alignment: .center)
+                    } else {
+                        ForEach(viewModel.appInfoList, id: \.appId) { appInfo in
+                            APPInfoCell(appInfo: appInfo)
                         }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .listRowBackground(Color.clear)
-                    .task {
-                        do {
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(.init(top: 8, leading: 0, bottom: 8, trailing: 0))
+                        .listRowBackground(Color.clear)
+                        // loading & no more data
+                        HStack(spacing: 8) {
+                            if viewModel.hasMore {
+                                ProgressView()
+                                Text("Loading...")
+                                    .foregroundColor(Color.gray)
+                            } else {
+                                Text("No more data.").foregroundColor(Color.gray)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .listRowBackground(Color.clear)
+                        .task {
                             // 延迟展示，不然看不清loading
-                            try await Task.sleep(nanoseconds: 500_000_000)
-                            try await viewModel.loadMore()
-                        } catch {
-                            print(error)
+                            try? await Task.sleep(nanoseconds: 500_000_000)
+                            await viewModel.loadMore()
                         }
                     }
                 }
                 .navigationTitle("App")
                 .refreshable {
-                    do {
-                        try await viewModel.refresh()
-                    } catch {
-                        print(error)
-                    }
+                    await viewModel.refresh()
                 }
-                
-            } else {
-                ProgressView()
-                    .frame(alignment: .center)
             }
         }
         .task {
-            do {
-                try await viewModel.refresh()
-            } catch {
-                print(error)
-            }
+            await viewModel.refresh(pageSize: 30, limit: 20)
         }
     }
 }
