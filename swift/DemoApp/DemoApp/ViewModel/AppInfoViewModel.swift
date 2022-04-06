@@ -35,7 +35,7 @@ struct AppInfoListResponse: Decodable {
             firstLoading = false
         }
         guard pageSize > 0, limit > 0, pageSize <= limit else {
-            let msg = "pageSize or limit should not less than or equal to 0"
+            let msg = pageSize > limit ? "pageSize should not greater than limit." :"pageSize or limit should not less than or equal to 0."
             print("invalid parmas: \(msg)")
             self.tipsMsg = "error msg: invalid parameters."
             shouldShowErrorView = true
