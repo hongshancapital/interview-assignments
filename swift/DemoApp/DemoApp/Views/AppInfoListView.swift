@@ -25,7 +25,7 @@ struct AppInfoListView: View {
                             .listRowBackground(Color.clear)
                             .frame(maxWidth: .infinity, minHeight: 200, alignment: .center)
                     } else {
-                        ForEach(viewModel.appInfoList, id: \.appId) { appInfo in
+                        ForEach(viewModel.appInfoList) { appInfo in
                             APPInfoCell(appInfo: appInfo, favorTap: {
                                 appId in
                                 viewModel.updateFavor(with: appId)

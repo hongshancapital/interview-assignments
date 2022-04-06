@@ -8,7 +8,11 @@
 import Foundation
 import SwiftUI
 
-struct AppInfoModel: Decodable, DynamicProperty {
+struct AppInfoModel: Decodable, DynamicProperty, Identifiable {
+    
+    var id: Int {
+        return self.appId
+    }
     
     enum AppInfoCodingKey: CodingKey {
         case trackId // -> AppId
