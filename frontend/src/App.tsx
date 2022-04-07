@@ -8,24 +8,20 @@ import GoodsCard from './components/goods-card';
 
 const demoData = [
   {
-    src: aripods,
-    name: 'aripods',
-    title: 'title',
-    desc: 'desc',
-    theme: 'light',
-  },
-  {
     src: iphone,
-    name: 'iphone',
-    title: 'title',
-    desc: 'desc',
-    theme: 'dark',
+    title: 'xPhone',
+    desc: 'Lots to love.Less to spend.\nStarting at $399',
+    color: '#ffffff'
   },
   {
     src: tablet,
-    name: 'tablet',
-    title: 'title',
-    desc: 'desc',
+    title: 'Tablet',
+    desc: 'Just the right amount of everything.',
+    theme: 'light',
+  },
+  {
+    src: aripods,
+    title: 'Buy a Tablet or xPhone for college.\nGet arPods.',
     theme: 'light',
   },
 ];
@@ -37,7 +33,13 @@ function App() {
         <Carousel className='carousel-demo'>
           {demoData.map((item, index) => {
             return (
-              <GoodsCard key={index} title={item.title} desc={item.desc} goodsImg={item.src} />
+              <GoodsCard
+                key={index}
+                title={item.title}
+                desc={item.desc}
+                goodsImg={item.src}
+                style={{ color: item.color }}
+              />
             );
           })}
         </Carousel>

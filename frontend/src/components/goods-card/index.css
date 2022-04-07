@@ -1,8 +1,8 @@
 .goods-card__contain {
   display: flex;
+  position: relative;
   width: 700px;
   height: 400px;
-  position: relative;
 }
 
 .goods-card__img {
@@ -16,7 +16,22 @@
   align-items: center;
   position: absolute;
   font-size: 20px;
-  top: 35%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.goods-card__title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  padding: 30px 20px 0 20px;
+  white-space: pre;
+}
+
+.goods-card__desc {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 12px;
+  white-space: pre
 }

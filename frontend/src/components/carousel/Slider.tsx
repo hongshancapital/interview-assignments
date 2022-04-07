@@ -17,16 +17,11 @@ interface SliderProps {
 const Slider: React.FC<SliderProps> = (props) => {
   const { autoplay = true, duration = 3000, className } = props;
   let timer = useRef<NodeJS.Timeout | null>(null);
-  // sliderItem 个数
   const count = useMemo(() => React.Children.count(props.children), [props.children]);
-  // 获取容器宽度，高度
   const { size, root } = useRect<HTMLDivElement>([count]);
-  // sliderItem 尺寸
   const itemSize = useMemo(() => size.width, [size]);
-  const itemKey = 'width';
-  const itemStyle = { [itemKey]: itemSize };
-  // slider contain 宽度
-  const wrapStyle = { [itemKey]: itemSize * count };
+  const itemStyle = { width: itemSize };
+  const wrapStyle = { width: itemSize * count };
 
   const { curIndex, sliderRef, moveSlider, setRefs, slideToTargeIndex } = useSlider({
     autoplay,
@@ -55,7 +50,6 @@ const Slider: React.FC<SliderProps> = (props) => {
     if (itemSize) {
       onStart();
     }
-    // 组件卸载阶段清除timer
     return () => {
       cleanupTimer();
     };
