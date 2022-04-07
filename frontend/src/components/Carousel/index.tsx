@@ -1,10 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
+import useInterval from '../../hooks/useInterval'
 import CarouselCaption from './CarouselCaption';
 import CarouselItem from './CarouselItem';
 import CarouselNav from './CarouselNav';
-
 import './Carousel.d.ts';
 import './Carousel.css';
 
@@ -12,18 +12,10 @@ const Carousel: React.FC<CarouselProps> = ({ interval = 3000, children }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const numberOfChildren = children.length
 
-  useEffect(() => {
-      const timer = window.setInterval(
-        () => {
-          const nextActiveIndex = (activeIndex + 1) % numberOfChildren
-          setActiveIndex(nextActiveIndex);
-        },
-        interval
-      );
-      return () => clearInterval(timer);
-    },
-    [activeIndex, numberOfChildren, interval]
-  );
+  useInterval(() => {
+    const nextActiveIndex = (activeIndex + 1) % numberOfChildren
+    setActiveIndex(nextActiveIndex);
+  }, interval)
 
   return (
     <div className="carousel">
