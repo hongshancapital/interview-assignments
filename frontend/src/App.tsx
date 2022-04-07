@@ -12,21 +12,21 @@ const demoData = [
     name: 'aripods',
     title: 'title',
     desc: 'desc',
-    theme: 'light'
+    theme: 'light',
   },
   {
     src: iphone,
     name: 'iphone',
     title: 'title',
     desc: 'desc',
-    theme: 'dark'
+    theme: 'dark',
   },
   {
     src: tablet,
     name: 'tablet',
     title: 'title',
     desc: 'desc',
-    theme: 'light'
+    theme: 'light',
   },
 ];
 
@@ -34,15 +34,13 @@ function App() {
   return (
     <div className='App'>
       <div className='carousel-contain'>
-        {
-          <Carousel className="carousel-demo">
-            {demoData.map((item, index) => {
-              return (
-                <GoodsCard key={index} title={item.title} desc={item.desc} goodsImg={item.src} />
-              );
-            })}
-          </Carousel>
-        }
+        <Carousel className='carousel-demo'>
+          {demoData.map((item, index) => {
+            return (
+              <GoodsCard key={index} title={item.title} desc={item.desc} goodsImg={item.src} />
+            );
+          })}
+        </Carousel>
       </div>
     </div>
   );
