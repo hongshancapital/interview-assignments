@@ -1,0 +1,70 @@
+.progressWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: 48px;
+  .item {
+    flex-basis: 24px;
+    height: 2px;
+    border-radius: 2px;
+    margin: 0 4px;
+    background-color: #a9a9a9;
+    .progress {
+      background-color: #fafafa;
+      height: 100%;
+      width: 0%;
+      &_active {
+        background-color: #fafafa;
+        height: 100%;
+        width: 0%;
+        animation: progress;
+      }
+    }
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+
+
+.slideContainer {
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 100%;
+  .slideshowSlider {
+    white-space: nowrap;
+    transition: ease 1000ms;
+    .slide {
+      display: inline-block;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      .descWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        top: 20%;
+        height: calc(100% - 40%);
+        .title {
+          font-size:48px;
+          font-weight: bold;
+          white-space: pre-line;
+        }
+        .subTitle{
+          white-space: pre-line;
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
