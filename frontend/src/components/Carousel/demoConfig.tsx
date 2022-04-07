@@ -3,11 +3,6 @@ import airpodsSrc from "../../assets/airpods.png";
 import iphoneSrc from "../../assets/iphone.png";
 import tabletSrc from "../../assets/tablet.png";
 
-// 示例组件尺寸配置
-const WRAPPER_STYLE = {
-  height: 600,
-  width: 1000,
-};
 // 轮播图配置
 const demoConfig: ICarouselProps = {
   items: [
@@ -36,8 +31,6 @@ const demoConfig: ICarouselProps = {
       },
     },
   ],
-  imgHeight: WRAPPER_STYLE.height / 2,
-  wrapperStyle: WRAPPER_STYLE,
 };
 
 export default demoConfig;

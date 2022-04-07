@@ -20,8 +20,9 @@ export interface ICarouselProps {
   items: ICarouselItemProps[];
   /**
    * 设置图片区域高度，图片会居中展示，溢出部分 hidden（PS：文字区域自适应剩余高度）
+   * @default "50%"
    */
-  imgHeight: CSSProperties["height"];
+  imgHeight?: CSSProperties["height"];
   /**
    * 轮播间隔，单位 ms
    * @default 3000
@@ -31,6 +32,7 @@ export interface ICarouselProps {
 }
 
 const DEFAULT_MS = 3000;
+const DEFAULT_IMG_HEIGHT = "50%";
 
 /**
  * 轮播图项
@@ -91,7 +93,7 @@ const CarouselProgress: FC<{
  */
 const Carousel: FC<ICarouselProps> = ({
   items,
-  imgHeight,
+  imgHeight = DEFAULT_IMG_HEIGHT,
   ms = DEFAULT_MS,
   wrapperStyle,
 }) => {
