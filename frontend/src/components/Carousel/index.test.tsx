@@ -8,11 +8,11 @@ describe("Carousel test", () => {
     const { getByText } = render(<Carousel {...demoConfig} />);
 
     demoConfig.items.forEach((i) => {
-      i.titleProps?.content?.forEach((c) => {
+      i.title.forEach((c) => {
         const title = getByText(c);
         expect(title).toBeInTheDocument();
       });
-      i.descProps?.content?.forEach((c) => {
+      i.desc?.forEach((c) => {
         const desc = getByText(c);
         expect(desc).toBeInTheDocument();
       });

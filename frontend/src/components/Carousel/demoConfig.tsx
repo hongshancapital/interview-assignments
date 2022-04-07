@@ -3,68 +3,40 @@ import airpodsSrc from "../../assets/airpods.png";
 import iphoneSrc from "../../assets/iphone.png";
 import tabletSrc from "../../assets/tablet.png";
 
-// 用于校准 assets 中的三张图片位置
-const IMG_BASE_STYLE = {
-  height: 312,
-  width: 500,
-};
+// 示例组件尺寸配置
 const WRAPPER_STYLE = {
   height: 600,
   width: 1000,
-};
-const calcImgStyle = (widthMultiples: number = 1) => {
-  return {
-    ...IMG_BASE_STYLE,
-    width: widthMultiples * IMG_BASE_STYLE.width,
-  };
 };
 // 轮播图配置
 const demoConfig: ICarouselProps = {
   items: [
     {
-      imgProps: {
-        src: iphoneSrc,
-        style: calcImgStyle(),
-      },
-      titleProps: {
-        content: ["xPhone"],
-      },
-      descProps: {
-        content: ["Lots to love. Less to spend.", "Starting at $399."],
-      },
+      src: iphoneSrc,
+      title: ["xPhone"],
+      desc: ["Lots to love. Less to spend.", "Starting at $399."],
       wrapperStyle: {
         color: "#fff",
         backgroundColor: "#101010",
       },
     },
     {
-      imgProps: {
-        src: tabletSrc,
-        style: calcImgStyle(2),
-      },
-      titleProps: {
-        content: ["Tablet"],
-      },
-      descProps: {
-        content: ["Just the right amount of everything."],
-      },
+      src: tabletSrc,
+      title: ["Tablet"],
+      desc: ["Just the right amount of everything."],
       wrapperStyle: {
         backgroundColor: "#fafafa",
       },
     },
     {
-      imgProps: {
-        src: airpodsSrc,
-        style: calcImgStyle(3),
-      },
-      titleProps: {
-        content: ["Buy a Tablet or xPhone for college.", "Get arPods."],
-      },
+      src: airpodsSrc,
+      title: ["Buy a Tablet or xPhone for college.", "Get arPods."],
       wrapperStyle: {
         backgroundColor: "#f2f2f4",
       },
     },
   ],
+  imgHeight: WRAPPER_STYLE.height / 2,
   wrapperStyle: WRAPPER_STYLE,
 };
 

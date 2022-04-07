@@ -3,30 +3,31 @@ import useCarousel from "./useCarousel";
 import "./index.css";
 
 interface ICarouselItemProps {
-  imgProps: {
-    src: string;
-    alt?: string;
-    style?: CSSProperties;
-  };
-  titleProps?: {
-    content?: string[];
-    style?: CSSProperties;
-  };
-  descProps?: {
-    content?: string[];
-    style?: CSSProperties;
-  };
+  src: string;
+  alt?: string;
+  title: string[];
+  desc?: string[];
+  /**
+   * 单独为一项配置图片区域高度
+   */
+  overlayImgHeight?: ICarouselProps["imgHeight"];
   wrapperStyle?: CSSProperties;
+  titleStyle?: CSSProperties;
+  descStyle?: CSSProperties;
 }
 
 export interface ICarouselProps {
   items: ICarouselItemProps[];
-  wrapperStyle?: CSSProperties;
+  /**
+   * 设置图片区域高度，图片会居中展示，溢出部分 hidden（PS：文字区域自适应剩余高度）
+   */
+  imgHeight: CSSProperties["height"];
   /**
    * 轮播间隔，单位 ms
    * @default 3000
    */
   ms?: number;
+  wrapperStyle?: CSSProperties;
 }
 
 const DEFAULT_MS = 3000;
@@ -35,26 +36,30 @@ const DEFAULT_MS = 3000;
  * 轮播图项
  */
 const CarouselItem: FC<ICarouselItemProps> = ({
-  imgProps,
-  titleProps,
-  descProps,
+  src,
+  alt,
+  title,
+  desc,
+  overlayImgHeight,
   wrapperStyle,
+  titleStyle,
+  descStyle,
 }) => {
   return (
     <div className="carousel-item" style={wrapperStyle}>
       <div className="content">
-        <div className="title" style={titleProps?.style}>
-          {titleProps?.content?.map((c, idx) => (
+        <div className="title" style={titleStyle}>
+          {title.map((c, idx) => (
             <div key={`title_${idx}`}>{c}</div>
           ))}
         </div>
-        <div className="desc" style={descProps?.style}>
-          {descProps?.content?.map((c, idx) => (
+        <div className="desc" style={descStyle}>
+          {desc?.map((c, idx) => (
             <div key={`desc_${idx}`}>{c}</div>
           ))}
         </div>
       </div>
-      <img {...imgProps} alt={imgProps.alt} />
+      <img src={src} alt={alt} style={{ height: overlayImgHeight }} />
     </div>
   );
 };
@@ -86,8 +91,9 @@ const CarouselProgress: FC<{
  */
 const Carousel: FC<ICarouselProps> = ({
   items,
-  wrapperStyle,
+  imgHeight,
   ms = DEFAULT_MS,
+  wrapperStyle,
 }) => {
   const activeIndex = useCarousel({
     items: items.map((i, idx) => idx),
@@ -100,8 +106,12 @@ const Carousel: FC<ICarouselProps> = ({
         className="carousel-content"
         style={{ transform: `translateX(${-activeIndex * 100}%)` }}
       >
-        {items.map((i, idx) => (
-          <CarouselItem {...i} key={`carousel_item_${idx}`} />
+        {items.map((config, idx) => (
+          <CarouselItem
+            overlayImgHeight={imgHeight}
+            {...config}
+            key={`carousel_item_${idx}`}
+          />
         ))}
       </div>
       <CarouselProgress count={items.length} active={activeIndex} ms={ms} />
