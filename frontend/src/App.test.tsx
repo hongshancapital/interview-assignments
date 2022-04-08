@@ -8,8 +8,8 @@ it('test carousel page', () => {
   const { queryByTestId } = render(<App />);
   const box = queryByTestId('carousel-box');
   const indicator1 = queryByTestId('indicator-0');
-  const indicator2 = queryByTestId('indicator-0');
-  const indicator3 = queryByTestId('indicator-0');
+  const indicator2 = queryByTestId('indicator-1');
+  const indicator3 = queryByTestId('indicator-2');
 
   expect(box).toHaveStyle('left: 0vw');
   expect(indicator1).toHaveStyle('visibility: visible');
