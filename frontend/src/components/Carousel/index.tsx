@@ -1,7 +1,7 @@
 /*
  * @Author: 钟媛
  * @Date: 2022-04-04 10:55:05
- * @LastEditTime: 2022-04-04 11:34:07
+ * @LastEditTime: 2022-04-08 19:51:01
  * @Description:
  */
 import React from "react";
@@ -35,8 +35,8 @@ const PanelList: IPanelItemProps[] = [
 function CarouselItem({ title, desc, picStyleInfo }: IPanelItemProps) {
   return (
     <div className={`panel ${picStyleInfo}`}>
-      <p>{title}</p>
-      {desc ? <span>{desc}</span> : null}
+      <h1>{title}</h1>
+      {desc ? <p>{desc}</p> : null}
     </div>
   );
 }

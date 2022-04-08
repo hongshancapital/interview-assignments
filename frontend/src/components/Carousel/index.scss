@@ -1,14 +1,14 @@
 .panel {
-    height: 100vw;
-    width: 100vh;
+    height: 100%;
+    width: 100%;
     font-size: 20px;
-    background-size: cover;
-    background-position: center;
+    background-size: contain;
+    background-position: 50% 80%;
     background-repeat: no-repeat;
   
     h1 {
       color: black;
-      padding-top: 50px;
+      padding-top: 20%;
       white-space: pre-line;
     }
   
@@ -19,7 +19,6 @@
   
     &--first {
       background-image: url("../../assets/iphone.png");
-      background-size: contain;
       background-color: rgb(14, 14, 14);
       color: white;
   
@@ -30,9 +29,11 @@
   
     &--second {
       background-image: url("../../assets/tablet.png");
+      background-color: #fafafa;
     }
   
     &--third {
       background-image: url("../../assets/airpods.png");
+      background-color: #f1f1f3;
     }
 }
