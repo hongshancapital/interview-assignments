@@ -1,41 +1,93 @@
-# TypeScript Fullstack Engineer Assignment
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+# 短连接生成系统
 
-撰写两个 API 接口
+## 技术栈
+NestJS + React
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+## Run it
+```
+npm i
+npm start
+```
+will run server in open http://localhost:8080/
 
-限制：
+# 后端 short-url-server
 
-- 短域名长度最大为 8 个字符
+## 技术栈
+NestJs + TypeScript + TypeORM + Sqlite
 
-递交作业内容
+## Run it
+```
+npm i
+npm start
+```
+will run server in open http://localhost:3000/
+安装sqlite3的时候请使用nodejs版本v14
+## Test
+```
+npm run test
+npm run test:cov
+```
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+# 测试覆盖率
+![image](1.jpg)
 
-## 岗位职责
+# 短连接生成机制
+使用Nano ID生成唯一的 JavaScript 字符串ID
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+# 数据库
+```
+export class Url {
+	@PrimaryColumn('varchar', { nullable: false })
+	public shortUrl: string;
 
-## 要求
+	@Column("text", { nullable: false})
+	public longUrl: string;
+}
+```
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+# 结构框架
+```
+── src
+│   ├── app.module.ts
+│   ├── common 通用模块
+│   │   ├── __tests__
+│   │   │   └── stringUtil.spec.ts
+│   │   ├── config.ts
+│   │   ├── errorCode.ts
+│   │   └── stringUtil.ts
+│   ├── controllers 路由
+│   │   ├── __tests__
+│   │   │   └── app.controller.spec.ts
+│   │   └── app.controller.ts
+│   ├── entities ORM实例
+│   │   └── url.ts
+│   ├── index.ts
+│   ├── main.ts
+│   ├── middlewares
+│   ├── migration
+│   └── services 服务层，负责entity和controller的通信
+│       ├── __tests__
+│       │   └── app.service.spec.ts
+│       └── app.service.ts
+```
+
+# 前端 short-url-web
+
+![image](3.jpg)
+
+## 技术栈
+React + TypeScript + Axios + AntD
+
+## Run it
+```
+npm i
+npm start
+```
+open http://localhost:8080/
+
+# 框架设计图
+![image](2.jpg)
+
+# 测试用例
+![image](4.png)
