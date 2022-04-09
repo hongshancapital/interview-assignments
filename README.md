@@ -31,7 +31,7 @@
 - murmurhash、布隆过滤器、loadingCache均采用google的guava包实现
 - 简化了接口返回信息，直接返回了链接地址，异常信息也直接返回了代表异常的字符串
 
-## 4、设计流程
+## 3、系统流程
 
 - 1.接收长链接，采用murmurhash生成32位hashcode，将hashcode转换为6位62进制短链接
 - 2.依据布隆过滤器判断短链是否已存在
@@ -40,9 +40,9 @@
 - 5.若不一致则为生成的短链冲突，将长链接拼接自定义字符串后重复步骤1
 - 6.短链冲突最多重新生成3次，否则返回生成失败
 
-## 5、jvm参数
+## 4、jvm参数
 
-**由于布隆过滤器初始化以及loadingCache占用空间较多，所以需要分配一定内存**
+**由于布隆过滤器初始化以及loadingCache占用空间，所以需要分配一定堆内存**
 
 ````
 -Xmx1024m 
@@ -50,16 +50,16 @@
 -Xms500m
 ````
 
-## 6、swagger文档
+## 5、swagger文档
 ![swagger页面](https://github.com/renyiran/interview-assignments/blob/renyiran-java/doc/swagger.png)
 
 **swagger地址:http://localhost:8765/swagger-ui.html**
 
 
-## 7、单元测试
+## 6、单元测试
 ![单元测试](https://github.com/renyiran/interview-assignments/blob/renyiran-java/doc/%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E8%A6%86%E7%9B%96%E7%8E%87.jpg)
 
-## 8、性能测试
+## 7、性能测试
 
 ### jmeter配置
 ![请求配置](https://github.com/renyiran/interview-assignments/blob/renyiran-java/doc/%E5%8E%8B%E6%B5%8B%E8%AF%B7%E6%B1%82%E9%85%8D%E7%BD%AE.jpg)
@@ -70,8 +70,8 @@
 ![压测2分钟](https://github.com/renyiran/interview-assignments/blob/renyiran-java/doc/%E5%8E%8B%E6%B5%8B2%E5%88%86%E9%92%9F.png)
 ![压测4分钟](https://github.com/renyiran/interview-assignments/blob/renyiran-java/doc/%E5%8E%8B%E6%B5%8B4%E5%88%86%E9%92%9F.png)
 
-压测4分钟后 qps能达到125w/s,平均响应时间为15ms
+压测4分钟后 qps能达到1.25w/s,平均响应时间为15ms
 
-## 9、联系方式
+## 8、联系方式
 
 emai:373133745@qq.com
