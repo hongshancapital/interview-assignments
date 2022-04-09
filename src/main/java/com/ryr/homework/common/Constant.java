@@ -9,7 +9,7 @@ public class Constant {
     }
 
     //cache最大长度
-    public final static int SHOR_URL_CACHE_MAX_SIZE = 100000000;
+    public final static int SHOR_URL_CACHE_MAX_SIZE = 10000000;
 
     //cache过期天数
     public final static int SHOR_URL_CACHE_EXPIRE_DAYS = 1;

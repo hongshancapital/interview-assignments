@@ -14,7 +14,7 @@ public class ShortUrlCacheConfig {
 
     @Bean
     public LoadingCache<String, String> shortUrlCache() {
-        LoadingCache<String, String> cache = CacheBuilder.newBuilder()
+        return CacheBuilder.newBuilder()
                 .maximumSize(Constant.SHOR_URL_CACHE_MAX_SIZE)
                 .expireAfterAccess(Constant.SHOR_URL_CACHE_EXPIRE_DAYS, TimeUnit.DAYS)
                 .concurrencyLevel(Constant.SHOR_URL_CACHE_CONCURRENCY)
@@ -24,7 +24,6 @@ public class ShortUrlCacheConfig {
                         return "";
                     }
                 });
-        return cache;
     }
 
 }
