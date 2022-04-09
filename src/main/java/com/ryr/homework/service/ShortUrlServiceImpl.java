@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 @Service
 public class ShortUrlServiceImpl implements ShortUrlService {
 
+
     @Value("${short.url.domain}")
     private String domainUrl;
 
@@ -18,6 +19,8 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
     @Autowired
     private ShortUrlConvertUtil shortUrlConvertUtil;
+
+    private final static String MUL_STR = "_mul";
 
     @Override
     public String getLongUrlByShortUrl(String shortUrl) {
@@ -60,10 +63,9 @@ public class ShortUrlServiceImpl implements ShortUrlService {
      * @return
      */
     public String saveConflictedUrl(String longUrl) {
-        String mulStr = "_mul";
         String mulLongUrl = longUrl;
         for (int i = 0; i < 3; i++) {
-            mulLongUrl += mulStr;
+            mulLongUrl += MUL_STR;
             //生成短链
             String shortUrl = shortUrlConvertUtil.getShortUrl(mulLongUrl);
             //判断是否已保存长域名
