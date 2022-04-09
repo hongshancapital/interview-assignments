@@ -1,4 +1,4 @@
-import { stringify } from 'query-string';
+import { stringify } from 'qs';
 import { fetchUtils, DataProvider, GetManyParams } from 'ra-core';
 import { GetListParams, GetOneParams } from 'react-admin';
 
@@ -42,13 +42,11 @@ const simpleRestProvider = (
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
 
-        const rangeStart = (page - 1) * perPage;
-        const rangeEnd = page * perPage - 1;
-
         const query = {
-            sort: JSON.stringify([field, order]),
-            range: JSON.stringify([rangeStart, rangeEnd]),
-            filter: JSON.stringify(params.filter),
+            sort: [field, order],
+            skip: (page - 1) * perPage,
+            take: perPage,
+            where: params.filter,
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
         return httpClient(url, {}).then(({ json }) => {
@@ -69,7 +67,7 @@ const simpleRestProvider = (
 
     getMany: (resource, params) => {
         const query = {
-            filter: JSON.stringify({ id: params.ids }),
+            where: { id: params.ids },
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
         return httpClient(url).then(({ json }) => ({ ...json, data: json.data }));
@@ -79,16 +77,14 @@ const simpleRestProvider = (
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
 
-        // const rangeStart = (page - 1) * perPage;
-        // const rangeEnd = page * perPage - 1;
-
         const query = {
-            sort: JSON.stringify([field, order]),
-            range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-            filter: JSON.stringify({
+            sort: [field, order],
+            skip: (page - 1) * perPage,
+            take: perPage,
+            where: {
                 ...params.filter,
                 [params.target]: params.id,
-            }),
+            },
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
 

@@ -79,7 +79,7 @@ export class ShorturlController {
     shorturl.s_url = uuid(8)
     setTimeout(() => {
       if (shorturl.status) {
-        const rest = this.redis.set(shorturl.s_url, url)
+        this.redis.set(shorturl.s_url, url)
       } else {
         this.redis.del(shorturl.s_url)
       }
@@ -90,15 +90,15 @@ export class ShorturlController {
   @Delete('shorturls/:id')
   @ApiOperation({ summary: '[Admin] 删除短域名信息' })
   async delete(@Param('id') id: string) {
-    const res = await this.shorturlService.delete(id);
-    if (res) {
+    const result = await this.shorturlService.findOne({
+      id
+    });
+    if (result) {
       setTimeout(async () => {
-        const result = await this.shorturlService.findOne({
-          id
-        });
         this.redis.del(result.s_url)
       }, 0)
     }
+    const res = await this.shorturlService.delete(id);
     return res
   }
 
@@ -112,7 +112,7 @@ export class ShorturlController {
     updateInput.s_url = uuid(8)
     setTimeout(() => {
       if (updateInput.status) {
-        const rest = this.redis.set(updateInput.s_url, url)
+        this.redis.set(updateInput.s_url, url)
       } else {
         this.redis.del(updateInput.s_url)
       }
@@ -123,7 +123,7 @@ export class ShorturlController {
   @Get('shorturls/:id')
   @ApiOperation({ summary: '[Admin] 获取单个短域名信息' })
   async findOneId(@Param('id') id: string) {
-    const result = await this.shorturlService.findOne({
+    return await this.shorturlService.findOne({
       id
     });
   }

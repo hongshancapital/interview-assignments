@@ -3,7 +3,6 @@ import {
     List, Datagrid, Show, SimpleShowLayout,
     Edit, Create, SimpleForm,
     EditButton, ShowButton,
-    BooleanInput, BooleanField,
     TextField, TextInput, UrlField, FunctionField,
 
     ListProps, ShowProps, EditProps, CreateProps, Record
@@ -18,10 +17,12 @@ export const ShorturlList = (props: ListProps) => (
             <FunctionField
                 label="Short url"
                 render={(record: Record | undefined) => (
-                    <a target="__blank" href={`${baseUrl}/${record?.s_url}`}>{`${baseUrl}/${record?.s_url}`}</a>
+                    <a target="__blank"
+                        className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-body2 MuiTypography-colorPrimary"
+                        href={`${baseUrl}/${record?.s_url}`}>{`${baseUrl}/${record?.s_url}`}</a>
                 )}
             />
-            <UrlField source="url" />
+            <UrlField source="url" className="block w-80 break-words"/>
             {/* <BooleanField source="status" /> */}
             <ShowButton basePath="/Shorturls" />
             <EditButton basePath="/Shorturls" />
