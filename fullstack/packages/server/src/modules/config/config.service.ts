@@ -49,7 +49,7 @@ export class ConfigService {
 
       REDIS_PORT: Joi.number().default(6379),  // REDIS 端口号
 
-      CORS_ORIGIN: Joi.array().default([]),
+      CORS_ORIGIN: Joi.string().default(''),
 
       TOKEN_SECRET_KEY: Joi.string().default(process.env.SERVER_ENV),
       TOKEN_EXPIRES_IN: Joi.string().default('7d'),
@@ -68,16 +68,18 @@ export class ConfigService {
   }
 
   format(configs: dotenv.DotenvParseOutput) {
-    Object.keys(configs).forEach(val => {
-      if (/,/g.test(configs[val])) {
-        configs[val] = JSON.parse(configs[val])
-      }
-    })
+    // Object.keys(configs).forEach(val => {
+    //   if (/,/g.test(configs[val])) {
+    //     configs[val] = JSON.parse(configs[val])
+    //   }
+    // })
     return configs
   }
 
-  getCrossOrigin() {
-    return this.envConfig['CORS_ORIGIN']
+  getCrossOrigin(): string[] {
+    const data = this.envConfig['CORS_ORIGIN'].split(/\n/g);
+    return data.slice(1, data.length-1);
+    // return this.envConfig['CORS_ORIGIN']
   }
 
   get(key: string) {
