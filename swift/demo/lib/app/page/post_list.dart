@@ -50,7 +50,7 @@ class _PostListState extends State<PostList> {
                 enablePullUp: true,
                 child: ListView.builder(
                   itemBuilder: (context, index) =>
-                      PostItem(data.data[index], widget.viewModel),
+                      PostItem(data.data[index], onFavorite: ()=> widget.viewModel.toggleCollect(data.data[index]),),
                   itemCount: data.data.length,
                 ),
               );

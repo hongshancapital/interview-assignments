@@ -6,9 +6,9 @@ import 'package:hs_demo/domain/model/post.dart';
 class PostItem extends StatelessWidget {
   // 模型实体
   final Post model;
-  final PostListInputViewModel input;
+  final VoidCallback? onFavorite;
 
-  const PostItem(this.model, this.input, {Key? key}) : super(key: key);
+  const PostItem(this.model, {Key? key, this.onFavorite}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class PostItem extends StatelessWidget {
             icon:
                 Icon(model.isFavorite ? Icons.favorite : Icons.favorite_outline),
             color: model.isFavorite ? Colors.red : Colors.grey,
-            onPressed: () => input.toggleCollect(model),
+            onPressed: onFavorite,
           ),
         ),
       ),

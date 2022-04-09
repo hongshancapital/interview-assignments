@@ -107,6 +107,7 @@ class PostListViewModelImp extends PostListViewModel {
 
   dispose() {
     _postIndexSubject.sink.close();
+    _collectSubject.sink.close();
   }
 
   @override
