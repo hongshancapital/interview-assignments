@@ -47,7 +47,6 @@
 ````
 -Xmx1024m 
 -Xms1024m 
--Xms500m
 ````
 
 ## 5、swagger文档
