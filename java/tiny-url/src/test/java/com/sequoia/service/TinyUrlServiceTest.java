@@ -27,7 +27,7 @@ public class TinyUrlServiceTest {
     public void testgetTinyUrlFuture() {
         for (String originUrl : Sets.newHashSet(null, "null", "test.com", "test.cn/fsggssg11")) {
             try {
-                String tinyCode = tinyUrlService.getTinyUrl(originUrl).get();
+                String tinyCode = tinyUrlService.getTinyUrlFuture(originUrl).get();
                 log.info("{}  -  {}", originUrl, tinyCode);
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -38,9 +38,9 @@ public class TinyUrlServiceTest {
     @Test
     public void testgetTinyUrlFutureSame() throws ExecutionException, InterruptedException {
         String originUrl = "test.com";
-        String tinyCode1 = tinyUrlService.getTinyUrl(originUrl).get();
+        String tinyCode1 = tinyUrlService.getTinyUrlFuture(originUrl).get();
 
-        String tinyCode2 = tinyUrlService.getTinyUrl(originUrl).get();
+        String tinyCode2 = tinyUrlService.getTinyUrlFuture(originUrl).get();
         log.info("originUrl:{} -> {}  -  {}", originUrl, tinyCode1, tinyCode2);
 
         Assertions.assertEquals(tinyCode1, tinyCode2);
@@ -48,10 +48,10 @@ public class TinyUrlServiceTest {
 
     @Test
     public void testgetOriginUrlFuture() throws ExecutionException, InterruptedException {
-        String originUrl = tinyUrlService.getOriginUrl(null).get();
+        String originUrl = tinyUrlService.getOriginUrl(null);
 //        Assertions.assertEquals(null, originUrl);
 
-        originUrl = tinyUrlService.getOriginUrl("null").get();
+        originUrl = tinyUrlService.getOriginUrl("null");
         Assertions.assertEquals(null, originUrl);
     }
 

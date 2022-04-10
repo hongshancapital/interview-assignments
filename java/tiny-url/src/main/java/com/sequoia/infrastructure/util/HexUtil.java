@@ -2,6 +2,9 @@ package com.sequoia.infrastructure.util;
 
 import com.sequoia.infrastructure.common.exception.TinyCodeException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * HexUtil：进制转换工具类
@@ -12,16 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HexUtil {
 
-    /**
-     * 62进制可用的字符串(26小写+26大写+10数字)
-     */
-    private static final String BASE_DIGITS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final int BASE = BASE_DIGITS.length();
+    private static final int BASE = Constant.BASE_DIGITS.length();
 
     /**
      * 通过余数获取对应的64进制表示
      */
-    private static final char[] DIGITS_CHAR = BASE_DIGITS.toCharArray();
+    private static final char[] DIGITS_CHAR = Constant.BASE_DIGITS.toCharArray();
 
     private static int checkNum = 10;
 
@@ -88,7 +87,9 @@ public class HexUtil {
         return new String(buf, charPos, (32 - charPos));
     }
 
-    //获取对应的的64进制的值
+    /**
+     * 获取对应的的64进制的值
+     */
     private static int getIndex(String s, int pos) {
         char c = s.charAt(pos);
         if (c > FAST_SIZE) {
@@ -104,24 +105,28 @@ public class HexUtil {
      * @return
      */
     public static char getCheckCode(String code) {
-        long unm = toNum(code)+ checkNum;
-        int a = (int) (unm%62);
+        long unm = hex62To10(code)+ checkNum;
+        int a = (int) (unm % BASE);
         return DIGITS_CHAR[a];
     }
 
     /**
-     * 字符串转数字
-     * @param s
+     * 随机生成一位
      * @return
      */
-    private static long toNum(String s) {
-        int a = s.length()-1;
-        long val=0;
-        for(int i=a;i>=0;i--){
-            char c = s.charAt(i);
-            val += (BASE_DIGITS.indexOf(c)*Math.pow(BASE, a-i));
-        }
-        return val;
+    public static char getRandomHex62Char() {
+        int index = ThreadLocalRandom.current().nextInt(BASE);
+        return DIGITS_CHAR[index];
+    }
+
+    /**
+     * 生成指定 bitCount 位的62进制对应的最大 十进制数
+     * @param bitCount
+     * @return
+     */
+    public static long maxHex62(int bitCount) {
+        String hex62 = StringUtils.repeat(Constant.BASE_DIGITS_MAX, bitCount);
+        return hex62To10(hex62);
     }
 
 }

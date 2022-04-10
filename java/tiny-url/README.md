@@ -60,7 +60,7 @@
 
 ### 如何生成不冲突的短链
 建立一个发号器，每次有一个新的长URL进来，就生成新的值返回，相当于实现一个62进制的字段（保证不重复，可自增）即可。    
-实现方式：a、murmurHash生成；b、雪花算法生成（本工程中均已支持）   
+实现方式：murmurHash生成
 
 ### 如何管理长短链接映射
 长短连接一一对应？   
@@ -81,7 +81,6 @@ d、如果最终写入失败，返回失败信息
 2、长短链接如何重定向？ 301永久重定向，302临时重定向，一般以使用302，可结合业务场景适当使用301   
 3、预防攻击
    - 请求签名
-   - 校验位（1位校验位）
    - 限制ip的单日请求总数，超过阈值则限流，或者直接拒绝服务
    - 加缓存，LRU机制进行淘汰
 
@@ -127,15 +126,21 @@ http://localhost:8080/swagger-ui.html
 | 场景 | avg(ms)| tp99(ms) |tps | cpu(%) |
 | --- | --- | --- |--- |--- |
 |空方法 |16 | 147 | 5655 |71
-|取短链接(写)| 24 | 315 | 3824 |71
-|取长链接(读) |23 | 313 | 3966 |70
+|取短链接(写)| 29 | 391 | 3824 |71
+|取长链接(读) |34 | 391 | 3966 |70
 
 ![jmeter_thread_group_config](docs/images/jmeter_thread_group_config.png)   
 
 ![jmeter空压测](docs/images/jmeter_null_test.png)   
    
+jmeter写压测   
 ![jmeter写压测_配置](docs/images/jmeter_tiny_url_config.png)   
 
 ![jmeter写压测](docs/images/jmeter_tiny_url.png)    
+
+jmeter读压测
+![jmeter读压测_配置1](docs/images/jmeter_origin_url_config1.png) 
+
+![jmeter读压测_配置2](docs/images/jmeter_origin_url_config2.png) 
 
 ![jmeter读压测](docs/images/jmeter_origin_url.png)   

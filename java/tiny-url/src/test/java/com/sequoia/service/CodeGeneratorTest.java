@@ -1,7 +1,6 @@
 package com.sequoia.service;
 
-import com.sequoia.infrastructure.service.impl.CodeGenerator;
-import com.sequoia.util.Constant;
+import com.sequoia.infrastructure.service.impl.CodeGeneratorImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,16 +19,16 @@ import javax.annotation.Resource;
 public class CodeGeneratorTest {
 
     @Resource
-    private CodeGenerator codeGenerator;
+    private CodeGeneratorImpl codeGenerator;
 
     @Test
     public void generateTinyCodeTest() {
-        log.error(codeGenerator.generateTinyCode(Constant.ORIGIN_URL));
+        log.error(codeGenerator.generateTinyCode("test.sequence.com"));
     }
 
     @Test
     public void testGenerateTinyCodeMore() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 5000; i < 5100; i++) {
             log.error(codeGenerator.generateTinyCode(i+""));
         }
     }

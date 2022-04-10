@@ -25,4 +25,5 @@ public class ApiResultTest {
             log.info("{}", ApiResult.error(value));
         }
     }
+
 }

@@ -15,13 +15,13 @@ public interface ITinyUrlService {
       * @param originUrl 长域名
       * @return
       */
-     CompletableFuture<String> getTinyUrl(String originUrl);
+     CompletableFuture<String> getTinyUrlFuture(String originUrl);
 
      /**
       * 根据短域名查询长域名（短域名解析）
       * @param tinyCode 短域名码
       * @return
       */
-     CompletableFuture<String> getOriginUrl(String tinyCode);
+    String getOriginUrl(String tinyCode);
 
 }

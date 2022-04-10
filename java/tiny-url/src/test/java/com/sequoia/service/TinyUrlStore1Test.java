@@ -2,8 +2,8 @@ package com.sequoia.service;
 
 import com.google.common.collect.Sets;
 import com.sequoia.infrastructure.common.exception.LockException;
-import com.sequoia.infrastructure.service.impl.CodeGenerator;
-import com.sequoia.infrastructure.service.impl.TinyUrlStore;
+import com.sequoia.infrastructure.service.impl.CodeGeneratorImpl;
+import com.sequoia.infrastructure.service.impl.TinyUrlStoreImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import java.util.concurrent.locks.Lock;
 
 /**
  * Descript:
- * File: com.sequoia.service.TinyUrlStoreTest
+ * File: com.sequoia.service.TinyUrlStoreImplTest
  * Author: daishengkai
  * Date: 2022/3/31
  * Copyright (c) 2022,All Rights Reserved.
@@ -31,7 +31,7 @@ import java.util.concurrent.locks.Lock;
 public class TinyUrlStore1Test {
 
     @SpyBean
-    private TinyUrlStore tinyUrlStore;
+    private TinyUrlStoreImpl tinyUrlStore;
 
     @SpyBean
     private ICodeGenerator codeGenerator;
@@ -107,10 +107,10 @@ public class TinyUrlStore1Test {
 
     @Test
     public void testgetOriginUrlFuture() throws ExecutionException, InterruptedException {
-        String originUrl = tinyUrlStore.getOriginUrlFuture(null).get();
+        String originUrl = tinyUrlStore.getOriginUrl(null);
         Assertions.assertEquals(null, originUrl);
 
-        originUrl = tinyUrlStore.getOriginUrlFuture("null").get();
+        originUrl = tinyUrlStore.getOriginUrl("null");
         Assertions.assertEquals(null, originUrl);
     }
 
@@ -128,9 +128,9 @@ public class TinyUrlStore1Test {
         }
 //
         try {
-            TinyUrlStore store = new TinyUrlStore();
+            TinyUrlStoreImpl store = new TinyUrlStoreImpl();
 
-            Method method = TinyUrlStore.class.getDeclaredMethod("saveTinyOriginCodeMapping", String.class, String.class);
+            Method method = TinyUrlStoreImpl.class.getDeclaredMethod("saveTinyOriginCodeMapping", String.class, String.class);
             method.setAccessible(true);
 
             method.invoke(store, "test", "test");
@@ -140,7 +140,7 @@ public class TinyUrlStore1Test {
         }
 
         try {
-            CodeGenerator codeGenerator = Mockito.mock(CodeGenerator.class);
+            CodeGeneratorImpl codeGenerator = Mockito.mock(CodeGeneratorImpl.class);
             Mockito.when(codeGenerator.generateTinyCode(originUrl))
                     .thenThrow(new LockException("中断异常"));
 //                    .thenReturn("test");
