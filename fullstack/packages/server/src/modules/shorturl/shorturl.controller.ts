@@ -77,13 +77,15 @@ export class ShorturlController {
   async create(@Body() shorturl: ShorturlEntity) {
     const { url } = shorturl;
     shorturl.s_url = uuid(8)
-    setTimeout(() => {
-      if (shorturl.status) {
-        this.redis.set(shorturl.s_url, url)
-      } else {
+    if (shorturl.status) {
+      this.redis.set(shorturl.s_url, url)
+    } else {
+      try {
         this.redis.del(shorturl.s_url)
+      } catch (e) {
+        console.error(e)
       }
-    }, 0)
+    }
     return await this.shorturlService.create(shorturl);
   }
 
@@ -94,9 +96,11 @@ export class ShorturlController {
       id
     });
     if (result) {
-      setTimeout(async () => {
+      try {
         this.redis.del(result.s_url)
-      }, 0)
+      } catch (e) {
+        console.error(e)
+      }
     }
     const res = await this.shorturlService.delete(id);
     return res
@@ -110,13 +114,15 @@ export class ShorturlController {
   ) {
     const { url } = updateInput;
     updateInput.s_url = uuid(8)
-    setTimeout(() => {
-      if (updateInput.status) {
-        this.redis.set(updateInput.s_url, url)
-      } else {
+    if (updateInput.status) {
+      this.redis.set(updateInput.s_url, url)
+    } else {
+      try {
         this.redis.del(updateInput.s_url)
+      } catch (e) {
+        console.error(e)
       }
-    }, 0)
+    }
     return await this.shorturlService.save(updateInput);
   }
 
