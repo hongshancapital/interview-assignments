@@ -1,0 +1,46 @@
+version: '3'
+services:
+  nginx-load-balancing:
+    image: nginx:alpine
+    container_name: nginx-load-balancing
+    ports:
+      - "8090:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    depends_on:
+      - app-server1
+      - app-server2
+      - app-server3
+
+  app-server1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-server1
+    volumes:
+      - ./server-1.config:/usr/local/etc/tinyurl/tinyurl.config
+
+  app-server2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-server2
+    volumes:
+      - ./server-2.config:/usr/local/etc/tinyurl/tinyurl.config
+
+  app-server3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-server3
+    volumes:
+      - ./server-3.config:/usr/local/etc/tinyurl/tinyurl.config
+
+networks:
+  default:
+    driver: bridge

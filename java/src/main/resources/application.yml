@@ -1,0 +1,23 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /tinyurl
+  jetty:
+    accesslog:
+      enabled: true
+      filename: ./logs/access_log.yyyy_MM_dd.log
+      file-date-format: yyyy-MM-dd
+      append: true
+
+spring:
+  profiles:
+    active: @spring.profiles.active@
+
+bit:
+  total: @bit.total@
+  machine: @bit.machine@
+  generator: @bit.generator@
+
+generator:
+  cnt: @generator.cnt@
+  impl: @generator.impl@
