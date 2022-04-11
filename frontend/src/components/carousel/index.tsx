@@ -35,7 +35,6 @@ function Casousel(props: CarouselProps): JSX.Element {
     autoplay = true,
     intervalTime = 3000,
   } = props
-  const [dotsPosition, setDotsPosition] = useState<DotPosition>('bottom');
   const [activeSlick, setActiveSlick] = useState(0);
   const [transformStyle, setTransformStyle] = useState<string>('translateX(0)');
 
@@ -89,7 +88,6 @@ function Casousel(props: CarouselProps): JSX.Element {
           setActiveSlick(index);
         }}
         activeSlick={activeSlick}
-        dotsPosition={dotsPosition}
         dotsLength={len}
         interval={intervalTime}
       />

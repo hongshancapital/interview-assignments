@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Carousel, CarouselProps } from '../../components';
+import React from 'react';
+import { Carousel } from '../../components';
 import './index.sass';
 
 const data = [{
