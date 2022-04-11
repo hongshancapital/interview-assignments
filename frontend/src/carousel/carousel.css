@@ -1,0 +1,57 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s;
+}
+
+.carousel-item {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.carousel-item-text {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  text-align: center;
+}
+
+.dotContainer {
+  position: absolute;
+  left: calc(50% - 80px);
+  bottom: 6%;
+  display: flex;
+}
+
+.dotContainer .dotBox:not(:last-child) {
+  margin-right: 5px;
+}
+
+.dotBox {
+  width: 50px;
+  border-radius: 4px;
+  background-color: gray;
+  overflow: hidden;
+}
+
+.dotCenter {
+  height: 5px;
+  width: 0;
+  background-color: gainsboro;
+}
+
+.dotCenter.active {
+  width: 50px;
+}
