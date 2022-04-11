@@ -78,6 +78,9 @@ function Casousel(props: CarouselProps): JSX.Element {
             key={index}
             isActive={isActive}
             className={`carousel-item ${isActive ? 'active' : ''}`}
+            onClick={() => {
+              setActiveSlick(index);
+            }}
             >
             {item}
           </CasouselContent>
