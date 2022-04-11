@@ -66,7 +66,7 @@ function Casousel(props: CarouselProps): JSX.Element {
     <>
       <div className='carousel-main' 
         style={{
-          width: `${100 * len}%`,
+          width: `${100 * len}vw`,
           transform: transformStyle,
           transition: `all ${speed}ms ease-in-out`
         }}

@@ -1,4 +1,8 @@
 
+body 
+  margin: 0px
+  padding: 0px
+
 .carousel-page-main
   
   .carousel-main 
@@ -20,10 +24,19 @@
         padding-top: 22vh
         white-space: pre-line
 
+        @media (max-width: 960px) 
+          font-size: 3rem
+          line-height: 4rem
+        
+
       .carousel-page-content-content
         font-size: 4rem
         line-height: 6rem
         white-space: pre-line
+
+        @media (max-width: 960px) 
+          font-size: 1.5rem
+          line-height: 2rem
 
         &.active
           animation: fadeIn 1s
