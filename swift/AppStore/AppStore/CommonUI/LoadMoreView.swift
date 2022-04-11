@@ -25,6 +25,7 @@ struct LoadMoreView: View {
             }
         }
         .frame(height: 40)
+        .frame(maxWidth: .infinity)
         .onAppear {
             if hasMoreData, let loadMoreAction = loadMoreAction {
                 loadMoreAction()

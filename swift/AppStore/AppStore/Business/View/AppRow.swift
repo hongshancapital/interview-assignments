@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AppRow: View {
+    
     var appModel: AppModel
     var tapFavoriteAction: (() -> Void)?
     
@@ -16,7 +17,7 @@ struct AppRow: View {
             WebImage(imageUrl: appModel.artworkUrl60)
                 .frame(width: 60, height: 60)
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text(appModel.trackName)
                     .font(.title3)
                     .lineLimit(1)
@@ -30,8 +31,7 @@ struct AppRow: View {
             
             Image(systemName: appModel.isFavorite ? "heart.fill" : "heart")
                 .foregroundColor(appModel.isFavorite ? .red : .gray)
-                .scaleEffect(appModel.isFavorite ? 1.4 : 1.2)
-                .frame(width: 44, height: 44)
+                .scaleEffect(appModel.isFavorite ? 1.2 : 1)
                 .animation(.default, value: appModel.isFavorite)
                 .onTapGesture {
                     if let tapFavoriteAction = tapFavoriteAction {

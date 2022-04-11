@@ -108,14 +108,13 @@
 		CADC5E91280413EE00236B9E /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
-				CADC5ECE280425CB00236B9E /* Network */,
-				CADC5EC9280420B800236B9E /* ViewModels */,
-				CADC5EC4280418B200236B9E /* WebImage */,
-				CADC5EBF2804175700236B9E /* Views */,
-				CADC5EBC2804158500236B9E /* Models */,
 				CADC5E92280413EE00236B9E /* AppStoreApp.swift */,
 				CADC5E94280413EE00236B9E /* ContentView.swift */,
 				CADC5E96280413F000236B9E /* Assets.xcassets */,
+				CAFC8CE82804886A00ACC6C9 /* Business */,
+				CAFC8CE9280488AC00ACC6C9 /* CommonUI */,
+				CADC5ECE280425CB00236B9E /* Network */,
+				CADC5EC4280418B200236B9E /* WebImage */,
 				CADC5E98280413F000236B9E /* Preview Content */,
 			);
 			path = AppStore;
@@ -146,22 +145,21 @@
 			path = AppStoreUITests;
 			sourceTree = "<group>";
 		};
-		CADC5EBC2804158500236B9E /* Models */ = {
+		CADC5EBC2804158500236B9E /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				CADC5EBD2804164000236B9E /* AppListModel.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		CADC5EBF2804175700236B9E /* Views */ = {
+		CADC5EBF2804175700236B9E /* View */ = {
 			isa = PBXGroup;
 			children = (
 				CADC5EC22804178200236B9E /* AppRow.swift */,
 				CADC5EC72804206A00236B9E /* AppList.swift */,
-				CADC5ECC2804242500236B9E /* LoadMoreView.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		CADC5EC4280418B200236B9E /* WebImage */ = {
@@ -172,12 +170,12 @@
 			path = WebImage;
 			sourceTree = "<group>";
 		};
-		CADC5EC9280420B800236B9E /* ViewModels */ = {
+		CADC5EC9280420B800236B9E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				CADC5ECA2804210F00236B9E /* AppListViewModel.swift */,
 			);
-			path = ViewModels;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		CADC5ECE280425CB00236B9E /* Network */ = {
@@ -186,6 +184,24 @@
 				CADC5ECF2804278D00236B9E /* Network.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		CAFC8CE82804886A00ACC6C9 /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				CADC5EBF2804175700236B9E /* View */,
+				CADC5EC9280420B800236B9E /* ViewModel */,
+				CADC5EBC2804158500236B9E /* Model */,
+			);
+			path = Business;
+			sourceTree = "<group>";
+		};
+		CAFC8CE9280488AC00ACC6C9 /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				CADC5ECC2804242500236B9E /* LoadMoreView.swift */,
+			);
+			path = CommonUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
