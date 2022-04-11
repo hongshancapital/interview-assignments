@@ -37,9 +37,29 @@ function Casousel(props: CarouselProps): JSX.Element {
   } = props
   const [activeSlick, setActiveSlick] = useState(0);
   const [transformStyle, setTransformStyle] = useState<string>('translateX(0)');
+  const ref = useRef<HTMLDivElement>(null);
 
   const childrenArray = React.Children.toArray(props.children);
   const { length: len } = childrenArray;
+
+
+  function handleWheel(e: any): void {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+
+  useEffect(() => {
+    if(ref && ref.current) {
+      ref.current.addEventListener('wheel', handleWheel, { passive: false });
+    }
+
+    return () => {
+      if(ref  && ref.current) {
+        ref.current.removeEventListener('wheel', handleWheel);
+      }
+    }
+  }, [])
 
   useEffect(() => {
     let transformStyle = ``;
@@ -62,9 +82,12 @@ function Casousel(props: CarouselProps): JSX.Element {
     }
   }, [activeSlick]);
 
+
   return (
     <>
-      <div className='carousel-main' 
+      <div
+        ref={ref} 
+        className='carousel-main' 
         style={{
           width: `${100 * len}vw`,
           transform: transformStyle,
