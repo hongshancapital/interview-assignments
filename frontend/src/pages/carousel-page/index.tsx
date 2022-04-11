@@ -31,14 +31,18 @@ function CarouselPage(): JSX.Element {
         <Carousel
           autoplay={true}
           intervalTime={3000}
+          speed={500}
         >
           {data.map((item, index) => {
             const { backgroundColor, backgroundImage, title, content, color } = item;
             
-            return (<div className='carousel-page-content' key={index} style={{
-              backgroundColor: backgroundColor,
-              backgroundImage: `url(${backgroundImage})`,
-              color: color
+            return (<div 
+              className='carousel-page-content' 
+              key={index} 
+              style={{
+                backgroundColor: backgroundColor,
+                backgroundImage: `url(${backgroundImage})`,
+                color: color
               }}>
               <div className='carousel-page-content-title'>{title}</div>
               <div className='carousel-page-content-content'>{content}</div>

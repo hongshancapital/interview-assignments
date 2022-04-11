@@ -1,14 +1,19 @@
 import React from "react";
 
-export default function Dots(props: any): JSX.Element {
+interface ICarouselDotsItemProps {
+  onClick: (index: number) => void;
+  activeSlick: number;
+  dotsLength: number;
+  interval: number;
+}
+
+export default function Dots(props: ICarouselDotsItemProps): JSX.Element {
   const { 
     onClick,
     activeSlick,
-    dotsPosition,
     dotsLength,
     interval
-  } = props
-
+  } = props;
 
   function _onClick(index: number): void {
     onClick(index);

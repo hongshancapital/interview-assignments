@@ -3,14 +3,13 @@ import Dots from './dots';
 import './index.sass'
 
 export type CarouselEffect = 'scrollx' | 'fade';
-export type DotPosition = 'top' | 'bottom' | 'left' | 'right';
 
 export interface CarouselProps {
   effect?: CarouselEffect;
   style?: React.CSSProperties;
   intervalTime?: number;
+  speed: number;
   autoplay?: boolean;
-  dotPosition?: DotPosition;
   children?: React.ReactNode;
 }
 
@@ -18,7 +17,7 @@ export interface CarouselProps {
 function CasouselContent(props: any): JSX.Element {
   const {
     className,
-    children
+    children,
   } = props;
   const ref = useRef<HTMLDivElement>(null);
 
@@ -34,6 +33,7 @@ function Casousel(props: CarouselProps): JSX.Element {
   const {
     autoplay = true,
     intervalTime = 3000,
+    speed = 500,
   } = props
   const [activeSlick, setActiveSlick] = useState(0);
   const [transformStyle, setTransformStyle] = useState<string>('translateX(0)');
@@ -67,7 +67,8 @@ function Casousel(props: CarouselProps): JSX.Element {
       <div className='carousel-main' 
         style={{
           width: `${100 * len}%`,
-          transform: transformStyle
+          transform: transformStyle,
+          transition: `all ${speed}ms ease-in-out`
         }}
         >
         {childrenArray.length > 0 ? childrenArray.map((item, index) => {
