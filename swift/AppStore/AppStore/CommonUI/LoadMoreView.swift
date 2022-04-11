@@ -37,6 +37,9 @@ struct LoadMoreView: View {
 struct LoadMoreView_Previews: PreviewProvider {
     
     static var previews: some View {
-        LoadMoreView(hasMoreData: true)
+        Group {
+            LoadMoreView(hasMoreData: true)
+            LoadMoreView(hasMoreData: false)
+        }
     }
 }

@@ -17,9 +17,9 @@ class AppListViewModel: ObservableObject {
     private let searchUrlPath = "/search"
     
     /// 每页加载个数，方便模拟上拉加载更多效果
-    private let pageLimit = 10
+    private let pageCountLimit = 10
     /// 最多加载个数，方便模拟数据加载完成效果
-    private let maxLimit = 50
+    private let maxCountLimit = 50
     
     private var favoriteIds: [Int] = []
     
@@ -27,7 +27,7 @@ class AppListViewModel: ObservableObject {
     func refresh() async throws {
         let params: [String : Any] = [
             "entity": "software",
-            "limit": maxLimit,
+            "limit": maxCountLimit,
             "term": "chat"
         ]
         let data: AppListModel = try await Network.shared.requestData(host: host, urlPath: searchUrlPath, params: params)
@@ -35,8 +35,8 @@ class AppListViewModel: ObservableObject {
             let count = data.results.count
             if count > 0 {
                 appModelList.removeAll()
-                hasMoreData = count > pageLimit
-                let appModels = Array(data.results.prefix(upTo: min(count, pageLimit)))
+                hasMoreData = count > pageCountLimit
+                let appModels = Array(data.results.prefix(upTo: min(count, pageCountLimit)))
                 appModelList.append(contentsOf: updatefavorite(appModels: appModels))
             }
         })
@@ -45,14 +45,14 @@ class AppListViewModel: ObservableObject {
     func loadMore() async throws {
         let params: [String : Any] = [
             "entity": "software",
-            "limit": maxLimit,
+            "limit": maxCountLimit,
             "term": "chat"
         ]
         let data: AppListModel = try await Network.shared.requestData(host: host, urlPath: searchUrlPath, params: params)
         await MainActor.run(body: {
             let count = data.results.count
-            hasMoreData = count > appModelList.count + pageLimit
-            let appModels = Array(data.results[appModelList.count..<min(count, appModelList.count + pageLimit)])
+            hasMoreData = count > appModelList.count + pageCountLimit
+            let appModels = Array(data.results[appModelList.count..<min(count, appModelList.count + pageCountLimit)])
             appModelList.append(contentsOf: appModels)
         })
     }

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct WebImage: View {
+    
     var imageUrl: URL
+    
     @State @MainActor var currentImage = UIImage()
     @State @MainActor var finished = false
     
