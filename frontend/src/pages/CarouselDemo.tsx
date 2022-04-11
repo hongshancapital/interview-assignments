@@ -1,12 +1,13 @@
 import React from 'react'
-import Carousel, { CarouselSlideProps } from '../components/carousel'
+import { Carousel, CarouselSlide } from '../components/carousel'
 import IconAirpods from '../assets/airpods.png'
 import IconIphone from '../assets/iphone.png'
 import IconTablet from '../assets/tablet.png'
+import './CarouselDemo.css'
 
-const data: Array<CarouselSlideProps> = [
+const data: Array<any> = [
   {
-    index: 0,
+    key: 0,
     title: 'xPhone',
     desc: 'Lots to love. Less to spend. \nStarting at $399.',
     style: {
@@ -16,7 +17,7 @@ const data: Array<CarouselSlideProps> = [
     },
   },
   {
-    index: 1,
+    key: 1,
     title: 'Tablet',
     desc: 'Just the right amount of everything.',
     style: {
@@ -26,7 +27,7 @@ const data: Array<CarouselSlideProps> = [
     },
   },
   {
-    index: 2,
+    key: 2,
     title: 'Buy a tablet or xPhone for college. \nGet arpods.',
     desc: '',
     style: {
@@ -37,5 +38,16 @@ const data: Array<CarouselSlideProps> = [
 ]
 
 export default function CarouselDemo() {
-  return <Carousel data={data} />
+  return (
+    <Carousel duration={3000} flashNext={500} flashStart={300}>
+      {data.map((slide: any) => (
+        <CarouselSlide key={slide.key}>
+          <div className="carousel-slide" style={slide.style}>
+            <div className="carousel-slide__title">{slide.title}</div>
+            <div className="carousel-slide__desc">{slide.desc}</div>
+          </div>
+        </CarouselSlide>
+      ))}
+    </Carousel>
+  )
 }
