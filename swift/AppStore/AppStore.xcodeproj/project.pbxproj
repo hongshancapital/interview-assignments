@@ -14,6 +14,13 @@
 		CADC5EA4280413F000236B9E /* AppStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5EA3280413F000236B9E /* AppStoreTests.swift */; };
 		CADC5EAE280413F000236B9E /* AppStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5EAD280413F000236B9E /* AppStoreUITests.swift */; };
 		CADC5EB0280413F000236B9E /* AppStoreUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5EAF280413F000236B9E /* AppStoreUITestsLaunchTests.swift */; };
+		CADC5EBE2804164000236B9E /* AppListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5EBD2804164000236B9E /* AppListModel.swift */; };
+		CADC5EC32804178200236B9E /* AppRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5EC22804178200236B9E /* AppRow.swift */; };
+		CADC5EC6280418E500236B9E /* WebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5EC5280418E500236B9E /* WebImage.swift */; };
+		CADC5EC82804206A00236B9E /* AppList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5EC72804206A00236B9E /* AppList.swift */; };
+		CADC5ECB2804210F00236B9E /* AppListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5ECA2804210F00236B9E /* AppListViewModel.swift */; };
+		CADC5ECD2804242500236B9E /* LoadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5ECC2804242500236B9E /* LoadMoreView.swift */; };
+		CADC5ED02804278D00236B9E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC5ECF2804278D00236B9E /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +51,13 @@
 		CADC5EA9280413F000236B9E /* AppStoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppStoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADC5EAD280413F000236B9E /* AppStoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreUITests.swift; sourceTree = "<group>"; };
 		CADC5EAF280413F000236B9E /* AppStoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CADC5EBD2804164000236B9E /* AppListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListModel.swift; sourceTree = "<group>"; };
+		CADC5EC22804178200236B9E /* AppRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRow.swift; sourceTree = "<group>"; };
+		CADC5EC5280418E500236B9E /* WebImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImage.swift; sourceTree = "<group>"; };
+		CADC5EC72804206A00236B9E /* AppList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppList.swift; sourceTree = "<group>"; };
+		CADC5ECA2804210F00236B9E /* AppListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListViewModel.swift; sourceTree = "<group>"; };
+		CADC5ECC2804242500236B9E /* LoadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreView.swift; sourceTree = "<group>"; };
+		CADC5ECF2804278D00236B9E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +108,11 @@
 		CADC5E91280413EE00236B9E /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
+				CADC5ECE280425CB00236B9E /* Network */,
+				CADC5EC9280420B800236B9E /* ViewModels */,
+				CADC5EC4280418B200236B9E /* WebImage */,
+				CADC5EBF2804175700236B9E /* Views */,
+				CADC5EBC2804158500236B9E /* Models */,
 				CADC5E92280413EE00236B9E /* AppStoreApp.swift */,
 				CADC5E94280413EE00236B9E /* ContentView.swift */,
 				CADC5E96280413F000236B9E /* Assets.xcassets */,
@@ -125,6 +144,48 @@
 				CADC5EAF280413F000236B9E /* AppStoreUITestsLaunchTests.swift */,
 			);
 			path = AppStoreUITests;
+			sourceTree = "<group>";
+		};
+		CADC5EBC2804158500236B9E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CADC5EBD2804164000236B9E /* AppListModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CADC5EBF2804175700236B9E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CADC5EC22804178200236B9E /* AppRow.swift */,
+				CADC5EC72804206A00236B9E /* AppList.swift */,
+				CADC5ECC2804242500236B9E /* LoadMoreView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CADC5EC4280418B200236B9E /* WebImage */ = {
+			isa = PBXGroup;
+			children = (
+				CADC5EC5280418E500236B9E /* WebImage.swift */,
+			);
+			path = WebImage;
+			sourceTree = "<group>";
+		};
+		CADC5EC9280420B800236B9E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CADC5ECA2804210F00236B9E /* AppListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CADC5ECE280425CB00236B9E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CADC5ECF2804278D00236B9E /* Network.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +318,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CADC5ECB2804210F00236B9E /* AppListViewModel.swift in Sources */,
+				CADC5EC32804178200236B9E /* AppRow.swift in Sources */,
+				CADC5EC82804206A00236B9E /* AppList.swift in Sources */,
+				CADC5ECD2804242500236B9E /* LoadMoreView.swift in Sources */,
+				CADC5EBE2804164000236B9E /* AppListModel.swift in Sources */,
+				CADC5ED02804278D00236B9E /* Network.swift in Sources */,
+				CADC5EC6280418E500236B9E /* WebImage.swift in Sources */,
 				CADC5E95280413EE00236B9E /* ContentView.swift in Sources */,
 				CADC5E93280413EE00236B9E /* AppStoreApp.swift in Sources */,
 			);
