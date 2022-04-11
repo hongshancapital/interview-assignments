@@ -37,7 +37,7 @@ export class ShorturlController {
   @Get('shorturl/getlong')
   @ApiOperation({ summary: '获取长域名信息' })
   async getlong(@Query() query: IVerifyShortUrl) {
-    const res = await this.shorturlService.findOne({
+    const res = await this.shorturlService.findOneOrFail({
       s_url: query.s_url.split('/').pop()
     });
     return res ? {
@@ -54,9 +54,11 @@ export class ShorturlController {
   @ApiOperation({ summary: '获取短域名信息' })
   async getshort(@Query() query: IVerifyLongUrl) {
     let resultUrl = ''
-    const res = await this.shorturlService.findOne({
+    
+    const res = await this.shorturlService.findOneOrFail({
       url: query.url
     });
+    
     if (res && res.s_url) {
       resultUrl = res.s_url
     } else {
@@ -86,7 +88,7 @@ export class ShorturlController {
         console.error(e)
       }
     }
-    return await this.shorturlService.create(shorturl);
+    return await this.shorturlService.save(shorturl);
   }
 
   @Delete('shorturls/:id')
@@ -109,7 +111,6 @@ export class ShorturlController {
   @Put('shorturls')
   @ApiOperation({ summary: '[Admin] 修改短域名信息' })
   async patch(
-    @Res() res,
     @Body() updateInput: ShorturlEntity,
   ) {
     const { url } = updateInput;

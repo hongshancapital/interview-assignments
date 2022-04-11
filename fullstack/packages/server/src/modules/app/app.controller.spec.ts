@@ -1,31 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RedisModule } from '@nestjs-modules/ioredis';
 import { INestApplication } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 
-import { AppModule } from './app.module';
-import { AppController } from './app.controller';
-import { ShorturlEntity } from '../shorturl/shorturl.entity';
-import { RedisConfigModule } from '../config/redis.module';
-import { DatabaseConfigModule } from '../config/database.module';
+import { MainModule } from '../../main.module';
 
 describe('AppController', () => {
     let app: INestApplication;
-    let appController: AppController;
   
     beforeAll(async () => {
       const moduleRef = await Test.createTestingModule({
         imports: [
-          RedisConfigModule,
-          DatabaseConfigModule,
-          TypeOrmModule.forFeature([ShorturlEntity]),
-          AppModule
+          MainModule
         ],
-        controllers: [AppController]
       })
-      .overrideProvider(AppController)
-      .useValue(appController)
       .compile();
   
       app = moduleRef.createNestApplication();
@@ -48,7 +35,6 @@ describe('AppController', () => {
         .expect(404)
         .expect('404 Not Found')
     });
-  
     afterAll(async () => {
       await app.close();
     });

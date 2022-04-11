@@ -30,7 +30,6 @@ export class DatabaseConfigModule {
       port: Number(config.get('DATABASE_PORT')),
       username: config.get('DATABASE_USER'),
       password: config.get('DATABASE_PWD'),
-      logging: [ 'error', 'query', 'schema' ] as any,
       entities: [
         path.resolve(
           __dirname,
@@ -48,7 +47,6 @@ export class DatabaseConfigModule {
       // synchronize: Boolean(config.get('DATABASE_SYNCHRONIZE')),
       // dropSchema: Boolean(config.get('DATABASE_DROPSCHEMA')),
     }
-    console.log(configs);
     return {
       module: DatabaseConfigModule,
       imports: [

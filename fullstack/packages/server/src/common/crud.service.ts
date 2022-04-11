@@ -1,4 +1,3 @@
-import { UnprocessableEntityException } from '@nestjs/common';
 import {
   FindOneOptions,
   BaseEntity,
@@ -7,11 +6,9 @@ import {
   DeepPartial,
   FindManyOptions,
   SaveOptions,
-  UpdateResult,
-  In,
   FindConditions,
 } from 'typeorm';
-import { validate } from 'class-validator';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 
 export class CrudService<T extends BaseEntity> {
@@ -43,30 +40,6 @@ export class CrudService<T extends BaseEntity> {
     return await this.repository.find(options);
   }
 
-  public async findOneById(
-    id: string,
-    options?: FindOneOptions<T>,
-  ): Promise<T> {
-    return await this.repository.findOneOrFail({
-      where: {
-        id,
-      },
-      ...options,
-    });
-  }
-
-  public async findByIds(
-    ids: string[],
-    options?: FindOneOptions<T>,
-  ): Promise<T[]> {
-    return await this.repository.find({
-      where: {
-        id: In(ids),
-      },
-      ...options,
-    });
-  }
-
   public async findOneByWhere(options?: FindOneOptions<T>): Promise<T> {
     try {
       return await this.repository.findOneOrFail(options);
@@ -88,6 +61,10 @@ export class CrudService<T extends BaseEntity> {
       return null;
     }
   }
+  
+  async findOneById(id: string | number): Promise<T> {
+    return await this.repository.findOne(id);
+  }
 
   public async findOne(conditions?: FindConditions<T>): Promise<T> {
     try {
@@ -99,37 +76,35 @@ export class CrudService<T extends BaseEntity> {
     }
   }
 
-  public async create(data: any, options?: SaveOptions): Promise<T> {
-    const entity: any = this.repository.create(data);
-    return this.repository.save(entity, options);
+  public create<E extends DeepPartial<T>>(entity: E) {
+    return this.repository.create(entity);
   }
 
   public async save(data: any, options?: SaveOptions): Promise<T> {
-    return this.create(data, options);
+    return this.repository.save(data, options);
   }
 
   public async update(
     options: FindConditions<T>,
-    data: DeepPartial<T>,
-  ): Promise<UpdateResult> {
-    const entity: any = this.repository.create(data);
-    return this.repository.update(options, entity);
+    data: QueryDeepPartialEntity<T>,
+  ): Promise<T>  {
+    await this.repository.update(options, data);
+    return await this.findOne(options)
   }
   
-  public async saveAll(data: any): Promise<T[]> {
-    const entity: any = this.repository.create(data);
-    return this.repository.save(entity);
+  public async saveAll(data: DeepPartial<T[]>): Promise<T[]> {
+    return this.repository.save(data);
   }
 
   public async patch(id: string, data: any): Promise<T> {
-    const entity: any = await this.findOneById(id);
+    const entity = await this.findOneById(id);
     Object.assign(entity, data);
-    return this.repository.save(entity);
+    return this.repository.save(entity as DeepPartial<T>);
   }
 
-  public async put(data: any): Promise<T> {
-    const entity: any = this.repository.create(data);
-    return this.repository.save(entity);
+  public async put(data: DeepPartial<T>): Promise<T> {
+    const entity = this.repository.create(data);
+    return this.repository.save(entity as DeepPartial<T>);
   }
 
   public async delete(id: string): Promise<DeleteResult> {

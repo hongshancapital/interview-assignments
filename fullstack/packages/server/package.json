@@ -14,7 +14,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "test": "cross-env NODE_ENV=test SERVER_ENV=shorturl jest --detectOpenHandles",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "migration:create": "cross-env NODE_ENV=development SERVER_ENV=shorturl ts-node node_modules/typeorm/cli.js migration:create -f ormconfig -d src/migrations -n",
