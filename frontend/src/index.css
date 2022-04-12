@@ -1,13 +1,178 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+.carousel {
+  width: 900px;
+  height: 400px;
+  margin: auto;
+  margin-top: 100px;
+  overflow: hidden;
+  position: relative;
+}
+.carousel ul {
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.carousel ul li {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  text-align: center;
+  line-height: 200px;
+  position: relative;
+}
+.dots {
+}
+
+.dots > span {
+  width: 70px;
+  height: 4px;
+  background: #ccc;
+  flex: 1;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  display: block;
+  overflow: hidden;
+}
+
+.carousel ul li img {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dots > span small {
+  display: block;
+  content: "";
+  height: 100%;
+  width: 0%;
+  background: #fff;
+  overflow: hidden;
+}
+
+.dots > span .active {
+  animation: myfirst;
+  animation-timing-function: linear;
+}
+
+@keyframes myfirst {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.dotPosition-bottom {
+  position: absolute;
+  z-index: 2;
+  top: 96%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+.dotPosition-top {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+.dotPosition-left {
+  position: absolute;
+  height: 80%;
+  top: 50%;
+  left: 3%;
+  transform: translate(10%, -50%);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.dotPosition-left > span small {
+  display: block;
+  content: "";
+  height: 0%;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+}
+.dotPosition-left > span .active {
+  animation: myfirst-left;
+  animation-timing-function: linear;
+}
+
+@keyframes myfirst-left {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+.dotPosition-left > span {
+  width: 4px;
+  margin: 3px 0;
+}
+.dotPosition-right {
+  position: absolute;
+  height: 80%;
+  top: 50%;
+  right: 3%;
+  transform: translate(10%, -50%);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.dotPosition-right > span .active {
+  animation: myfirst-left;
+  animation-timing-function: linear;
+}
+
+.dotPosition-right > span small {
+  display: block;
+  content: "";
+  height: 0%;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+}
+.dotPosition-right > span {
+  width: 4px;
+  margin: 3px 0;
+}
+
+.carousel ul .active {
+  display: block !important;
 }
