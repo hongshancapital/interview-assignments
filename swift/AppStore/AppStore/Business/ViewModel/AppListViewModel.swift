@@ -38,7 +38,7 @@ class AppListViewModel: ObservableObject {
                 appModelList.removeAll()
                 hasMoreData = count > pageCountLimit
                 let appModels = Array(data.results.prefix(upTo: min(count, pageCountLimit)))
-                appModelList.append(contentsOf: updatefavorite(appModels: appModels))
+                appModelList.append(contentsOf: createNewAppModels(appModels: appModels))
             }
         })
     }
@@ -55,7 +55,7 @@ class AppListViewModel: ObservableObject {
             let count = data.results.count
             hasMoreData = count > appModelList.count + pageCountLimit
             let appModels = Array(data.results[appModelList.count..<min(count, appModelList.count + pageCountLimit)])
-            appModelList.append(contentsOf: appModels)
+            appModelList.append(contentsOf: createNewAppModels(appModels: appModels))
         })
     }
     
@@ -71,7 +71,7 @@ class AppListViewModel: ObservableObject {
         }
     }
     
-    func updatefavorite(appModels: [AppModel]) -> [AppModel] {
+    func createNewAppModels(appModels: [AppModel]) -> [AppModel] {
         return appModels.map { appModel in
             AppModel(
                 id: appModel.id,
