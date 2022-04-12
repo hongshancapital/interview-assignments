@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './index.css';
+import './index.scss';
+import classnames from 'classnames';
 
 interface IProps {
   children: React.ReactNode[] | React.ReactNode;
@@ -56,8 +57,12 @@ export default function Carousel(props: IProps) {
           <div className='indicator' key={index} onClick={() => { play2frame(index) }}>
             <div 
               data-testid={`indicator-${index}`}
-              className='indicator-inner' 
-              style={{ transition: autoPlay ? `width ${duration/1000}s linear` : '', visibility: innerWidth[index] === '0' ? 'hidden' : 'visible', width: innerWidth[index] }}
+              className={classnames({
+                'indicator-inner': true,
+                'hide': innerWidth[index] === '0',
+                'move': autoPlay,
+              })} 
+              style={{ width: innerWidth[index], transitionDuration: `${duration/1000}s` }}
             />
           </div>
         )}
