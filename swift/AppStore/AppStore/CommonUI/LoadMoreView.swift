@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoadMoreView: View {
+    
     var hasMoreData: Bool
     var loadMoreAction: (() -> Void)?
     

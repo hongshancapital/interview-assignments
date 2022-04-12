@@ -30,7 +30,8 @@ class AppListViewModel: ObservableObject {
             "limit": maxCountLimit,
             "term": "chat"
         ]
-        let data: AppListModel = try await Network.shared.requestData(host: host, urlPath: searchUrlPath, params: params)
+        let urlPath = host + searchUrlPath
+        let data: AppListModel = try await Network.shared.requestData(urlPath: urlPath, params: params)
         await MainActor.run(body: {
             let count = data.results.count
             if count > 0 {
@@ -48,7 +49,8 @@ class AppListViewModel: ObservableObject {
             "limit": maxCountLimit,
             "term": "chat"
         ]
-        let data: AppListModel = try await Network.shared.requestData(host: host, urlPath: searchUrlPath, params: params)
+        let urlPath = host + searchUrlPath
+        let data: AppListModel = try await Network.shared.requestData(urlPath: urlPath, params: params)
         await MainActor.run(body: {
             let count = data.results.count
             hasMoreData = count > appModelList.count + pageCountLimit

@@ -13,21 +13,34 @@ typealias NetworkResult = (data: Data, response: URLResponse)
 enum NetworkError: Error {
     case urlError
     case requestFailed
-    case decodeFailed
+    case dataDecodeFailed
+    case unSupportMethod
 }
 
 class Network {
+    
     static let shared = Network()
     private let decoder = JSONDecoder()
+    private let timeoutInterval: TimeInterval = 10
     
-    func requestData<T: Decodable> (host: String, urlPath: String, params: [String: Any]) async throws -> T {
-        let url = createURL(host: host, urlPath: urlPath, params: params)
+    func requestData<T: Decodable> (method: String = "GET", urlPath: String, params: [String: Any]? = nil) async throws -> T {
+        let url = URL(string: urlPath)
         guard let url = url else {
             throw NetworkError.urlError
         }
         
-        var request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
-        request.httpMethod = "GET"
+        var request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: timeoutInterval)
+        let upperMethod = method.uppercased()
+        request.httpMethod = upperMethod
+        if upperMethod == "GET" {
+            request.url = createURL(urlPath: urlPath, params: params)
+        } else if upperMethod == "POST" {
+            if let params = params {
+                request.httpBody = try JSONSerialization.data(withJSONObject: params)
+            }
+        } else {
+            throw NetworkError.unSupportMethod
+        }
         
         let result: NetworkResult
         do {
@@ -39,21 +52,22 @@ class Network {
         do {
             return try decoder.decode(T.self, from: result.data)
         } catch {
-            throw NetworkError.decodeFailed
+            throw NetworkError.dataDecodeFailed
         }
     }
     
-    private func createURL(host: String, urlPath: String, params: [String: Any]) -> URL? {
-        guard var components = URLComponents(string: host + urlPath) else {
+    private func createURL(urlPath: String, params: [String: Any]? = nil) -> URL? {
+        guard var components = URLComponents(string: urlPath) else {
             return nil
         }
         
-        var queryItems = [URLQueryItem]()
-        for param in params {
-            let queryItem = URLQueryItem(name: param.key, value: "\(param.value)")
-            queryItems.append(queryItem)
+        guard let params = params else {
+            return components.url
         }
-        components.queryItems = queryItems
+        
+        components.queryItems = params.map {
+            URLQueryItem(name: $0.key, value: "\($0.value)")
+        }
         return components.url
     }
 }

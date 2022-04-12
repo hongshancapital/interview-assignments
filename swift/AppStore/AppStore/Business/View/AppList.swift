@@ -28,26 +28,19 @@ struct AppList: View {
                         }
                         
                         LoadMoreView(hasMoreData: viewModel.hasMoreData) {
-                            
+                            Task {
+                                try? await viewModel.loadMore()
+                            }
                         }
                         .listRowBackground(Color.clear)
-                        .task {
-                            //延时，模拟上拉加载loading效果
-//                            try? await Task.sleep(nanoseconds: 1000000000)
-                            try? await viewModel.loadMore()
-                        }
                     }
                     .refreshable {
-                        //延时，模拟下拉刷新loading效果
-//                        try? await Task.sleep(nanoseconds: 1000000000)
                         try? await viewModel.refresh()
                     }
                 }
             }
             .navigationTitle("App")
             .task {
-                //延时，模拟启动进入loading效果
-//                try? await Task.sleep(nanoseconds: 1000000000)
                 try? await viewModel.refresh()
             }
             .navigationViewStyle(.stack)
