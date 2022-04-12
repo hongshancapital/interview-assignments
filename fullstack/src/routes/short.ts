@@ -1,5 +1,6 @@
 import express from 'express';
 import { createClient } from 'redis';
+import genShort from '../tools/gen-short';
 
 const router = express.Router();
 const client = createClient({
@@ -43,7 +44,7 @@ router.post('/long2short', async function (req, res, next) {
 
     let short: string;
     do {
-        short = Math.random().toString(36).substr(-8);
+        short = genShort();
     } while (!await client.setNX(short, long));
     
     res.send({ success: true, data: short });
