@@ -66,7 +66,7 @@ class AppListViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.hasMoreData == false)
     }
     
-    func testFavoriteApp() async throws {
+    func testFavorite() async throws {
         XCTAssert(viewModel.appModelList.count == 0)
         try await viewModel.refresh()
         
@@ -82,6 +82,28 @@ class AppListViewModelTests: XCTestCase {
             XCTAssert(!viewModel.appModelList[index].isFavorite)
         }
 
+    }
+    
+    func testFavoriteAfterRefresh() async throws {
+        XCTAssert(viewModel.appModelList.count == 0)
+        
+        //第一次刷新
+        try await viewModel.refresh()
+        guard let model = viewModel.appModelList.first else {
+            return
+        }
+        let id = model.id
+        //收藏
+        viewModel.favoriteApp(id: model.id)
+        
+        //再次刷新
+        try await viewModel.refresh()
+        guard let index = viewModel.appModelList.firstIndex(where: { $0.id == id }) else {
+            return
+        }
+        
+        //测试之前收藏App是否为收藏状态
+        XCTAssert(viewModel.appModelList[index].isFavorite)
     }
 
 }
