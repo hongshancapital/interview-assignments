@@ -24,7 +24,7 @@ export default function Carousel(props: IProps) {
   const [innerWidth, setWidth] = useState<string[]>(new Array(Array.isArray(children) ? children.length : 1).fill('0'));
 
   useEffect(() => {
-    setWidth(innerWidth.map((item, index) => index + left === 0 ? '100%' : '0'));
+    setWidth(width => width.map((item, index) => index + left === 0 ? '100%' : '0'));
     if (!autoPlay) {
       return;
     }
@@ -40,7 +40,7 @@ export default function Carousel(props: IProps) {
     return () => {
       clearTimeout(timer);
     }
-  }, [left]);
+  }, [left, children, duration, autoPlay]);
 
   const play2frame = (index:number) => {
     setLeft(-index);
