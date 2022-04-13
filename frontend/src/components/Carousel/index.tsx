@@ -1,5 +1,6 @@
 import React, {FC, useState, useRef, useEffect, CSSProperties} from 'react'
 import styles from './style.module.scss';
+import classnames from 'classnames'
 
 interface Item {
   title: string;
@@ -54,8 +55,7 @@ const Carousel: FC<IProps> = ({products, delay}) => {
   return (
     <div className={styles.slideContainer}>
       <div
-        className={styles.slideshowSlider}
-        style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+        className={styles[`slideshowSlider_${index}`]}
       >
         {
           products.map((product: Item, index) => {

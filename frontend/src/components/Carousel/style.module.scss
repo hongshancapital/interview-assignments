@@ -15,9 +15,7 @@
       height: 100%;
       width: 0%;
       &_active {
-        background-color: #fafafa;
-        height: 100%;
-        width: 0%;
+        @extend .progress;
         animation: progress;
       }
     }
@@ -34,7 +32,6 @@
 }
 
 
-
 .slideContainer {
   margin: 0 auto;
   overflow: hidden;
@@ -42,6 +39,18 @@
   .slideshowSlider {
     white-space: nowrap;
     transition: ease 1000ms;
+    &_0 {
+      @extend .slideshowSlider;
+      transform: translate3d(0%, 0, 0);
+    }
+    &_1 {
+      @extend .slideshowSlider;
+      transform: translate3d(-100%, 0, 0);
+    }
+    &_2 {
+      @extend .slideshowSlider;
+      transform: translate3d(-200%, 0, 0);
+    }
     .slide {
       display: inline-block;
       height: 100vh;
@@ -52,9 +61,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        position: relative;
-        top: 20%;
-        height: calc(100% - 40%);
+        height: 60%;
         .title {
           font-size:48px;
           font-weight: bold;
@@ -67,4 +74,6 @@
       }
     }
   }
+
 }
+
