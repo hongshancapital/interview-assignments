@@ -1,0 +1,33 @@
+server:
+  servlet:
+    context-path: /api
+  port: 7012
+    
+  
+spring:
+  application:
+    name: hsjt-netaddress
+    version: 1.0.1
+    description: 系统服务
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true # 当遇到相同名字时允许覆盖
+    
+### swagger config ###    
+swagger:
+  title: '系统接口文档'  # 标题
+  description: 'api模块接口文档' # 描述
+  enabled: true
+  version: '1.0' # 版本号
+  swhitch: true # 是否开启 swagger 开关
+  
+###本系统访问地址   
+sys:
+  domain: http://127.0.0.1:7012/api/
+  shl: 8
+  sxlx: MIN  # 默认失效类型
+  sxtime: 10  # 默认时间
+  key: zhangsan
+  
+
