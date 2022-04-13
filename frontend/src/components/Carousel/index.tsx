@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import classNames from "classnames";
 
 import "./index.scss";
@@ -16,6 +16,8 @@ export default function Carousel(props: React.PropsWithChildren<ICarouselProps>)
   const {children, interval = 3000, duration = 300} = props;
 
   const list = children ? React.Children.toArray(children) : [];
+
+  const containeRef = useRef<HTMLDivElement>(null);
 
   // 自动播放
   const autoPlay = useCallback(() => {
@@ -35,25 +37,17 @@ export default function Carousel(props: React.PropsWithChildren<ICarouselProps>)
     return () => clearInterval(timer);
   }, [interval, autoPlay]);
 
-  // 计算容器的style
-  const containerStyle = useMemo(() => {
-    if (list.length === 0) {
-      return {
-        width: "100%",
-        transition: `all ${duration}ms`,
-      };
-    } else {
-      return {
-        transform: `translateX(-${(current * 100) / list.length}%)`,
-        width: `${100 * list.length}%`,
-        transition: `all ${duration}ms`,
-      };
+  useEffect(() => {
+    if (containeRef.current) {
+      containeRef.current.style.setProperty('--total', list.length.toString());
+      containeRef.current.style.setProperty('--current', current.toString());
+      containeRef.current.style.setProperty('--duration', `${duration}ms`);
     }
   }, [list.length, current, duration]);
 
   return (
     <div className="carousel">
-      <div className="container" style={containerStyle}>
+      <div className="container" ref={containeRef}>
         {list.map((ele, index) => (
           <div key={index}>{ele}</div>
         ))}

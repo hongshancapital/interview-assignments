@@ -4,8 +4,25 @@
   overflow: hidden;
 
   .container {
+    // 定义变量
+    --total: 0;
+    --current: 0;
+    --duration: 300ms;
+    
+    // 中间变量
+    --translate-move: calc(var(--current) / var(--total) * -100%);
+
     display: flex;
     align-items: center;
+
+    @if var(--total) == 0 {
+      width: 100%;
+      transition: all var(--duration);
+    } @else {
+      transform:  translateX(var(--translate-move));
+      width: calc(var(--total) * 100%);
+      transition: all var(--duration);
+    }
   
     > div {
       flex: 1;
