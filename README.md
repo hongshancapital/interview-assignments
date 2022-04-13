@@ -6,19 +6,20 @@
 
 ## 开放岗位
 
-北京/武汉：
-- [Java](java/)
+武汉/三亚：
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
-- [UI 设计师](design/)
+- [Java](java/)
 
+~~北京/武汉:~~
+~~- [UI 设计师](design/)~~
 
-北京/上海/香港/深圳：
+北京/香港/深圳：
 - [IT Support Engineer](it-support-engineer/)
 
-北京/上海：
-- [DevOps](dev-ops/)  
+~~北京：~~
+~~- [DevOps](dev-ops/)~~
 
 链接中有更为具体的 JD。
 
@@ -61,7 +62,7 @@ Please find your assignment in subfolder accordingly.
 
 ## 实力如何？
 
-团队成员来自 AWS、Airbnb 等企业，深知做好技术的重要性。所以我们在尽可能的范围内将流程做到最规范：CI / CD / Code Review 一样都没落下。再厚脸皮举两个例子：
+团队成员来自 AWS、字节跳动、快手、阿里、猿辅导 等企业，深知做好技术的重要性。所以我们在尽可能的范围内将流程做到最规范：CI / CD / Code Review 一样都没落下。再厚脸皮举两个例子：
 
 1. 有工程师在入职后感叹：没想到对产品和 Code Review 的要求如此严格，不过同时也能学到很多新东西
 2. 设计师说：不再只是 “画图的”，而是能真正地思考并把握一个产品的设计与体验
@@ -87,8 +88,7 @@ Please find your assignment in subfolder accordingly.
 
 1. 最新 MacBook Pro
 2. 外设（键鼠，升降桌，高清显示器…）
-3. 星巴克提供品牌，雀巢提供服务的免费咖啡服务
-4. 无限冷热饮/小吃供应
+3. 无限冷热饮/小吃供应
 
 至于薪水，我们想要找到合适的人而不是想一味地压缩成本。给出的 package 不输互联网大厂，相信能让你满意。
 
