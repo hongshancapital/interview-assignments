@@ -1,0 +1,76 @@
+.carousel {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.carousel-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: transform .5s;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.carousel-item-img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.carousel-item-title{
+  font-size: 80px;
+  font-weight: 700;
+  max-width: 1200px;
+}
+.carousel-item-desc  {
+  font-size: 50px;
+  max-width: 800px;
+  margin-bottom: 300px;
+}
+.carousel-dots {
+  position: absolute;
+  display: inline-flex;
+  bottom: 80px;
+}
+.carousel-dots-item {
+  position: relative;
+  display: inline-block;
+  background: #CCC;
+  width: 50px;
+  height: 8px;
+  border-radius: 4px;
+}
+.carousel-dots-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-radius: 4px;
+}
+.carousel-dots-item:not(:first-of-type) {
+  margin-left: 10px;
+}
+.carousel-dots-item--active::after {
+  width: 100%;
+  background-color: #FFF;
+  transition: width 2.9s linear;
+}
