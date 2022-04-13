@@ -1,0 +1,1 @@
+insert into `short_link_config`(short_link,long_link,long_link_hash) values ('123456','123456789','1234567')
