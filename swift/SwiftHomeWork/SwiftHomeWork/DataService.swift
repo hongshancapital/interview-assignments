@@ -12,14 +12,40 @@ protocol AppService {
     func loadMore() async throws -> [Entity]
 }
 
-enum Err: Error{
+enum Err: Error,LocalizedError{
+    
     case invalidURL(url:String)
     
-    var localizedDescription : String{
+    var errorDescription: String? {
+        switch self{
+        case .invalidURL(let url):
+            return "transform string to URL failed \(url)"
+        }
+        
+    }
+
+    var failureReason: String? {
         switch self{
         case .invalidURL(let url):
             return "invalid url \(url)"
         }
+        
+    }
+
+    var recoverySuggestion: String? {
+        switch self{
+        case .invalidURL:
+            return "give a valid url"
+        }
+        
+    }
+
+    var helpAnchor: String? {
+        switch self{
+        case .invalidURL:
+            return "give a valid url"
+        }
+        
     }
 }
 
