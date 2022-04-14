@@ -16,10 +16,10 @@ struct Response: Codable {
 }
 
 // MARK: - Result
-struct Entity: Codable,Identifiable {
+struct Entity: Codable, Identifiable {
     let id = UUID()
     var favorite = false
-    
+
     let screenshotUrls, ipadScreenshotUrls: [String]
     let appletvScreenshotUrls: [String]
     let artworkUrl60, artworkUrl512, artworkUrl100: String

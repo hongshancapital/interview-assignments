@@ -8,37 +8,36 @@
 import SwiftUI
 
 struct ItemUIView: View {
-    
+
     var item: Entity
-    
-    @EnvironmentObject var viewModel : DataViewModel
-    
+
+    @EnvironmentObject var viewModel: DataViewModel
+
     var body: some View {
-        HStack{
-            
+        HStack {
             AsyncImage.init(url: URL.init(string: item.artworkUrl60), scale: 1) { image in
                 image
             } placeholder: {
                 ProgressView()
             }
-                .aspectRatio(1, contentMode: .fit)
-                .frame(width: 60,height: 60)
-                .cornerRadius(4)
-                .overlay {
-                    RoundedRectangle.init(cornerRadius: 4).stroke(.gray,lineWidth: 0.5)
-                }
-            VStack{
-                HStack{
+            .aspectRatio(1, contentMode: .fit)
+            .frame(width: 60, height: 60)
+            .cornerRadius(4)
+            .overlay {
+                RoundedRectangle.init(cornerRadius: 4).stroke(.gray, lineWidth: 0.5)
+            }
+            VStack {
+                HStack {
                     Text(item.trackName).font(.body)
                     Spacer()
                 }
                 .padding(.init(top: 0, leading: 0, bottom: 3, trailing: 0))
-                HStack{
+                HStack {
                     Text(item.resultDescription).lineLimit(2).font(.caption)
                     Spacer()
                 }
             }
-            Button{
+            Button {
                 withAnimation(Animation.easeInOut) {
                     self.viewModel.like(entity: self.item, favorite: !self.item.favorite)
                 }
@@ -48,7 +47,7 @@ struct ItemUIView: View {
                     .foregroundColor(self.item.favorite ? .red : .gray).padding(10)
             }
         }
-        .padding()    
+        .padding()
         .background {
             RoundedRectangle.init(cornerRadius: 10).fill(.white)
         }
@@ -62,40 +61,6 @@ struct ItemUIView_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 func mockResult()throws ->  Entity {
     let mockInfo = """

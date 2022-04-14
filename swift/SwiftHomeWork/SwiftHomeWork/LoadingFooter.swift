@@ -10,11 +10,11 @@ import SwiftUI
 struct LoadingFooter: View {
     var isEnd = false
     var body: some View {
-        HStack{
+        HStack {
             Spacer()
-            if isEnd{
+            if isEnd {
                 Text("No more data.")
-            }else{
+            } else {
                 HStack.init(alignment: .center, spacing: 10, content: {
                     ProgressView()
                     Text("Loading...")
@@ -28,7 +28,7 @@ struct LoadingFooter: View {
 
 struct LoadingFooter_Previews: PreviewProvider {
     static var previews: some View {
-        VStack{
+        VStack {
             LoadingFooter(isEnd: false)
             LoadingFooter(isEnd: true)
         }
