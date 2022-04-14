@@ -13,7 +13,7 @@ struct SwiftHomeWorkApp: App {
         WindowGroup {
             NavigationView {
                 ContentView()
-            }.environmentObject(DataViewModel())
+            }.environmentObject(DataViewModel(MockNetService.init()))
         }
     }
 }

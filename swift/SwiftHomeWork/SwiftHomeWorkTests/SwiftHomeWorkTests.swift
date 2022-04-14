@@ -22,7 +22,7 @@ class SwiftHomeWorkTests: XCTestCase {
         let e = self.expectation(description: "api")
         Task{
             do {
-                let welcome = try await NetService.init().getData()
+                let welcome = try await MockNetService.init().getData()
                 print(welcome)
             } catch {
                 print(error)

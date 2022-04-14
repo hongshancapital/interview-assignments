@@ -5,16 +5,18 @@
 //  Created by apple on 2022/4/12.
 //
 
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+
 import Foundation
 
 // MARK: - Welcome
-struct Welcome: Codable {
+struct Response: Codable {
     let resultCount: Int
-    let results: [Result]
+    let results: [Entity]
 }
 
 // MARK: - Result
-struct Result: Codable,Identifiable {
+struct Entity: Codable,Identifiable {
     let id = UUID()
     
     let screenshotUrls, ipadScreenshotUrls: [String]

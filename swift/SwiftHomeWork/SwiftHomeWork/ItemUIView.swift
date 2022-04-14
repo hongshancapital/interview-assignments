@@ -11,12 +11,18 @@ struct ItemUIView: View {
     
     @State var like = false
     
-    var item: Result
+    var item: Entity
     
     var body: some View {
         HStack{
-            AsyncImage(url: URL.init(string: item.artworkUrl60))
+            
+            AsyncImage.init(url: URL.init(string: item.artworkUrl60), scale: 1) { image in
+                image
+            } placeholder: {
+                ProgressView()
+            }
                 .aspectRatio(1, contentMode: .fit)
+                .frame(width: 60,height: 60)
                 .cornerRadius(4)
                 .overlay {
                     RoundedRectangle.init(cornerRadius: 4).stroke(.gray,lineWidth: 0.5)
@@ -41,7 +47,11 @@ struct ItemUIView: View {
                     .scaleEffect(like ? 1.2 : 1)
                     .foregroundColor(.red).padding(10)
             }
-        }.frame(height: 70)
+        }
+        .padding()    
+        .background {
+            RoundedRectangle.init(cornerRadius: 10).fill(.white)
+        }
     }
 }
 
@@ -85,7 +95,7 @@ struct ItemUIView_Previews: PreviewProvider {
 
 
 
-func mockResult()throws ->  Result {
+func mockResult()throws ->  Entity {
     let mockInfo = """
 {
     "screenshotUrls":[
@@ -296,5 +306,5 @@ func mockResult()throws ->  Result {
     "userRatingCount":50029
 }
 """
-    return try JSONDecoder().decode(Result.self, from: mockInfo.data(using: .utf8)!)
+    return try JSONDecoder().decode(Entity.self, from: mockInfo.data(using: .utf8)!)
 }

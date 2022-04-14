@@ -8,14 +8,26 @@
 import Foundation
 import Combine
 
-class DataViewModel: ObservableObject {
+@MainActor class DataViewModel: ObservableObject {
     
-    @Published  var welcome : Welcome?
+    @Published var apps = [Entity]()
     
-    let network = NetService()
+    @Published var isEnd : Bool = false
     
-    func request(page : Int) async throws {
-        self.welcome = try await network.getData()
+    let service : AppService
+    
+    init(_ service: AppService) {
+        self.service = service
+    }
+    
+    func refresh() async throws {
+        self.apps = try await service.refresh()
+        self.isEnd = false
+    }
+    
+    func loadMore() async throws {
+        self.apps = try await service.loadMore()
+        self.isEnd = true
     }
     
 }
