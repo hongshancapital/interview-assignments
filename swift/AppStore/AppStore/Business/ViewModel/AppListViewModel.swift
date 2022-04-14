@@ -55,7 +55,10 @@ class AppListViewModel: ObservableObject {
             let count = data.results.count
             hasMoreData = count > appModelList.count + pageCountLimit
             let appModels = Array(data.results[appModelList.count..<min(count, appModelList.count + pageCountLimit)])
-            appModelList.append(contentsOf: createNewAppModels(appModels: appModels))
+            let filterAppModel = appModels.filter { appModel in
+                !appModelList.contains(where: { $0.id == appModel.id })
+            }
+            appModelList.append(contentsOf: createNewAppModels(appModels: filterAppModel))
         })
     }
     
