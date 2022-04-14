@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ItemUIView: View {
     
-    @State var like = false
-    
     var item: Entity
+    
+    @EnvironmentObject var viewModel : DataViewModel
     
     var body: some View {
         HStack{
@@ -40,12 +40,12 @@ struct ItemUIView: View {
             }
             Button{
                 withAnimation(Animation.easeInOut) {
-                    like.toggle()
+                    self.viewModel.like(entity: self.item, favorite: !self.item.favorite)
                 }
             } label: {
-                Image.init(systemName: like ? "heart.fill" : "heart")
-                    .scaleEffect(like ? 1.2 : 1)
-                    .foregroundColor(.red).padding(10)
+                Image.init(systemName: self.item.favorite ? "heart.fill" : "heart")
+                    .scaleEffect(self.item.favorite ? 1.2 : 1)
+                    .foregroundColor(self.item.favorite ? .red : .gray).padding(10)
             }
         }
         .padding()    
@@ -57,7 +57,9 @@ struct ItemUIView: View {
 
 struct ItemUIView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemUIView.init(item: try! mockResult()).previewLayout(.sizeThatFits)
+        ItemUIView.init(item: try! mockResult())
+            .environmentObject(DataViewModel(MockNetService.init()))
+            .previewLayout(.sizeThatFits)
     }
 }
 

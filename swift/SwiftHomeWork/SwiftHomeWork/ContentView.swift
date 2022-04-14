@@ -43,7 +43,7 @@ struct ContentView: View {
                             ItemUIView.init(item: item)
                                 .listRowSeparator(.hidden)
                                 .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 10, trailing: 0))
-                                .listRowBackground(Color.clear)
+                                .listRowBackground(Color.clear).buttonStyle(.borderless)
                     }
                     LoadingFooter(isEnd: viewModel.isEnd)
                         .listRowBackground(Color.clear)
