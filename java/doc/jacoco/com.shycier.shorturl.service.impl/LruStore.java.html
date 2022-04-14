@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LruStore.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">short-url</a> &gt; <a href="index.source.html" class="el_package">com.shycier.shorturl.service.impl</a> &gt; <span class="el_source">LruStore.java</span></div><h1>LruStore.java</h1><pre class="source lang-java linenums">package com.shycier.shorturl.service.impl;
+
+import com.shycier.shorturl.service.Store;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+/**
+ * 加入了LRU缓存淘汰策略且线程安全的键值对存储
+ */
+@Component
+<span class="fc" id="L17">public class LruStore&lt;K,V&gt; implements Store&lt;K,V&gt; {</span>
+
+	/**
+	 * 容器初始化大小
+	 * 默认100
+	 */
+<span class="fc" id="L23">	@Value(&quot;${shortUrl.store.initSize}&quot;)</span>
+	private int initSize = 100;
+
+	/**
+	 * 最大键值对数量
+	 * 当键值对数量超过该值时触发缓存淘汰
+	 * 默认1000万 当&lt;=0时 不根据键值对数量进行缓存淘汰
+	 */
+<span class="fc" id="L31">	@Value(&quot;${shortUrl.store.maxSize}&quot;)</span>
+	private long maxSize = 10 * 1000 * 1000;
+
+	/**
+	 * 最大内存
+	 * 当JVM内存超过该值时触发缓存淘汰
+	 * 默认1GB 当&lt;=0时 不根据内存进行缓存淘汰
+	 */
+<span class="fc" id="L39">	@Value(&quot;${shortUrl.store.maxMemory}&quot;)</span>
+	private long maxMemory = 1024 * 1024 * 1024;
+
+	/**
+	 * 存储键值对的Map
+	 * 这里创建了一个线程安全且具备LRU缓存淘汰机制的Map
+	 */
+<span class="fc" id="L46">	private final Map&lt;K, V&gt; store = Collections.synchronizedMap(</span>
+<span class="fc" id="L47">			new LinkedHashMap&lt;K, V&gt;(initSize, 75, true) {</span>
+				@Override
+				protected boolean removeEldestEntry(Map.Entry&lt;K, V&gt; eldest) {
+<span class="fc" id="L50">					long totalMemory = Runtime.getRuntime().totalMemory();</span>
+<span class="fc" id="L51">					long freeMemory  = Runtime.getRuntime().freeMemory();</span>
+<span class="fc" id="L52">					long usedMemory  = totalMemory - freeMemory;</span>
+<span class="fc bfc" id="L53" title="All 4 branches covered.">					return (maxSize &gt; 0 &amp;&amp; size() &gt; maxSize) || (</span>
+<span class="fc bfc" id="L54" title="All 4 branches covered.">							LruStore.this.maxMemory &gt; 0 &amp;&amp; usedMemory &gt; LruStore.this.maxMemory);</span>
+				}
+			});
+
+	/**
+	 * 保存键值对
+	 * @param key    键
+	 * @param value  值
+	 */
+	@Override
+	public void save(K key, V value) {
+<span class="fc" id="L65">		store.putIfAbsent(key, value);</span>
+<span class="fc" id="L66">	}</span>
+
+	/**
+	 * 获取键值对数量
+	 * @return 键值对数量
+	 */
+	public int size() {
+<span class="fc" id="L73">		return store.size();</span>
+	}
+
+	public void setMaxSize(int maxSize) {
+<span class="fc" id="L77">		this.maxSize = maxSize;</span>
+<span class="fc" id="L78">	}</span>
+
+	public void setMaxMemory(long maxMemory) {
+<span class="fc" id="L81">		this.maxMemory = maxMemory;</span>
+<span class="fc" id="L82">	}</span>
+
+	public void clear() {
+<span class="fc" id="L85">		this.store.clear();</span>
+<span class="fc" id="L86">	}</span>
+
+	/**
+	 * 通过键获取值
+	 * @param key 键
+	 * @return    值
+	 */
+	@Override
+	public V get(K key) {
+<span class="fc" id="L95">		return store.get(key);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
