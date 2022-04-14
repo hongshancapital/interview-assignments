@@ -1,0 +1,34 @@
+.Carousel {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.page-box {
+    height: 100%;
+    width: 100%;
+    overflow: visible;
+    white-space: nowrap;
+    position: relative;
+}
+
+.page-box.switching {
+    transition-property: left;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+}
+
+.tick-box {
+    position: absolute;
+    bottom: 8%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
