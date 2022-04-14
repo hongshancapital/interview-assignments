@@ -16,10 +16,14 @@ enum Err: Error,LocalizedError{
     
     case invalidURL(url:String)
     
+    case networkError(response:URLResponse)
+    
     var errorDescription: String? {
         switch self{
         case .invalidURL(let url):
             return "transform string to URL failed \(url)"
+        case .networkError(let response):
+            return "network failed: \(response)"
         }
         
     }
@@ -28,6 +32,8 @@ enum Err: Error,LocalizedError{
         switch self{
         case .invalidURL(let url):
             return "invalid url \(url)"
+        case .networkError(let response):
+            return "network failed: \(response)"
         }
         
     }
@@ -36,6 +42,8 @@ enum Err: Error,LocalizedError{
         switch self{
         case .invalidURL:
             return "give a valid url"
+        case .networkError:
+            return "check your network and try again"
         }
         
     }
@@ -44,6 +52,8 @@ enum Err: Error,LocalizedError{
         switch self{
         case .invalidURL:
             return "give a valid url"
+        case .networkError:
+            return "check your network and try again"
         }
         
     }
@@ -70,7 +80,10 @@ class MockNetService : AppService{
         guard let url = URL.init(string: Self.url) else {
             throw Err.invalidURL(url: Self.url)
         }
-        let (data,_) = try await URLSession.shared.data(for: URLRequest.init(url: url), delegate: nil)
+        let (data,response) = try await URLSession.shared.data(for: URLRequest.init(url: url), delegate: nil)
+        if let httpResponse = response as? HTTPURLResponse,!(200...299).contains(httpResponse.statusCode){
+            throw Err.networkError(response: response)
+        }
         return try JSONDecoder().decode(Response.self, from: data)
     }
     
