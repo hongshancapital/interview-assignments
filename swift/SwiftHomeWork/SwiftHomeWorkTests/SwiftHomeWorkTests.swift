@@ -73,4 +73,16 @@ class SwiftHomeWorkTests: XCTestCase {
         }.cancel()
     }
 
+    @MainActor func testViewModel() throws {
+        let e = self.expectation(description: "ViewModel")
+        let vm = DataViewModel.init(MockNetService())
+        Task {
+            try await vm.refresh()
+            XCTAssertEqual(vm.apps.count, 20)
+            try await vm.loadMore()
+            XCTAssertEqual(vm.apps.count, 40)
+            e.fulfill()
+        }
+        self.wait(for: [e], timeout: 10)
+    }
 }
