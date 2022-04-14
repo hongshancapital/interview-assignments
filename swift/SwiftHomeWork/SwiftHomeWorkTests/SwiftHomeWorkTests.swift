@@ -10,6 +10,8 @@ import XCTest
 
 class SwiftHomeWorkTests: XCTestCase {
 
+    let service =  MockNetService.init()
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -18,12 +20,12 @@ class SwiftHomeWorkTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testNetworkAPI() throws {
-        let e = self.expectation(description: "api")
-        Task{
+    func testNetworkAPIRefresh() throws {
+        let e = self.expectation(description: "api-refresh")
+        Task {
             do {
-                let welcome = try await MockNetService.init().getData()
-                print(welcome)
+                let items = try await service.refresh()
+                XCTAssertFalse(items.isEmpty)
             } catch {
                 print(error)
                 XCTFail()
@@ -32,21 +34,43 @@ class SwiftHomeWorkTests: XCTestCase {
         }
         self.wait(for: [e], timeout: 10)
     }
-    
-    func testMock() throws{
-        do {
-            try mockResult()
-        } catch {
-            print(error)
-            XCTFail()
+
+    func testNetworkAPILoadMore() throws {
+        let e = self.expectation(description: "api-loadmore")
+        Task {
+            do {
+                let items = try await service.loadMore()
+                XCTAssertFalse(items.isEmpty)
+            } catch {
+                print(error)
+                XCTFail()
+            }
+            e.fulfill()
         }
+        self.wait(for: [e], timeout: 10)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    @MainActor func testLike() throws {
+        let vm = DataViewModel.init(MockNetService())
+        let mockEntity = try mockResult()
+        vm.apps = [mockEntity]
+
+        vm.$apps.sink { entities in
+            XCTAssertEqual(entities.count, 1)
+            XCTAssertFalse(entities.first!.favorite)
+        }.cancel()
+
+        vm.like(entity: mockEntity, favorite: true)
+        vm.$apps.sink { entities in
+            XCTAssertEqual(entities.count, 1)
+            XCTAssertTrue(entities.first!.favorite)
+        }.cancel()
+
+        vm.like(entity: mockEntity, favorite: false)
+        vm.$apps.sink { entities in
+            XCTAssertEqual(entities.count, 1)
+            XCTAssertFalse(entities.first!.favorite)
+        }.cancel()
     }
 
 }
