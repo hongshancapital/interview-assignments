@@ -1,0 +1,72 @@
+.carouselContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  --timer-delay: .5s;
+  --timer-duration: 3s;
+}
+
+.carouselUl {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carouselLi {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.carouselLiBefore {
+  transform: translateX(-100%);
+  transition: var(--timer-delay);
+}
+
+.carouselLiActive {
+  transition: var(--timer-delay);
+}
+
+.carouselLiAfter {
+  transform: translateX(100%);
+  transition: var(--timer-delay);
+}
+
+.carouselBar {
+  display: flex;
+  position: absolute;
+  z-index: 3;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carouselDot {
+  margin: 0 10px;
+  width: 60px;
+  height: 4px;
+  background-color: #aaa;
+}
+
+@keyframes dotProgress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%
+  }
+}
+
+.carouselDotPregress {
+  width: 60px;
+  height: 4px;
+  background-color: #fff;
+  animation: dotProgress var(--timer-duration) linear;
+}
