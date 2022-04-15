@@ -148,3 +148,5 @@ ${random10} = ${__RandomString(10,abcdefghijklmnopqrstuvwxyz,)}
 ![微信截图_20220415193812.png](images/微信截图_20220415193812.png)
 
 > [`技术博客`](http://go168.xyz/)
+
+> [`码云备用作业地址`](https://gitee.com/xiesixian/interview-assignments/tree/master/java)
