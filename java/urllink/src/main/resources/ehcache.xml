@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="false" monitoring="autodetect"
+         dynamicConfig="true">
+
+  <diskStore path="java.io.tmpdir"/>
+  <!--
+  Sample cache named sampleCache1
+  This cache contains a maximum in memory of 1000 elements, and will expire
+  an element if it is idle for more than 30 minutes and lives for more than
+  30 minutes.
+
+  If there are more than 1000 elements it will overflow to the
+  disk cache, which in this configuration will go to wherever java.io.tmp is
+  defined on your system. On a standard Linux system this will be /tmp"
+  -->
+  <cache name="simplePoolUtil"
+         maxElementsInMemory="10000"
+         eternal="false"
+         overflowToDisk="true"
+         diskSpoolBufferSizeMB="20"
+         timeToIdleSeconds="1800"
+         timeToLiveSeconds="1800"
+         memoryStoreEvictionPolicy="LFU"
+  />
+
+</ehcache>
