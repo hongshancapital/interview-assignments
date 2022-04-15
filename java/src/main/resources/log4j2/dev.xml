@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别 按照从低到高为：1.ALL < 2.TRACE < 3.DEBUG < 4.INFO < 5.WARN < 6.ERROR < 7.FATAL < 8.OFF -->
+<!--1.ALL:最低等级的，用于打开所有日志记录 -->
+<!--2.Trace:是追踪，就是程序推进一下 -->
+<!--3.Debug:指出细粒度信息事件对调试应用程序是非常有帮助的 -->
+<!--4.INFO:消息在粗粒度级别上突出强调应用程序的运行过程 -->
+<!--5.WARN:输出警告及warn以下级别的日志 -->
+<!--6.ERROR:输出错误信息日志 -->
+<!--7.FATAL:输出每个严重的错误事件将会导致应用程序的退出的日志 -->
+<!--8.OFF:最高等级的，用于关闭所有日志记录 -->
+<!-- -->
+<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出 -->
+<!--Configuration后面的monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数 -->
+<Configuration status="WARN" monitorInterval="10">
+	<!-- 配置 -->
+	<Properties>
+		<!-- 存放目录(本地) -->
+		<Property name="path">../logs</Property>
+		<!-- 输出格式 -->
+		<Property name="log_pattern">[scdt][%5p][%-d{MM-dd HH:mm:ss}][%t][%M(%F:%L)] | - %m%n</Property>
+	</Properties>
+
+	<!-- 追加 -->
+	<Appenders>
+		<!-- 控制台日志 -->
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${sys:log_pattern}" />
+		</Console>
+
+		<!-- ALL存档日志 -->
+		<RollingFile name="all" fileName="${path}/scdt.log" filePattern="${path}/scdt_%d{MM-dd-yyyy}.log.%i">
+			<!-- 输出格式 -->
+			<PatternLayout pattern="${sys:log_pattern}" />
+			<!-- 最大文件100M -->
+			<SizeBasedTriggeringPolicy size="100 MB" />
+			<!-- 最多产生100个文件 -->
+			<DefaultRolloverStrategy max="100" fileIndex="min" />
+		</RollingFile>
+
+		<!-- Error存档日志 -->
+		<RollingFile name="error" fileName="${path}/scdt_error.log" filePattern="${path}/scdt_error_%d{MM-dd-yyyy}.log.%i">
+			<!-- 只输出error及以上级别的信息，否则直接拒绝 -->
+			<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+			<!-- 输出格式 -->
+			<PatternLayout pattern="${sys:log_pattern}" />
+			<!-- 最大文件100M -->
+			<SizeBasedTriggeringPolicy size="100 MB" />
+			<!-- 最多产生100个文件 -->
+			<DefaultRolloverStrategy max="100" fileIndex="min" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<!-- INFO -->
+		<Root level="INFO">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="all" />
+			<AppenderRef ref="error" />
+		</Root>
+		<!-- 过滤指定包低于指定级别日志,不显示 -->
+		<Logger name="org.springframework" level="ERROR" />
+		<Logger name="com.zaxxer.hikari" level="ERROR" />
+		<Logger name="org.hibernate" level="ERROR" />
+		<Logger name="com.querydsl" level="ERROR" />
+	</Loggers>
+</Configuration>
