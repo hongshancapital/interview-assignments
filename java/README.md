@@ -113,7 +113,7 @@
 
 #### 测试条件
 
-> 定义模板地址：**https://${random6}.com/${random8}/${random10}**
+> 定义模板地址：** https://${random6}.com/${random8}/${random10} **
 
 > 定义随机变量：如下
 
