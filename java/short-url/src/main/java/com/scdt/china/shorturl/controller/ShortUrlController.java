@@ -32,10 +32,16 @@ public class ShortUrlController {
     @SuppressWarnings("rawtypes")
     public R setShortUrl(@RequestBody @Valid LongUrlReq request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return R.failed( Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+            return R.failed(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
-        String shortCode = shortUrlService.setShortUrl(request.getUrl());
-        return shortCode != null ? R.ok(shortCode):R.failed("请求失败,请重试");
+        String shortCode = shortUrlService.getShortUrl(request.getUrl());
+        if(shortCode != null){
+            return R.ok(shortCode);
+        }else{
+            log.error("请求url:" + request.getUrl());
+            return R.failed("请求失败,请重试");
+        }
+//        return shortCode != null ?  R.ok(shortCode): R.failed("请求失败,请重试");
     }
 
     @ApiOperation(value = "短域名获取长域名")
@@ -46,6 +52,6 @@ public class ShortUrlController {
             return R.failed("参数不能为空");
         }
         String url = shortUrlService.getUrl(shortCode);
-        return url != null ? R.ok(url):R.failed("该链接已失效");
+        return url != null ? R.ok(url) : R.failed("该链接不存在或已失效");
     }
 }

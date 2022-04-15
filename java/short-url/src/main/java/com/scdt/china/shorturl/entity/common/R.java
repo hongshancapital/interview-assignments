@@ -16,7 +16,7 @@
 
 package com.scdt.china.shorturl.entity.common;
 
-import com.scdt.china.shorturl.contants.CommonConstants;
+import com.scdt.china.shorturl.constant.CommonConstants;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

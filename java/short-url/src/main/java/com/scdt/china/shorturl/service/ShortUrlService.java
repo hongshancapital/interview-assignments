@@ -7,7 +7,7 @@ package com.scdt.china.shorturl.service;
  * @date：Created in 2022/4/12 11:10
  */
 public interface ShortUrlService {
-    String setShortUrl(String url);
+    String getShortUrl(String url);
 
     String getUrl(String code);
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.scdt.china.shorturl.contants;
+package com.scdt.china.shorturl.constant;
 
 /**
  * 基础常量定义
