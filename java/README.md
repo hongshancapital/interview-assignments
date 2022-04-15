@@ -21,7 +21,7 @@
    
    <br/>
 
-![架构设计.jpg](images/架构设计.jpg)
+![架构设计.jpg](images/架构设计.png)
 
 <br/>
 
