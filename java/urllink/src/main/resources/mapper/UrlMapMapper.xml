@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sequoia.urllink.dao.UrlMapMapper">
+    <!-- 数据库中的表名 -->
+    <sql id="tableName">url_map</sql>
+
+    <update id="incrementVisit" parameterType="string">
+        update
+        <include refid="tableName">
+        </include>set visit_count = visit_count + 1 where short_code = #{shortCode}
+    </update>
+</mapper>
