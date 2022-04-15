@@ -31,20 +31,18 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
         if (cache != null) {
             String cacheUrl = cache.get(shortCode, String.class);
-            //1、没有数据正常放入
-            //2、相等直接返回
-            //3、不相等就把url md5一遍进行判断
             if (StrUtil.isEmpty(cacheUrl)) {
                 cache.put(shortCode, url);
             } else if (url.equals(cacheUrl)) {
                 return shortCode;
             } else {
+                log.info("第二次加密:" + shortCode );
                 shortCode = ShortUrlGenerator.shortUrl(SecureUtil.md5(url));
                 cacheUrl = cache.get(shortCode, String.class);
                 //理论上不会有url.equals(cacheUrl)的情况，不考虑，不为空就返回null
                 if (StrUtil.isEmpty(cacheUrl)) {
                     cache.put(shortCode, url);
-                } else {//两次失败返回错误
+                } else {//两次都有冲突返回NULL
                     log.error("shortCode:" + shortCode );
                     log.error("cacheUrl:" + cacheUrl );
                     return null;

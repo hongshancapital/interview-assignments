@@ -35,13 +35,7 @@ public class ShortUrlController {
             return R.failed(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
         String shortCode = shortUrlService.getShortUrl(request.getUrl());
-        if(shortCode != null){
-            return R.ok(shortCode);
-        }else{
-            log.error("请求url:" + request.getUrl());
-            return R.failed("请求失败,请重试");
-        }
-//        return shortCode != null ?  R.ok(shortCode): R.failed("请求失败,请重试");
+        return shortCode != null ?  R.ok(shortCode): R.failed("请求失败,请重试");
     }
 
     @ApiOperation(value = "短域名获取长域名")
