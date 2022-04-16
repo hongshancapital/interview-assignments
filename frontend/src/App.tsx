@@ -6,27 +6,18 @@ function App() {
   const list: DataProps['list'] = [
     {
       class: 'iphone',
-      title: 'xPhone',
-      text: <>
-        <div>Lots to love.Less to spend.</div>
-        <div>Starting at $399.</div>
-      </>,
-      // url:iphone,
+      title: ['xPhone'],
+      text: ['Lots to love.Less to spend.','Starting at $399.']
     },
     {
       class: 'tablet',
-      title: 'Tablet',
-      text: 'Just the right amount of everything.',
-      // url:table,
+      title: ['Tablet'],
+      text: ['Just the right amount of everything.'],
     },
     {
       class: 'airpods',
-      title: <>
-        <div>Buy a Tablet or xPhone for college.</div>
-        <div>Get arPods.</div>
-      </>,
-      // url:airpods,
-    },
+      title: ['Buy a Tablet or xPhone for college.','Get arPods.'],
+    }
   ]
   return <div className="App">
     <Carousel list={list} time={3000} />

@@ -3,8 +3,8 @@ import './index.scss';
 
 export interface DataProps {
   list: {
-    title: string | ReactElement;
-    text?: string | ReactElement;
+    title: string[];
+    text?: string[];
     class: string;
     url?:string;
   }[];
@@ -24,10 +24,18 @@ const Carousel=(props:DataProps)=> {
   }, [len, time, index])
   return <div className='carousel-wrap' >
     {list.map((v,idx) =>(
-    <div className={`carousel-item ${idx === index ? 'active' : ''}`} key={v.url} style={{ transform: `translate3d(-${(index) * 100}%,0,0)` }}>
+    <div className={`carousel-item ${idx === index ? 'active' : ''}`} key={`carousel_${idx}`} style={{ transform: `translate3d(-${(index) * 100}%,0,0)` }}>
       <div className='item-wrapper'>
-        <div className='title'>{v.title}</div>
-        {v.text && <div className='text'>{v.text}</div>}
+        <div className='title'>
+            {v.title.map((v, idx) => (
+                <div key={`title_${idx}`}>{v}</div>
+            ))}
+        </div>
+        {v.text && <div className='text'>
+            {v.text.map((v, idx) => (
+                <div key={`text_${idx}`}>{v}</div>
+            ))}
+        </div>}
       </div>
 
       <div className={'img ' + v.class}></div>
@@ -35,7 +43,7 @@ const Carousel=(props:DataProps)=> {
     </div>))}
     <div className='dots-box'>
       {Array(len).fill('a').map((v, idx) => (
-        <div key={v+idx} className='dots-item' onClick={()=>{setIndex(idx++ % len)}}>
+        <div key={`progress_${idx}`} className='dots-item' onClick={()=>{setIndex(idx++ % len)}}>
           <div className={`progress ${idx === index ? 'active-pro':''}`}></div>
       </div>
       ))}
