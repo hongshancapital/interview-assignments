@@ -14,7 +14,7 @@ export class ConfigService {
   constructor(filePath?: string) {
     filePath = filePath || path.resolve(
       __dirname,
-      `../../../env/${
+      `../../../env/.${
         process.env.NODE_ENV
       }${
         process.env.SERVER_ENV ? '.' + process.env.SERVER_ENV : ''
