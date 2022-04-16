@@ -22,6 +22,7 @@ async function bootstrap() {
   });
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
+  // 统一 IP 访问限制，防止收到攻击
   app.use(
     rateLimit({
       windowMs: 5 * 60 * 1000, // 15 minutes

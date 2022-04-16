@@ -26,6 +26,7 @@ export class ShorturlEntity extends BaseEntity {
     comment: '原域名',
     type: 'varchar',
     length: 999,
+    // 长域名查重
     unique: true,
     nullable: false
   })
