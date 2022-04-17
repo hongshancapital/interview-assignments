@@ -30,16 +30,16 @@ interface CarouselProps {
 	onActiveIndexChange?: (index: number) => void
 }
 export interface IndicatorsProps {
-	activeIndex: number
-	count: number
-	duration: number
+	activeIndex?: number
+	count?: number
+	duration?: number
 	Indicator?: React.FC<IndicatorProps>
-	setActive: (index: number) => void
+	setActive?: (index: number) => void
 }
 export interface IndicatorProps {
-	active: boolean
-	animationDuration: number
-	onClick: () => void
+	active?: boolean
+	animationDuration?: number
+	onClick?: () => void
 }
 /**
  * 轮播图组件

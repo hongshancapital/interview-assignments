@@ -40,7 +40,8 @@ function App() {
 				autoplay={true}
 				generateIndicator={(props) => {
 					return ProcessIndicators(props)
-				}}>
+				}}
+				onActiveIndexChange={(index) => {}}>
 				{banners.map((item, index) => {
 					const { title, desc, img, color, background } = item
 					return (

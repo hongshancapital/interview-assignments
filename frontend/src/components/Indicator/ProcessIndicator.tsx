@@ -24,7 +24,7 @@ export const ProcessIndicators: React.FC<IndicatorsProps> = (
 							active={activeIndex === index}
 							animationDuration={duration}
 							onClick={() => {
-								setActive(index)
+								setActive && setActive(index)
 							}}
 							key={index}></Indicator>
 					)

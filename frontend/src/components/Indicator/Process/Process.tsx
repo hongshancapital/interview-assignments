@@ -3,19 +3,23 @@ import classnames from "classnames"
 import "./Process.scss"
 import { IndicatorProps } from "../../Carousel/Carousel"
 
-export const Process: React.FC<IndicatorProps> = (props: IndicatorProps) => {
+export const Process: React.FC<IndicatorProps> = ({
+	active = false,
+	animationDuration = 1000,
+	onClick,
+}: IndicatorProps) => {
 	const animationStyle = {
-		animationDuration: props.animationDuration + "ms",
+		animationDuration: animationDuration + "ms",
 	}
 	return (
 		<div
 			className='process-wrapper'
 			onClick={() => {
-				props.onClick && props.onClick()
+				onClick && onClick()
 			}}>
 			<div
 				className={classnames("process-inner", {
-					active: props.active,
+					active: active,
 				})}
 				style={animationStyle}></div>
 		</div>

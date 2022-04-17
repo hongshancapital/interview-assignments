@@ -2,11 +2,12 @@ import classNames from "classnames"
 import React, { useMemo } from "react"
 import "./Banner.scss"
 interface BannerProps {
-	title: string
+	title?: string
 	desc?: string
-	img: string
-	color: string
-	background: string
+	img?: string
+	color?: string
+	background?: string
+	className?: string
 }
 export const Banner: React.FC<BannerProps> = (props: BannerProps) => {
 	const bannerStyle = useMemo(() => {
@@ -18,15 +19,15 @@ export const Banner: React.FC<BannerProps> = (props: BannerProps) => {
 
 	return (
 		<div
-			className={classNames({
+			className={classNames(props.className, {
 				"banner-wrapper": true,
 			})}
 			style={bannerStyle}>
 			<div className='banner-info'>
-				<div className='title'>{props.title}</div>
-				<div className='desc'>{props.desc}</div>
+				<div className='banner-title'>{props.title}</div>
+				<div className='banner-desc'>{props.desc}</div>
 			</div>
-			<img className='img' src={props.img} alt='' />
+			<img className='banner-img' src={props.img} alt='' />
 		</div>
 	)
 }
