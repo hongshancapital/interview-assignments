@@ -1,9 +1,13 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react"
+import { render } from "@testing-library/react"
+import App from "./App"
+import "@testing-library/jest-dom"
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe("App", () => {
+	it("className default to carousel-viewport", () => {
+		const { container } = render(<App />)
+		expect(container.firstChild?.firstChild).toHaveClass(
+			"carousel-viewport"
+		)
+	})
+})
