@@ -1,0 +1,1 @@
+docker build -t url-converter-service-impl:1.0 -f Dockerfile ../
