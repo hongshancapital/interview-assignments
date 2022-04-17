@@ -1,10 +1,6 @@
 package com.example.shorturlservice.controller;
 
-import com.example.shorturlservice.domain.BStatusCode;
-import com.example.shorturlservice.domain.BizException;
-import com.example.shorturlservice.domain.QueryShortUrlRequest;
-import com.example.shorturlservice.domain.SaveLongUrlRequest;
-import com.example.shorturlservice.domain.SysResult;
+import com.example.shorturlservice.domain.*;
 import com.example.shorturlservice.service.ShortUrlService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -35,7 +31,7 @@ public class ShortUrlController {
     }
 
     @RequestMapping(value = "/saveLongUrl", method = RequestMethod.POST, produces = "application/json")
-    @ApiImplicitParam(paramType = "body", dataType = "SaveLongUrlRequest", name = "longUrlRequest", value = "长域名", required = true)
+    @ApiImplicitParam(paramType = "body", dataTypeClass = SaveLongUrlRequest.class, name = "longUrlRequest", value = "长域名", required = true)
     @ApiOperation(value = "长域名转换为短域名", notes = "接受长域名信息，返回短域名信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
     public SysResult saveLongUrl(@RequestBody SaveLongUrlRequest longUrlRequest) {
         SysResult result = new SysResult();
@@ -54,7 +50,7 @@ public class ShortUrlController {
     }
 
     @RequestMapping(value = "/getShortUrl", method = RequestMethod.POST, produces = "application/json")
-    @ApiImplicitParam(paramType = "body", dataType = "QueryShortUrlRequest", name = "shortUrlRequest", value = "短域名", required = true)
+    @ApiImplicitParam(paramType = "body", dataTypeClass = QueryShortUrlRequest.class, name = "shortUrlRequest", value = "短域名", required = true)
     @ApiOperation(value = "查询长域名信息", notes = "接受短域名信息，返回长域名信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
     public SysResult getShortUrl(@RequestBody QueryShortUrlRequest shortUrlRequest) {
 

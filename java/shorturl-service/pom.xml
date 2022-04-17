@@ -20,7 +20,6 @@
         <guava.version>31.1-jre</guava.version>
         <swagger.version>3.0.0</swagger.version>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
-        <!--<junit.platform.version>1.5.2</junit.platform.version>-->
         <fastjson.version>1.2.79</fastjson.version>
         <jacoco.version>0.8.7</jacoco.version>
         <junit.version>5.8.2</junit.version>
@@ -39,18 +38,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${springboot.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
             <version>${springboot.version}</version>
         </dependency>
 
@@ -102,17 +89,6 @@
             <version>${guava.version}</version>
         </dependency>
 
-        <!-- swagger -->
-        <!--<dependency>-->
-        <!--<groupId>io.springfox</groupId>-->
-        <!--<artifactId>springfox-swagger2</artifactId>-->
-        <!--<version>${swagger.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>io.springfox</groupId>-->
-        <!--<artifactId>springfox-swagger-ui</artifactId>-->
-        <!--<version>${swagger.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
