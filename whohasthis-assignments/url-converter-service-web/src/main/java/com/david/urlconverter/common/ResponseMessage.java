@@ -8,11 +8,11 @@ public class ResponseMessage<T> implements Serializable {
 	private static final long serialVersionUID = -6204226954703695065L;
 
 	@JsonInclude(value = JsonInclude.Include.NON_NULL)
-	private T data;   //响应数据
+	private T data;
 	@JsonInclude(value = JsonInclude.Include.NON_NULL)
-	private String code;  //响应数据代码
+	private String code;
 	@JsonInclude(value = JsonInclude.Include.NON_NULL)
-	private String msg;   //响应代码描述
+	private String msg;
 	@JsonInclude(value = JsonInclude.Include.NON_NULL)
 	private String shortUrl;
 	@JsonInclude(value = JsonInclude.Include.NON_NULL)

@@ -5,7 +5,6 @@ import com.david.urlconverter.service.dubbo.IUrlConverterIDRangeSOAService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
@@ -13,17 +12,18 @@ import javax.annotation.PostConstruct;
  *
  * @author whohasthis
  */
-@Service
+//juint test use
+//@Service
 @DubboService(version = "${urlConverter.service.version}")
 @Slf4j
 public class UrlConverterIDRangeSOAServiceImpl implements IUrlConverterIDRangeSOAService {
 
     private static final Long START_ID = 1000L;
 
-    //private static final Long MAX_ID = 218340105584895L;
+    private static final Long MAX_ID = 218340105584895L;
 
     //for junit test use small MAX_ID
-    private static final Long MAX_ID = 100000L;
+    //private static final Long MAX_ID = 100000L;
 
     @Value("${id.range.step}")
     private int stepRange;
@@ -43,8 +43,9 @@ public class UrlConverterIDRangeSOAServiceImpl implements IUrlConverterIDRangeSO
             Long endId = startId + stepRange;
             if(endId > MAX_ID){
                 //reinit currentStartId;
-                //log.info("reinit current start id");
-                System.out.println("reinit current start id");
+                log.info("reinit current start id");
+                //for local junit test use
+                //System.out.println("reinit current start id");
                 currentStartId = START_ID;
                 startId = currentStartId;
             }

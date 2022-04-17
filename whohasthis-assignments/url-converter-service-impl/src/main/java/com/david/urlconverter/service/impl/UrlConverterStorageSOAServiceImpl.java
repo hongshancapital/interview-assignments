@@ -5,13 +5,13 @@ import com.github.benmanes.caffeine.cache.Cache;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * @author whohasthis
  */
+//juint test use
+//@Service
 @DubboService(version = "${urlConverter.service.version}")
-@Service
 @Slf4j
 public class UrlConverterStorageSOAServiceImpl implements IUrlConverterStorageSOAService {
 
