@@ -1,0 +1,17 @@
+.dot-wrapper{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #aaa;
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 0.5;
+    &.active{
+        animation-name: backgroundChange;
+        background: rgba($color: #fff, $alpha: 1);
+        opacity: 1;
+        transition: opacity 1s;
+    }   
+
+    
+}

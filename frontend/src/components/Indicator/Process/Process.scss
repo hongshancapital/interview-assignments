@@ -1,0 +1,26 @@
+.process-wrapper{
+    width: 60px;
+    height: 100%;
+    background: #aaa;
+    cursor: pointer;
+    overflow: hidden;
+    .process-inner{
+        width: 100%;
+        height: 100%;
+        transform: translateX(-100%) ;
+        background: rgba($color: #fff, $alpha: 1);
+        animation-timing-function: linear;
+        &.active{
+            animation-name: progress;
+            transform: translateX(0);
+        }
+    }
+    @keyframes progress {
+        from {
+            transform: translateX(-100%) ;
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+}
