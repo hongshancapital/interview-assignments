@@ -1,0 +1,62 @@
+.sequoia-carousel-container {
+  width: 100%;
+  height: 100%;
+  .sequoia-carousel-list{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .sequoia-carousel-track {
+    transition: all .5s;
+    height: 100%;
+    &:after {
+      display: table;
+      content: "";
+      clear: both;
+    }
+  }
+
+  .sequoia-carousel-item {
+    float: left;
+    height: 100%;
+  }
+}
+
+.sequoia-carousel-dot-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  bottom: 80px;
+  margin: 0 auto;
+  list-style: none;
+  .sequoia-carousel-dot-item {
+    padding: 10px 0;
+    cursor: pointer;
+  }
+  .sequoia-carousel-dot {
+    position: relative;
+    margin: 0 4px;
+    height: 3px;
+    width: 60px;
+    border-radius: 1.5px;
+    background-color: #c1c1c1;
+    &:before {
+      content: "";
+      height: 100%;
+      background-color: #fff;
+      left: 0;
+      right: 100%;
+      position: absolute;
+      border-radius: 2px;
+    }
+  }
+  .active{
+    &:before {
+      right: 0;
+      transition: right 3s linear;
+    }
+  }
+}
