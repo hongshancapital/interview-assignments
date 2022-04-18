@@ -34,6 +34,9 @@ public class UrlService {
      */
     public String convertToLongUrl(String url) {
         Long number = EncodeUtil.getLongNumByShortUrl(url);
+        if(null == EncodeUtil.urlMap.get(number)){
+            log.warn("number not found,url:{}",url);
+        }
         return EncodeUtil.urlMap.get(number);
     }
 }

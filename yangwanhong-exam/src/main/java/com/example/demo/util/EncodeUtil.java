@@ -5,7 +5,6 @@ import com.googlecode.concurrentlinkedhashmap.Weighers;
 
 import java.util.Map;
 import java.util.Stack;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class EncodeUtil {
 
