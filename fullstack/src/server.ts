@@ -11,7 +11,7 @@ const Server: Express = express();
 const serverPort = process.env.SERVER_PORT || 6789;
 
 export const BaseUrl = process.env.BASE_URL || "x.xx/";
-export const ExpireTime = 10;
+export const ExpireTime = 3600;
 
 (async () => {
     // redis
