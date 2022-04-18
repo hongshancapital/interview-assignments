@@ -46,8 +46,7 @@ function Carousel ({ duration = 3000, delay = 300, children }: CarouselProps) {
     return () => {
       clearInterval(id)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [duration, items.length])
   return (
     <div ref={dotEl} className={styles.carouselContent}>
       <ul className={styles.carouselUl}>
