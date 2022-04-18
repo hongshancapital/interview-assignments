@@ -29,27 +29,27 @@ interface ICarouselProps {
     speed?: number;
 }
 
-const Carousel: FC<ICarouselProps> = ({autoplay=true, children, activeIndex,defaultIndex, onChange, speed= SPEED}) =>  {
+const Carousel: FC<ICarouselProps> = ({ autoplay = true, children, activeIndex, defaultIndex, onChange, speed = SPEED }) => {
     const len = React.Children.count(children);
     const timeRef = useRef(-1);
-    const [currentIndex, setCurrentIndex] = useMergedState<number>( 0, {
+    const [currentIndex, setCurrentIndex] = useMergedState<number>(0, {
         defaultValue: defaultIndex,
         value: activeIndex
     });
     const [playing, setPlaying] = useState(false);
-    const {listRef, winWidth} = useTrack()
-    useEffect(()=>{
+    const { listRef, winWidth } = useTrack()
+    useEffect(() => {
         autoplay && play();
         // eslint-disable-next-line
     }, [])
 
     function play() {
-        timeRef.current = window.setTimeout(()=>{
+        timeRef.current = window.setTimeout(() => {
             setCurrentIndex((index) => {
-                const value = (index + 1 ) % (len);
+                const value = (index + 1) % (len);
                 debugger;
                 onChange?.(value);
-                return  value
+                return value
             })
             autoplay && play();
         }, speed)
@@ -64,10 +64,10 @@ const Carousel: FC<ICarouselProps> = ({autoplay=true, children, activeIndex,defa
     return (
         <div className="sequoia-carousel-container">
             <div className="sequoia-carousel-list" ref={listRef}>
-                <div className="sequoia-carousel-track" style={{width: len * winWidth, transform: `translate3d(-${winWidth * currentIndex}px, 0px, 0px)`}}>
+                <div className="sequoia-carousel-track" style={{ width: len * winWidth, transform: `translate3d(-${winWidth * currentIndex}px, 0px, 0px)` }}>
                     {React.Children.map(children, (elem, index) => {
                         return (
-                            <div key={`carousel-item-${index}`} style={{ width: winWidth }} className={`sequoia-carousel-item ${currentIndex === index ? 'active-sequoia-carousel-item': ''}`}>
+                            <div key={`carousel-item-${index}`} style={{ width: winWidth }} className={`sequoia-carousel-item ${currentIndex === index ? 'active-sequoia-carousel-item' : ''}`}>
                                 {elem}
                             </div>
                         )

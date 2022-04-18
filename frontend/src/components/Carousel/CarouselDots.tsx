@@ -1,5 +1,5 @@
-import React, {ReactNode} from "react";
-import {SPEED} from "../utils";
+import React, { ReactNode } from "react";
+import { SPEED } from "../utils";
 import './style.scss';
 
 interface ICarouselDotsProps {
@@ -26,19 +26,19 @@ interface ICarouselDotsProps {
     speed?: number;
 }
 
-function CarouselDots({count, activeIndex, playing, onItemClick, speed=SPEED}: ICarouselDotsProps) {
+function CarouselDots({ count, activeIndex, playing, onItemClick, speed = SPEED }: ICarouselDotsProps) {
     const dots: ReactNode[] = [];
 
     function handleClick(index: number) {
         onItemClick?.(index);
     }
 
-    for(let i = 0; i< count; i++) {
+    for (let i = 0; i < count; i++) {
         const active = i === activeIndex && playing;
         const className = active ? 'sequoia-carousel-dot active' : 'sequoia-carousel-dot';
         const item = (
             <li role="dot" key={i} className="sequoia-carousel-dot-item" onClick={() => handleClick(i)} >
-                <div className={className} style={{transitionDuration: active ? `${speed}ms` : "unset"}} />
+                <div className={className} style={{ transitionDuration: active ? `${speed}ms` : "unset" }} />
             </li>
         );
         dots.push(item);
