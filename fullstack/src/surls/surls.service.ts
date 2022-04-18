@@ -62,10 +62,10 @@ export class SurlsService {
   async generateModel(longUrl: string, kword: string): Promise<SurlColumn> {
     let lurl = longUrl;
     const mm = murmurHash3.x64.hash128(lurl + kword);
-    const num = +('0x' + mm);
-    const murmurhashStr = parseInt(num.toString(2).slice(0,47), 2); 
+    const num = Number('0x' + mm);
+    const mmvalue = parseInt(num.toString(2).slice(0,47), 2); 
 
-    let surl = base62.encode(murmurhashStr);
+    let surl = base62.encode(mmvalue);
     const isExist = await this.checkUrlExist(surl);
 
     // 判断生成的 surl 是否重复
