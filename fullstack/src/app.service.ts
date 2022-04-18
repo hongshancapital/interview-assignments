@@ -20,7 +20,7 @@ export class AppService {
 
   async LongToShort(longUrl: string): Promise<string> {
     const shortUrl = await this.surlsService.LongToShort(longUrl);
-    return `Long url: ${shortUrl}`;
+    return `${shortUrl}`;
   }
 }
 

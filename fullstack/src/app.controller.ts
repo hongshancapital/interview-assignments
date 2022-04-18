@@ -6,20 +6,15 @@ import { Request } from 'express';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Get('/r/:surl')
-  @Redirect('https://docs.nestjs.com', 302)
-  async getLongUrl(@Req() request: Request) {
+  @Redirect('http://www.baidu.com', 302)
+  async getLongUrl(@Req() request: Request ) {
     const surl = request.params.surl;
-
     const longUrl = await this.appService.getLongUrl(surl);
 
     return {
       url: longUrl,
+      statusCode: 302
     };
   }
 

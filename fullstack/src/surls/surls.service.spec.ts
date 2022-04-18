@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { HttpException } from '@nestjs/common';
 import { getModelToken } from '@nestjs/sequelize';
 import { SurlsService } from './surls.service';
-import { SurlsModule } from './surls.module';
 import { Surl } from './surl.model';
 
 const surlsArray = [
@@ -60,4 +60,25 @@ describe('SurlsService', () => {
     const isValid = await service.isValidLongUrl('https://www.google.com');
     expect(isValid).toBe(true);
   })
+
+  it('should be invalid long url', async () => {
+    const isValid = await service.isValidLongUrl('google.com');
+    expect(isValid).toBe(false);
+  })
+
+  it('should be exist longurl', async () => {
+    const shortUrl1 = await service.LongToShort('https://www.google.com');
+    const shortUrl2 = await service.LongToShort('https://www.google.com');
+
+    expect(shortUrl1).toBe(shortUrl2);
+  })
+
+  it('should be throw bad response', async () => {
+    try {
+      const shortUrl = await service.LongToShort('google.com');
+    } catch (error) {
+      expect(error).toBeInstanceOf(HttpException)
+    }
+  })
+
 });

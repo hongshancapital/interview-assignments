@@ -15,10 +15,16 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('redirect short url (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .get('/r/LjWS')
+      .expect(302)
   });
+
+  it('save long url (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/l2s')
+      .send({ longUrl: 'https://www.google.com' })
+      .expect(201)
+  })
 });

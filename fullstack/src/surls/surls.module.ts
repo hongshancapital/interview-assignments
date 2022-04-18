@@ -6,6 +6,6 @@ import { SurlsService } from './surls.service';
 @Module({
   imports: [SequelizeModule.forFeature([Surl])],
   providers: [SurlsService],
-  exports: [SurlsService],
+  exports: [SurlsService]
 })
 export class SurlsModule {}
