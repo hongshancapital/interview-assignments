@@ -5,13 +5,7 @@ import Carousel from "../index";
 
 afterEach(cleanup);
 
-function delay(time: number) {
-    return new Promise((resolve)=>{
-        setTimeout(()=>{
-            resolve('done')
-        }, time)
-    })
-}
+jest.useFakeTimers();
 
 describe('Carousel', ()=> {
     it('测试渲染个数是否正确', ()=>{
@@ -32,19 +26,19 @@ describe('Carousel', ()=> {
         </Carousel>);
         expect(carousel.container.querySelectorAll('.active')).toHaveLength(1);
     })
-    it('onchange被调用', async ()=>{
-        await act(async ()=>{
-            const loadData = jest.fn();
-            render(<Carousel onChange={loadData}>
-                <div className="carousel"></div>
-                <div className="carousel"></div>
-                <div className="carousel"></div>
-            </Carousel>);
-
-            expect(loadData).not.toBeCalled();
-            await delay(4000);
-            expect(loadData).toBeCalled();
-        })
+    it('onchange被调用', ()=>{
+        const loadData = jest.fn();
+        render(<Carousel onChange={loadData}>
+            <div className="carousel"></div>
+            <div className="carousel"></div>
+            <div className="carousel"></div>
+        </Carousel>);
+        expect(loadData).not.toBeCalled();
+        act(() => {
+            jest.runOnlyPendingTimers();
+        });
+        expect(loadData).toBeCalled();
+        jest.clearAllTimers();
     })
     it('测试指定defaultIndex', ()=>{
         const carousel = render(<Carousel autoplay={false} defaultIndex={1}>
