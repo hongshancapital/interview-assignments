@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * @author andy.lhc
@@ -18,7 +20,7 @@ public class LongLinkParam implements Serializable {
      * 长链接
      * 【必选】
      */
-    @ApiModelProperty(value = "originLink", required = true, dataType = "String", name = "长链接")
+    @ApiModelProperty(value = "originLink", required = true, dataType = "String", name = "长链接", example = "https://www.github.com/test?key=2&key3=5")
     private String originLink;
 
     /**
@@ -35,4 +37,11 @@ public class LongLinkParam implements Serializable {
     @ApiModelProperty(value = "expireTime", required = true, dataType = "int", name = "过期时间（秒）", example = "86400")
     private int expireTime;
 
+    public String getOriginLink() {
+        try {
+            return URLDecoder.decode(this.originLink, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return this.originLink;
+        }
+    }
 }

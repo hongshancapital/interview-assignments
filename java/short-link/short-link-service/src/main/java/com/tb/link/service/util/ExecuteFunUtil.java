@@ -39,7 +39,8 @@ public class ExecuteFunUtil {
                     , JSON.toJSONString(request)
                     , se.getErrorCode()
                     , se.getErrorMsg()
-                    , se);
+                    , se
+            );
             return Result.fail(se.getErrorCode(), se.getErrorMsg());
         } catch (Throwable e) {
             log.error("ExecuteFunUtil|{}|with|StdRuntimeException|{}|{}|{}"
@@ -47,7 +48,8 @@ public class ExecuteFunUtil {
                     , JSON.toJSONString(request)
                     , ShortLinkErrorCodeEnum.SYSTEM_ERROR.getErrorCode()
                     , ShortLinkErrorCodeEnum.SYSTEM_ERROR.getErrorMsg()
-                    , e);
+                    , e
+            );
             return Result.fail(ShortLinkErrorCodeEnum.SYSTEM_ERROR);
         } finally {
             long rt = System.currentTimeMillis() - t1;

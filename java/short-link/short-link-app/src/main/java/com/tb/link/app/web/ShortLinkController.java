@@ -45,7 +45,7 @@ public class ShortLinkController {
     private ShortLinkService shortLinkService;
 
 
-    @ApiOperation(value = "生成短链")
+    @ApiOperation(value = "生成短链接")
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     @ApiResponses({@ApiResponse(code = 200, message = "OK", response = Result.class)})
     @ResponseBody
@@ -87,7 +87,7 @@ public class ShortLinkController {
         return Result.fail(result.getErrorCode(), result.getErrorMsg());
     }
 
-    @ApiOperation(value = "短链转长链")
+    @ApiOperation(value = "查询长链接")
     @ApiResponses({@ApiResponse(code = 200, message = "OK", response = Result.class)})
     @PostMapping(value = "/recover")
     @ResponseBody
@@ -122,6 +122,7 @@ public class ShortLinkController {
     }
 
 
+    /*
     @ApiOperation(value = "短链转长链-压测使用")
     @ApiResponses({@ApiResponse(code = 200, message = "OK", response = Result.class)})
     @PostMapping(value = "/recoverPersist")
@@ -145,6 +146,7 @@ public class ShortLinkController {
                 .collect(Collectors.toList());
         return Result.success(result);
     }
+     */
 
     @GetMapping(value = "/test")
     @ResponseBody

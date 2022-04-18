@@ -18,7 +18,7 @@ public class ShorLinkParam implements Serializable {
      * 短链接
      * 【必选】
      */
-    @ApiModelProperty(value = "shortLink",required = true,dataType = "String",name = "短链接")
+    @ApiModelProperty(value = "shortLink",required = true,dataType = "String",name = "短链接",example = "https://scdt.cn/abcd")
     private String shortLink ;
 
     /**
