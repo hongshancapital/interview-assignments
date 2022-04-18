@@ -14,7 +14,7 @@ struct AppListView: View {
         NavigationView {
             ZStack {
                 // not loaded data yet, show the loading view
-                if listViewModel.state == .notRequested || listViewModel.state == .loading {
+                if isInitialLoading {
                     ActivityIndicatorView(style: .large)
                         .onAppear {
                             listViewModel.loadMyApps()
@@ -22,10 +22,12 @@ struct AppListView: View {
                 } else {
                     List {
                         // app view
-                        ForEach(listViewModel.viewModels) { viewModel in
-                            AppInfoView(viewModel: viewModel)
-                                .listRowBackground(EmptyView())
-                                .listRowSeparator(.hidden)
+                        if let viewModels = listViewModel.viewModels {
+                            ForEach(viewModels) { viewModel in
+                                AppInfoView(viewModel: viewModel)
+                                    .listRowBackground(EmptyView())
+                                    .listRowSeparator(.hidden)
+                            }
                         }
                         // bottom view: loaidng more or no data tip
                         if listViewModel.state == .noMoreData {
@@ -56,6 +58,10 @@ struct AppListView: View {
             .navigationTitle("App")
         }
         .navigationViewStyle(.stack)
+    }
+    
+    var isInitialLoading: Bool {
+        return listViewModel.state == .notRequested || listViewModel.viewModels == nil
     }
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-let PageCount: UInt = 10
+let PageCount: Int = 10
 
 class AppListViewModel: ObservableObject {
     var sub: AnyCancellable?
@@ -22,9 +22,8 @@ class AppListViewModel: ObservableObject {
     
     var service: AppInfoServiceProtocol
     
-    @Published var viewModels: [AppInfoViewModel] = [AppInfoViewModel]()
+    @Published var viewModels: [AppInfoViewModel]?
     @Published var state: LoadingState = .notRequested
-    private var pageIndex: UInt = 0
     
     init(service: AppInfoServiceProtocol) {
         self.service = service
@@ -36,8 +35,9 @@ class AppListViewModel: ObservableObject {
             return
         }
         state = .loading
-        
-        sub = service.fetchMyApps(pageIndex: 0, count: PageCount).sink { subscribersCompletion in
+        //cancel the previous subscribe
+        sub?.cancel()
+        sub = service.fetchMyApps(startIndex: 0, count: PageCount).sink { subscribersCompletion in
             if let error = subscribersCompletion.error {
                 self.state = .failed(error)
             }
@@ -56,17 +56,17 @@ class AppListViewModel: ObservableObject {
         }
         state = .loading
         
-        service.fetchMyApps(pageIndex: pageIndex+1, count: PageCount).sink { subscribersCompletion in
+        //cancel the previous subscribe
+        sub?.cancel()
+        sub = service.fetchMyApps(startIndex: viewModels?.count ?? 0, count: PageCount).sink { subscribersCompletion in
             if let error = subscribersCompletion.error {
                 self.state = .failed(error)
             }
         } receiveValue: { apps in
             
-            self.viewModels.append(contentsOf: apps.map({ app in
+            self.viewModels?.append(contentsOf: apps.map({ app in
                 AppInfoViewModel(app: app)
-            }))
-            
-            self.pageIndex = self.pageIndex + 1
+            }))                        
             
             if (apps.count < PageCount) {
                 self.state = .noMoreData

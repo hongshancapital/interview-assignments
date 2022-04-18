@@ -12,9 +12,9 @@ protocol AppInfoServiceProtocol {
     
     /// get app list
     /// - Parameters:
-    ///   - pageIndex: page index
+    ///   - startIndex: start index
     ///   - count: max count of apps
-    func fetchMyApps(pageIndex:UInt, count:UInt) -> AnyPublisher<[AppInfo],Error>
+    func fetchMyApps(startIndex:Int, count:Int) -> AnyPublisher<[AppInfo],Error>
     
     
     /// update collected state
@@ -40,8 +40,7 @@ class AppInfoService: AppInfoServiceProtocol, WebUrlRequest {
     var bgQueue: DispatchQueue = DispatchQueue(label: "my_app_reuqest_queue")
     
     
-    func fetchMyApps(pageIndex: UInt, count: UInt) -> AnyPublisher<[AppInfo], Error> {
-        
+    func fetchMyApps(startIndex: Int, count: Int) -> AnyPublisher<[AppInfo], Error> {
         return call(api: API.appList)
     }
     
@@ -84,4 +83,5 @@ extension AppInfoService {
         }
         
     }
+    
 }

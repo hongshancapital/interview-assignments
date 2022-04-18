@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class MockedAppInfoService: AppInfoServiceProtocol {
-    func fetchMyApps(pageIndex: UInt, count: UInt) -> AnyPublisher<[AppInfo], Error> {
+    func fetchMyApps(startIndex: Int, count: Int) -> AnyPublisher<[AppInfo], Error> {
         return Just(AppInfo.mockedData).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
     

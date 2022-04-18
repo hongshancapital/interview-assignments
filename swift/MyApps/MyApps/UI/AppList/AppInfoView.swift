@@ -30,15 +30,15 @@ struct AppInfoView: View {
     @ObservedObject var viewModel: AppInfoViewModel
     
     var body: some View {
-        HStack{
+        HStack(spacing: 6) {
             RoundedCornerImage(
                 imageUrl: viewModel.app.artworkUrl100
             )
             .frame(width: 67, height: 67, alignment: .center)
-            
+                        
             AppIntroView(
                 title: viewModel.app.trackName,
-                detail: viewModel.app.description
+                detail: viewModel.app.description.replacingOccurrences(of: "\n", with: "")
             )
             
             CollectButton(isCollected: $viewModel.isCollected) {
@@ -48,12 +48,13 @@ struct AppInfoView: View {
         .padding(14)
         .background(Color(UIColor.white))
         .cornerRadius(10)
+        .frame(maxHeight: .infinity)
     }
 }
 
 
 struct AppInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        AppInfoView(viewModel: AppInfoViewModel(app: AppInfo.mockedData[0]))
+        AppInfoView(viewModel: AppInfoViewModel(app: AppInfo.mockedData[3]))
     }
 }
