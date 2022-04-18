@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 @RestController
 @RequestMapping(value = "/urlConvert")
 @Api(tags = "UrlConvert")
@@ -29,16 +26,9 @@ public class UrlConvertController {
 
     @ApiOperation(value = "短域名转换长域名", notes = "短域名转换长域名")
     @GetMapping("/convertToLongUrl")
-    public void convertToLongUrl(@ApiParam(value = "短域名") @RequestParam String url, HttpServletResponse
-                                response ) throws IOException {
+    public String convertToLongUrl(@ApiParam(value = "短域名") @RequestParam String url) {
         String longUrl =  urlService.convertToLongUrl(url);
-        System.out.println(longUrl);
-        response.sendRedirect(longUrl);
+        return longUrl;
 
-    }
-
-    @GetMapping("/redirectUrl")
-    public String redirectUrl() {
-        return "302 page";
     }
 }

@@ -1,5 +1,8 @@
 package com.example.demo.util;
 
+import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
+import com.googlecode.concurrentlinkedhashmap.Weighers;
+
 import java.util.Map;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,15 +15,9 @@ public class EncodeUtil {
     //数字+字母大小写一共62个
     public static final char[] array = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
 
-    //longUrl:id Map
-    public static Map<String,Long> longUrlIdMap= new ConcurrentHashMap<>();
-
-    //id:shortUrl Map
-    public static Map<Long,String> idShortUrlMap= new ConcurrentHashMap<>();
-
-
-    //shortUrl:longUrl Map
-    public static Map<String,String> urlMap= new ConcurrentHashMap<>();
+    //id:longUrl Map
+    public static Map<Long,String> urlMap= new ConcurrentLinkedHashMap.Builder<Long, String>()
+            .maximumWeightedCapacity(1000).weigher(Weighers.singleton()).build();
     /**
      * 将10进制数转为62进制字符串(短网址)
      *
@@ -68,20 +65,12 @@ public class EncodeUtil {
      * @param c
      * @return
      */
-    private static int valueOfCharacter(Character c) {
+    public static int valueOfCharacter(Character c) {
         for (int i = 0; i < array.length; i++) {
             if (c == array[i]) {
                 return i;
             }
         }
         return -1;
-    }
-
-    public static void main(String[] args) {
-        long id = 218340105584895L;
-        String shortUrl = EncodeUtil.getShortUrlByLongNum(id);
-        System.out.println(shortUrl);
-        Long longUrlId = EncodeUtil.getLongNumByShortUrl(shortUrl);
-        System.out.println(longUrlId);
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.StringUtils;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -33,7 +32,7 @@ public class ControllerTest {
 	@Test
 	public void getShortUrlTest() throws Exception {
 
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/urlConvert/getShortUrl?url=https://www.baidu.com/fasf"))
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/urlConvert/getShortUrl?url=https://www.baidu.com/fasf"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print())
 				.andReturn();
@@ -44,24 +43,28 @@ public class ControllerTest {
 
 	@Test
 	public void convertToLongUrl() throws Exception {
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/urlConvert/convertToLongUrl?url=https://www.baidu.com/fasf")
-				 .requestAttr("url","https://www.baidu.com/fasf"))
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/urlConvert/convertToLongUrl?url=https://www.baidu.com/fasf"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print())
 				.andReturn();
 	}
 
 	@Test
-	public void convertAndRedirect() throws Exception {
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/urlConvert/getShortUrl?url=https://www.baidu.com/fasf"))
+	public void convertShortAndLong() throws Exception {
+		String longUrl = "ggafasv123f4Gfasf";
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/urlConvert/getShortUrl?url="+longUrl))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print())
 				.andReturn();
 		String shortUrl = mvcResult.getResponse().getContentAsString();
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/urlConvert/convertToLongUrl?url="+shortUrl))
-				.andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+		mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/urlConvert/convertToLongUrl?url="+shortUrl))
+				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print())
 				.andReturn();
+
+		System.out.println(mvcResult.getResponse().getContentAsString());
+		Assert.assertTrue("转换错误",mvcResult.getResponse().getContentAsString().equals(longUrl));
+
 	}
 }

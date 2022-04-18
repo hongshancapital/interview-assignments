@@ -22,7 +22,7 @@ public class UrlService {
         log.info("id:{}-url:{}",id,url);
 
         String shortUrl = EncodeUtil.getShortUrlByLongNum(id);
-        EncodeUtil.urlMap.put(shortUrl,url);
+        EncodeUtil.urlMap.put(id,url);
 
         return shortUrl;
     }
@@ -33,6 +33,7 @@ public class UrlService {
      * @return
      */
     public String convertToLongUrl(String url) {
-        return EncodeUtil.urlMap.get(url);
+        Long number = EncodeUtil.getLongNumByShortUrl(url);
+        return EncodeUtil.urlMap.get(number);
     }
 }

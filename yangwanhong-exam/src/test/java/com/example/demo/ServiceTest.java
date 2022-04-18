@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.controller.UrlConvertController;
 import com.example.demo.service.UrlService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,21 +18,18 @@ public class ServiceTest {
 
 	@Test
 	public void getShortUrlTest() {
-		String longUrl = "https://www.baidu.com/hhh";
+		String longUrl = "dsadfG7hhh";
 		String shortUrl = urlService.getShortUrl(longUrl);
-		System.out.println(shortUrl);
 		Assert.assertTrue("短域名超出长度限制",shortUrl.length()<=8);
 
 		longUrl = urlService.convertToLongUrl(shortUrl);
-		System.out.println(longUrl);
 		Assert.assertTrue("解析错误", !StringUtils.isEmpty(longUrl));
 	}
 
 	@Test
 	public void convertToLongUrl() {
-		String shortUrl = "uhfs1234";
+		String shortUrl = "tAOu";
 		String longUrl = urlService.convertToLongUrl(shortUrl);
-		System.out.println(longUrl);
 		Assert.assertTrue("解析错误", !StringUtils.isEmpty(longUrl));
 	}
 }
