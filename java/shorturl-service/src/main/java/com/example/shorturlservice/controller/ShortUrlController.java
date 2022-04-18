@@ -1,6 +1,10 @@
 package com.example.shorturlservice.controller;
 
-import com.example.shorturlservice.domain.*;
+import com.example.shorturlservice.domain.BStatusCode;
+import com.example.shorturlservice.domain.BizException;
+import com.example.shorturlservice.domain.QueryShortUrlRequest;
+import com.example.shorturlservice.domain.SaveLongUrlRequest;
+import com.example.shorturlservice.domain.SysResult;
 import com.example.shorturlservice.service.ShortUrlService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

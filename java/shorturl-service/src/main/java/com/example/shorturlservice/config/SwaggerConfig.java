@@ -15,7 +15,6 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @Date 2022/04/15 17:49
  **/
 @Configuration
-//@EnableSwagger2
 public class SwaggerConfig {
     @Bean
     public Docket initSwaggerDocket() {
@@ -23,7 +22,6 @@ public class SwaggerConfig {
                 .apiInfo(getApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.shorturlservice.controller"))
-//                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build();
     }

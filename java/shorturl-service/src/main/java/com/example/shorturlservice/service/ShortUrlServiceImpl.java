@@ -21,7 +21,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
     private static final int MAX_LENGTH = 128;
     private static final float RATE = 5.0f;
-    private static final BiMap<String, String> urlWarehouseMap = HashBiMap.create();
+    private static BiMap<String, String> urlWarehouseMap = HashBiMap.create();
     private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
 
@@ -29,8 +29,8 @@ public class ShortUrlServiceImpl implements ShortUrlService {
     public String saveLongUrl(String longUrl) throws BizException {
         Lock write = readWriteLock.writeLock();
         String shortUrl = "";
+        write.lock();
         try {
-            write.lock();
             if (!StringUtils.hasLength(longUrl)) {
                 throw new BizException(BStatusCode.PARAM_NULL.getCode(), BStatusCode.PARAM_NULL.getDes());
             }
@@ -78,8 +78,8 @@ public class ShortUrlServiceImpl implements ShortUrlService {
     public String getShortUrl(String shortUrl) {
         Lock read = readWriteLock.readLock();
         String longUrl;
+        read.lock();
         try {
-            read.lock();
             longUrl = urlWarehouseMap.inverse().get(shortUrl);
         } finally {
             read.unlock();
