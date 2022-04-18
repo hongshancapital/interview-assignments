@@ -2,9 +2,8 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Surl } from './surl.model';
 import { createClient } from 'redis';
-const murmurhash = require("murmurhash");
+const murmurHash3 = require('murmurhash3js');
 const base62 = require("base62");
-
 let client = null;
 
 async function bloomFiter() {
@@ -21,7 +20,7 @@ async function bloomFiter() {
   }
 }
 
-// bloomFiter()
+bloomFiter()
 
 const KEYWORD = 'helloworld';
 interface SurlColumn {
@@ -62,7 +61,10 @@ export class SurlsService {
 
   async generateModel(longUrl: string, kword: string): Promise<SurlColumn> {
     let lurl = longUrl;
-    const murmurhashStr = '' + murmurhash.v3(lurl, kword);
+    const mm = murmurHash3.x64.hash128(lurl + kword);
+    const num = +('0x' + mm);
+    const murmurhashStr = parseInt(num.toString(2).slice(0,47), 2); 
+
     let surl = base62.encode(murmurhashStr);
     const isExist = await this.checkUrlExist(surl);
 
@@ -161,6 +163,7 @@ export class SurlsService {
     if(this.isValidLongUrl(longUrl)) {
       const isExist = await this.checkUrlExist(longUrl);
       if(!isExist) {
+        await await client.bf.add('bf', longUrl);
         const { surl, longUrl: lurl, kword } = await this.generateModel(longUrl, '');
         try {
           await client.bf.add('bf', surl);
