@@ -29,6 +29,13 @@ node:   v16.13.1
 
 - 接口异常说明
 
+  | 接口名称      | 异常网络代码 | 异常触发条件说明               | 返回示例                                                     |
+  | ------------- | ------------ | ------------------------------ | ------------------------------------------------------------ |
+  | long-to-short | 400          | 要转换的长域名未通过格式校验。 | {"error": {"code": -1, "msg": "Wrong long name!"}}           |
+  |               | 400          | query请求格式不正确。          | {"message": "Bad Request!"}                                  |
+  | short-to-long | 400          | 查询的短域名未通过格式校验。   | {"error": {"code": -3, "msg": "Wrong shortDomain!"}}         |
+  |               | 400          | 查询的短域名已失效。           | {"error": {"code": -4, "msg": "Request short name is invalid, Please generate again!"}} |
+  
   
 
 ## 系统假设
