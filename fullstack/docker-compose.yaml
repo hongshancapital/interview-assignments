@@ -1,0 +1,14 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: "interview-assignment-redis"
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./
+    container_name: "interview-assignment-backend"
+    ports:
+      - "6789:6789"
+    links:
+      - redis:interview-assignment-redis
