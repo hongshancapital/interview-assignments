@@ -6,20 +6,20 @@
 
 ## 开放岗位
 
-武汉/三亚：
+武汉：
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
 - [Java](java/)
 
-~~北京/武汉:~~
-~~- [UI 设计师](design/)~~
+北京/武汉:
+- [UI 设计师](design/)
 
 北京/香港/深圳：
 - [IT Support Engineer](it-support-engineer/)
 
-~~北京：~~
-~~- [DevOps](dev-ops/)~~
+北京：
+- [DevOps](dev-ops/)  
 
 链接中有更为具体的 JD。
 
@@ -52,11 +52,11 @@ Please find your assignment in subfolder accordingly.
 
 设计：Figma
 
-前端：TypeScript + React
+前端: TypeScript + React
 
-后端：TypeScript + Express
+后端: TypeScript + Express
 
-移动端：SwiftUI
+移动端: SwiftUI
 
 如此激进的选择得益于完善的设备管理以及项目所处的阶段，你不用花大量时间处理不同设备的兼容问题或陈旧的代码，只需要关注技术本身。
 
@@ -104,8 +104,9 @@ Please find your assignment in subfolder accordingly.
 
 没关系。我们并不需要你的经历 100% 匹配上文提到的技术栈，如果你有三年以上（可以有例外）技术相关的工作经历，并愿意：
 
-1. 花一些时间学习并做一份简单的作业
-2. 面试来进一步确认我们的岗位符合你的预期
+1. 要求 FE/BE 熟练掌握 TS；iOS 工程师需要熟练掌握 SwiftUI。我们会在面试时考察。没有相关项目经验也可以，*学习能力也是杰出工程师的特征之一，我们相信你能在合理的时间内准备好相应的技能*，这不会很难。
+2. 花一些时间学习并做一份简单的作业
+3. 面试来进一步确认我们的岗位符合你的预期
 
 我们随时欢迎你的到来。
 
