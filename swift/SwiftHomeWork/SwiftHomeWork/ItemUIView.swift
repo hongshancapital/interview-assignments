@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
-
+/*
+ 
+ */
 struct ItemUIView: View {
 
     var item: Entity
@@ -15,6 +17,7 @@ struct ItemUIView: View {
 
     var body: some View {
         HStack {
+            //todo：AsyncImage 增加缓存
             AsyncImage.init(url: URL.init(string: item.artworkUrl60), scale: 1) { image in
                 image
             } placeholder: {

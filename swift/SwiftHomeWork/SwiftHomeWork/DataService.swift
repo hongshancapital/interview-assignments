@@ -9,7 +9,7 @@ import Foundation
 
 protocol AppService {
     func refresh() async throws -> [Entity]
-    func loadMore() async throws -> [Entity]
+    func loadMore() async throws -> (entities :[Entity],isEnd :Bool)
 }
 
 enum Err: Error, LocalizedError {
@@ -67,6 +67,8 @@ class MockNetService: AppService {
 
     let pageSize = 20
 
+    var pageIndex = 0
+    
     func getMockData() async throws -> [Entity] {
         if mockData.isEmpty {
             mockData = try await getData().results
@@ -88,12 +90,22 @@ class MockNetService: AppService {
     }
 
     func refresh() async throws -> [Entity] {
-        let data = try await getMockData()
-        return Array(data.prefix(self.pageSize))
+        pageIndex = 0
+        return try await getItems(pageIndex, size: pageSize)
     }
 
-    func loadMore() async throws -> [Entity] {
+    //todo: 这里的pageIndex处理下，每次都会+1
+    func loadMore() async throws -> (entities :[Entity],isEnd :Bool){
+        pageIndex += 1
+        let items = try await getItems(pageIndex, size: pageSize)
+        let expect = pageIndex * pageSize
+        return (items,items.count < expect)
+    }
+    
+    func getItems(_ index:Int,size:Int) async throws -> [Entity] {
         let data = try await getMockData()
-        return Array(data.prefix(self.pageSize*2))
+        let start = size*index
+        let limit = size*(index+1)
+        return Array(data[start..<limit])
     }
 }
