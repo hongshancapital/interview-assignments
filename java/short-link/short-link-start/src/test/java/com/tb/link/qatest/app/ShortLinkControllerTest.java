@@ -54,9 +54,30 @@ public class ShortLinkControllerTest {
         Assertions.assertEquals(result.getErrorMsg(), null);
     }
 
+    /**
+     * appKey is null 生成短链正确case
+     */
+    @Test
+    public void testCreateShortLinkOfAppkeyIsNull() {
+        Result<ShortLinkVO> result = createOfAppKeyIsNull();
+        log.info("testCreateShortLink|data:{}", result.getData());
+        Assertions.assertTrue(result.isSuccess());
+        Assertions.assertTrue(result.getData() != null);
+        Assertions.assertEquals(result.getErrorCode(), null);
+        Assertions.assertEquals(result.getErrorMsg(), null);
+    }
+
     private Result<ShortLinkVO> create() {
         LongLinkParam linkParam = new LongLinkParam();
         linkParam.setAppKey("common");
+        linkParam.setExpireTime(100);
+        linkParam.setOriginLink("https://www.github.com/test?key=2&key3=5");
+        return shortLinkController.createShortLink(httpServletRequest, linkParam);
+    }
+
+    private Result<ShortLinkVO> createOfAppKeyIsNull() {
+        LongLinkParam linkParam = new LongLinkParam();
+        linkParam.setAppKey("");
         linkParam.setExpireTime(100);
         linkParam.setOriginLink("https://www.github.com/test?key=2&key3=5");
         return shortLinkController.createShortLink(httpServletRequest, linkParam);
@@ -102,6 +123,26 @@ public class ShortLinkControllerTest {
     public void testRecoverOriginLink() {
 
         Result<ShortLinkVO> result = create();
+        log.info("testRecoverOriginLink|data:{}", result.getData());
+
+        ShorLinkParam linkParam = new ShorLinkParam();
+        linkParam.setAppKey("common");
+        linkParam.setShortLink(result.getData().getShortLink());
+        Result<ShortLinkOriginVO> result1 = shortLinkController.recoverShortLink(httpServletRequest, linkParam);
+        log.info("testRecoverOriginLink|data1:{}", result1.getData());
+        Assertions.assertTrue(result.isSuccess());
+        Assertions.assertTrue(result1.getData() != null);
+        Assertions.assertEquals(result1.getErrorCode(), null);
+        Assertions.assertEquals(result1.getErrorMsg(), null);
+    }
+
+    /**
+     * 短链转长链正确case
+     */
+    @Test
+    public void testRecoverOriginLinkOfAppKeyIsNull() {
+
+        Result<ShortLinkVO> result = createOfAppKeyIsNull();
         log.info("testRecoverOriginLink|data:{}", result.getData());
 
         ShorLinkParam linkParam = new ShorLinkParam();
