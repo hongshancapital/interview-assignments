@@ -8,18 +8,14 @@ import CarouselItem3 from "./Carousel/item3";
 function App() {
   return <div className="App"> 
     <Carousel 
-      children={[
-        <CarouselItem1 key={1}/>,
-        <CarouselItem2 key={2}/>,
-        <CarouselItem3 key={3}/>]}
+      carouseItemList={[
+        <CarouselItem1 />,
+        <CarouselItem2 />,
+        <CarouselItem3 />]}
       duration={1000}
       delay={3000}
     />
   </div>;
-}
-
-function getChild(url:string){
-  return<img src={url} alt="" key={url}></img>
 }
 
 export default App;

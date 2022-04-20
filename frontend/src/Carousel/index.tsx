@@ -2,14 +2,14 @@ import React, { ReactElement, useCallback, useEffect, useRef, useState } from "r
 import './index.css'
 
 interface CarouselProps {
-    children: Array<ReactElement>, // 子元素列表
+    carouseItemList: Array<ReactElement>, // 子元素列表
     duration: number, // 动画时长
     delay:number // 延迟时长
 }
 
 export default function Carousel(props: CarouselProps) {
 
-    const { children, duration, delay } = props
+    const { carouseItemList, duration, delay } = props
 
     const [position, setPosition] = useState(0)
 
@@ -55,7 +55,7 @@ export default function Carousel(props: CarouselProps) {
         translateCarouselItem()
         translateIndicator()
         let nextP = position + 1
-        if(nextP >= children.length) {
+        if(nextP >= carouseItemList.length) {
             nextP = 0
         }
         if(timeoutRef.current) {
@@ -69,8 +69,9 @@ export default function Carousel(props: CarouselProps) {
                 clearTimeout(timeoutRef.current)
             }
         }
-    },[position, children, delay, duration, translateCarouselItem, translateIndicator])
+    },[position, carouseItemList, delay, duration, translateCarouselItem, translateIndicator])
 
+    // carouseFrame样式
     const carouselFrameStyle = {
         transitionDuration: `${duration/1000}s`,
         transitionTimingFunction: "ease",
@@ -78,15 +79,16 @@ export default function Carousel(props: CarouselProps) {
 
     return <div className="carousel">
         <div ref={carouselFrameRef} className="carousel-frame" style={carouselFrameStyle}>
-        {children.map((item, index) => {
+            {/* 轮播图 */}
+        {carouseItemList.map((item, index) => {
             const translatex = index * 100
-            // 设置item位置
             const styles = {transform: `translate(${translatex}%, 0px)`}
             return <div className="carousel-frame-item" style={styles} key={index}>{item}</div>
         })}
         </div>
+        {/* 指示器 */}
         <div className="indicator-wrap" ref={indicatorWrapRef}>
-            {children.map((_, index) => {
+            {carouseItemList.map((_, index) => {
                 return <div key={index} className="indicator">
                     <div className="indicator-child"/>
                 </div>
