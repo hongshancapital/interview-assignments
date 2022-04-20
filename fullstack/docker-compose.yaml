@@ -23,6 +23,9 @@ services:
     container_name: "interview-assignment-backend"
     ports:
       - "6789:6789"
+    environment:
+      REDIS_URL: redis://interview-assignment-redis:6379
+      POSTGRES_HOST: interview-assignment-postgres
     links:
       - redis:interview-assignment-redis
       - postgres:interview-assignment-postgres

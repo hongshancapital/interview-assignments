@@ -6,10 +6,12 @@ RUN npm install -g yarn --force
 
 COPY package*.json .
 
-RUN yarn install
+RUN yarn config set registry https://registry.npm.taobao.org --global && \
+    yarn config set disturl https://npm.taobao.org/dist --global && \
+    yarn install
 
 COPY . /app
 
 RUN yarn build
 
-ENTRYPOINT ["env", "REDIS_URL=redis://redis:6379", "/usr/local/bin/node", "/app/dist/server.js"]
+ENTRYPOINT ["/usr/local/bin/node", "/app/dist/server.js"]

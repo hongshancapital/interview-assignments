@@ -1,59 +1,43 @@
 import * as redis from "redis";
-import {ShorterListGenerator} from "./generate_shorter";
-import {BaseUrl, ExpireTime} from "../server";
+import {BASE_URL, EXPIRE_TIME, GENERATOR_KEY} from "../server";
+import {GetMainFrameLastShort} from "./postgres_setup";
+import assert from "assert";
+import {GetNextShorterByCurrent} from "./generate_shorter";
 
-console.log(process.env.REDIS_URL)
-export const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
-export const client = redis.createClient({url: redisUrl});
 
-// 上游构件，此处不需模拟测试
-client.on('error', (err) => {
-    console.log('Redis Client Error', err);
-});
+const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
+export const RedisClient = redis.createClient({url: REDIS_URL});
+
+// 这里同样属于上游组件，业务不应在此处做任何限制
+// RedisClient.on('error', (err) => {
+//     console.log('Redis Client Error', err);
+// });
 
 (async () => {
-    await client.connect();
-
-    await client.configSet("notify-keyspace-events", "Ex");
-    const sub = client.duplicate();
-    await sub.connect();
-    await sub.subscribe("__keyevent@0__:expired", MrProper);
+    await RedisClient.connect();
 }) ();
 
-export async function SyncShortToRedis() {
-    const synSym = await client.exists("shortname-generator");
+export async function SyncGeneratorToRedis() {
+    const synSym = await RedisClient.exists(GENERATOR_KEY);
     if (synSym === 0) {
-        console.log(`[server]: syncing redis data, may take a few minutes, please wait`)
-
-        const ids = ShorterListGenerator();
-        for (let i in ids) {
-            await client.sendCommand(["RPUSH", "shortname-generator", ids[i]]);
-
-            if (parseInt(i) % 10000 === 0) {
-                console.log(`[server]: sync redis data progress: ${i}/${ids.length}`);
-            }
-        }
-
-        console.log(`[server]: sync redis data progress: ${ids.length}/${ids.length}`);
+        let currentShorter = await GetMainFrameLastShort();
+        await RedisClient.set(GENERATOR_KEY, currentShorter)
     }
 }
 
-export async function MrProper(key: string) {
-    const recycle = key.replace(BaseUrl, "");
-    await client.rPush('shortname-generator', recycle);
-}
+export async function DispatchShort(longName: string) {
+    const current = await RedisClient.get(GENERATOR_KEY);
+    // 不对上游做任何形式的验证
+    assert(current);
 
-export async function GetLongNameFromRedis(longName: string) {
-    let shorter = await client.hGet('generated-longname', longName)
-    const shorterExists = shorter? await client.EXISTS(shorter) : 0;
+    const next = GetNextShorterByCurrent(current);
+    await RedisClient.multi()
+        .set(current, longName,{EX: EXPIRE_TIME})
+        .set(GENERATOR_KEY, next)
+        .exec();
 
-    if (!shorter || shorterExists === 0) {
-        const geneShorter = await client.lPop("shortname-generator");
-        shorter = BaseUrl + geneShorter;
-
-        await client.set(shorter, longName, {EX: ExpireTime});
-        await client.hSet("generated-longname", longName, shorter);
-    }
-
-    return shorter;
+    return {
+        longDomain: longName,
+        shortDomain: BASE_URL + current
+    };
 }

@@ -1,20 +1,46 @@
-export const GENERATE_LENGTH = 3;
-export const Alphabet: string[] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-   "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "~", "-", "_"];
+import {Alphabet, GENERATE_LENGTH, MAINFRAME_CODE} from "../server";
+import assert from "assert";
 
-export function ShorterListGenerator() {
-    let ids: string[] = [];
-    pickupChar(ids, 0, "");
-
-    return ids;
+function pickUpCarryOver(coord: number[], start: number) {
+    if (coord[start] < Alphabet.length - 1) {
+        coord[start] += 1;
+        for (let i = start + 1; i <= GENERATE_LENGTH - MAINFRAME_CODE.length - 1; i++) {
+            coord[i] = 0;
+        }
+    } else {
+        pickUpCarryOver(coord, start - 1)
+    }
 }
 
-function pickupChar(ids: string[], depth: number, id: string) {
-    for (let c of Alphabet) {
-        if (depth === GENERATE_LENGTH - 1) {
-            ids.push(id + c);
-        } else {
-            pickupChar(ids, depth + 1, id + c)
+export function GetNextShorterByCurrent(currentName: string) {
+    if (!currentName || currentName === "") {
+        let generate = "";
+        for (let i = 0; i < GENERATE_LENGTH - MAINFRAME_CODE.length; i++) {
+            generate += Alphabet[0];
         }
+
+        return MAINFRAME_CODE + generate;
     }
+
+    // 将当前的短域名解析为“座标”数组,并断言一个很难发生的边界
+    let coord : number[] = []
+    let pureName = currentName.substring(MAINFRAME_CODE.length);
+    let sum = 0;
+    for (let i of pureName) {
+        const pos = Alphabet.indexOf(i);
+        coord.push(pos);
+        sum += pos;
+    }
+    assert(sum < coord.length * (Alphabet.length - 1))
+
+    // 通过座标数组的“进位”算法，获取下一个短域名的座标
+    pickUpCarryOver(coord, pureName.length - 1);
+
+    // 翻译座标为实际的短域名
+    let next = "";
+    for (let i of coord) {
+        next += Alphabet[i];
+    }
+
+    return MAINFRAME_CODE + next;
 }
