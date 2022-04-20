@@ -11,15 +11,15 @@ function App() {
       children={[
         getChild(tabletImg),
         getChild(iphoneImg),
-        getChild(airpodsImg)]
-      }
-      interval={2000}
+        getChild(airpodsImg)]}
+      duration={1000}
+      delay={3000}
     />
   </div>;
 }
 
 function getChild(url:string){
-  return<img src={url}></img>
+  return<img src={url} alt="" key={url}></img>
 }
 
 export default App;
