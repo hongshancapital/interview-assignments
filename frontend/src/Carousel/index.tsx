@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from "react";
-import './Carousel.css'
+import './index.css'
 
 interface CarouselProps {
     children: Array<ReactElement>, // 子元素列表
@@ -19,6 +19,7 @@ export default function Carousel(props: CarouselProps) {
     // 指示器引用
     const indicatorWrapRef = useRef(null)
 
+    // 指示器执行动画
     const translateIndicator = useCallback(()=> {
         if(indicatorWrapRef.current) {
             const indicatorWrap = indicatorWrapRef.current as HTMLElement
@@ -37,6 +38,7 @@ export default function Carousel(props: CarouselProps) {
         }
     },[delay,duration, position])
 
+    // item执行轮播动画
     const translateCarouselItem = useCallback(()=>{
         if(carouselFrameRef.current) {
             const ele = carouselFrameRef.current as HTMLElement
@@ -48,6 +50,7 @@ export default function Carousel(props: CarouselProps) {
     // timeout引用
     const timeoutRef = useRef(setTimeout(()=>{}))
 
+    // 当position发生变化，执行轮播动画
     useEffect(()=>{
         translateCarouselItem()
         translateIndicator()
@@ -71,7 +74,6 @@ export default function Carousel(props: CarouselProps) {
     const carouselFrameStyle = {
         transitionDuration: `${duration/1000}s`,
         transitionTimingFunction: "ease",
-        transitionDelay: `${delay/1000}s`
     }
 
     return <div className="carousel">
