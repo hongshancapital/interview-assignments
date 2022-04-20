@@ -10,8 +10,18 @@ dotenv.config();
 const Server: Express = express();
 const serverPort = process.env.SERVER_PORT || 6789;
 
-export const BaseUrl = process.env.BASE_URL || "x.xx/";
-export const ExpireTime = 3600;
+export const MAINFRAME_CODE = process.env.MAINFRAME_CODE || "AA";
+export const GENERATE_LENGTH = process.env.GENERATE_LENGTH ? parseInt(process.env.GENERATE_LENGTH) : 8;
+
+export const BASE_URL = process.env.BASE_URL || "x.xx/";
+
+export const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
+export const EXPIRE_TIME = 3600;
+export const GENERATOR_KEY = MAINFRAME_CODE + "-current-shortname";
+
+
+export const Alphabet: string[] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+    "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 (async () => {
     // redis
@@ -29,7 +39,6 @@ export const ExpireTime = 3600;
     Server.get('/short-to-long', GetLongByShorter);
 
     Server.listen(serverPort, () => {
-        console.log(`[server]: sync redis data complete!`);
         console.log(`[server]: server is running at https://localhost:${serverPort}`);
     });
 

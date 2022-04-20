@@ -1,6 +1,19 @@
 services:
+  postgres:
+    build: ./postgres
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: interview-assignment
+      POSTGRES_DB: interview-assignment
+      POSTGRES_PASSWORD: interview-assignment
+      LC_CTYPE: "zh_CN.utf8"
+    container_name: "interview-assignment-postgres"
+    ports:
+      - "5432:5432"
+
   redis:
-    image: redis:latest
+    image: redis:6
     container_name: "interview-assignment-redis"
     ports:
       - "6379:6379"
@@ -12,3 +25,4 @@ services:
       - "6789:6789"
     links:
       - redis:interview-assignment-redis
+      - postgres:interview-assignment-postgres
