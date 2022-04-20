@@ -4,12 +4,12 @@ import { config, params } from './config';
 import './index.scss';
 
 const Carousel: FunctionComponent = () => {
-    const sliders: JSX.Element[] = config.map(({ title, text }: params, index: number) => {
-        const imgSrc = require(`../../assets/img-${index}.png`);
+    const sliders: JSX.Element[] = config.map(({ title, text, imgSrc }: params, index: number) => {
+
         return (
             <div
                 className={`slider slider_${index}`}
-                style={{ backgroundImage: `url(${imgSrc})` }}
+                style={{ backgroundImage: `url("${imgSrc}")` }}
                 key={index}
             >
                 <h1 className="title">{title}</h1>
