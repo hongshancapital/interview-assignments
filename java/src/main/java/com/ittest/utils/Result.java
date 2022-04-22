@@ -1,5 +1,7 @@
 package com.ittest.utils;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,19 +10,23 @@ import lombok.Data;
  * @Description: 结果封装类
  */
 @Data
+@ApiModel("http请求返回结果对象")
 public class Result<T> {
 
     /**
      * 结构响应吗
      */
+    @ApiModelProperty("错误码")
     private int code;
     /**
      * 结果响应消息
      */
+    @ApiModelProperty("错误消息")
     private String message;
     /**
      * 结果返回值
      */
+    @ApiModelProperty("数据")
     private T data;
 
     /**

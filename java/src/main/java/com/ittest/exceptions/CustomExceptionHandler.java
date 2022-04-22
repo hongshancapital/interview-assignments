@@ -1,4 +1,4 @@
-package com.ittest.exeception;
+package com.ittest.exceptions;
 
 import com.ittest.utils.Result;
 import lombok.extern.slf4j.Slf4j;

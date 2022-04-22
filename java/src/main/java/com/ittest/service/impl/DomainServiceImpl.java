@@ -1,7 +1,9 @@
 package com.ittest.service.impl;
 
 import com.ittest.service.DomainService;
+import com.ittest.utils.UrlGenerateUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 import java.util.Random;
@@ -29,13 +31,13 @@ public class DomainServiceImpl implements DomainService {
     @Override
     public String storage(String longDomain) {
         // 1.随机生成字符串 根据a-z,A-Z,0-9随机生成
-        String shortDomain = getRandomString();
+        String shortDomain = UrlGenerateUtil.generate("abc",8,longDomain);
         // 2.存储
         // 要求存储在jvm中即可，实际上存在redis中会更好点，如果流量太大了，必须采用服务器集群，放在jvm中,会存在session不一致问题
-//      while (!StringUtils.isEmpty(map.get(shortDomain))) {
-//            如果碰到重复的短域名，则重新生成一个,不要覆盖之前的，正常情况下这里不会出现太多次重复
-//            shortDomain = getRandomString();
-//       }
+        while (!StringUtils.isEmpty(map.get(shortDomain))) {
+            //如果碰到重复的短域名，则重新生成一个,不要覆盖之前的，正常情况下这里不会出现太多次重复
+            shortDomain = UrlGenerateUtil.generate("abc",8,longDomain);
+        }
         map.put(shortDomain, longDomain);
         System.out.println(map.size());
         return shortDomain;
@@ -53,13 +55,4 @@ public class DomainServiceImpl implements DomainService {
         return map.get(shortDomain);
     }
 
-    private static String getRandomString() {
-        char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < LENGTH; i++) {
-            sb.append(chars[random.nextInt(62)]);
-        }
-        return sb.toString();
-    }
 }

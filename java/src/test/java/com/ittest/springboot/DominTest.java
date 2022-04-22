@@ -78,7 +78,7 @@ public class DominTest {
         list.add("http://sms-admin-test.jiezhansifang.com/query/sms-list");
         list.add("https://www.bilibili.com/video/BV1rL4y1u74D?p=2");
         Random random = new Random(10);
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10000; i++) {
             executorService.execute(() -> {
                 try {
                     String shortDomain = domainService.storage(list.get(random.nextInt(10)) + System.currentTimeMillis());
@@ -91,14 +91,14 @@ public class DominTest {
             });
         }
         Long end = System.currentTimeMillis();
-        countDownLatch.await();
+        //countDownLatch.await();
         System.out.println("1w并发存入长连接的集合大小：" + result.size());
         System.out.println("1w并发存入长连接花费时间：" + (end - start));
         // 睡眠5秒观察日志
         Thread.sleep(5000);
 
         Long transforStart = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10; i++) {
             executorService.execute(() -> {
                 try {
                     String shortDomain = domainService.transfor(result.get(random.nextInt(result.size())));
@@ -128,7 +128,7 @@ public class DominTest {
         list.add("https://chijiweb.eiyoo123.cn/#/index");
         list.add("http://sms-admin-test.jiezhansifang.com/query/sms-list");
         list.add("https://www.bilibili.com/video/BV1rL4y1u74D?p=2");
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100000; i++) {
             domainService.storage(list.get(random.nextInt(10)) + System.currentTimeMillis());
         }
     }
