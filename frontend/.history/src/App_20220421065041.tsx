@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Carousel from "./components/Carousel";
-import { CarouselItems } from './mock';
+import { CarouselItems } from './';
 
 
 function App() {
