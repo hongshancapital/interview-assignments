@@ -1,0 +1,57 @@
+.inner{
+    transition:transform .4s;
+    white-space:nowrap;
+    height:100vh
+}
+.innerC{
+    width:100%;
+    height:100%;
+    display: inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+.outer{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    position:absolute;
+    justify-content:space-evenly;;
+    bottom:0;
+    width:100%;
+    margin-bottom:20px
+}
+.outerI{
+    width:100px;
+    height:10px;
+    background:#cccccc;
+}
+.inside{
+    height:100%;
+    animation-name: proBar;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+}
+@keyframes proBar{
+    0% {
+        width:0%
+    }
+    100% {
+        width:100%
+    }
+}
+.itemInfo{
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 20px;
+    z-index: 9999;
+    color: #ffffff;
+}
+.itemImg{
+    width: 100%;
+    height: 100%;
+}
+.itemImg img{
+    width:100%;
+    height:100%
+}
