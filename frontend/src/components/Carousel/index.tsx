@@ -31,8 +31,8 @@ export default function Carousel(props: Props) {
   return (
     <div className="carousel">
       <div className="carousel-items" style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
-        {items.map(item => {
-          return <CarouselItem {...item} ></CarouselItem>;
+        {items.map((item, index) => {
+          return <CarouselItem key={`carousel_item_${index}`} {...item} ></CarouselItem>;
         })}
       </div>
       <Progress count={items.length} time={time} activeIndex={activeIndex} ></Progress>
