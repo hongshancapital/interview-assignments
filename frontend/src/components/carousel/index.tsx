@@ -17,10 +17,9 @@ function Carousel(props: CarouselProps) {
 
     let currentIndex = useCarouselIndex(props.slides.length, props.duration);
 
-    const carouselSlides = <div
-        className="carousel-items"
-        style={{ transform: `translate(-${currentIndex * 100}%)` }}
-    >
+    const classes = props.slides.map(slide => slide.class);
+
+    const carouselSlides = <div className={`carousel-items ${classes[currentIndex]}`}>
         {props.slides.map((slide, index) => (
             <div className={`slide ${slide.class}`} key={`slide_${index}`}>
                 <div className="words">
