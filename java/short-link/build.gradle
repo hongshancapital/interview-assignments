@@ -1,0 +1,56 @@
+group 'com.shortlink'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'jacoco'
+apply plugin: 'io.spring.dependency-management'
+
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+}
+
+// java编译的时候缺省状态下会因为中文字符而失败
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+jacocoTestReport{
+    reports{
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+
+buildscript {
+    ext {
+        springBootVersion = '2.1.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web:2.1.6.RELEASE')
+    compile('io.springfox:springfox-swagger-ui:2.7.0')
+    compile('io.springfox:springfox-swagger2:2.7.0')
+    compile('org.projectlombok:lombok:1.16.18')
+    compile('ch.qos.logback:logback-classic:1.2.3')
+    compile('ch.qos.logback:logback-core:1.2.3')
+    compile('com.alibaba:fastjson:1.2.69')
+    compile('com.google.guava:guava:20.0')
+
+    testCompile("junit:junit:4.12")
+    testCompile("org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE")
+}

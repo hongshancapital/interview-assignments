@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <property name="context_name" value="shortlnk"/>
+
+    <appender name="shortlnk_file_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>shortlnk.log</file>
+        <Prudent>true</Prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>shortlnk.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%-5level] %file:[%line] - %msg%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date [%thread] %highlight(%-5level) %logger{80} - %highlight(%msg) %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="shortlnk_file_log"/>
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>
