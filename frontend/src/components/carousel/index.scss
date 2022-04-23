@@ -1,3 +1,5 @@
+$total: 3;
+
 .carousel-window {
     position: relative;
     width: 100vw;
@@ -9,16 +11,10 @@
         white-space: nowrap;
         transition: transform 500ms ease-in-out;
 
-        &.xphone {
-            transform: translate(0);
-        }
-
-        &.tablet {
-            transform: translate(-100%);
-        }
-
-        &.arpods {
-            transform: translate(-200%);
+        @for $i from 0 to $total {
+            &.slide-#{$i} {
+                transform: translate($i * -100%);
+            }
         }
 
         .slide {

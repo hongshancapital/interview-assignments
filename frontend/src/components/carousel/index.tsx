@@ -16,10 +16,8 @@ interface CarouselProps {
 function Carousel(props: CarouselProps) {
 
     let currentIndex = useCarouselIndex(props.slides.length, props.duration);
-
-    const classes = props.slides.map(slide => slide.class);
-
-    const carouselSlides = <div className={`carousel-items ${classes[currentIndex]}`}>
+    
+    const carouselSlides = <div className={`carousel-items slide-${currentIndex}`}>
         {props.slides.map((slide, index) => (
             <div className={`slide ${slide.class}`} key={`slide_${index}`}>
                 <div className="words">
