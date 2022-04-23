@@ -7,6 +7,7 @@ import tabletImage from '../assets/tablet.png';
 import airpodsImage from '../assets/airpods.png';
 
 interface ProductModel {
+  id: string;
   title: string;
   subtitle: string;
   image: string;
@@ -16,17 +17,20 @@ interface ProductModel {
 export const Demo = () => {
   const products: ProductModel[] = [
     {
+      id: 'product-1',
       title: 'xPhone',
       subtitle: 'Lots to love. Less to spend. \n Starting at $399.',
       theme: 'dark',
       image: xPhoneImage,
     },
     {
+      id: 'product-2',
       title: 'Tablet',
       subtitle: 'Just the right amount of everything.',
       image: tabletImage,
     },
     {
+      id: 'product-3',
       title: 'Buy a Tablet or xPhone for college. \n Get arPods.',
       subtitle: '',
       image: airpodsImage,
@@ -35,8 +39,8 @@ export const Demo = () => {
 
   return (
     <Carousel>
-      {products.map((product, index) => (
-        <Product key={index} {...product} />
+      {products.map((product) => (
+        <Product key={product.id} {...product} />
       ))}
     </Carousel>
   );

@@ -12,6 +12,17 @@ interface CarouselProps {
   transitionDuration?: number;
 }
 
+const getChildKey = (child: React.ReactNode, index: number): React.Key => {
+  if (React.isValidElement(child) && child.key) {
+    return child.key;
+  } else {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Carousel: please provide key value for each child.');
+    }
+    return index;
+  }
+};
+
 export const Carousel = ({
   duration = 3000,
   transitionDuration = 600,
@@ -29,7 +40,7 @@ export const Carousel = ({
       <CarouselContainer>
         {React.Children.map(children, (child, index) => (
           <Item
-            key={index}
+            key={getChildKey(child, index)}
             duration={transitionDuration}
             state={indexToState(index, currentIndex)}
             onTransitionEnd={() => setTransitionEndIndex(index)}
@@ -39,9 +50,9 @@ export const Carousel = ({
         ))}
       </CarouselContainer>
       <IndicatorContainer>
-        {React.Children.map(children, (_, index) => (
+        {React.Children.map(children, (child, index) => (
           <Indicator
-            key={index}
+            key={getChildKey(child, index)}
             index={index}
             state={indexToState(index, transitionEndIndex)}
             duration={duration}
