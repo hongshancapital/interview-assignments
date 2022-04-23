@@ -34,7 +34,7 @@ export function Carousel(props: IProps) {
           })
 
           return (
-            <span onClick={() => go(index + 1)} key={index} className={classNameStr}>
+            <span data-testid={`indicator_${index}`} onClick={() => go(index + 1)} key={index} className={classNameStr}>
               <b style={animationStyle} />
             </span>
           )
