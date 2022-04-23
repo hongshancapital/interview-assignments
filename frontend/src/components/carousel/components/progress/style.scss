@@ -1,0 +1,27 @@
+.progress-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    bottom: 48px;
+    .progress-view {
+        padding: 2px 0;
+        cursor: pointer;
+        .progress-item {
+            width: 40px;
+            height: 2px;
+            border-radius: 2px;
+            margin: 0 6px;
+            background-color: #a9a9a9;
+            .active {
+                width: 100%;
+                background-color: #fafafa;
+                height: 100%;
+            }
+            .disable {
+                height: 100%;
+                width: 0%;
+            }
+        }
+    }
+}
