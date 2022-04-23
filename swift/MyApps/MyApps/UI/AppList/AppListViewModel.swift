@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-let PageCount: Int = 10
+let PageCount: Int = 20
 
 class AppListViewModel: ObservableObject {
     var sub: AnyCancellable?

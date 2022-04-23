@@ -41,7 +41,25 @@ class AppInfoService: AppInfoServiceProtocol, WebUrlRequest {
     
     
     func fetchMyApps(startIndex: Int, count: Int) -> AnyPublisher<[AppInfo], Error> {
-        return call(api: API.appList)
+        let pub: AnyPublisher<[AppInfo], Error> = call(api: API.appList)
+        return pub.map { apps in
+            //simulate paging load
+            if (startIndex >= apps.count) {
+                return []
+            } else {
+                let endIndex = startIndex + count - 1
+                if (endIndex > apps.count - 1) {
+                   return Array(apps[startIndex...apps.count - 1])
+                } else {
+                    return Array(apps[startIndex...endIndex])
+                }
+                
+            }
+        }
+        // simulate the networking cost
+        .delay(for: 0.5, scheduler: DispatchQueue.main)
+        .eraseToAnyPublisher()
+        
     }
     
     func updateAppCollectedSate(_ state: Bool, app:AppInfo) -> AnyPublisher<Bool,Error> {
