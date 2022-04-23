@@ -13,7 +13,7 @@ interface CarouselProps {
 }
 
 const getChildKey = (child: React.ReactNode, index: number): React.Key => {
-  if (React.isValidElement(child) && child.key) {
+  if (React.isValidElement(child) && child.key !== null) {
     return child.key;
   } else {
     if (process.env.NODE_ENV !== 'production') {
