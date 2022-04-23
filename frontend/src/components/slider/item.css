@@ -1,0 +1,27 @@
+.slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    flex: 0 0 100vw;
+    user-select: none;
+}
+
+.slider-wrapper .heading {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 22px;
+    white-space: pre-wrap;
+    color: #fff;
+    mix-blend-mode: difference;
+}
+
+.slider-wrapper .footer {
+    /* 图片高度均一致，以此限定大小 */
+    flex: 0 0 50%;
+    background-size: auto 100%;
+    /* 偏移icon距离图片底部的距离 */
+    background-position: center calc(-10vh - 40px);
+    background-repeat: no-repeat;
+}
