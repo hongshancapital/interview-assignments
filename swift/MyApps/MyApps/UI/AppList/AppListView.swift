@@ -51,11 +51,11 @@ struct AppListView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(UIColor.systemGray6))
+            .navigationTitle("App")
             .onAppear {
                 listViewModel.loadMyApps()
             }
-            .background(Color(UIColor.systemGray6))
-            .navigationTitle("App")
         }
         .navigationViewStyle(.stack)
     }
