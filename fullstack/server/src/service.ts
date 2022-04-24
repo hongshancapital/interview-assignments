@@ -1,7 +1,7 @@
 import { PutItemCommand, GetItemCommand } from "@aws-sdk/client-dynamodb";
 import { nanoid } from "nanoid";
-import { dynamicDbClient } from "./dbClients";
-import { tableName } from "./dbInit";
+import { dynamicDbClient } from "./db";
+import { tableName } from "./db";
 import { getValue, setValue } from "./redisCache";
 
 const defaultUrl = "https://www.github.com/";

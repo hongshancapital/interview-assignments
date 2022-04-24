@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 const serverUrl = "http://localhost:3003/";
+
 function App() {
   const generateUrl = async () => {
     const res = await fetch(`${serverUrl}api/generate`, {
@@ -17,9 +18,10 @@ function App() {
     const { code } = await res.json();
     setTinyUrl(`${serverUrl}${code}`);
   };
+
   const [tinyUrl, setTinyUrl] = useState("");
   const [longUrl, setLongUrl] = useState("");
-  useEffect(() => {});
+
   return (
     <div className="App">
       <textarea

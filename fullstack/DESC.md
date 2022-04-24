@@ -11,7 +11,7 @@ aws-dynamicdb redis(可选) node
 npm run dev
 
 schame
-{code,longUrl,id[主键],createdAt}
+{id[主键],code,longUrl,createdAt}
 
 其中 code 与 id 相同，由 nanoid 生成，nanoid 重复问题未考虑
 

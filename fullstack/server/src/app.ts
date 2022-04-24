@@ -20,7 +20,6 @@ app.use((err: Error, _: Request, res: Response, __: NextFunction) => {
   });
 });
 
-//
 app.use(cors());
 
 // 跳转
