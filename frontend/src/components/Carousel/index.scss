@@ -1,9 +1,20 @@
+// 图片切换的速度
+$speed: 400ms;
+
 .carousel-wrap {
   overflow: hidden;
   position: relative;
+  height: 100vh;
   .carousel-list {
+    min-width: 9999px;
     height: 100%;
-    overflow: hidden;
+    overflow: scroll;
+    transition: transform $speed ease;
+    @for $i from 0 to 20 {
+      &.active-index-#{$i} {
+        transform: translateX($i * -100vw);
+      }
+    }
   }
   .indicator {
     position: absolute;
@@ -14,6 +25,7 @@
 }
 
 .carousel-item {
+  width: 100vw;
   height: 100%;
   position: relative;
   float: left;

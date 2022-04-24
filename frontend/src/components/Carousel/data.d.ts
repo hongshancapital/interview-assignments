@@ -2,7 +2,7 @@
 * 轮播图每一项组件的属性
 * */
 export interface ICarouselItem {
-    width?: number;
+    width?: number | string;
     className?: string;
     title: string;
     subTitle?: string;
