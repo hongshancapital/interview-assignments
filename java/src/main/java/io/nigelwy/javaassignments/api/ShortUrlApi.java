@@ -7,15 +7,19 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
+import javax.validation.constraints.Pattern;
+
 @Tag(name = "短链接服务接口")
 public interface ShortUrlApi {
+
+    String URL_REGEXP = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     @Operation(summary = "通过长链接生成短链接")
     @ApiResponse(
             responseCode = "201",
             description = "短域名生成成功"
     )
-    GenerateShorturlResponse generateShortUrl(@Schema(example = "https://www.qq.com",
+    GenerateShorturlResponse generateShortUrl(@Pattern(regexp = URL_REGEXP) @Schema(example = "https://www.qq.com",
             type = "string",
             required = true,
 

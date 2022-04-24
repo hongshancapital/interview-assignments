@@ -37,6 +37,14 @@ class ShortUrlControllerTest {
     }
 
     @Test
+    void should_return_bad_request_given_invalid_url() throws Exception {
+        mockMvc.perform(post("/")
+                        .param("originUrl", "bad"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void should_generate_short_url() throws Exception {
         mockMvc.perform(post("/")
                         .param("originUrl", ORIGIN_URL))
