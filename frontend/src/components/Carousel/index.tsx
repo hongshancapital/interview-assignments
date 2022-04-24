@@ -8,6 +8,7 @@ const Carousel: FC<ICarouselProps> = props => {
   const { list, delay = 3 } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   let timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  let reStartTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const listLength = useMemo(() => {
     return list.length;
@@ -21,37 +22,40 @@ const Carousel: FC<ICarouselProps> = props => {
     };
   }, [currentIndex, listLength]);
 
-  const handleNext = useCallback(() => {
+  const handeNext = useCallback(() => {
     setCurrentIndex(index => (index === listLength - 1 ? 0 : index + 1));
   }, [listLength]);
 
+  const handleStart = useCallback(() => {
+    reStartTimer.current && clearInterval(reStartTimer.current);
+    reStartTimer.current = setTimeout(() => {
+      timer.current = setInterval(() => {
+        handeNext();
+      }, delay * 1000);
+    }, 5000);
+  }, [handeNext, delay]);
+
+  const handleStop = useCallback(() => {
+    timer.current && clearInterval(timer.current);
+  }, []);
+
+  const handleClick = useCallback(() => {
+    handleStop();
+    handeNext();
+    handleStart();
+  }, [handleStop, handeNext, handleStart]);
+
   useEffect(() => {
     timer.current = setInterval(() => {
-      handleNext();
+      handeNext();
     }, delay * 1000);
     return () => {
       timer.current && clearInterval(timer.current);
     };
-  }, [handleNext, delay]);
-
-  const handleStop = () => {
-    timer.current && clearInterval(timer.current);
-  };
-
-  const handleStart = () => {
-    timer.current && clearInterval(timer.current);
-    timer.current = setInterval(() => {
-      handleNext();
-    }, delay * 1000);
-  };
+  }, [handeNext, delay]);
 
   return (
-    <div
-      className="carousel"
-      onMouseEnter={handleStop}
-      onMouseOut={handleStart}
-      onClick={handleNext}
-    >
+    <div className="carousel" onClick={handleClick}>
       <div className="carousel__container" style={animateStyle}>
         {list.map((item: ICarouselItem, index: number) => (
           <CarouselItems key={index} {...item} />
