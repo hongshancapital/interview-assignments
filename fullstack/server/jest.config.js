@@ -2,7 +2,7 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  coverageDirectory: "src",
+  coverageDirectory: "coverage",
   modulePathIgnorePatterns: ["dist"],
   coverageProvider: "v8",
   coverageThreshold: {
