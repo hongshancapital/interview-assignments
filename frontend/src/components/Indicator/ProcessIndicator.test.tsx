@@ -16,6 +16,13 @@ beforeEach(() => {
 describe("ProcessIndicators", () => {
 	it("it can have default Indicators ", () => {
 		const activeIndex = 2
+		const { container: defaultContainer } = render(
+			<ProcessIndicators></ProcessIndicators>
+		)
+		expect(
+			defaultContainer.querySelectorAll(".indicator-item").length
+		).toBe(0)
+
 		const { container } = render(
 			<ProcessIndicators
 				activeIndex={activeIndex}

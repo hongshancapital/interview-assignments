@@ -1,5 +1,5 @@
 import React from "react"
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { act } from "react-dom/test-utils"
 import { Carousel, IndicatorsProps } from "./Carousel"
 import "@testing-library/jest-dom"
@@ -138,6 +138,24 @@ describe("Carousel", () => {
 		expect(callback).toBeCalledTimes(4)
 	})
 
+	it("disable loop play ", () => {
+		jest.useFakeTimers("legacy")
+		const callback = jest.fn()
+		render(
+			<Carousel
+				autoplay={true}
+				loop={false}
+				onActiveIndexChange={(index) => {
+					callback()
+				}}
+				animationDuration={1000}>
+				{mockChildren(2)}
+			</Carousel>
+		)
+		mockTimerRun(3)
+		expect(callback).toBeCalledTimes(2)
+	})
+
 	it("it can have default Indicators ", () => {
 		const { container } = render(
 			<Carousel autoplay={true}>{mockChildren(4)}</Carousel>
@@ -154,6 +172,14 @@ describe("Carousel", () => {
 		)
 
 		// TODO: after click indicator what Carousel active index test
+		// 点击事件
+		fireEvent.click(container.querySelectorAll(".process-inner")[1])
+		expect(container.querySelectorAll(".process-inner")[1]).toHaveClass(
+			"active"
+		)
+		expect(container.querySelector(".carousel-wrapper")).toHaveStyle(
+			"transform: translate(-100%, 0%)"
+		)
 	})
 
 	it("it can have custom Indicator as ", () => {
