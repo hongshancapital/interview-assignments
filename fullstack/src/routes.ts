@@ -1,13 +1,16 @@
 import { ShortUrlController } from "./controller/ShortUrlController"
 
-export const Routes = [{
-    method: "post",
-    route: "/shortUrl",
-    controller: ShortUrlController,
-    action: "getShortUrl"
-}, {
-    method: "get",
-    route: "/longUrl",
-    controller: ShortUrlController,
-    action: "getLongUrl"
-}]
+export const Routes = [
+	{
+		method: "post",
+		route: "/api/shortUrl",
+		controller: ShortUrlController,
+		action: "longUrlToShortUrl",
+	},
+	{
+		method: "get",
+		route: "/api/longUrl",
+		controller: ShortUrlController,
+		action: "getLongUrl",
+	},
+]

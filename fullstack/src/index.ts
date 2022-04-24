@@ -1,2 +1,2 @@
-import {init} from './server'
-init().then().catch()
+import {bootstrap} from './server'
+bootstrap()
