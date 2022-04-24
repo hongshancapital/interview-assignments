@@ -127,6 +127,8 @@ cmVjcnVpdGluZy5kZXNpZ25Ac2VxdW9pYWNhcC5jb20=
 
 Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提交一个 Pull Request 即可。如果方便，可以在 PR 描述中留下你的简历。
 
+注意：使用尽量简洁的实现方式，尽量少使用第三方库。
+
 ## 还有其他要补充的吗？
 
 1. 面试时我们会考察编程语言的掌握能力（Java/TS/Swift）。
