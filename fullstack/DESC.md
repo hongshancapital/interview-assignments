@@ -4,13 +4,15 @@ aws-dynamicdb redis(可选) node
 
 默认启动端口：3003
 
-启动方式：
+#### 启动方式：
 
-.env 配置 redis 地址
+cp .example.env .env
+
+配置 AWS_ACCESS_KEY_ID 、AWS_SECRET_ACCESS_KEY、 redis
 
 npm run dev
 
-schame
+schame:
 {id[主键],code,longUrl,createdAt}
 
 其中 code 与 id 相同，由 nanoid 生成，nanoid 重复问题未考虑
