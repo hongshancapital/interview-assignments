@@ -1,8 +1,16 @@
-import React from "react";
+import React, { StrictMode } from "react";
+
 import "./App.css";
+import Carousel from "./components/Carousel";
 
 function App() {
-  return <div className="App">{/* write your component here */}</div>;
+  return (
+    <StrictMode>
+      <div className="App">
+        <Carousel />
+      </div>
+    </StrictMode>
+  );
 }
 
 export default App;
