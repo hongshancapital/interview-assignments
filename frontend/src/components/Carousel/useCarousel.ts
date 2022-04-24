@@ -64,7 +64,7 @@ export function useCarousel(props: IProps) {
     clearAnimation()
     if (interval && auto && children.length >= 2) {
       animatingTime.current = setInterval(() => {
-        //return versa ? handlePrev() : handleNext();
+        return versa ? handlePrev() : handleNext();
       }, interval);
     }
   }
@@ -113,10 +113,8 @@ export function useCarousel(props: IProps) {
     container.current?.style.setProperty('transform', `translate3d(${distance}px, 0, 0)`)
     container.current?.addEventListener('transitionend', transitionend, false)
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       container.current?.removeEventListener('transitionend', transitionend, false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [container.current, active, animating])
 
   useEffect(() => {
@@ -126,7 +124,6 @@ export function useCarousel(props: IProps) {
       // @ts-ignore
       // container.current = null as any
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, animating, progress])
 
   return {
