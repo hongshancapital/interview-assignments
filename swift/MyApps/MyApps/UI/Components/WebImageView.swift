@@ -13,9 +13,13 @@ struct WebImageView: View {
         imageLoader = ImageLoader(imageURL: url)
     }
     var body: some View {
-          Image(uiImage: UIImage(data: self.imageLoader.imageData) ?? UIImage())
-              .resizable()
-              .clipped()
+        if let img = UIImage(data: self.imageLoader.imageData) {
+            Image(uiImage: img)
+                .resizable()
+                .clipped()
+        } else {
+            ActivityIndicatorView()
+        }
     }
 }
 
