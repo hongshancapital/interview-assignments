@@ -1,7 +1,7 @@
 /*
  * @Author: 马俊鸿 zxmajunhong@forxmail.com
  * @Date: 2022-04-24 19:59:22
- * @LastEditTime: 2022-04-25 16:30:08
+ * @LastEditTime: 2022-04-25 19:42:30
  * @Description: 轮播组件
  */
 
@@ -17,7 +17,7 @@ const useInterval = (callback: Function, interval: number) => {
 }
 
 /** 设置轮播滚动变化 */
-const useActive = (total: number, speed = 3000) => {
+const useActive = (total: number, speed: number) => {
   const [active, setActive] = useState(0);
   useInterval(() => {
       setActive(active === total - 1 ? 0 : active + 1);
@@ -25,8 +25,9 @@ const useActive = (total: number, speed = 3000) => {
   return active;
 }
 
-const Carousel: React.FC<TCarouselProps> = ({datas, speed}) => {
+const Carousel: React.FC<TCarouselProps> = ({datas, speed = 3000}) => {
   const active = useActive(datas.length, speed);
+  console.log('active', active);
 
   return (
     <div className='carousel'>
@@ -50,6 +51,18 @@ const Carousel: React.FC<TCarouselProps> = ({datas, speed}) => {
         })}
       </div>
       )}
+      <div className="carousel__tag-container">
+        {datas.map((_it, i) => {
+          return (
+          <div className="carousel__tag-item" key={i}>
+            <div className="carousel__tag-item-state" style={active === i ? {
+              transform: 'translateX(0)',
+              transitionDuration: `${speed}ms`
+            } : {}}></div>
+          </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

@@ -36,3 +36,37 @@
   width: 260px;
   margin: 0 auto;
 }
+
+.carousel__tag-container {
+  width: 100%;
+  height: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 20px;
+}
+
+.carousel__tag-item {
+  width: 30px;
+  height: 4px;
+  background-color: rgb(114, 114, 114);
+  overflow: hidden;
+}
+
+.carousel__tag-item + .carousel__tag-item {
+  margin-left: 6px;
+}
+
+.carousel__tag-item-state {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transform: translateX(-100%);
+  transition-property: all;
+  transition-timing-function: ease;
+}
+
+.carousel__tag-item.active .carousel__tag-item-state {
+  transform: translateX(0);
+}
