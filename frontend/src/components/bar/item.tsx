@@ -5,7 +5,6 @@ import './item.css'
 
 export interface IBarProps {
     timer$: Observable<number>;
-    onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 export const Bar = (props: IBarProps) => {
     const progress = useObservable(props.timer$, 0)
@@ -13,6 +12,6 @@ export const Bar = (props: IBarProps) => {
         '--progress': `${progress}%`,
     }
     return (
-        <div className="bar" style={style} onClick={props.onClick}></div>
+        <div className="bar" style={style}></div>
     )
 }

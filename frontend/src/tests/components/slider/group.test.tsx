@@ -1,8 +1,7 @@
 import React from 'react'
-import { render, waitFor, fireEvent } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { Group } from '../../../components/slider/group'
 import { sleep } from '../../utils/sleep'
-import { Group as Bar } from '../../../components/bar/group'
 
 describe('slider', () => {
     const mockConfig = [{
@@ -39,80 +38,5 @@ describe('slider', () => {
         expect(inner).toHaveStyle('transform: translateX(-200%)')
         await waitFor(() => sleep(500))
         expect(inner).toHaveStyle('transform: translateX(-000%)')
-    })
-
-    it('should change transform after swiped', async () => {
-        const { container } = render(<Group config={mockConfig} duration={500} />)
-        const inner = container.querySelector('.slider-group-inner')
-
-        await waitFor(() => sleep(100))
-        expect(inner).toHaveStyle('transform: translateX(-000%)')
-        await waitFor(() => {
-            fireEvent.mouseDown(window, {
-                clientX: 0,
-                clientY: 0
-            })
-            fireEvent.mouseMove(window, {
-                clientX: 0,
-                clientY: 0
-            })
-            fireEvent.mouseMove(window, {
-                clientX: window.innerWidth / 2,
-                clientY: 0
-            })
-            fireEvent.mouseUp(window, {
-                clientX: window.innerWidth / 2,
-                clientY: 0
-            })
-        })
-        expect(inner).toHaveStyle('transform: translateX(-100%)')
-        await waitFor(() => {
-            fireEvent.mouseDown(window, {
-                clientX: window.innerWidth,
-                clientY: 0
-            })
-            fireEvent.mouseMove(window, {
-                clientX: window.innerWidth,
-                clientY: 0
-            })
-            fireEvent.mouseMove(window, {
-                clientX: window.innerWidth / 2,
-                clientY: 0
-            })
-            fireEvent.mouseUp(window, {
-                clientX: window.innerWidth / 2,
-                clientY: 0
-            })
-        })
-        expect(inner).toHaveStyle('transform: translateX(-000%)')
-    })
-    it('should change transform after clicked bar', async () => {
-        const { container } = render(<>
-            <Group config={mockConfig} duration={500} />
-            <Bar barCount={3} duration={500} />
-        </>)
-        const inner = container.querySelector('.slider-group-inner')
-
-        await waitFor(() => sleep(100))
-        expect(inner).toHaveStyle('transform: translateX(-000%)')
-        const bars = container.querySelectorAll('.bar')
-        await waitFor(() => {
-            fireEvent.click(
-                bars.item(1)
-            )
-        })
-        await waitFor(() => expect(inner).toHaveStyle('transform: translateX(-100%)'))
-        await waitFor(() => {
-            fireEvent.click(
-                bars.item(2)
-            )
-        })
-        await waitFor(() => expect(inner).toHaveStyle('transform: translateX(-200%)'))
-        await waitFor(() => {
-            fireEvent.click(
-                bars.item(0)
-            )
-        })
-        await waitFor(() => expect(inner).toHaveStyle('transform: translateX(-000%)'))
     })
 })

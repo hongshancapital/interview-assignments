@@ -4,7 +4,6 @@ import './group.css'
 import { useTimer } from '../../hooks/userTimer'
 import { useObservable } from '../../hooks/useObservable'
 import { map } from 'rxjs'
-import { useSwipe } from '../../hooks/useSwipe'
 
 export interface IGroupProps {
     config: {
@@ -17,7 +16,7 @@ export interface IGroupProps {
 }
 
 export const Group = (props: IGroupProps) => {
-    const {timer$, pause, play, advance} = useTimer()
+    const {timer$} = useTimer()
     const step$ = useMemo(
         () => timer$.pipe(
             map(elapsed => elapsed % (props.duration * props.config.length) / props.duration | 0),
@@ -26,13 +25,6 @@ export const Group = (props: IGroupProps) => {
     )
     const index = useObservable(step$, 0)
 
-    useSwipe({
-        onStart: pause,
-        onStop: play,
-        onMove: (percent) => {
-            advance(percent * props.duration)
-        }
-    })
     return (
         <div
             className="slider-group-outer"

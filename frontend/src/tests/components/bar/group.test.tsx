@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act, RenderResult, fireEvent, waitFor } from '@testing-library/react'
+import { render, act, RenderResult, waitFor } from '@testing-library/react'
 import { Group } from '../../../components/bar/group'
 import { sleep } from '../../utils/sleep'
 
@@ -46,19 +46,5 @@ describe('bar', () => {
             .toBe(0)
         expect(getProgress(2))
             .toBe(0)
-    })
-
-    it('should change style after clicking bar', async () => {
-        await waitFor(() => sleep(100))
-        expect(getProgress(1))
-            .toBe(0)
-        act(() => {
-            fireEvent.click(bars.item(1))
-        })
-        await waitFor(() => sleep(10))
-        expect(getProgress(0))
-            .toBe(0)
-        expect(getProgress(1))
-            .not.toBe(0)
     })
 })
