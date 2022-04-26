@@ -1,0 +1,18 @@
+server:
+  port: 12345
+  tomcat:
+    basedir: logs
+    accesslog:
+      pattern: '%t %m %s %v %U'
+      enabled: true
+      directory: access-logs
+      buffered: true
+      file-date-format: .yyyy-MM-dd
+
+
+#最大存储短域名数量
+store.maxSize: 5000000
+
+#短域名最大长度
+short.maxLength: 8
+
