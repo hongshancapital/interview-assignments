@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scc.base.mapper.UrlMapper">
+
+    <select id="getIdByLongUrl" resultType="Long">
+        select id from url where long_url = #{urlDO.longUrl} limit 1;
+    </select>
+
+    <select id="getLongUrlById" resultType="String">
+        select long_url as longUrl  from url where id = #{urlDO.id};
+    </select>
+
+    <insert id="addLongUrl" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into url(`long_url`) value(#{urlDO.longUrl});
+    </insert>
+</mapper>
