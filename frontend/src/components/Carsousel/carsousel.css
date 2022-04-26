@@ -1,0 +1,54 @@
+.carsousel {
+    overflow: hidden;
+  }
+  
+  .carsousel_inner {
+    white-space: nowrap;
+    transition: transform 0.3s;
+  }
+  
+  .carousel_item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #fff;
+    background-color: #312520;
+  }
+  
+  .steps {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .indicator_outer {
+    width: 90px;
+    height: 7px;
+    background-color: #b7aeaecf;
+    margin-left: 20px;
+    border-radius: 5px;
+  }
+  
+  .indicator_inside {
+    cursor: pointer;
+    height: 100%;
+    border-radius: 5px;
+    animation-fill-mode: forwards;
+    animation-name: stepBar;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes stepBar {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
