@@ -1,12 +1,12 @@
 /*
- * 用法与 setInterval 相同
- * 解决 activeIndex 不更新的问题
+ * Interval Hook
+ * 解决 Carousel 组件 activeIndex 不更新的问题
  * 参考：https://zhuanlan.zhihu.com/p/455568085
  */
 
 import React, { useEffect, useRef } from 'react';
 
-function useInterval(callback: Function, delay: number, index: number): void {
+function useInterval(callback: Function, delay: number, index: number) {
   const savedCallback: React.MutableRefObject<any> = useRef();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function useInterval(callback: Function, delay: number, index: number): void {
   });
 
   useEffect(() => {
-    console.log('useInterval');
+    if (index < 0) return;
     function tick() {
       savedCallback.current();
     }

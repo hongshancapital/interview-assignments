@@ -1,21 +1,20 @@
 /*
- * 监听窗口变化
+ * 监听窗口变化，返回 window 属性
  */
 
 import { useState, useEffect } from 'react';
 
-interface WindowAttr {
-  width: number;
-}
+export interface WindowAttr {
+  width: number
+};
 
 function useWindowResize(): WindowAttr {
-  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    function listener(): void {
+    const listener = () => {
       // todo: 添加防抖
       setWidth(window.innerWidth);
-      console.log('useWindowResize', window.innerWidth);
     }
     listener();
     window.addEventListener('resize', listener);
