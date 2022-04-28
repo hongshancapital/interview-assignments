@@ -23,7 +23,7 @@ function App() {
           <p className='desc'>Just the right amount of everything.</p>
         </div>
         <div className='banner airpods'>
-          <p className='title'>Buy a Tablet or ×Phone for college.<br />Get arPods.</p>
+          <p className='title'>Buy a Tablet or xPhone for college.<br />Get airPods.</p>
         </div>
         {/* 测试标签 <p>1</p>
         <a>2</a>

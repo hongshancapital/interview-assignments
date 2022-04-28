@@ -37,7 +37,6 @@ const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
 
   const handleDotClick = (i: number) => {
     if (i === activeIndex) return;  // 点击当前项
-    console.log('handleDotClick');
     setActiveIndex(i);
     animation(i);
     setIntervalCounter(intervalCounter + 1); // 重置 interval
