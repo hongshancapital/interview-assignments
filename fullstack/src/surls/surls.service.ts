@@ -22,7 +22,7 @@ async function bloomFiter() {
 
 bloomFiter()
 
-const KEYWORD = 'helloworld';
+const KEYWORD = 'flywind';
 interface SurlColumn {
   surl: string;
   longUrl: string;
