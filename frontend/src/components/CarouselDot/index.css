@@ -1,0 +1,40 @@
+@keyframes progress {
+    0% {
+        width: 0;
+        background-color: white;
+    }
+    95% {
+        width: 100%;
+        background-color: white;
+    }
+
+    100% {
+        width: 100%;
+        background-color: white;
+    }
+}
+
+.carousel-dot-container {
+    position: absolute;
+    width: 100%;
+    bottom: 80px;
+}
+
+.carousel-dot-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-dot-item {
+    flex: 0 0 50px;
+    margin: 0 5px;
+    height: 2px;
+    background-color: #ccc;
+}
+
+.carousel-dot-animate {
+    min-height: 100%;
+    animation-name: progress;
+    animation-timing-function: linear;
+}
