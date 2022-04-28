@@ -20,7 +20,7 @@ public interface DomainService {
     /**
      * get full domain
      *
-     * @param shortUrl shor url
+     * @param shortUrl short url
      * @return full Url
      */
     String getFullDomain(String shortUrl);
