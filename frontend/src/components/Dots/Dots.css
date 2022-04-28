@@ -1,0 +1,49 @@
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-left: 0;
+}
+
+.carousel-dots-item {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #aaa;
+  cursor: pointer;
+}
+.carousel-dots-item::after {
+  content: '';
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: -5px;
+  bottom: -5px;
+  right: 0;
+}
+.carousel-dots-item:not(:last-child) {
+  margin-right: 8px;
+}
+.carousel-dots-highlight {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  animation-name: progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  background-color: #fff;
+}
+
+@keyframes progress {
+  to {
+    width: 100%;
+  }
+}
