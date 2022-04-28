@@ -1,45 +1,56 @@
-.carousel-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.carousel-contain {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
 
-    .carousel-item-content {
-        width: 100%;
-        height: 100%;
+    .carousel-content {
         display: flex;
         align-items: center;
-        flex-direction: column;
+        justify-content: center;
+        position: absolute;
 
-        .carousel-item-title {
-            font-size: 56px;
-            font-weight: 600;
-            white-space: pre-wrap;
-        }
+        .carousel-item-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
 
-        .carousel-item-subtitle {
-            font-size: 28px;
-            font-weight: 400;
-            white-space: pre-wrap;
-        }
+            .carousel-item-title {
+                font-size: 56px;
+                font-weight: 600;
+                white-space: pre-wrap;
+            }
 
-        .carousel-item-img {
-            width: 400px;
-            height: 400px;
+            .carousel-item-subtitle {
+                font-size: 28px;
+                font-weight: 400;
+                white-space: pre-wrap;
+            }
 
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+            .carousel-item-img {
+                margin-top: 200px;
+                width: 100px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
             }
         }
-    }
 
+    }
 }
+
 
 .progress-content {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    bottom: 50px;
+    left: 45%;
 
     .progress-item {
         width: 30px;
@@ -47,16 +58,28 @@
         border-radius: 4px;
         background: grey;
         margin-right: 2px;
-        // transition: all 3s;
-        // animation: bg1 3s linear infinite;
+        overflow: hidden;
+        position: relative;
+
+        .progress-item-span {
+            background-color: white;
+            display: inline-block;
+            width: 0;
+            height: 2px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            animation: pg1 3s linear infinite;
+        }
     }
 }
 
-@keyframes bg1 {
+@keyframes pg1 {
     0% {
-        width: 30px;
+        width: 0;
     }
+
     100% {
-        width: 50px;
+        width: 30px;
     }
 }

@@ -1,40 +1,24 @@
 import React from "react";
 import "./App.css";
-import { Carousel, Progress } from "./components/Carousel";
-import xPhone from "./assets/iphone.png";
-import airpods from "./assets/airpods.png";
-import tablet from "./assets/tablet.png";
+import { Carousel } from "./components/Carousel";
+import RENDERDATA from './const';
+
+// Carousel props 示例查看 RENDERDATA
+interface CarouselProps {
+  data: {
+    bgColor: 'string'; // 背景色
+    textColor: 'string'; // 文案颜色
+    title: 'string'|'string'[]; // 标题
+    subtitle?: 'string'|'string'[]; // 子标题
+    imgUrl: 'string'; // 图片路径
+  }[],
+  width?: string; // 组件宽度 默认800px
+  height?: string // 组件高度 默认600px
+}
 
 function App() {
-
-  const renderData = [
-    {
-      bgColor: 'black',
-      textColor: 'white',
-      title: 'xPhone',
-      subtitle: 'Lots to love. Less to spend. Starting at $399.',
-      imgUrl: xPhone
-    },
-    {
-      bgColor: 'white',
-      textColor: 'black',
-      title: 'Tablet',
-      subtitle: 'Just the right amount of everything.',
-      imgUrl: tablet
-    },
-    {
-      bgColor: 'grey',
-      textColor: 'black',
-      title: 'Buy a Tablet or xPhone for college. Get arPods.',
-      imgUrl: airpods
-    },
-
-  ]
-  return <div className="App" style={{ "marginTop": '300px' }}>
-    {/* <Carousel data={renderData} /> */}
-    {
-      Progress(3)
-    }
+  return <div className="App">
+    <Carousel data={RENDERDATA} />
   </div>;
 }
 
