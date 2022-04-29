@@ -13,10 +13,21 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>transformer</name>
     <description>transformer</description>
+    <packaging>pom</packaging>
+
     <properties>
         <java.version>1.8</java.version>
+        <interview.api.version>0.0.1-SNAPSHOT</interview.api.version>
+        <interview.application.version>0.0.1-SNAPSHOT</interview.application.version>
+        <interview.domain.version>0.0.1-SNAPSHOT</interview.domain.version>
+        <interview.infrastructure.version>0.0.1-SNAPSHOT</interview.infrastructure.version>
+        <aggregate.test.version>0.0.1-SNAPSHOT</aggregate.test.version>
+        <caffeine.version>2.8.6</caffeine.version>
+        <swagger.version>3.0.0</swagger.version>
+        <guava.version>30.1.1-jre</guava.version>
+        <junit.version>4.13.2</junit.version>
+        <mockito.version>3.7.7</mockito.version>
     </properties>
-    <packaging>pom</packaging>
 
     <modules>
         <module>interview-api</module>
@@ -25,37 +36,79 @@
         <module>interview-infrastructure</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.diode.interview</groupId>
+                <artifactId>interview-api</artifactId>
+                <version>${interview.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.diode.interview</groupId>
+                <artifactId>interview-application</artifactId>
+                <version>${interview.application.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.diode.interview</groupId>
+                <artifactId>interview-domain</artifactId>
+                <version>${interview.domain.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.diode.interview</groupId>
+                <artifactId>interview-infrastructure</artifactId>
+                <version>${interview.infrastructure.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-    </dependencies>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!-- caffeine -->
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-inline</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>
