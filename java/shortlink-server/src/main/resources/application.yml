@@ -1,0 +1,19 @@
+# swagger开关
+swagger:
+  enable: true
+
+# 布隆过滤器预估数据量与判重错误率
+bloom-filter:
+  insertions: 200000000
+  fpp: 0.03
+
+# caffeine本地缓存
+caffeine:
+  initial-capacity: 100000
+  maximum-size: 100000000
+  # 已设置单位为分
+  expire-after-write: 60
+
+# 短域名服务domain
+shortlink:
+  domain: https://t.cn/
