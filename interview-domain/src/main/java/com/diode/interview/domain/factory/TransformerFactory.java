@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author unlikeha@163.com
@@ -18,6 +19,9 @@ public class TransformerFactory {
     private List<Transformer> transformerList;
 
     public Transformer getTransformer(TransformerEnum transformerEnum) {
+        if(Objects.isNull(transformerEnum)){
+            return null;
+        }
         return ListTool.safeList(transformerList).stream().filter(e -> e.suit(transformerEnum.getType())).findAny().orElse(null);
     }
 
