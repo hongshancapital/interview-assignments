@@ -14,10 +14,8 @@ interface CarouselProps {
   children: ReactElement | ReactElement[]
 };
 
-// todo: 组件测试
-
 const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
-  // 无子节点时抛出异常
+  // 无 children 时抛出异常
   if (!props.children) {
     throw new Error('Children cannot be empty.');
   }
@@ -33,23 +31,28 @@ const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
   // 滚动样式
   const [boxAnimation, setBoxAnimation] = useState({});
 
+  // 实时窗口宽度
   let { width: windowWidth } = useWindowResize();
 
   const handleDotClick = (i: number) => {
-    if (i === activeIndex) return;  // 点击当前项
+    // 阻止点击当前项
+    if (i === activeIndex) return;
+    // 切换选中项
     setActiveIndex(i);
+    // 执行滚动
     animation(i);
-    setIntervalCounter(intervalCounter + 1); // 重置 interval
+    // 重置定时器
+    setIntervalCounter(intervalCounter + 1);
   }
 
   let panels = children.map((child, i) => {
     return React.cloneElement(
       child, 
       {
-        className: `carousel-panel ${child.props.className || ''}`,
+        className: `carousel-panel ${child.props.className || ''}`, // 注入容器样式
         style: {
           ...child.props.style,
-          width: windowWidth
+          width: windowWidth  // 注入宽度
         },
         key: i
       }
@@ -57,12 +60,14 @@ const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
   });
 
   let dots = children.length > 1 && (
+    // 复制点击按钮
     <Repeat numTimes={children.length}>
       {(index: number) => (
         <Dot key={index} index={index} isMotion={activeIndex === index} onClick={handleDotClick} />
       )}
     </Repeat>
   );
+
 
   const animation = (i: number) => {
     setBoxAnimation({
@@ -72,7 +77,6 @@ const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
   }
 
   const autoPlay = () => {
-    console.log('autoPlay');
     const nextIndex = activeIndex === panels.length - 1 ? 0 : activeIndex + 1;
     setActiveIndex(nextIndex);
     animation(nextIndex);

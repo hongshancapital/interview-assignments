@@ -14,7 +14,7 @@ function useInterval(callback: Function, delay: number, index: number) {
   });
 
   useEffect(() => {
-    if (index < 0) return;
+    if (index < 0) return;  // index 传负值会阻止加载定时器
     function tick() {
       savedCallback.current();
     }

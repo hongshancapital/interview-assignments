@@ -5,7 +5,7 @@ import React, { ReactElement, ReactNode } from 'react';
 
 interface RepeatProps {
   numTimes: number,   // 复制次数
-  children: Function
+  children: Function  // 注意: 类型是 Function
 };
 
 function Repeat({ numTimes, children }: RepeatProps): ReactElement {

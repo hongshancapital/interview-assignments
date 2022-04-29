@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 
 export interface WindowAttr {
   width: number
+  // ...其他 window 属性
 };
 
 function useWindowResize(): WindowAttr {
