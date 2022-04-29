@@ -41,9 +41,9 @@ public class ShortUrlServiceImpl extends ServiceImpl<ShortUrlMapper, ShortUrlEnt
                     } else {
                         //生成id
                         shortId = EncryptionUtil.generateId();
-//                        while (this.getById(shortId) != null) {
-//                            shortId = EncryptionUtil.generateId();
-//                        }
+                        while (this.getById(shortId) != null) {
+                            shortId = EncryptionUtil.generateId();
+                        }
                         this.save(new ShortUrlEntity(shortId, hashCode, longUrl));
                     }
                 }
@@ -51,12 +51,12 @@ public class ShortUrlServiceImpl extends ServiceImpl<ShortUrlMapper, ShortUrlEnt
             } catch (Exception e) {
                 //高并发场景下,导致锁表问题
                 LogUtil.error(this.getClass(), "查询表异常,休眠100ms");
-//                try {
-//                    TimeUnit.MILLISECONDS.sleep(100);
-//                } catch (InterruptedException ex) {
-//                    LogUtil.error(this.getClass(), "休眠失败");
-//                    ex.printStackTrace();
-//                }
+                try {
+                    TimeUnit.MILLISECONDS.sleep(100);
+                } catch (InterruptedException ex) {
+                    LogUtil.error(this.getClass(), "休眠失败");
+                    ex.printStackTrace();
+                }
                 time++;
             }
         }
