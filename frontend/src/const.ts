@@ -24,6 +24,13 @@ const RENDERDATA = [
         title: ['Buy a Tablet or xPhone for college.', 'Get airPods.'],
         imgUrl: airpods
     },
+    // {
+    //     bgColor: '#fafafa',
+    //     textColor: 'black',
+    //     title: 'Tablet',
+    //     subtitle: 'Just the right amount of everything.',
+    //     imgUrl: tablet
+    // }, // test 四张
 
 ]
 
