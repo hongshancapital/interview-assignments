@@ -1,7 +1,10 @@
 package com.java.assignment.web.utils;
 
+import org.apache.tomcat.util.buf.StringUtils;
+
 import java.security.MessageDigest;
-import java.util.Random;
+import java.util.*;
+
 /**
  * 短连接生成工具
  *
@@ -23,24 +26,25 @@ public class ShortUrlUtils {
     public static final int INDEX_16 = 16;
     public static final String SHORTURL = "SHORTURL_";
 
+    private static Random random =new Random();
+
     public static void main(String[] args) {
         // 原始链接
-        String sLongUrl = "https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9768954121710174625%22%7D&n_type=0&p_from=1";
+        String sLongUrl = "https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9768954121710174625%22%7D&n_type=0";
         System.out.println("长链接:" + sLongUrl);
+
         // 将产生4组6位字符串
-        String[] aResult = shortUrl(sLongUrl);
+        String aResult = shortUrl(sLongUrl);
         // 打印出结果
-        for (int i = 0; i < aResult.length; i++) {
-            System.out.println("[" + i + "]:" + aResult[i]);
-        }
-        Random random = new Random();
+        System.out.println("[]:" + aResult);
+
         // 生成4以内随机数
         int j = random.nextInt(4);
         // 随机取一个作为短链
-        System.out.println("短链接:" + aResult[j]);
+        System.out.println("短链接:" + aResult);
     }
 
-    public static String[] shortUrl(String url) {
+    public static String shortUrl(String url) {
         // 可以自定义生成 MD5 加密字符传前的混合 KEY
         String key = "jacygong";
         // 要使用生成 URL 的字符
@@ -52,7 +56,7 @@ public class ShortUrlUtils {
         // 对传入网址进行 MD5 加密
         String hex = md5ByHex(key + url);
 
-        String[] resUrl = new String[INDEX_4];
+        List<String> resUrl = new ArrayList<>();
         for (int i = INDEX_0; i < INDEX_4; i++) {
             // 把加密字符按照 8 位一组 16 进制与 0x3FFFFFFF 进行位与运算
             String sTempSubString = hex.substring(i * INDEX_8, i * INDEX_8 + INDEX_8);
@@ -68,10 +72,11 @@ public class ShortUrlUtils {
                 lHexLong = lHexLong >> INDEX_5;
             }
             // 把字符串存入对应索引的输出数组
-            resUrl[i] = outChars;
+            resUrl.add(outChars);
         }
-        return resUrl;
+        return resUrl.get(random.nextInt(4));
     }
+
 
     /**
      * MD5加密(32位大写)
