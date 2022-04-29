@@ -132,11 +132,28 @@ public class TransformControllerTest {
         TransformResult data2 = response2.getData();
         Assert.assertTrue(Objects.isNull(data2));
 
+        request.setExpireSecs(100);
+        request.setAlg(null);
+        BaseResponse<TransformResult> response5 = mockHttpRequest("/transform/shortURL/get", request);
+        TransformResult data5 = response5.getData();
+        Assert.assertTrue(Objects.isNull(data5));
+
+        request.setAlg("MD5");
+        request.setUrl(null);
+        BaseResponse<TransformResult> response6 = mockHttpRequest("/transform/shortURL/get", request);
+        TransformResult data6 = response6.getData();
+        Assert.assertTrue(Objects.isNull(data6));
+
         //短链接不合法
         TransformShortRequest request3 = new TransformShortRequest();
         request3.setUrl("aaaaaaaaaaaa");
         BaseResponse<TransformResult> response3 = mockHttpRequest("/transform/longURL/get", request);
         TransformResult data3 = response3.getData();
         Assert.assertTrue(Objects.isNull(data3));
+
+        request3.setUrl(null);
+        BaseResponse<TransformResult> response4 = mockHttpRequest("/transform/longURL/get", request3);
+        TransformResult data4 = response4.getData();
+        Assert.assertTrue(Objects.isNull(data4));
     }
 }
