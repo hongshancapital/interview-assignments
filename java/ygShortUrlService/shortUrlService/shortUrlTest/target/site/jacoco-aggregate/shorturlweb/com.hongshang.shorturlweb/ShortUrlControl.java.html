@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ShortUrlControl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">shortUrlTest</a> &gt; <a href="../index.html" class="el_bundle">shorturlweb</a> &gt; <a href="index.source.html" class="el_package">com.hongshang.shorturlweb</a> &gt; <span class="el_source">ShortUrlControl.java</span></div><h1>ShortUrlControl.java</h1><pre class="source lang-java linenums">package com.hongshang.shorturlweb;
+
+import com.hongshang.common.ComResult;
+import com.hongshang.shorturlinterface.IShortUrlService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * 短地址服务控制类
+ *
+ * @author kobe
+ * @date 2021/12/19
+ */
+@Api(value = &quot;短域名服务接口&quot;, description = &quot;短域名服务接口操作API&quot;, tags = &quot;ShortUrlControl&quot;, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RestController
+<span class="fc" id="L23">public class ShortUrlControl {</span>
+
+    public static final String SUCCESSFUL_EXECUTION = &quot;Successful execution&quot;;
+    public static final String NOT_EXIT_LONG_URL = &quot;longUrl  does not exist&quot;;
+
+    /**
+     * 服务实现业务bean
+     */
+    @Autowired
+    private IShortUrlService shortUrlService;
+
+    /**
+     * 短域名存储接口：接受长域名信息，返回短域名信息
+     *
+     * @param longUrl String 长域名
+     * @return ComResult 短域名信息
+     */
+    @ApiOperation(&quot;短域名存储接口：接受长域名信息，返回短域名信息&quot;)
+    @PostMapping(path = {&quot;/getShortUrl&quot;})
+    public ComResult transformToShortUrl(@RequestBody  @ApiParam(&quot;长域名&quot;) String longUrl){
+<span class="fc" id="L43">        ComResult comResult = null;</span>
+        try {
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            if(StringUtils.isEmpty(StringUtils.trim(longUrl))){</span>
+<span class="fc" id="L46">                comResult = ComResult.FAIL(&quot;The longUrl parameter cannot be empty &quot;);</span>
+<span class="fc" id="L47">                return comResult;</span>
+            }
+<span class="fc" id="L49">            String shortUrl = shortUrlService.transformToShortUrl(longUrl);</span>
+<span class="fc" id="L50">            comResult = ComResult.SUCCESS(SUCCESSFUL_EXECUTION);</span>
+<span class="fc" id="L51">            comResult.setResult(shortUrl);</span>
+<span class="fc" id="L52">        }catch (Exception e){</span>
+<span class="fc" id="L53">            comResult = ComResult.FAIL(e.getMessage());</span>
+<span class="fc" id="L54">        }</span>
+<span class="fc" id="L55">        return comResult;</span>
+    }
+
+    /**
+     * 短域名读取接口：接受短域名信息，返回长域名信息。
+     *
+     * @param shortUrl String  短域名
+     * @return ComResult 长域名信息
+     */
+    @ApiOperation(&quot;短域名读取接口：接受短域名信息，返回长域名信息&quot;)
+    @GetMapping(path = {&quot;/getLongUrl/{shortUrl}&quot;})
+    public ComResult getOriginalUrlByShortUrl(@PathVariable(&quot;shortUrl&quot;) @ApiParam(&quot;短域名&quot;) String shortUrl){
+<span class="fc" id="L67">        ComResult comResult = null;</span>
+        try {
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            if(StringUtils.isEmpty(StringUtils.trim(shortUrl))){</span>
+<span class="fc" id="L70">                comResult = ComResult.FAIL(&quot;The shortUrl parameter cannot be empty &quot;);</span>
+<span class="fc" id="L71">                return comResult;</span>
+            }
+<span class="fc" id="L73">            String longUrl = shortUrlService.getLongUrlByShortUrl(shortUrl);</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if(StringUtils.isEmpty(longUrl)){</span>
+<span class="fc" id="L75">                return  ComResult.FAIL(NOT_EXIT_LONG_URL);</span>
+            }
+<span class="fc" id="L77">            comResult = ComResult.SUCCESS(SUCCESSFUL_EXECUTION);</span>
+<span class="fc" id="L78">            comResult.setResult(longUrl);</span>
+<span class="fc" id="L79">        }catch (Exception e){</span>
+<span class="fc" id="L80">            comResult = ComResult.FAIL(e.getMessage());</span>
+<span class="fc" id="L81">        }</span>
+<span class="fc" id="L82">        return comResult;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
