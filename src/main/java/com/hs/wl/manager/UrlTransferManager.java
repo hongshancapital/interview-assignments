@@ -83,14 +83,23 @@ public class UrlTransferManager {
 			return null;
 		}
 
-		String key = shortUrlValues[0];
-		int idx = Integer.parseInt(shortUrlValues[1]);
-		List<String> urls = urlCache.get(key);
-		if (urls==null || idx>(urls.size()-1)) {
+		try {
+			String key = shortUrlValues[0];
+			int idx = Integer.parseInt(shortUrlValues[1]);
+			List<String> urls = urlCache.get(key);
+			if (urls==null || idx>(urls.size()-1)) {
+				return null;
+			}
+
+			return urls.get(idx);
+		} catch (NumberFormatException e) {
+			//错误的短链接
+			return null;
+		} catch (Exception e) {
+			//异常状态
+			e.printStackTrace();
 			return null;
 		}
-
-		return urls.get(idx);
 	}
 
 	/**
