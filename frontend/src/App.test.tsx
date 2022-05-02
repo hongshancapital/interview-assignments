@@ -1,9 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
+import Carousel from './components/Carousel';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('App render Carousel', () => {
+  const { container } = render(<App />);
+  const carouselDomNode = container.getElementsByClassName('carousel-wrapper')[0];
+  expect(carouselDomNode).toBeDefined();
 });

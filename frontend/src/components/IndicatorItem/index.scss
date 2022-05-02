@@ -1,0 +1,33 @@
+@keyframes move {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.indicator-item {
+  position: relative;
+  width: 50px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: #bab3b3;
+  margin: 4px;
+  cursor: pointer;
+  span.active {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 3px;
+    background-color: white;
+    animation-name: move;
+  }
+  &.active {
+    span.active {
+      width: 100%;
+      background-color: white;
+    }
+  }
+}
