@@ -116,6 +116,11 @@
                             <value>MISSEDCOUNT</value>
                             <maximum>0</maximum>
                             </limit>
+                            <limit implementation="org.jacoco.report.check.Limit">
+                            <counter>LINE</counter>
+                            <value>COVEREDRATIO</value>
+                            <minimum>0.85</minimum>
+                            </limit>
                             </limits>
                         </rule>
                     </rules>

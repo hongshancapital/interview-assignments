@@ -1,6 +1,7 @@
 package com.example.shortUrl;
 
-import com.example.shortUrl.dao.UrlMaps;
+import com.example.shortUrl.dao.CacheMap;
+import com.example.shortUrl.dao.CacheMapFactory;
 import com.example.shortUrl.pojo.Result;
 import com.example.shortUrl.service.UrlHandlerService;
 import org.junit.Before;
@@ -26,6 +27,8 @@ public class ShortUrlApplicationTest {
     @Autowired
     private WebApplicationContext wac;
 
+
+
     @Autowired
     UrlHandlerService urlHandlerService;
 
@@ -48,6 +51,7 @@ public class ShortUrlApplicationTest {
 
     @Test
     public void  testDoubleCheck() throws Exception {
+        CacheMap cacheMap = CacheMapFactory.newCacheMap();
         int maxThread = 10000;
         CountDownLatch startState=new CountDownLatch(1);
         CountDownLatch endState = new CountDownLatch(maxThread);
@@ -58,8 +62,8 @@ public class ShortUrlApplicationTest {
                     try{
                         startState.await();
                         Result<String> shortResult = urlHandlerService.getShortUrl("www.aifabu.com/loginwx?channel=yimei");
-                        UrlMaps.md5Urls.clear();
-                        UrlMaps.shortUrls.clear();
+                        cacheMap.clear();
+                        cacheMap.clear();
                         System.out.println(Thread.currentThread().getName()+"转换为短链接后的结果为："+shortResult.toString());
                     }catch (InterruptedException e){
                         e.printStackTrace();

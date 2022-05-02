@@ -22,18 +22,18 @@ public class UrlController {
     @Autowired
     UrlHandlerService urlHandlerService;
 
-    @GetMapping("/getShortUrl")
-    @ApiOperation("查询短域名")
-    @ApiImplicitParam(name = "longUrl", value = "长域名", dataType = "String")
-    public Result<String> queryShortUrl(String longUrl) {
-        return urlHandlerService.getShortUrl(longUrl);
-    }
-
     @GetMapping("/getLongUrl")
     @ApiOperation("查询长域名")
     @ApiImplicitParam(name = "shortUrl", value = "短域名", dataType = "String")
     public Result<String> queryLongUrl(String shortUrl) {
         return urlHandlerService.getLongUrl(shortUrl);
+    }
+
+    @GetMapping("/getShortUrl")
+    @ApiOperation("查询短域名")
+    @ApiImplicitParam(name = "longUrl", value = "长域名", dataType = "String")
+    public Result<String> queryShortUrl(String longUrl) {
+        return urlHandlerService.getShortUrl(longUrl);
     }
 
 
