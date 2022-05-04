@@ -25,13 +25,13 @@
 
 ## 架构思路
 
-* 首先应用分为4个模块，分别是web、client、service、core：web层作为独立站点运营；service作为内部服务，可在公司内部提供转码服务；core为转码引擎核心；
+* 首先应用分为4个模块，分别是web、client、service、core：web层作为独立站点运营；service作为内部服务，可在公司内部提供转码服务；core为转码引擎核心；client包deploy到服务器，供给其他部门使用该服务；
 * 实际项目中可以采用散列算法(具体算法没想好，只是知道这个方向)，可让生成的短码重复率降更低；本次采用最简的Random实现；
 
 ## 性能测试
 
 * 单机采用jmeter做压测
-  * TPS设置300
+  * TPS设置300，时长为手动停止
 
 ## 附加
 * 启动类：java/shortlink/shortlink-web/src/main/java/com/scdt/shortlink/Application.java
