@@ -1,0 +1,70 @@
+.carousel-lite {
+  width: 100%;
+  min-height: 100px;
+  overflow: hidden;
+
+
+  .carousel-lite__slides {
+    width: fit-content;
+    display: flex;
+    transition: all 1s ease-in-out;
+
+    .carousel-lite__slide {
+      flex-grow: 0;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+  }
+
+  .carousel-lite__dots {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+
+    ul {
+      padding: 0;
+      display: flex;
+      list-style: none;
+      justify-content: center;
+    }
+
+    .carousel-lite__dot {
+      position: relative;
+      width: 40px;
+      height: 2px;
+      background-color: #ABAAAB;
+      margin: 0 8px;
+      border-radius: 1px;
+      cursor: pointer;
+
+      span {
+        width: 0;
+        height: 100%;
+        background-color: #FCFBFC;
+        display: block;
+        content: '';
+        position: absolute;
+        animation: 3s ease-in-out 0 slick;
+        animation-iteration-count: infinite;
+      }
+
+      &.running span {
+        animation-play-state: running;
+      }
+
+      &.paused span {
+        animation: none;
+      }
+    }
+  }
+}
+
+@keyframes slick {
+  0% {
+    width: 0
+  }
+
+  100% {
+    width: 100%
+  }
+}
