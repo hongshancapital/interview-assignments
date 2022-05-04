@@ -34,6 +34,16 @@
   * TPS设置300
 
 ## 附加
-
+* 启动类：java/shortlink/shortlink-web/src/main/java/com/scdt/shortlink/Application.java
 * 接口文档地址：
     * http://localhost:8080/doc.html
+
+## 单测报告
+![shortlink-core](shortlink-core.png)
+![shortlink-service](shortlink-service.png)
+![shortlink-web](shortlink-web.png)
+
+
+## 压测报告
+![压测汇总报告](压测汇总报告.png)
+![压测聚合报告](压测聚合报告.png)
