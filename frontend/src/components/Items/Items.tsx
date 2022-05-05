@@ -3,7 +3,7 @@ import { CarouselItemProps } from '../../types/carousel';
 import "./Items.css";
 
 const CarouselItems: FC<CarouselItemProps> = memo((itemProps) => {
-    const { children, className = '', carouselRef } = itemProps;
+    const { children, className = '', currentStateIndex, duration } = itemProps;
     const childrens = Array.isArray(children) ? children : children ? [children] : [];
     const len = childrens.length;
 
@@ -11,16 +11,14 @@ const CarouselItems: FC<CarouselItemProps> = memo((itemProps) => {
       return null;
     }
 
-    return <ul ref={carouselRef} className="carousel-wrap">
-      {len > 1 && <li
-        className={`carousel-item last-carousel-item ${className}`}
-      >{childrens[len - 1]}</li>}
-
+    return <ul
+      className="carousel-wrap"
+      style={{
+        transform: `translateX(-${currentStateIndex}00%)`,
+        transitionDuration: `${duration}ms`,
+      }}
+    >
       {childrens.map((item, index) => <li key={`carouselKey-${index}`} className={`carousel-item ${className}`}>{item}</li>)}
-      
-      {len > 1 && <li
-        className={`carousel-item first-carousel-item ${className}`}
-      >{childrens[0]}</li>}
     </ul>
 })
 

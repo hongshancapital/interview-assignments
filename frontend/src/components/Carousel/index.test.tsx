@@ -38,7 +38,7 @@ describe('<Carousel>{children}</Carousel>', () => {
 		expect(highlightDot).toBeInTheDocument();
 
     const items = carousel.querySelectorAll('.carousel-item');
-    expect(items.length).toEqual(len + 2);
+    expect(items.length).toEqual(len);
 	});
 
   it("should transform when pressing arrow keys", async () => {

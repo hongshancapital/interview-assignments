@@ -1,11 +1,5 @@
-import { RefObject, useCallback, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { SlideDirection } from "../../types/carousel";
-import useEventListener from '../useEventListener/useEventListener';
-
-type CarouselTypes = {
-  count: number,
-  duration: number
-}
 
 type CurIndex = number;
 
@@ -17,74 +11,34 @@ type ReturnValueActions = [ CurIndex, Actions ];
 
 /**
  * useSlider 轮播图滑动钩子
- * @param carouselRef 轮播图容器
- * @param types.count 轮播图数量
- * @param types.duration 切换的过渡时间
- * @returns [ currentIndex, { slide, slideTo } ]
+ * @param count 轮播图数量
+ * @returns [ currentIndex, { slideToIndex, slideToDirection } ]
  */
-function useSlider(carouselRef: RefObject<HTMLElement>, types: CarouselTypes): ReturnValueActions {
-  const { count, duration } = types; 
-  const LAST_INDEX = count;
-  const FIRST_INDEX = 1;
-  const currentIndexRef = useRef(count > 1 ? FIRST_INDEX : 0);
-  const [ currentStateIndex, setCurrentStateIndex ] = useState(FIRST_INDEX);
-  const isSlideing = useRef(false); // 动画过渡中...
-
-  // 初始化重置轮播图位置
-  useLayoutEffect(() => {
-    if (!carouselRef.current) return;
-    carouselRef.current.style.transform = `translateX(-${currentIndexRef.current}00%)`;
-  });
+function useSlider(count: number): ReturnValueActions {
+  const currentIndexRef = useRef(0);
+  const [ currentStateIndex, setCurrentStateIndex ] = useState(0);
 
   // 按定位滑动轮播图
-  const slideToIndex = useCallback((index) => {
-      if(!carouselRef.current || (index < 0 && index > count)) return;
+  const slideToIndex = useCallback((index: number) => {
       currentIndexRef.current = index;
-      carouselRef.current.style.transitionDuration = `${duration}ms`;
-      carouselRef.current.style.transform = `translateX(-${currentIndexRef.current}00%)`;
       setCurrentStateIndex(currentIndexRef.current);
   }, []);
 
   // 按方位滑动轮播图
   const slideToDirection = useCallback((direction: SlideDirection = SlideDirection.Right) => {
-    if (!carouselRef.current || count < 2 || isSlideing.current) return;
-
-    isSlideing.current = true;
-
+    if (count < 1) return;
     if (direction === SlideDirection.Right) {
       currentIndexRef.current++;
     } else {
       currentIndexRef.current--;
     }
 
-    // 正常的动画过渡
-    carouselRef.current.style.transitionDuration = `${duration}ms`;
-    carouselRef.current.style.transform = `translateX(-${currentIndexRef.current}00%)`;
+    currentIndexRef.current = isCrossIndex(currentIndexRef.current, count - 1, 0);
+    setCurrentStateIndex(currentIndexRef.current);
 
-    // 触发页面更新
-    let currentStateIndex = currentIndexRef.current;
-  
-    currentStateIndex = isCrossIndex(currentStateIndex, LAST_INDEX, FIRST_INDEX);
+  }, [count]);
 
-    setCurrentStateIndex(currentStateIndex);
-  }, []);
-
-  // 监听css动画结束事件，重置轮播位置，完成无缝切换
-  useEventListener('transitionend', () => {
-    isSlideing.current = false;
-
-    const newIndex = isCrossIndex(currentIndexRef.current, LAST_INDEX, FIRST_INDEX);
-    if (newIndex === currentIndexRef.current || !carouselRef.current) {
-      return;
-    }
-  
-    currentIndexRef.current = newIndex
-    carouselRef.current.style.transitionDuration = '0ms';
-    carouselRef.current.style.transform = `translateX(-${currentIndexRef.current}00%)`;
-
-  }, carouselRef);
-
-  return [currentStateIndex, { slideToDirection, slideToIndex }];
+  return [ currentStateIndex, { slideToDirection, slideToIndex } ];
 }
 
 export function isCrossIndex<T = number> (current: T, end: T, start: T) {

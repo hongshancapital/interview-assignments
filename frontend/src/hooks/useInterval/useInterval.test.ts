@@ -10,6 +10,7 @@ describe('useInterval()', () => {
   it('should fire the callback function (1)', async () => {
 
     const { result } = renderHook(() => useInterval(callback, timeout));
+  
     expect(result.current).toBeDefined();
     await sleep(timeout);
     expect(callback).toHaveBeenCalledTimes(1)
@@ -17,9 +18,7 @@ describe('useInterval()', () => {
 
   it('should not fire the callback when in early time', async () => {
     const { result } = renderHook(() => useInterval(callback, timeout));
-    act(() => {
-      result.current.toggleIntervalSwitch(false);
-    });
+
     expect(result.current).toBeDefined();
     await sleep(earlyTimeout);
     expect(callback).not.toHaveBeenCalled()
@@ -34,26 +33,10 @@ describe('useInterval()', () => {
     expect(callback).not.toHaveBeenCalled()
   });
 
-  it('should callback occur on a case-by-case basis, when using toggleIntervalSwitch', async () => {
-    const timeout = 500
-    const { result } = renderHook(() => useInterval(callback, timeout));
-    act(() => {
-      result.current.toggleIntervalSwitch(false);
-    })
-    await sleep(timeout);
-    expect(callback).not.toHaveBeenCalled();
-    act(() => {
-      result.current.toggleIntervalSwitch(true);
-    })
-    await sleep(timeout);
-    expect(callback).toHaveBeenCalledTimes(1)
-    await sleep(timeout);
-    expect(callback).toHaveBeenCalledTimes(2)
-  });
-
   it('should call clearTimeout on unmount', async () => {
     jest.useFakeTimers()
     jest.spyOn(global, 'clearInterval');
+
     const { unmount } = renderHook(() => useInterval(callback, timeout))
     unmount();
     expect(clearInterval).toHaveBeenCalledTimes(1);
