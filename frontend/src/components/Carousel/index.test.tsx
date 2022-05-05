@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import Carousel from "./index";
 
 test("render carousel with zero child", () => {
-  const { getByTestId } = render(<Carousel />);
+  const { getByTestId } = render(<Carousel items={[]} />);
   const carousel = getByTestId("carousel");
   expect(carousel).toBeInTheDocument();
 
@@ -16,41 +16,44 @@ test("render carousel with zero child", () => {
   expect(carouselProgressBarItem).toHaveLength(0);
 });
 
-test("render carousel with children Carousel.Item", async () => {
-  const { getByTestId, getAllByTestId } = render(
-    <Carousel>
-      <Carousel.Item>test1</Carousel.Item>
-      <Carousel.Item>test2</Carousel.Item>
-      <Carousel.Item>test3</Carousel.Item>
-    </Carousel>
+test("render carousel with children", async () => {
+  const { getByTestId, getAllByTestId, getByText } = render(
+    <Carousel items={[{ titles: ["test1"] }, { texts: ["test2"] }]}></Carousel>
   );
+
+  const item1 = getByText("test1");
+  expect(item1).toBeInTheDocument();
+
+  const item2 = getByText("test2");
+  expect(item2).toBeInTheDocument();
 
   const carousel = getByTestId("carousel");
   expect(carousel).toBeInTheDocument();
 
   const carouselItem = getAllByTestId("carousel-item");
-  expect(carouselItem).toHaveLength(3);
+  expect(carouselItem).toHaveLength(2);
 
   const carouselProgressBarItem = getAllByTestId("carousel-progress-bar-item");
-  expect(carouselProgressBarItem).toHaveLength(3);
+  expect(carouselProgressBarItem).toHaveLength(2);
 });
 
-test("render carousel with arbitrary children", async () => {
-  const { getByTestId, getAllByTestId } = render(
-    <Carousel>
-      {null}
-      test1
-      <div>test2</div>
-      <Carousel.Item>test3</Carousel.Item>
-    </Carousel>
+test("color of item should work", async () => {
+  const { getByTestId } = render(
+    <Carousel items={[{ color: "#fff" }]}></Carousel>
   );
 
-  const carousel = getByTestId("carousel");
-  expect(carousel).toBeInTheDocument();
+  const item = getByTestId("carousel-inner-item");
 
-  const carouselItem = screen.queryAllByTestId("carousel-item");
-  expect(carouselItem).toHaveLength(1);
+  // See [toHaveStyle Color not working as expected](https://github.com/testing-library/jest-dom/issues/350)
+  expect(item).toHaveStyle({ color: "rgb(255, 255, 255)" });
+});
 
-  const carouselProgressBarItem = getAllByTestId("carousel-progress-bar-item");
-  expect(carouselProgressBarItem).toHaveLength(4);
+test("backgroundImageURL of item should work", async () => {
+  const { getByTestId } = render(
+    <Carousel items={[{ backgroundImageURL: "/test.jpg" }]}></Carousel>
+  );
+
+  const item = getByTestId("carousel-inner-item");
+
+  expect(item).toHaveStyle({ backgroundImage: `url(${"/test.jpg"})` });
 });

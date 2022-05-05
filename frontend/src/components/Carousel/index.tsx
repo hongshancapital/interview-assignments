@@ -3,13 +3,23 @@ import "./index.css";
 
 const duration = 3000;
 
-interface ICarousel extends FC {
+export interface ICarouselItem {
+  titles?: string[];
+  texts?: string[];
+  color?: string;
+  backgroundImageURL?: string;
+}
+
+interface ICarousel
+  extends FC<{
+    items: ICarouselItem[];
+  }> {
   Item: FC;
 }
 
-const Carousel: ICarousel = function ({ children }) {
+const Carousel: ICarousel = function ({ items }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  let itemNum = React.Children.count(children);
+  let itemNum = items.length;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,7 +40,42 @@ const Carousel: ICarousel = function ({ children }) {
           transform: `translateX(${-currentIndex * 100}%)`,
         }}
       >
-        {children}
+        {items.map((item, i) => {
+          const style: { backgroundImage?: string; color?: string } = {};
+
+          if (item.backgroundImageURL) {
+            style.backgroundImage = `url(${item.backgroundImageURL})`;
+          }
+
+          if (item.color) {
+            style.color = item.color;
+          }
+
+          return (
+            <Carousel.Item key={i}>
+              <div
+                className="carousel-item"
+                style={style}
+                data-testid="carousel-inner-item"
+              >
+                {item?.titles?.map?.((title) => {
+                  return (
+                    <h1 key={title} className="carousel-item__title">
+                      {title}
+                    </h1>
+                  );
+                }) ?? null}
+                {item?.texts?.map?.((text) => {
+                  return (
+                    <h1 key={text} className="carousel-item__text">
+                      {text}
+                    </h1>
+                  );
+                }) ?? null}
+              </div>
+            </Carousel.Item>
+          );
+        })}
       </div>
 
       <ul className="carousel-progress-bar-list">
