@@ -64,14 +64,14 @@ const Carousel: ICarousel = function ({ items }) {
                       {title}
                     </h1>
                   );
-                }) ?? null}
+                })}
                 {item?.texts?.map?.((text) => {
                   return (
                     <h1 key={text} className="carousel-item__text">
                       {text}
                     </h1>
                   );
-                }) ?? null}
+                })}
               </div>
             </Carousel.Item>
           );
