@@ -40,11 +40,11 @@ const Carousel: FC<CarouselProps> = (props) => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
   
     // 指定方向进行滑动
-    const onSlideToDirection = (direction: SlideDirection) => {
-        slideToDirection(direction);
-        resetInterval();
-    }
-  
+    const onSlideToDirection = useCallback((direction: SlideDirection) => {
+      slideToDirection(direction);
+      resetInterval();
+    }, [slideToDirection, resetInterval]);
+
     // 监听键盘事件
     const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (!useArrowKeys) return;

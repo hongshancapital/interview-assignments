@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { SlideDirection } from "../../types/carousel";
 
 type CurIndex = number;
@@ -15,28 +15,27 @@ type ReturnValueActions = [ CurIndex, Actions ];
  * @returns [ currentIndex, { slideToIndex, slideToDirection } ]
  */
 function useSlider(count: number): ReturnValueActions {
-  const currentIndexRef = useRef(0);
   const [ currentStateIndex, setCurrentStateIndex ] = useState(0);
 
   // 按定位滑动轮播图
   const slideToIndex = useCallback((index: number) => {
-      currentIndexRef.current = index;
-      setCurrentStateIndex(currentIndexRef.current);
+      setCurrentStateIndex(index);
   }, []);
 
   // 按方位滑动轮播图
   const slideToDirection = useCallback((direction: SlideDirection = SlideDirection.Right) => {
     if (count < 1) return;
+    let curIndex = currentStateIndex;
     if (direction === SlideDirection.Right) {
-      currentIndexRef.current++;
+      curIndex++;
     } else {
-      currentIndexRef.current--;
+      curIndex--;
     }
 
-    currentIndexRef.current = isCrossIndex(currentIndexRef.current, count - 1, 0);
-    setCurrentStateIndex(currentIndexRef.current);
+    curIndex = isCrossIndex(curIndex, count - 1, 0);
+    setCurrentStateIndex(curIndex);
 
-  }, [count]);
+  }, [count, currentStateIndex]);
 
   return [ currentStateIndex, { slideToDirection, slideToIndex } ];
 }

@@ -13,7 +13,7 @@ function useInterval(callback: () => void, delay: number = 0, switchOn: boolean 
   // 保存新回调
   useEffect(() => {
     savedCallback.current = callback;
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [callback]);
 
   // 建立 interval
   useEffect(() => {
