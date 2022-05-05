@@ -1,0 +1,64 @@
+.carousel-wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  .carousel-list {
+    // width: 300vw;
+    transition-property: transform;
+    transition-timing-function: ease;
+  }
+
+  .carousel-item {
+    float: left;
+    width: 100vw;
+    height: 100vh;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+
+  .carousel-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .dot-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      list-style: none;
+
+      .dot-item {
+        position: relative;
+        width: 50px;
+        height: 2px;
+        margin: 0 5px;
+        background: #9f9f9f;
+        cursor: pointer;
+
+        .dot-progress {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 2px;
+          width: 0;
+          background: #fff;
+        }
+
+        &.active {
+          .dot-progress {
+            transition-property: width;
+            transition-timing-function: ease;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
