@@ -1,0 +1,22 @@
+application:
+  ## broker-id可以为空(单机模式)
+  broker-id:
+  codec-dict: 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+  codec-length: 8
+  storage:
+    max-capacity: 999999
+    scheduler-thread-size: 5
+    expired-after-write:
+      duration: 300
+      timeuinit: second
+  cache:
+    enable: true
+    max-percentage: 0.2
+    scheduler-thread-size: 2
+    expired-after-write:
+      duration: 300
+      timeuinit: second
+
+
+swagger:
+  enable: true
