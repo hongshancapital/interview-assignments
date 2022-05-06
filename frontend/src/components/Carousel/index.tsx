@@ -5,7 +5,7 @@ import styles from './index.module.css'
 
 export function Carousel(props: IProps) {
 
-  const { container, children, width, height, progress, interval, go, handleNext, handlePrev } = useCarousel(props);
+  const { container, children, width, height, progress, interval, go, hover, out, handleNext, handlePrev } = useCarousel(props);
   const containerStyle = { width, height }
 
   const renderElement = (child: JSX.Element, index: number) => {
@@ -27,7 +27,7 @@ export function Carousel(props: IProps) {
       <div className={styles.indicator}>
         {Array(props.children.length).fill(0).map((_, index: number) => {
           // 底部按钮过度动画，依赖轮播动画的间隔
-          const animationStyle = { transition: progress === index ? `all ${interval / 1000}s ease` : 'none' }
+          const animationStyle = { transition: progress === index ? `all ${interval / 1000}s linear` : 'none' }
           const classNameStr = classnames({
             [styles.indicator_item]: true,
             [styles.indicator_active]: progress === index,
@@ -44,7 +44,7 @@ export function Carousel(props: IProps) {
   }
 
   return (
-    <div className={styles.carousel_box} style={containerStyle}>
+    <div className={styles.carousel_box} style={containerStyle} onMouseEnter={hover} onMouseLeave={out}>
       <div data-testid="elements" ref={container} className={styles.carousel_elements}>
         {React.Children.map(children.length < 2 ? children : [React.cloneElement(children[children.length - 1])].concat(children).concat(children[0]), renderElement)}
       </div>

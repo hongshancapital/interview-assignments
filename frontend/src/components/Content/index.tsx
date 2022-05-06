@@ -18,20 +18,19 @@ export function Content(props: IProps) {
     title,
     subtitle,
   } = props
-  const _subtitle = Array.isArray(subtitle) ? subtitle : [subtitle]
+  const _subtitle = Array.isArray(subtitle) ? subtitle : subtitle ? [] : [subtitle]
   const _title = Array.isArray(title) ? title : [title]
-
   return (
     <div style={{ backgroundColor }} className={classnames({ [styles.content]: true, [styles.iphone]: true })}>
       <div className={styles.context} style={{ color }}>
         {
-          _title.length && _title.map((t) => <h1 key={t}>{t}</h1>)
+          _title.length ? _title.map((t) => <h1 key={t}>{t}</h1>) : null
         }
-        {_subtitle.length && (
+        {_subtitle.length ? (
           <p>
             {_subtitle.map((sub) => <span key={sub}>{sub}</span>)}
           </p>
-        )}
+        ) : null}
       </div>
 
       <img className={styles.img} alt="img" src={img} />

@@ -29,7 +29,7 @@ const items = [
 
 function App() {
   return <div className="App">
-    <Carousel auto indicator control width={window.document.body.clientWidth} height={window.innerHeight}>
+    <Carousel auto indicator width={window.document.body.clientWidth} height={window.innerHeight}>
       {items.map((item, index) => <Content key={index} {...item} />)}
     </Carousel>
   </div>;

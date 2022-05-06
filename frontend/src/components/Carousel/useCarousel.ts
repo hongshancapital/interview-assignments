@@ -1,12 +1,14 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const DEFAULT_INTERVAL = 3000; // 默认执行时间间隔
+const DEFAULT_ANIMATION_INTERVAL = 500; // 默认动画执行时长
 const DEFAULT_WIDTH = window.screen.width; // 默认宽度
 const DEFAULT_HEIGHT = window.screen.height; // 默认高度
 
 export interface IProps {
   control?: boolean; // 是否展示左右控制器
   interval?: number; // 间隔时长
+  time?: number; //动画执行时长
   versa?: boolean; // 是否是反方向播放
   indicator?: boolean; //是否拥有底部导航
   auto?: boolean; // 自动播放
@@ -27,6 +29,7 @@ export function useCarousel(props: IProps) {
   const {
     auto = false,
     versa = false,
+    time = DEFAULT_ANIMATION_INTERVAL,
     interval = DEFAULT_INTERVAL,
     width = DEFAULT_WIDTH,
     height = DEFAULT_HEIGHT,
@@ -37,24 +40,24 @@ export function useCarousel(props: IProps) {
   const [progress, setProgress] = useState(0) // 进度指示
   // 动画播放状态
   const [animating, setAnimating] = useState(false)
-  const animatingTime = useRef<NodeJS.Timer>()
+  const animatingTime = useRef<NodeJS.Timer | null>()
   // 轮播dom容器
-  const container = useRef<HTMLDivElement>(null)
+  const container = useRef<HTMLDivElement | null>(null)
 
   const handlePrev = () => {
-    if (!props.control || animating) return
+    if (animating) return
     setAnimating(true)
     setProgress(active === 1 ? children.length - 1 : progress - 1)
-    container.current?.style.setProperty('transition', 'all 1s ease')
+    container.current?.style.setProperty('transition', `all ${time}ms linear`)
     setActive(active - 1);
   }
 
   const handleNext = () => {
-    if (!props.control || animating) return;
+    if (animating) return;
     const _children = container.current!.childNodes
     setAnimating(true)
     setProgress(active === _children.length - 2 ? 0 : progress + 1)
-    container.current?.style.setProperty('transition', 'all 1s ease')
+    container.current?.style.setProperty('transition', `all ${time}ms linear`)
     setActive(active + 1);
   }
 
@@ -70,26 +73,33 @@ export function useCarousel(props: IProps) {
   }
 
   const clearAnimation = () => {
-    clearInterval(animatingTime.current as NodeJS.Timer)
-    // animatingTime.current = null as any
+    clearInterval(animatingTime.current!)
+    animatingTime.current = null
   }
 
   // 到具体某个元素
   const go = (index: number) => {
     if (animating) return
-    container.current?.style.setProperty('transition', 'all 1s ease')
+    container.current?.style.setProperty('transition', `all ${time}ms linear`)
     setActive(index)
     setProgress(index - 1)
   }
 
   // 鼠标移入时暂停播放
-  const hover = () => {
-    clearAnimation()
+  const hover = (events: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // 只有在轮播盒子不是全屏展示的时候事件才生效
+    if (events.currentTarget.clientWidth !== window.innerWidth && events.currentTarget.clientHeight !== window.innerHeight) {
+      events.stopPropagation()
+      return auto && clearAnimation()
+    }
   }
 
   // 鼠标移出时重启自动播放
-  const out = () => {
-    return auto && animation()
+  const out = (events: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (events.currentTarget.clientWidth !== window.innerWidth && events.currentTarget.clientHeight !== window.innerHeight) {
+      events.stopPropagation()
+      return auto && animation()
+    }
   }
 
   const transitionend = () => {
@@ -108,34 +118,39 @@ export function useCarousel(props: IProps) {
     container.current?.removeEventListener('transitionend', transitionend, false)
   }
 
+  const removeTransitionend = () => {
+    container.current?.removeEventListener('transitionend', transitionend, false);
+  }
+
   useEffect(() => {
     const distance = (0 - active) * width;
     container.current?.style.setProperty('transform', `translate3d(${distance}px, 0, 0)`)
     container.current?.addEventListener('transitionend', transitionend, false)
     return () => {
-      container.current?.removeEventListener('transitionend', transitionend, false)
+      removeTransitionend()
     }
-  }, [container.current, active, animating])
+  })
 
   useEffect(() => {
     animation()
     return () => {
       clearAnimation()
-      // @ts-ignore
-      // container.current = null as any
     }
-  }, [active, animating, progress])
+  })
 
   return {
     active,
     width,
     height,
     container,
+    time,
     interval,
     children,
     progress,
     handleNext,
     handlePrev,
+    hover,
+    out,
     go
   }
 }
