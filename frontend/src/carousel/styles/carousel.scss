@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s;
+
+  & > div {
+    flex-shrink: 0;
+  }
+}
