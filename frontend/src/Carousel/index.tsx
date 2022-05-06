@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CarouselItem } from './components/CarouselItem/index';
 import { IndicatorLines } from './components/IndicatorLines/index';
 import './index.css';
@@ -26,27 +26,22 @@ export const Carousel = ({
     }, [list.length]);
 
     useEffect(() => {
-        let timer: any = null;
+        let timer: NodeJS.Timer | null = null;
         timer = setInterval(swapImage, duration);
 
         return () => {
-            clearInterval(timer);
+            if (timer) {
+                clearInterval(timer);
+            }
             timer = null;
         }
     }, [duration, swapImage]);
 
-    const imgBoxStyle = useMemo(() => {
-        return {
-            width: `${list.length * 100}vw`,
-            transform: `translateX(-${currentIndex * 100}vw)`,
-        }
-    }, [list, currentIndex]);
-
     return  (
         <div className='carousel-box'>
-            <div className='img-box' style={imgBoxStyle}>
+            <div className={'img-box active-' + currentIndex}>
                 {
-                    list.map((item: ICarouselItemProps) => {
+                    list.map((item: ICarouselItemProps, index: number) => {
                         return <CarouselItem
                             key={item.imageName}
                             {...item}
