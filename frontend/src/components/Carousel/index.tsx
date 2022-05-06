@@ -67,9 +67,9 @@ const Carousel: ICarousel = function ({ items }) {
                 })}
                 {item?.texts?.map?.((text) => {
                   return (
-                    <h1 key={text} className="carousel-item__text">
+                    <p key={text} className="carousel-item__text">
                       {text}
-                    </h1>
+                    </p>
                   );
                 })}
               </div>
