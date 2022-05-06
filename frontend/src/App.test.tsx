@@ -1,9 +1,6 @@
 import React from 'react';
-import { act, render, screen } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
-import airpods from './assets/airpods.png';
-import iphone from './assets/iphone.png';
-import tablet from './assets/tablet.png';
 import useActiveIndex from './carousel/useActiveIndex';
 import Dots from './carousel/dots';
 
