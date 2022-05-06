@@ -1,8 +1,11 @@
-import React from "react";
-import "./App.css";
+import React from 'react'
+import ProductShow from './pages/ProductShow'
+import './App.css'
 
 function App() {
-  return <div className="App">{/* write your component here */}</div>;
+  return <div className="App">
+    <ProductShow />
+  </div>
 }
 
 export default App;
