@@ -15,25 +15,52 @@ const afterChange = (current: number) => {
 
 function App() {
   return (
-    <Carousel duration={3000} beforeChange={beforeChange} afterChange={afterChange}>
-      <div className="carousel-item" style={{ backgroundImage: `url(${iphone})` }}>
-        <div className="carousel-item-text" style={{ color: '#fff' }}>
+    <Carousel
+      duration={3000}
+      width={window.document.body.clientWidth}
+      height={window.innerHeight}
+      beforeChange={beforeChange}
+      afterChange={afterChange}
+    >
+      <div
+        className="carousel-item"
+        style={{
+          backgroundColor: '#111',
+          color: '#fff',
+        }}
+      >
+        <div className="carousel-item-text">
           <h1>xPhone</h1>
-          <span>Lots to love. Less to spend.</span>
-          <span>Starting at $399.</span>
+          <p>Lots to love. Less to spend.</p>
+          <p>Starting at $399.</p>
         </div>
+        <img src={iphone} alt="iphone" />
       </div>
-      <div className="carousel-item" style={{ backgroundImage: `url(${tablet})` }}>
-        <div className="carousel-item-text" style={{ color: '#000' }}>
+      <div
+        className="carousel-item"
+        style={{
+          backgroundColor: '#fafafa',
+          color: '#000',
+        }}
+      >
+        <div className="carousel-item-text">
           <h1>Tablet</h1>
-          <span>Just the right amount of everything.</span>
+          <p>Just the right amount of everything.</p>
         </div>
+        <img src={tablet} alt="tablet" />
       </div>
-      <div className="carousel-item" style={{ backgroundImage: `url(${airpods})` }}>
-        <div className="carousel-item-text" style={{ color: '#000' }}>
+      <div
+        className="carousel-item"
+        style={{
+          backgroundColor: '#f1f1f3',
+          color: '#000',
+        }}
+      >
+        <div className="carousel-item-text">
           <h1>Buy a Tablet or xPhone for college.</h1>
           <h1>Get airPods.</h1>
         </div>
+        <img src={airpods} alt="airpods" />
       </div>
     </Carousel>
   );

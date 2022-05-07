@@ -24,7 +24,7 @@ const Dots = (props: DotsProps) => {
   return (
     <div className="dotContainer">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="dotBox" onClick={() => setCurIndex(i)}>
+        <div key={i} className="dotBox" data-testid={`dot_${i}`} onClick={() => setCurIndex(i)}>
           <div
             className={['dotCenter', dotIndex === i ? 'active' : ''].join(' ')}
             style={dotIndex === i ? { transition: `width ${duration}ms` } : undefined}

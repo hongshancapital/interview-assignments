@@ -20,6 +20,8 @@ interface CarouselProps {
    * 切换之前的回调
    */
   beforeChange?: (from: number, to: number) => void;
+  width?: number;
+  height?: number;
 }
 
 /**
@@ -28,7 +30,14 @@ interface CarouselProps {
  * @returns React.Node
  */
 const Carousel: React.FC<CarouselProps> = (props) => {
-  const { duration, beforeChange, afterChange } = props;
+  const {
+    duration,
+    beforeChange,
+    afterChange,
+    width = window.screen.width,
+    height = window.screen.height,
+    children,
+  } = props;
   const preIndex = useRef(-1);
 
   const { curIndex, setCurIndex } = useActiveIndex({ duration, count: React.Children.count(props.children) });
@@ -43,14 +52,16 @@ const Carousel: React.FC<CarouselProps> = (props) => {
 
   const sliderStyle = useMemo(() => {
     return {
-      transform: `translateX(${-(curIndex * 100)}vw)`,
+      transform: `translateX(${-(curIndex * 100)}%)`,
     };
   }, [curIndex]);
 
   return (
-    <div className="container">
-      <div className="carousel" style={sliderStyle}>
-        {props.children}
+    <div className="container" style={{ width: width, height: height }}>
+      <div className="carousel" style={sliderStyle} data-testid="carousel">
+        {React.Children.map(children, (child, index) => (
+          <div key={index}>{child}</div>
+        ))}
       </div>
       <Dots
         count={React.Children.count(props.children)}

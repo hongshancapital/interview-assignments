@@ -1,16 +1,29 @@
 .carousel-item {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 13%;
+  padding-bottom: 8%;
+  box-sizing: border-box;
 
   &-text {
-    position: absolute;
-    top: 20%;
-    width: 100%;
     text-align: center;
+  }
+
+  & h1 {
+    font-size: 60px;
+    margin: 0;
+  }
+
+  & p {
+    font-size: 32px;
+    margin: 0;
+  }
+
+  & img {
+    flex: 1;
+    height: 0;
+    object-fit: contain;
   }
 }

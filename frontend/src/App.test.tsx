@@ -1,12 +1,17 @@
 import React from 'react';
-import { act, render } from '@testing-library/react';
+import { act, render, screen, fireEvent } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import useActiveIndex from './carousel/useActiveIndex';
 import Dots from './carousel/dots';
+import App from './App';
 
 jest.useFakeTimers();
 
 describe('carousel component unit testing', () => {
+  test('snapshot', () => {
+    const { container } = render(<App />);
+    expect(container).toMatchSnapshot();
+  });
   test('useActiveIndex hooks', () => {
     const { result } = renderHook(() => useActiveIndex({ count: 3 }));
     expect(result.current.curIndex).toBe(0);
@@ -29,7 +34,7 @@ describe('carousel component unit testing', () => {
     jest.clearAllTimers();
   });
 
-  test('dot component', () => {
+  test('dot component', async () => {
     const { result } = renderHook(() => useActiveIndex({ count: 3 }));
 
     const props = {
@@ -51,5 +56,15 @@ describe('carousel component unit testing', () => {
 
     const dotCenter = document.querySelectorAll('.dotCenter.active');
     expect(dotCenter.length).toBe(1);
+  });
+
+  test('dot click', async () => {
+    render(<App />);
+
+    const carousel = await screen.findByTestId('carousel');
+    expect(carousel.style.getPropertyValue('transform')).toBe('translateX(0%)');
+    const dot1 = await screen.findByTestId('dot_1');
+    fireEvent.click(dot1);
+    expect(carousel.style.getPropertyValue('transform')).toBe('translateX(-100%)');
   });
 });
