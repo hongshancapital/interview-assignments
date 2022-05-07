@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import Carousel from "./index";
 
 test("render carousel with zero child", () => {
@@ -56,4 +56,35 @@ test("backgroundImageURL of item should work", async () => {
   const item = getByTestId("carousel-inner-item");
 
   expect(item).toHaveStyle({ backgroundImage: `url(${"/test.jpg"})` });
+});
+
+test("duration should work", async () => {
+  jest.useFakeTimers();
+  try {
+    const { getByTestId } = render(
+      <Carousel
+        items={[{ titles: ["test1"] }, { titles: ["test2"] }]}
+        duration={1000}
+      ></Carousel>
+    );
+
+    const item = getByTestId("carousel");
+
+    expect(item).toHaveAttribute("data-test-current-index", "0");
+
+    act(() => {
+      jest.advanceTimersByTime(1001);
+    });
+    expect(item).toHaveAttribute("data-test-current-index", "1");
+
+    act(() => {
+      jest.advanceTimersByTime(1001);
+    });
+    expect(item).toHaveAttribute("data-test-current-index", "0");
+  } finally {
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+    jest.useRealTimers();
+  }
 });

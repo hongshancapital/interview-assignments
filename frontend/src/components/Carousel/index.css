@@ -74,7 +74,8 @@
   }
 }
 
-.carousel-progress-bar-list__item--active::before {
+.carousel-progress-bar-list__item--active
+  .carousel-progress-bar-list__item__process {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -85,7 +86,7 @@
   background: rgb(250, 250, 250);
   border-radius: 2px;
 
-  animation: carousel-progress-bar-animation 3s linear;
+  animation: carousel-progress-bar-animation linear;
 
   content: "";
 }

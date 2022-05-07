@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import "./index.css";
 
-const duration = 3000;
+const defaultDuration = 3000;
 
 export interface ICarouselItem {
   titles?: string[];
@@ -13,13 +13,19 @@ export interface ICarouselItem {
 interface ICarousel
   extends FC<{
     items: ICarouselItem[];
+    duration?: number;
   }> {
   Item: FC;
 }
 
-const Carousel: ICarousel = function ({ items }) {
+const Carousel: ICarousel = function ({ items, duration: durationProp }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   let itemNum = items.length;
+  let duration = defaultDuration;
+
+  if (durationProp !== undefined) {
+    duration = durationProp;
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,10 +36,14 @@ const Carousel: ICarousel = function ({ items }) {
     return () => {
       clearInterval(interval);
     };
-  }, [itemNum]);
+  }, [itemNum, duration]);
 
   return (
-    <div className="carousel-container" data-testid="carousel">
+    <div
+      className="carousel-container"
+      data-testid="carousel"
+      data-test-current-index={currentIndex}
+    >
       <div
         className="carousel"
         style={{
@@ -89,7 +99,14 @@ const Carousel: ICarousel = function ({ items }) {
                   ? "carousel-progress-bar-list__item--active"
                   : ""
               }`}
-            ></li>
+            >
+              <div
+                className="carousel-progress-bar-list__item__process"
+                style={{
+                  animationDuration: `${duration}ms`,
+                }}
+              ></div>
+            </li>
           );
         })}
       </ul>
