@@ -38,7 +38,7 @@ const Carousel = (props: Props): JSX.Element => {
         })}
       </div>
       <Progress
-        count={count}
+        items={items}
         time={interval}
         activeIndex={activeIndex}
         callback={onClickProgress}

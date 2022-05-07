@@ -1,26 +1,29 @@
-import React, { useCallback } from "react";
+import React from "react";
+import { CarouselIProps } from "../carousel-item/index";
+
 import "./style.scss";
 
 interface Props {
-  count: number;
+  // 轮播图数据源
+  items: CarouselIProps[];
   time: number;
   activeIndex: number;
   callback?: (activeIndex: number) => void;
 }
 
 export default function Progress(props: Props): JSX.Element {
-  const { count, time, activeIndex, callback } = props;
+  const { items, time, activeIndex, callback } = props;
 
   const onClickItem = (activeIndex: number) =>
     callback && callback(activeIndex);
 
   return (
     <div className="progress-container">
-      {Array.from({ length: count }).map((_, index) => {
+      {items.map((e, index) => {
         const isActive = index === activeIndex;
         return (
           <div
-            key={index + ""}
+            key={e.id}
             className="progress-view"
             onClick={() => onClickItem(index)}
           >

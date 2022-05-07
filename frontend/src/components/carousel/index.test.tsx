@@ -51,7 +51,7 @@ describe("carousel test", () => {
 
   it("progress test", () => {
     const props = {
-      count: 3,
+      items: carousels,
       time: 3000,
       activeIndex: 0,
     };
@@ -63,7 +63,7 @@ describe("carousel test", () => {
     expect(elem).toBeInTheDocument();
 
     const items = document.querySelectorAll(".progress-view");
-    expect(items.length).toBe(props.count);
+    expect(items.length).toBe(props.items.length);
   });
 
   it("carousel test", () => {
