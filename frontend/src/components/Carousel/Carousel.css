@@ -1,0 +1,69 @@
+.carousel {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carousel__caption {
+  position: absolute;
+  top: 20vh;
+}
+
+.carousel__nav__container {
+  position: absolute;
+  bottom: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  left: auto;
+}
+
+.carousel__nav, .carousel__nav--active {
+  height: 2px;
+  width: 50px;
+  border-radius: 2px;
+}
+
+.carousel__nav {
+  background-color: #ccc;
+}
+
+.carousel__nav:not(:last-child) {
+  margin-right: 10px;
+}
+
+.carousel__nav--active {
+  background-color: #fff;
+  animation-name: slidein;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+}
+
+.carousel__item {
+  flex: 0 0 100vw;
+  height: 100vh;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel__container {
+  transition: all 1s;
+  position: absolute;
+  display: flex;
+  top: 0;
+}
+
+@keyframes slidein {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
