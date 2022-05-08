@@ -186,8 +186,23 @@ public String getShortLink(String longLink) {
 ### 4.5 性能测试
 
 
+* 测试工具：jmeter
+* 机器配置：
+  * 处理器：2.6 GHz 六核Intel Core i7
+  * 内存：16 GB 2667 MHz DDR4
+* JVM配置(保守配置，用2G堆内存，1.6G年轻代)：
+  * 版本：JDK8
+  * JVM设置：-Xms2048M -Xmx2048M -Xmn1640M -Xss1M -XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=5 -XX:PretenureSizeThreshold=1M -XX:+UseParNewGC -XX:+UseConcMarkSweepGC
+* 测试结果：
+
+
 <div align="center">
 	<img src="images\08.JMeter.png" />
 	</br>
 	<span> 图-8 性能测试 </span>
 </div>
+**性能说明：**
+
+* 平均响应时间：81ms,最大响应时间742ms
+* QPS：2031
+* 机器位占用一位，如果使用62进制，可以62*2K=12W QPS
