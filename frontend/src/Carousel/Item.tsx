@@ -1,13 +1,12 @@
-import React from "react";
 import { DataItem } from "../types";
 
 const PREFIX = "carousel-item";
 
-interface CarouselItemProps {
+export interface CarouselItemProps {
   data: DataItem;
 }
 
-function CarouselItem({ data }: CarouselItemProps) {
+const CarouselItem = ({ data }: CarouselItemProps) => {
   const style = {
     color: data.color,
     backgroundColor: data.backgroundColor,
@@ -32,6 +31,6 @@ function CarouselItem({ data }: CarouselItemProps) {
       </div>
     </div>
   );
-}
+};
 
 export default CarouselItem;

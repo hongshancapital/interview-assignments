@@ -1,5 +1,3 @@
-import React from "react";
-
 const PREFIX = "carousel-indicator";
 
 interface IndicatorProps {
@@ -8,7 +6,7 @@ interface IndicatorProps {
   onChange: (index: number) => void;
 }
 
-function Indicator({ activeIndex, count, onChange }: IndicatorProps) {
+const Indicator = ({ activeIndex, count, onChange }: IndicatorProps) => {
   const arr = Array.from({ length: count });
 
   return (
@@ -26,6 +24,6 @@ function Indicator({ activeIndex, count, onChange }: IndicatorProps) {
       ))}
     </div>
   );
-}
+};
 
 export default Indicator;

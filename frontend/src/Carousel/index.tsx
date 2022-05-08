@@ -1,49 +1,65 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import Indicator from "./Indicator";
 import "./index.css";
 
-interface CarouselProps {
-  autoplay?: boolean;
+export interface CarouselProps {
+  autoPlay?: boolean;
   interval?: number;
-  children: React.ReactChild[];
+  children?: React.ReactChild[];
 }
 
-function Carousel({
-  autoplay = true,
-  interval = 3000,
-  children,
-}: CarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+export interface CarouselRef {
+  activeIndex: number;
+}
 
-  // Computed style
-  const style = useMemo(
-    () => ({
-      transform: `translate3d(-${activeIndex * 100}vw, 0, 0)`,
-    }),
-    [activeIndex]
-  );
+const Carousel = forwardRef(
+  ({ autoPlay = true, interval = 3000, children = [] }: CarouselProps, ref) => {
+    const [activeIndex, setActiveIndex] = useState(0);
 
-  // Auto play
-  useEffect(() => {
-    if (!autoplay) return;
-    const timer = setInterval(() => {
-      setActiveIndex((activeIndex + 1) % children.length);
-    }, interval);
-    return () => clearInterval(timer);
-  });
+    // Computed style
+    const style = useMemo(
+      () => ({
+        transform: `translate3d(-${activeIndex * 100}vw, 0, 0)`,
+      }),
+      [activeIndex]
+    );
 
-  return (
-    <div className="carousel">
-      <div className="carousel-body" style={style}>
-        {children}
+    // Auto play
+    useEffect(() => {
+      if (!autoPlay) return;
+      const timer = setInterval(() => {
+        setActiveIndex((activeIndex + 1) % children.length);
+      }, interval);
+      return () => clearInterval(timer);
+    });
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        activeIndex,
+      }),
+      [activeIndex]
+    );
+
+    return (
+      <div className="carousel">
+        <div className="carousel-body" style={style}>
+          {children}
+        </div>
+        <Indicator
+          activeIndex={activeIndex}
+          count={children.length}
+          onChange={(index) => setActiveIndex(index)}
+        />
       </div>
-      <Indicator
-        activeIndex={activeIndex}
-        count={children.length}
-        onChange={(index) => setActiveIndex(index)}
-      />
-    </div>
-  );
-}
+    );
+  }
+);
 
 export default Carousel;
