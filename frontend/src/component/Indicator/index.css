@@ -1,0 +1,27 @@
+.indicator__container {
+  display: flex;
+  justify-content: center;
+}
+
+.indicator__line {
+  width: 40px;
+  height: 2px;
+  background-color: rgb(153, 153, 153);
+  margin: 0 5px;
+}
+
+.indicator__line-active {
+  width: 30px;
+  height: 2px;
+  background-color: #fff;
+  animation-name: width-grow;
+}
+
+@keyframes width-grow {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
