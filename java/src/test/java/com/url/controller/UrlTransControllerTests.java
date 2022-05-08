@@ -40,7 +40,7 @@ public class UrlTransControllerTests {
     public void getShortUrlTest() throws Exception{
         String longUrl = "https://www.baidu.com/test";
         MvcResult mvcResult = mock.perform(
-                MockMvcRequestBuilders.post("/url/short")
+                MockMvcRequestBuilders.post("/url/getShort")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .characterEncoding("UTF-8")
                         .param("longUrl",longUrl)
@@ -58,7 +58,7 @@ public class UrlTransControllerTests {
     public void getShortUrlParameterEmptyTest() throws Exception{
         String longUrl = "";
         MvcResult mvcResult = mock.perform(
-                        MockMvcRequestBuilders.post("/url/short")
+                        MockMvcRequestBuilders.post("/url/getShort")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .param("longUrl",longUrl)
@@ -76,7 +76,7 @@ public class UrlTransControllerTests {
     public void getShortUrlParameterCheckErrorTest() throws Exception{
         String longUrl = "1234sfd**";
         MvcResult mvcResult = mock.perform(
-                        MockMvcRequestBuilders.post("/url/short")
+                        MockMvcRequestBuilders.post("/url/getShort")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .param("longUrl",longUrl)
@@ -94,7 +94,7 @@ public class UrlTransControllerTests {
     public void getShortUrlServiceErrorTest() throws Exception{
         String longUrl = "service_error_test";
         MvcResult mvcResult = mock.perform(
-                        MockMvcRequestBuilders.post("/url/short")
+                        MockMvcRequestBuilders.post("/url/getShort")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .param("longUrl",longUrl)
@@ -112,7 +112,7 @@ public class UrlTransControllerTests {
     public void getLongUrlErrorTest() throws Exception{
         String shortUrl = "http://t.cn/0";
         MvcResult mvcResult = mock.perform(
-                        MockMvcRequestBuilders.post("/url/long")
+                        MockMvcRequestBuilders.post("/url/getLong")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .param("shortUrl",shortUrl)
@@ -131,7 +131,7 @@ public class UrlTransControllerTests {
         String longUrl = "https://www.baidu.com/test";
         UrlResultBean urlResultBean = urlTransService.getShortUrl(longUrl);
         MvcResult mvcResult = mock.perform(
-                        MockMvcRequestBuilders.post("/url/long")
+                        MockMvcRequestBuilders.post("/url/getLong")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .param("shortUrl",urlResultBean.getUrlData())
@@ -150,7 +150,7 @@ public class UrlTransControllerTests {
         String longUrl = "";
         UrlResultBean urlResultBean = urlTransService.getShortUrl(longUrl);
         MvcResult mvcResult = mock.perform(
-                        MockMvcRequestBuilders.post("/url/long")
+                        MockMvcRequestBuilders.post("/url/getLong")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .param("shortUrl",urlResultBean.getUrlData())
@@ -168,7 +168,7 @@ public class UrlTransControllerTests {
     public void getLongUrlNotExistsTest() throws Exception{
         String shortUrl = "https://t.cn/qwerq";
         MvcResult mvcResult = mock.perform(
-                        MockMvcRequestBuilders.post("/url/long")
+                        MockMvcRequestBuilders.post("/url/getLong")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .param("shortUrl",shortUrl)
@@ -186,7 +186,7 @@ public class UrlTransControllerTests {
     public void getLongUrlServiceErrorTest() throws Exception{
         String shortUrl = "service_error_test";
         MvcResult mvcResult = mock.perform(
-                        MockMvcRequestBuilders.post("/url/long")
+                        MockMvcRequestBuilders.post("/url/getLong")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .characterEncoding("UTF-8")
                                 .param("shortUrl",shortUrl)

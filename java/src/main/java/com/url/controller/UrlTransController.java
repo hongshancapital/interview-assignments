@@ -4,6 +4,8 @@ import com.url.bean.UrlResultBean;
 import com.url.service.UrlTransService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +33,7 @@ public class UrlTransController {
             @ApiResponse(code = 400,message = "域名参数格式错误"),
             @ApiResponse(code = 500,message = "服务未知异常"),
     })
-    @RequestMapping("/short")
+    @PostMapping(value = "/getShort")
     public UrlResultBean getShortUrl(String longUrl){
         UrlResultBean urlResultBean = urlTransService.getShortUrl(longUrl);
         return urlResultBean;
@@ -45,7 +47,7 @@ public class UrlTransController {
             @ApiResponse(code = 500,message = "服务未知异常"),
             @ApiResponse(code = 600,message = "长域名不存在或已过期"),
     })
-    @RequestMapping("/long")
+    @GetMapping(value = "/getLong")
     public UrlResultBean getLongUrl(String shortUrl){
         UrlResultBean urlResultBean = urlTransService.getLongUrl(shortUrl);
         return urlResultBean;
