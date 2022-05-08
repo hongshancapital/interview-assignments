@@ -1,41 +1,36 @@
-# TypeScript Fullstack Engineer Assignment
+# short-chain-service
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+## 简介
 
-撰写两个 API 接口
+该项目为短链服务，提供根据原始链接生成短链接和根据短链接302跳转到原始链接的服务
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+项目采用的是 **egg + typescript + mysql + sequelize** 开发方式。
 
-限制：
+## 架构图
 
-- 短域名长度最大为 8 个字符（不含域名）
+![architecture](https://raw.githubusercontent.com/weiruifeng/img-folder/main/short-chain-service/architecture.png)
 
-递交作业内容
+该项目采用了多进程模式来保证 cpu 资源能够更加充分的利用，缓存使用了本地内存 + Redis 两层缓存，本地内存采用了LRU策略，主要是为了降低 Redis 负载。本地内存实现了多进程之间同步更新。
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+## 生成短链
 
-## 岗位职责
+![tinyUrl](https://raw.githubusercontent.com/weiruifeng/img-folder/main/short-chain-service/tiny-url.png)
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+* 布隆过滤器用于判断长链接是否已经存在
+* ID获取采用的是获取存储表的最大ID，速度非常快
+* 生成短链采用了使用ID + 添加噪声后再转换为62进制字符串，不足8位补全8位的操作
+  
+## 短链跳转
 
-## 要求
+![originalUrl](https://raw.githubusercontent.com/weiruifeng/img-folder/main/short-chain-service/original-url.png)
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+* 获取数据的优先级为本地内存，redis缓存，数据库
+* 由于活跃的短链占比较小，缓存写入采用了读时缓存，读时缓存占比较小，且命中率高
+
+## 定时任务
+![schedule](https://raw.githubusercontent.com/weiruifeng/img-folder/main/short-chain-service/schedule.png)
+
+定时任务定期的将过期的短链删除，并更新redis缓存和本地内存。
+
+## 单元测试
+![schedule](https://raw.githubusercontent.com/weiruifeng/img-folder/main/short-chain-service/unit-test.png)
