@@ -1,0 +1,25 @@
+app:
+  port: 3032
+  node_env: 'production'
+
+mysql: 
+    dirver: 'mysql'
+    username: 'default'
+    password: 'secret'
+    database: 'pro'
+    host: 'mysql'
+    port: 3306
+    app_tag: 'tiny_id'
+    step: 10000n
+
+mongodb:
+    mongodburl: 'mongodb://127.0.0.1:27017/pro'
+
+redis:
+    host: '127.0.0.1'
+    port: 6379
+
+snowflakeid:
+    salltBits: 8
+    workerIdBits: 3
+    snowflakeIdBits: 48
