@@ -16,7 +16,7 @@
 ## 三、测试方法
 ### 3.1 单元测试
 单元测试覆盖率采用jacoco插件自动生成。项目跟目录执行命令`mvn test`，打开./target/site/jacoco/index.html查看覆盖率报告
-![jacoco覆盖率](./images/01-jacoco-report.png)
+![jacoco覆盖率](./images/01-jacoco-report.png?raw=true)
 
 ### 3.2 压力测试
 #### 3.2.1 测试工具
