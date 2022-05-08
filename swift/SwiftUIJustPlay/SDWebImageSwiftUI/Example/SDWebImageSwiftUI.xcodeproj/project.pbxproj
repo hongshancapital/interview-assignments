@@ -1,0 +1,1403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1794840F9DF6D50ADA448C9B /* Pods_SDWebImageSwiftUIDemo_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 473D7886C23B6FC5AFE35842 /* Pods_SDWebImageSwiftUIDemo_macOS.framework */; };
+		320CDC2C22FADB44007CF858 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320CDC2B22FADB44007CF858 /* AppDelegate.swift */; };
+		320CDC2E22FADB44007CF858 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320CDC2D22FADB44007CF858 /* SceneDelegate.swift */; };
+		320CDC3022FADB44007CF858 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320CDC2F22FADB44007CF858 /* ContentView.swift */; };
+		320CDC3222FADB45007CF858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 320CDC3122FADB45007CF858 /* Assets.xcassets */; };
+		320CDC3522FADB45007CF858 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 320CDC3422FADB45007CF858 /* Preview Assets.xcassets */; };
+		320CDC3822FADB45007CF858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 320CDC3622FADB45007CF858 /* LaunchScreen.storyboard */; };
+		326B0D712345C01900D28269 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326B0D702345C01900D28269 /* DetailView.swift */; };
+		32E5290C2348A0C700EA46FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E5290B2348A0C700EA46FF /* AppDelegate.swift */; };
+		32E529102348A0C900EA46FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E5290F2348A0C900EA46FF /* Assets.xcassets */; };
+		32E529132348A0C900EA46FF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E529122348A0C900EA46FF /* Preview Assets.xcassets */; };
+		32E529162348A0C900EA46FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32E529142348A0C900EA46FF /* Main.storyboard */; };
+		32E529232348A0D300EA46FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E529222348A0D300EA46FF /* AppDelegate.swift */; };
+		32E529272348A0D400EA46FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E529262348A0D400EA46FF /* Assets.xcassets */; };
+		32E5292A2348A0D400EA46FF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E529292348A0D400EA46FF /* Preview Assets.xcassets */; };
+		32E5292D2348A0D400EA46FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32E5292B2348A0D400EA46FF /* LaunchScreen.storyboard */; };
+		32E529382348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 32E529372348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32E5293E2348A0DD00EA46FF /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32E5293C2348A0DD00EA46FF /* Interface.storyboard */; };
+		32E529402348A0DE00EA46FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E5293F2348A0DE00EA46FF /* Assets.xcassets */; };
+		32E529472348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32E529462348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32E5294E2348A0DE00EA46FF /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E5294D2348A0DE00EA46FF /* HostingController.swift */; };
+		32E529502348A0DE00EA46FF /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E5294F2348A0DE00EA46FF /* ExtensionDelegate.swift */; };
+		32E529522348A0DF00EA46FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E529512348A0DF00EA46FF /* Assets.xcassets */; };
+		32E529552348A0DF00EA46FF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32E529542348A0DF00EA46FF /* Preview Assets.xcassets */; };
+		32E529622348A10B00EA46FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320CDC2F22FADB44007CF858 /* ContentView.swift */; };
+		32E529632348A10B00EA46FF /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326B0D702345C01900D28269 /* DetailView.swift */; };
+		32E529652348A10B00EA46FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320CDC2F22FADB44007CF858 /* ContentView.swift */; };
+		32E529662348A10B00EA46FF /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326B0D702345C01900D28269 /* DetailView.swift */; };
+		32E529682348A10C00EA46FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320CDC2F22FADB44007CF858 /* ContentView.swift */; };
+		32E529692348A10C00EA46FF /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326B0D702345C01900D28269 /* DetailView.swift */; };
+		68543C9252A5BD46E9573195 /* Pods_SDWebImageSwiftUIDemo_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79C3538209F8065DCCFBE205 /* Pods_SDWebImageSwiftUIDemo_tvOS.framework */; };
+		8E29022B4DCBF0EFF9CF82F9 /* Pods_SDWebImageSwiftUIDemo_watchOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E25DB0256669F3B7EE7C566D /* Pods_SDWebImageSwiftUIDemo_watchOS_WatchKit_Extension.framework */; };
+		E61581A5A1063B0E6795157D /* Pods_SDWebImageSwiftUIDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0FCDD95C695D2F914DC9B3B /* Pods_SDWebImageSwiftUIDemo.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		32E529392348A0DD00EA46FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32E529362348A0DD00EA46FF;
+			remoteInfo = "SDWebImageSwiftUIDemo-watchOS WatchKit App";
+		};
+		32E529482348A0DE00EA46FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32E529452348A0DE00EA46FF;
+			remoteInfo = "SDWebImageSwiftUIDemo-watchOS WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		32E5295A2348A0DF00EA46FF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				32E529472348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E5295E2348A0DF00EA46FF /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				32E529382348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		28546D27CDA9666E64C183FD /* SDWebImageSwiftUI.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SDWebImageSwiftUI.podspec; path = ../SDWebImageSwiftUI.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		320CDC2922FADB44007CF858 /* SDWebImageSwiftUIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDWebImageSwiftUIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		320CDC2B22FADB44007CF858 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		320CDC2D22FADB44007CF858 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		320CDC2F22FADB44007CF858 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		320CDC3122FADB45007CF858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		320CDC3422FADB45007CF858 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		320CDC3722FADB45007CF858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		320CDC3922FADB45007CF858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		326B0D702345C01900D28269 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		32E529092348A0C700EA46FF /* SDWebImageSwiftUIDemo-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SDWebImageSwiftUIDemo-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32E5290B2348A0C700EA46FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		32E5290F2348A0C900EA46FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32E529122348A0C900EA46FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		32E529152348A0C900EA46FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		32E529172348A0C900EA46FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32E529182348A0C900EA46FF /* SDWebImageSwiftUIDemo_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDWebImageSwiftUIDemo_macOS.entitlements; sourceTree = "<group>"; };
+		32E529202348A0D300EA46FF /* SDWebImageSwiftUIDemo-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SDWebImageSwiftUIDemo-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32E529222348A0D300EA46FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		32E529262348A0D400EA46FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32E529292348A0D400EA46FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		32E5292C2348A0D400EA46FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		32E5292E2348A0D400EA46FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32E529342348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SDWebImageSwiftUIDemo-watchOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32E529372348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SDWebImageSwiftUIDemo-watchOS WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32E5293D2348A0DD00EA46FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		32E5293F2348A0DE00EA46FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32E529412348A0DE00EA46FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32E529462348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SDWebImageSwiftUIDemo-watchOS WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32E5294D2348A0DE00EA46FF /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
+		32E5294F2348A0DE00EA46FF /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		32E529512348A0DF00EA46FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32E529542348A0DF00EA46FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		32E529562348A0DF00EA46FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E9F8B5F06960FFFBD1A5F99 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		473D7886C23B6FC5AFE35842 /* Pods_SDWebImageSwiftUIDemo_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDWebImageSwiftUIDemo_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54859B427E0A79E823713963 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		5864FFEDE62A0630EDF26A56 /* Pods-SDWebImageSwiftUIDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageSwiftUIDemo.release.xcconfig"; path = "Target Support Files/Pods-SDWebImageSwiftUIDemo/Pods-SDWebImageSwiftUIDemo.release.xcconfig"; sourceTree = "<group>"; };
+		746AF60263F54FD7E16AA7D5 /* Pods-SDWebImageSwiftUIDemo-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageSwiftUIDemo-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageSwiftUIDemo-tvOS/Pods-SDWebImageSwiftUIDemo-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		79C3538209F8065DCCFBE205 /* Pods_SDWebImageSwiftUIDemo_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDWebImageSwiftUIDemo_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B0D9182CAD02B73E6F208F3 /* Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
+		89B11BBDBAA86F760DF1EE2D /* Pods-SDWebImageSwiftUIDemo-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageSwiftUIDemo-macOS.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageSwiftUIDemo-macOS/Pods-SDWebImageSwiftUIDemo-macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		95C9E0D9CE4113E5A82480B9 /* Pods-SDWebImageSwiftUIDemo-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageSwiftUIDemo-tvOS.release.xcconfig"; path = "Target Support Files/Pods-SDWebImageSwiftUIDemo-tvOS/Pods-SDWebImageSwiftUIDemo-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		A78BA7FB5AFF53CBDD4C4CBD /* Pods-SDWebImageSwiftUIDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageSwiftUIDemo.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageSwiftUIDemo/Pods-SDWebImageSwiftUIDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		E25DB0256669F3B7EE7C566D /* Pods_SDWebImageSwiftUIDemo_watchOS_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDWebImageSwiftUIDemo_watchOS_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0FCDD95C695D2F914DC9B3B /* Pods_SDWebImageSwiftUIDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDWebImageSwiftUIDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3AACDC116F5598BC39A8573 /* Pods-SDWebImageSwiftUIDemo-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageSwiftUIDemo-macOS.release.xcconfig"; path = "Target Support Files/Pods-SDWebImageSwiftUIDemo-macOS/Pods-SDWebImageSwiftUIDemo-macOS.release.xcconfig"; sourceTree = "<group>"; };
+		FEED4964309E241D2FD8A544 /* Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		320CDC2622FADB44007CF858 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E61581A5A1063B0E6795157D /* Pods_SDWebImageSwiftUIDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E529062348A0C700EA46FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1794840F9DF6D50ADA448C9B /* Pods_SDWebImageSwiftUIDemo_macOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E5291D2348A0D300EA46FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68543C9252A5BD46E9573195 /* Pods_SDWebImageSwiftUIDemo_tvOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E529432348A0DE00EA46FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E29022B4DCBF0EFF9CF82F9 /* Pods_SDWebImageSwiftUIDemo_watchOS_WatchKit_Extension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		406E39A9C4691E8FD71FEB53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F95F43318C6A1CAF31AF7FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1DEE67F18F512F2F2F78E283 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A78BA7FB5AFF53CBDD4C4CBD /* Pods-SDWebImageSwiftUIDemo.debug.xcconfig */,
+				5864FFEDE62A0630EDF26A56 /* Pods-SDWebImageSwiftUIDemo.release.xcconfig */,
+				89B11BBDBAA86F760DF1EE2D /* Pods-SDWebImageSwiftUIDemo-macOS.debug.xcconfig */,
+				F3AACDC116F5598BC39A8573 /* Pods-SDWebImageSwiftUIDemo-macOS.release.xcconfig */,
+				746AF60263F54FD7E16AA7D5 /* Pods-SDWebImageSwiftUIDemo-tvOS.debug.xcconfig */,
+				95C9E0D9CE4113E5A82480B9 /* Pods-SDWebImageSwiftUIDemo-tvOS.release.xcconfig */,
+				FEED4964309E241D2FD8A544 /* Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.debug.xcconfig */,
+				7B0D9182CAD02B73E6F208F3 /* Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		320CDC2A22FADB44007CF858 /* SDWebImageSwiftUIDemo */ = {
+			isa = PBXGroup;
+			children = (
+				320CDC2B22FADB44007CF858 /* AppDelegate.swift */,
+				320CDC2D22FADB44007CF858 /* SceneDelegate.swift */,
+				320CDC2F22FADB44007CF858 /* ContentView.swift */,
+				326B0D702345C01900D28269 /* DetailView.swift */,
+				320CDC3122FADB45007CF858 /* Assets.xcassets */,
+				320CDC3622FADB45007CF858 /* LaunchScreen.storyboard */,
+				320CDC3922FADB45007CF858 /* Info.plist */,
+				320CDC3322FADB45007CF858 /* Preview Content */,
+			);
+			path = SDWebImageSwiftUIDemo;
+			sourceTree = "<group>";
+		};
+		320CDC3322FADB45007CF858 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				320CDC3422FADB45007CF858 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		32E5290A2348A0C700EA46FF /* SDWebImageSwiftUIDemo-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				32E5290B2348A0C700EA46FF /* AppDelegate.swift */,
+				32E5290F2348A0C900EA46FF /* Assets.xcassets */,
+				32E529142348A0C900EA46FF /* Main.storyboard */,
+				32E529172348A0C900EA46FF /* Info.plist */,
+				32E529182348A0C900EA46FF /* SDWebImageSwiftUIDemo_macOS.entitlements */,
+				32E529112348A0C900EA46FF /* Preview Content */,
+			);
+			path = "SDWebImageSwiftUIDemo-macOS";
+			sourceTree = "<group>";
+		};
+		32E529112348A0C900EA46FF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				32E529122348A0C900EA46FF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		32E529212348A0D300EA46FF /* SDWebImageSwiftUIDemo-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				32E529222348A0D300EA46FF /* AppDelegate.swift */,
+				32E529262348A0D400EA46FF /* Assets.xcassets */,
+				32E5292B2348A0D400EA46FF /* LaunchScreen.storyboard */,
+				32E5292E2348A0D400EA46FF /* Info.plist */,
+				32E529282348A0D400EA46FF /* Preview Content */,
+			);
+			path = "SDWebImageSwiftUIDemo-tvOS";
+			sourceTree = "<group>";
+		};
+		32E529282348A0D400EA46FF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				32E529292348A0D400EA46FF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		32E5293B2348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				32E5293C2348A0DD00EA46FF /* Interface.storyboard */,
+				32E5293F2348A0DE00EA46FF /* Assets.xcassets */,
+				32E529412348A0DE00EA46FF /* Info.plist */,
+			);
+			path = "SDWebImageSwiftUIDemo-watchOS WatchKit App";
+			sourceTree = "<group>";
+		};
+		32E5294A2348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				32E5294D2348A0DE00EA46FF /* HostingController.swift */,
+				32E5294F2348A0DE00EA46FF /* ExtensionDelegate.swift */,
+				32E529512348A0DF00EA46FF /* Assets.xcassets */,
+				32E529562348A0DF00EA46FF /* Info.plist */,
+				32E529532348A0DF00EA46FF /* Preview Content */,
+			);
+			path = "SDWebImageSwiftUIDemo-watchOS WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		32E529532348A0DF00EA46FF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				32E529542348A0DF00EA46FF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		607FACC71AFB9204008FA782 = {
+			isa = PBXGroup;
+			children = (
+				607FACF51AFB993E008FA782 /* Podspec Metadata */,
+				320CDC2A22FADB44007CF858 /* SDWebImageSwiftUIDemo */,
+				32E5290A2348A0C700EA46FF /* SDWebImageSwiftUIDemo-macOS */,
+				32E529212348A0D300EA46FF /* SDWebImageSwiftUIDemo-tvOS */,
+				32E5293B2348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App */,
+				32E5294A2348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension */,
+				607FACD11AFB9204008FA782 /* Products */,
+				1DEE67F18F512F2F2F78E283 /* Pods */,
+				F1EB66AFCE0A1C6D551D02DD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		607FACD11AFB9204008FA782 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				320CDC2922FADB44007CF858 /* SDWebImageSwiftUIDemo.app */,
+				32E529092348A0C700EA46FF /* SDWebImageSwiftUIDemo-macOS.app */,
+				32E529202348A0D300EA46FF /* SDWebImageSwiftUIDemo-tvOS.app */,
+				32E529342348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS.app */,
+				32E529372348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App.app */,
+				32E529462348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				28546D27CDA9666E64C183FD /* SDWebImageSwiftUI.podspec */,
+				3E9F8B5F06960FFFBD1A5F99 /* README.md */,
+				54859B427E0A79E823713963 /* LICENSE */,
+			);
+			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		F1EB66AFCE0A1C6D551D02DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F0FCDD95C695D2F914DC9B3B /* Pods_SDWebImageSwiftUIDemo.framework */,
+				473D7886C23B6FC5AFE35842 /* Pods_SDWebImageSwiftUIDemo_macOS.framework */,
+				79C3538209F8065DCCFBE205 /* Pods_SDWebImageSwiftUIDemo_tvOS.framework */,
+				E25DB0256669F3B7EE7C566D /* Pods_SDWebImageSwiftUIDemo_watchOS_WatchKit_Extension.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		320CDC2822FADB44007CF858 /* SDWebImageSwiftUIDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 320CDC3C22FADB45007CF858 /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo" */;
+			buildPhases = (
+				58D483FABAB44B4EC2E538D0 /* [CP] Check Pods Manifest.lock */,
+				320CDC2522FADB44007CF858 /* Sources */,
+				320CDC2622FADB44007CF858 /* Frameworks */,
+				320CDC2722FADB44007CF858 /* Resources */,
+				0B5ABDA8213E875CE5FCC890 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SDWebImageSwiftUIDemo;
+			productName = SDWebImageSwiftUIDemo;
+			productReference = 320CDC2922FADB44007CF858 /* SDWebImageSwiftUIDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		32E529082348A0C700EA46FF /* SDWebImageSwiftUIDemo-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32E5291B2348A0C900EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-macOS" */;
+			buildPhases = (
+				78426DFA5212E5496802AC58 /* [CP] Check Pods Manifest.lock */,
+				32E529052348A0C700EA46FF /* Sources */,
+				32E529062348A0C700EA46FF /* Frameworks */,
+				32E529072348A0C700EA46FF /* Resources */,
+				4577A2F4A5DEBBDBB766F1CF /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SDWebImageSwiftUIDemo-macOS";
+			productName = "SDWebImageSwiftUIDemo-macOS";
+			productReference = 32E529092348A0C700EA46FF /* SDWebImageSwiftUIDemo-macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		32E5291F2348A0D300EA46FF /* SDWebImageSwiftUIDemo-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32E5292F2348A0D400EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-tvOS" */;
+			buildPhases = (
+				FB46C9F77AA45C7DA1D71F7B /* [CP] Check Pods Manifest.lock */,
+				32E5291C2348A0D300EA46FF /* Sources */,
+				32E5291D2348A0D300EA46FF /* Frameworks */,
+				32E5291E2348A0D300EA46FF /* Resources */,
+				A6F5B1BDEE1460B7F20E55C6 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SDWebImageSwiftUIDemo-tvOS";
+			productName = "SDWebImageSwiftUIDemo-tvOS";
+			productReference = 32E529202348A0D300EA46FF /* SDWebImageSwiftUIDemo-tvOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		32E529332348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32E5295F2348A0DF00EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-watchOS" */;
+			buildPhases = (
+				32E529322348A0DD00EA46FF /* Resources */,
+				32E5295E2348A0DF00EA46FF /* Embed Watch Content */,
+				406E39A9C4691E8FD71FEB53 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32E5293A2348A0DD00EA46FF /* PBXTargetDependency */,
+			);
+			name = "SDWebImageSwiftUIDemo-watchOS";
+			productName = "SDWebImageSwiftUIDemo-watchOS";
+			productReference = 32E529342348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		32E529362348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32E5295B2348A0DF00EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-watchOS WatchKit App" */;
+			buildPhases = (
+				32E529352348A0DD00EA46FF /* Resources */,
+				32E5295A2348A0DF00EA46FF /* Embed App Extensions */,
+				8F95F43318C6A1CAF31AF7FB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32E529492348A0DE00EA46FF /* PBXTargetDependency */,
+			);
+			name = "SDWebImageSwiftUIDemo-watchOS WatchKit App";
+			productName = "SDWebImageSwiftUIDemo-watchOS WatchKit App";
+			productReference = 32E529372348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		32E529452348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32E529572348A0DF00EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-watchOS WatchKit Extension" */;
+			buildPhases = (
+				B9B631F1DB90E98FCAE3E196 /* [CP] Check Pods Manifest.lock */,
+				32E529422348A0DE00EA46FF /* Sources */,
+				32E529432348A0DE00EA46FF /* Frameworks */,
+				32E529442348A0DE00EA46FF /* Resources */,
+				756F0513F095D448FCCD78A2 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SDWebImageSwiftUIDemo-watchOS WatchKit Extension";
+			productName = "SDWebImageSwiftUIDemo-watchOS WatchKit Extension";
+			productReference = 32E529462348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		607FACC81AFB9204008FA782 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = CocoaPods;
+				TargetAttributes = {
+					320CDC2822FADB44007CF858 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					32E529082348A0C700EA46FF = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+					};
+					32E5291F2348A0D300EA46FF = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+					};
+					32E529332348A0DD00EA46FF = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+					};
+					32E529362348A0DD00EA46FF = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+					};
+					32E529452348A0DE00EA46FF = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "SDWebImageSwiftUI" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+				Base,
+			);
+			mainGroup = 607FACC71AFB9204008FA782;
+			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				320CDC2822FADB44007CF858 /* SDWebImageSwiftUIDemo */,
+				32E529082348A0C700EA46FF /* SDWebImageSwiftUIDemo-macOS */,
+				32E5291F2348A0D300EA46FF /* SDWebImageSwiftUIDemo-tvOS */,
+				32E529332348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS */,
+				32E529362348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App */,
+				32E529452348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		320CDC2722FADB44007CF858 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				320CDC3822FADB45007CF858 /* LaunchScreen.storyboard in Resources */,
+				320CDC3522FADB45007CF858 /* Preview Assets.xcassets in Resources */,
+				320CDC3222FADB45007CF858 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E529072348A0C700EA46FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32E529162348A0C900EA46FF /* Main.storyboard in Resources */,
+				32E529132348A0C900EA46FF /* Preview Assets.xcassets in Resources */,
+				32E529102348A0C900EA46FF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E5291E2348A0D300EA46FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32E5292D2348A0D400EA46FF /* LaunchScreen.storyboard in Resources */,
+				32E5292A2348A0D400EA46FF /* Preview Assets.xcassets in Resources */,
+				32E529272348A0D400EA46FF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E529322348A0DD00EA46FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E529352348A0DD00EA46FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32E529402348A0DE00EA46FF /* Assets.xcassets in Resources */,
+				32E5293E2348A0DD00EA46FF /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E529442348A0DE00EA46FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32E529552348A0DF00EA46FF /* Preview Assets.xcassets in Resources */,
+				32E529522348A0DF00EA46FF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B5ABDA8213E875CE5FCC890 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SDWebImageSwiftUIDemo/Pods-SDWebImageSwiftUIDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImagePDFCoder-iOS/SDWebImagePDFCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageSVGCoder-iOS/SDWebImageSVGCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageSwiftUI-iOS/SDWebImageSwiftUI.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageWebPCoder-iOS/SDWebImageWebPCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/libwebp-iOS/libwebp.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImagePDFCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageSVGCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageSwiftUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageWebPCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDWebImageSwiftUIDemo/Pods-SDWebImageSwiftUIDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4577A2F4A5DEBBDBB766F1CF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SDWebImageSwiftUIDemo-macOS/Pods-SDWebImageSwiftUIDemo-macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-macOS/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImagePDFCoder-macOS/SDWebImagePDFCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageSVGCoder-macOS/SDWebImageSVGCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageSwiftUI-macOS/SDWebImageSwiftUI.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageWebPCoder-macOS/SDWebImageWebPCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/libwebp-macOS/libwebp.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImagePDFCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageSVGCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageSwiftUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageWebPCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDWebImageSwiftUIDemo-macOS/Pods-SDWebImageSwiftUIDemo-macOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		58D483FABAB44B4EC2E538D0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SDWebImageSwiftUIDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		756F0513F095D448FCCD78A2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-watchOS/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImagePDFCoder-watchOS/SDWebImagePDFCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageSVGCoder-watchOS/SDWebImageSVGCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageSwiftUI-watchOS/SDWebImageSwiftUI.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageWebPCoder-watchOS/SDWebImageWebPCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/libwebp-watchOS/libwebp.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImagePDFCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageSVGCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageSwiftUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageWebPCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78426DFA5212E5496802AC58 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SDWebImageSwiftUIDemo-macOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A6F5B1BDEE1460B7F20E55C6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SDWebImageSwiftUIDemo-tvOS/Pods-SDWebImageSwiftUIDemo-tvOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-tvOS/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImagePDFCoder-tvOS/SDWebImagePDFCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageSVGCoder-tvOS/SDWebImageSVGCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageSwiftUI-tvOS/SDWebImageSwiftUI.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageWebPCoder-tvOS/SDWebImageWebPCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/libwebp-tvOS/libwebp.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImagePDFCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageSVGCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageSwiftUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageWebPCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDWebImageSwiftUIDemo-tvOS/Pods-SDWebImageSwiftUIDemo-tvOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9B631F1DB90E98FCAE3E196 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB46C9F77AA45C7DA1D71F7B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SDWebImageSwiftUIDemo-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		320CDC2522FADB44007CF858 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				320CDC2C22FADB44007CF858 /* AppDelegate.swift in Sources */,
+				326B0D712345C01900D28269 /* DetailView.swift in Sources */,
+				320CDC2E22FADB44007CF858 /* SceneDelegate.swift in Sources */,
+				320CDC3022FADB44007CF858 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E529052348A0C700EA46FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32E529622348A10B00EA46FF /* ContentView.swift in Sources */,
+				32E529632348A10B00EA46FF /* DetailView.swift in Sources */,
+				32E5290C2348A0C700EA46FF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E5291C2348A0D300EA46FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32E529652348A10B00EA46FF /* ContentView.swift in Sources */,
+				32E529662348A10B00EA46FF /* DetailView.swift in Sources */,
+				32E529232348A0D300EA46FF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32E529422348A0DE00EA46FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32E5294E2348A0DE00EA46FF /* HostingController.swift in Sources */,
+				32E529692348A10C00EA46FF /* DetailView.swift in Sources */,
+				32E529502348A0DE00EA46FF /* ExtensionDelegate.swift in Sources */,
+				32E529682348A10C00EA46FF /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		32E5293A2348A0DD00EA46FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32E529362348A0DD00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit App */;
+			targetProxy = 32E529392348A0DD00EA46FF /* PBXContainerItemProxy */;
+		};
+		32E529492348A0DE00EA46FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32E529452348A0DE00EA46FF /* SDWebImageSwiftUIDemo-watchOS WatchKit Extension */;
+			targetProxy = 32E529482348A0DE00EA46FF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		320CDC3622FADB45007CF858 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				320CDC3722FADB45007CF858 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		32E529142348A0C900EA46FF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32E529152348A0C900EA46FF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		32E5292B2348A0D400EA46FF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32E5292C2348A0D400EA46FF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		32E5293C2348A0DD00EA46FF /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32E5293D2348A0DD00EA46FF /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		320CDC3A22FADB45007CF858 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A78BA7FB5AFF53CBDD4C4CBD /* Pods-SDWebImageSwiftUIDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "SDWebImageSwiftUIDemo/Preview\\ Content";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = SDWebImageSwiftUIDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dreampiggy.SDWebImageSwiftUIDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		320CDC3B22FADB45007CF858 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5864FFEDE62A0630EDF26A56 /* Pods-SDWebImageSwiftUIDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				DEVELOPMENT_ASSET_PATHS = "SDWebImageSwiftUIDemo/Preview\\ Content";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = SDWebImageSwiftUIDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dreampiggy.SDWebImageSwiftUIDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		32E529192348A0C900EA46FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89B11BBDBAA86F760DF1EE2D /* Pods-SDWebImageSwiftUIDemo-macOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "SDWebImageSwiftUIDemo-macOS/SDWebImageSwiftUIDemo_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"SDWebImageSwiftUIDemo-macOS/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "SDWebImageSwiftUIDemo-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		32E5291A2348A0C900EA46FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3AACDC116F5598BC39A8573 /* Pods-SDWebImageSwiftUIDemo-macOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "SDWebImageSwiftUIDemo-macOS/SDWebImageSwiftUIDemo_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SDWebImageSwiftUIDemo-macOS/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "SDWebImageSwiftUIDemo-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		32E529302348A0D400EA46FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 746AF60263F54FD7E16AA7D5 /* Pods-SDWebImageSwiftUIDemo-tvOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"SDWebImageSwiftUIDemo-tvOS/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "SDWebImageSwiftUIDemo-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+			};
+			name = Debug;
+		};
+		32E529312348A0D400EA46FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95C9E0D9CE4113E5A82480B9 /* Pods-SDWebImageSwiftUIDemo-tvOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"SDWebImageSwiftUIDemo-tvOS/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "SDWebImageSwiftUIDemo-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+			};
+			name = Release;
+		};
+		32E529582348A0DF00EA46FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEED4964309E241D2FD8A544 /* Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"SDWebImageSwiftUIDemo-watchOS WatchKit Extension/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "SDWebImageSwiftUIDemo-watchOS WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-watchOS.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Debug;
+		};
+		32E529592348A0DF00EA46FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B0D9182CAD02B73E6F208F3 /* Pods-SDWebImageSwiftUIDemo-watchOS WatchKit Extension.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"SDWebImageSwiftUIDemo-watchOS WatchKit Extension/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "SDWebImageSwiftUIDemo-watchOS WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-watchOS.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Release;
+		};
+		32E5295C2348A0DF00EA46FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = SDWebImageSwiftUIDemo_watchOS_WatchKit_Extension;
+				INFOPLIST_FILE = "SDWebImageSwiftUIDemo-watchOS WatchKit App/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-watchOS.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Debug;
+		};
+		32E5295D2348A0DF00EA46FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = SDWebImageSwiftUIDemo_watchOS_WatchKit_Extension;
+				INFOPLIST_FILE = "SDWebImageSwiftUIDemo-watchOS WatchKit App/Info.plist";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-watchOS.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Release;
+		};
+		32E529602348A0DF00EA46FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Debug;
+		};
+		32E529612348A0DF00EA46FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dreampiggy.SDWebImageSwiftUIDemo-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Release;
+		};
+		607FACED1AFB9204008FA782 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		607FACEE1AFB9204008FA782 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		320CDC3C22FADB45007CF858 /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				320CDC3A22FADB45007CF858 /* Debug */,
+				320CDC3B22FADB45007CF858 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32E5291B2348A0C900EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32E529192348A0C900EA46FF /* Debug */,
+				32E5291A2348A0C900EA46FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32E5292F2348A0D400EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32E529302348A0D400EA46FF /* Debug */,
+				32E529312348A0D400EA46FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32E529572348A0DF00EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-watchOS WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32E529582348A0DF00EA46FF /* Debug */,
+				32E529592348A0DF00EA46FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32E5295B2348A0DF00EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-watchOS WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32E5295C2348A0DF00EA46FF /* Debug */,
+				32E5295D2348A0DF00EA46FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32E5295F2348A0DF00EA46FF /* Build configuration list for PBXNativeTarget "SDWebImageSwiftUIDemo-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32E529602348A0DF00EA46FF /* Debug */,
+				32E529612348A0DF00EA46FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "SDWebImageSwiftUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607FACED1AFB9204008FA782 /* Debug */,
+				607FACEE1AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
+}
