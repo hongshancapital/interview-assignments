@@ -1,0 +1,33 @@
+$banner-prefix: 'banner';
+.#{$banner-prefix}-wrapper{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    .#{$banner-prefix}-info{
+        display: flex;
+        flex-direction: column;
+        margin-top: 10%;
+    }
+    .#{$banner-prefix}-title{
+        font-size: 50px;
+        white-space: pre-wrap;
+        z-index: 1;
+    }
+    .#{$banner-prefix}-desc{
+        font-size: 28px;
+        white-space: pre-wrap;
+        z-index: 1;
+    }
+    .#{$banner-prefix}-img {
+        width: 200px;
+        height: 350px;
+        object-fit: cover;
+        object-position: bottom;
+        position: absolute;
+        z-index: 0;
+        bottom: 8%;
+    }
+}
