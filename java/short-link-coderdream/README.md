@@ -325,6 +325,11 @@ public String getShortLink(String longLink) {
 - 工具与技术： Ubuntu、OpenStack、Python、Django、Mule ESB、Java、Maven、Jenkins
 
 
+### 8、参考文档
+1. [请实现一个「短域名」的系统设计](https://leetcode-cn.com/circle/discuss/EkCOT9/)
+2. [短域名方案及实现](https://www.yuque.com/docs/share/17e99d09-c21d-4ad6-a07b-8d2dc7f712dd)
+3. [短网址(short URL)系统的原理及其实现](https://segmentfault.com/a/1190000012088345)
+4. [高性能短链设计](https://mp.weixin.qq.com/s/YTrBaERcyjvw7A0Fg2Iegw)
 
 
 
