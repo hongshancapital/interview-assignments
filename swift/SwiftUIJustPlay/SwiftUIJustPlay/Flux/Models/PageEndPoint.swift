@@ -13,7 +13,13 @@ public enum PageEndPoint {
     func path() -> String {
         switch self {
         case let .pageNo(pageIndex, pageSize):
-            return "&limit=" + String(pageIndex * pageSize)
+            var offset = (pageIndex - 1) * pageSize
+            if offset > 0 {
+                offset += 1
+            }
+            
+            let path = "&limit=" + String(pageSize) + "&offset=" + String(offset)
+            return path
         }
     }
     

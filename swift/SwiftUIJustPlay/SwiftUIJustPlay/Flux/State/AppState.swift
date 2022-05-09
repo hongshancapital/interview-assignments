@@ -47,9 +47,9 @@ struct AppState: FluxState, Codable {
     func archiveState() {
         let homeState = self.homeState
         DispatchQueue.global().async {
-            let movies = homeState.appItems
+            let movies = homeState.orderItems
             var savingState = self
-            savingState.homeState.appItems = movies
+            savingState.homeState.orderItems = movies
             guard let data = try? encoder.encode(savingState) else {
                 return
             }

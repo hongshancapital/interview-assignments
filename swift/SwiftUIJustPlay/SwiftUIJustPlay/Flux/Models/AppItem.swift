@@ -21,8 +21,9 @@ struct AppItem: Identifiable, Codable {
     var imageURLString: String
 
     private enum CodingKeys: String, CodingKey {
+        case id = "trackId"
         case title = "trackName"
-        case body = "description"
+        case body = "artistName"
         case imageURLString = "artworkUrl60"
     }
 }

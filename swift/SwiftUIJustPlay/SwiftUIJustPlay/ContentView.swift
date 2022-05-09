@@ -6,65 +6,55 @@
 //
 
 import SwiftUI
+import Combine
 import SwiftUIFlux
 
 
 struct ContentView: ConnectedView {
     
-    @EnvironmentObject private var store: Store<AppState>
+    @EnvironmentObject public var store: Store<AppState>
     struct Props {
         let appItems: [AppItemVM]
         let dispatch: DispatchFunction
     }
     
-    let pageListener: HomePageListener = HomePageListener()
-    
-    @State private var currentPage = 1
-    let pageSize: Int = 20
-    
+    @StateObject private var pageListener: HomePageListener = HomePageListener()
     
     func map(state: AppState, dispatch: @escaping DispatchFunction) -> Props {
-        Props(appItems: state.homeState.appItems.map { $0.value },
-              dispatch: dispatch)
+        self.pageListener.dispatch = dispatch
+        return Props(appItems: state.homeState.orderItems, dispatch: dispatch)
     }
     
     func body(props: Props) -> some View {
+        
         NavigationView {
             List {
-                ForEach(props.appItems) { model
-                    in
-                    AppPageCell(appId: model.id, item: model)
+                ForEach(0..<props.appItems.count, id:\.self) { index in
+
+                    AppPageCell(appId: index, item: props.appItems[index])
                         .background(Color.clear)
-                        .padding(
-                            EdgeInsets(
-                                top: 0,
-                                leading: 0,
-                                bottom: 0,
-                                trailing: 5
-                            )
-                        )
+
                 }
-                
+
                 if !props.appItems.isEmpty {
                     Rectangle()
                         .foregroundColor(.clear)
                         .onAppear {
-                            self.currentPage += 1
-                            props.dispatch(JustPlayActions.FetchAppStoreList(page: PageEndPoint.pageNo(pageIndex: self.currentPage, pageSize: self.pageSize)))
+                            self.pageListener.currentPage += 1
                         }
                 }
-            }.navigationTitle("App")
-        }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            maxHeight: .infinity
-        ).onAppear {
-            if self.currentPage == 1 {
-                props.dispatch(JustPlayActions.FetchAppStoreList(page: PageEndPoint.pageNo(pageIndex: self.currentPage, pageSize: self.pageSize)))
+            }
+            .onAppear() {
+                if (self.pageListener.currentPage == 1) {
+                    self.pageListener.loadPage()
+                }
+            }
+            .refreshable {
+                self.pageListener.refresh()
             }
         }
+        
+        
     }
 }
 
@@ -84,6 +74,6 @@ let sampleAppVM = AppItemVM(appItem: sampleAppItem)
 
 
 let sampleStore = Store<AppState>(reducer: appStateReducer,
-                                  state: AppState(homeState: HomeState(appItems: [1 : sampleAppVM])))
+                                  state: AppState(homeState: HomeState(orderItems: [sampleAppVM])))
 #endif
 

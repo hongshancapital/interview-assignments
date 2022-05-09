@@ -14,12 +14,14 @@ struct AppItemVM: Codable, Identifiable {
     let appItem: AppItem
 
     init(appItem: AppItem) {
-        id = appIdentifier
+        orderId = appIdentifier
         appIdentifier += 1
         self.appItem = appItem
     }
 
-    var id: Int
+    var id : Int { appItem.id }
+    
+    var orderId: Int
     
     var icon: String { appItem.imageURLString }
     

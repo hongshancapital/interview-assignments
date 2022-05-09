@@ -18,8 +18,13 @@ struct JustPlayActions {
                 (result: Result<AppResult<AppItem>, APIService.APIError>) in
                 switch result {
                 case let .success(response):
-                    dispatch(SetAppStoreList(page: self.page,
-                                        response: response))
+                    if (self.page.pageIndex() == 0) {
+                        dispatch(RefreshAppStoreList(page: self.page,
+                                            response: response))
+                    } else {
+                        dispatch(SetAppStoreList(page: self.page,
+                                            response: response))
+                    }
                 case let .failure(error):
                     print(error)
                     break
@@ -29,6 +34,11 @@ struct JustPlayActions {
     }
         
     struct SetAppStoreList: Action {
+        let page: PageEndPoint
+        let response: AppResult<AppItem>
+    }
+    
+    struct RefreshAppStoreList: Action {
         let page: PageEndPoint
         let response: AppResult<AppItem>
     }

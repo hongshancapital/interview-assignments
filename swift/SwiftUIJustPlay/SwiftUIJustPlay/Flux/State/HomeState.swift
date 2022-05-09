@@ -9,5 +9,6 @@ import Foundation
 import SwiftUIFlux
 
 struct HomeState: FluxState, Codable {
-    var appItems: [Int : AppItemVM] = [:]
+    var orderItems: [AppItemVM] = []
+    var distinctItems: [Int : AppItemVM] = [:]
 }

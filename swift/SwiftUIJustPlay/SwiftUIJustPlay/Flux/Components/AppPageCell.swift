@@ -19,7 +19,13 @@ struct AppPageCell: ConnectedView {
     
     func map(state: AppState,
              dispatch: @escaping DispatchFunction) -> Props {
-        Props(model: state.homeState.appItems[appId]!)
+        if state.homeState.orderItems.count > appId {
+            let model = state.homeState.orderItems[appId]
+            
+            return Props(model: model)
+        } else {
+            return Props(model: sampleAppVM)
+        }
     }
     
     @State var isBusy = false
@@ -29,27 +35,15 @@ struct AppPageCell: ConnectedView {
 
     func body(props: Props) -> some View {
         HStack {
-            if isBusy {
-                ZStack {
-                    ProgressView()
-                }
+            AnimatedImage(url: URL(string: props.model.icon))
                 .frame(
                     width: 40,
                     height: 40,
                     alignment: .leading
+                    
                 )
                 .padding(.leading, 10.0)
-            } else {
-                AnimatedImage(url: URL(string: props.model.icon))
-                    .frame(
-                        width: 40,
-                        height: 40,
-                        alignment: .leading
-                        
-                    )
-                    .padding(.leading, 10.0)
-                    .cornerRadius(25)
-            }
+                .cornerRadius(25)
             VStack(alignment: .leading) {
                 Text(props.model.title)
                     .font(.system(size: 15))
@@ -70,11 +64,12 @@ struct AppPageCell: ConnectedView {
             
         }
         .frame(height: 60)
-        .background(Color.yellow)
+        .background(Color.white)
         .cornerRadius(12)
     }
 }
 
+#if DEBUG
 struct AppPageCell_Previews: PreviewProvider {
     static var previews: some View {
         List {
@@ -84,3 +79,4 @@ struct AppPageCell_Previews: PreviewProvider {
         
     }
 }
+#endif

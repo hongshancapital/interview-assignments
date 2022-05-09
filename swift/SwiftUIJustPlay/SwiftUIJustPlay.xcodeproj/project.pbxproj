@@ -12,6 +12,8 @@
 		BC03A2A028282E1A00158DA4 /* AppPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC03A29F28282E1A00158DA4 /* AppPageCell.swift */; };
 		BC03A2A228282EF400158DA4 /* AppItemVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC03A2A128282EF400158DA4 /* AppItemVM.swift */; };
 		BC26836128286ACE0026B477 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = BC26836028286ACE0026B477 /* SDWebImageSwiftUI */; };
+		BC2683692828C1110026B477 /* SwiftUIJustPlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2683682828C1110026B477 /* SwiftUIJustPlayTests.swift */; };
+		BC2683772828E9A30026B477 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = BC2683762828E9A30026B477 /* ViewInspector */; };
 		BCF5F3DF2826ADE2006B48F1 /* SwiftUIJustPlayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF5F3DE2826ADE2006B48F1 /* SwiftUIJustPlayApp.swift */; };
 		BCF5F3E12826ADE2006B48F1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF5F3E02826ADE2006B48F1 /* ContentView.swift */; };
 		BCF5F3E32826ADE2006B48F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCF5F3E22826ADE2006B48F1 /* Assets.xcassets */; };
@@ -26,11 +28,24 @@
 		BCF5F41B282806A9006B48F1 /* HomeStateReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF5F41A282806A9006B48F1 /* HomeStateReducer.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BC26836A2828C1110026B477 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCF5F3D32826ADE2006B48F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCF5F3DA2826ADE2006B48F1;
+			remoteInfo = SwiftUIJustPlay;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		BC03A298282829BB00158DA4 /* AppPagesListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPagesListener.swift; sourceTree = "<group>"; };
 		BC03A29F28282E1A00158DA4 /* AppPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPageCell.swift; sourceTree = "<group>"; };
 		BC03A2A128282EF400158DA4 /* AppItemVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppItemVM.swift; sourceTree = "<group>"; };
-		BC26835F282868E90026B477 /* SDWebImageSwiftUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDWebImageSwiftUI; path = SDWebImageSwiftUI; sourceTree = "<group>"; };
+		BC26835F282868E90026B477 /* SDWebImageSwiftUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SDWebImageSwiftUI; sourceTree = "<group>"; };
+		BC2683662828C1110026B477 /* SwiftUIJustPlayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIJustPlayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC2683682828C1110026B477 /* SwiftUIJustPlayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIJustPlayTests.swift; sourceTree = "<group>"; };
+		BC2683732828E97B0026B477 /* ViewInspector */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ViewInspector; sourceTree = "<group>"; };
 		BCF5F3DB2826ADE2006B48F1 /* SwiftUIJustPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIJustPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF5F3DE2826ADE2006B48F1 /* SwiftUIJustPlayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIJustPlayApp.swift; sourceTree = "<group>"; };
 		BCF5F3E02826ADE2006B48F1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +62,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BC2683632828C1110026B477 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC2683772828E9A30026B477 /* ViewInspector in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCF5F3D82826ADE2006B48F1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,8 +94,17 @@
 			isa = PBXGroup;
 			children = (
 				BC26835F282868E90026B477 /* SDWebImageSwiftUI */,
+				BC2683732828E97B0026B477 /* ViewInspector */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		BC2683672828C1110026B477 /* SwiftUIJustPlayTests */ = {
+			isa = PBXGroup;
+			children = (
+				BC2683682828C1110026B477 /* SwiftUIJustPlayTests.swift */,
+			);
+			path = SwiftUIJustPlayTests;
 			sourceTree = "<group>";
 		};
 		BCF5F3D22826ADE2006B48F1 = {
@@ -80,6 +112,7 @@
 			children = (
 				BC26835E282868E90026B477 /* Packages */,
 				BCF5F3DD2826ADE2006B48F1 /* SwiftUIJustPlay */,
+				BC2683672828C1110026B477 /* SwiftUIJustPlayTests */,
 				BCF5F3DC2826ADE2006B48F1 /* Products */,
 				BCF5F3FA2827BB5F006B48F1 /* Frameworks */,
 			);
@@ -89,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				BCF5F3DB2826ADE2006B48F1 /* SwiftUIJustPlay.app */,
+				BC2683662828C1110026B477 /* SwiftUIJustPlayTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -181,6 +215,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BC2683652828C1110026B477 /* SwiftUIJustPlayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC26836E2828C1110026B477 /* Build configuration list for PBXNativeTarget "SwiftUIJustPlayTests" */;
+			buildPhases = (
+				BC2683622828C1110026B477 /* Sources */,
+				BC2683632828C1110026B477 /* Frameworks */,
+				BC2683642828C1110026B477 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC26836B2828C1110026B477 /* PBXTargetDependency */,
+			);
+			name = SwiftUIJustPlayTests;
+			packageProductDependencies = (
+				BC2683762828E9A30026B477 /* ViewInspector */,
+			);
+			productName = SwiftUIJustPlayTests;
+			productReference = BC2683662828C1110026B477 /* SwiftUIJustPlayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BCF5F3DA2826ADE2006B48F1 /* SwiftUIJustPlay */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCF5F3E92826ADE2006B48F1 /* Build configuration list for PBXNativeTarget "SwiftUIJustPlay" */;
@@ -212,6 +267,10 @@
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					BC2683652828C1110026B477 = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = BCF5F3DA2826ADE2006B48F1;
+					};
 					BCF5F3DA2826ADE2006B48F1 = {
 						CreatedOnToolsVersion = 13.3.1;
 					};
@@ -234,11 +293,19 @@
 			projectRoot = "";
 			targets = (
 				BCF5F3DA2826ADE2006B48F1 /* SwiftUIJustPlay */,
+				BC2683652828C1110026B477 /* SwiftUIJustPlayTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BC2683642828C1110026B477 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCF5F3D92826ADE2006B48F1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -251,6 +318,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BC2683622828C1110026B477 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC2683692828C1110026B477 /* SwiftUIJustPlayTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCF5F3D72826ADE2006B48F1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -273,7 +348,59 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BC26836B2828C1110026B477 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCF5F3DA2826ADE2006B48F1 /* SwiftUIJustPlay */;
+			targetProxy = BC26836A2828C1110026B477 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		BC26836C2828C1110026B477 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UYP35J98D3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SwiftUIJustPlayTests",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangrenzhu.interview.SwiftUIJustPlayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUIJustPlay.app/SwiftUIJustPlay";
+			};
+			name = Debug;
+		};
+		BC26836D2828C1110026B477 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UYP35J98D3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SwiftUIJustPlayTests",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangrenzhu.interview.SwiftUIJustPlayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUIJustPlay.app/SwiftUIJustPlay";
+			};
+			name = Release;
+		};
 		BCF5F3E72826ADE2006B48F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -449,6 +576,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BC26836E2828C1110026B477 /* Build configuration list for PBXNativeTarget "SwiftUIJustPlayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC26836C2828C1110026B477 /* Debug */,
+				BC26836D2828C1110026B477 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BCF5F3D62826ADE2006B48F1 /* Build configuration list for PBXProject "SwiftUIJustPlay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -489,6 +625,10 @@
 		BC26836028286ACE0026B477 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SDWebImageSwiftUI;
+		};
+		BC2683762828E9A30026B477 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ViewInspector;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
