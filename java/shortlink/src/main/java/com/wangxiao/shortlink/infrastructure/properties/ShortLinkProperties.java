@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class ShortLinkProperties {
-    private String storeLimit;
+    private Long storeLimit;
     private String machineId;
 }

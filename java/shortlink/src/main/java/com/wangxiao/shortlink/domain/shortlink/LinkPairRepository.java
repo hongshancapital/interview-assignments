@@ -16,4 +16,11 @@ public interface LinkPairRepository {
      * @return 长链接
      */
     String getLongLink(String shortLink);
+
+    /**
+     * 已存储链接对总数量
+     *
+     * @return
+     */
+    Long totalPairSize();
 }

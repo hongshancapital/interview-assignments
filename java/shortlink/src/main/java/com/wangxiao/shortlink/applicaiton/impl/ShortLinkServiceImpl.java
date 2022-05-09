@@ -3,7 +3,9 @@ package com.wangxiao.shortlink.applicaiton.impl;
 import com.wangxiao.shortlink.applicaiton.ShortLinkService;
 import com.wangxiao.shortlink.domain.shortlink.LinkPair;
 import com.wangxiao.shortlink.domain.shortlink.LinkPairRepository;
+import com.wangxiao.shortlink.infrastructure.common.StoreOverFlowException;
 import com.wangxiao.shortlink.infrastructure.properties.ShortLinkProperties;
+import com.wangxiao.shortlink.infrastructure.register.RegisterCenter;
 import com.wangxiao.shortlink.infrastructure.utils.MachineIdUtils;
 import com.wangxiao.shortlink.infrastructure.utils.MappingUtils;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,16 @@ public class ShortLinkServiceImpl implements ShortLinkService {
     private LinkPairRepository linkPairRepository;
     @Resource
     private ShortLinkProperties shortLinkProperties;
+    @Resource
+    private RegisterCenter registerCenter;
 
     @Override
     public String encodeUrl(String longLink) {
+        //存储超过上限，则下线编码服务并抛出异常
+        if (shortLinkProperties.getStoreLimit().compareTo(linkPairRepository.totalPairSize()) <= 0) {
+            registerCenter.unRegisteMethod(shortLinkProperties.getMachineId(), "encodeUrl");
+            throw new StoreOverFlowException();
+        }
         Integer salt = 0;
         LinkPair linkPair = getLinkPair(longLink, salt);
         String saveResult = linkPairRepository.saveIfAbsent(linkPair);
@@ -38,6 +47,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
     public String decodeUrl(String shortLink) {
         return linkPairRepository.getLongLink(shortLink);
     }
+
 
     private LinkPair getLinkPair(String longLink, Integer salt) {
         Long haseText = MappingUtils.hashing(longLink + salt);

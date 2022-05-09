@@ -58,11 +58,11 @@ public class Result<T> {
     }
 
 
-    public static <T> Result<T> fail(HttpStatusEnum httpStatusEnum) {
-        return new Result<T>(false, httpStatusEnum.getCode(), httpStatusEnum.getReason());
+    public static <T> Result<T> fail(ErrorEnum errorEnum) {
+        return new Result<T>(false, errorEnum.getCode(), errorEnum.getReason());
     }
 
-    public static <T> Result<T> fail(HttpStatusEnum httpStatusEnum, String msg) {
-        return new Result<T>(false, httpStatusEnum.getCode(), msg);
+    public static <T> Result<T> fail(ErrorEnum errorEnum, String msg) {
+        return new Result<T>(false, errorEnum.getCode(), msg);
     }
 }
