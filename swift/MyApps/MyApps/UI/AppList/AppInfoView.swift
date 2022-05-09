@@ -31,10 +31,15 @@ struct AppInfoView: View {
     
     var body: some View {
         HStack(spacing: 6) {
-            RoundedCornerImage(
-                imageUrl: viewModel.app.artworkUrl100
+            
+            WebImageView(viewModel.app.artworkUrl100)
+                .frame(width: 67, height: 67, alignment: .center)
+                .scaledToFit()
+                .cornerRadius(6)
+                .overlay(
+                RoundedRectangle(cornerRadius: 6, style: .circular)
+                    .stroke(Color(UIColor.systemGray3), lineWidth: 0.5)
             )
-            .frame(width: 67, height: 67, alignment: .center)
                         
             AppIntroView(
                 title: viewModel.app.trackName,
