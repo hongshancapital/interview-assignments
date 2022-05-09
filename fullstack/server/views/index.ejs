@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJS</title>
+    <style>
+      *{margin:0;padding:0;}
+      html,body{width:100%;height:100%;}
+      body{overflow:hidden;}
+      #x-iframe{width:100%;height:100%;border:none;}
+      .ad-box{width:100px;height:380px;background-color:red;color:white;position:absolute;top:50%;transform:translate3d(0,-50,0);}
+      .ad-img{width:500px;height:150px;position:fixed;bottom:0;right:0;}
+      div{margin:10px;font-size:14px;}
+      div .time{margin:0px 4px;color:#67C23A;font-weight:bold;}
+      div .msg-expired{color:#F56C6C;}
+    </style>
+  </head>
+  <body>
+    <!--
+    <a href="https://www.baidu.com">
+      <section class="ad-box">广告位</section>
+    </a>
+    <img class="ad-img" src="/images/ad.jpg" />
+    <iframe id="x-iframe" src="<%= url %>"></iframe>
+    -->
+    <div class="url">原地址：<a href="<%=url%>" rel="noopener noreferrer"><%=url%></a>（<%
+    var now = new Date();
+    if (expires >= now) {
+      %><span class="time">5</span>秒钟后跳转<%
+    } else {
+      %><span class="msg-expired">链接已过期，请手工点击跳转</span><%
+    }
+    %>）</div>
+    <div>创建时间：<%=dayjs(date).format('YYYY-MM-DD HH:mm:ss')%></div>
+    <div>过期时间：<%=dayjs(expires).format('YYYY-MM-DD HH:mm:ss')%></div>
+  </body>
+  <script>
+    (function() {
+      var timer = 0;
+      var n = 5;
+      var link = document.querySelector('.url a');
+      var el = document.querySelector('.url .time');
+      function next() {
+        if (n === 0) {
+          link.click(); // window.location.href = link.href;
+          return;
+        }
+        el.innerHTML = n;
+        n--;
+        timer = setTimeout(next, 1000);
+      }
+      <%if (expires >= now) {%>
+      next();
+      <%}%>
+    })();
+  </script>
+</html>
