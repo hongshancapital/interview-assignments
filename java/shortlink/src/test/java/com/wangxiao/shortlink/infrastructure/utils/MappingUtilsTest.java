@@ -7,7 +7,7 @@ class MappingUtilsTest {
 
     @Test
     void testHashing() {
-        String result = MappingUtils.hashing("text");
+        Long result = MappingUtils.hashing("text");
         Assertions.assertEquals("replaceMeWithExpectedResult", result);
     }
 

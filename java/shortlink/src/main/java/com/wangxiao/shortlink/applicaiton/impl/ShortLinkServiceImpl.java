@@ -1,17 +1,49 @@
 package com.wangxiao.shortlink.applicaiton.impl;
 
 import com.wangxiao.shortlink.applicaiton.ShortLinkService;
+import com.wangxiao.shortlink.domain.shortlink.LinkPair;
+import com.wangxiao.shortlink.domain.shortlink.LinkPairRepository;
+import com.wangxiao.shortlink.infrastructure.properties.ShortLinkProperties;
+import com.wangxiao.shortlink.infrastructure.utils.MachineIdUtils;
+import com.wangxiao.shortlink.infrastructure.utils.MappingUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Objects;
 
 @Service
 public class ShortLinkServiceImpl implements ShortLinkService {
+    @Resource
+    private LinkPairRepository linkPairRepository;
+    @Resource
+    private ShortLinkProperties shortLinkProperties;
+
     @Override
     public String encodeUrl(String longLink) {
-        return "";
+        Integer salt = 0;
+        LinkPair linkPair = getLinkPair(longLink, salt);
+        String saveResult = linkPairRepository.saveIfAbsent(linkPair);
+        //当出现hash碰撞时
+        //比较已存储的长链接及待存储的长链接若相同则直接返回短链
+        //否则修改盐值继续hash直至不出现hash碰撞
+        while (saveResult != null && !Objects.equals(longLink, saveResult)) {
+            salt++;
+            linkPair = getLinkPair(longLink, salt);
+            saveResult = linkPairRepository.saveIfAbsent(linkPair);
+        }
+        return linkPair.getShortLink();
     }
 
     @Override
     public String decodeUrl(String shortLink) {
-        return "";
+        return linkPairRepository.getLongLink(shortLink);
+    }
+
+    private LinkPair getLinkPair(String longLink, Integer salt) {
+        Long haseText = MappingUtils.hashing(longLink + salt);
+        String base62Text = MappingUtils.encodeBase62(haseText);
+        String shortLink = MachineIdUtils.combine(shortLinkProperties.getMachineId(), base62Text);
+        LinkPair linkPair = new LinkPair(shortLink, longLink);
+        return linkPair;
     }
 }

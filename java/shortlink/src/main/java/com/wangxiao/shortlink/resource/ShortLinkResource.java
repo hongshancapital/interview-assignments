@@ -30,6 +30,6 @@ public class ShortLinkResource {
     @PostMapping(value = "decode")
     @ApiOperation("短链接解码")
     public Result<String> decode(@ApiParam("短连接地址")String shortLink) {
-        return Result.success(shortLinkService.encodeUrl(shortLink));
+        return Result.success(shortLinkService.decodeUrl(shortLink));
     }
 }

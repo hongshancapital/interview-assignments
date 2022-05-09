@@ -16,9 +16,9 @@ public class MappingUtils {
     private static final int RADIX = 62;
 
 
-    public static String hashing(String text) {
+    public static Long hashing(String text) {
         HashFunction hashFunction = Hashing.murmur3_32();
-        return hashFunction.hashString(text, StandardCharsets.UTF_8).toString();
+        return hashFunction.hashString(text, StandardCharsets.UTF_8).asLong();
     }
 
 
