@@ -27,7 +27,7 @@ struct AppIntroView: View {
 
 struct AppInfoView: View {
     
-    @ObservedObject var viewModel: AppInfoViewModel
+    @StateObject var viewModel: AppInfoViewModel
     
     var body: some View {
         HStack(spacing: 6) {

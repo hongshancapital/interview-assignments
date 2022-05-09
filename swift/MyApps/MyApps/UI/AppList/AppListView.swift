@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppListView: View {
-    @ObservedObject var listViewModel = AppListViewModel(service: AppInfoService())
+    @StateObject var listViewModel = AppListViewModel(service: AppInfoService())
     
     var body: some View {
         NavigationView {

@@ -15,6 +15,7 @@ struct RoundedCornerImage: View {
             RoundedRectangle(cornerRadius: cornerRadius, style: .circular)
                 .stroke(Color(UIColor.systemGray3), lineWidth: 0.5)
         )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

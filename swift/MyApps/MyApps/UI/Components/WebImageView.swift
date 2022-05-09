@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct WebImageView: View {
-    @ObservedObject var imageLoader: ImageLoader
+    @StateObject var imageLoader: ImageLoader
     init(_ url: String) {
-        imageLoader = ImageLoader(imageURL: url)
+        self._imageLoader = StateObject(wrappedValue: ImageLoader(imageURL: url))
     }
     var body: some View {
         if let img = UIImage(data: self.imageLoader.imageData) {
