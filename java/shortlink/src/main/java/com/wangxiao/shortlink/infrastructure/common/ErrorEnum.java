@@ -3,7 +3,8 @@ package com.wangxiao.shortlink.infrastructure.common;
 public enum ErrorEnum {
     PARAMS_ILLEGAL(50001, "参数非法"),
     LINK_NOT_EXSITS(50002, "链接不存在"),
-    STORE_OVERFLOW(50003, "存储超出限制！");
+    STORE_OVERFLOW(50003, "存储超出限制！"),
+    SYSTEM_ERROR(50010, "系统异常");
     private final Integer code;
     private final String reason;
 
