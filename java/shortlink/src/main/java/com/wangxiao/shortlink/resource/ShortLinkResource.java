@@ -44,7 +44,7 @@ public class ShortLinkResource {
         }
         String longLink = shortLinkService.decodeUrl(shortLink);
         if (StringUtils.isEmpty(longLink)) {
-            Result.fail(ErrorEnum.LINK_NOT_EXSITS);
+            Result.fail(ErrorEnum.LINK_NOT_EXISTS);
         }
         return Result.success(longLink);
     }

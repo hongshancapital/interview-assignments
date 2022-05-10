@@ -1,6 +1,8 @@
 package com.wangxiao.shortlink.infrastructure.utils;
 
 public class MachineIdUtils {
+    private MachineIdUtils() {
+    }
 
     public static String getMachineId(String shortLink) {
         return shortLink.substring(0, 2);

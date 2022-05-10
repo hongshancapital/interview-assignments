@@ -1,6 +1,7 @@
 package com.wangxiao.shortlink.infrastructure.configuration.web;
 
 import com.wangxiao.shortlink.infrastructure.common.ErrorEnum;
+import com.wangxiao.shortlink.infrastructure.common.PersistenceException;
 import com.wangxiao.shortlink.infrastructure.common.Result;
 import com.wangxiao.shortlink.infrastructure.common.StoreOverFlowException;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,12 @@ public class GlobalExceptionHandler {
         return Result.fail(ErrorEnum.STORE_OVERFLOW);
     }
 
+
+    @ExceptionHandler(PersistenceException.class)
+    @ResponseBody
+    public Object badArgumentHandler(PersistenceException e) {
+        return Result.fail(ErrorEnum.PERSIST_ERROR);
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

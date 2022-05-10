@@ -1,5 +1,7 @@
 package com.wangxiao.shortlink.domain.shortlink;
 
+import java.util.Map;
+
 public interface LinkPairRepository {
     /**
      * 如果短链接不存在则存入
@@ -17,10 +19,19 @@ public interface LinkPairRepository {
      */
     String getLongLink(String shortLink);
 
+    String removeLink(String shortLink);
+
     /**
      * 已存储链接对总数量
      *
-     * @return
+     * @return 已存储链接对总数量
      */
     Long totalPairSize();
+
+    /**
+     * 数据加载
+     *
+     * @param load 需要加载的持久化数据
+     */
+    void load(Map<String, String> load);
 }

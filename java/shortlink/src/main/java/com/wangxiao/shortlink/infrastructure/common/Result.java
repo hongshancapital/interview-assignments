@@ -19,6 +19,7 @@ public class Result<T> {
         this.setSuccess(success);
         this.setCode(code);
         this.setData(data);
+        this.setMsg(msg);
     }
 
 

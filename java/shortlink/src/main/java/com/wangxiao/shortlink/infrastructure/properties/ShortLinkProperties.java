@@ -12,4 +12,5 @@ import org.springframework.stereotype.Component;
 public class ShortLinkProperties {
     private Long storeLimit;
     private String machineId;
+    private String storePath;
 }
