@@ -50,22 +50,25 @@ public class SequenceManager {
 
     }
 
-    //监听过期事件，当事件发生时将已使用容量减一
+    //监听过期事件，当事件发生时移出已使用容量
     @EventListener(ExpiredEvent.class)
     public void consumeExpiredEvent(ExpiredEvent expiredEvent) {
         log.debug("expired event: {}" ,expiredEvent.toString());
 
-        //减少currentCount变量的更新竞争，到达配置的批次大小后再更新，同时提供定时任务调用防止长时间未到达批次无法及时更新currentCount
-
-        if(expiredCount.incrementAndGet() > appConfig.getExpiredBatchSize()) {
+        //减少currentCount变量的更新竞争，使用expiredCount进行累计
+        //当expiredCount到达配置的批次大小后再更新currentCount，同时提供定时任务调用防止长时间未到达批次无法及时更新currentCount
+        if(expiredCount.incrementAndGet() >= appConfig.getExpiredBatchSize()) {
             updateExpiredCount();
         }
-
     }
 
 
     public void updateExpiredCount() {
-        currentCount.updateAndGet((current) -> currentCount.get() - expiredCount.get());
+        //条件判断后expiredCount可能发生变化，重新获取当前过期事件批次数快照
+        long expiredEventCount = expiredCount.get();
+        //更新当前currentCount与expiredCount值
+        currentCount.accumulateAndGet(expiredEventCount,(current,delta) -> current - delta);
+        expiredCount.accumulateAndGet(expiredEventCount,(current,delta) -> current - delta);
     }
 
 }
