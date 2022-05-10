@@ -1,0 +1,100 @@
+@keyframes move {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-list {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+.custom-carousel-item {
+  flex: 1;
+  position: relative;
+
+  h1 {
+    padding-top: 120px;
+    margin: 0;
+    font-size: 50px;
+    white-space: pre-wrap;
+  }
+
+  .item-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0 50px;
+    box-sizing: border-box;
+    z-index: 1;
+  }
+
+  > h1 {
+    padding-top: 120px;
+    margin: 0;
+    font-size: 50px;
+    white-space: pre-wrap;
+  }
+
+  .img-container {
+    position: absolute;
+    width: 100%;
+    bottom: 100px;
+    left: 0;
+    height: 400px;
+    background-position: bottom center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+
+.sub-title {
+  font-size: 28px;
+  padding-top: 20px;
+  white-space: pre-wrap;
+}
+
+.dot-list {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.dot-item {
+  position: relative;
+  width: 50px;
+  height: 2px;
+  background: #9b9a9b;
+  margin: 0 5px;
+  border-radius: 10px;
+
+  .active {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    animation-name: move;
+    animation-timing-function: linear;
+    background: rgb(251, 250, 251);
+  }
+}
