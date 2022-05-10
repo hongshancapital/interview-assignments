@@ -1,5 +1,7 @@
 package com.wangxiao.shortlink.resource;
 
+import com.wangxiao.shortlink.infrastructure.common.ErrorEnum;
+import com.wangxiao.shortlink.infrastructure.common.Result;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +32,13 @@ class ShortLinkResourceTest {
     }
 
     @Test
+    void testEncodeFail() {
+        Result<String> result = shortLinkResource.encode("");
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.getCode(), ErrorEnum.PARAMS_ILLEGAL.getCode());
+    }
+
+    @Test
     void testEncodeUrlDif() {
         String result1 = shortLinkResource.encode("https://www.hao123.com").getData();
         String result2 = shortLinkResource.encode("https://www.baidu.com").getData();
@@ -43,6 +52,20 @@ class ShortLinkResourceTest {
         String shortLink = shortLinkResource.encode(url).getData();
         String result = shortLinkResource.decode(shortLink).getData();
         Assertions.assertEquals(url, result);
+    }
+
+    @Test
+    void testDecodeFail() {
+        Result<String> result = shortLinkResource.decode("");
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.getCode(), ErrorEnum.PARAMS_ILLEGAL.getCode());
+    }
+
+    @Test
+    void testDecodeNotExit() {
+        Result<String> result = shortLinkResource.decode("01A");
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.getCode(), ErrorEnum.LINK_NOT_EXISTS.getCode());
     }
 }
 

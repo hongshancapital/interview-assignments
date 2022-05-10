@@ -33,7 +33,7 @@ public class ShortLinkResource {
     @ApiOperation("长链接编码")
     public Result<String> encode(@ApiParam("长连接地址") String longLink) {
         if (StringUtils.isEmpty(longLink)) {
-            Result.fail(ErrorEnum.PARAMS_ILLEGAL);
+            return Result.fail(ErrorEnum.PARAMS_ILLEGAL);
         }
         log.info("长链接编码,req:{}", longLink);
         String shortLink = shortLinkService.encodeUrl(longLink);
@@ -45,13 +45,13 @@ public class ShortLinkResource {
     @ApiOperation("短链接解码")
     public Result<String> decode(@ApiParam("短连接地址")String shortLink) {
         if (StringUtils.isEmpty(shortLink) || !shortLink.startsWith(shortLinkProperties.getMachineId())) {
-            Result.fail(ErrorEnum.PARAMS_ILLEGAL);
+            return Result.fail(ErrorEnum.PARAMS_ILLEGAL);
         }
         log.info("短链接解码,req:{}", shortLink);
         String longLink = shortLinkService.decodeUrl(shortLink);
         log.info("短链接解码,req:{},resp:{}", shortLink, longLink);
         if (StringUtils.isEmpty(longLink)) {
-            Result.fail(ErrorEnum.LINK_NOT_EXISTS);
+            return Result.fail(ErrorEnum.LINK_NOT_EXISTS);
         }
         return Result.success(longLink);
     }
