@@ -18,7 +18,9 @@ module.exports = {
   stats: isProd ? 'normal' : 'minimal',
   devServer: {
     port: 3000,
-    clientLogLevel: 'silent',
+    client: {
+      logging: 'none',
+    },
     open: true,
     historyApiFallback: true,
   },
