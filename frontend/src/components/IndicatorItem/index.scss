@@ -15,19 +15,18 @@
   background-color: #bab3b3;
   margin: 4px;
   cursor: pointer;
-  span.active {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    border-radius: 3px;
+  span {
     background-color: white;
-    animation-name: move;
   }
   &.active {
-    span.active {
+    span {
+      position: absolute;
       width: 100%;
-      background-color: white;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 3px;
+      animation-name: move;
     }
   }
 }

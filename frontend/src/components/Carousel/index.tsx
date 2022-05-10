@@ -27,13 +27,12 @@ const Carousel: FC<CarouselProps> = ({
   showIndicators = true,
 }) => {
   const len = items.length;
-  const initIndex = startIndex >= 0 && startIndex < len ? startIndex : 0;
-  const [activeIndex, setActiveIndex] = useState(initIndex);
-  const timerRef: any = useRef(0);  
+  const [activeIndex, setActiveIndex] = useState(startIndex >= 0 && startIndex < len ? startIndex : 0);
+  const timerRef = useRef<number>(0);
 
   const playAnimation = useCallback(() => {
     if (duration > 0) {
-      timerRef.current = setInterval(() => {
+      timerRef.current = window.setInterval(() => {
         setActiveIndex((prev) => (prev + 1) % len);
       }, duration);
     }

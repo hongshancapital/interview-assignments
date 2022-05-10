@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import Carousel from './index';
 import { carouselItems } from '../../App';
 
@@ -12,6 +12,17 @@ describe('Carousel', () => {
     expect(carouselItem1).toBeInTheDocument();
     expect(carouselItem2).toBeInTheDocument();
     expect(carouselItem3).toBeInTheDocument();
+  });
+
+  test('Carousel auto play', () => {
+    jest.useFakeTimers();
+    const spySetInterval = jest.spyOn(global, 'setInterval');
+    render(<Carousel items={carouselItems} />);
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+    expect(spySetInterval).toHaveBeenCalled();
+    expect(spySetInterval).toHaveBeenCalledTimes(1);
   });
 
   test('Carousel close auto play and start from 1', () => {

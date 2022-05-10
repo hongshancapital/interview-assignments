@@ -4,16 +4,16 @@ import './index.scss';
 export interface CarouselItemProps {
   title: string;
   subTitle?: string;
-  className?: string;
+  style?: React.CSSProperties; 
 }
 
 const CarouselItem: FC<CarouselItemProps> = ({
   title,
   subTitle,
-  className = '',
+  style = {},
 }) => {
   return (
-    <div className={`carousel-item ${className}`}>
+    <div className="carousel-item" style={style}>
       <div className="content">
         <h1>{title}</h1>
         {
