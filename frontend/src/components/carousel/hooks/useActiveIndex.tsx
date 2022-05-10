@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 interface Props {
   defaultIndex?: number;
@@ -8,7 +8,7 @@ interface Props {
 
 export function useActiveIndex(
   props: Props
-): [number, (index: number) => void] {
+): [number, Dispatch<SetStateAction<number>>] {
   const { defaultIndex = 0, interval = 3000, count } = props;
 
   const [index, setIndex] = useState(defaultIndex);

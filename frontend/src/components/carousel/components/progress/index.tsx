@@ -1,21 +1,20 @@
 import React from "react";
-import { CarouselIProps } from "../carousel-item/index";
+import { CarouselIProps } from "../../index";
 
 import "./style.scss";
 
 interface Props {
   // 轮播图数据源
   items: CarouselIProps[];
-  time: number;
+  interval: number;
   activeIndex: number;
   callback?: (activeIndex: number) => void;
 }
 
 export default function Progress(props: Props): JSX.Element {
-  const { items, time, activeIndex, callback } = props;
+  const { items, interval = 0, activeIndex, callback } = props;
 
-  const onClickItem = (activeIndex: number) =>
-    callback && callback(activeIndex);
+  const onClickItem = (activeIndex: number) => callback?.(activeIndex);
 
   return (
     <div className="progress-container">
@@ -29,8 +28,10 @@ export default function Progress(props: Props): JSX.Element {
           >
             <div className="progress-item">
               <div
-                className={isActive ? "active" : "disable"}
-                style={{ transition: isActive ? `${time / 1000}s` : "" }}
+                className={
+                  isActive ? "progress-item-active" : "progress-item-disable"
+                }
+                style={{ transition: isActive ? `${interval / 1000}s` : "" }}
               ></div>
             </div>
           </div>

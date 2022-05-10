@@ -1,8 +1,10 @@
-import iphone from "../../src/assets/iphone.png";
-import tablet from "../../src/assets/tablet.png";
-import airpods from "../../src/assets/airpods.png";
+import { CarouselIProps } from "../components/carousel/index";
 
-export const carousels = [
+import iphone from "../assets/iphone.png";
+import tablet from "../assets/tablet.png";
+import airpods from "../assets/airpods.png";
+
+export const carousels: CarouselIProps[] = [
   {
     id: "carousel-001",
     src: iphone,

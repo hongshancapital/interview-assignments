@@ -1,6 +1,6 @@
 import React from "react";
 import { renderHook } from "@testing-library/react-hooks";
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, fireEvent } from "@testing-library/react";
 import { useActiveIndex } from "./hooks/useActiveIndex";
 import CarouselItem from "./components/carousel-item/index";
 import Progress from "./components/progress/index";
@@ -11,7 +11,9 @@ jest.useFakeTimers();
 
 describe("carousel test", () => {
   test("useActiveIndex test", () => {
-    const { result } = renderHook(() => useActiveIndex({ count: 3 }));
+    const { result } = renderHook(() =>
+      useActiveIndex({ count: carousels.length })
+    );
     expect(result.current[0]).toBe(0);
     act(() => {
       jest.runOnlyPendingTimers();
@@ -50,11 +52,14 @@ describe("carousel test", () => {
   });
 
   it("progress test", () => {
+    const fn = jest.fn();
     const props = {
       items: carousels,
-      time: 3000,
+      interval: 3000,
       activeIndex: 0,
+      callback: fn,
     };
+
     act(() => {
       render(<Progress {...props} />);
     });
@@ -64,6 +69,12 @@ describe("carousel test", () => {
 
     const items = document.querySelectorAll(".progress-view");
     expect(items.length).toBe(props.items.length);
+
+    act(() => {
+      fireEvent.click(items[1]);
+    });
+    expect(fn).toHaveBeenCalled();
+    expect(props?.callback).toHaveBeenCalledTimes(1);
   });
 
   it("carousel test", () => {

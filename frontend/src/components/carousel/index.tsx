@@ -1,11 +1,19 @@
 import React, { useMemo, useCallback } from "react";
-import Item, { CarouselIProps } from "./components/carousel-item/index";
+import Item from "./components/carousel-item/index";
 import Progress from "./components/progress/index";
 
 import { useActiveIndex } from "./hooks/useActiveIndex";
 
 import "./style.scss";
 
+export interface CarouselIProps {
+  id: string;
+  src: string;
+  title: string[];
+  desc?: string[];
+  alt?: string;
+  color?: string;
+}
 interface Props {
   // 轮播图数据源
   items: CarouselIProps[];
@@ -16,16 +24,17 @@ interface Props {
 const Carousel = (props: Props): JSX.Element => {
   const { items, interval = 3000 } = props;
 
-  const count = useMemo(() => items.length, [items]);
-
   const [activeIndex, setActiveIndex] = useActiveIndex({
     interval,
-    count,
+    count: items.length,
   });
 
-  const onClickProgress = useCallback((index: number) => {
-    setActiveIndex(index);
-  }, []);
+  const onClickProgress = useCallback(
+    (index: number) => {
+      setActiveIndex(index);
+    },
+    [setActiveIndex]
+  );
 
   return (
     <div className="carousel">
@@ -39,7 +48,7 @@ const Carousel = (props: Props): JSX.Element => {
       </div>
       <Progress
         items={items}
-        time={interval}
+        interval={interval}
         activeIndex={activeIndex}
         callback={onClickProgress}
       />
