@@ -39,11 +39,6 @@ const Swiper: FC<SwiperProps> = ({
 
   const refView = useRef<HTMLDivElement>();
 
-  const activeIndicatorStyles = useRef({
-    animationDuration: autoplayTimeout + "ms",
-    ...activeIndicatorStyle,
-  });
-
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!refView.current) {
@@ -91,7 +86,10 @@ const Swiper: FC<SwiperProps> = ({
               {index === curIndex && (
                 <div
                   className="swiper-indicator-item-active"
-                  style={activeIndicatorStyles.current}
+                  style={{
+                    animationDuration: autoplayTimeout + "ms",
+                    ...activeIndicatorStyle,
+                  }}
                   key="active"
                 />
               )}
