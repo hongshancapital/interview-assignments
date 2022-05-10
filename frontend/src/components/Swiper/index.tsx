@@ -37,7 +37,7 @@ const Swiper: FC<SwiperProps> = ({
 
   const [curIndex, setCurIndex] = useState(0);
 
-  const ref = useRef(React.createRef<HTMLInputElement>());
+  const refView = useRef<HTMLDivElement>();
 
   const activeIndicatorStyles = useRef({
     animationDuration: autoplayTimeout + "ms",
@@ -46,8 +46,11 @@ const Swiper: FC<SwiperProps> = ({
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      if (!refView.current) {
+        return;
+      }
       let index = curIndex === views.length - 1 ? 0 : curIndex + 1;
-      const rootView = ref.current.current!;
+      const rootView = refView.current;
       const unit_width = rootView.getBoundingClientRect().width;
       rootView.scrollTo({
         left: unit_width * index,
@@ -63,7 +66,12 @@ const Swiper: FC<SwiperProps> = ({
 
   return (
     <div className={"swiper"} style={rootStyle}>
-      <div className={"swiper-content"} ref={ref.current}>
+      <div
+        className={"swiper-content"}
+        ref={(ref) => {
+          ref && (refView.current = ref);
+        }}
+      >
         {views.map((view, index) => {
           return (
             <div className="swiper-content-item" key={index}>
