@@ -7,6 +7,7 @@ import com.wangxiao.shortlink.infrastructure.properties.ShortLinkProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("shortlink")
 @Api("短链接编解码服务")
+@Slf4j
 public class ShortLinkResource {
 
     @Resource
@@ -33,7 +35,10 @@ public class ShortLinkResource {
         if (StringUtils.isEmpty(longLink)) {
             Result.fail(ErrorEnum.PARAMS_ILLEGAL);
         }
-        return Result.success(shortLinkService.encodeUrl(longLink));
+        log.info("长链接编码,req:{}", longLink);
+        String shortLink = shortLinkService.encodeUrl(longLink);
+        log.info("长链接编码,req:{},resp:{}", longLink, shortLink);
+        return Result.success(shortLink);
     }
 
     @PostMapping(value = "decode")
@@ -42,7 +47,9 @@ public class ShortLinkResource {
         if (StringUtils.isEmpty(shortLink) || !shortLink.startsWith(shortLinkProperties.getMachineId())) {
             Result.fail(ErrorEnum.PARAMS_ILLEGAL);
         }
+        log.info("短链接解码,req:{}", shortLink);
         String longLink = shortLinkService.decodeUrl(shortLink);
+        log.info("短链接解码,req:{},resp:{}", shortLink, longLink);
         if (StringUtils.isEmpty(longLink)) {
             Result.fail(ErrorEnum.LINK_NOT_EXISTS);
         }

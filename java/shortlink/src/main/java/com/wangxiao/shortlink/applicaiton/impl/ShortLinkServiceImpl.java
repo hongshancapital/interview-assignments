@@ -10,12 +10,14 @@ import com.wangxiao.shortlink.infrastructure.properties.ShortLinkProperties;
 import com.wangxiao.shortlink.infrastructure.register.RegisterCenter;
 import com.wangxiao.shortlink.infrastructure.utils.MachineIdUtils;
 import com.wangxiao.shortlink.infrastructure.utils.MappingUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class ShortLinkServiceImpl implements ShortLinkService {
     @Resource
     private LinkPairRepository linkPairRepository;
@@ -31,6 +33,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
         //存储超过上限，则下线编码服务并抛出异常
         if (shortLinkProperties.getStoreLimit().compareTo(linkPairRepository.totalPairSize()) <= 0) {
             registerCenter.unRegisteMethod(shortLinkProperties.getMachineId(), "encodeUrl");
+            log.error("存储到达上限！");
             throw new StoreOverFlowException();
         }
         Integer salt = 0;
@@ -50,6 +53,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
                 persistenceService.persist(linkPair.getShortLink(), linkPair.getLongLink());
             } catch (Exception e) {
                 linkPairRepository.removeLink(linkPair.getShortLink());
+                log.error("持久化异常！", e);
                 throw new PersistenceException();
             }
         }
