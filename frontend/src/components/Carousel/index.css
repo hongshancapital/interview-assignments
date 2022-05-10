@@ -1,3 +1,4 @@
+/* 容器样式 */
 .carousel {
   position: relative;
   width: 100%;
@@ -5,16 +6,16 @@
   overflow: hidden;
 }
 
+/* panel 样式 */
 .panel-wrap {
   width: 300%;
   height: 100%;
   align-items: stretch;
   position: relative;
+  transition: transform 0.5s linear 0s; /* 设置轮播图偏移量过渡动画 */
 }
-
 .carouse-panel {
   display: inline-block;
-  /* width: 100%; */
   width: calc(100% / 3);
   height: 100%;
   align-items: stretch;
@@ -33,30 +34,33 @@
   margin-top: 10px;
 }
 
+/* slider 样式 */
 .carouse-slider {
+  display: flex;
+  width: 30%;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   bottom: 30px;
   left: 50%;
-  width: 30%;
-  line-height: 20px;
   transform: translateX(-50%);
   cursor: pointer;
 }
-
 .slider-item {
+  flex-grow: 1;
   position: relative;
   display: inline-block;
+  min-width: 30px;
   max-width: 60px;
-  width: calc((100% - 20px) / 3);
   height: 2px;
   margin-right: 10px;
   background: #717070;
-  transition: width 3s;
+  transition-property: width; /* 设置指示器过渡属性 */
 }
 .slider-item:last-child {
   margin-right: 0;
 }
-
 .slider-item:after {
   content: '';
   position: absolute;
@@ -64,11 +68,9 @@
   left: 0;
   width: 0;
   height: 100%;
-  /* background: #fff; */
   background: #ddd;
 }
-
 .slider-item.active:after{
-  transition: width 3s;
+  transition: inherit;
   width: 100%;
 }

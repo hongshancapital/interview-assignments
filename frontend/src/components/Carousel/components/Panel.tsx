@@ -14,7 +14,7 @@ function CarouselPanel(props: Props): React.ReactElement {
   return (
     <div className="carouse-panel" style={style}>
       {title && <h3 className="title">{title}</h3>}
-      {title && <h5 className="subtitle">{subTitle}</h5>}
+      {subTitle && <h5 className="subtitle">{subTitle}</h5>}
     </div>
   )
 }

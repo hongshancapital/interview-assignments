@@ -54,6 +54,13 @@ Carousel组件主要核心就是一组卡片在一个公共区域内轮播展示
 - 打包：``` yarn build ```
 
 ## 待改进
+- 完善单元测试用例
 - 未完成功能：鼠标移入悬停，不支持手动播放和停止功能
 - sleep函数采用setTimeout，在一些情况下并不能完全保证轮播切换效果一致
-- 接入gitlab-ci自动化部署流程
+
+## CHANGE LOGS
+### 2022.05.10
+- 使用onTransitionEnd替换sleep函数，使得轮播过程更细腻
+- 轮播代码细节封装为useCarousel自定义hook
+- 消除index.css中slider相关的duration和width硬编码，支持参数配置
+- 完善Slider组件及其他
