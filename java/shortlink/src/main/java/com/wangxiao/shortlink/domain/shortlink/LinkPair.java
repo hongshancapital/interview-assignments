@@ -1,9 +1,9 @@
 package com.wangxiao.shortlink.domain.shortlink;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class LinkPair {
 

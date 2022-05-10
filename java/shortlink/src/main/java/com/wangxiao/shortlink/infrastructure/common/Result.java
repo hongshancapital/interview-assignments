@@ -1,8 +1,10 @@
 package com.wangxiao.shortlink.infrastructure.common;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class Result<T> {
     public Result(boolean success, int code) {
         this.setSuccess(success);

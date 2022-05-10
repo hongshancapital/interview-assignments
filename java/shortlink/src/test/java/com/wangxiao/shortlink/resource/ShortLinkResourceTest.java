@@ -2,6 +2,7 @@ package com.wangxiao.shortlink.resource;
 
 import com.wangxiao.shortlink.infrastructure.common.ErrorEnum;
 import com.wangxiao.shortlink.infrastructure.common.Result;
+import com.wangxiao.shortlink.infrastructure.properties.ShortLinkProperties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,10 @@ import javax.annotation.Resource;
 class ShortLinkResourceTest {
     @Resource
     ShortLinkResource shortLinkResource;
+
+    @Resource
+    private ShortLinkProperties shortLinkProperties;
+
 
     @Test
     void testEncodeUrl() {
@@ -32,7 +37,7 @@ class ShortLinkResourceTest {
     }
 
     @Test
-    void testEncodeFail() {
+    void testEncodeEmpty() {
         Result<String> result = shortLinkResource.encode("");
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result.getCode(), ErrorEnum.PARAMS_ILLEGAL.getCode());
@@ -55,17 +60,25 @@ class ShortLinkResourceTest {
     }
 
     @Test
-    void testDecodeFail() {
+    void testDecodeEmpty() {
         Result<String> result = shortLinkResource.decode("");
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result.getCode(), ErrorEnum.PARAMS_ILLEGAL.getCode());
     }
 
     @Test
+    void testDecodeFail() {
+        Result<String> result = shortLinkResource.decode("%");
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.getCode(), ErrorEnum.PARAMS_ILLEGAL.getCode());
+    }
+
+    @Test
     void testDecodeNotExit() {
-        Result<String> result = shortLinkResource.decode("01A");
+        Result<String> result = shortLinkResource.decode(shortLinkProperties.getMachineId() + "1");
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result.getCode(), ErrorEnum.LINK_NOT_EXISTS.getCode());
     }
+
 }
 

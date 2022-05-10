@@ -11,6 +11,7 @@ public class ShortlinkApplicationTests {
 
     @Test
     public void contextLoads() {
+        ShortlinkApplication.main(new String[] {});
     }
 
 }

@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GlobalExceptionHandler {
     @ExceptionHandler(StoreOverFlowException.class)
     @ResponseBody
-    public Object badArgumentHandler(StoreOverFlowException e) {
+    public Result badArgumentHandler(StoreOverFlowException e) {
         return Result.fail(ErrorEnum.STORE_OVERFLOW);
     }
 
 
     @ExceptionHandler(PersistenceException.class)
     @ResponseBody
-    public Object badArgumentHandler(PersistenceException e) {
+    public Result badArgumentHandler(PersistenceException e) {
         return Result.fail(ErrorEnum.PERSIST_ERROR);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Object seriousHandler(Exception e) {
+    public Result seriousHandler(Exception e) {
         log.error(e.getMessage(), e);
         return Result.fail(ErrorEnum.SYSTEM_ERROR, e.getMessage());
     }
