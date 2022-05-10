@@ -12,6 +12,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Component
@@ -26,6 +27,8 @@ public class SequenceManager {
     private final AtomicLong currentOffset = new AtomicLong(0);
 
     private final AtomicLong currentCount = new AtomicLong(0);
+
+    private final AtomicLong expiredCount = new AtomicLong(0);
 
 
     @PostConstruct
@@ -52,8 +55,17 @@ public class SequenceManager {
     public void consumeExpiredEvent(ExpiredEvent expiredEvent) {
         log.debug("expired event: {}" ,expiredEvent.toString());
 
-        currentCount.decrementAndGet();
+        //减少currentCount变量的更新竞争，到达配置的批次大小后再更新，同时提供定时任务调用防止长时间未到达批次无法及时更新currentCount
 
+        if(expiredCount.incrementAndGet() > appConfig.getExpiredBatchSize()) {
+            updateExpiredCount();
+        }
+
+    }
+
+
+    public void updateExpiredCount() {
+        currentCount.updateAndGet((current) -> currentCount.get() - expiredCount.get());
     }
 
 }

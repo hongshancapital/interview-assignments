@@ -56,6 +56,9 @@ public class AppConfig {
     @Value("${application.storage.max-capacity:999999}")
     private Long maxCapacity;
 
+    @Value("${application.storage.expired-batch-size:1000}")
+    private Long expiredBatchSize;
+
     private int maxIdLength;
 
     @PostConstruct
