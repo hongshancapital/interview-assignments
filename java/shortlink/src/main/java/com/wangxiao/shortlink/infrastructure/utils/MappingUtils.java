@@ -20,7 +20,7 @@ public class MappingUtils {
 
     public static Long hashing(String text) {
         HashFunction hashFunction = Hashing.murmur3_32();
-        return hashFunction.hashString(text, StandardCharsets.UTF_8).asLong();
+        return hashFunction.hashString(text, StandardCharsets.UTF_8).padToLong();
     }
 
 

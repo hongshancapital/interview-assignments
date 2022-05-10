@@ -16,8 +16,9 @@ class ShortLinkResourceTest {
 
     @Test
     void testEncodeUrl() {
-        String result = shortLinkResource.encode("longLink").getData();
-        Assertions.assertEquals("", result);
+        String result = shortLinkResource.encode("https://www.baidu.com").getData();
+        Assertions.assertNotNull(result);
+        Assertions.assertTrue(result.length() == 8);
     }
 
     @Test
