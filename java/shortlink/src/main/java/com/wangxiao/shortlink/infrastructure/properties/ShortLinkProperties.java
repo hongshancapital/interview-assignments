@@ -13,4 +13,5 @@ public class ShortLinkProperties {
     private Long storeLimit;
     private String machineId;
     private String storePath;
+    private Integer encodeLength;
 }

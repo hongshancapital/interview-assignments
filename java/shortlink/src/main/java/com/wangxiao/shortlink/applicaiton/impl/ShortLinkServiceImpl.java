@@ -68,7 +68,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
 
     private LinkPair getLinkPair(String longLink, Integer salt) {
         Long haseText = MappingUtils.hashing(longLink + salt);
-        String base62Text = MappingUtils.encodeBase62(haseText);
+        String base62Text = MappingUtils.encodeBase62WithLength(haseText, shortLinkProperties.getEncodeLength());
         String shortLink = MachineIdUtils.combine(shortLinkProperties.getMachineId(), base62Text);
         LinkPair linkPair = new LinkPair(shortLink, longLink);
         return linkPair;

@@ -22,9 +22,27 @@ class ShortLinkResourceTest {
     }
 
     @Test
+    void testEncodeUrlSame() {
+        String result1 = shortLinkResource.encode("https://www.baidu.com").getData();
+        String result2 = shortLinkResource.encode("https://www.baidu.com").getData();
+        Assertions.assertNotNull(result1);
+        Assertions.assertEquals(result1, result2);
+    }
+
+    @Test
+    void testEncodeUrlDif() {
+        String result1 = shortLinkResource.encode("https://www.hao123.com").getData();
+        String result2 = shortLinkResource.encode("https://www.baidu.com").getData();
+        Assertions.assertNotNull(result1);
+        Assertions.assertNotEquals(result1, result2);
+    }
+
+    @Test
     void testDecodeUrl() {
-        String result = shortLinkResource.decode("shortLink").getData();
-        Assertions.assertEquals("", result);
+        String url = "https://www.baidu.com/abc";
+        String shortLink = shortLinkResource.encode(url).getData();
+        String result = shortLinkResource.decode(shortLink).getData();
+        Assertions.assertEquals(url, result);
     }
 }
 

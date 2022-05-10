@@ -32,4 +32,13 @@ public class MappingUtils {
         }
         return stringBuilder.reverse().toString();
     }
+
+    public static String encodeBase62WithLength(Long l, Integer length) {
+        String encode = encodeBase62(l);
+        while (encode.length() < 6) {
+            encode = toBase62[0] + encode;
+        }
+        return encode;
+    }
+
 }
