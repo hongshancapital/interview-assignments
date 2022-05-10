@@ -52,11 +52,11 @@ Please find your assignment in subfolder accordingly.
 
 设计：Figma
 
-前端: TypeScript + React
+前端：TypeScript + React
 
-后端: TypeScript + Express
+后端：TypeScript + Express
 
-移动端: SwiftUI
+移动端：SwiftUI
 
 如此激进的选择得益于完善的设备管理以及项目所处的阶段，你不用花大量时间处理不同设备的兼容问题或陈旧的代码，只需要关注技术本身。
 
