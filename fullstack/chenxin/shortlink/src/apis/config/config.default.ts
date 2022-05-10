@@ -1,3 +1,4 @@
+import DB_CONFIG from './config.db';
 // 短链服务配置
 export const SHORTURL_SERVER = {
   PREFIX: "https://xinz.cn/u",
@@ -77,9 +78,9 @@ export const orm = {
   type: "mysql",
   host: "localhost",
   port: 8889,
-  username: "root",
-  password: "1qaz@WSX",
-  database: "db_demo",
+  username: DB_CONFIG.username || '',
+  password: DB_CONFIG.password || '',
+  database: DB_CONFIG.database || '',
   synchronize: true, // 如果第一次使用，不存在表，有同步的需求可以写 true
   logging: false,
   dateStrings: true,
