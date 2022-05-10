@@ -1,6 +1,9 @@
 ## 短链[shortlink]服务
 [![Coverage Status](https://coveralls.io/repos/github/imxinz/shortlink/badge.svg)](https://coveralls.io/github/imxinz/shortlink)
 
+### 前台界面展示
+![avatar](./docs/ui.png)
+
 ### 项目主要技术选型：
 * Midway2.x & Midway Hooks & Express  构建全栈一体化应用
 * mysql 数据库

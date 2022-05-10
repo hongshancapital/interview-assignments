@@ -1,5 +1,3 @@
-// import DB_CONFIG from './config.db';
-const DB_CONFIG: any = {}; // MYSQL数据库配置信息
 // 短链服务配置
 export const SHORTURL_SERVER = {
   PREFIX: "https://xinz.cn/u",
@@ -79,9 +77,9 @@ export const orm = {
   type: "mysql",
   host: "localhost",
   port: 8889,
-  username: DB_CONFIG.username || "",
-  password: DB_CONFIG.password || "",
-  database: DB_CONFIG.database || "",
+  username: process.env.MYSQL_USERNAME,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
   synchronize: true, // 如果第一次使用，不存在表，有同步的需求可以写 true
   logging: false,
   dateStrings: true,
@@ -93,6 +91,6 @@ export const SYSTEM = {
     SUCCESS: [0, "成功"],
     ERROR: [-1, "错误"],
     INVAILD_PARAMS: [-2, "缺少参数"],
-    INVAILD_REQ_METHOD: [-3, "请检查request.method"],
+    INVAILD_REQ_METHOD: [-3, "请检查request.method"]
   },
 };
