@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Props {
+export interface Props {
   color: string
   texts?: string[]
   imgSrc: string
