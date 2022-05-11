@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useCallback } from "react";
 import Item from "./components/carousel-item/index";
 import Progress from "./components/progress/index";
 
@@ -50,7 +50,7 @@ const Carousel = (props: Props): JSX.Element => {
         items={items}
         interval={interval}
         activeIndex={activeIndex}
-        callback={onClickProgress}
+        onClickProgress={onClickProgress}
       />
     </div>
   );

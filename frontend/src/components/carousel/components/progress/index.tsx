@@ -8,13 +8,13 @@ interface Props {
   items: CarouselIProps[];
   interval: number;
   activeIndex: number;
-  callback?: (activeIndex: number) => void;
+  onClickProgress?: (activeIndex: number) => void;
 }
 
 export default function Progress(props: Props): JSX.Element {
-  const { items, interval = 0, activeIndex, callback } = props;
+  const { items, interval = 0, activeIndex, onClickProgress } = props;
 
-  const onClickItem = (activeIndex: number) => callback?.(activeIndex);
+  const onClickItem = (activeIndex: number) => onClickProgress?.(activeIndex);
 
   return (
     <div className="progress-container">

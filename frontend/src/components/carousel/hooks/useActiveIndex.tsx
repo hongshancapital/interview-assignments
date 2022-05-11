@@ -6,9 +6,12 @@ interface Props {
   count: number;
 }
 
-export function useActiveIndex(
-  props: Props
-): [number, Dispatch<SetStateAction<number>>] {
+type UseActiveType = [
+  activeIndex: number,
+  setActiveIndex: Dispatch<SetStateAction<number>>
+];
+
+export function useActiveIndex(props: Props): UseActiveType {
   const { defaultIndex = 0, interval = 3000, count } = props;
 
   const [index, setIndex] = useState(defaultIndex);
