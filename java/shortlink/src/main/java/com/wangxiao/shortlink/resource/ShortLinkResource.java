@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -31,7 +32,7 @@ public class ShortLinkResource {
 
     @PostMapping(value = "encode")
     @ApiOperation("长链接编码")
-    public Result<String> encode(@ApiParam("长连接地址") String longLink) {
+    public Result<String> encode(@ApiParam("长连接地址") @RequestParam String longLink) {
         if (StringUtils.isEmpty(longLink)) {
             return Result.fail(ErrorEnum.PARAMS_ILLEGAL);
         }
@@ -43,7 +44,7 @@ public class ShortLinkResource {
 
     @PostMapping(value = "decode")
     @ApiOperation("短链接解码")
-    public Result<String> decode(@ApiParam("短连接地址")String shortLink) {
+    public Result<String> decode(@ApiParam("短连接地址") @RequestParam String shortLink) {
         if (StringUtils.isEmpty(shortLink) || !shortLink.startsWith(shortLinkProperties.getMachineId())) {
             return Result.fail(ErrorEnum.PARAMS_ILLEGAL);
         }
