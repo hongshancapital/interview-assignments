@@ -33,10 +33,12 @@
 currentOffset表示已经分配的ID下一个所在的偏移量， removedOffset代表当前已过期的偏移量，
 
 如果currentOffset到达上限时会从0开始计数，但如果追上了removedOffset，则需要等待removedOffset向前移动释放新的ID
-为了简化方案的实现，这里使用currentCount记录已使用的id数量，当currentCount到达上限时抛出异常，否则加1，并且通过CAS更新currentOffset。
+
+这里为了简化方案的实现，直接使用currentCount记录已使用的id数量，当currentCount到达上限时抛出异常，否则加1，并且通过CAS更新currentOffset。
 
 方案中使用监听器模式处理过期事件对currentCount的更新，当存储的Url过期时会通过EventPublisher发布一个过期事件，
-id管理器在监听到过期事件发生时将currentCount减1，从而使removedOffset向前移动。
+id管理器在监听到过期事件发生时累加过期事件计数器变量expiredCount，当expiredCount达到配置指定的批次大小时批量释放currentCount，使currentOffset能够
+重用已经过期的id。为了防止expiredCount长时间未到达阈值，使用定时任务每分钟检查并更新一次expiredCount，从而能够及时释放过期id。
 
 
 
@@ -68,6 +70,11 @@ JVM参数:
 ![alt JMeter压测报告](img/JMeter.PNG)
 
 ## 优化方向
+### 性能优化
+  当前的方案使用了批量更新currentCount来释放过期id的方式，降低了currentCount计数器上的竞争冲突，但currentOffset的更新在高并发场景下依然存在瓶颈。
+  因此可以考虑将当前机器分配到的ID范围进一步拆分到多个SequenceManager之中，每一个SequenceManager管理一段id范围，并且初始化各自的currentOffset和
+  currentCount值。当fetchTinyUrl请求到达时按照round robbin 的方式从SequenceManager中获取id生成短域名，如果当前的SequenceManager暂无可用ID，可以尝试到下一个
+  SequenceManager中获取，这样将一个currentOffset上的cas操作分散到多个之中，能够进一步提升ID分配的并发性能。
 ### 负载均衡
   使用8位Base62编码时，生成的ID范围为0-218340105584895，使用第一位作为broker-id时可以部署三台机器，当broker-id=0或1时，ID的范围为0-99999999999999，
   而broker为2的机器 ID范围为0-18340105584895，存在负载不均衡的情况，因此可以将2开头的这些ID通过hash再次均匀分配到前面的机器上实现负载均衡。
