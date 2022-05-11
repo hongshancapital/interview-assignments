@@ -34,4 +34,6 @@ public interface LinkPairRepository {
      * @param load 需要加载的持久化数据
      */
     void load(Map<String, String> load);
+
+    void clear();
 }

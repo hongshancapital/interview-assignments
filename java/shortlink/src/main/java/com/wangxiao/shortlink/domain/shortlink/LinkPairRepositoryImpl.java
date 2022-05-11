@@ -53,4 +53,9 @@ public class LinkPairRepositoryImpl implements LinkPairRepository {
     public void load(Map<String, String> load) {
         linkStorage.putAll(load);
     }
+
+    @Override
+    public void clear() {
+        linkStorage.clear();
+    }
 }

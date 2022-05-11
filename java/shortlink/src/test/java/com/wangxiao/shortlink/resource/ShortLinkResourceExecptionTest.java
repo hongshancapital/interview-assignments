@@ -1,7 +1,7 @@
 package com.wangxiao.shortlink.resource;
 
+import com.wangxiao.shortlink.domain.shortlink.LinkPairRepository;
 import com.wangxiao.shortlink.infrastructure.common.StoreOverFlowException;
-import com.wangxiao.shortlink.infrastructure.persisitence.Persistence;
 import com.wangxiao.shortlink.infrastructure.properties.ShortLinkProperties;
 import org.assertj.core.util.Files;
 import org.junit.jupiter.api.AfterEach;
@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.IOException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,11 +26,12 @@ class ShortLinkResourceExecptionTest {
     private ShortLinkProperties shortLinkProperties;
 
     @Resource
-    private Persistence persistenceService;
+    private LinkPairRepository linkPairRepository;
 
     @AfterEach
     void cleanStore() {
         Files.delete(new File(shortLinkProperties.getStorePath()));
+        linkPairRepository.clear();
     }
 
     @Test
@@ -42,9 +42,5 @@ class ShortLinkResourceExecptionTest {
         Assertions.assertThrows(StoreOverFlowException.class, () -> shortLinkResource.encode("https://www.baidu.com/4").getData());
     }
 
-    @Test
-    void testPersist() throws IOException {
-        Assertions.assertDoesNotThrow(() -> persistenceService.persist("01AEQ0vU", "https://www.baidu.com/abc"));
-    }
 }
 
