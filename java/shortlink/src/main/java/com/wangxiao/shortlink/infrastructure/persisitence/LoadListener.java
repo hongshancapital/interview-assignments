@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 @Order(1)
 public class LoadListener implements ApplicationRunner {
     @Resource
-    private PersistenceService persistenceService;
+    private Persistence persistenceService;
     @Resource
     private LinkPairRepository linkPairRepository;
 

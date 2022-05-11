@@ -3,9 +3,7 @@ package com.wangxiao.shortlink.applicaiton.impl;
 import com.wangxiao.shortlink.applicaiton.ShortLinkService;
 import com.wangxiao.shortlink.domain.shortlink.LinkPair;
 import com.wangxiao.shortlink.domain.shortlink.LinkPairRepository;
-import com.wangxiao.shortlink.infrastructure.common.PersistenceException;
 import com.wangxiao.shortlink.infrastructure.common.StoreOverFlowException;
-import com.wangxiao.shortlink.infrastructure.persisitence.PersistenceService;
 import com.wangxiao.shortlink.infrastructure.properties.ShortLinkProperties;
 import com.wangxiao.shortlink.infrastructure.register.RegisterCenter;
 import com.wangxiao.shortlink.infrastructure.utils.MachineIdUtils;
@@ -25,8 +23,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
     private ShortLinkProperties shortLinkProperties;
     @Resource
     private RegisterCenter registerCenter;
-    @Resource
-    private PersistenceService persistenceService;
+    
 
     @Override
     public String encodeUrl(String longLink) {
@@ -47,16 +44,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
             linkPair = getLinkPair(longLink, salt);
             saveResult = linkPairRepository.saveIfAbsent(linkPair);
         }
-        //持久化数据
-        if (saveResult == null) {
-            try {
-                persistenceService.persist(linkPair.getShortLink(), linkPair.getLongLink());
-            } catch (Exception e) {
-                linkPairRepository.removeLink(linkPair.getShortLink());
-                log.error("持久化异常！", e);
-                throw new PersistenceException();
-            }
-        }
+
         return linkPair.getShortLink();
     }
 

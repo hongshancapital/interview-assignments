@@ -1,7 +1,7 @@
 package com.wangxiao.shortlink.resource;
 
 import com.wangxiao.shortlink.infrastructure.common.StoreOverFlowException;
-import com.wangxiao.shortlink.infrastructure.persisitence.PersistenceService;
+import com.wangxiao.shortlink.infrastructure.persisitence.Persistence;
 import com.wangxiao.shortlink.infrastructure.properties.ShortLinkProperties;
 import org.assertj.core.util.Files;
 import org.junit.jupiter.api.AfterEach;
@@ -27,7 +27,7 @@ class ShortLinkResourceExecptionTest {
     private ShortLinkProperties shortLinkProperties;
 
     @Resource
-    private PersistenceService persistenceService;
+    private Persistence persistenceService;
 
     @AfterEach
     void cleanStore() {
