@@ -1,0 +1,81 @@
+.carousel {
+  position: relative;
+}
+
+.carousel-inner {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.carousel-item {
+  display: block;
+  transition: transform 0.4s linear 0s;
+  position: absolute;
+}
+
+.carousel-dot {
+  position: absolute;
+  font-size: 0;
+  z-index: 12;
+}
+
+.carousel-dot-bottom {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 64px;
+}
+
+.carousel-dot-top {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 64px;
+}
+
+.carousel-dot-left {
+  top: 50%;
+  left: 64px;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.carousel-dot-right {
+  top: 50%;
+  right: 64px;
+  transform: translateX(100%) translate(-50%, -50%) rotate(90deg);
+}
+
+.carousel-dot-item {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  width: 60px;
+  height: 4px;
+  border-radius: 1px;
+  cursor: pointer;
+  background-color: gray;
+  transition: width .3s;
+}
+
+.carousel-dot-item+.carousel-dot-item {
+  margin-left: 6px;
+}
+
+.carousel-dot-item-active {
+  width: 60px;
+  background-color: lightblue;
+}
+
+@keyframes progressBarAnima {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.carousel-dot-item .progress-bar{
+  animation-name: progressBarAnima;
+  background-color: lightblue;
+  height: 4px;
+}
