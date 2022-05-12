@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Dots from './dots';
 import useActiveIndex from './useActiveIndex';
 import './styles/carousel.scss';
@@ -39,6 +39,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     children,
   } = props;
   const preIndex = useRef(-1);
+  const containeRef = useRef<HTMLDivElement>(null);
 
   const { curIndex, setCurIndex } = useActiveIndex({ duration, count: React.Children.count(props.children) });
 
@@ -50,15 +51,17 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     preIndex.current = curIndex;
   }, [curIndex, beforeChange, afterChange]);
 
-  const sliderStyle = useMemo(() => {
-    return {
-      transform: `translateX(${-(curIndex * 100)}%)`,
-    };
-  }, [curIndex]);
+  useEffect(() => {
+    if (containeRef.current) {
+      containeRef.current.style.setProperty('--width', `${width}px`);
+      containeRef.current.style.setProperty('--height', `${height}px`);
+      containeRef.current.style.setProperty('--curIndex', curIndex.toString());
+    }
+  }, [curIndex, width, height]);
 
   return (
-    <div className="container" style={{ width: width, height: height }}>
-      <div className="carousel" style={sliderStyle} data-testid="carousel">
+    <div className="container" ref={containeRef}>
+      <div className="carousel" data-testid="carousel">
         {React.Children.map(children, (child, index) => (
           <div key={index}>{child}</div>
         ))}

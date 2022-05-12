@@ -1,17 +1,25 @@
 .container {
+  // 定义变量
+  --width: 0;
+  --height: 0;
+  --curIndex: 0;
+
   position: relative;
   overflow: hidden;
-}
+  width: var(--width);
+  height: var(--height);
 
-.carousel {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.5s;
-
-  & > div {
+  .carousel {
+    display: flex;
     width: 100%;
     height: 100%;
-    flex-shrink: 0;
+    transition: transform 0.5s;
+    transform: translateX(calc(var(--curIndex) * -100%));
+
+    & > div {
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+    }
   }
 }
