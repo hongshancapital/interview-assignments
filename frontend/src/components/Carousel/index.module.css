@@ -1,0 +1,82 @@
+.carousel-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.carousel-item {
+  height: 100%;
+  position: absolute;
+  text-align: center;
+}
+
+.item-text {
+  position: relative;
+  top: 25%;
+  z-index: 1;
+}
+
+.item-title {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 60px;
+  margin-bottom: 20px;
+  max-width: 1000px;
+}
+
+.item-description {
+  max-width: 400px;
+  font-size: 30px;
+  display: inline-block;
+}
+
+.item-bg {
+  position: absolute;
+  bottom: 50px;
+  width: 700px;
+  height: 300px;
+  margin-left: -350px;
+  z-index: 0;
+}
+
+.pagination-container {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+.pagination-item {
+  position: relative;
+  height: 4px;
+  width: 50px;
+  margin-right: 6px;
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #a9a9a9;
+  overflow: visible;
+}
+
+.pagination-item-active {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: #fff;
+  animation: pagination-slide-in forwards;
+}
+
+@keyframes pagination-slide-in {
+  from {
+    width: 0;
+  }
+  to {
+    width: 50px;
+  }
+}
