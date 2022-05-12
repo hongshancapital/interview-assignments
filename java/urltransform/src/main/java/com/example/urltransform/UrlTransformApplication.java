@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UrltransformApplication {
+public class UrlTransformApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UrltransformApplication.class, args);
+        SpringApplication.run(UrlTransformApplication.class, args);
     }
 }
