@@ -1,14 +1,12 @@
 import { act, render } from "@testing-library/react";
-import Carousel, { CarouselProps, CarouselRef } from "..";
+import { renderHook } from "@testing-library/react-hooks";
+import Carousel, { CarouselProps } from "..";
 import CarouselItem from "../Item";
 import { list } from "../../mock";
-import React from "react";
+import { useAutoPlay } from "../hooks/useAutoplay";
 
-const createDemo = (
-  props?: CarouselProps,
-  ref?: React.RefObject<CarouselRef>
-) => (
-  <Carousel {...props} ref={ref}>
+const createDemo = (props?: CarouselProps) => (
+  <Carousel {...props}>
     {list.map((item) => (
       <CarouselItem data={item} key={item.id} />
     ))}
@@ -29,37 +27,37 @@ describe("Carousel", () => {
   it("Should `autoPlay: true` works correctly", () => {
     jest.useFakeTimers();
 
-    const ref = React.createRef<CarouselRef>();
-    const demo = createDemo({ autoPlay: true }, ref);
-    render(demo);
+    const { result } = renderHook(() =>
+      useAutoPlay({ autoPlay: true, interval: 3000, count: 3 })
+    );
 
-    expect(ref.current?.activeIndex).toBe(0);
+    expect(result.current.activeIndex).toBe(0);
     act(() => {
       jest.advanceTimersByTime(3000);
     });
-    expect(ref.current?.activeIndex).toBe(1);
+    expect(result.current.activeIndex).toBe(1);
     act(() => {
       jest.advanceTimersByTime(3000);
     });
-    expect(ref.current?.activeIndex).toBe(2);
+    expect(result.current.activeIndex).toBe(2);
     act(() => {
       jest.advanceTimersByTime(3000);
     });
-    expect(ref.current?.activeIndex).toBe(0);
+    expect(result.current.activeIndex).toBe(0);
   });
 
   it("Should `autoPlay: false` works correctly", () => {
     jest.useFakeTimers();
 
-    const ref = React.createRef<CarouselRef>();
-    const demo = createDemo({ autoPlay: false }, ref);
-    render(demo);
+    const { result } = renderHook(() =>
+      useAutoPlay({ autoPlay: false, interval: 3000, count: 3 })
+    );
 
-    expect(ref.current?.activeIndex).toBe(0);
+    expect(result.current.activeIndex).toBe(0);
     act(() => {
       jest.advanceTimersByTime(3000);
     });
-    expect(ref.current?.activeIndex).toBe(0);
+    expect(result.current.activeIndex).toBe(0);
   });
 
   it("Should render correctly when children is empty", () => {
