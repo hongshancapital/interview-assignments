@@ -1,20 +1,24 @@
 .container {
-  // 定义变量
-  --width: 0;
-  --height: 0;
-  --curIndex: 0;
-
   position: relative;
   overflow: hidden;
-  width: var(--width);
-  height: var(--height);
 
   .carousel {
     display: flex;
     width: 100%;
     height: 100%;
     transition: transform 0.5s;
-    transform: translateX(calc(var(--curIndex) * -100%));
+
+    &.active-0 {
+      transform: translateX(0);
+    }
+
+    &.active-1 {
+      transform: translateX(-100%);
+    }
+
+    &.active-2 {
+      transform: translateX(-200%);
+    }
 
     & > div {
       width: 100%;

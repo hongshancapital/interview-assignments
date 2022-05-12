@@ -61,10 +61,10 @@ describe('carousel component unit testing', () => {
   test('dot click', async () => {
     render(<App />);
 
-    const container = await screen.findByTestId('container');
-    expect(container.style.getPropertyValue('--curIndex')).toBe('0');
+    const carousel = await screen.findByTestId('carousel');
+    expect(carousel.classList.contains('active-0')).toBe(true);
     const dot1 = await screen.findByTestId('dot_1');
     fireEvent.click(dot1);
-    expect(container.style.getPropertyValue('--curIndex')).toBe('1');
+    expect(carousel.classList.contains('active-1')).toBe(true);
   });
 });

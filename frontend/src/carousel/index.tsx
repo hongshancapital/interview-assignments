@@ -63,7 +63,6 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     height = window.screen.height,
   } = props;
   const preIndex = useRef(-1);
-  const containeRef = useRef<HTMLDivElement>(null);
 
   const { curIndex, setCurIndex } = useActiveIndex({ duration, count: data.length });
 
@@ -75,17 +74,9 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     preIndex.current = curIndex;
   }, [curIndex, beforeChange, afterChange]);
 
-  useEffect(() => {
-    if (containeRef.current) {
-      containeRef.current.style.setProperty('--width', `${width}px`);
-      containeRef.current.style.setProperty('--height', `${height}px`);
-      containeRef.current.style.setProperty('--curIndex', curIndex.toString());
-    }
-  }, [curIndex, width, height]);
-
   return (
-    <div className="container" ref={containeRef} data-testid="container">
-      <div className="carousel">
+    <div className="container" style={{ width: width, height: height }}>
+      <div className={`carousel active-${curIndex}`} data-testid="carousel">
         {data?.map((d, index) => (
           <div key={index}>
             <div
