@@ -1,0 +1,51 @@
+.carousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    /* border: 1px solid red; */
+    /* background: black; */
+}
+
+.carousel .carousel-list {
+    position: absolute;
+    /* left: 0px; */
+    display: flex;
+    transition: 0.4s linear all;
+    height: 100%;
+}
+
+
+.carousel .carousel-current-list {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    list-style: none;
+    display: flex;
+    bottom: 20px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.carousel .carousel-current-list li {
+    width: 40px;
+    height: 2px;
+    margin-right: 5px;
+    border-radius: 2px;
+    background: rgb(206, 203, 203); 
+    display: flex;
+}
+
+.carousel .carousel-current-list li:last-child {
+    margin-right: 0px;
+}
+
+.carousel .carousel-current-list li > span {
+    height: 100%;
+    width: 0px;
+    background: #fff;
+}
+
+.carousel .carousel-current-list li > span.change-white {
+    width: 100%;
+    transition: linear all;
+}
