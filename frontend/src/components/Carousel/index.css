@@ -8,15 +8,18 @@
 
 /* panel 样式 */
 .panel-wrap {
-  width: 300%;
+  width: 100%;
   height: 100%;
   align-items: stretch;
   position: relative;
   transition: transform 0.5s linear 0s; /* 设置轮播图偏移量过渡动画 */
+  display: flex;
+  flex-wrap: nowrap;
 }
 .carouse-panel {
   display: inline-block;
-  width: calc(100% / 3);
+  flex: 0 0 auto; /* 这一行代码很关键 */
+  width: 100%;
   height: 100%;
   align-items: stretch;
   position: relative;
@@ -72,5 +75,6 @@
 }
 .slider-item.active:after{
   transition: inherit;
+  transition-delay: 0.5s;
   width: 100%;
 }

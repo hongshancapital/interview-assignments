@@ -2,14 +2,13 @@ import React from 'react'
 import { Options } from '../Options'
 
 interface Props {
-  data: Options,
-  width?: number | string
+  data: Options
 }
 
 function CarouselPanel(props: Props): React.ReactElement {
-  const { data, width } = props
+  const { data } = props
   const { title, subTitle, url, color } = data
-  const style = { backgroundImage: `url(${url})`, color, width }
+  const style = { backgroundImage: `url(${url})`, color }
 
   return (
     <div className="carouse-panel" style={style}>
