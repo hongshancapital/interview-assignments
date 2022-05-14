@@ -1,0 +1,59 @@
+.rotation-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    .rotation-list {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        display: flex;
+        .img-box {
+            display: inline-block;
+            flex: 1;
+        }
+    }
+    .rotation-spot {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        bottom: 50px;
+        display: flex;
+        justify-content: center;
+        .item {
+            width: 50px;
+            height: 5px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, .5);
+            margin-left: 10px;
+            position: relative;
+            overflow: hidden;
+            &:nth-of-type(1) {
+                margin-left: 0;
+            }
+            &::before {
+                width: 0;
+            }
+            &.active::before {
+                content: "";
+                // width: 100%;
+                position: absolute;
+                height: 100%;
+                animation: spot 2s linear;
+                background: #fff;
+                z-index: 10;
+                top: 0;
+                left: 0;
+            }
+        }
+    }
+}
+
+@keyframes spot {
+    form{
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
