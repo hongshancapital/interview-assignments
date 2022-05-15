@@ -15,7 +15,7 @@ export interface CarouselConfig {
 }
 
 export default function Carousel() {
-    const [ curIndex, setCurIndex ] = useState(0);
+    const [curIndex, setCurIndex] = useState(0);
     const timer = useRef<any>();
     const config: CarouselConfig = useMemo(
         () => ({
@@ -24,24 +24,12 @@ export default function Carousel() {
             items: [
                 {
                     title: 'xPhone',
-                    description: (
-                        <div>
-                            Lots to love. Less to spend.
-                            <br />
-                            Starting at $399
-                        </div>
-                    ),
+                    description: (<div>Lots to love. Less to spend.<br />Starting at $399</div>),
                     img: iphone,
                     style: {
                         color: '#fff',
                         backgroundColor: '#111',
-                    },
-                },
-                {
-                    title: 'Buy a Tablet or xPhone for colleage. Get airPods.',
-                    img: airpodsImg,
-                    style: {
-                        backgroundColor: '#f1f1f3',
+                        backgroundSize:'50% auto',
                     },
                 },
                 {
@@ -50,6 +38,15 @@ export default function Carousel() {
                     img: tablet,
                     style: {
                         backgroundColor: '#fafafa',
+                        backgroundSize: '100% auto',
+                    },
+                },
+                {
+                    title: (<div>Buy a Tablet or xPhone for colleage.<br /> Get airPods.</div>),
+                    img: airpodsImg,
+                    style: {
+                        backgroundColor: '#f1f1f3',
+                        backgroundSize: '125% auto',
                     },
                 },
             ],
@@ -63,7 +60,7 @@ export default function Carousel() {
                 setCurIndex((index) => (index + 1) % config.items.length);
             }, config.interval);
         },
-        [ config.interval, config.items.length ]
+        [config.interval, config.items.length]
     );
     /**停止 */
     const stop = useCallback(() => clearInterval(timer.current), []);
