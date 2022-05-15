@@ -1,45 +1,58 @@
 # TypeScript Fullstack Engineer Assignment
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+# 短域名服务设计文档
 
-撰写两个 API 接口
+## HASH 函数
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+将长网址转为短网址，我们需要找到合适的 hash 函数，由于要求短网址的长度不超过8位，所以
+常用的md5，sha1，sha128等不符合要求，常用的可以选择 CRC32，hex格式刚好8位，满足要求
 
-限制
+同时在短网址服务常用的基于 62 进制的hash，可以将一个整数转换为 0-9a-zA-Z 组成的字符串
 
-- 短域名长度最大为 8 个字符（不含域名）
+### CRC32
 
-递交作业内容
+CRC32 结果为 8 位的 hex 格式，其能够表示的总数据量为 16^8,约 4.2 billion。同时，我们还需要处理 hash 冲突的情况。出现冲突后，需要在原字符串基础上拼接预设的字符串，再次 hash，继续判断 hash 是否冲突。
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+### Base 62 转换
 
-其他
+Base 62 使用 0-9a-zA-Z 这 62 个字符，其能够表示的总数据量为 62^8 + 62^7 + ...+ 62^1，约 218 trillion。如果能够保证每个 url 对应的整数不充分，就能够保证转换结果不冲突。现代分布式系统中，一般都会有统一的 id 生成器来保证唯一 id。
 
-- 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
+经过比较，Base 62 转换能表示更大的数据量，同时处理的逻辑也相对简单。同时，将二进制数字转换为 62 进制字符串的过程是可逆的，所有可以将短网址转换为 id。至于 id 生成器，可以用数据库自增主键来实现，所以选择使用 Base 62 转换来作为转换函数。
 
-## 岗位职责
+## 缓存
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+查询数据库是一个耗时的操作，所以可以考虑使用缓存。为了保证服务的无状态性，选择使用 Redis 来作为服务的缓存。
 
-## 要求
+## 请求流程图
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+longURL to shortURL
+
+![longURL to shortURL](https://raw.githubusercontent.com/fearlessfe/image-bed/main/long.jpg)
+
+shortURL to longURL
+
+![shortURL to longURL](https://raw.githubusercontent.com/fearlessfe/image-bed/main/tempo_.jpg)
+
+## 项目结构
+
+项目采用 controller, service, dao 三层模式。数据库采用 mysql， 缓存使用 redis。
+
+### 目录
+
+* src
+  * controller
+  * service
+  * store mysql服务
+  * cache redis服务
+  * utils 工具函数
+  * types 类型定义
+
+各模块之间依赖关系如下图
+
+![dep](https://raw.githubusercontent.com/fearlessfe/image-bed/main/dep.jpg)
+
+## 测试情况
+
+测试覆盖率如下图
+
+![cov](https://raw.githubusercontent.com/fearlessfe/image-bed/main/cov.png)
