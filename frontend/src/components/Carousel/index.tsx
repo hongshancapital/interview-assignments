@@ -12,47 +12,46 @@ export interface CarouselConfig {
     /**切换动画间隔 */
     speed: number;
     items: Array<CarouselItemProps>;
-}
+};
 
-export default function Carousel() {
+const defaultConfig = {
+    interval: 3000,
+    speed: 500,
+    items: [
+        {
+            title: 'xPhone',
+            description: (<div>Lots to love. Less to spend.<br />Starting at $399</div>),
+            img: iphone,
+            style: {
+                color: '#fff',
+                backgroundColor: '#111',
+                backgroundSize: '50% auto',
+            },
+        },
+        {
+            title: 'Tablet',
+            description: 'Just the right amount of everything.',
+            img: tablet,
+            style: {
+                backgroundColor: '#fafafa',
+                backgroundSize: '100% auto',
+            },
+        },
+        {
+            title: (<div>Buy a Tablet or xPhone for colleage.<br /> Get airPods.</div>),
+            img: airpodsImg,
+            style: {
+                backgroundColor: '#f1f1f3',
+                backgroundSize: '125% auto',
+            },
+        },
+    ],
+};
+
+export default function Carousel(props?: CarouselConfig | {}) {
     const [curIndex, setCurIndex] = useState(0);
     const timer = useRef<any>();
-    const config: CarouselConfig = useMemo(
-        () => ({
-            interval: 3000,
-            speed: 500,
-            items: [
-                {
-                    title: 'xPhone',
-                    description: (<div>Lots to love. Less to spend.<br />Starting at $399</div>),
-                    img: iphone,
-                    style: {
-                        color: '#fff',
-                        backgroundColor: '#111',
-                        backgroundSize:'50% auto',
-                    },
-                },
-                {
-                    title: 'Tablet',
-                    description: 'Just the right amount of everything.',
-                    img: tablet,
-                    style: {
-                        backgroundColor: '#fafafa',
-                        backgroundSize: '100% auto',
-                    },
-                },
-                {
-                    title: (<div>Buy a Tablet or xPhone for colleage.<br /> Get airPods.</div>),
-                    img: airpodsImg,
-                    style: {
-                        backgroundColor: '#f1f1f3',
-                        backgroundSize: '125% auto',
-                    },
-                },
-            ],
-        }),
-        []
-    );
+    const config: CarouselConfig = useMemo(() => Object.assign({}, defaultConfig, props), []);
     /**播放 */
     const play = useCallback(
         () => {

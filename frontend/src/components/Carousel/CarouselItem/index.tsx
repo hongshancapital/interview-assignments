@@ -10,7 +10,6 @@ export interface CarouselItemProps {
     img: string;
     /**图片跳转链接 */
     link?: string;
-    className?: string;
     style?: React.CSSProperties;
 }
 
