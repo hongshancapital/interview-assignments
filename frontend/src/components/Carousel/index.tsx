@@ -72,15 +72,12 @@ export default function Carousel() {
         stop();
         play();
     }, []);
-    useEffect(
-        () => {
-            play();
-            return () => {
-                stop();
-            };
-        },
-        [ config.items, config.interval ]
-    );
+    useEffect(() => {
+        play();
+        return () => {
+            stop();
+        };
+    }, []);
     const sliderStyle: CSSProperties = {
         transform: `translateX(-${100 * curIndex}%)`,
         transition: `transform ${config.speed}ms linear`,
