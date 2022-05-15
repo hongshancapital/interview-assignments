@@ -1,14 +1,57 @@
+html,
+body,
+#root,
 .App {
-  text-align: center;
+  height: 100%;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/**
+ * 自定义类样式
+ */
+.my-carousel-container {
+  width: 1000px;
+  height: 600px;
+}
+
+/**
+ * card样式
+ */
+.my-card-container {
+  height: 100%;
+  width: 100%;
   position: relative;
 }
 
-.title {
+.my-card-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+}
+
+.my-card-container .my-content {
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 10%;
+}
+
+.my-card-container .my-content .title {
   font-size: 56px;
   font-weight: 600;
 }
 
-.text {
+.my-card-container .my-content .text {
   font-size: 28px;
   font-weight: 400;
 }
