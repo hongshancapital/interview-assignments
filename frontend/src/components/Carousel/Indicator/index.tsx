@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo } from 'react';
+import React, { CSSProperties, useCallback, useMemo } from 'react';
 import './index.scss';
 
 export interface IndicatorProps {
@@ -13,19 +13,25 @@ export interface IndicatorProps {
 }
 
 export default function Indicator(props: IndicatorProps) {
+    const { curIndex, total, interval, onChange = _ => _ } = props;
     const items = useMemo(
         () =>
-            Array(props.total).fill(0).map((_, i) => {
-                if (i === props.curIndex) {
-                    return { width: '100%', transition: `width ${props.interval}ms linear` } as CSSProperties;
+            Array(total).fill(0).map((_, i) => {
+                if (i === Number(curIndex)) {
+                    return { width: '100%', transition: `width ${interval}ms linear` } as CSSProperties;
                 }
                 return {};
             }),
-        [ props.total, props.curIndex, props.interval ]
+        [total, curIndex, interval]
     );
+    const handleSwitch = useCallback((e) => {
+        const { index } = e?.target?.dataset || {};
+        if (index === undefined) return;
+        onChange(index);
+    }, [onChange]);
 
     return (
-        <div className='indicator-container' onClick={() => {}}>
+        <div className='indicator-container' onClick={handleSwitch}>
             {items.map((it, i) => (
                 <div className='indicator-item' key={i} data-index={i}>
                     <span className='indicator-fill' style={it} />
