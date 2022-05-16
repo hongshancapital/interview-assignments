@@ -5,8 +5,8 @@
 //  Created by lzh on 2022/3/26.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 enum LHViewModelLoadDataState {
     case normal
@@ -15,33 +15,32 @@ enum LHViewModelLoadDataState {
     case noData
 }
 
-class LHViewModel : ObservableObject {
-    
-    ///列表数据list
-    @Published var models : [LHAppInfo] = [LHAppInfo]()
-    
-    ///数据头底部加载状态
-    @Published var loadState : LHViewModelLoadDataState = .normal
-    
-    ///mock的数据list
-    var mockDatas : [LHAppInfo] = [LHAppInfo]()
-    
-    ///当前分页拉取数据页标
-    var curOffset : Int = 0
-    
+class LHViewModel: ObservableObject {
+    /// 列表数据list
+    @Published var models = [LHAppInfo]()
+
+    /// 数据头底部加载状态
+    @Published var loadState: LHViewModelLoadDataState = .normal
+
+    /// mock的数据list
+    var mockDatas = [LHAppInfo]()
+
+    /// 当前分页拉取数据页标
+    var curOffset: Int = 0
+
     let dataPerPage = 15
-    
-    ///点赞
-    func like(app:LHAppInfo) {
+
+    /// 点赞
+    func like(app: LHAppInfo) {
         if let index = models.firstIndex(where: { $0.id == app.id }) {
             models[index].isLike = true
         }
     }
-    
-    ///底部刷新
-    func loadMoreAppInfo(){
+
+    /// 底部刷新
+    func loadMoreAppInfo() {
         loadState = .loading
-        Task.detached(priority:.high) { [weak self] in
+        Task.detached(priority: .high) { [weak self] in
             guard let self = `self` else {
                 return
             }
@@ -53,14 +52,13 @@ class LHViewModel : ObservableObject {
                         return
                     }
                     let fliterRes = resp.results.filter { info in
-                        return self.models.firstIndex(where:{ $0.id == info.id}) == nil
+                        self.models.firstIndex(where: { $0.id == info.id }) == nil
                     }
                     self.curOffset += fliterRes.count
                     self.loadState = .normal
                     self.models.append(contentsOf: fliterRes)
                 }
             } else if let err = result.err {
-                
                 DispatchQueue.main.async {
                     self.loadState = .failed
                 }
@@ -68,11 +66,11 @@ class LHViewModel : ObservableObject {
             }
         }
     }
-    
-    ///头部刷新
+
+    /// 头部刷新
     func loadRecentAppInfo() {
         loadState = .loading
-        self.curOffset = 0
+        curOffset = 0
         Task.detached(priority: .high) { [weak self] in
             guard let self = `self` else {
                 return
@@ -84,7 +82,7 @@ class LHViewModel : ObservableObject {
                     self.loadState = .normal
                     var newRes = [LHAppInfo]()
                     for var info in resp.results {
-                        if let index = self.models.firstIndex(where: {$0.id == info.id}) {
+                        if let index = self.models.firstIndex(where: { $0.id == info.id }) {
                             let existInfo = self.models[index]
                             info.updateWith(info: existInfo)
                         }

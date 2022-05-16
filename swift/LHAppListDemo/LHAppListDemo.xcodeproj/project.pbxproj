@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		168B7B3FB6EAEEFF19442348 /* libPods-LHAppListDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7949D0837B435E1C19975284 /* libPods-LHAppListDemoTests.a */; };
-		960A526027056CDF8F57CB91 /* libPods-LHAppListDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A8E58D4D38527B3FE6A2C1 /* libPods-LHAppListDemo.a */; };
 		D79DDD24282FE92400D7534A /* LHViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79DDD23282FE92400D7534A /* LHViewModel.swift */; };
 		D79DDD27282FE94500D7534A /* LHNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79DDD26282FE94500D7534A /* LHNetwork.swift */; };
 		D79DDD29282FEA7F00D7534A /* LHAppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79DDD28282FEA7F00D7534A /* LHAppAPI.swift */; };
@@ -17,6 +15,7 @@
 		D79DDD342830B12500D7534A /* LHExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79DDD332830B12500D7534A /* LHExtension.swift */; };
 		D79DDD362830B13F00D7534A /* LHNavModifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79DDD352830B13F00D7534A /* LHNavModifer.swift */; };
 		D79DDD382830B65900D7534A /* LHAppListNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79DDD372830B65900D7534A /* LHAppListNetworkTest.swift */; };
+		D79DDD3E28322FFC00D7534A /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D79DDD3D28322FFC00D7534A /* Moya */; };
 		D7A6084027F2984B00EB3FC2 /* LHAppListDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A6083F27F2984B00EB3FC2 /* LHAppListDemoApp.swift */; };
 		D7A6084227F2984B00EB3FC2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A6084127F2984B00EB3FC2 /* ContentView.swift */; };
 		D7A6084427F2984D00EB3FC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7A6084327F2984D00EB3FC2 /* Assets.xcassets */; };
@@ -44,12 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0E31D4D0E71FBF9543417FF8 /* Pods-LHAppListDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHAppListDemo.debug.xcconfig"; path = "Target Support Files/Pods-LHAppListDemo/Pods-LHAppListDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		0FBAC002757EA11644B11CBB /* Pods-LHAppListDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHAppListDemo.release.xcconfig"; path = "Target Support Files/Pods-LHAppListDemo/Pods-LHAppListDemo.release.xcconfig"; sourceTree = "<group>"; };
 		56A8E58D4D38527B3FE6A2C1 /* libPods-LHAppListDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LHAppListDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		62D7D22A11F8DEF7E77EA3D7 /* Pods-LHAppListDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHAppListDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-LHAppListDemoTests/Pods-LHAppListDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7949D0837B435E1C19975284 /* libPods-LHAppListDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LHAppListDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7D5E6262C876237A3C8039E7 /* Pods-LHAppListDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHAppListDemoTests.release.xcconfig"; path = "Target Support Files/Pods-LHAppListDemoTests/Pods-LHAppListDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		D79DDD23282FE92400D7534A /* LHViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHViewModel.swift; sourceTree = "<group>"; };
 		D79DDD26282FE94500D7534A /* LHNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LHNetwork.swift; sourceTree = "<group>"; };
 		D79DDD28282FEA7F00D7534A /* LHAppAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LHAppAPI.swift; sourceTree = "<group>"; };
@@ -75,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				960A526027056CDF8F57CB91 /* libPods-LHAppListDemo.a in Frameworks */,
+				D79DDD3E28322FFC00D7534A /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +78,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				168B7B3FB6EAEEFF19442348 /* libPods-LHAppListDemoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +149,6 @@
 				D7A6084F27F2984E00EB3FC2 /* LHAppListDemoTests */,
 				D7A6085927F2984E00EB3FC2 /* LHAppListDemoUITests */,
 				D7A6083D27F2984B00EB3FC2 /* Products */,
-				ED19E3B9E6B68B395D59CBBA /* Pods */,
 				8A79C17FA8730D945BB38CE8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -212,17 +205,6 @@
 			path = LHAppListDemoUITests;
 			sourceTree = "<group>";
 		};
-		ED19E3B9E6B68B395D59CBBA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0E31D4D0E71FBF9543417FF8 /* Pods-LHAppListDemo.debug.xcconfig */,
-				0FBAC002757EA11644B11CBB /* Pods-LHAppListDemo.release.xcconfig */,
-				62D7D22A11F8DEF7E77EA3D7 /* Pods-LHAppListDemoTests.debug.xcconfig */,
-				7D5E6262C876237A3C8039E7 /* Pods-LHAppListDemoTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -230,7 +212,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7A6086027F2984E00EB3FC2 /* Build configuration list for PBXNativeTarget "LHAppListDemo" */;
 			buildPhases = (
-				FFCBE97B284C01DD6FE341FF /* [CP] Check Pods Manifest.lock */,
 				D7A6083827F2984B00EB3FC2 /* Sources */,
 				D7A6083927F2984B00EB3FC2 /* Frameworks */,
 				D7A6083A27F2984B00EB3FC2 /* Resources */,
@@ -240,6 +221,9 @@
 			dependencies = (
 			);
 			name = LHAppListDemo;
+			packageProductDependencies = (
+				D79DDD3D28322FFC00D7534A /* Moya */,
+			);
 			productName = LHAppListDemo;
 			productReference = D7A6083C27F2984B00EB3FC2 /* LHAppListDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -248,7 +232,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7A6086327F2984E00EB3FC2 /* Build configuration list for PBXNativeTarget "LHAppListDemoTests" */;
 			buildPhases = (
-				CA4C40A667F4E298C3FC65BA /* [CP] Check Pods Manifest.lock */,
 				D7A6084827F2984E00EB3FC2 /* Sources */,
 				D7A6084927F2984E00EB3FC2 /* Frameworks */,
 				D7A6084A27F2984E00EB3FC2 /* Resources */,
@@ -313,6 +296,9 @@
 				Base,
 			);
 			mainGroup = D7A6083327F2984B00EB3FC2;
+			packageReferences = (
+				D79DDD3C28322FFC00D7534A /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			productRefGroup = D7A6083D27F2984B00EB3FC2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -349,53 +335,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		CA4C40A667F4E298C3FC65BA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LHAppListDemoTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FFCBE97B284C01DD6FE341FF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LHAppListDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D7A6083827F2984B00EB3FC2 /* Sources */ = {
@@ -566,7 +505,6 @@
 		};
 		D7A6086127F2984E00EB3FC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E31D4D0E71FBF9543417FF8 /* Pods-LHAppListDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -596,7 +534,6 @@
 		};
 		D7A6086227F2984E00EB3FC2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBAC002757EA11644B11CBB /* Pods-LHAppListDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -626,7 +563,6 @@
 		};
 		D7A6086427F2984E00EB3FC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62D7D22A11F8DEF7E77EA3D7 /* Pods-LHAppListDemoTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -647,7 +583,6 @@
 		};
 		D7A6086527F2984E00EB3FC2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D5E6262C876237A3C8039E7 /* Pods-LHAppListDemoTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -742,6 +677,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D79DDD3C28322FFC00D7534A /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D79DDD3D28322FFC00D7534A /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D79DDD3C28322FFC00D7534A /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D7A6083427F2984B00EB3FC2 /* Project object */;
 }

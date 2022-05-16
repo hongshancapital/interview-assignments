@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct LHNavModifier: ViewModifier {
-    
     var title: String = "App"
-    
+
     func body(content: Content) -> some View {
         content.navigationBarTitle(title)
             .ignoresSafeArea(.all, edges: .bottom)

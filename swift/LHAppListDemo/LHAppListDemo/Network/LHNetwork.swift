@@ -5,23 +5,22 @@
 //  Created by 刘志华 on 2022/5/14.
 //
 
-import UIKit
 import Moya
+import UIKit
 
 // 请求成功回调
-typealias LHRequestModelsSuccessCallback<T:Decodable> = ((T?,LHErrorResp?) -> ())
+typealias LHRequestModelsSuccessCallback<T: Decodable> = ((T?, LHErrorResp?) -> Void)
 
 /// 网络请求错误的回调
-typealias LHErrorCallback = ((LHErrorResp) -> ())
-
+typealias LHErrorCallback = ((LHErrorResp) -> Void)
 
 class LHErrorResp {
-    var msg : String = ""
-    
-    var code : Int = -111
+    var msg: String = ""
+
+    var code: Int = -111
 }
 
-fileprivate let endpointClosure = { (target: TargetType) -> Endpoint in
+private let endpointClosure = { (target: TargetType) -> Endpoint in
     let url = target.baseURL.absoluteString + "/" + target.path
     var task = target.task
 
@@ -32,19 +31,20 @@ fileprivate let endpointClosure = { (target: TargetType) -> Endpoint in
         task: task,
         httpHeaderFields: target.headers
     )
-    
+
     if let apiTarget = target as? MultiTarget,
-       let target = apiTarget.target as? LHAppAPI {
+       let target = apiTarget.target as? LHAppAPI
+    {
         switch target {
         case .searchApp:
             return endpoint
         }
     }
-    
+
     return endpoint
 }
 
-fileprivate let requestClosure = { (endpoint: Endpoint, done: MoyaProvider.RequestResultClosure) in
+private let requestClosure = { (endpoint: Endpoint, done: MoyaProvider.RequestResultClosure) in
     do {
         var request = try endpoint.urlRequest()
         // 设置请求时长
@@ -64,11 +64,9 @@ fileprivate let requestClosure = { (endpoint: Endpoint, done: MoyaProvider.Reque
     } catch {
         done(.failure(MoyaError.underlying(error, nil)))
     }
-    
 }
 
-
-fileprivate let networkPlugin = NetworkActivityPlugin.init { changeType, _ in
+private let networkPlugin = NetworkActivityPlugin.init { changeType, _ in
     print("networkPlugin \(changeType)")
     switch changeType {
     case .began:
@@ -78,24 +76,22 @@ fileprivate let networkPlugin = NetworkActivityPlugin.init { changeType, _ in
     }
 }
 
-fileprivate let decoder = JSONDecoder()
+private let decoder = JSONDecoder()
 
-fileprivate let Provider = MoyaProvider<MultiTarget>(endpointClosure: endpointClosure, requestClosure: requestClosure, plugins: [networkPlugin], trackInflights: false)
+private let Provider = MoyaProvider<MultiTarget>(endpointClosure: endpointClosure, requestClosure: requestClosure, plugins: [networkPlugin], trackInflights: false)
 
-
-private func request<T: Decodable>(_ target:TargetType,modelType:T.Type,successCallback:@escaping LHRequestModelsSuccessCallback<T>, failureCallback: LHErrorCallback? = nil) {
+private func request<T: Decodable>(_ target: TargetType, modelType _: T.Type, successCallback: @escaping LHRequestModelsSuccessCallback<T>, failureCallback: LHErrorCallback? = nil) {
     Provider.request(MultiTarget(target)) { result in
         switch result {
         case let .success(response):
             do {
                 let jsonData = try decoder.decode(T.self, from: response.data)
                 print("返回结果是：\(jsonData)")
-                successCallback(jsonData,nil)
+                successCallback(jsonData, nil)
 
             } catch {
                 let error = NSError(domain: "JSON解析失败", code: -111, userInfo: nil)
                 handleError(error, failure: failureCallback)
-                
             }
         case let .failure(error as NSError):
             handleError(error, failure: failureCallback)
@@ -104,7 +100,7 @@ private func request<T: Decodable>(_ target:TargetType,modelType:T.Type,successC
 }
 
 /// 处理报错
-private func handleError(_ err:NSError,failure:LHErrorCallback?) {
+private func handleError(_ err: NSError, failure: LHErrorCallback?) {
     let model = LHErrorResp()
     model.msg = err.localizedDescription
     model.code = err.code
@@ -112,14 +108,13 @@ private func handleError(_ err:NSError,failure:LHErrorCallback?) {
     failure?(model)
 }
 
-
 /// 发送请求
-func request<T: Decodable>(_ target:TargetType,modelType:T.Type) async -> (resp:T?,err:LHErrorResp?) {
-    await withCheckedContinuation({ continuation in
-        request(target, modelType: modelType) { resp,err in
-            continuation.resume(returning: (resp,err))
+func request<T: Decodable>(_ target: TargetType, modelType: T.Type) async -> (resp: T?, err: LHErrorResp?) {
+    await withCheckedContinuation { continuation in
+        request(target, modelType: modelType) { resp, err in
+            continuation.resume(returning: (resp, err))
         } failureCallback: { err in
-            continuation.resume(returning: (nil,err))
+            continuation.resume(returning: (nil, err))
         }
-    })
+    }
 }

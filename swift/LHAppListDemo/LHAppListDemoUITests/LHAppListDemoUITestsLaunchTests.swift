@@ -8,7 +8,6 @@
 import XCTest
 
 class LHAppListDemoUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }

@@ -7,23 +7,23 @@
 
 import Foundation
 
-struct LHAppInfoRes : Codable {
-    let resultCount : Int
-    var results : [LHAppInfo]
-    
-    private enum CodingKeys : String,CodingKey {
+struct LHAppInfoRes: Codable {
+    let resultCount: Int
+    var results: [LHAppInfo]
+
+    private enum CodingKeys: String, CodingKey {
         case resultCount
         case results
     }
 }
 
-struct LHAppInfo : Codable,Identifiable {
-    var id : Int
-    let name : String
-    let content : String
-    let imgUrl : String
-    var isLike : Bool?
-    
+struct LHAppInfo: Codable, Identifiable {
+    var id: Int
+    let name: String
+    let content: String
+    let imgUrl: String
+    var isLike: Bool?
+
     private enum CodingKeys: String, CodingKey {
         case imgUrl = "artworkUrl60"
         case name = "trackCensoredName"
@@ -31,10 +31,9 @@ struct LHAppInfo : Codable,Identifiable {
         case id = "trackId"
         case isLike
     }
-    
-    mutating func updateWith(info:LHAppInfo) {
-        self.id = info.id
-        self.isLike = info.isLike
+
+    mutating func updateWith(info: LHAppInfo) {
+        id = info.id
+        isLike = info.isLike
     }
 }
-
