@@ -27,7 +27,7 @@ class LHAppListNetworkTest: XCTestCase {
     func testDecodeError() async {
         let result = await request(LHAppAPI.searchApp(entity: "", limit: 10, term: "", offset: 0), modelType: LHTestModel.self)
         if let err = result.err {
-            XCTAssertEqual(err.code, -111)
+            XCTAssertEqual(err.code, JSONParseErroor)
         }
     }
 }

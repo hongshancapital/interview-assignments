@@ -11,6 +11,8 @@ import UIKit
 // 请求成功回调
 typealias LHRequestModelsSuccessCallback<T: Decodable> = ((T?, LHErrorResp?) -> Void)
 
+let JSONParseErroor = -99
+
 /// 网络请求错误的回调
 typealias LHErrorCallback = ((LHErrorResp) -> Void)
 
@@ -90,7 +92,7 @@ private func request<T: Decodable>(_ target: TargetType, modelType _: T.Type, su
                 successCallback(jsonData, nil)
 
             } catch {
-                let error = NSError(domain: "JSON解析失败", code: -111, userInfo: nil)
+                let error = NSError(domain: "JSON解析失败", code: JSONParseErroor, userInfo: nil)
                 handleError(error, failure: failureCallback)
             }
         case let .failure(error as NSError):
