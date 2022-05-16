@@ -1,0 +1,74 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+}
+
+.carousel .carousel-items-container {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 100%;
+    transition: transform .5s ease;
+}
+
+.carousel .carousel-items-container .carousel-item {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100%;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.carousel .carousel-items-container .carousel-item .carousel-item-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20%;
+    
+}
+
+.carousel .carousel-items-container .carousel-item .carousel-item-content .carousel-item-title-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.carousel .carousel-items-container .carousel-item .carousel-item-content .carousel-item-desc-container {
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+}
+
+.carousel-dots-container {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    display: inline-flex;
+    transform: translateX(-50%);
+    height: 2px;
+}
+
+.carousel-dots-container .carousel-dot {
+    position: relative;
+    margin-right: 8px;
+    width: 60px;
+    height: 100%;
+    background-color: grey;
+}
+
+.carousel-dots-container .carousel-dot .carousel-dot-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #ffffff;
+}
