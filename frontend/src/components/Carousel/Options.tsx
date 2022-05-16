@@ -8,7 +8,6 @@ export interface Options {
 
 // Carousel组件对外提供的参数
 export interface CarouselProps {
-  delay?: number,
-  duration?: number,
+  duration: number,
   data: Array<Options>
 }

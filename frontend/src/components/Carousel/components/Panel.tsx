@@ -18,4 +18,4 @@ function CarouselPanel(props: Props): React.ReactElement {
   )
 }
 
-export default React.memo(CarouselPanel)
+export default CarouselPanel

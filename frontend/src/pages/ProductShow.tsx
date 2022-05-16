@@ -39,9 +39,9 @@ function ProductShow(): React.ReactElement {
 
   return (
     <div className="container">
-      <Carousel data={options} />
+      <Carousel data={options} duration={3000} />
     </div>
   )
 }
 
-export default React.memo(ProductShow)
+export default ProductShow

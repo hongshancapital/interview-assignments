@@ -15,7 +15,7 @@ function CarouselSlider(props: Props): React.ReactElement {
       {
         Array(count).fill(0).map((item, index) => {
           // 设置单个指示器持续时长，duration = 轮播总时长 / 轮播图总数
-          const style = { transitionDuration: `${duration / count}s` }
+          const style = { transitionDuration: `${duration}ms` }
           const className = `slider-item ${index + 1 === current ? 'active' : ''}`
           return <i key={index} className={className} style={style} />
         })
@@ -24,4 +24,4 @@ function CarouselSlider(props: Props): React.ReactElement {
   )
 }
 
-export default React.memo(CarouselSlider)
+export default CarouselSlider

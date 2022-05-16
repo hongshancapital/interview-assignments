@@ -6,16 +6,10 @@ import useCarousel from './hooks/useCarousel'
 import './index.css'
 
 function Carousel(props: CarouselProps): React.ReactElement {
-  const {
-    index,
-    total,
-    data,
-    duration,
-    onTransitionEnd
-  } = useCarousel(props)
+  const { activeIndex, total, data, onTransitionEnd } = useCarousel(props.data)
 
   // 设置下一个轮播图的偏移量，index取值范围：[1, total]，offsetY取值范围：[0,-(total-1)%]
-  const offsetX = index === 0 ? 0 : `${(1 - index) * 100}%` // 初始化时index=0，所以需要特殊处理
+  const offsetX = activeIndex === 0 ? 0 : `${(1 - activeIndex) * 100}%` // 初始化时index=0，所以需要特殊处理
 
   return (
     <div className="carousel">
@@ -26,7 +20,7 @@ function Carousel(props: CarouselProps): React.ReactElement {
           })
         }
       </div>
-      <Slider count={total} current={index} duration={duration} onTransitionEnd={onTransitionEnd} />
+      <Slider count={total} current={activeIndex} duration={props.duration} onTransitionEnd={onTransitionEnd} />
     </div>
   )
 }
