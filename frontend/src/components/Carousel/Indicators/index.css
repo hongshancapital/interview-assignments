@@ -1,0 +1,51 @@
+@keyframes indicatorScale {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+.carousel__indicators {
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  bottom: 2vh;
+  display: flex;
+  justify-content: center;
+}
+.carousel__indicator {
+  width: 56px;
+  height: 4px;
+  background: #aaa;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.carousel__indicator + .carousel__indicator {
+  margin-left: 10px;
+}
+.indicator__content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.indicator__progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #fff;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.carousel__indicator-active .indicator__progress {
+  animation-name: indicatorScale;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+.carousel__indicator-active .indicator__content {
+  background: #fff;
+}
