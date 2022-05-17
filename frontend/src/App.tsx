@@ -14,8 +14,8 @@ function App() {
             title: 'xPhone',
             subTitle: (
                 <>
-                    <div>Lots to love, Less to spend.</div>
-                    <div>Starting at $399</div>
+                    <div>Lots to love. Less to spend.</div>
+                    <div>Starting at $399.</div>
                 </>
             ),
             imgSrc: iphonePng

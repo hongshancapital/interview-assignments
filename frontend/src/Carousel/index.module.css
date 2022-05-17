@@ -12,3 +12,54 @@
     overflow: hidden;
     transition: transform 0.5s ease-out;
 }
+
+.navRoot {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.navItem {
+    position: relative;
+    width: 50px;
+    height: 2px;
+    border-radius: 4px;
+    background-color: #a9a9a9;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.navItem:last-child {
+    margin-right: 0;
+}
+.navItem:before {
+    content: '';
+    position: absolute;
+    padding: 3px;
+    height: 100%;
+    width: 100%;
+    top: -3px;
+    left: 0;
+}
+.navItem.active .animationDiv {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    animation: extendWidth 5s linear;
+    animation-fill-mode: forwards;
+    background-color: #fafafa;
+    width: 0;
+}
+
+@keyframes extendWidth {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}

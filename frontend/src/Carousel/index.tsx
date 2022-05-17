@@ -1,11 +1,7 @@
 import React, {FC, HTMLAttributes, ReactElement, useState} from 'react';
 import s from './index.module.css';
-
-const Page: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
-    const {className, ...rest} = props;
-    return <div className={`${s.page} ${className || ''}`} {...rest} />
-}
-Page.displayName = 'CarouselPage';
+import Page from './Page';
+import Nav from './Nav';
 
 interface TTCarousel extends FC<HTMLAttributes<HTMLDivElement>> {
     Page: typeof Page
@@ -14,6 +10,10 @@ interface TTCarousel extends FC<HTMLAttributes<HTMLDivElement>> {
 const Carousel: TTCarousel = (props) => {
     const {className, children, ...rest} = props;
     const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleNavActiveChange = (index: number) => {
+        setActiveIndex(index);
+    }
 
     const pages = React.Children.map(children, (ele, index) => {
         if (process.env.NODE_ENV === 'development') {
@@ -39,9 +39,16 @@ const Carousel: TTCarousel = (props) => {
     })
 
     const cls = `${s.carouse} ${className || ''}`;
-    return <div className={cls} {...rest}>
-        {pages}
-    </div>
+    return (
+        <div className={cls} {...rest}>
+            {pages}
+            <Nav count={pages?.length || 0}
+                 defaultActiveIndex={activeIndex}
+                 duration={5000}
+                 onActiveChange={handleNavActiveChange}
+            />
+        </div>
+    );
 }
 
 Carousel.Page = Page;
