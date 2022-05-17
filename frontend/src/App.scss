@@ -1,0 +1,41 @@
+.app-page{
+    .carousel-item {
+        position: relative;
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-position: bottom center;
+        background-position-y: 70%;
+        color: black;
+        &-text {
+            position: absolute;
+            top: 15%;
+            width: 100%;
+            text-align: center;
+            &-title {
+                font-size: 56px;
+                font-weight: 600;
+                margin-bottom: 16px;
+            }
+            &-desc {
+                font-size: 28px;
+                font-weight: 400;
+            }
+        }
+        &.xPhone {
+            background-color: #111;
+            background-image: url(../src/assets/iphone.png);
+            background-size: 50%;
+            color: white;
+        }
+        &.tablet {
+            background-color: #fafafa;
+            background-image: url(../src/assets/tablet.png);
+            background-size: 100%;
+        }
+        &.airpods {
+            background-color: #f1f1f3;
+            background-image: url(../src/assets/airpods.png);
+            background-size: 130%;
+        }
+    }
+}

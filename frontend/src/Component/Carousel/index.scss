@@ -1,0 +1,48 @@
+.comp-carousel{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    &-track{
+        display: flex;
+    }
+    &-slider{
+        width: 100%;
+    }
+    &-dot{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        bottom: 32px;
+        position: absolute;
+        &-item{
+            overflow: hidden;
+            border-radius: 2px;
+            width: 50px;
+            margin-right: 8px;
+            height: 4px;
+            background-color: #A8A8A8;
+            cursor: pointer;
+            
+            &-progress{
+                border-radius: 2px;
+                z-index: 800;
+                width: 0%;
+                overflow: hidden;
+                height: 100%;
+                background-color: #fff;
+            }
+            @keyframes comp-carousel-dot-item-progress{ 
+                from {width: 0px; }
+                to {width: 100%; }
+            }
+            &-active &-progress{
+                width: 100%;
+                animation-name: comp-carousel-dot-item-progress;
+                animation-timing-function: linear;
+                animation-fill-mode: forwards;
+            }
+        }
+    
+    }
+}
