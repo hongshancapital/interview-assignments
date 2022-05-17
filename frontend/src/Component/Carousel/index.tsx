@@ -2,7 +2,7 @@
  * @Author: shiguang
  * @Date: 2022-05-17 19:07:20
  * @LastEditors: shiguang
- * @LastEditTime: 2022-05-17 19:13:48
+ * @LastEditTime: 2022-05-17 20:13:25
  * @Description: Carousel 组件
  */
 import React, { memo } from 'react';
@@ -28,10 +28,6 @@ export interface CarouselProps {
     children: React.ReactNode;
     /** 默认 */
     initIndex?: number;
-    /** 切换到指定滑块 */
-    goTo?: CarouselGoTo;
-    /** 切换到下一滑块 */
-    next?: () => void;
     /** 每个滑块持续时间 */
     duration?: number;
 }
