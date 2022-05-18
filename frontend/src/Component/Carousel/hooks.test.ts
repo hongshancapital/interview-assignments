@@ -2,7 +2,7 @@
  * @Author: shiguang
  * @Date: 2022-05-17 19:20:30
  * @LastEditors: shiguang
- * @LastEditTime: 2022-05-17 20:03:53
+ * @LastEditTime: 2022-05-18 10:33:18
  * @Description: hooks 相关测试
  */
 import { useEffect, useState } from 'react';
@@ -48,17 +48,14 @@ describe('hooks test', () => {
         });
         act(() => {
             jest.runOnlyPendingTimers();
-        });
-        act(() => {
             jest.runOnlyPendingTimers();
-        });
-        act(() => {
+            jest.runOnlyPendingTimers();
             jest.runOnlyPendingTimers();
         });
 
         expect(spySetTimeout).toHaveBeenCalled();
-        expect(result.current.memoFn()).toEqual(3);
-        expect(result.current.isAddressEqual).toEqual(true);
+        expect(result.current.memoFn()).not.toBe(0);
+        expect(result.current.isAddressEqual).toBe(true);
     });
 
     it('test useCarouselAnimate hook', () => {
@@ -69,28 +66,24 @@ describe('hooks test', () => {
                 duration: 1000,
             });
         });
-        jest.useFakeTimers();
-        const spySetTimeout = jest.spyOn(global, 'setTimeout');
-
-        expect(result.current.curIndex).toEqual(0);
+        expect(result.current.curIndex).toBe(0);
         act(() => {
             result.current.next()
         })
-        expect(result.current.curIndex).toEqual(1);
+        expect(result.current.curIndex).toBe(1);
         act(() => {
             result.current.next()
         })
-        expect(result.current.curIndex).toEqual(2);
+        expect(result.current.curIndex).toBe(2);
         act(() => {
             result.current.next()
         })
-        expect(result.current.curIndex).toEqual(0);
+        expect(result.current.curIndex).toBe(0);
 
         act(() => {
             result.current.goTo(2);
         })
         expect(result.current.curIndex).toEqual(2);
-        expect(spySetTimeout).toHaveBeenCalledTimes(6);
     });
 
 });
