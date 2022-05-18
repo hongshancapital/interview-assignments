@@ -75,15 +75,11 @@ public class UrlTransformServiceImpl implements UrlTransformService {
 
     /**
      * 短域名处理方法
-     *
      * @param longUrl 长域名
      * @param length  短域名长度
      * @return 长域名
      */
     private String dogGetShortUrl(String longUrl, int length) throws IOException {
-        //存储超过上限，则下线编码服务并抛出异常
-
-
         String cacheShortUrl = CACHE.getIfPresent(longUrl);
         if (StringUtils.isBlank(cacheShortUrl)) {
             Random random = new Random();
@@ -98,7 +94,7 @@ public class UrlTransformServiceImpl implements UrlTransformService {
             String md5Code = DigestUtils.md5DigestAsHex(randomKey1.append(longUrl.trim()).append(randomKey2).toString().getBytes());
             //会生成4个长度为shortUrlLength的短连接，随机选择一个
             List<String> resUrlList = new ArrayList<>();
-            //分成4短，每段8位字符串
+            //分成4段，每段8位字符串
             for (int i = 0; i < 4; i++) {
                 String subString = StringUtils.substring(md5Code, i * 8, (i + 1) * 8);
                 // 这里需要使用 long 型来转换，因为 Integer.parseInt() 只能处理 31 位 , 首位为符号位 , 如果不用long ，则会越界
