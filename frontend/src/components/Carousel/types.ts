@@ -1,5 +1,5 @@
 // data数据结构
-export interface Options {
+export interface CarouseOption {
   title?: string | React.ReactElement,
   subTitle?: string | React.ReactElement,
   url: string,
@@ -9,5 +9,5 @@ export interface Options {
 // Carousel组件对外提供的参数
 export interface CarouselProps {
   duration: number,
-  data: Array<Options>
+  data: Array<CarouseOption>
 }

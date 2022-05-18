@@ -1,13 +1,12 @@
 import React from 'react'
-import { Options } from '../Options'
+import { CarouseOption } from '../types'
 
 interface Props {
-  data: Options
+  data: CarouseOption
 }
 
 function CarouselPanel(props: Props): React.ReactElement {
-  const { data } = props
-  const { title, subTitle, url, color } = data
+  const { title, subTitle, url, color } = props.data
   const style = { backgroundImage: `url(${url})`, color }
 
   return (

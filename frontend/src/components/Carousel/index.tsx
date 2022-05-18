@@ -1,7 +1,7 @@
 import React from 'react'
 import Panel from './components/Panel'
 import Slider from './components/Slider'
-import { CarouselProps } from './Options'
+import { CarouselProps } from './types'
 import useCarousel from './hooks/useCarousel'
 import './index.css'
 
@@ -25,4 +25,4 @@ function Carousel(props: CarouselProps): React.ReactElement {
   )
 }
 
-export default React.memo(Carousel)
+export default Carousel

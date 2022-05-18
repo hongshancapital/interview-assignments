@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useEffect } from 'react'
-import { Options } from '../Options'
+import { CarouseOption } from '../types'
 
 function useCarousel(
-  data: Array<Options>
+  data: Array<CarouseOption>
 ): {
   activeIndex: number,
   total: number,
-  data: Array<Options>,
+  data: Array<CarouseOption>,
   onTransitionEnd: React.TransitionEventHandler<HTMLDivElement>
 } {
   const total = data.length  // 轮播图总数

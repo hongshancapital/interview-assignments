@@ -1,11 +1,11 @@
 import React from 'react'
 import Carousel from '../components/Carousel'
-import { Options } from '../components/Carousel/Options'
+import { CarouseOption } from '../components/Carousel/types'
 import img_iphone from '../assets/iphone.png'
 import img_tablet from '../assets/tablet.png'
 import img_airpods from '../assets/airpods.png'
 
-const options: Options[] = [
+const options: Array<CarouseOption> = [
   {
     url: img_iphone,
     title: 'xPhone',
