@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        AppList(dataMgr: DataManager(dataProvider: DataProvider()))
+        AppList()
     }
 }
 

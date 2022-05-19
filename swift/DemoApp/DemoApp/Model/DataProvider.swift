@@ -9,7 +9,7 @@ import Foundation
 
 class DataProvider {
     var appList = [AppModel]()
-    func requestModelList(from lastApp:AppModel?, count:Int, on completion:(_ modelList:[AppModel]?, _ err: Error?) -> Void) {
+    func requestModelList(from lastApp:AppModel?, count:Int, on completion: @escaping (_ modelList:[AppModel]?, _ err: Error?) -> Void) {
         var startIndex = 0
         if let startId = lastApp?.id {
             for i in 0...appList.count {
@@ -20,11 +20,13 @@ class DataProvider {
                 }
             }
         }
-        if (startIndex+count) <= appList.count  {
-            let list = [AppModel].init(appList[startIndex...startIndex+count-1])
-            completion(list, nil)
-        } else {
-            completion(nil, NSError.init(domain: "", code: 999, userInfo: nil))
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {[self] in
+            if (startIndex+count) <= appList.count  {
+                let list = [AppModel].init(appList[startIndex...startIndex+count-1])
+                completion(list, nil)
+            } else {
+                completion([], NSError.init(domain: "", code: 999, userInfo: nil))
+            }
         }
     }
     
