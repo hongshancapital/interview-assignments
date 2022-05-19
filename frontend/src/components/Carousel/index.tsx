@@ -13,6 +13,7 @@ function Item({ title, subTitle, img, theme = 'transparent' }: DataField) {
   function renderText(text: string, className: string) {
     return (
       <div
+        key={text}
         className={className}
         style={{ color: theme === 'black' ? 'white' : 'black' }}>
         {text}
@@ -67,15 +68,15 @@ export default function Carousel({
   const [current, setCurrent] = React.useState<number>(1);
   const total = data.length;
 
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent(v => {
-        if (v === total) return 1;
-        return v + 1;
-      });
-    }, duration * 1000);
-    return () => clearInterval(timer);
-  }, []);
+  // React.useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCurrent(v => {
+  //       if (v === total) return 1;
+  //       return v + 1;
+  //     });
+  //   }, duration * 1000);
+  //   return () => clearInterval(timer);
+  // }, []);
 
   return (
     <div className='carousel-wrapper' style={style}>
@@ -90,7 +91,12 @@ export default function Carousel({
           <Item {...v} key={idx} />
         ))}
       </div>
-      <Bullets total={total} current={current} duration={duration} />
+      <Bullets
+        total={total}
+        current={current}
+        setCurrent={setCurrent}
+        duration={duration}
+      />
     </div>
   );
 }
