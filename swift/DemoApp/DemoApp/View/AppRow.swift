@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppRow: View {
-    var appModel: AppModel
+    @ObservedObject var appModel: AppModel
     var body: some View {
         HStack {
             FetchableImage(imageUrl: appModel.iconUrl)
@@ -21,6 +21,12 @@ struct AppRow: View {
                     .font(.subheadline)
                     .lineLimit(2)
             }
+            Image(systemName: appModel.isFavorite ? "heart.fill" : "heart")
+                .foregroundColor(appModel.isFavorite ? .red : .black)
+                .onTapGesture {
+                    appModel.isFavorite.toggle()
+                    debugPrint("favorite: \(appModel.isFavorite)")
+                }
         }
         .padding(10)
     }
