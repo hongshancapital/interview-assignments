@@ -28,7 +28,7 @@ struct AppRow: View {
 
 struct AppRow_Previews: PreviewProvider {
     static var previews: some View {
-        AppRow(appModel: DataProvider().appList[0])
+        AppRow(appModel: DataManager().appList[0])
             .previewLayout(.fixed(width: 300, height: 70))
     }
 }

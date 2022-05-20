@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppList: View {
-    @StateObject var dataMgr = DataManager(dataProvider: DataProvider())
+    @StateObject var dataMgr = DataManager()
     @State var isLoading = false
     var body: some View {
         if dataMgr.appList.count == 0 {

@@ -12,18 +12,19 @@ class DataManager: ObservableObject {
     @Published var appList: [AppModel] = []
     var dataProvider: DataProvider
     var hasMore: Bool = true
+    let fetchCountOnce = 10;
     
-    init(dataProvider: DataProvider) {
-        self.dataProvider = dataProvider
+    init() {
+        self.dataProvider = FileDataProvider()
     }
     
     func fetchMore(_ completed: @escaping ()-> Void) {
         if hasMore {
-            dataProvider.requestModelList(from: appList.last, count: 10) {[self] (modelList, err) in
+            dataProvider.fetchAppModel(from: appList.last, count: fetchCountOnce) {[self] (modelList, err) in
                 DispatchQueue.main.async {
                     if let modelList = modelList {
                         appList.append(contentsOf: modelList)
-                        if modelList.count < 10 {
+                        if modelList.count < fetchCountOnce {
                             hasMore = false
                         }
                         completed()
@@ -36,11 +37,11 @@ class DataManager: ObservableObject {
     }
     
     func refresh(_ completed: @escaping ()-> Void) {
-        dataProvider.requestModelList(from: nil, count: 10) {[self] (modelList, err) in
+        dataProvider.fetchAppModel(from: appList.last, count: fetchCountOnce) {[self] (modelList, err) in
             DispatchQueue.main.async {
                 if let modelList = modelList {
                     appList = modelList
-                    if modelList.count < 10 {
+                    if modelList.count < fetchCountOnce {
                         hasMore = false
                     } else {
                         hasMore = true
