@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import classNames from "classnames";
-import './index.css';
-
+import './index.scss';
 
 export interface ICarouselDotProps {
     duration: number;

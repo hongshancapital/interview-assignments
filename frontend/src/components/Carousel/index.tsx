@@ -5,8 +5,7 @@ import CarouselItem, { ICarouselItemProps } from "./CarouselItem";
 import CarouselDot from "./CarouselDot";
 import { useCurrentIndex } from "../../hooks/useCurrentIndex";
 
-import './index.css';
-
+import './index.scss';
 
 export interface ICarouselProps {
     // 轮播项数据
@@ -26,8 +25,8 @@ const Carousel: FC<ICarouselProps> = (props) => {
     return (
         <div className={classNames(commonCls)}>
             <div 
-                className={classNames(`${commonCls}-items-container`)}
-                style={{ transform: `translateX(${-(currentIndex / items.length) * 100}%)` }}>
+                className={classNames(`${commonCls}-items-container`, 
+                `${commonCls}-items-container-slide-${currentIndex}`)}>
                 {
                     items.map((item, index) => (
                         <CarouselItem
