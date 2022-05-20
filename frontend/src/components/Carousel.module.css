@@ -1,0 +1,72 @@
+.carousel-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    --timer-delay: .5s;
+    --timer-time: 2.5s;
+}
+
+.carousel-ul {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carousel-li {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.carouselLi-before {
+    transform: translateX(-100%);
+    transition: var(--timer-delay);
+}
+
+.carousel-li-active {
+    transition: var(--timer-delay);
+}
+
+.carousel-li-after {
+    transform: translateX(100%);
+    transition: var(--timer-delay);
+}
+
+.carousel-bar {
+    display: flex;
+    position: absolute;
+    z-index: 3;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.carousel-dot {
+    margin: 0 10px;
+    width: 60px;
+    height: 4px;
+    background-color: #aaa;
+}
+
+@keyframes dot-progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.carousel-dot-pregress {
+    width: 60px;
+    height: 4px;
+    background-color: #fff;
+    animation: dot-progress var(--timer-time) linear;
+}
