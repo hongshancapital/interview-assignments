@@ -37,7 +37,7 @@ class DataManager: ObservableObject {
     }
     
     func refresh(_ completed: @escaping ()-> Void) {
-        dataProvider.fetchAppModel(from: appList.last, count: fetchCountOnce) {[self] (modelList, err) in
+        dataProvider.fetchAppModel(from: nil, count: fetchCountOnce) {[self] (modelList, err) in
             DispatchQueue.main.async {
                 if let modelList = modelList {
                     appList = modelList
