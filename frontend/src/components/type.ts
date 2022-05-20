@@ -18,7 +18,7 @@ export type CarouselItemProps = {
 
 export type DotsProps = {
   className?: string;
-  progress?: boolean;
+  autoPlay?: boolean;
   activeIndex?: number;
   count?: number;
   interval?: number;
