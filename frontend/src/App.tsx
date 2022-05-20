@@ -8,46 +8,56 @@ import airpodsImg from "./assets/airpods.png";
 const App = () => {
   const carouselList = [
     {
+      key: "iphone",
       className: "iphone-slide",
       titles: ["xPhone"],
       subTitles: ["Lots ot love.Less to spend."],
       imgSrc: iphoneImg,
-      alt: "iphone"
+      alt: "iphone",
     },
     {
+      key: "tablet",
       className: "tablet-slide",
       titles: ["Tablet"],
       subTitles: ["Just the right amount of everything."],
       imgSrc: tabletImg,
-      alt: "iphone"
+      alt: "tablet",
     },
     {
+      key: "airpods",
       className: "airpods-slide",
       titles: ["Buy a Tablet or xPhone by a College.", "Get arPods."],
       imgSrc: airpodsImg,
-      alt: "airpods"
-    }
-  ]
+      alt: "airpods",
+    },
+  ];
   return (
     <div className="App">
       <Carousel>
-        {carouselList.map(({ className, titles, subTitles, imgSrc, alt }, index) => (
-          <CarouselItem className={className} key={index}>
-            <div className="slide-container">
-              {
-                titles.map((title, titleIndex) => <div className="title" key={titleIndex} >{title}</div>)
-              }
-              {
-                subTitles?.map((subTitle, subTitleIndex) => <div className="sub-title" key={subTitleIndex}>{subTitle}</div>)
-              }
-              <div className="img-container">
-                <img src={imgSrc} alt={alt} />
+        {carouselList.map(
+          ({ className, titles, subTitles, imgSrc, alt, key }) => (
+            <CarouselItem className={className} key={key}>
+              <div className="slide-container">
+                {titles.map((title, titleIndex) => (
+                  <div className="title" key={titleIndex}>
+                    {title}
+                  </div>
+                ))}
+                {subTitles?.map((subTitle, subTitleIndex) => (
+                  <div className="sub-title" key={subTitleIndex}>
+                    {subTitle}
+                  </div>
+                ))}
+                <div className="img-container">
+                  <img src={imgSrc} alt={alt} />
+                </div>
               </div>
-            </div>
-          </CarouselItem>
-        ))}
+            </CarouselItem>
+          )
+        )}
       </Carousel>
-    </div>);
-}
+    </div>
+  );
+};
 
 export default App;
