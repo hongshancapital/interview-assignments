@@ -1,0 +1,32 @@
+.container {
+    width: 80vw;
+    height: 80vh;
+    overflow: hidden;
+    margin: 5vw auto;
+    background: green;
+    position: relative;
+}
+.carousel-container {
+    height: 80vh;
+    display: flex;
+    transition: all 1s;
+}
+.carousel-item {
+    width: 100%;
+    height: 100%;
+    flex: 0 0 auto;
+}
+.dot-container {
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+.dot-item {
+    width: 2vw;
+    height: 1px;
+    border-radius: 1px;
+    margin-right: 4px;
+    background: gray;
+}
