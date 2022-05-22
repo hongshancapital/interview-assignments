@@ -1,0 +1,49 @@
+.carousel__container {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel__wrap {
+  display: flex;
+}
+
+.carousel__item {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-indicators__wrap {
+  width: 100%;
+  position: absolute;
+  bottom: 2vh;
+  display: flex;
+  justify-content: center;
+
+  .carousel-indicator {
+    width: 48px;
+    height: 4px;
+    background-color: rgb(153, 153, 153);
+    margin: 0 4px;
+    border-radius: 4px;
+
+    .carousel-indicator__progress {
+      width: 40px;
+      height: 4px;
+      border-radius: 4px;
+      background-color: #fff;
+      animation-name: animation-progress;
+      animation-duration: 3s;
+    }
+  }
+}
+
+
+@keyframes animation-progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
