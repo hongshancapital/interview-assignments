@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { carouselItem } from "../CarouselModel";
 import "./Slide.scss";
+import SlidePage from "./SlidePage";
 
 interface IProps {
     carouselItems: carouselItem[];
@@ -11,37 +12,6 @@ interface IProps {
 const Slide:React.FC<IProps> = ({carouselItems, curIndex}) => {
     const [slides, ] = useState<carouselItem[]>(() => carouselItems);
     const stageRef = useRef<HTMLDivElement>(null);
-
-    const Title = (slide:carouselItem) => {
-        return (
-            <div className="slice_title">
-                {
-                    slide.titles.slice(0, 2).map(title => {
-                        return <div key={title}>{title}</div>
-                    })
-                }
-            </div>
-        )
-    };
-
-    const Description = (slide:carouselItem) => {
-        return (
-            <div className="slice_description">
-                {
-                    slide.descriptions.slice(0, 2).map(description => {
-                        return <div key={description}>{description}</div>
-                    })
-                }
-            </div>
-        )
-    };
-
-    const slicePageStyle = (slide:carouselItem) => {
-        return {
-            backgroundColor: slide.backgroundColor || "",
-            color: slide.fontColor || "",
-        }
-    };
 
     // Move current slide into slide window.
     function moveSlide() {
@@ -65,22 +35,7 @@ const Slide:React.FC<IProps> = ({carouselItems, curIndex}) => {
             {
                 slides.map((slide, index) => {
                     return (
-                        <div
-                            className="slice_page"
-                            style={slicePageStyle(slide)}
-                            key={index}
-                        >
-                            <div className="slice_content">
-                                { Title(slide) }
-                                { Description(slide) }
-                            </div>
-                            <div className="slice_icon_container">
-                                <img
-                                    className="slice_icon"
-                                    src={process.env.PUBLIC_URL + slide.icon}
-                                />
-                            </div>
-                        </div>
+                        <SlidePage slide={slide} key={index}></SlidePage>
                     )
                 })
             }
