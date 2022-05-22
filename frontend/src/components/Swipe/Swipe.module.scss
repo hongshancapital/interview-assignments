@@ -1,0 +1,72 @@
+.swipe-panel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 顶部轮播图 */
+.swipe-container {
+    height: 100%;
+    white-space: nowrap;
+    transition-duration: 500ms;
+
+    >* {
+        white-space: normal;
+    }
+
+    .swipe-item {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        vertical-align: top;
+    }
+}
+
+
+/* 底部进度条 */
+
+@keyframes grow {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.swipe-indicators {
+    height: 6px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    transform: translateX(-50%);
+
+    .swipe-indicator {
+        width: 60px;
+        height: 2px;
+        margin: 0 4px;
+        border-radius: 1px;
+        background-color: rgba(125, 125, 125, 0.7);
+
+        .swipe-indicator-content {
+            width: 0;
+            height: 100%;
+            border-radius: 3px;
+            background-color: #fff;
+        }
+
+        .swipe-indicator-active {
+            width: 100%;
+            animation: grow 3s linear;
+        }
+    }
+
+}
