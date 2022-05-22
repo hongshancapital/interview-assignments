@@ -54,10 +54,6 @@ const Carousel:React.FC<IProps> = (props) => {
         )
     }
 
-    const toSwitch = () => {
-        updatePage(curIndex === 2 ? 0 : curIndex + 1)
-    }
-
     return (
         <div className="carousel">
             <div className="slide_container">
@@ -77,7 +73,6 @@ const Carousel:React.FC<IProps> = (props) => {
                     })
                 }
             </div>
-            <div style={{position:"absolute",left:0,width:"32px",height:"32px",color:"yellow"}} onClick={toSwitch}>Switch</div>
         </div>
     )
 }
