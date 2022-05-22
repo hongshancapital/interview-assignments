@@ -1,0 +1,50 @@
+.slide_collect {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: transform .7s
+}
+
+.slice_page {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+.slice_content {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70vh;
+}
+
+.slice_title {
+    font-size: 3.6em;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.slice_description {
+    font-size: 1.8em;
+    z-index: 1;
+}
+
+.slice_icon_container {
+    position: absolute;
+    width: 100%;
+    height: 400px;
+    bottom: 100px;
+    z-index: 0;
+}
+
+.slice_icon {
+    width: 100%;
+    height: 100%;
+    object-position: bottom;
+    object-fit: contain;
+}
