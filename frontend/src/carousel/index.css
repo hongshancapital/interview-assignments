@@ -1,0 +1,61 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.carousel-content {
+  height: 100%;
+  white-space: nowrap;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.carousel-dot {
+  width: 50px;
+  height: 2px;
+  background-color: #999;
+  margin: 0 5px;
+  border-radius: 1px;
+}
+.carousel-dot-active {
+  height: 100%;
+  border-radius: inherit;
+  background-color: #fff;
+  animation-name: carouselDotProgress;
+  animation-timing-function: linear;
+}
+
+.carousel-item {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.carousel-item-text {
+  position: absolute;
+  top: 20%;
+  z-index: 10;
+}
+.carousel-item > img {
+  position: absolute;
+  height: 100%;
+}
+
+@keyframes carouselDotProgress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
