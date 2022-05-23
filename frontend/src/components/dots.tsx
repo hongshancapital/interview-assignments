@@ -40,6 +40,8 @@ const Dots: FC<DotsProps> = ({
     switchTo?.(activeIndex);
   }, [activeIndex, switchTo]);
 
+  const progressAnimationState = `slide-animation-${animationPaused ? "paused" : "running"}-state`;
+
   return (
     <ul className={`carousel-dots ${className}`}>
       {Array.from(Array(count).keys()).map((index) => (
@@ -51,10 +53,9 @@ const Dots: FC<DotsProps> = ({
         >
           {autoPlay && (
             <div
-              className={activeIndex === index ? "carousel-dots-progress" : ""}
+              className={(activeIndex === index ? `carousel-dots-progress ` : "") + progressAnimationState}
               style={{
-                animationDuration: `${interval}ms`,
-                animationPlayState: animationPaused ? "paused" : "running",
+                animationDuration: `${interval}ms`
               }}
               onAnimationEnd={handleAnimationEnd}
             />

@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import { Carousel, CarouselItem } from "./components";
 import iphoneImg from "./assets/iphone.png";
 import tabletImg from "./assets/tablet.png";

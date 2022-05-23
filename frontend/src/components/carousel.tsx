@@ -1,7 +1,7 @@
 import React, { Children, FC, useState } from "react";
 import { CarouselConfigEnum, CarouseProps } from "./type";
 import Dots from "./dots";
-import "./index.css";
+import "./index.scss";
 import CarouselItem from "./carousel-item";
 
 const Carousel: FC<CarouseProps> = ({
@@ -32,22 +32,25 @@ const Carousel: FC<CarouseProps> = ({
       <div className="carousel-slider-container" style={style}>
         {Children.map(children, (component) => {
           if (!React.isValidElement(component)) {
-            throw new Error("Carousel children is invalid element.");
+            console.error("Carousel children is invalid element.");
+            return null;
           }
           if (Children.count(children) <= 1) {
-            throw new Error(
+            console.error(
               "CarouselItem length cannot less than or equal to 1."
             );
+            return null;
           }
           if (
             // @ts-ignore
             component.type.displayName !== CarouselItem.displayName
           ) {
-            throw new Error(
+            console.error(
               `Carousel children must be ${CarouselItem.displayName}`
             );
+            return null;
           }
-          return React.cloneElement(component, component.props);
+          return component;
         })}
       </div>
       {dots && childrenCount && (
