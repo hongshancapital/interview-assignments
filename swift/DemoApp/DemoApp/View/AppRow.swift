@@ -13,6 +13,7 @@ struct AppRow: View {
         HStack {
             FetchableImage(imageUrl: appModel.iconUrl)
                 .frame(width: 50, height: 50, alignment: .center)
+                .cornerRadius(8)
             VStack(alignment: .leading) {
                 Text(appModel.name)
                     .font(.headline)
@@ -21,6 +22,7 @@ struct AppRow: View {
                     .font(.subheadline)
                     .lineLimit(2)
             }
+            Spacer()
             Image(systemName: appModel.isFavorite ? "heart.fill" : "heart")
                 .foregroundColor(appModel.isFavorite ? .red : .black)
                 .onTapGesture {
@@ -29,6 +31,8 @@ struct AppRow: View {
                 }
         }
         .padding(10)
+        .background(Color(uiColor: .white))
+        .cornerRadius(8)
     }
 }
 

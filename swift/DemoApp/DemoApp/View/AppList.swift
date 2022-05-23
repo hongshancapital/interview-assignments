@@ -19,14 +19,22 @@ struct AppList: View {
                 List {
                     ForEach(dataMgr.appList) { appModel in
                         AppRow(appModel: appModel)
+                            .listRowBackground(EmptyView())
+                            .listRowSeparator(.hidden)
                     }
                     HStack{
+                        Spacer()
                         if dataMgr.hasMore {
                             ProgressView()
+                                .padding(.trailing, 5)
                         }
                         Text(dataMgr.hasMore ? "Loading..." : "No more data")
+                            .foregroundColor(Color(uiColor: .placeholderText))
                             .onAppear(perform: loadMore)
+                        Spacer()
                     }
+                    .listRowBackground(EmptyView())
+                    .listRowSeparator(.hidden)
                 }
                 .navigationTitle("APP")
                 .refreshable {
@@ -35,6 +43,8 @@ struct AppList: View {
                         isLoading = false
                     }
                 }
+                .listStyle(.plain)
+                .background(Color(uiColor: .systemGroupedBackground))
             }
         }
     }
