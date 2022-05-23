@@ -2,10 +2,10 @@
  * @Author: shiguang
  * @Date: 2022-05-17 19:07:59
  * @LastEditors: shiguang
- * @LastEditTime: 2022-05-23 23:40:08
+ * @LastEditTime: 2022-05-24 00:20:05
  * @Description: 自定义 hooks
  */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CAROUSEL_CONST } from '.';
 
@@ -103,7 +103,7 @@ export const useCarouselStyleToClass = (sliderCount: number, curIndex: number) =
         setClassKey(`${Math.random()}-${performance.now()}`.split('.').join(''));
     }, [sliderCount]);
 
-    const translate3dClass = Array.from({ length: sliderCount }).map((_, index) => {
+    const translate3dClass = useMemo(() => Array.from({ length: sliderCount }).map((_, index) => {
         const _transformXPercent = computedTransformXPercent(index, sliderCount);
         return (
             `
@@ -113,7 +113,7 @@ export const useCarouselStyleToClass = (sliderCount: number, curIndex: number) =
              
          `
         );
-    });
+    }), [classKey, sliderCount]) ;
     const carouselTrackClassName = `${CAROUSEL_TRACK_CLASS_NAME_PREFIX}-${classKey}`;
 
     return {
@@ -126,9 +126,9 @@ export const useCarouselStyleToClass = (sliderCount: number, curIndex: number) =
                          width: ${sliderCount}00%;
                          transition: ${CAROUSEL_CONST.DEFAULT_SLIDER_TRANSITION_TIME}ms ease 0s;
                      }
-                 `
+                    `
                 }
-                {translate3dClass}
+                {translate3dClass.join('')}
             </style>
         )
     };
