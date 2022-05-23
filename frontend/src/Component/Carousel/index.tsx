@@ -2,12 +2,12 @@
  * @Author: shiguang
  * @Date: 2022-05-17 19:07:20
  * @LastEditors: shiguang
- * @LastEditTime: 2022-05-17 20:13:25
+ * @LastEditTime: 2022-05-23 23:39:19
  * @Description: Carousel 组件
  */
 import React, { memo } from 'react';
 import CarouselDot from './CarouselDot';
-import { useCarouselAnimate } from './hooks';
+import { useCarouselAnimate, useCarouselStyleToClass } from './hooks';
 import './index.scss';
 
 export const CAROUSEL_CONST = {
@@ -39,15 +39,6 @@ export interface CarouselProps {
 const wrapperSlider = () => (child: React.ReactNode) =>
     <div className="comp-carousel-slider">{child}</div>;
 
-/**
- * 计算每次 x 轴移动百分比
- * @param curIndex 当前 slider index
- * @param sliderCount slider count
- * @returns
- */
-const computedTransformXPercent = (curIndex: number, sliderCount: number) =>
-    (100 / sliderCount) * curIndex;
-
 const Carousel: React.FC<CarouselProps> = (props) => {
     const { children, initIndex = CAROUSEL_CONST.INIT_INDEX } = props;
     // 停留时间不得小于 滑块时间 防止错乱
@@ -62,17 +53,13 @@ const Carousel: React.FC<CarouselProps> = (props) => {
         sliderCount,
         duration,
     });
-    const transformXPercent = computedTransformXPercent(curIndex, sliderCount);
-    const carouselTrackStyle = {
-        width: `${sliderCount}00%`,
-        transform: `translate3d(-${transformXPercent}%, 0px, 0px)`,
-        transition: `${CAROUSEL_CONST.DEFAULT_SLIDER_TRANSITION_TIME}ms ease 0s`,
-    };
+    const { styleEl, curClassName } = useCarouselStyleToClass(sliderCount, curIndex );
 
     return (
         <div className="comp-carousel">
+            {styleEl}
             <div className="comp-carousel-content">
-                <div className="comp-carousel-track" style={carouselTrackStyle}>
+                <div className={`comp-carousel-track ${curClassName}`} >
                     {React.Children.map(children, wrapperSlider())}
                 </div>
             </div>

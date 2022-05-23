@@ -2,10 +2,12 @@
  * @Author: shiguang
  * @Date: 2022-05-17 19:07:59
  * @LastEditors: shiguang
- * @LastEditTime: 2022-05-17 19:13:25
+ * @LastEditTime: 2022-05-23 23:40:08
  * @Description: 自定义 hooks
  */
+import React from 'react';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { CAROUSEL_CONST } from '.';
 
 /**
  * 缓存函数 解决闭包陷阱的同时不引起引用变化
@@ -73,5 +75,61 @@ export const useCarouselAnimate = (options: UseCarouselAnimateOptions) => {
         goTo,
         curIndex,
         next,
+    };
+};
+
+
+/**
+ * 计算每次 x 轴移动百分比
+ * @param curIndex 当前 slider index
+ * @param sliderCount slider count
+ * @returns
+ */
+const computedTransformXPercent = (curIndex: number, sliderCount: number) =>
+    (100 / sliderCount) * curIndex;
+
+const CAROUSEL_TRANSLATE_CLASS_NAME_PREFIX = 'J_comp-carousel-track-translate3d';
+const CAROUSEL_TRACK_CLASS_NAME_PREFIX = 'J_comp-carousel-track';
+
+/**
+* 动态将样式渲染成 class
+* @param options.sliderCount slider count
+* @param options.curIndex 当前 slider index
+* @returns 
+*/
+export const useCarouselStyleToClass = (sliderCount: number, curIndex: number) => {
+    const [classKey, setClassKey] = useState<string>('');
+    useEffect(() => {
+        setClassKey(`${Math.random()}-${performance.now()}`.split('.').join(''));
+    }, [sliderCount]);
+
+    const translate3dClass = Array.from({ length: sliderCount }).map((_, index) => {
+        const _transformXPercent = computedTransformXPercent(index, sliderCount);
+        return (
+            `
+             .${CAROUSEL_TRANSLATE_CLASS_NAME_PREFIX}-${classKey}-${index}{
+                 transform: translate3d(-${_transformXPercent}%, 0px, 0px);
+             }
+             
+         `
+        );
+    });
+    const carouselTrackClassName = `${CAROUSEL_TRACK_CLASS_NAME_PREFIX}-${classKey}`;
+
+    return {
+        curClassName: `${CAROUSEL_TRANSLATE_CLASS_NAME_PREFIX}-${classKey}-${curIndex} ${carouselTrackClassName}`,
+        styleEl: (
+            <style>
+                {
+                    `
+                     .${carouselTrackClassName}{
+                         width: ${sliderCount}00%;
+                         transition: ${CAROUSEL_CONST.DEFAULT_SLIDER_TRANSITION_TIME}ms ease 0s;
+                     }
+                 `
+                }
+                {translate3dClass}
+            </style>
+        )
     };
 };
