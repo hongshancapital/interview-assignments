@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef, useImperativeHandle} from 'react'
+import React, { useEffect, useMemo, useRef, useImperativeHandle, useCallback} from 'react'
 
 import useRect from '../../hooks/useRect'
 import useCarousel from './useCarousel'
 import CarouselItem from './Item'
 import Indicators from './Indicators'
 
-import './Carousel.css'
+import './Carousel.scss'
 
 export type CarouselRef = {
   goTo: (slide: number, dontAnimate?: boolean) => void
@@ -37,7 +37,6 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
   ])
   // Carousel容器宽高信息
   const { size, container } = useRect<HTMLDivElement>([count])
-  const itemStyle = {width: size.width}
   const scrollerStyle = {width: size.width * count }
 
   const {
@@ -48,17 +47,14 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
     current
   } = useCarousel({count, duration, width: size.width})
 
-  const onPlay = () => {
-    if (count <= 1) {
-      return
-    }
-    if (!autoPlay) {
+  const onPlay = useCallback(() => {
+    if (count <= 1 || !autoPlay) {
       return
     }
     playerTimer.current = setTimeout(() => {
       next()
     }, interval)
-  }
+  }, [count, autoPlay, interval, next])
 
   const onPause = () => {
     playerTimer.current && clearTimeout(playerTimer.current)
@@ -76,7 +72,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
     return () => {
       onPause()
     }
-  }, [current, size.width])
+  }, [current, size.width, onPlay])
 
   useImperativeHandle(ref, ()=> ({
     goTo,
@@ -88,9 +84,8 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
   return (<div ref={container} className="carousel-container">
     <div className="carousel-scroller" style={scrollerStyle} ref={scrollerRef}>
       {React.Children.map(props.children, (child) => {
-        if (!React.isValidElement(child)) return null
-        if (child.type !== CarouselItem) return null
-        return React.cloneElement(child, {style: itemStyle})
+        if (!React.isValidElement(child) || child.type !== CarouselItem) return null
+        return child
       })}
     </div>
     <Indicators 

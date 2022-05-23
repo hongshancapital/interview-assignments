@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 
-import "./index.css"
+import "./index.scss"
 
 type CarouselIndicatorsProps = {
   current: number,

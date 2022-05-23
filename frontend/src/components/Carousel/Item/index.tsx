@@ -1,20 +1,19 @@
 import React from 'react'
 
-import './index.css'
+import './index.scss'
 
 export type CarouselItemRef = {
   setOffset: React.Dispatch<React.SetStateAction<number>>
 }
 
 export type CarouselItemProps = {
-  style?: React.CSSProperties
   children: React.ReactNode
 }
 
 const CarouselItem = ((props: CarouselItemProps) => {
-  const { children, style } = props
+  const { children } = props
 
-  return (<div className="carousel__item" style={style}>
+  return (<div className="carousel__item">
     {children}
   </div>)
 })

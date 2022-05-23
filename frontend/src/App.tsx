@@ -4,7 +4,7 @@ import Carousel from './components/Carousel'
 import phoneImg from '../src/assets/iphone.png'
 import tabletImg from '../src/assets/tablet.png'
 import airpodsImg from '../src/assets/airpods.png'
-import './App.css'
+import './App.scss'
 
 function App() {
   const imgList = [

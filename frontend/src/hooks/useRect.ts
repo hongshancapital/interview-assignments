@@ -18,6 +18,7 @@ const useRect = <T extends HTMLElement>(deps: React.DependencyList = []) => {
 
   useEffect(() => {
     changeSize();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   return {
