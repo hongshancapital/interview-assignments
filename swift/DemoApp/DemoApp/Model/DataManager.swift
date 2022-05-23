@@ -15,7 +15,8 @@ class DataManager: ObservableObject {
     let fetchCountOnce = 10;
     
     init() {
-        self.dataProvider = FileDataProvider()
+//        self.dataProvider = FileDataProvider()
+        self.dataProvider = NetworkDataProvider()
     }
     
     func fetchMore(_ completed: @escaping ()-> Void) {
