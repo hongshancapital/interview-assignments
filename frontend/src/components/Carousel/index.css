@@ -1,0 +1,91 @@
+/* 主体 */
+.carousel-container {
+  width     : 100%;
+  height    : 100%;
+  box-sizing: border-box;
+  position  : relative;
+}
+
+.carousel-box {
+  width   : 100%;
+  height  : 100%;
+  overflow: hidden;
+}
+
+.carousel-list {
+  height : 100%;
+  display: flex;
+}
+
+.carousel-item {
+  width     : 100%;
+  transition: transform 0.3s;
+}
+
+/* pointer 指示器 */
+.carousel-pointer {
+  position : absolute;
+  bottom   : 10px;
+  left     : 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-pointer-box {
+  display   : grid;
+  column-gap: 2px;
+}
+
+.carousel-pointer-item {
+  height    : 3px;
+  width     : 40px;
+  background: rgb(145 145 145 / 50%);
+  cursor    : pointer;
+  position  : relative;
+}
+
+.carousel-pointer-item-inner {
+  width     : 0%;
+  height    : 100%;
+  background: white;
+  transition-property: none;
+}
+
+.carousel-pointer-item-inner_active {
+  transition-property: width;
+  width              : 100%;
+}
+
+/* 切换箭头 */
+
+.carousel-arrow {
+  cursor          : pointer;
+  display         : inline-block;
+  position        : absolute;
+  top             : 50%;
+  transform       : translateY(-50%);
+  width           : 48px;
+  height          : 48px;
+  border-radius   : 50%;
+  background-color: rgba(30, 32, 35, 0.2);
+  font-size       : 30px;
+  display         : flex;
+  flex-direction  : row;
+  justify-content : center;
+  color           : #fff;
+}
+
+.carousel-arrow i {
+  font-style: normal;
+}
+
+.carousel-arrow-left {
+  left: 24px;
+}
+
+.carousel-arrow-right {
+  right: 24px;
+}
+
+.carousel-arrow-hide {
+  display: none;
+}
