@@ -11,8 +11,8 @@ import UIKit
 class DataManager: ObservableObject {
     @Published var appList: [AppModel] = []
     var dataProvider: DataProvider
-    var hasMore: Bool = true
-    let fetchCountOnce = 10;
+    @Published var hasMore: Bool = true
+    let fetchCountOnce = 20;
     
     init() {
 //        self.dataProvider = FileDataProvider()
@@ -30,7 +30,8 @@ class DataManager: ObservableObject {
                         }
                         completed()
                     } else {
-                        // TODO: 处理异常
+                        hasMore = false
+                        completed()
                     }
                 }
             }

@@ -15,32 +15,17 @@ class NetworkDataProvider: DataProvider {
             guard let data = data else {
                 return
             }
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {return}
-            
             var appList = [AppModel]()
-            if let rootJson = json as? [String: Any] {
-                guard let jsonArray = rootJson["results"] as? [[String: Any]] else {return}
-                for aJson in jsonArray {
-                    let anApp = AppModel(data: aJson)
-                    appList.append(anApp)
-                }
-            }
-            var startIndex = 0
-            if last != nil {
-                for i in 0..<appList.count {
-                    if appList[i].id == last?.id {
-                        startIndex = i + 1
-                        break
-                    }
-                }
+            if let list = AppModel.parseList(from: data) {
+                appList = list
             }
             
+            let subList = self.subList(within: appList, from: last, count: count)
             DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
-                if (startIndex+count) <= appList.count {
-                    let list = [AppModel].init(appList[startIndex...startIndex+count-1])
-                    completion(list, nil)
+                if let result = subList {
+                    completion(result, nil)
                 } else {
-                    completion([], NSError.init(domain: "", code: 999, userInfo: nil))
+                    completion(nil, NSError.init(domain: "", code: 999, userInfo: nil))
                 }
             }
             
