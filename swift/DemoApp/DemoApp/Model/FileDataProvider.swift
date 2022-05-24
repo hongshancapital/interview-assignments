@@ -9,14 +9,26 @@ import Foundation
 
 class FileDataProvider: DataProvider {
     var appList = [AppModel]()
-    
+    let fileName = "data.json"
     init() {
-        guard let url = Bundle.main.url(forResource: "data", withExtension: "json") else {return}
-        guard let data = try? Data.init(contentsOf: url) else {return}
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {return}
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: nil)
+        else {
+            fatalError("未找到数据文件: \(fileName)")
+        }
+        guard let data = try? Data.init(contentsOf: url)
+        else {
+            fatalError("无法加载数据文件: \(fileName)")
+        }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: [])
+        else {
+            fatalError("未能正确解析数据文件: \(fileName)")
+        }
         
         if let rootJson = json as? [String: Any] {
-            guard let jsonArray = rootJson["results"] as? [[String: Any]] else {return}
+            guard let jsonArray = rootJson["results"] as? [[String: Any]]
+            else {
+                fatalError("未能正确解析results: \(fileName)")
+            }
             for aJson in jsonArray {
                 let anApp = AppModel(data: aJson)
                 appList.append(anApp)
