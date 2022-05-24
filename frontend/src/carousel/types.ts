@@ -17,8 +17,3 @@ export interface CarouselProps {
   interval?: number;
   animationSpeed?: number;
 }
-
-export interface useAnimateProps {
-  count: number;
-  interval: number;
-}

@@ -54,18 +54,18 @@ describe('测试Carousel组件', () => {
   test('执行多次时间间隔', () => {
     const { container } = render(<Carousel items={items} interval={2000} animationSpeed={500} />);
     const itemsWrap = container.getElementsByClassName('carousel-content')[0];
-    expect(itemsWrap.getAttribute('style')).toContain('translate3D(-0%');
+    expect(itemsWrap.getAttribute('class')).toContain('0');
     act(() => {
       jest.advanceTimersByTime(2000);
     })
-    expect(itemsWrap.getAttribute('style')).toContain('translate3D(-100%');
+    expect(itemsWrap.getAttribute('class')).toContain('1');
     act(() => {
       jest.advanceTimersByTime(2000);
     })
-    expect(itemsWrap.getAttribute('style')).toContain('translate3D(-200%');
+    expect(itemsWrap.getAttribute('class')).toContain('2');
     act(() => {
       jest.advanceTimersByTime(2000);
     })
-    expect(itemsWrap.getAttribute('style')).toContain('translate3D(-0%');
+    expect(itemsWrap.getAttribute('class')).toContain('0');
   });
 });
