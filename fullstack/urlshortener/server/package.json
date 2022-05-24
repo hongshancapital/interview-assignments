@@ -1,0 +1,41 @@
+{
+  "name": "urlshortener",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch src -e ts,json --exec 'npm run build && NODE_ENV=development npm start'",
+    "test": "nyc mocha --require ts-node/register test/**/*.ts",
+    "migration": "npm run build && typeorm migration:generate -n"
+  },
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http-status-codes": "^2.1.4",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.9.0",
+    "typeorm": "^0.2.29",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.8",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^14.14.2",
+    "@types/sinon": "^10.0.11",
+    "@types/uuid": "^8.3.4",
+    "@types/validator": "^13.7.2",
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "sinon": "^14.0.0",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.0.3"
+  }
+}

@@ -1,0 +1,8 @@
+@startuml
+entity Url {
+  id: uuid <<primary key>>
+  code: text <<unique>>
+  originalUrl: text <<not null>>
+  createTime: timestamp with timezone <<not null>>
+}
+@enduml
