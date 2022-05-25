@@ -30,6 +30,7 @@ class HSNetWorkTests: XCTestCase {
                                    "limit": 15,
                                    "term": "chat"]
     let api = "https://itunes.apple.com/search"
+    let errorApi = "https://itunes.apple.com/searchv2"
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -45,6 +46,15 @@ class HSNetWorkTests: XCTestCase {
             XCTAssertNotNil(appData)
         } catch {
             XCTAssertEqual(error as? HSNetWorkStatus, HSNetWorkStatus.responseError)
+        }
+    }
+    
+    func testRequestDataWithErrorApi() async throws {
+        do {
+            let appData: HSAppDataSource = try await self.network.requestAppData(from: errorApi, params: params)
+            XCTAssertNil(appData)
+        } catch {
+            XCTAssertEqual(error as? HSNetWorkStatus, HSNetWorkStatus.invaildURL)
         }
     }
     

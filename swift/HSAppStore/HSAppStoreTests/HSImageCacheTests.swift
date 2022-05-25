@@ -12,6 +12,7 @@ class HSImageCacheTests: XCTestCase {
 
     let imageCache = HSImageCache()
     let urlString = "https://is5-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/d0/52/b8/d052b8a2-0417-7017-3b2f-9f9fbb686138/65ff0370-f3d4-48c1-b8c1-5430ff91ee98_Intro.png/392x696bb.png"
+    let wrongUrl = "https://is5-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/d0/52/b8/d052b8a2-0417-7017-3b2f-9f9fbb686138/392x696bb.png"
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -32,6 +33,13 @@ class HSImageCacheTests: XCTestCase {
     func testImageForInvailUrl() async throws {
         // invail url
         HSImageCache.shared.imageForUrl(urlString: "urlTest", completionHandler: { (data) -> () in
+            XCTAssertNil(data)
+        })
+    }
+    
+    func testImageForWrongUrl() async throws {
+        // wrong url
+        HSImageCache.shared.imageForUrl(urlString: wrongUrl, completionHandler: { (data) -> () in
             XCTAssertNil(data)
         })
     }
