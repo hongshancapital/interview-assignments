@@ -41,7 +41,7 @@ class HSAppViewModel: ObservableObject {
     
     private func requestMake(with requestParams: HSNetworkParams) async {
         do {
-            let appData: HSAppDataSource = try await HSNetWorkService.shared.requestAppService(from: requestAPI, with: requestParams)!
+            let appData: HSAppDataSource = try await HSNetWork.shared.requestAppData(from: requestAPI, params: requestParams)
             mergeDataList(result: appData.results)
             updateMoreTag()
             hasError = false
