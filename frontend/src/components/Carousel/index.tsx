@@ -1,6 +1,6 @@
 import React, { useState, useMemo, ReactNode } from 'react';
 
-import './index.css'
+import './index.scss'
 
 interface defaultProps {
     children: ReactNode | Array<ReactNode>,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IgoodsDatas } from '../../hooks/useGoodsDatas';
 
-import './index.css';
+import './index.scss';
 
 interface IGoodsIntroProps {
     goodsInfo: IgoodsDatas
