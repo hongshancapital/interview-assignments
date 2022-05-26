@@ -11,9 +11,13 @@ struct AppRow: View {
     @ObservedObject var appModel: AppModel
     var body: some View {
         HStack {
-            FetchableImage(imageUrl: appModel.iconUrl)
-                .frame(width: 50, height: 50, alignment: .center)
-                .cornerRadius(8)
+            AsyncImage(url: URL(string: appModel.iconUrl)) { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(width: 50, height: 50, alignment: .center)
+            .cornerRadius(8)
             VStack(alignment: .leading) {
                 Text(appModel.name)
                     .font(.headline)
