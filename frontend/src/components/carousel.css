@@ -1,0 +1,89 @@
+.carousel-box{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    transition: transform .5s;
+    will-change: transform;
+    overflow-x: hidden;
+    position: relative;
+}
+.carousel-ul{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    transition: transform .5s;
+    will-change: transform;
+}
+.carousel-li{
+    /* /* width: 100%; */
+    height: 100%;
+    flex-basis: 100%;
+    flex-shrink: 0;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    position: relative;
+}
+.carousel_text{
+    width: 100%;
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.carousel_title{
+    font-size: 55px;
+    margin-bottom: 10px; 
+}
+.carousel_subtitle{
+    font-size: 25px;
+}
+.carousel-line{
+
+}
+.carousel-progress{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgb(250, 250, 250);
+    animation: progress linear;
+}
+.carousel-bottom{
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center
+}
+.carousel-bottom-line{
+    height: 4px;
+    width: 40px;
+    border-radius: 2px;
+    background-color: #6c6565;
+    margin: 0 4px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+/* .current{
+    background-color: #fff;
+} */
+@keyframes progress {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
