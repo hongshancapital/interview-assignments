@@ -27,8 +27,6 @@ const App: FunctionComponent = () => {
   }
   return <div className="App">
     <Carousel {...carouselProps} ref={$Carousel}>
-      a
-      <div>aaa</div>
       {list.map((i, index) => <CarouselItem key={i}>
         <div className="slide-item">{`CarouselItem ${index}`}</div>
       </CarouselItem>)}
