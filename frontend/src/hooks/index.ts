@@ -1,24 +1,25 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 // 可取消的延时任务
-const useDelayTask = () => {
+const useDelayTask = (): [(cb: Function, timeout: number) => void, () => void] => {
     const timer = useRef<null | NodeJS.Timeout>(null);
     const newDelayTask = (cb: Function, timeout: number) => {
+        cancelDelayTask();
         timer.current = setTimeout(() => {
             cb();
             timer.current = null;
         }, timeout);
     }
     const cancelDelayTask = () => {
-        if (timer.current) {
+        if (timer.current !== null) {
             clearTimeout(timer.current);
             timer.current = null;
         }
     }
-    return {
-        newDelayTask,
-        cancelDelayTask
-    }
+    useEffect(() => {
+        return cancelDelayTask
+    }, [])
+    return [newDelayTask, cancelDelayTask]
 }
 
 // 锁

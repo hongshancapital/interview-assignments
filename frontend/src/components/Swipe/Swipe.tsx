@@ -19,7 +19,7 @@ const Swipe: React.FC<SwipeProps> = (props) => {
         unLock: unLockAnimation
     } = useLock(false);
     const { start: startRecordTime, getRunTime, isTimeout } = useTimeLimt(duration)
-    const { newDelayTask, cancelDelayTask } = useDelayTask()
+    const [newDelayTask, cancelDelayTask] = useDelayTask()
 
     // 轮播到下一张banner
     const toNext = () => {
@@ -33,7 +33,6 @@ const Swipe: React.FC<SwipeProps> = (props) => {
     useEffect(() => {
         if (isLockAnimation()) return;
         newDelayTask(toNext, duration);
-        // eslint-disable-next-line
     }, [activeIndex]);
 
     // 鼠标移入进度条：暂停自动切换
