@@ -57,6 +57,8 @@ const Carousel = ({ list, duration }: ICarouselProps) => {
         clearInterval(interval);
       }
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -74,6 +76,7 @@ const Carousel = ({ list, duration }: ICarouselProps) => {
               <div
                 className="indicator-outer"
                 onClick={() => onToggleCarouselIndex(index)}
+                key={index}
               >
                 <div
                   className="indicator-inner"
