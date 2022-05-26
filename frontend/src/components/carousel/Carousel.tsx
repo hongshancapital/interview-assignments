@@ -41,7 +41,7 @@ const Carousel: FC<CarouselPros> = (props: CarouselPros) => {
         {React.Children.map(props.children, (child) => {
           if (!React.isValidElement(child)) return null;
           if (child.type !== CarouselItem) return null;
-          return React.cloneElement(child, child.props);
+          return child;
         })}
       </div>
       <Indicators activeIndex={activeIndex} animationDuration={duration} count={childrenCount}></Indicators>
