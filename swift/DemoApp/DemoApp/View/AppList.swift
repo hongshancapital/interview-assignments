@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct AppList: View {
-    @StateObject var dataMgr = DataManager()
-    @State var isLoading = false
+    @StateObject var dataMgr = DataManagerV2()
     var body: some View {
         if dataMgr.appList.count == 0 {
             ProgressView()
@@ -38,10 +37,7 @@ struct AppList: View {
                 }
                 .navigationTitle("APP")
                 .refreshable {
-                    isLoading = true
-                    dataMgr.refresh {
-                        isLoading = false
-                    }
+                    dataMgr.fetch(true)
                 }
                 .listStyle(.plain)
                 .background(Color(uiColor: .systemGroupedBackground))
@@ -50,12 +46,8 @@ struct AppList: View {
     }
     
     func loadMore() {
-        if !isLoading && dataMgr.hasMore {
-            isLoading = true
-            dataMgr.fetchMore {
-                isLoading = false
-                debugPrint("afdfs")
-            }
+        if dataMgr.hasMore {
+            dataMgr.fetch(false)
         }
     }
 }

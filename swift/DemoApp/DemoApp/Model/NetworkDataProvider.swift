@@ -8,7 +8,7 @@
 import Foundation
 
 class NetworkDataProvider: DataProvider {
-    let requestUrl = URL(string: "https://itunes.apple.com/search?entity=software&limit=50&term=chat")
+    let requestUrl = URL(string: "https://itunes.apple.com/search?entity=software&limit=100&term=chat")
     
     func fetchAppModel(from last: AppModel?, count: Int, on completion: @escaping ([AppModel]?, Error?) -> Void) {
         URLSession.shared.dataTask(with: requestUrl!) { [self] (data, response, error) in
