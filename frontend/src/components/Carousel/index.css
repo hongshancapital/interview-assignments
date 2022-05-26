@@ -1,0 +1,75 @@
+.carousel{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-list{
+    width: 300%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -100px;
+    display: flex;
+    flex-wrap: nowrap;
+    transition: left 0.5s;
+}
+
+.carousel-item{
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-item .title{
+    margin: 100px auto 50px auto;
+    font-size: 60px;
+}
+
+.carousel-item .desc{
+    font-size: 24px;
+    margin: 0 auto 30px auto;
+    line-height: 30px;
+}
+
+.carousel-item .img{
+    width: 100px;
+    height: 100px;
+    /* display: block; */
+    margin: 100px auto 30px auto;
+    
+}
+
+.carousel-control {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin-left: -87px;
+}
+
+.carousel-ctrl-box {
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+    margin: 0 4px;
+}
+.carousel-ctrl {
+    background-color: #ccc;
+    width: 100%;
+    height: 2px;
+    margin: 15px 0; 
+}
+
+.carousel-ctrl .ani-box{
+    height: 100%;
+    width: 0;
+    background-color: #fff;
+}
+
+.carousel-ctrl .ani-box.active{
+    width: 100%;
+    transition: width 3s;
+}
