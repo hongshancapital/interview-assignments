@@ -10,7 +10,6 @@
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
-- [Java](java/)
 
 北京/武汉:
 - [UI 设计师](design/)
