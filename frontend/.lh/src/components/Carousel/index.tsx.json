@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/components/Carousel/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1650510902430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1650510945847,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import React from 'react';\n import CarouselItem from './carouselItem';\n import { useActiveIndex } from './hooks';\n-import Progress from './translate';\n+import Translate from './translate';\n \n import './index.scss';\n \n export interface ICarouselItem {\n"
+                },
+                {
+                    "date": 1650510962744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,8 +33,8 @@\n         {items.map(item => {\n           return <CarouselItem {...item} ></CarouselItem>;\n         })}\n       </div>\n-      <Progress count={items.length} time={time} activeIndex={activeIndex} ></Progress>\n+      <Translate count={items.length} time={time} activeIndex={activeIndex} ></Translate>\n     </div>\n   );\n } \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1650510902430,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport CarouselItem from './carouselItem';\nimport { useActiveIndex } from './hooks';\nimport Progress from './translate';\n\nimport './index.scss';\n\nexport interface ICarouselItem {\n  src: string;\n  title: string[];\n  desc?: string[];\n  alt?: string;\n  color?: string;\n}\n\n\ninterface Props {\n  items: Array<ICarouselItem>,\n  time?: number;\n}\n\nconst defaultTime = 3000;\n\nexport default function Carousel(props: Props) {\n\n  const { items, time = defaultTime } = props;\n\n  const activeIndex = useActiveIndex({ time, count: items.length });\n\n  return (\n    <div className=\"carousel\">\n      <div className=\"carousel-items\" style={{ transform: `translateX(-${activeIndex * 100}%)`}}>\n        {items.map(item => {\n          return <CarouselItem {...item} ></CarouselItem>;\n        })}\n      </div>\n      <Progress count={items.length} time={time} activeIndex={activeIndex} ></Progress>\n    </div>\n  );\n} "
+        }
+    ]
+}
