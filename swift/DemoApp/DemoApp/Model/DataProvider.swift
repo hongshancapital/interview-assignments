@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum DataProviderError: Error {
+    case requestFailed
+    case inValidRawData
+    case noResultsList
+}
+
 protocol DataProvider {
     func fetchAppModel(from last: AppModel?, count: Int, on completion: @escaping ([AppModel]?, Error?)->Void);
     func subList(within appList:[AppModel], from last: AppModel?, count: Int) -> [AppModel]?
@@ -33,5 +39,21 @@ extension DataProvider {
             return list
         }
         return nil
+    }
+    
+    func parseAppList(from data: Data) throws -> [AppModel] {
+        let apiRsp: ApiResponse
+        do {
+            try apiRsp = JSONDecoder().decode(ApiResponse.self, from: data)
+        } catch {
+            throw DataProviderError.inValidRawData
+        }
+        return apiRsp.results
+    }
+    
+    func delay(appList: [AppModel]?, error: Error?, completion: @escaping ([AppModel]?, Error?) -> Void) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+            completion(appList, error)
+        }
     }
 }

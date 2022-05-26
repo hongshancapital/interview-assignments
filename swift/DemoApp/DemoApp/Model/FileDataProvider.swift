@@ -19,19 +19,19 @@ class FileDataProvider: DataProvider {
         else {
             fatalError("无法加载数据文件: \(fileName)")
         }
-        if let list = AppModel.parseList(from: data) {
+        
+        let apiRsp = try? JSONDecoder().decode(ApiResponse.self, from: data)
+        if let list = apiRsp?.results {
             appList = list
         }
     }
     
     func fetchAppModel(from last: AppModel?, count: Int, on completion: @escaping ([AppModel]?, Error?) -> Void) {
         let subList = subList(within: appList, from: last, count: count)
-        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
-            if let result = subList {
-                completion(result, nil)
-            } else {
-                completion(nil, NSError.init(domain: "", code: 999, userInfo: nil))
-            }
+        if let result = subList {
+            delay(appList: result, error: nil, completion: completion)
+        } else {
+            delay(appList: nil, error: DataProviderError.noResultsList, completion: completion)
         }
     }
 }

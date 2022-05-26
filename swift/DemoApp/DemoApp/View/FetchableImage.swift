@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Combine
 
 struct FetchableImage: View {
     @State var image: UIImage?
     var imageUrl: String
+    var concellable: AnyCancellable?
     var body: some View {
         if let image = image {
             Image(uiImage: image)
@@ -19,14 +21,27 @@ struct FetchableImage: View {
         }
     }
     
+    
+    
     func fetchImage() {
         if let url = URL(string: imageUrl) {
-            URLSession.shared.dataTask(with: url) {[self] (data, rsp, error) in
-                guard let data = data else {
-                    return
+
+            Task {
+            do {
+                let (data, rsp) = try await URLSession.shared.data(for: (URLRequest(url: url)))
+                guard (rsp as? HTTPURLResponse)?.statusCode == 200 else {
+                    fatalError("image req failed")
                 }
                 image = UIImage(data: data)
-            }.resume()
+            } catch {}
+            }
+
+//            URLSession.shared.dataTask(with: url) {[self] (data, rsp, error) in
+//                guard let data = data else {
+//                    return
+//                }
+//                image = UIImage(data: data)
+//            }.resume()
         }
     }
 }

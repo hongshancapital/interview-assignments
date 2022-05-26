@@ -11,24 +11,19 @@ class NetworkDataProvider: DataProvider {
     let requestUrl = URL(string: "https://itunes.apple.com/search?entity=software&limit=50&term=chat")
     
     func fetchAppModel(from last: AppModel?, count: Int, on completion: @escaping ([AppModel]?, Error?) -> Void) {
-        URLSession.shared.dataTask(with: requestUrl!) { (data, rsp, error) in
-            guard let data = data else {
+        URLSession.shared.dataTask(with: requestUrl!) { [self] (data, response, error) in
+            guard (response as? HTTPURLResponse)?.statusCode == 200 && data != nil else {
+                delay(appList: nil, error: DataProviderError.requestFailed, completion: completion)
                 return
             }
-            var appList = [AppModel]()
-            if let list = AppModel.parseList(from: data) {
-                appList = list
+
+            do {
+                let apiRsp = try JSONDecoder().decode(ApiResponse.self, from: data!)
+                let subList = self.subList(within: apiRsp.results, from: last, count: count)
+                delay(appList: subList, error: nil, completion: completion)
+            } catch {
+                delay(appList: nil, error: error, completion: completion)
             }
-            
-            let subList = self.subList(within: appList, from: last, count: count)
-            DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
-                if let result = subList {
-                    completion(result, nil)
-                } else {
-                    completion(nil, NSError.init(domain: "", code: 999, userInfo: nil))
-                }
-            }
-            
         }.resume()
     }
 }
