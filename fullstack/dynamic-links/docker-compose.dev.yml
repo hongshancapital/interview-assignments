@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:5.0.8
+    container_name: mongo-dev
+    restart: always
+    networks:
+      - dev-network
+    volumes:
+      - ./data/dev/mongo:/data/db
+    ports:
+      - "27017:27017"
+
+networks:
+  dev-network:
+    driver: bridge
