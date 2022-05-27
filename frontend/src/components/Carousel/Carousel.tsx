@@ -36,7 +36,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
     props.children
   ])
   // Carousel容器宽高信息
-  const { size, container } = useRect<HTMLDivElement>([count])
+  const { size, container } = useRect<HTMLDivElement>()
   const scrollerStyle = {width: size.width * count }
 
   const {

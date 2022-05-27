@@ -1,25 +1,31 @@
 import { useRef, useEffect, useState } from 'react'
 
-const useRect = <T extends HTMLElement>(deps: React.DependencyList = []) => {
+const useRect = <T extends HTMLElement>() => {
   const [size, setSize] = useState({
     width: 0, height: 0
   });
   const container = useRef<T>(null);
 
-  const changeSize = () => {
-    const rect = container.current?.getBoundingClientRect();
-    if (rect) {
-      setSize({
-        width: rect.width,
-        height: rect.height
-      })
-    }
-  }
-
   useEffect(() => {
-    changeSize();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+    const containerDom = container.current
+    if(!containerDom) {
+      return
+    }
+    const resizeObserver = new ResizeObserver((entries) => {
+      entries.forEach(entry => {
+        const { clientWidth, clientHeight } = entry.target
+        console.log(clientWidth, clientHeight);
+        setSize({
+          width: clientWidth,
+          height: clientHeight
+        })
+      })
+    })
+    resizeObserver.observe(containerDom)
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, []);
 
   return {
     container,
