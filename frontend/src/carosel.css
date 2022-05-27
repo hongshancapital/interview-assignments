@@ -1,0 +1,57 @@
+.Carousel{
+    position: relative;
+    overflow: hidden;
+    height: 100%;;
+}
+.CarouselWrapper{
+    display: flex;
+    flex-direction:row;
+    transition: transform 0.5s ease-out;
+}
+.CarouselItem{
+    display: flex;
+   
+}
+
+.dot_list{
+    position: absolute;
+    right: 0;
+    width:100%;
+    bottom: 7%;
+    margin:0px;
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+    list-style: none;
+}
+.dot_list li{
+    /* width: 40px;
+    margin: 0 8px; */
+    position: relative;
+    width: 3%;
+    margin: 0 0.6%;
+    border-radius: 2px;
+    height: 2px;
+    text-indent: -999px;
+    background-color: #a9a9a9;
+}
+.dot_list  .progressBar{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: scale(0, 100%);
+    background-color: #f2f2f2;
+    transform-origin: left;
+}
+.dot_list  .current .progressBar{
+    animation-name: progress;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+}
+
+@keyframes progress {
+    0% {transform:scale(0%, 100%);}
+    99% {transform:scale(100%, 100%);}
+    100% {transform:scale(0%, 100%);}
+
+}
