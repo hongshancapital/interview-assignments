@@ -1,11 +1,83 @@
 .App {
   text-align: center;
   position: relative;
+  width: 100vw;
+  height: 100vh;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.item-wrapper {
+  float: left;
+  position: relative;
+  left: 0;
+  height: 100%;
+  width: auto;
+  transition: all 1.5s ease;
+}
+
+.dots-wrapper {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+}
+
+.dots-hover-wrapper {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  background-color: #fff;
+  width: 50px;
+  height: 3px;
+  margin-right: 15px;
+}
+
+.dot:last-child,
+.dot-hover:last-child {
+  margin-right: 0;
+}
+
+.dot-hover {
+  background-color: transparent;
+  width: 50px;
+  height: 3px;
+  margin-right: 15px;
+}
+
+@keyframes mymove {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 50px;
+  }
+}
+
+.animation {
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: mymove 4s linear;
+}
+
+.carousel-item {
+  display: inline-block;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center -300px;
 }
 
 .title {
   font-size: 56px;
   font-weight: 600;
+  margin-top: 160px;
 }
 
 .text {
