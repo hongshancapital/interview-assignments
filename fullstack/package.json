@@ -1,0 +1,42 @@
+{
+  "name": "exp-shorturl",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev:build": "tsc -w",
+    "dev:server": "nodemon ./bin/www",
+    "dev": "concurrently npm:dev:*",
+    "test": "nyc --reporter=text mocha src/test/**/*.ts --extension [\"ts\"] -r ts-node/register",
+    "test:api": "mocha src/test_api/*.ts --extension [\"ts\"] -r ts-node/register"
+  },
+  "dependencies": {
+    "async-lock": "^1.3.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "md5-node": "^1.0.1",
+    "morgan": "~1.9.1",
+    "redis": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/async-lock": "^1.1.5",
+    "@types/body-parser": "^1.19.2",
+    "@types/chai": "^4.3.1",
+    "@types/chai-http": "^4.2.0",
+    "@types/express": "^4.17.13",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^17.0.35",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "concurrently": "^7.2.1",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.16",
+    "nyc": "^15.1.0",
+    "supertest": "^6.2.3",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
+  }
+}
