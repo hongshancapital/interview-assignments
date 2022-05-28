@@ -14,7 +14,7 @@ A few things to note in the project:
 * **[Safe Mongooose Connection Helper](./src/lib/safe-mongoose-connection.ts)** - A helper class to connect with Mongoose reliably.
 * **Joi** - For declarative payload validation
 * **[Middleware for easier async/await](./src/middleware/request-middleware.ts)** - Catches errors from routes and throws them to express error handler to prevent app crash due to uncaught errors.
-* **[OpenAPI 3.0 Spec](./openapi.json)** - A starter template to get started with API documentation using OpenAPI 3.0. This API spec is also available when running the development server at `http://localhost:3000/dev/api-docs`
+* **[OpenAPI 3.0 Spec](./openapi.json)** - A starter template to get started with API documentation using OpenAPI 3.0. This API spec is also available when running the development server at `http://localhost:3000/api/dev/api-docs`
 * **[.env file for configuration](#environment)** - Change server config like app port, mongo url etc
 * **[Winston Logger](#logging)** - Uses winston as the logger for the application.
 * **ESLINT** - ESLINT is configured for linting.
