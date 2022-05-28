@@ -1,0 +1,178 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Service",
+    "version": "1.0.0",
+    "description": "API Service endpoints",
+    "contact": {
+      "email": "ideaalloc@gmail.com",
+      "name": "Bill Lyu"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "link",
+      "description": "Dynamic Links"
+    }
+  ],
+  "paths": {
+    "/link/shorten": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Shorten link",
+        "operationId": "link-shorten",
+        "requestBody": {
+          "description": "Original link",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UrlSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Link was shortened to a keyword, to which prepended 'https://t.co/', and became 'https://t.co/9RG023A0', assuming the keyword was '9RG023A0'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeywordSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/link/resume/{keyword}": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Resume original link",
+        "operationId": "link-resume",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "keyword",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Keyword of link to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Original link was resumed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UrlSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BadRequestSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "PATH: [url] ;; MESSAGE: \"url\" must be a valid uri with a scheme matching the http|https pattern"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "ServerErrorSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Internal server error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "NotFoundErrorSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Item not found"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "UrlSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL",
+            "example": "https://en.wikipedia.org/wiki/Albert_Einstein"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "KeywordSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "keyword",
+            "example": "9RG023A0"
+          }
+        },
+        "required": [
+          "keyword"
+        ]
+      }
+    }
+  }
+}
