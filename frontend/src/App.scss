@@ -1,0 +1,53 @@
+
+.title {
+  font-size: 56px;
+  font-weight: 600;
+}
+
+.text {
+  font-size: 28px;
+  font-weight: 400;
+}
+.App {
+  position: absolute;
+  top: 30%;
+  margin-top: -200px;
+  left: 50%;
+  margin-left: -480px;
+  width: 960px;
+  height: 400px;
+  overflow: hidden;
+  .images {
+    width: 2880px;
+    height: 400px;
+    position: relative;
+    li {
+      float: left;
+      img {
+        width: 960px;
+        height: 400px;
+      }
+    }
+  } 
+  .bars {
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    display: flex;
+    bottom: 10px;
+    justify-content: space-between;
+    li {
+      width: 30px;
+      height: 3px;
+      background-color: #616161;
+      float: left;
+      border-radius: 2px;
+    }
+    li.active {
+      background-color: #e2e2e2;
+    }
+  }
+}
+
+
