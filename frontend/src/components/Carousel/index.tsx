@@ -38,7 +38,7 @@ const Carousel = (props: Props) => {
 
 const CarouselItem: FC = (props) => {
 	return (
-		<div className="carousel-item">{props.children}</div>
+		<div className="carousel-item1">{props.children}</div>
 	)
 }
 
