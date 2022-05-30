@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './index.css';
+import './index.scss';
 
 export interface CarouselProps {
   children: React.ReactNode
