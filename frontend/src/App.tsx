@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.scss";
-import { Carousel, CarouselItem } from "./components";
+import { Carousel } from "./components";
 import { Banner } from './models';
 import phoneImg from '../src/assets/iphone.png'
 import tabletImg from '../src/assets/tablet.png'
@@ -30,12 +30,10 @@ function App() {
   return <div className="App">
     <Carousel>
       {bannerList.map((item, index) => {
-        return <CarouselItem key={index}>
-          <div className="carousel-item__content" style={{ backgroundImage: `url(${item.imageUrl})`, color: item.color }}>
-            <h1>{item.title}</h1>
-            <div className="description">{item.description}</div>
-          </div>
-        </CarouselItem>
+        return <div className="carousel-item__content" key={index} style={{ backgroundImage: `url(${item.imageUrl})`, color: item.color }}>
+                  <h1>{item.title}</h1>
+                  <div className="description">{item.description}</div>
+              </div>
       })}
     </Carousel>
   </div>;

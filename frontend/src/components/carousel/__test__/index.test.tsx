@@ -1,13 +1,12 @@
 import React from 'react';
 import { act, render } from '@testing-library/react';
 import Carousel from '../Carousel';
-import CarouselItem from '../CarouselItem';
 
 const Component = () => {
   return <Carousel>
-    <CarouselItem>test1</CarouselItem>
-    <CarouselItem>test2</CarouselItem>
-    <CarouselItem>test3</CarouselItem>
+    <div>test1</div>
+    <div>test2</div>
+    <div>test3</div>
   </Carousel>
 }
 

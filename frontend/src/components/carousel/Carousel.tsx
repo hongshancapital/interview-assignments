@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useState, FC } from "react";
-import CarouselItem from "./CarouselItem";
 import Indicators from "./Indicators";
 import './style/index.scss';
-
 
 export interface CarouselPros {
   height?: string;
@@ -40,8 +38,9 @@ const Carousel: FC<CarouselPros> = (props: CarouselPros) => {
       }}>
         {React.Children.map(props.children, (child) => {
           if (!React.isValidElement(child)) return null;
-          if (child.type !== CarouselItem) return null;
-          return child;
+          return <div className="carousel__item">
+                    {child}
+                </div>;
         })}
       </div>
       <Indicators activeIndex={activeIndex} animationDuration={duration} count={childrenCount}></Indicators>
