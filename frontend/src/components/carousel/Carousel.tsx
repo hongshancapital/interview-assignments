@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState, FC } from "react";
 import Indicators from "./Indicators";
 import './style/index.scss';
-
-export interface CarouselPros {
+export interface CarouselProps {
   height?: string;
   duration?: number;
   animationDuration?: number;
@@ -10,7 +9,7 @@ export interface CarouselPros {
   children: React.ReactNode;
 }
 
-const Carousel: FC<CarouselPros> = (props: CarouselPros) => {
+const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
 
   const { initActiveIndex = 0, animationDuration = 500, duration = 3000, height = '100%' } = props;
 
