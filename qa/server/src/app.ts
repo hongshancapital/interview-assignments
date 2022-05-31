@@ -3,7 +3,7 @@ import router from './routes';
 import cors from 'cors';
 
 const app = express();
-const port = 5000;
+const port = 8000;
 const corsOptions = {
   origin: '*',
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
