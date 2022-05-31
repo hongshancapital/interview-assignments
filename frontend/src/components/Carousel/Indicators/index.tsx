@@ -1,36 +1,22 @@
-import React, { useState, useEffect, useImperativeHandle } from "react";
+import React, { useState } from "react";
 import "./index.css";
-import { CarouselRef } from "../Carousel";
 
 type CarouselIndicatorsProps = {
-  ref: React.ForwardedRef<CarouselRef>;
   autoPlay?: boolean;
-  activeIndex?: number;
+  activeIndex: number;
   count: number;
-  interval?: number;
-  goTo: (index: number) => void;
+  interval: number;
+  goto: (index: number) => void;
 };
 
-const Indicators = React.forwardRef<CarouselRef, CarouselIndicatorsProps>((props, ref) => {
-  const { count, activeIndex: defaultActiveIndex = 0, autoPlay, interval, goTo } = props;
-  const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
+const Indicators = (props: CarouselIndicatorsProps) => {
+  const { count, activeIndex, autoPlay, interval, goto } = props;
   const [animationPaused, setAnimationPaused] = useState(false);
 
-  const handleOnclick = (index: number) => setActiveIndex(index);
+  const handleOnclick = (index: number) => goto(index);
   const handleMouseEnter = (index: number) => index === activeIndex && setAnimationPaused(true);
   const handleMouseLeave = (index: number) => index === activeIndex && setAnimationPaused(false);
-  const handleAnimationEnd = () => setActiveIndex((activeIndex + 1) % count);
-
-  useEffect(() => {
-    goTo?.(activeIndex);
-  }, [activeIndex, goTo]);
-
-  useImperativeHandle(ref, () => ({
-    goTo: setActiveIndex,
-    next: () => setActiveIndex((activeIndex + 1) % count),
-    prev: () => setActiveIndex(activeIndex - 1 < 0 ? count - 1 : activeIndex - 1),
-    current: activeIndex
-  }));
+  const handleAnimationEnd = () => goto((activeIndex + 1) % count);
 
   return (
     <div className="carousel-indicators">
@@ -64,6 +50,6 @@ const Indicators = React.forwardRef<CarouselRef, CarouselIndicatorsProps>((props
       })}
     </div>
   );
-});
+};
 
 export default Indicators;

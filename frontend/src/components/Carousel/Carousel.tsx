@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useImperativeHandle } from "react";
 import "./Carousel.css";
 import Indicators from "./Indicators";
+import useCarousel from "./useCarousel";
 
 export type CarouselRef = {
-  goTo: (index: number) => void;
+  goto: (index: number) => void;
   next: () => void;
   prev: () => void;
   current: number;
@@ -35,21 +36,19 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
     [children]
   );
 
-  const [activeIndex, setActiveIndex] = useState(() => {
-      return defaultActiveIndex < 0
-        ? 0
-        : defaultActiveIndex > childrenCount - 1
-          ? childrenCount - 1
-          : defaultActiveIndex;
-  });
+  const { goto, prev, next, current } = useCarousel({ count: childrenCount, defaultActiveIndex });
+
+   useImperativeHandle(ref, () => ({
+    goto,
+    next,
+    prev,
+    current
+  }));
 
   const sliderStyle = {
     transition: `transform ${duration}ms`,
-    transform: `translateX(-${100 * activeIndex}%)`,
+    transform: `translateX(-${100 * current}%)`,
   };
-
-  const goTo = (index: number) =>
-    activeIndex !== index && setActiveIndex(index);
 
   return (
     <div className="carousel-container">
@@ -68,12 +67,11 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
         </ul>
       </div>
       <Indicators
-        ref={ref}
         interval={interval}
         autoPlay={autoPlay}
         count={childrenCount}
-        activeIndex={activeIndex}
-        goTo={goTo}
+        activeIndex={current}
+        goto={goto}
       />
     </div>
   );
