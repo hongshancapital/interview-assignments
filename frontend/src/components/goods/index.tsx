@@ -4,22 +4,19 @@
 import React, { FC, ReactNode } from "react";
 import './index.scss';
 
-interface Props {
+export interface GoodsProps {
 	name: string | ReactNode;
 	desc?: string | ReactNode;
-	imgUrl: string;
-	theme?: 'dark' | 'white';
+	bg: string;
+	theme: 'dark' | 'default';
 }
 
-const Goods: FC<Props> = (props) => {
-	const { name, desc = '', imgUrl, theme = '' } = props;
+const Goods: FC<GoodsProps> = (props) => {
+	const { name, desc = '', bg, theme = 'default' } = props;
 	return (
-		<div className={`goods-item ${theme === 'dark' ? 'goods-item-theme-dark' : ''}`}>
+		<div className={`goods-item ${theme === 'dark' ? 'goods-item-theme-dark' : ''}`} style={{ backgroundImage: `url(${bg})` }}>
 			<div className="name">{name}</div>
 			<div className="desc">{desc}</div>
-			<div className="imgWrap">
-				<img src={imgUrl} alt='' />
-			</div>
 		</div>
 	)
 }
