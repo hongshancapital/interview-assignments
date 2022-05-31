@@ -1,8 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState, useCallback } from 'react';
 import SwipeIndicator from './SwipeIndicator';
 import { useDelayTask, useLock, useTimeLimt } from '../../hooks/index'
 
-import Style from  './Swipe.module.scss';
+import Style from './Swipe.module.scss';
 
 const DEFAULT_DURATION = 3000;  // 默认切换间隔
 
@@ -12,33 +12,33 @@ interface SwipeProps {
 }
 const Swipe: React.FC<SwipeProps> = (props) => {
     const duration = props.duration || DEFAULT_DURATION;
-    const [activeIndex, updataActiveIndex] = useState(0);    // 当前激活的banner
+    const [activeIndex, updateActiveIndex] = useState(0);    // 当前激活的banner
     const {
         isLock: isLockAnimation,
         lock: lockAnimation,
         unLock: unLockAnimation
     } = useLock(false);
-    const { start: startRecordTime, getRunTime, isTimeout } = useTimeLimt(duration)
-    const [newDelayTask, cancelDelayTask] = useDelayTask()
+    const { start: startRecordTime, getRunTime, isTimeout } = useTimeLimt(duration);
+    const [newDelayTask, cancelDelayTask] = useDelayTask();
 
     // 轮播到下一张banner
-    const toNext = () => {
+    const toNext = useCallback(() => {
         const { length } = props.children;
         if (length > 1) {
             const newActiveIndex = (activeIndex + 1) % length;
-            updataActiveIndex(newActiveIndex);
+            updateActiveIndex(newActiveIndex)
         };
-    }
+    }, [props.children, activeIndex]);
 
     useEffect(() => {
         if (isLockAnimation()) return;
         newDelayTask(toNext, duration);
-    }, [activeIndex]);
+    }, [activeIndex, duration, isLockAnimation, toNext, newDelayTask]);
 
     // 鼠标移入进度条：暂停自动切换
     const onMouseEntryHander = (index: number) => {
         startRecordTime();
-        updataActiveIndex(index);
+        updateActiveIndex(index);
         lockAnimation();
         // 取消延时动画
         cancelDelayTask()
