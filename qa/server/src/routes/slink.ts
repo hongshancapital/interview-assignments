@@ -44,8 +44,8 @@ linkRouter.post("/slink", (req, res) => {
       req.body.lurl,
       shortId,
       req.body.app_id,
-      new Date().getTime() / 1000 + expireTimeLen,
-      new Date().getTime() / 1000,
+      Date.parse(new Date().toString()) / 1000 + expireTimeLen,
+      Date.parse(new Date().toString()) / 1000,
     ],
     (err: Error) => {
       if (err) {
