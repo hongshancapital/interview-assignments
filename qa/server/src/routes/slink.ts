@@ -16,7 +16,7 @@ const shortIdObj = new ShortId(19);
 /**
  * 该接口需要前置鉴权
  */
-linkRouter.post("/open-api/slink", (req, res) => {
+linkRouter.post("/slink", (req, res) => {
   console.dir("Post /slink", req.body);
   // 参数检查
   const errors: string[] = [];
