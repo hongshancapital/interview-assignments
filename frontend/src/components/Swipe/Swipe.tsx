@@ -1,6 +1,6 @@
-import React, { ReactNode, useEffect, useState, useCallback } from 'react';
+import React, { ReactNode, useEffect, useState, useRef } from 'react';
 import SwipeIndicator from './SwipeIndicator';
-import { useDelayTask, useLock, useTimeLimt } from '../../hooks/index'
+import { useTimeLimt } from '../../hooks/index'
 
 import Style from './Swipe.module.scss';
 
@@ -13,46 +13,44 @@ interface SwipeProps {
 const Swipe: React.FC<SwipeProps> = (props) => {
     const duration = props.duration || DEFAULT_DURATION;
     const [activeIndex, updateActiveIndex] = useState(0);    // 当前激活的banner
-    const {
-        isLock: isLockAnimation,
-        lock: lockAnimation,
-        unLock: unLockAnimation
-    } = useLock(false);
+    const [isLockAnimation, setIsLockAnimation] = useState(false);
     const { start: startRecordTime, getRunTime, isTimeout } = useTimeLimt(duration);
-    const [newDelayTask, cancelDelayTask] = useDelayTask();
+    const timeoutTaskId = useRef<NodeJS.Timeout | null>(null);
 
-    // 轮播到下一张banner
-    const toNext = useCallback(() => {
-        const { length } = props.children;
-        if (length > 1) {
-            const newActiveIndex = (activeIndex + 1) % length;
-            updateActiveIndex(newActiveIndex)
-        };
-    }, [props.children, activeIndex]);
+    const cancelTimeoutTask = () => {
+        if (timeoutTaskId.current) clearTimeout(timeoutTaskId.current);
+    }
 
     useEffect(() => {
-        if (isLockAnimation()) return;
-        newDelayTask(toNext, duration);
-    }, [activeIndex, duration, isLockAnimation, toNext, newDelayTask]);
+        cancelTimeoutTask();
+        if (isLockAnimation) return;
+        const { length } = props.children;
+        if (length > 1) {
+            timeoutTaskId.current = setTimeout(()=> {
+                updateActiveIndex((activeIndex + 1) % length)
+                timeoutTaskId.current = null;
+            }, duration)
+        };
+    }, [duration, isLockAnimation, props.children, activeIndex]);
 
     // 鼠标移入进度条：暂停自动切换
     const onMouseEntryHander = (index: number) => {
         startRecordTime();
         updateActiveIndex(index);
-        lockAnimation();
-        // 取消延时动画
-        cancelDelayTask()
+        setIsLockAnimation(true);
     }
 
     // 鼠标移出进度条：恢复自动切换
     const onMouseLeaveHander = () => {
-        unLockAnimation();
+        setIsLockAnimation(false);
         if (isTimeout()) {
             // 如果已经超过动画间隔时间，则立即切到下一张banner
-            toNext();
+            updateActiveIndex((activeIndex + 1) % props.children.length)
         } else {
             // 停留时间如果没有超过动画间隔时间，则恢复动画
-            newDelayTask(toNext, duration - getRunTime());
+            timeoutTaskId.current = setTimeout(() => {
+                updateActiveIndex((activeIndex + 1) % props.children.length)
+            }, duration - getRunTime())
         }
     }
 
