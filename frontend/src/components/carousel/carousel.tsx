@@ -56,7 +56,7 @@ const Carousel: FC<CarouseProps> = ({
   }, (autoPlay && intervalTime) || undefined);
 
   useEffect(() => {
-    setActiveIndex(0);
+    // setActiveIndex(0);
     if (childrenCount <= 1) {
       console.warn('CarouselItem length cannot less than or equal to 1.');
     }
