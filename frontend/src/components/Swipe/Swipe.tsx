@@ -19,11 +19,18 @@ const Swipe: React.FC<SwipeProps> = (props) => {
 
     const cancelTimeoutTask = () => {
         if (timeoutTaskId.current) clearTimeout(timeoutTaskId.current);
+        timeoutTaskId.current = null;
     }
 
     useEffect(() => {
-        cancelTimeoutTask();
-        if (isLockAnimation) return;
+        if (isLockAnimation) {
+            cancelTimeoutTask();
+            return;
+        }
+
+        // 如果当前动画没有执行完
+        if (timeoutTaskId.current) return
+
         const { length } = props.children;
         if (length > 1) {
             timeoutTaskId.current = setTimeout(()=> {
@@ -35,9 +42,10 @@ const Swipe: React.FC<SwipeProps> = (props) => {
 
     // 鼠标移入进度条：暂停自动切换
     const onMouseEntryHander = (index: number) => {
+        setIsLockAnimation(true);
+        if (index === activeIndex) return
         startRecordTime();
         updateActiveIndex(index);
-        setIsLockAnimation(true);
     }
 
     // 鼠标移出进度条：恢复自动切换
@@ -49,7 +57,8 @@ const Swipe: React.FC<SwipeProps> = (props) => {
         } else {
             // 停留时间如果没有超过动画间隔时间，则恢复动画
             timeoutTaskId.current = setTimeout(() => {
-                updateActiveIndex((activeIndex + 1) % props.children.length)
+                updateActiveIndex((activeIndex + 1) % props.children.length);
+                timeoutTaskId.current = null;
             }, duration - getRunTime())
         }
     }
