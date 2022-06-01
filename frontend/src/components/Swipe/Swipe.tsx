@@ -22,6 +22,11 @@ const Swipe: React.FC<SwipeProps> = (props) => {
         timeoutTaskId.current = null;
     }
 
+    // 组件退出时清理多余的setTimeout
+    useEffect(() => {
+        return cancelTimeoutTask
+    }, [])
+
     useEffect(() => {
         if (isLockAnimation) {
             cancelTimeoutTask();
