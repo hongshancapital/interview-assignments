@@ -148,19 +148,3 @@ Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提
 
 
 
- |  包/类  |  方法原型                                  |  功能说明              |  参数说明               |
-| --------- | -------------------------------------------- | ------------------------ | ------------------------- |
-|  ResourceManager   |  getString(resource: Resource, callback: AsyncCallback<string>):void  |  根据resource对象获取string字符串  |  resource 资源对象，其中包含资源ID值;callback 异步回调，用于返回获取的字符串  |
-|  ResourceManager   |  getString(resource: Resource):Promise<string>             |  在promise模式下根据resource对象获取string字符串  |   resource 资源对象，其中包含资源ID值                      |
-|  ResourceManager   |  getStringArray(resource: Resource, callback: AsyncCallback<Array<string>>):void              |  根据resource对象获取string数组  |  resource 资源对象，其中包含资源ID值;callback 异步回调，用于返回获取的字符串数组                       |
-|  ResourceManager   |  getStringArray(resource: Resource):Promise<Array<string>>  |  在promise模式下根据resource对象获取string数组  |  resource 资源对象，其中包含资源ID值  |
-|  ResourceManager   |  getMedia(resource: Resource, callback: AsyncCallback<Uint8Array>):void              |  根据resource对象获取媒体资源  |  resource 资源对象，其中包含资源ID值;callback 异步回调，用于返回获取的媒体文件内容                       |
-|  ResourceManager   |  getMedia(resource: Resource):Promise<Uint8Array>              |  在promise模式下根据resource对象获取媒体资源  |   resource 资源对象，其中包含资源ID值                      |
-|  ResourceManager   |  getMediaBase64(resource: Resource, callback: AsyncCallback<string>):void  |  根据resource对象获取媒体资源base64的code值  |  resource 资源对象，其中包含资源ID值;callback 异步回调，用于返回获取的base64媒体内容  |
-|  ResourceManager   |  getMediaBase64(resource: Resource):Promise<string>              |  在promise模式下根据resource对象获取媒体资源base64的code值  |   resource 资源对象，其中包含资源ID值                      |
-|  ResourceManager   |  getPluralString(resource: Resource, num: number, callback: AsyncCallback<string>):void              |  根据resource对象获取复数资源  |  resource 资源对象，其中包含资源ID值;callback 异步回调，用于返回获取的单复数字符串                       |
-|  ResourceManager   |  getPluralString(resource: Resource, num: number):Promise<string>  |  在promise模式下根据resource对象获取复数资源  |  resource 资源对象，其中包含资源ID值  |
-|  ResourceManager   |  getStringSync(resource: Resource):string              |  根据resource对象获取同步string对象  |   resource 资源对象，其中包含资源ID值                      |
-|  ResourceManager   |  getBoolean(resource: Resource):boolean              |  根据resource对象获取boolean类型对象  |  resource 资源对象，其中包含资源ID值                       |
-|  ResourceManager   |  getNumber(resource: Resource):number              |  根据resource对象获取number类型对象  |   resource 资源对象，其中包含资源ID值                      |
-
