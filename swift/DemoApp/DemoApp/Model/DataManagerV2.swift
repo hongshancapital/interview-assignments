@@ -27,6 +27,7 @@ class DataManagerV2: ObservableObject {
             .tryMap({ rsp in
                 return rsp.results.suffix(from: self.perPage*self.pageToFetch)
             })
+            .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 print("completion:\(completion)")
             }, receiveValue: { list in
