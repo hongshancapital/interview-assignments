@@ -1,0 +1,86 @@
+.comCarousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .list {
+    height: 100%;
+    display: flex;
+    position: absolute;
+    top: 0;
+  }
+
+  .timeBar {
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.comCarouselItem {
+  width: 100%;
+  height: 100%;
+
+  background-size: auto 60%;
+  background-repeat: no-repeat;
+  background-position: center 70%;
+
+  .textBox {
+    padding-top: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+      font-size: 56px;
+      font-weight: 600;
+    }
+
+    .divider {
+      height: 15px;
+    }
+
+    .desc {
+      font-size: 28px;
+      font-weight: 400;
+    }
+  }
+}
+
+.comTimeBarItem {
+  position: relative;
+  width: 50px;
+  height: 2px;
+  background-color: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+
+  &:not(:last-of-type) {
+    margin-right: 10px;
+  }
+
+  @keyframes move {
+    from {
+      left: -100%;
+    }
+    to {
+      left: 0%;
+    }
+  }
+
+  .progress {
+    position: absolute;
+    top: 0;
+    animation: move 2s linear forwards;
+    width: 50px;
+    height: 2px;
+    background-color: #fff;
+  }
+}
