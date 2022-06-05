@@ -1,0 +1,58 @@
+$dotWidth: 50px;
+$dotHeight: 5px;
+$dotRadius: 5px;
+
+@mixin loadCommon {
+    height: $dotHeight;
+    width: 0;
+    border-radius: $dotRadius;
+    background: #ffffff;
+}
+
+.carouselWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+
+    .content {
+        display: flex;
+    }
+
+    .dots {
+        position: absolute;
+        display: flex;
+        top: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .load {
+           @include loadCommon();
+        }
+
+        .animate {
+            @include loadCommon();
+            animation: startload 3s forwards;
+        }
+
+        &>.dot {
+            width: $dotWidth;
+            height: $dotHeight;
+            margin: 0 10px;
+            border-radius: $dotRadius;
+            background: #ccc;
+        }
+    }
+}
+
+
+@keyframes startload {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: $dotWidth;
+    }
+}
