@@ -1,0 +1,54 @@
+.swiperBox {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    .car_wrap {
+        height: 100vh;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 1s ease;
+        .swiper_ul {
+            float: left;
+            width: 100vw;
+            background-color: #000;
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            .font_dv {
+                padding-top: 100px;
+                color: #fff;
+            }
+            .pic_dv {
+                padding-bottom: 120px;
+                img {
+                    width: 200px;
+                }
+            }
+        }
+    }
+    .swiper_barBox{
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+        color: #fff;
+        .swiper_progess {
+            display: inline-block;
+            width: 50px;
+            height: 4px;
+            background-color: #333;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .avred {
+            background-color: #fff;
+        }
+    }
+}
