@@ -46,9 +46,27 @@
             background-color: #333;
             border-radius: 5px;
             margin-right: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .pro_step {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         .avred {
             background-color: #fff;
+            animation: toRight 3s ease;
         }
+    }
+}
+@keyframes toRight {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 50px;
     }
 }

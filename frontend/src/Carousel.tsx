@@ -60,7 +60,9 @@ function Carousel (props: any) {
             <div className="swiper_barBox">
                 {
                     imgs.map((v: any, index: any) => {
-                        return <span className={inactive == index ? 'swiper_progess avred' : 'swiper_progess'} key={index}></span>
+                        return <span className='swiper_progess' key={index}>
+                            <span className={inactive == index ? 'pro_step avred' : 'pro_step'}></span>
+                        </span>
                     })
                 }
             </div>
