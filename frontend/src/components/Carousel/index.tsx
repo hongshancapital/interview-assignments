@@ -1,4 +1,4 @@
-import React, { useState, useMemo, ReactNode } from 'react';
+import React, { useState, useMemo, ReactNode, ReactElement } from 'react';
 
 import './index.scss'
 
@@ -11,35 +11,41 @@ interface ICarouselProps extends defaultProps {
     intervalTime?: number,
 }
 
-let timer: NodeJS.Timer;
-export default function Carousel(props: ICarouselProps) {
+interface ICarousel {
+    (props: ICarouselProps): ReactElement,
+    CarouselItem(props: defaultProps): ReactElement,
+    timer?: NodeJS.Timer
+}
+
+const Carousel: ICarousel = function (props: ICarouselProps) {
     const {
         intervalTime = 2000,
         children
     } = props;
 
     const [currentCarouselItemIndex, setCurrentCarouselItemIndex] = useState(0);
-    const [dotPersent, setDotPersent] = useState(0)
+    const [dotPersent, setDotPersent] = useState(0);
+    const childrenCount = React.Children.count(children);
 
-    useMemo(
+    Carousel.timer = useMemo(
         () => {
-            clearInterval(timer);
+            clearInterval(Carousel.timer);
             let dotStartTime: number = Date.now();
-            timer = setInterval(() => {
-                let persent: string = ((Date.now() - dotStartTime) / intervalTime).toFixed(2);
+            return setInterval(() => {
+                let persent: string = ((Date.now() - dotStartTime) / intervalTime).toFixed(4);
                 setDotPersent(Number(persent) * 100);
-            }, 60)
+            }, 16)
         },
-        [currentCarouselItemIndex]
+        [currentCarouselItemIndex] // 只有在切换轮播卡片后，才会开始新的interval，来处理dot进度条的变化
     );
     useMemo(
         () => {
             setTimeout(() => {
-                setCurrentCarouselItemIndex(currentCarouselItemIndex >= 2 ? 0 : currentCarouselItemIndex + 1);
+                setCurrentCarouselItemIndex(currentCarouselItemIndex >= childrenCount - 1 ? 0 : currentCarouselItemIndex + 1);
                 setDotPersent(0);
             }, intervalTime)
         },
-        [currentCarouselItemIndex]
+        [currentCarouselItemIndex, childrenCount] // 在轮播卡片切换后，会开启interval延时的定时器，会切换下一张轮播卡片
     )
 
     return (
@@ -48,7 +54,7 @@ export default function Carousel(props: ICarouselProps) {
                 {children}
             </div>
             <div className="dot-container">
-                {Array.isArray(children) && children.map((item, index) => {
+                {React.Children.map(children, (item, index) => {
                     return <div className="dot-item" key={index} style={currentCarouselItemIndex === index ? {background: `linear-gradient(to right, white 0%, white ${dotPersent}%,  gray ${dotPersent}%, gray 100%)`} : {}}></div>
                 })}
             </div>
@@ -60,4 +66,6 @@ Carousel.CarouselItem = function(props: defaultProps) {
     return (
         <div className="carousel-item">{props.children}</div>
     )
-} 
+}
+
+export default Carousel;
