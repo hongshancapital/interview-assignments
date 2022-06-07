@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styled from 'styled-components'
 import {Gallery} from './gallery'
+import {Indicators} from './indicators'
 
 const Container = styled.div`
   position: relative;
@@ -29,6 +30,7 @@ export const Carousel = ({ images } : {images: string[]}) => {
   return (
     <Container>
       <Gallery images={images} currentIndex={currentIndex} />
+      <Indicators count={images.length} currentIndex={currentIndex} />
     </Container>
   );
 }
