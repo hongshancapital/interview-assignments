@@ -1,13 +1,20 @@
 import React from "react";
 import styled from 'styled-components'
 
-const Container = styled.div<{count: number}>`
+const Container = styled.div<{
+  count: number
+  currentIndex: number
+}>`
   position: absolute;
   width: ${props => (props.count * 100) + '%'};
   height: 100%;
   top: 0;
   left: 0;
-  overflow: visible;
+  transform: ${({count, currentIndex}) => {
+    const offsetPercent = count > 0 ? (-100.0 * currentIndex / count) : 0
+    return 'translateX(' + offsetPercent + '%)'
+  }};
+  transition: 0.5s;
 `
 
 const Picture = styled.img<{total: number}>`
@@ -18,14 +25,20 @@ const Picture = styled.img<{total: number}>`
   object-fit: cover;
 `
 
-export const Gallery = ({ images }: {
+export const Gallery = ({ images, currentIndex }: {
   images: string[]
+  currentIndex: number
 }) => {
   const count = images.length
   return (
-    <Container count={count}>
+    <Container count={count} currentIndex={currentIndex}>
       {
-        images.map((url) => <Picture total={count} src={url} key={url.slice(-20)} />)
+        images.map((url) =>
+          <Picture
+            src={url}
+            total={count}
+            key={url.slice(-20)}
+          />)
       }
     </Container>
   )
