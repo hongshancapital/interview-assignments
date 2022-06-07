@@ -10,22 +10,28 @@ const list: ICarouselItem[] = [
   {
     titleList: ["xPhone"],
     descList: ["Lots to love. Less to spend.", "Starting at $399."],
-    image: iphone,
-    backgroundColor: "#111",
-    textColor: "#fff",
+    style: {
+      backgroundImage: `url(${iphone})`,
+      backgroundColor: "#111",
+      color: "#fff",
+    },
   },
   {
     titleList: ["Tablet"],
     descList: ["Just the right amount of everything."],
-    image: tablet,
-    backgroundColor: "#fafafa",
-    textColor: "#000",
+    style: {
+      backgroundImage: `url(${tablet})`,
+      backgroundColor: "#fafafa",
+      color: "#000",
+    },
   },
   {
     titleList: ["Buy a Tablet or xPhone for college.", " Get arPods."],
-    image: airpods,
-    backgroundColor: "#f1f1f3",
-    textColor: "#000",
+    style: {
+      backgroundImage: `url(${airpods})`,
+      backgroundColor: "#f1f1f3",
+      color: "#000",
+    },
   },
 ];
 

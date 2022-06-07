@@ -1,13 +1,11 @@
 import { nanoid } from "nanoid";
-import React from "react";
+import React, { CSSProperties } from "react";
 import "./index.scss";
 
 export interface ICarouselItem {
-  image?: string;
   titleList?: string[];
   descList?: string[];
-  backgroundColor?: string;
-  textColor?: string;
+  style?: CSSProperties;
 }
 
 interface ICarouselItemProps {
@@ -16,22 +14,9 @@ interface ICarouselItemProps {
 
 const CarouselItem = (props: ICarouselItemProps) => {
   const { data = {} } = props;
-  const {
-    titleList = [],
-    descList = [],
-    image = "",
-    backgroundColor = "#000",
-    textColor = "#fff",
-  } = data;
+  const { titleList = [], descList = [], style = {} } = data;
   return (
-    <div
-      className="comCarouselItem"
-      style={{
-        backgroundColor,
-        color: textColor,
-        backgroundImage: `url(${image})`,
-      }}
-    >
+    <div className="comCarouselItem" style={style}>
       <div className="textBox">
         {titleList.map((title) => {
           return (
@@ -40,7 +25,9 @@ const CarouselItem = (props: ICarouselItemProps) => {
             </div>
           );
         })}
-        <div className="divider" />
+        {Boolean(titleList.length && descList.length) && (
+          <div className="divider" />
+        )}
         {descList.map((desc) => {
           return (
             <div className="desc" key={nanoid()}>

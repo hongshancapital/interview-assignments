@@ -15,17 +15,13 @@ const Carousel = (props: ICarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    setTimeout(() => {
       if (activeIndex === list.length - 1) {
         setActiveIndex(0);
       } else {
         setActiveIndex(activeIndex + 1);
       }
     }, stayTime * 1000);
-
-    return () => {
-      timer && clearInterval(timer);
-    };
   }, [activeIndex]);
 
   return (
