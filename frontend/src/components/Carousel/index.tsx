@@ -1,14 +1,9 @@
-import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
-import CarouselItem, { ICarouselItem } from "../CarouselItem";
-import TimeBarItem from "../TimeBarItem";
+import CarouselItem from "./components/CarouselItem";
+import TimeBarItem from "./components/TimeBarItem";
+import { ICarouselProps } from "./type";
+import { nanoid } from "nanoid";
 import "./index.scss";
-
-interface ICarouselProps {
-  list?: ICarouselItem[];
-  stayTime?: number;
-  changeTime?: number;
-}
 
 const Carousel = (props: ICarouselProps) => {
   const { list = [], stayTime = 2, changeTime = 1 } = props;
@@ -54,3 +49,5 @@ const Carousel = (props: ICarouselProps) => {
 };
 
 export default Carousel;
+
+export type { ICarouselItem } from "./components/CarouselItem/type";

@@ -1,20 +1,17 @@
 import { nanoid } from "nanoid";
-import React, { CSSProperties } from "react";
+import React from "react";
+import { ICarouselItemProps } from "./type";
 import "./index.scss";
 
-export interface ICarouselItem {
-  titleList?: string[];
-  descList?: string[];
-  style?: CSSProperties;
-}
-
-interface ICarouselItemProps {
-  data?: ICarouselItem;
-}
+const defaultStyle = {
+  backgroundImage: "",
+  backgroundColor: "#000",
+  color: "#fff",
+};
 
 const CarouselItem = (props: ICarouselItemProps) => {
   const { data = {} } = props;
-  const { titleList = [], descList = [], style = {} } = data;
+  const { titleList = [], descList = [], style = defaultStyle } = data;
   return (
     <div className="comCarouselItem" style={style}>
       <div className="textBox">

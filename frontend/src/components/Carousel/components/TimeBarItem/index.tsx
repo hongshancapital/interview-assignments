@@ -1,10 +1,6 @@
 import React from "react";
 import "./index.scss";
-
-interface ITimeBarItemProps {
-  active?: boolean;
-  stayTime?: number;
-}
+import { ITimeBarItemProps } from "./type";
 
 const TimeBarItem = (props: ITimeBarItemProps) => {
   const { active = false, stayTime = 2 } = props;

@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
-import Carousel from "./components/Carousel";
-import { ICarouselItem } from "./components/CarouselItem";
+import Carousel, { ICarouselItem } from "./components/Carousel";
 import iphone from "./assets/iphone.png";
 import airpods from "./assets/airpods.png";
 import tablet from "./assets/tablet.png";
