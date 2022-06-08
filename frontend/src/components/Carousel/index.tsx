@@ -32,7 +32,7 @@ export const Carousel = ({
       }
     }
    
-  }, [images, duration])
+  }, [images.length, duration])
 
   return (
     <Container>
