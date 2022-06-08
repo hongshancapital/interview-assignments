@@ -9,7 +9,14 @@ const Container = styled.div`
   height: 100%;
 `
 
-export const Carousel = ({ images } : {images: string[]}) => {
+export const Carousel = ({
+  images,
+  duration = 3
+} : {
+  images: string[]
+  duration?: number
+}) => {
+
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
@@ -18,19 +25,19 @@ export const Carousel = ({ images } : {images: string[]}) => {
     if (images.length > 0) {
       const timer = setInterval(() => {
         setCurrentIndex((i) => (i + 1) % images.length)
-      }, 3000)
+      }, duration * 1000)
   
       return () => {
         clearInterval(timer)
       }
     }
    
-  }, images)
+  }, [images, duration])
 
   return (
     <Container>
       <Gallery images={images} currentIndex={currentIndex} />
-      <Indicators count={images.length} currentIndex={currentIndex} />
+      <Indicators count={images.length} currentIndex={currentIndex} duration={duration} />
     </Container>
   );
 }
