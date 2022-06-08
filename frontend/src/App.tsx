@@ -12,21 +12,24 @@ const config: CarouselItem[] = [
     bgColor: '#0E0E0E',
     color: '#fff',
     sub: ['Lots to love. Less to spend.', 'Starting at $399.'],
-    img: img1
+    img: img1,
+    size: '1440px 900px'
   },
   {
     textList: ['Tablet'],
     bgColor: '#F9F9F9',
     color: '#000',
     sub: ['Just the right amount of everything.'],
-    img: img2
+    img: img2,
+    size: '2880px 900px'
   },
   {
     textList: ['Buy a Tablet or xPhone for college.', 'Get airPods.'],
     bgColor: '#F1F1F3',
     color: '#000',
     sub: [],
-    img: img3
+    img: img3,
+    size: '4320px 900px'
   },
 ]
 

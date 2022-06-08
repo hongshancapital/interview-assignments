@@ -3,7 +3,8 @@ export interface CarouselItem {
     bgColor: string,
     color: string,
     sub: string[],
-    img: string
+    img: string,
+    size: string
 }
 
 /**

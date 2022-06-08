@@ -7,7 +7,9 @@ const pageStyle = (config: CarouselItem): object => ({
     width: '100vw',
     height: '100vh',
     color: config.color,
-    background: `center / contain no-repeat url("${config.img}"), ${config.bgColor}`,
+    background: `no-repeat url("${config.img}"), ${config.bgColor}`,
+    backgroundSize: `${config.size}`,
+	backgroundPosition: '50% -80%',
     display: 'flex',
     flexDirection: 'column'
 })
@@ -64,7 +66,7 @@ const Carousel: React.FC<ICarouselProps> = (props) => {
 
     useEffect(() => {
         setContentWidth(document.documentElement.clientWidth);
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             if (currentPage === config.length - 1) {
                 setCurrentPage(0)
                 restart()
@@ -73,6 +75,9 @@ const Carousel: React.FC<ICarouselProps> = (props) => {
                 forward()
             }
         }, 3000);
+        return () => {
+            clearTimeout(timeout);
+        }
     }, [currentPage]);
     return (
         <div className={styles.wrapper}>
