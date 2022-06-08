@@ -9,8 +9,6 @@ interface CarouselProps {
   infinity?: boolean,
   showArrows?: boolean,
   showStatus?: boolean,
-  onClickItem?: (index: number) => void,
-  onClickThumb?: (index: number) => void,
   onChange?: (index: number) => void,
   defaultIndex?: number,
 }
