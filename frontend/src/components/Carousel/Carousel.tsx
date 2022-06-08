@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, ReactElement} from "react";
+import React, {useState, useEffect, useCallback, ReactElement} from "react"
 import styled from 'styled-components'
 import { CarouselSlide } from "./CarouselSlide";
 import { Content } from './Content'

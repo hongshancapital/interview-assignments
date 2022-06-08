@@ -1,18 +1,17 @@
 import React from "react";
-import { Carousel, CarouselSlide } from "./components/Carousel"; 
+import { Carousel, CarouselSlide } from "./components/Carousel";
+import { AirPodsPage } from './presentation/AirPodsPage'
+import { PhonePage } from "./presentation/PhonePage"
+import { TabletPage } from "./presentation/TabletPage"
 import "./App.css";
-
-import aripodsImage from './assets/airpods.png'
-import iphone from './assets/iphone.png'
-import tablet from './assets/tablet.png'
 
 function App() {
   return (
     <div className="App">
       <Carousel>
-        <CarouselSlide>1</CarouselSlide>
-        <CarouselSlide>2</CarouselSlide>
-        <CarouselSlide>3</CarouselSlide>
+        <CarouselSlide><PhonePage /></CarouselSlide>
+        <CarouselSlide><TabletPage /></CarouselSlide>
+        <CarouselSlide><AirPodsPage /></CarouselSlide>
       </Carousel>
     </div>
   );
