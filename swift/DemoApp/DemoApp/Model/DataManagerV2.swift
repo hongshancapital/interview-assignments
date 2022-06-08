@@ -44,7 +44,7 @@ class DataManagerV2: ObservableObject {
     }
     
     private func urlToRequest() -> URL {
-        let numberToRequest = perPage*(pageToFetch + 1)
+        let numberToRequest = min(perPage*(pageToFetch + 1), 50) 
         let urlString = "https://itunes.apple.com/search?entity=software&limit=\(numberToRequest)&term=chat"
         return URL(string: urlString)!
     }
