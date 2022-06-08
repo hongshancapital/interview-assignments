@@ -1,0 +1,28 @@
+.ProgressTrack {
+  background-color: #aaa;
+  width: 60px;
+  height: 3px;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  .ProgressBar {
+    background-color: white;
+    height: 100%;
+    width: 0;
+  }
+  &.ProgressTrackRunning {
+    .ProgressBar {
+      width: 100%;
+      animation: Progress 2s linear;
+
+      @keyframes Progress {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+.Carousel {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  > main {
+    display: flex;
+    transform: translateX(-100%);
+    width: 100%;
+    height: 100%;
+    transition: all 0.4s;
+    > * {
+      width: 100%;
+      height: 100%;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+  }
+
+  > footer {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    > *:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
