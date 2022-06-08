@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import styled from 'styled-components'
 import {Gallery} from './gallery'
 import {Indicators} from './indicators'
@@ -16,28 +16,42 @@ export const Carousel = ({
   images: string[]
   duration?: number
 }) => {
-
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  const count = images.length
 
   useEffect(() => {
     setCurrentIndex(0)
+  }, [count, duration])
 
-    if (images.length > 0) {
-      const timer = setInterval(() => {
-        setCurrentIndex((i) => (i + 1) % images.length)
+  useEffect(() => {
+    if (count > 0) {
+      const timer = setTimeout(() => {
+        setCurrentIndex((i) => (i + 1) % count)
       }, duration * 1000)
-  
+
       return () => {
-        clearInterval(timer)
+        clearTimeout(timer)
       }
     }
-   
-  }, [images.length, duration])
+  }, [currentIndex])
+
+  const handleClickIndicator = useCallback((index: number) => {
+    setCurrentIndex(index)
+  }, [])
 
   return (
     <Container>
-      <Gallery images={images} currentIndex={currentIndex} />
-      <Indicators count={images.length} currentIndex={currentIndex} duration={duration} />
+      <Gallery
+        images={images}
+        currentIndex={currentIndex}
+      />
+      <Indicators
+        count={count}
+        currentIndex={currentIndex}
+        duration={duration}
+        onClickIndicator={handleClickIndicator}
+      />
     </Container>
   );
 }

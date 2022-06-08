@@ -19,6 +19,11 @@ const Item = styled.span`
   background-color: #aaa;
   border-radius: 3px;
   overflow: hidden;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `
 
 const move = keyframes`
@@ -43,17 +48,19 @@ export const Indicators = ({
   count,
   currentIndex,
   duration,
+  onClickIndicator,
 }: {
   count: number
   currentIndex: number
   duration: number
+  onClickIndicator: (i: number) => void
 }) => {
   const arr = Array.from(Array(count).keys())
   return (
     <Container>
       {
         arr.map((index) =>
-          <Item key={index}>
+          <Item key={index} onClick={() => onClickIndicator(index)}>
             {
               currentIndex === index ?
                 <ProgressBar duration={duration} /> :
