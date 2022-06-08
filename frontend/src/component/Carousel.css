@@ -1,0 +1,76 @@
+.page{
+    position:relative;
+    height: 100%;
+    width: 100%;
+    display: block;
+    overflow-x: hidden;
+}
+.page-content{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+.carousel {
+    position:absolute;
+    width: 100%;
+    height: 0.2rem;
+    bottom: 2rem;
+    text-align: center;
+}
+
+.carousel-btn{
+    position:relative;
+    display: inline-block;
+    margin:0 0.2rem;
+    width: 5rem;
+    height:100%;
+    background-color:rgb(110, 109, 107);
+    line-height: 0.2rem;
+    cursor: pointer;
+}
+.carousel-btn>span{
+    position:absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width:0%;
+    height:100%;
+    background-color:rgba(255, 255, 255,1);
+    line-height: 0.2rem;
+}
+@keyframes animationWidth {
+    from {width: 0;}
+    to {width:100%;}
+}
+
+.carousel-btn.animation>span{
+    animation:animationWidth 3s;
+    animation-fill-mode: both;
+}
+@keyframes animationLeftStart {
+    from {left: 100%;}
+    to {left:0%;}
+}
+@keyframes animationLeftEnd {
+    from {left: 0%;}
+    to {left:-100%;}
+}
+.animation-left-start{
+    animation:animationLeftStart 3s;
+    animation-fill-mode: both;
+}
+.animation-left-end{
+    animation:animationLeftEnd 3s;
+    animation-fill-mode: both;
+}
+.carousel-content-item{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left:100%;
+}
+.carousel-content-item>*{
+    font-size: 28px;
+}
