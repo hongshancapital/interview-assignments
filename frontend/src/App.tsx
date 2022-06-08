@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel } from "./components/Carousel"; 
+import { Carousel, CarouselSlide } from "./components/Carousel"; 
 import "./App.css";
 
 import aripodsImage from './assets/airpods.png'
@@ -9,9 +9,13 @@ import tablet from './assets/tablet.png'
 function App() {
   return (
     <div className="App">
-      <Carousel images={[aripodsImage, iphone, tablet]} />
+      <Carousel>
+        <CarouselSlide>1</CarouselSlide>
+        <CarouselSlide>2</CarouselSlide>
+        <CarouselSlide>3</CarouselSlide>
+      </Carousel>
     </div>
   );
 }
 
-export default App;
+export default App

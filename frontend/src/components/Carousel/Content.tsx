@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styled from 'styled-components'
 
 const Container = styled.div<{
@@ -17,28 +17,28 @@ const Container = styled.div<{
   transition: 0.5s;
 `
 
-const Picture = styled.img<{total: number}>`
+const Item = styled.div<{count: number}>`
   display: inline-block;
-  width: ${props => (100.0 / props.total) + '%'};
+  position: relative;
+  width: ${props => (100.0 / props.count) + '%'};
   height: 100%;
   box-sizing: border-box;
-  object-fit: cover;
+  overflow: hidden
 `
 
-export const Gallery = ({ images, currentIndex }: {
-  images: string[]
+export const Content = ({ currentIndex, children }: {
   currentIndex: number
+  children: ReactElement[]
 }) => {
-  const count = images.length
+  const count = children.length
   return (
     <Container count={count} currentIndex={currentIndex}>
       {
-        images.map((url) =>
-          <Picture
-            src={url}
-            total={count}
-            key={url.slice(-20)}
-          />)
+        children.map((child, index) =>
+          <Item count={count} key={index}>
+            {child.props.children}
+          </Item>
+        )
       }
     </Container>
   )
