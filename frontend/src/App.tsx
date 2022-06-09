@@ -13,6 +13,12 @@ function App () {
   }}>
     <Carousel
       autoplayTime={2000}
+      transitionTime={500}
+      infinity={true}
+      statusType='bar'
+      showArrows={false}
+      showStatus={true}
+      onChange={ (index) => {console.log(`Switching to #${index} item.`)}}
     >
       <div className="item" style={{ backgroundColor: '#111', color: '#fff'}}>
         <img className="item-img" src="assets/iphone.png" alt="img"/>

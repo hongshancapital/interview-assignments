@@ -7,7 +7,7 @@ interface CarouselProps {
   autoplayTime?: number,
   transitionTime?: number,
   infinity?: boolean,
-  statusType?:string,
+  statusType?: string,
   showArrows?: boolean,
   showStatus?: boolean,
   onChange?: (index: number) => void,
@@ -19,17 +19,17 @@ const noop: () => void = () => {}
 function Carousel ({
   children,
 
-  autoplayTime = 2000,
-  transitionTime = 500,
+  autoplayTime = 2000,  // autoplay time in ms, set `0` to disable
+  transitionTime = 500, // switch transition time in ms
 
-  showArrows = true,
-  showStatus = true,
-  infinity = true,
-  statusType = 'bar',
+  showArrows = true,    // show switch arrow or not
+  showStatus = true,    // show index status or not
+  infinity = true,      // loop play
+  statusType = 'bar',   // status item type, `bar` or `dot`
 
-  onChange = noop,
+  onChange = noop,      // on change hook
 
-  defaultIndex = 0
+  defaultIndex = 0      // default item index while first rendering
 }: CarouselProps) {
   const [targetOffset, setTargetOffset] = useState(0)
 
@@ -43,7 +43,6 @@ function Carousel ({
 
   let itemList: Array<any> = []
   let barList: Array<any> = []
-
 
   /**
    * Get carousel container current width
@@ -72,7 +71,7 @@ function Carousel ({
   }
 
   /**
-   * Swtich to next item
+   * Switch to next item
    */
   const switchNext: () => void = function (): void {
     let targetIndex: number = currentIndex.current + 1
@@ -82,7 +81,7 @@ function Carousel ({
   }
 
   /**
-   * Swtich to previous item
+   * Switch to previous item
    */
   const switchPrev: () => void = function (): void {
     let targetIndex: number = currentIndex.current - 1
