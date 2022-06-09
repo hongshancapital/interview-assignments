@@ -53,6 +53,7 @@ Or you can check the `App.tsx` for demo.
 | autoplayTime   | `Number`   | `2000` ms | Carousel auto play time. Set to `0` to disable autoplay.                          |
 | transitionTime | `Number`   | `500` ms  | Carousel slide transition time.                                                   |
 | infinity       | `Boolean`  | `true`    | If set to `true`, the slide will restart from first item when it reaches the end. |
+| statusType     | `String`   | `bar`     | Set status item style. Could be `bar` or `dot`.                                   |
 | showArrows     | `Boolean`  | `true`    | The visibility of switch control arrow.                                           |
 | showStatus     | `Boolean`  | `true`    | The visibility of status bar.                                                     |
 | onChange       | `Function` | `noop`    | On change hook function.                                                          |
@@ -63,8 +64,7 @@ Or you can check the `App.tsx` for demo.
 ```typescript
 
 // 1. Use `Swipe` to support touch event.
-// 2. Support different status type (bar or dot).
-// 3. Support more hook function.
-// 4. Add some test case...
+// 2. Support more hook function.
+// 3. Add some test case...
 
 ```

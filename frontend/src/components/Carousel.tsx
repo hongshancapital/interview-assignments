@@ -7,6 +7,7 @@ interface CarouselProps {
   autoplayTime?: number,
   transitionTime?: number,
   infinity?: boolean,
+  statusType?:string,
   showArrows?: boolean,
   showStatus?: boolean,
   onChange?: (index: number) => void,
@@ -24,6 +25,7 @@ function Carousel ({
   showArrows = true,
   showStatus = true,
   infinity = true,
+  statusType = 'bar',
 
   onChange = noop,
 
@@ -116,10 +118,12 @@ function Carousel ({
     )
 
     // generate status bar list
+    let statusClass = `carousel-status-${statusType}`
+
     barList.push(
       index === currentIndex.current
-        ? <span className="carousel-status-bar carousel-current-bar" key={index}><i style={{ transition: `width ${autoplayTime}ms linear` }}></i>-</span>
-        : <span className="carousel-status-bar" key={index} onClick={() => {switchTo(index)}}><i></i>-</span>
+        ? <span className={`carousel-status-item ${statusClass} carousel-current-item`} key={index}><i style={{ transition: `width ${autoplayTime}ms linear` }}></i>-</span>
+        : <span className={`carousel-status-item ${statusClass}`} key={index} onClick={() => {switchTo(index)}}><i></i>-</span>
     )
   })
 
