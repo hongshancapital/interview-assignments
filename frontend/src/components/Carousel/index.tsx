@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, ICardData } from './Card';
 import Timeline from './Timeline';
-import './index.css';
+import  './index.scss';
 
 export interface ICarouselProps {
   data: ICardData[]; // 幻灯片数据列表
@@ -35,11 +35,8 @@ const Carousel: React.FC<ICarouselProps> = ({
     <div className="carousel-wrapper">
       {/* 幻灯片部分 */}
       <div
-        className="card-wrapper"
-        style={{
-          transition: `${duration}s`,
-          transform: `translateX(${-100 * currentIndex}%)`,
-        }}
+        className={`card-wrapper current-${currentIndex}`}
+        style={{transition: `${duration}s`}}
       >
         {data.map((card, i) => (
           <Card key={`card${i}`} data={card} />
