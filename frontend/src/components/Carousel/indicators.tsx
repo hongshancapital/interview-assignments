@@ -68,7 +68,9 @@ export const Indicators = ({
           >
             {
               currentIndex === index ?
-                <ProgressBar duration={duration} /> :
+                <ProgressBar
+                  key={`progress-${index}-${duration}`}
+                  duration={duration} /> :
                 null
             }
           </Item>
