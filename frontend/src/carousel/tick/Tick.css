@@ -1,0 +1,30 @@
+.Tick {
+    margin: 0 5px;
+    background-color: #999;
+    height: 6px;
+    border-radius: 3px;
+    position: relative;    
+    overflow: hidden;
+    width: 60px;
+    cursor: pointer;
+    border-color: #fff;
+}
+
+.Tick:hover {
+    box-shadow: 0 0 5px #6fba2c;
+}
+
+.tick-bar {
+    background-color: #e7e7e7;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    right: 100%;
+    border: none;
+}
+.Tick.active .tick-bar{
+    right: 0;
+    transition-property: right;
+    transition-duration: 3s;
+    transition-timing-function: linear;
+}

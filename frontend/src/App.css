@@ -1,6 +1,7 @@
 .App {
   text-align: center;
-  position: relative;
+  /* position: relative; */
+  height: 100%;
 }
 
 .title {
@@ -11,4 +12,52 @@
 .text {
   font-size: 28px;
   font-weight: 400;
+}
+
+.window {
+  width: 50%;
+  height: 50%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 10px;
+}
+.control label {
+  margin: 10px;
+}
+.text {
+  background-color: rgba(#6fba2c, 0.3);
+  text-align: center;
+}
+.text p {
+  width: 66%;
+  display: inline-block;
+  text-align: initial;
+}
+
+.pages {
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  padding-top: 100px;
+  font-size: 20px;
+  box-sizing: border-box;
+  height: 100%;
+}
+.page1 {
+  background-color: #111;
+  color: #fff;
+  background-image: url(./assets/iphone.png);
+  background-size: 100%;
+}
+.page2 {
+  background-color: #fff;
+  color: #222;
+  background-image: url(./assets/tablet.png);
+  background-size: 200%;
+}
+.page3 {
+  background-color: #f1f1f1;
+  color: #222;
+  background-image: url(./assets/airpods.png);
+  background-size: 300%;
 }
