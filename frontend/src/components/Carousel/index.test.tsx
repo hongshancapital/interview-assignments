@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { Carousel, CarouselSlide } from './index'
 import { act } from 'react-dom/test-utils'
 
@@ -72,5 +72,18 @@ describe('Carousel Component', () => {
     expect(container.firstChild?.firstChild).toHaveStyle('transform: translateX(-75%)')
     await act(waitForOneDuration)
     expect(container.firstChild?.firstChild).toHaveStyle('transform: translateX(0%)')
+  })
+
+  test('show indicators with the same amount as slides', async () => {
+    render(
+      <Carousel>
+        <CarouselSlide>1</CarouselSlide>
+        <CarouselSlide>2</CarouselSlide>
+        <CarouselSlide>3</CarouselSlide>
+      </Carousel>
+    )
+
+    const indicators = await screen.findAllByRole('indicator')
+    expect(indicators).toHaveLength(3)
   })
 })

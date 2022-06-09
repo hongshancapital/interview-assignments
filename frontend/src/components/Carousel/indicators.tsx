@@ -60,7 +60,7 @@ export const Indicators = ({
     <Container>
       {
         arr.map((index) =>
-          <Item key={index} onClick={() => onClickIndicator(index)}>
+          <Item role='indicator' key={index} onClick={() => onClickIndicator(index)}>
             {
               currentIndex === index ?
                 <ProgressBar duration={duration} /> :
