@@ -29,19 +29,19 @@ export const Carousel = ({
 
   useEffect(() => {
     setCurrentIndex(0)
-  }, [count, duration])
+  }, [count])
 
   useEffect(() => {
     if (count > 0) {
       const timer = setTimeout(() => {
-        setCurrentIndex((i) => (i + 1) % count)
+        setCurrentIndex((currentIndex + 1) % count)
       }, duration * 1000)
 
       return () => {
         clearTimeout(timer)
       }
     }
-  }, [currentIndex])
+  }, [currentIndex, count, duration])
 
   const handleClickIndicator = useCallback((index: number) => {
     setCurrentIndex(index)
