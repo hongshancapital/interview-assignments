@@ -39,7 +39,7 @@ export const TabletPage = () => {
         <Title>Tablet</Title>
         <SubTitle>Just the right amount of everything.</SubTitle>
       </TitleArea>
-      <img src={tablet} />
+      <img src={tablet} alt='a tablet' />
     </Container>
   )
 }

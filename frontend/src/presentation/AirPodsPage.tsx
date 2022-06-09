@@ -32,7 +32,7 @@ export const AirPodsPage = () => {
         <Title>Buy a Tablet or xPhone for college.</Title>
         <Title>Get arPods.</Title>
       </TitleArea>
-      <img src={airPods} />
+      <img src={airPods} alt='a pair of wireless earphones' />
     </Container>
   )
 }

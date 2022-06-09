@@ -40,7 +40,7 @@ export const PhonePage = () => {
         <SubTitle>Lots to love. Less to spend.</SubTitle>
         <SubTitle>Starting at $399.</SubTitle>
       </TitleArea>
-      <img src={phone} />
+      <img src={phone} alt='a smart phone' />
     </Container>
   )
 }
