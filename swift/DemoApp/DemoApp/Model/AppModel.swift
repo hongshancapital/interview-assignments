@@ -39,13 +39,15 @@ class AppModel: Identifiable, ObservableObject, Decodable {
     class func parseList(from jsonData: Data) -> [AppModel]? {
         guard let json = try? JSONSerialization.jsonObject(with: jsonData, options: [])
         else {
-            fatalError("未能正确解析数据文件: \(jsonData)")
+            debugPrint("未能正确解析数据文件: \(jsonData)")
+            return nil
         }
         
         if let rootJson = json as? [String: Any] {
             guard let jsonArray = rootJson["results"] as? [[String: Any]]
             else {
-                fatalError("未能正确解析results: \(jsonData)")
+                debugPrint("未能正确解析results: \(jsonData)")
+                return nil
             }
             let resultsData = try? JSONSerialization.data(withJSONObject: jsonArray, options: [])
             let appList = try! JSONDecoder().decode([AppModel].self, from: resultsData!)

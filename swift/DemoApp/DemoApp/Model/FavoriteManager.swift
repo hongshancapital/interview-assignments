@@ -26,8 +26,11 @@ class FavoriteManager {
     }
     
     func isFavorite(by appId: Int)-> Bool {
-        let number = favoriteById[String(appId)] ?? String(false)
-        return Bool(number)!
+        
+        if let number = favoriteById[String(appId)] {
+            return Bool(number) ?? false
+        }
+        return false
     }
     
     func save() {
