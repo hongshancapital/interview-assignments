@@ -10,9 +10,12 @@ import Foundation
 class FavoriteManager {
     static let shared = FavoriteManager()
     private var favoriteById: [String: String]
-    private let key = "com.userdefault.favorite"
+    private let key = "com.userDefault.favorite"
     private init() {
-        if let favoriteDictionary = UserDefaults.standard.dictionary(forKey: key) as? [String: String] {
+        if let favoriteDictionary =
+            UserDefaults
+            .standard
+            .dictionary(forKey: key) as? [String: String] {
             favoriteById = favoriteDictionary
         } else {
             favoriteById = [:]

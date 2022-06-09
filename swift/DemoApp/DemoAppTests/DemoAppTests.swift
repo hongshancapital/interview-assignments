@@ -26,7 +26,7 @@ class DemoAppTests: XCTestCase {
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10)
-        XCTAssert(dataMgr.appList.count == 20, "获取的applist应为20")
+        XCTAssert(dataMgr.appList.count == 20, "获取的AppModel应为20")
     }
     
     func testAppModelDecoding() throws {
@@ -42,8 +42,8 @@ class DemoAppTests: XCTestCase {
             return
         }
         
-        let apiRsp = try? JSONDecoder().decode(ApiResponse.self, from: data)
-        if let list = apiRsp?.results {
+        let apiResponse = try? JSONDecoder().decode(ApiResponse.self, from: data)
+        if let list = apiResponse?.results {
             XCTAssert(list.count == 50, "解析appModel对象失败")
         } else {
             XCTFail("解析数据文件失败\(dataFile)")
