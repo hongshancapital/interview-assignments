@@ -1,7 +1,6 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { Carousel, CarouselSlide } from './index'
-import { act } from 'react-dom/test-utils'
 
 describe('Carousel Component', () => {
   test('spreads the whole container', () => {
