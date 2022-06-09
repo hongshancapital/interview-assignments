@@ -9,7 +9,6 @@ import XCTest
 @testable import DemoApp
 
 class DemoAppTests: XCTestCase {
-    let dataMgr: DataManagerV2 = DataManagerV2()
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -19,9 +18,15 @@ class DemoAppTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testDataManagerFetch() throws {
+        let dataMgr = DataManagerV2()
+        dataMgr.fetch(false)
+        let expectation = self.expectation(description: "延时等待fetch结束")
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now()+5) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+        XCTAssert(dataMgr.appList.count == 20, "获取的applist应为20")
     }
     
     func testAppModelDecoding() throws {
@@ -43,7 +48,6 @@ class DemoAppTests: XCTestCase {
         } else {
             XCTFail("解析数据文件失败\(dataFile)")
         }
-
     }
 
     func testPerformanceExample() throws {
