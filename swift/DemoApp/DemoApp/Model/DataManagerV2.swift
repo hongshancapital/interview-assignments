@@ -29,7 +29,13 @@ class DataManagerV2: ObservableObject {
             })
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
-                print("completion:\(completion)")
+                print(".sink(): received the completion", String(describing: completion))
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let anError):
+                    debugPrint("received error: ", anError)
+                }
             }, receiveValue: { list in
                 self.pageToFetch += 1
                 if isRefresh {
