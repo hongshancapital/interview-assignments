@@ -7,10 +7,16 @@
 
 import Foundation
 
-struct AppInfo: Codable, Hashable, Identifiable {
+struct AppInfo: Decodable, Identifiable {
     var id: Int
-    
-    var trackName: String
-    var artworkUrl60: String
+    var name: String
+    var iconUrl: String
     var description: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "trackId"
+        case name = "trackName"
+        case iconUrl = "artworkUrl60"
+        case description = "description"
+    }
 }

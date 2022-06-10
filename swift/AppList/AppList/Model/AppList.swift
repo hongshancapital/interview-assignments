@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AppList: Codable, Hashable {
+struct AppList: Decodable {
     var resultCount: Int
     var results: [AppInfo]
 }

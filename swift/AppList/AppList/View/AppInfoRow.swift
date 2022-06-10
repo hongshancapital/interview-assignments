@@ -11,20 +11,18 @@ struct AppInfoRow: View {
     @ObservedObject var appInfoVM: AppInfoVM
     
     var body: some View {
-        if let appInfo = appInfoVM.appInfo {
-            HStack {
-                appIcon
-                appContentView
-                favoriteButton
-            }
-            .frame(height: 70)
+        HStack {
+            appIcon
+            appContentView
+            favoriteButton
         }
+        .frame(height: 70)
     }
     
     private var appIcon: some View {
         Group {
             if let appInfo = appInfoVM.appInfo {
-                AsyncImage(url: URL(string: appInfo.artworkUrl60)) { image in
+                AsyncImage(url: URL(string: appInfo.iconUrl)) { image in
                     image.resizable()
                 } placeholder: {
                     ProgressView()
@@ -39,7 +37,7 @@ struct AppInfoRow: View {
         Group {
             if let appInfo = appInfoVM.appInfo {
                 VStack(spacing: 5) {
-                    Text(appInfo.trackName)
+                    Text(appInfo.name)
                         .bold()
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)
