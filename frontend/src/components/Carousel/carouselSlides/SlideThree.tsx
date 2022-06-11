@@ -10,6 +10,7 @@ const STextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 5px 10px;
+  color: #FFFFFF;
 `;
 
 const SlideOne = () => (

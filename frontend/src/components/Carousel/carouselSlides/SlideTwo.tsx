@@ -12,6 +12,20 @@ const STextWrapper = styled.div`
   margin: 5px 10px;
 `;
 
+const Title = styled.h1`
+  font-size: 3.5em;
+  text-align: center;
+  color: white;
+`;
+
+const Content = styled.p`
+  font-size: 1.5em;
+  text-align: center;
+  color: white;
+  line-height: 0;
+`;
+
+
 const SlideOne = () => (
   <SContainer>
     <STextWrapper>
