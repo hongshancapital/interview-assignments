@@ -4,6 +4,11 @@ import styled from "styled-components";
 const SContainer = styled.div`
   align-items: center;
   display: flex;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+  overflow: hidden;
 `;
 
 const STextWrapper = styled.div`

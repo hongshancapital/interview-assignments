@@ -9,7 +9,7 @@ import SlideThree from './components/Carousel/carouselSlides/SlideThree';
 function App() {
   return (
     <div className="App">
-      <Carousel>
+      <Carousel autoPlay={3}>
         <SlideOne></SlideOne>
         <SlideTwo></SlideTwo>
         <SlideThree></SlideThree>
