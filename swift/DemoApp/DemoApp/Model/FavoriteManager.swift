@@ -23,7 +23,7 @@ class FavoriteManager {
     }
     
     func setFavorite(isFavorite: Bool, by appId: Int) {
-        
+        debugPrint("setFavorite: \(appId), \(isFavorite)")
         favoriteById[String(appId)] = String(isFavorite)
         save()
     }

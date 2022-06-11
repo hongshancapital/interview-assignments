@@ -25,11 +25,14 @@ class DataManagerV2: ObservableObject {
             .tryMap { $0.data }
             .decode(type: ApiResponse.self, decoder: JSONDecoder())
             .tryMap({ apiResponse in
-                return apiResponse.results.suffix(from: self.perPage*self.pageToFetch)
+                return apiResponse
+                    .results
+                    .suffix(from: self.perPage*self.pageToFetch)
             })
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
-                print(".sink(): received the completion", String(describing: completion))
+                print(".sink(): received the completion",
+                      String(describing: completion))
                 switch completion {
                 case .finished:
                     break

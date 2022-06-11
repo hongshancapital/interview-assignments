@@ -31,7 +31,10 @@ class DemoAppTests: XCTestCase {
     
     func testAppModelDecoding() throws {
         let dataFile = "data.json"
-        guard let url = Bundle.main.url(forResource: dataFile, withExtension: nil)
+        guard let url = Bundle.main.url(
+            forResource: dataFile,
+            withExtension: nil
+        )
         else {
             XCTFail("未找到数据文件\(dataFile)")
             return
@@ -42,14 +45,32 @@ class DemoAppTests: XCTestCase {
             return
         }
         
-        let apiResponse = try? JSONDecoder().decode(ApiResponse.self, from: data)
+        let apiResponse = try? JSONDecoder().decode(
+            ApiResponse.self,
+            from: data
+        )
         if let list = apiResponse?.results {
             XCTAssert(list.count == 50, "解析appModel对象失败")
         } else {
             XCTFail("解析数据文件失败\(dataFile)")
         }
     }
+    
+    func testFavorite() {
+        let idForMock = 1234567890
+        FavoriteManager.shared.setFavorite(isFavorite: true, by: idForMock)
+        let isFavorite = FavoriteManager.shared.isFavorite(by: idForMock)
+        XCTAssert(isFavorite == true, "favorite失败")
+    }
+    
+    func testUnFavorite() {
+        let idForMock = 1234567890
+        FavoriteManager.shared.setFavorite(isFavorite: false, by: idForMock)
+        let isFavorite = FavoriteManager.shared.isFavorite(by: idForMock)
+        XCTAssert(isFavorite == false, "unfavorite失败")
 
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
