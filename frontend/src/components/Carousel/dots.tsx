@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface IDotSpan {
   active?: boolean;
@@ -10,11 +10,11 @@ const DotSpan = styled.span<IDotSpan>`
   margin-right: 5px;
   cursor: pointer;
   border-radius: 50%;
-  background: ${(props) => (props.active ? 'black' : 'gray')};
+  background: ${(props) => (props.active ? 'green' : 'gray')};
 `;
 
-const Dot = (props: IDotSpan) => {
-  return <DotSpan></DotSpan>;
+const Dot = ({active}: IDotSpan) => {
+  return <DotSpan active={active}></DotSpan>;
 };
 
 const MemoDot = memo(Dot);
@@ -37,8 +37,9 @@ const DotsDiv = styled.div`
 const Dots = ({slides, activeSlide, autoPlay}: IDotsDiv) => {
   return (
     <DotsDiv>
+      {console.log(activeSlide)}
       {slides.map((slide, i) => (
-        <MemoDot key={slide.key} active={activeSlide === i} />
+        <MemoDot key={slide.type.name} active={activeSlide === i} />
       ))}
     </DotsDiv>
   );

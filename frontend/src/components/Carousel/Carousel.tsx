@@ -60,12 +60,6 @@ const Carousel = ({ children, autoPlay }: IProps) => {
     </SCarouselSlide>
   ));
 
-  const prevSlide = () => {
-    setCurrentSlide(
-      (currentSlide - 1 + activeSlide.length) % activeSlide.length,
-    );
-  };
-
   const nextSlide = () => {
     setCurrentSlide((currentSlide + 1) % activeSlide.length);
   };
@@ -82,7 +76,7 @@ const Carousel = ({ children, autoPlay }: IProps) => {
           {activeSlide}
         </SCarouselSlides>
       </SCarouselWrapper>
-      <Dots slides={children} autoPlay={autoPlay}></Dots>
+      <Dots slides={children} autoPlay={autoPlay} activeSlide={currentSlide}></Dots>
     </div>
   );
 };
