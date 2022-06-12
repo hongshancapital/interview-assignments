@@ -1,23 +1,6 @@
-import React, { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-interface IDotSpan {
-  active?: boolean;
-}
-
-const DotSpan = styled.span<IDotSpan>`
-  padding: 10px;
-  margin-right: 5px;
-  cursor: pointer;
-  border-radius: 50%;
-  background: ${(props) => (props.active ? 'green' : 'gray')};
-`;
-
-const Dot = ({active}: IDotSpan) => {
-  return <DotSpan active={active}></DotSpan>;
-};
-
-const MemoDot = memo(Dot);
+import MemoDot from './processbar';
 
 interface IDotsDiv {
   slides: JSX.Element[];
@@ -34,12 +17,16 @@ const DotsDiv = styled.div`
   justify-content: center;
 `;
 
-const Dots = ({slides, activeSlide, autoPlay}: IDotsDiv) => {
+const Dots = ({ slides, activeSlide, autoPlay }: IDotsDiv) => {
+
   return (
     <DotsDiv>
-      {console.log(activeSlide)}
       {slides.map((slide, i) => (
-        <MemoDot key={slide.type.name} active={activeSlide === i} />
+        <MemoDot
+          key={slide.type.name}
+          active={activeSlide === i}
+          autoPlay={autoPlay}
+        />
       ))}
     </DotsDiv>
   );

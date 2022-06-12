@@ -37,7 +37,6 @@ interface ICarouselSlide {
 // 通过透明度控制是否显示
 const SCarouselSlide = styled.div<ICarouselSlide>`
   flex: 0 0 auto;
-  /* display: ${(props) => (props.active ? 'flex' : 'none')}; */
   opacity: ${(props) => (props.active ? 1 : 0)};
   transition: all 0.5s ease;
   width: 100%;
