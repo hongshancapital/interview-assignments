@@ -1,20 +1,22 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import iphone from '../../../../src/assets/iphone.png';
-import airpods from '../../../../src/assets/airpods.png'
-import * as images from '../../../src/assets/*.png'
+
+// const getWidth = () => window.innerWidth
 
 const SContainer = styled.div`
-  align-items: center;
   display: flex;
-  background-image: url(${iphone})
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #090909;
+  flex-direction: column;
 `;
 
 const STextWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin: 5px 10px;
 `;
 
 const Title = styled.h1`
@@ -30,6 +32,11 @@ const Content = styled.p`
   line-height: 0;
 `;
 
+const Icon = styled.img`
+  width: 110px;
+  height: 100px;
+`
+
 const SlideOne = () => (
   <SContainer>
     <STextWrapper>
@@ -37,7 +44,7 @@ const SlideOne = () => (
       <Content>Lots to love.Less to spend. </Content>
       <Content>Starting at $399.</Content>
     </STextWrapper>
-    
+    <Icon src={iphone} alt="" />
   </SContainer>
 );
 

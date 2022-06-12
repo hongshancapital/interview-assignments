@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import * as images from '../../../src/assets/*.png'
-interface ICarouselProps {
-  currentSlide: number;
-}
+import styled, {css} from 'styled-components';
 
-interface IProps {
-  children: JSX.Element[];
-  autoPlay: number;
-}
-
+// Carousel组件外层容器div的样式
 const SCarouselWrapper = styled.div`
+  display: flex;
   position: relative;
-  height: 100vh;
-  width: 100vw;
   margin: 0 auto;
-  overflow: hidden;
-  background: black;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  /* overflow: hidden; */
 `;
 
+// 判断当前slide是否是激活状态的接口
 interface ICarouselSlide {
   active?: boolean;
 }
 
-const SCarouselSlides = styled.div<ICarouselProps>`
-  height: 100vh;
+// 通过透明度控制是否显示
+const SCarouselSlide = styled.div<ICarouselSlide>`
+  flex: 0 0 auto;
+  /* display: ${(props) => (props.active ? 'flex' : 'none')}; */
+  /* opacity: ${props => (props.active ? 1 : 0)}; */
+  transition: all 0.5s ease;
   width: 100vw;
+`;
+
+// 当前显示的slide的索引接口
+interface ICarouselProps {
+  currentSlide: number;
+}
+
+// 滑动页面的容器div
+const SCarouselSlides = styled.div<ICarouselProps>`
+  display: flex;
   ${(props) =>
     props.currentSlide &&
     css`
@@ -34,40 +42,44 @@ const SCarouselSlides = styled.div<ICarouselProps>`
   transition: all 0.5s ease;
 `;
 
-const SCarouselSlide = styled.div<ICarouselSlide>`
-  flex: 0 0 auto;
-  opacity: ${(props) => (props.active ? 1 : 0)};
-  transition: all 0.5s ease;
-`;
+// 传入Carsouel组件的props接口
+interface IProps {
+  children: JSX.Element[];
+  autoPlay: number;
+}
 
+// Carsouel组件
 const Carousel = ({ children, autoPlay }: IProps) => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const prevSlide = () => {
-    setCurrentSlide((currentSlide - 1 + activeSlide.length) % activeSlide.length);
-  }
+  const activeSlide = children.map((slide, index) => (
+    <SCarouselSlide active={currentSlide === index} key={index}>
+      {console.log(index, slide)}
+      {slide}
+    </SCarouselSlide>
+  ));
 
-  const nextSlide   = () => {
+  const prevSlide = () => {
+    setCurrentSlide(
+      (currentSlide - 1 + activeSlide.length) % activeSlide.length,
+    );
+  };
+
+  const nextSlide = () => {
     setCurrentSlide((currentSlide + 1) % activeSlide.length);
-  }
+  };
 
   // useEffect(() => {
   //   const interval = setInterval(nextSlide, autoPlay * 1000);
   //   return () => clearInterval(interval);
   // });
 
-  const activeSlide = children.map((slide, index) => (
-    <SCarouselSlide active={currentSlide === index} key={index}>
-      {slide}
-    </SCarouselSlide>
-  ));
-
   return (
     <div>
       <SCarouselWrapper>
         <SCarouselSlides currentSlide={currentSlide}>
-          {activeSlide}
+        {activeSlide}
         </SCarouselSlides>
       </SCarouselWrapper>
     </div>
