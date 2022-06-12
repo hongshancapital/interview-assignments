@@ -3,7 +3,7 @@ import styled, {css} from 'styled-components';
 
 // Carousel组件外层容器div的样式
 const SCarouselWrapper = styled.div`
-  display: flex;
+  /* display: flex; */
   position: relative;
   margin: 0 auto;
   min-height: 100vh;
@@ -83,20 +83,6 @@ const Carousel = ({ children, autoPlay }: IProps) => {
         {activeSlide}
         </SCarouselSlides>
       </SCarouselWrapper>
-      <button
-        onClick={() => {
-          setCurrentSlide((currentSlide - 1 + activeSlide.length) % activeSlide.length);
-        }}
-      >
-        Left
-      </button>
-      <button
-        onClick={() => {
-          setCurrentSlide((currentSlide + 1) % activeSlide.length);
-        }}
-      >
-        Right
-      </button>
     </div>
   );
 };

@@ -7,8 +7,10 @@ const SContainer = styled.div`
   min-height: 100vh;
   justify-content: flex-start;
   align-items: center;
-  overflow: hidden;
   flex-direction: column;
+`;
+
+const Content = styled.div`
   margin-top: 10%;
 `;
 
@@ -19,7 +21,7 @@ const Title = styled.h1`
   margin: 0px;
 `;
 
-const Content = styled.p`
+const TextContent = styled.p`
   font-size: 1.5em;
   text-align: center;
   color: black;
@@ -29,14 +31,16 @@ const Content = styled.p`
 const Show = styled.img`
   width: 110px;
   height: 100px;
-  margin-top:18%;
+  margin-top:35%;
 `;
 
 const SlideTwo = () => (
   <SContainer>
+    <Content>
     <Title>Tablet</Title>
-    <Content>Just the right amount of everything. </Content>
+    <TextContent>Just the right amount of everything. </TextContent>
     <Show src={tablet} alt=""></Show>
+    </Content>
   </SContainer>
 );
 
