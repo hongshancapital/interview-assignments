@@ -9,21 +9,7 @@ const SCarouselWrapper = styled.div`
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-  /* overflow: hidden; */
-`;
-
-// 判断当前slide是否是激活状态的接口
-interface ICarouselSlide {
-  active?: boolean;
-}
-
-// 通过透明度控制是否显示
-const SCarouselSlide = styled.div<ICarouselSlide>`
-  flex: 0 0 auto;
-  /* display: ${(props) => (props.active ? 'flex' : 'none')}; */
-  /* opacity: ${props => (props.active ? 1 : 0)}; */
-  transition: all 0.5s ease;
-  width: 100vw;
+  overflow: hidden;
 `;
 
 // 当前显示的slide的索引接口
@@ -42,6 +28,22 @@ const SCarouselSlides = styled.div<ICarouselProps>`
   transition: all 0.5s ease;
 `;
 
+// 判断当前slide是否是激活状态的接口
+interface ICarouselSlide {
+  active?: boolean;
+}
+
+// 通过透明度控制是否显示
+const SCarouselSlide = styled.div<ICarouselSlide>`
+  flex: 0 0 auto;
+  /* display: ${(props) => (props.active ? 'flex' : 'none')}; */
+  opacity: ${props => (props.active ? 1 : 0)};
+  transition: all 0.5s ease;
+  width: 100%;
+`;
+
+
+
 // 传入Carsouel组件的props接口
 interface IProps {
   children: JSX.Element[];
@@ -55,7 +57,6 @@ const Carousel = ({ children, autoPlay }: IProps) => {
 
   const activeSlide = children.map((slide, index) => (
     <SCarouselSlide active={currentSlide === index} key={index}>
-      {console.log(index, slide)}
       {slide}
     </SCarouselSlide>
   ));
@@ -70,10 +71,10 @@ const Carousel = ({ children, autoPlay }: IProps) => {
     setCurrentSlide((currentSlide + 1) % activeSlide.length);
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(nextSlide, autoPlay * 1000);
-  //   return () => clearInterval(interval);
-  // });
+  useEffect(() => {
+    const interval = setInterval(nextSlide, autoPlay * 1000);
+    return () => clearInterval(interval);
+  });
 
   return (
     <div>
@@ -82,6 +83,20 @@ const Carousel = ({ children, autoPlay }: IProps) => {
         {activeSlide}
         </SCarouselSlides>
       </SCarouselWrapper>
+      <button
+        onClick={() => {
+          setCurrentSlide((currentSlide - 1 + activeSlide.length) % activeSlide.length);
+        }}
+      >
+        Left
+      </button>
+      <button
+        onClick={() => {
+          setCurrentSlide((currentSlide + 1) % activeSlide.length);
+        }}
+      >
+        Right
+      </button>
     </div>
   );
 };

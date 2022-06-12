@@ -35,6 +35,7 @@ const Content = styled.p`
 const Icon = styled.img`
   width: 110px;
   height: 100px;
+  margin-top:18%;
 `
 
 const SlideOne = () => (
