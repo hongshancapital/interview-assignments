@@ -32,7 +32,7 @@ const TextContent = styled.h2`
 const Show = styled.img`
   width: 110px;
   height: 100px;
-  margin-top:35%;
+  margin-top:33%;
 `;
 
 const SlideThree = () => (

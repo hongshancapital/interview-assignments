@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
+import Dots from './dots';
 
 // Carousel组件外层容器div的样式
 const SCarouselWrapper = styled.div`
@@ -37,11 +38,10 @@ interface ICarouselSlide {
 const SCarouselSlide = styled.div<ICarouselSlide>`
   flex: 0 0 auto;
   /* display: ${(props) => (props.active ? 'flex' : 'none')}; */
-  opacity: ${props => (props.active ? 1 : 0)};
+  opacity: ${(props) => (props.active ? 1 : 0)};
   transition: all 0.5s ease;
   width: 100%;
 `;
-
 
 
 // 传入Carsouel组件的props接口
@@ -52,7 +52,6 @@ interface IProps {
 
 // Carsouel组件
 const Carousel = ({ children, autoPlay }: IProps) => {
-
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const activeSlide = children.map((slide, index) => (
@@ -80,9 +79,10 @@ const Carousel = ({ children, autoPlay }: IProps) => {
     <div>
       <SCarouselWrapper>
         <SCarouselSlides currentSlide={currentSlide}>
-        {activeSlide}
+          {activeSlide}
         </SCarouselSlides>
       </SCarouselWrapper>
+      <Dots slides={children} autoPlay={autoPlay}></Dots>
     </div>
   );
 };

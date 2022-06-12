@@ -28,6 +28,7 @@ const Title = styled.h1`
   font-size: 3.5em;
   text-align: center;
   color: white;
+  margin-bottom: 1px;
 `;
 
 const TextContent = styled.p`
@@ -35,12 +36,13 @@ const TextContent = styled.p`
   text-align: center;
   color: white;
   line-height: 0;
+  margin-bottom: 5px;
 `;
 
 const Icon = styled.img`
   width: 110px;
   height: 100px;
-  margin-top:35%;
+  margin-top:100%;
 `
 
 const SlideOne = () => (
