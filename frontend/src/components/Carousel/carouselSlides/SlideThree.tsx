@@ -1,19 +1,21 @@
-import * as React from "react";
-import styled from "styled-components";
-import airpods from '../../../../src/assets/airpods.png'
+import * as React from 'react';
+import styled from 'styled-components';
+import airpods from '../../../../src/assets/airpods.png';
 
 const SContainer = styled.div`
   display: flex;
   min-height: 100vh;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
-  background-color: #F4F2F6;
+  background-color: #f4f2f6;
   flex-direction: column;
 `;
 
 const Content = styled.div`
-  margin-top: 10%;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Title = styled.h2`
   font-size: 3.5em;
@@ -32,17 +34,15 @@ const TextContent = styled.h2`
 const Show = styled.img`
   width: 110px;
   height: 100px;
-  margin-top:33%;
 `;
 
 const SlideThree = () => (
-
   <SContainer>
-      <Content>
+    <Content>
       <Title>Buy a Tablet or xPhone for college.</Title>
       <TextContent>Get arPods. </TextContent>
-      <Show src={airpods} alt=""></Show>
-      </Content>
+    </Content>
+    <Show src={airpods} alt=""></Show>
   </SContainer>
 );
 

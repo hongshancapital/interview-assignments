@@ -10,11 +10,10 @@ interface IDotsDiv {
 
 const DotsDiv = styled.div`
   position: absolute;
-  bottom: 20%;
-  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  bottom: 10%;
+  left: 46%;
 `;
 
 const Dots = ({ dots, activeDot, autoPlay }: IDotsDiv) => {

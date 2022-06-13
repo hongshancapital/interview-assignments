@@ -4,14 +4,14 @@ import Dots from './dots';
 
 // Carousel组件外层容器div的样式
 const SCarouselWrapper = styled.div`
-  /* display: flex; */
   position: relative;
   margin: 0 auto;
   min-height: 100vh;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   overflow: hidden;
-  background-color: #FCFAFC;
+  background-color: #fcfafc;
 `;
 
 // 当前显示的slide的索引接口
@@ -22,6 +22,7 @@ interface ICarouselProps {
 // 滑动页面的容器div
 const SCarouselSlides = styled.div<ICarouselProps>`
   display: flex;
+  width: 100%;
   ${(props) =>
     props.currentSlide &&
     css`
@@ -41,8 +42,12 @@ const SCarouselSlide = styled.div<ICarouselSlide>`
   opacity: ${(props) => (props.active ? 1 : 0)};
   transition: all 0.5s ease;
   width: 100%;
+  min-height: 100vh;
 `;
 
+const Container = styled.div`
+  display: block;
+`;
 
 // 传入Carsouel组件的props接口
 interface IProps {
@@ -72,11 +77,17 @@ const Carousel = ({ children, autoPlay }: IProps) => {
   return (
     <div>
       <SCarouselWrapper>
-        <SCarouselSlides currentSlide={currentSlide}>
-          {activeSlide}
-        </SCarouselSlides>
+        <Container>
+          <SCarouselSlides currentSlide={currentSlide}>
+            {activeSlide}
+          </SCarouselSlides>
+          <Dots
+            dots={children}
+            activeDot={currentSlide}
+            autoPlay={autoPlay}
+          ></Dots>
+        </Container>
       </SCarouselWrapper>
-      <Dots dots={children} activeDot={currentSlide} autoPlay={autoPlay}></Dots>
     </div>
   );
 };

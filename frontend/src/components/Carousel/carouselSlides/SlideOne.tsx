@@ -2,21 +2,20 @@ import * as React from 'react';
 import styled from 'styled-components';
 import iphone from '../../../../src/assets/iphone.png';
 
-const getWidth = () => window.innerWidth
+const getWidth = () => window.innerWidth;
 
 const SContainer = styled.div`
   display: flex;
   min-height: 100vh;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
   background-color: #090909;
   flex-direction: column;
 `;
 
 const Content = styled.div`
-  margin-top: 10%;
-  width: ${getWidth()};
-`
+  display: block;
+`;
 
 const STextWrapper = styled.div`
   display: flex;
@@ -42,19 +41,16 @@ const TextContent = styled.p`
 const Icon = styled.img`
   width: 110px;
   height: 100px;
-  margin-top:100%;
-`
+`;
 
 const SlideOne = () => (
   <SContainer>
-    <Content>
     <STextWrapper>
       <Title>xPhone</Title>
       <TextContent>Lots to love.Less to spend. </TextContent>
       <TextContent>Starting at $399.</TextContent>
     </STextWrapper>
     <Icon src={iphone} alt="" />
-    </Content>
   </SContainer>
 );
 
