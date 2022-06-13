@@ -1,21 +1,17 @@
 import React, { memo, useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-interface IDotSpan {
+interface IBarSpan {
   active?: boolean;
-  autoPlay: number;
+  activeSlide?: number;
 }
 
-const DotSpan = styled.span<IDotSpan>`
+const BarSpan = styled.span<IBarSpan>`
   margin-right: 5px;
   cursor: pointer;
   height: 3px;
   width: 35px;
-  background: -webkit-linear-gradient(to right, #8E54E9, #4776E6);
-  background: linear-gradient(to right, #8E54E9, #4776E6);
-  transition: all 4s;
-  transition-duration: 1s;
-  background: ${(props) => (props.active ? 'green' : 'gray')};
+  background: ${(props) => (props.active ? 'green' : '#ABA9AB')};
 `;
 
 interface IBar {
@@ -25,10 +21,10 @@ interface IBar {
 const Bar = styled.div<IBar>`
   width: ${({ progress }) => `${progress}%`};
   height: 3px;
-  background: gray;
+  background: #FFFFFF;
 `;
 
-const ProgressBar = ({ active, autoPlay }: IDotSpan) => {
+const ProgressBar = ({ active, activeSlide }: IBarSpan) => {
   const step = 1
   const interval = 10
   const maxProgress = 100
@@ -41,14 +37,17 @@ const ProgressBar = ({ active, autoPlay }: IDotSpan) => {
     }
   }, [progressPercentage])
 
+  // useEffect(() => {
+  //   setProgressPercentage(0)
+  // }, [autoPlay])
 
   return (
-    <DotSpan active={active} autoPlay={autoPlay}>
-      <Bar progress={progressPercentage}></Bar>
-    </DotSpan>
+    <BarSpan active={active}>
+      
+    </BarSpan>
   );
 };
 
-const MemoDot = memo(ProgressBar);
+const MemoProgressBar = memo(ProgressBar);
 
-export default MemoDot;
+export default MemoProgressBar;

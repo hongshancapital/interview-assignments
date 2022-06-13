@@ -11,6 +11,7 @@ const SCarouselWrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-color: #FCFAFC;
 `;
 
 // 当前显示的slide的索引接口
@@ -63,10 +64,10 @@ const Carousel = ({ children, autoPlay }: IProps) => {
     setCurrentSlide((currentSlide + 1) % activeSlide.length);
   };
 
-  useEffect(() => {
-    const interval = setInterval(nextSlide, autoPlay * 1000);
-    return () => clearInterval(interval);
-  });
+  // useEffect(() => {
+  //   const interval = setInterval(nextSlide, autoPlay * 1000);
+  //   return () => clearInterval(interval);
+  // });
 
   return (
     <div>
@@ -75,7 +76,7 @@ const Carousel = ({ children, autoPlay }: IProps) => {
           {activeSlide}
         </SCarouselSlides>
       </SCarouselWrapper>
-      <Dots slides={children} autoPlay={autoPlay} activeSlide={currentSlide}></Dots>
+      <Dots dots={children} activeDot={currentSlide}></Dots>
     </div>
   );
 };

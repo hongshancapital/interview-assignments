@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { act } from 'react-dom/test-utils';
 import styled from 'styled-components';
-import MemoDot from './processbar';
+import MemoProgressBar from './processbar';
 
 interface IDotsDiv {
-  slides: JSX.Element[];
-  activeSlide?: number;
-  autoPlay: number;
+  dots: JSX.Element[];
+  activeDot?: number;
 }
 
 const DotsDiv = styled.div`
@@ -17,15 +17,19 @@ const DotsDiv = styled.div`
   justify-content: center;
 `;
 
-const Dots = ({ slides, activeSlide, autoPlay }: IDotsDiv) => {
+const Dots = ({ dots, activeDot }: IDotsDiv) => {
+  const [autoPlay, setAutoPlay] = useState(false);
+
+  useEffect(() => {
+    console.log('activedot', activeDot);
+  }, [activeDot]);
 
   return (
     <DotsDiv>
-      {slides.map((slide, i) => (
-        <MemoDot
-          key={slide.type.name}
-          active={activeSlide === i}
-          autoPlay={autoPlay}
+      {dots.map((dot, i) => (
+        <MemoProgressBar
+          key={dot.type.name}
+          active={activeDot === i}
         />
       ))}
     </DotsDiv>
