@@ -16,14 +16,14 @@ const BarSpan = styled.span<IBarSpan>`
   cursor: pointer;
   height: 3px;
   width: 35px;
-  background: ${(props) => (props.active ? 'green' : '#ABA9AB')};
+  background: ${(props) => (props.active ? '#818A93' : '#818A93')};
   
 `;
 
 const Bar = styled.div<IBarSpan>`
   animation: ${(props) => (props.active ? rotate : '')} ${(props) => props.autoPlay || 3}s linear infinite;
   height: 3px;
-  background: #FFFFFF;
+  background: ${(props) => (props.active ? 'white' : '#818A93')};
 `;
 
 const ProgressBar = ({ active, autoPlay }: IBarSpan) => {
