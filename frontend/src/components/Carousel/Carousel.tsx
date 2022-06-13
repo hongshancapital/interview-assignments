@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Dots from './dots';
 
-// Carousel组件外层容器div的样式
+// Carousel组件外层容器div组件
 const SCarouselWrapper = styled.div`
   position: relative;
   margin: 0 auto;
@@ -19,7 +19,7 @@ interface ICarouselProps {
   currentSlide: number;
 }
 
-// 滑动页面的容器div
+// 滑动页面的容器div组件
 const SCarouselSlides = styled.div<ICarouselProps>`
   display: flex;
   width: 100%;
@@ -36,7 +36,7 @@ interface ICarouselSlide {
   active?: boolean;
 }
 
-// 通过透明度控制是否显示
+// 通过透明度控制是否显示并切换屏幕
 const SCarouselSlide = styled.div<ICarouselSlide>`
   flex: 0 0 auto;
   opacity: ${(props) => (props.active ? 1 : 0)};
@@ -56,6 +56,12 @@ interface IProps {
 }
 
 // Carsouel组件
+/**
+ * @Description Carsouel组件的实现
+ * @date 2022-06-13
+ * @param {JSX.Element[]} children
+ * @param {number} autoPlay
+ */
 const Carousel = ({ children, autoPlay }: IProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 

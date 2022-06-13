@@ -2,8 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import iphone from '../../../../src/assets/iphone.png';
 
-const getWidth = () => window.innerWidth;
-
+// 子组件幻灯片包容器DIV组件
 const SContainer = styled.div`
   display: flex;
   min-height: 100vh;
@@ -13,16 +12,14 @@ const SContainer = styled.div`
   flex-direction: column;
 `;
 
-const Content = styled.div`
-  display: block;
-`;
-
+// 所有文本的容器
 const STextWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
 `;
 
+// 文本中标题的容器
 const Title = styled.h1`
   font-size: 3.5em;
   text-align: center;
@@ -30,6 +27,7 @@ const Title = styled.h1`
   margin-bottom: 1px;
 `;
 
+// 文本中内容的容器
 const TextContent = styled.p`
   font-size: 1.5em;
   text-align: center;
@@ -38,11 +36,18 @@ const TextContent = styled.p`
   margin-bottom: 5px;
 `;
 
+// 图标的容器
 const Icon = styled.img`
   width: 110px;
   height: 100px;
 `;
 
+
+/**
+ * @Description 第一个幻灯片子组件
+ * @date 2022-06-13
+ * @returns {JSX.Element}
+ */
 const SlideOne = () => (
   <SContainer>
     <STextWrapper>
