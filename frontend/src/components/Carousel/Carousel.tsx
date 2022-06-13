@@ -64,10 +64,10 @@ const Carousel = ({ children, autoPlay }: IProps) => {
     setCurrentSlide((currentSlide + 1) % activeSlide.length);
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(nextSlide, autoPlay * 1000);
-  //   return () => clearInterval(interval);
-  // });
+  useEffect(() => {
+    const interval = setInterval(nextSlide, autoPlay * 1000);
+    return () => clearInterval(interval);
+  });
 
   return (
     <div>
@@ -76,7 +76,7 @@ const Carousel = ({ children, autoPlay }: IProps) => {
           {activeSlide}
         </SCarouselSlides>
       </SCarouselWrapper>
-      <Dots dots={children} activeDot={currentSlide}></Dots>
+      <Dots dots={children} activeDot={currentSlide} autoPlay={autoPlay}></Dots>
     </div>
   );
 };

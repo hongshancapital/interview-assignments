@@ -1,10 +1,15 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo } from 'react';
+import { keyframes } from 'styled-components';
 import styled from 'styled-components';
 
 interface IBarSpan {
   active?: boolean;
-  activeSlide?: number;
+  autoPlay?: number;
 }
+const rotate = keyframes`
+  0% { width: 0; }
+  100% { width: 35px; }
+`;
 
 const BarSpan = styled.span<IBarSpan>`
   margin-right: 5px;
@@ -12,38 +17,19 @@ const BarSpan = styled.span<IBarSpan>`
   height: 3px;
   width: 35px;
   background: ${(props) => (props.active ? 'green' : '#ABA9AB')};
+  
 `;
 
-interface IBar {
-  progress?: number;
-}
-
-const Bar = styled.div<IBar>`
-  width: ${({ progress }) => `${progress}%`};
+const Bar = styled.div<IBarSpan>`
+  animation: ${(props) => (props.active ? rotate : '')} ${(props) => props.autoPlay || 3}s linear infinite;
   height: 3px;
   background: #FFFFFF;
 `;
 
-const ProgressBar = ({ active, activeSlide }: IBarSpan) => {
-  const step = 1
-  const interval = 10
-  const maxProgress = 100
-  const [progressPercentage, setProgressPercentage] = useState(100);
-
-  useEffect(() => {
-    const updateProgress = () => setProgressPercentage(progressPercentage + step)
-    if (progressPercentage < maxProgress) {
-      setTimeout(updateProgress, interval)
-    }
-  }, [progressPercentage])
-
-  // useEffect(() => {
-  //   setProgressPercentage(0)
-  // }, [autoPlay])
-
+const ProgressBar = ({ active, autoPlay }: IBarSpan) => {
   return (
-    <BarSpan active={active}>
-      
+    <BarSpan active={active} autoPlay={autoPlay}>
+      <Bar active={active} autoPlay={autoPlay}></Bar>
     </BarSpan>
   );
 };

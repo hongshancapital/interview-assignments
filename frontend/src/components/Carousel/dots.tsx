@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { act } from 'react-dom/test-utils';
+import React from 'react';
 import styled from 'styled-components';
 import MemoProgressBar from './processbar';
 
 interface IDotsDiv {
   dots: JSX.Element[];
   activeDot?: number;
+  autoPlay?: number;
 }
 
 const DotsDiv = styled.div`
@@ -17,12 +17,7 @@ const DotsDiv = styled.div`
   justify-content: center;
 `;
 
-const Dots = ({ dots, activeDot }: IDotsDiv) => {
-  const [autoPlay, setAutoPlay] = useState(false);
-
-  useEffect(() => {
-    console.log('activedot', activeDot);
-  }, [activeDot]);
+const Dots = ({ dots, activeDot, autoPlay }: IDotsDiv) => {
 
   return (
     <DotsDiv>
@@ -30,6 +25,7 @@ const Dots = ({ dots, activeDot }: IDotsDiv) => {
         <MemoProgressBar
           key={dot.type.name}
           active={activeDot === i}
+          autoPlay={autoPlay}
         />
       ))}
     </DotsDiv>
