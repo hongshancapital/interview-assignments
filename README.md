@@ -14,7 +14,7 @@
 北京/武汉:
 - [UI 设计师](design/)
 
-香港：
+北京/香港：
 - [IT Support Engineer](it-support-engineer/)
 
 香港：
