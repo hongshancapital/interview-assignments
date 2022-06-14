@@ -1,0 +1,31 @@
+.dot {
+    background: #c4c4c4;
+    cursor: pointer;
+    width: 100px;
+    height: 4px;
+    margin-right: 8px;
+    border-radius: 2px;
+}
+
+.dot-inner {
+    width: 0;
+    height: 100%;
+    background-color: #fff;
+}
+
+.dot-active {
+    .dot-inner {
+        animation-name: dotProcessing;
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes dotProcessing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
