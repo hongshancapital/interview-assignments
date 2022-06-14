@@ -1,22 +1,14 @@
-import React from "react";
-import Carousel from "./components/carousel";
-import { SettingType } from "./components/carousel/types";
-import ContentItem from "./components/contents";
-import { contentConf, ContentItemType } from "./components/contents/conf";
-import "./App.css";
+import React from 'react';
+import Carousel from './components/carousel';
+import { SettingType } from './components/carousel/types';
+import ContentItem from './components/contents';
+import { contentConf, ContentItemType } from './components/contents/conf';
+import './App.css';
 
 function App() {
-
   const generateContentItems = (): [Function] => {
     return contentConf.map((i: ContentItemType) => {
-      return (
-        <ContentItem
-          title={i.title}
-          describetion={i.describetion}
-          imgUrl={i.imgUrl}
-          style={i.style}
-        ></ContentItem>
-      );
+      return <ContentItem {...i}></ContentItem>;
     });
   };
 
