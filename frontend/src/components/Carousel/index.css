@@ -1,0 +1,41 @@
+.components-carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.components-carousel-content {
+  height: 100%;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  transition: transform 500ms ease 0s;
+}
+
+.components-carousel-node {
+  flex: 1;
+}
+
+.components-carousel-dots {
+  position: absolute;
+  z-index: 1;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.components-carousel-dot {
+  background-color: #ccc;
+  height: 4px;
+  width: 60px;
+  border-radius: 2px;
+  margin: 0 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.components-carousel-dot-precent {
+  background-color: #fff;
+  height: 100%;
+}
