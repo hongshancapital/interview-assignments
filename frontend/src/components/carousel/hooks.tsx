@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-interface cb {
-  (msTime: number): void
-}
+import { cb } from './types'
 
 export function useInterval(callback: cb, interval: number) {
   useEffect(() => {
