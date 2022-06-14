@@ -2,14 +2,11 @@
  * @Author: longsiliang longsiliang@sogou-inc.com
  * @Date: 2022-06-11 14:07:38
  * @LastEditors: longsiliang longsiliang@sogou-inc.com
- * @LastEditTime: 2022-06-14 16:01:39
+ * @LastEditTime: 2022-06-14 16:09:39
  * @FilePath: /interview-assignments/frontend/src/components/carouselitem/carouselitem.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import React from 'react';
-
-import styles from './carouselitem.module.scss';
-
 interface ICarouselitemProps {
     title: string[];
     desc: string[];
