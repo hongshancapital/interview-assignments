@@ -1,0 +1,27 @@
+.indicator-lines {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 5px;
+    background-color: #bab3b3;;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+@keyframes move {
+    from {
+        width: 0%; 
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.cur {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    animation-name: move;
+}
