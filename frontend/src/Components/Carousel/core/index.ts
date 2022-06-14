@@ -3,8 +3,10 @@ import {HookType, Plugin, Status, CoreResult, CarouselHookConfig, CoreHook} from
 
 // eslint-disable-next-line no-use-before-define
 type FullPlugin = Required<Plugin<CarouselHookConfig, Carousel>>
-type NormalPlugin = Partial<Omit<FullPlugin, CoreHook>>
 
+export type NormalPlugin = Partial<Omit<FullPlugin, CoreHook>>
+
+export type CorePlugin = Pick<FullPlugin, CoreHook> & NormalPlugin
 export default class Carousel {
   protected status: Status | -2 = -2
 
@@ -21,11 +23,12 @@ export default class Carousel {
     waiting: HookType.parallel,
     jump: HookType.first,
     jumping: HookType.parallel,
+    jumpEnd: HookType.sync,
     pause: HookType.sync,
     unmount: HookType.sync
   })
 
-  constructor (corePlugin: Pick<FullPlugin, CoreHook> & NormalPlugin) {
+  constructor (corePlugin: CorePlugin) {
     this.pluginDriver.use(corePlugin)
     this.pluginDriver.setContext(this)
   }
@@ -37,7 +40,7 @@ export default class Carousel {
   protected checkStatus (status: Status): boolean {
     switch (status) {
       case -1:
-        return this.status === null
+        return this.status === -2
       case 0:
         if (this.initTask) {
           this.initTask.then(() => {
@@ -47,7 +50,7 @@ export default class Carousel {
         }
         return this.status === -1
       case 1:
-        return this.status === 2
+        return [0, 2].includes(this.status)
       case 2:
         return [1, 2, 3].includes(this.status)
       case 3:
@@ -68,30 +71,34 @@ export default class Carousel {
       return
     }
     this.status = status
-    if (status === -1) {
-      this.initTask = this.pluginDriver.runHook('init') || null
-      if (this.initTask) {
-        await this.initTask
-        this.initTask = null
+    try {
+      if (status === -1) {
+        this.initTask = this.pluginDriver.runHook('init') || null
+        if (this.initTask) {
+          await this.initTask
+          this.initTask = null
+        }
+      } else if (status === 0) {
+        this.pluginDriver.runHook('mounted')
+        this.waiting()
+      } else if (status === 1) {
+        const { task, data } = this.pluginDriver.runHook('wait', this.index) as CoreResult
+        await this.pluginDriver.runHook('waiting', data, this.index)
+        await task
+        this.jump(this.getNextIndex())
+      } else if (status === 2) {
+        const { task, data } = this.pluginDriver.runHook('jump', index as number) as CoreResult
+        await this.pluginDriver.runHook('jumping', data, index as number)
+        await task
+        this.pluginDriver.runHook('jumpEnd', index as number)
+        this.index = index as number
+        this.waiting()
+      } else if (status === 3) {
+        this.pluginDriver.runHook('pause')
+      } else if (status === 4) {
+        this.pluginDriver.runHook('unmount')
       }
-    } else if (status === 0) {
-      this.pluginDriver.runHook('mounted')
-    } else if (status === 1) {
-      const { task, data } = this.pluginDriver.runHook('wait') as CoreResult
-      await this.pluginDriver.runHook('waiting', data)
-      await task
-      this.jump(this.getNextIndex())
-    } else if (status === 2) {
-      const { task, data } = this.pluginDriver.runHook('jump', index as number) as CoreResult
-      await this.pluginDriver.runHook('jumping', data, index as number)
-      await task
-      this.index = index as number
-      this.waiting()
-    } else if (status === 3) {
-      this.pluginDriver.runHook('pause')
-    } else if (status === 4) {
-      this.pluginDriver.runHook('unmount')
-    }
+    } catch {}
   }
 
   async init (length: number) {
@@ -111,7 +118,7 @@ export default class Carousel {
     this.setStatus(1)
   }
 
-  protected jump (index: number) {
+  jump (index: number) {
     this.setStatus(2, index)
   }
 

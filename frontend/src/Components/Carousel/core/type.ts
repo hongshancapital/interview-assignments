@@ -64,12 +64,12 @@ export type CarouselHookConfig = {
   }
   wait: {
     type: HookType.first;
-    params: [];
+    params: [number]; // currentIndex
     result: CoreResult;
   }
   waiting: {
     type: HookType.parallel;
-    params: [number]; // time
+    params: [number, number]; // time; currentIndex
   }
   jump: {
     type: HookType.first;
@@ -79,6 +79,10 @@ export type CarouselHookConfig = {
   jumping: {
     type: HookType.parallel;
     params: [number, number]; // [time, current index]
+  }
+  jumpEnd: {
+    type: HookType.sync;
+    params: [number]; // current index
   }
   pause: {
     type: HookType.sync;

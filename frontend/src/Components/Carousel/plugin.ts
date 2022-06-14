@@ -1,0 +1,113 @@
+import { noop } from '../../utils/share'
+import type { CorePlugin } from './core'
+import {
+  PluginFactoryResult as R,
+  CorePluginOpt,
+  CorePluginResult,
+  DotPluginOpt,
+  DotPluginResult
+} from './type'
+
+export function corePluginFactory(opt: CorePluginOpt): R<CorePluginResult, CorePlugin> {
+  let stepTime = opt.stepTime
+  let interval = opt.interval
+  let transitionEnd = noop
+  let breakJump = noop
+  let breakWait = noop
+  const breakAll = () => {
+    breakJump()
+    breakWait()
+  }
+  return {
+    plugin: {
+      jump(index) {
+        breakAll()
+        return {
+          task: new Promise((resolve, reject) => {
+            transitionEnd = resolve
+            breakJump = reject
+            opt.setTranslate(index)
+          }),
+          data: stepTime
+        }
+      },
+      wait() {
+        return {
+          task: new Promise((resolve, reject) => {
+            setTimeout(resolve, interval)
+            breakWait = reject
+          }),
+          data: interval
+        }
+      },
+      pause: breakAll,
+      unmount() {
+        breakAll()
+      }
+    },
+    data: {
+      setInterval(time) {
+        interval = time
+      },
+      setStepTime(time) {
+        stepTime = time
+      },
+      getTransitionEnd() {
+        return transitionEnd
+      }
+    }
+  }
+}
+
+export function dotPluginFactory(opt: DotPluginOpt): R<DotPluginResult> {
+  const { onChange } = opt
+  let useDot = opt.useDot
+  let current = -1
+  let pause = false
+  const changePause = (value: boolean) => pause = value
+  const enablePause = changePause.bind(null, true)
+  const runLoop = (fn: (t: number) => boolean) => {
+    requestAnimationFrame(t => {
+      const canContinue = fn(t);
+      canContinue && runLoop(fn)
+    })
+  }
+  return {
+    plugin: {
+      waiting(time, index) {
+        if (!useDot) {
+          return
+        }
+        current = index
+        let start: null | number = null
+        runLoop(t => {
+          start === null && (start = t)
+          if (pause) {
+            return false
+          }
+          const value = t - start
+          if (value >= time) {
+            onChange(100)
+            return false
+          }
+          onChange(value / time * 100)
+          return true
+        })
+      },
+      jumping() {
+        onChange(100)
+        enablePause()
+      },
+      jumpEnd: changePause.bind(null, false),
+      pause: enablePause
+    },
+    data: {
+      getCurrent() {
+        return current
+      },
+      setUseDot(enable) {
+        useDot = enable
+      }
+    }
+  }
+}
