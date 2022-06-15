@@ -1,6 +1,6 @@
 import React from 'react';
 import { ContentItemType } from './conf';
-import './index.css';
+import './index.scss';
 
 function ContentItem(props: ContentItemType) {
   const { title, describetion, imgUrl, style } = props;

@@ -1,0 +1,90 @@
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &-sliderbox {
+    position: relative;
+    height: 100%;
+    white-space: nowrap;
+    transition: left 0.6s ease;
+
+    &-items {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      vertical-align: top;
+    }
+  }
+
+  &-navigator {
+    position: relative;
+    top: -60px;
+    ul {
+      padding: 0;
+      li {
+        display: inline-block;
+        width: 40px;
+        height: 2px;
+        background-color: #999999;
+        margin: 0 6px;
+        text-align: left;
+        border-radius: 2px;
+        span {
+          display: inline-block;
+          width: 0;
+          height: 2px;
+          background-color: #ffffff;
+          text-align: left;
+          position: relative;
+          top: -13px;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+}
+
+// .carousel-container-sliderbox {
+//   position: relative;
+//   height: 100%;
+//   white-space: nowrap;
+//   transition: left 0.6s ease;
+// }
+
+// .carousel-container-sliderbox-items {
+//   display: inline-block;
+//   width: 100%;
+//   height: 100%;
+//   vertical-align: top;
+// }
+
+// .carousel-container-navigator {
+//   position: relative;
+//   top: -60px;
+// }
+
+// .carousel-container-navigator ul {
+//   padding: 0;
+// }
+
+// .carousel-container-navigator ul li {
+//   display: inline-block;
+//   width: 40px;
+//   height: 2px;
+//   background-color: #999999;
+//   margin: 0 6px;
+//   text-align: left;
+//   border-radius: 2px;
+// }
+
+// .carousel-container-navigator ul li span {
+//   display: inline-block;
+//   width: 0;
+//   height: 2px;
+//   background-color: #ffffff;
+//   text-align: left;
+//   position: relative;
+//   top: -13px;
+//   border-radius: 2px;
+// }

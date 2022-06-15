@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { SettingType } from './types';
-import './index.css';
+import './index.scss';
 
 function Carousel(props: SettingType) {
   const { content, intervalTime } = props;
@@ -42,7 +42,7 @@ function Carousel(props: SettingType) {
         {content &&
           content.map((ContentItems, index: number) => {
             return (
-              <div key={index} className="carousel-container-sliderbo-items">
+              <div key={index} className="carousel-container-sliderbox-items">
                 {ContentItems}
               </div>
             );

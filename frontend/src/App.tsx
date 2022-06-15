@@ -3,7 +3,7 @@ import Carousel from './components/carousel';
 import { SettingType } from './components/carousel/types';
 import ContentItem from './components/contents';
 import { contentConf, ContentItemType } from './components/contents/conf';
-import './App.css';
+import './App.scss';
 
 function App() {
   const generateContentItems = (): [Function] => {
