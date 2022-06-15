@@ -1,0 +1,34 @@
+.indicator-container {
+  position: fixed;
+  bottom: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+.indicator-item {
+  min-width: 40px;
+  width: 4vw;
+  height: 3px;
+  border-radius: 1.5px;
+  background-color: #bbbbbb;
+  margin: 0 4px;
+  overflow: hidden;
+}
+.indicator-mask {
+  width: 100%;
+  height: 100px;
+  background-color: #ffffff;
+  transform: translateX(-100%);
+}
+.indicator-mask-active {
+  animation: coverLine 3s linear;
+}
+
+@keyframes coverLine {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
