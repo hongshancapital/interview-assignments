@@ -6,18 +6,18 @@
 
 ## 开放岗位
 
-北京/上海/武汉：
-- [Java](java/)
+武汉：
 - [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
+
+北京/武汉:
 - [UI 设计师](design/)
 
-
-北京/上海/香港/深圳：
+北京/香港：
 - [IT Support Engineer](it-support-engineer/)
 
-北京/上海：
+香港：
 - [DevOps](dev-ops/)  
 
 链接中有更为具体的 JD。
@@ -51,17 +51,17 @@ Please find your assignment in subfolder accordingly.
 
 设计：Figma
 
-前端: TypeScript + React
+前端：TypeScript + React
 
-后端: TypeScript + Express
+后端：TypeScript + Express
 
-移动端: SwiftUI
+移动端：SwiftUI
 
 如此激进的选择得益于完善的设备管理以及项目所处的阶段，你不用花大量时间处理不同设备的兼容问题或陈旧的代码，只需要关注技术本身。
 
 ## 实力如何？
 
-团队成员来自 AWS、Airbnb 等企业，深知做好技术的重要性。所以我们在尽可能的范围内将流程做到最规范：CI / CD / Code Review 一样都没落下。再厚脸皮举两个例子：
+团队成员来自 AWS、字节跳动、快手、阿里、猿辅导 等企业，深知做好技术的重要性。所以我们在尽可能的范围内将流程做到最规范：CI / CD / Code Review 一样都没落下。再厚脸皮举两个例子：
 
 1. 有工程师在入职后感叹：没想到对产品和 Code Review 的要求如此严格，不过同时也能学到很多新东西
 2. 设计师说：不再只是 “画图的”，而是能真正地思考并把握一个产品的设计与体验
@@ -87,8 +87,7 @@ Please find your assignment in subfolder accordingly.
 
 1. 最新 MacBook Pro
 2. 外设（键鼠，升降桌，高清显示器…）
-3. 星巴克提供品牌，雀巢提供服务的免费咖啡服务
-4. 无限冷热饮/小吃供应
+3. 无限冷热饮/小吃供应
 
 至于薪水，我们想要找到合适的人而不是想一味地压缩成本。给出的 package 不输互联网大厂，相信能让你满意。
 
@@ -104,8 +103,9 @@ Please find your assignment in subfolder accordingly.
 
 没关系。我们并不需要你的经历 100% 匹配上文提到的技术栈，如果你有三年以上（可以有例外）技术相关的工作经历，并愿意：
 
-1. 花一些时间学习并做一份简单的作业
-2. 面试来进一步确认我们的岗位符合你的预期
+1. 要求 FE/BE 熟练掌握 TS；iOS 工程师需要熟练掌握 SwiftUI。我们会在面试时考察。没有相关项目经验也可以，*学习能力也是杰出工程师的特征之一，我们相信你能在合理的时间内准备好相应的技能*，这不会很难。
+2. 花一些时间学习并做一份简单的作业
+3. 面试来进一步确认我们的岗位符合你的预期
 
 我们随时欢迎你的到来。
 
@@ -126,7 +126,10 @@ cmVjcnVpdGluZy5kZXNpZ25Ac2VxdW9pYWNhcC5jb20=
 
 Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提交一个 Pull Request 即可。如果方便，可以在 PR 描述中留下你的简历。
 
+注意：使用尽量简洁的实现方式，尽量少使用第三方库。
+
 ## 还有其他要补充的吗？
 
-1. 面试不会问茴字有几种写法，甚至不会限制语言。我们看重的是解决问题的能力，以及发散思维的能力
-2. 所有办公地点在市区，交通便利
+1. 面试时我们会考察编程语言的掌握能力（Java/TS/Swift）。
+2. 我们看重解决问题的能力，以及发散思维的能力。
+3. 所有办公地点在市区，交通便利。
