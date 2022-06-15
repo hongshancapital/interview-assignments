@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SettingType } from './types';
 import './index.scss';
 
@@ -8,20 +7,21 @@ function Carousel(props: SettingType) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [process, setProcess] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      start();
+  const start = useCallback(() => {
+    return setInterval(() => {
+      if (currentIndex < content.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+      } else {
+        setCurrentIndex(0);
+      }
     }, intervalTime);
-    return () => clearInterval(timer);
-  }, [currentIndex]);
+  }, [content.length, currentIndex, intervalTime]);
 
-  const start = () => {
-    if (currentIndex < content.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      setCurrentIndex(0);
-    }
-  };
+  useEffect(() => {
+    const timer = start();
+    return () => clearInterval(timer);
+  }, [currentIndex, start]);
+
 
   const computeProcess = () => {
     if (process < 40) {
