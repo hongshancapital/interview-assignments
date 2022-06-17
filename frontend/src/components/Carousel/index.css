@@ -1,0 +1,47 @@
+.carousel {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-list {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  --translate3d: translate3d(-0%, 0px, 0px);
+}
+
+.carousel-list > * {
+  width: 100%;
+  flex-shrink: 0;
+  transform: var(--translate3d);
+  transition: transform 500ms ease-in;
+}
+
+.carousel-slick-dots {
+  position: absolute;
+  bottom: 12px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.carousel-slick-dots > span {
+  --dot-width: 0%;
+  position: relative;
+  margin: 0px 10px;
+  width: 30px;
+  background-color: #999;
+  height: 2px;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.carousel-slick-dots > span::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  width: var(--dot-width);
+  background-color: #fff;
+}
