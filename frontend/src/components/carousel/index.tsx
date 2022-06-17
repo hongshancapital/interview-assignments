@@ -6,7 +6,7 @@ function Carousel(props: SettingType) {
   const { content, intervalTime } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [process, setProcess] = useState(0);
-
+  const [isTransition, setTransition] = useState('none');
   const start = useCallback(() => {
     return setInterval(() => {
       if (currentIndex < content.length - 1) {
@@ -22,16 +22,14 @@ function Carousel(props: SettingType) {
     return () => clearInterval(timer);
   }, [currentIndex, start]);
 
-
-  const computeProcess = () => {
-    if (process < 40) {
-      setProcess(process + 0.28);
-    } else {
+  useEffect(() => {
+    setTransition('width 2s');
+    setProcess(40);
+    return () => {
+      setTransition('none');
       setProcess(0);
-    }
-  };
-
-  requestAnimationFrame(computeProcess);
+    };
+  }, [currentIndex]);
 
   return (
     <div className="carousel-container">
@@ -54,7 +52,9 @@ function Carousel(props: SettingType) {
             return (
               <li key={index}>
                 {currentIndex === index ? (
-                  <span style={{ width: `${process}px` }}></span>
+                  <span
+                    style={{ transition: isTransition, width: `${process}px` }}
+                  ></span>
                 ) : (
                   <span />
                 )}
