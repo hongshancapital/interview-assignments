@@ -1,32 +1,84 @@
-import { useEffect, useState } from 'react';
-import { dotPluginFactory } from './plugin';
+import { useEffect, useState } from 'react'
+import { dotPluginFactory } from './plugin'
 import { useOnce } from '../../utils/share'
-import { DotProps, DotResult } from './type';
+import { DotProps, DotResult, DraggerProps, DraggerResult } from './type'
 
 export const useDot = (props: DotProps): DotResult => {
   const [progress, setProgress] = useState(0)
   const data = useOnce(() => {
     const { plugin, data } = dotPluginFactory({
       onChange: setProgress,
-      useDot: props.useDot
+      enableDot: props.enableDot
     })
     props.carousel.usePlugin(plugin)
     return data
   })
 
   useEffect(() => {
-    data.setUseDot(props.useDot)
+    data.setEnableDot(props.enableDot)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.useDot])
+  }, [props.enableDot])
   return {
-    onClick(index) {
-      if (!props.dotJump) {
-        return
-      }
-      props.carousel.jump(index)
-    },
-    getProgress(index) {
+    getProgress (index) {
       return index === data.getCurrent() ? progress : 0
     }
+  }
+}
+
+export const useDragger = (props: DraggerProps): DraggerResult => {
+  const [translate, setTranslate] = useState<number | null>(null)
+  const data = useOnce((): DraggerResult['events'] => {
+    let darg = false
+    let startTranslate = 0
+    let start = 0
+    let move = 0
+    let step = 0
+    let translateWin = 0
+    const end = () => {
+      if (!darg) {
+        return
+      }
+      darg = false
+      // 由于使用 drag 前后要加一个因此需要减 1
+      const base = startTranslate + move
+      let index = Math.round(-base / step) - 1
+      if (index === -1 || index > props.carousel.last) {
+        index = index === -1 ? props.carousel.last : 0
+      }
+      setTranslate(null)
+      props.carousel.resume(index)
+    }
+    return {
+      onMouseDown (e) {
+        darg = true
+        startTranslate = e.currentTarget.getBoundingClientRect().x
+        step = e.currentTarget.children[0].scrollWidth
+        start = e.clientX
+        translateWin = step * (props.carousel.last + 1)
+        props.carousel.pause()
+        setTranslate(startTranslate)
+        e.preventDefault()
+      },
+      onMouseUp: end,
+      onMouseLeave: end,
+      onMouseMove (e) {
+        if (!darg) {
+          return
+        }
+        move = e.clientX - start
+        let value = startTranslate + move
+        const halfStep = step / 2
+        if (value > -halfStep) {
+          value -= translateWin
+        } else if (value < -(translateWin + halfStep)) {
+          value += translateWin
+        }
+        setTranslate(value)
+      }
+    }
+  })
+  return {
+    events: data,
+    translate
   }
 }

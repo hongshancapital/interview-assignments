@@ -71,11 +71,14 @@
 
 根据上述状态机描述，插件主要包含以下生命周期（hook）：
 
-| hook      | description         | note                   |
-|-----------|---------------------|------------------------|
-| `init`    | async hook          | e.g. fetch source      |
-| `mounted` | sync hook           | e.g. bind event        |
-| `waiting` | async parallel hook | e.g. dots progress     |
-| `jumping` | async parallel hook | e.g. dots progress     |
-| `pause`   | sync hook           | rejecte current status |
-| `unmount` | sync hook           | remove effect          |
+| hook      | description         | note                                    |
+|-----------|---------------------|-----------------------------------------|
+| `init`    | async hook          | e.g. fetch source                       |
+| `mounted` | sync hook           | e.g. bind event                         |
+| `wait`    | first hook          | one and only(for step wait scheduler)   |
+| `waiting` | async parallel hook | e.g. dots progress                      |
+| `jump`    | first hook          | one and only(for step moving scheduler) |
+| `jumping` | async parallel hook | e.g. jumping progress                   |
+| `jumEnd`  | sync hook           | e.g. jumping progress reset             |
+| `pause`   | sync hook           | rejecte current status                  |
+| `unmount` | sync hook           | remove effect                           |

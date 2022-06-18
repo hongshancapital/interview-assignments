@@ -7,6 +7,8 @@ export interface CarouselProps {
   dots?: boolean | {className?: string; style?: string};
   dotPosition?: 'left' | 'right' | 'top' | 'bottom';
   dotJump?: boolean;
+  dragable?: boolean;
+  roll?: boolean;
 }
 
 export type PluginFactoryResult<D, P = NormalPlugin> = {
@@ -23,31 +25,44 @@ export interface CorePluginOpt {
 }
 
 export interface CorePluginResult {
-  getTransitionEnd: () => () => void;
+  transitionEnd: () => void;
   setInterval: (interval: number) => void;
   setStepTime: (time: number) => void;
 }
 
 /** Dot */
 export interface DotPluginOpt {
-  useDot: boolean;
+  enableDot: boolean;
   onChange(progress: number): void;
 }
 
 export interface DotProps {
-  useDot: boolean;
+  enableDot: boolean;
   dotJump: boolean;
   carousel: Carousel;
 }
 
 export interface DotPluginResult {
   getCurrent(): number;
-  setUseDot(enable: boolean): void;
+  setEnableDot(enable: boolean): void;
 }
 
 export interface DotResult {
-  onClick(index: number): void;
   getProgress(index: number): number
 }
 
-// dot plugin
+/** Dragger */
+export interface DraggerProps {
+  enableDrag: boolean;
+  carousel: Carousel;
+}
+
+export interface DraggerResult {
+  events: {
+    onMouseDown(e: React.MouseEvent): void;
+    onMouseUp(e: React.MouseEvent): void;
+    onMouseMove(e: React.MouseEvent): void;
+    onMouseLeave(e: React.MouseEvent): void;
+  },
+  translate: number | null,
+}

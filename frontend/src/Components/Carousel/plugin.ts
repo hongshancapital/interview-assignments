@@ -8,7 +8,7 @@ import {
   DotPluginResult
 } from './type'
 
-export function corePluginFactory(opt: CorePluginOpt): R<CorePluginResult, CorePlugin> {
+export function corePluginFactory (opt: CorePluginOpt): R<CorePluginResult, CorePlugin> {
   let stepTime = opt.stepTime
   let interval = opt.interval
   let transitionEnd = noop
@@ -20,18 +20,19 @@ export function corePluginFactory(opt: CorePluginOpt): R<CorePluginResult, CoreP
   }
   return {
     plugin: {
-      jump(index) {
+      jump (index) {
         breakAll()
         return {
           task: new Promise((resolve, reject) => {
             transitionEnd = resolve
             breakJump = reject
             opt.setTranslate(index)
+            index === this.current && resolve()
           }),
           data: stepTime
         }
       },
-      wait() {
+      wait () {
         return {
           task: new Promise((resolve, reject) => {
             setTimeout(resolve, interval)
@@ -41,40 +42,40 @@ export function corePluginFactory(opt: CorePluginOpt): R<CorePluginResult, CoreP
         }
       },
       pause: breakAll,
-      unmount() {
+      unmount () {
         breakAll()
       }
     },
     data: {
-      setInterval(time) {
+      setInterval (time) {
         interval = time
       },
-      setStepTime(time) {
+      setStepTime (time) {
         stepTime = time
       },
-      getTransitionEnd() {
-        return transitionEnd
+      transitionEnd () {
+        transitionEnd()
       }
     }
   }
 }
 
-export function dotPluginFactory(opt: DotPluginOpt): R<DotPluginResult> {
+export function dotPluginFactory (opt: DotPluginOpt): R<DotPluginResult> {
   const { onChange } = opt
-  let useDot = opt.useDot
+  let useDot = opt.enableDot
   let current = -1
   let pause = false
   const changePause = (value: boolean) => pause = value
   const enablePause = changePause.bind(null, true)
   const runLoop = (fn: (t: number) => boolean) => {
     requestAnimationFrame(t => {
-      const canContinue = fn(t);
+      const canContinue = fn(t)
       canContinue && runLoop(fn)
     })
   }
   return {
     plugin: {
-      waiting(time, index) {
+      waiting (time, index) {
         if (!useDot) {
           return
         }
@@ -94,7 +95,7 @@ export function dotPluginFactory(opt: DotPluginOpt): R<DotPluginResult> {
           return true
         })
       },
-      jumping() {
+      jumping () {
         onChange(100)
         enablePause()
       },
@@ -102,10 +103,10 @@ export function dotPluginFactory(opt: DotPluginOpt): R<DotPluginResult> {
       pause: enablePause
     },
     data: {
-      getCurrent() {
+      getCurrent () {
         return current
       },
-      setUseDot(enable) {
+      setEnableDot (enable) {
         useDot = enable
       }
     }

@@ -1,5 +1,6 @@
+/* eslint-disable no-dupe-class-members */
 import PluginDriver from './PluginDriver'
-import {HookType, Plugin, Status, CoreResult, CarouselHookConfig, CoreHook} from './type'
+import { HookType, Plugin, Status, CoreResult, CarouselHookConfig, CoreHook } from './type'
 
 // eslint-disable-next-line no-use-before-define
 type FullPlugin = Required<Plugin<CarouselHookConfig, Carousel>>
@@ -60,8 +61,20 @@ export default class Carousel {
     }
   }
 
-  getNextIndex () {
+  get current () {
+    return this.index
+  }
+
+  get next () {
     return this.index + 1 < this.length ? this.index + 1 : 0
+  }
+
+  get pre () {
+    return this.index - 1 < 0 ? this.length - 1 : this.index - 1
+  }
+
+  get last () {
+    return this.length - 1
   }
 
   protected async setStatus (status: Exclude<Status, 2>): Promise<void>;
@@ -85,7 +98,7 @@ export default class Carousel {
         const { task, data } = this.pluginDriver.runHook('wait', this.index) as CoreResult
         await this.pluginDriver.runHook('waiting', data, this.index)
         await task
-        this.jump(this.getNextIndex())
+        this.jump(this.next)
       } else if (status === 2) {
         const { task, data } = this.pluginDriver.runHook('jump', index as number) as CoreResult
         await this.pluginDriver.runHook('jumping', data, index as number)

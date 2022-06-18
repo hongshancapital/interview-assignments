@@ -1,8 +1,8 @@
-import {HookType, PluginMap, HooksConfig, Plugin, Result} from './type'
+import { HookType, PluginMap, HooksConfig, Plugin, Result } from './type'
 
 export default class PluginDriver<C extends HooksConfig, T> {
-  private pluginMap: PluginMap<C, T>;
-  private context!: T;
+  private pluginMap: PluginMap<C, T>
+  private context!: T
 
   constructor (config: {[K in keyof C]: C[K]['type']}) {
     const pluginMap: PluginMap<C, T> = {} as PluginMap<C, T>

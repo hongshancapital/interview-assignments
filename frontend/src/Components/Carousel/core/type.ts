@@ -95,4 +95,3 @@ export type CarouselHookConfig = {
 }
 
 export type CoreHook = 'wait' | 'jump'
-
