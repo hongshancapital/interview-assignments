@@ -45,10 +45,11 @@ export interface DotProps {
 export interface DotPluginResult {
   getCurrent(): number;
   setEnableDot(enable: boolean): void;
+  clean(): void;
 }
 
 export interface DotResult {
-  getProgress(index: number): number
+  getProgress(index: number): number;
 }
 
 /** Dragger */

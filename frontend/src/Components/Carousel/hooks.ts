@@ -16,8 +16,8 @@ export const useDot = (props: DotProps): DotResult => {
 
   useEffect(() => {
     data.setEnableDot(props.enableDot)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.enableDot])
+    return data.clean
+  }, [props.enableDot, data])
   return {
     getProgress (index) {
       return index === data.getCurrent() ? progress : 0

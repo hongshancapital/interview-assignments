@@ -26,7 +26,7 @@ export default function Carousel (props: PropsWithChildren<CarouselProps>) {
   }
 
   // core plugin & init logic
-  const [translate, setTranslate] = useState(-100)
+  const [translate, setTranslate] = useState(dragable ? -100 : 0)
   const coreData = useOnce(() => {
     let fixStep = dragable ? 1 : 0
     const { data, plugin } = corePluginFactory({
@@ -43,7 +43,7 @@ export default function Carousel (props: PropsWithChildren<CarouselProps>) {
       ...data,
       carousel,
       enableDragger (enable: boolean) {
-        fixStep = dragable ? 1 : 0
+        fixStep = enable ? 1 : 0
       }
     }
   })

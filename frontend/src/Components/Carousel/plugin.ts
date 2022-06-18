@@ -61,7 +61,7 @@ export function corePluginFactory (opt: CorePluginOpt): R<CorePluginResult, Core
 }
 
 export function dotPluginFactory (opt: DotPluginOpt): R<DotPluginResult> {
-  const { onChange } = opt
+  let { onChange } = opt
   let useDot = opt.enableDot
   let current = -1
   let pause = false
@@ -108,6 +108,9 @@ export function dotPluginFactory (opt: DotPluginOpt): R<DotPluginResult> {
       },
       setEnableDot (enable) {
         useDot = enable
+      },
+      clean() {
+        onChange = noop
       }
     }
   }
