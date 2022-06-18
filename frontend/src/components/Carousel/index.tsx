@@ -5,10 +5,17 @@ import ProgressBar from "../ProgressBar";
 type Props = {
   children: ReactElement[];
   duration: number;
+  progressBarWidth?: number;
+  progressBarHeight?: number;
 };
 
 function Carousel(props: Props) {
-  const { children, duration } = props;
+  const {
+    children,
+    duration,
+    progressBarWidth = 40,
+    progressBarHeight = 2,
+  } = props;
 
   const [indexShowing, setIndexShowing] = useState(0);
 
@@ -33,17 +40,42 @@ function Carousel(props: Props) {
       <div className="propress-bars">
         {children.map((_, i) => {
           return (
-            <ProgressBar
-              duration={duration}
-              run={i === indexShowing}
-              width={"40px"}
-              height={"2px"}
-              borderRadius={"1px"}
-              onProgressEnd={handleProgressEnd}
-            />
+            <div style={{ padding: "0 3px" }}>
+              <ProgressBar
+                duration={duration}
+                run={i === indexShowing}
+                width={`${progressBarWidth}px`}
+                height={`${progressBarHeight}px`}
+                borderRadius={`${progressBarHeight / 2}px`}
+                onProgressEnd={handleProgressEnd}
+              />
+            </div>
           );
         })}
       </div>
+    </div>
+  );
+}
+
+type SlideProps = {
+  children: ReactElement;
+};
+
+export function Slide(props: SlideProps) {
+  const { children } = props;
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+      }}
+    >
+      {children}
     </div>
   );
 }
