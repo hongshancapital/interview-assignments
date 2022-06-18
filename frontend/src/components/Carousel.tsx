@@ -16,8 +16,6 @@ export type pageItem = {
 export function Carousel(props: CarouselProps): JSX.Element {
   const { pages, delay, enableManualSwitch } = props
   const [page, setPage] = useState(-1)
-  const carouselWrapperRef = React.useRef<HTMLDivElement>(null)
-  const carsouelIndicator = React.useRef<HTMLDivElement>(null)
 
   let timer: any
   const transUnit = pages.length && 1 / pages.length
@@ -40,7 +38,7 @@ export function Carousel(props: CarouselProps): JSX.Element {
   
   return (
     <div className="carousel">
-      <div className="carousel__wrapper" style={{ transform: `translate(${-page * transUnit * 100}%, 0)`}} ref={carouselWrapperRef}>
+      <div className="carousel__wrapper" style={{ transform: `translate(${-page * transUnit * 100}%, 0)`}}>
         {
           pages.map((item: pageItem) => (
             <div className="wrapper__page" key={item.title}>
@@ -53,13 +51,13 @@ export function Carousel(props: CarouselProps): JSX.Element {
           ))
         }
       </div>
-      <div className="carsousel__indiactor" ref={carsouelIndicator}>
+      <div className="carsousel__indiactor">
         {
           pages.map((_, index: number) => (
-            <div className="indiactor__bar" style={{pointerEvents: `${enableManualSwitch ? 'auto' : 'none'}`}} onClick={() => {
+            <div className="indiactor__bar" style={{ pointerEvents: `${enableManualSwitch ? 'auto' : 'none'}` }} onClick={() => {
               enableManualSwitch && page !== index && toPage(index)
             }} key={_.title}>
-              <div className="bar__fill" style={page === index ? {transition: 'width 3s ease-in-out', width: '100%'} : {}}></div>
+              <div className="bar__fill" style={page === index ? { transition: 'width 3s ease-in-out', width: '100%' } : {}}></div>
             </div>
           ))
         }
