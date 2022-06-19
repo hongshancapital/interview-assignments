@@ -18,7 +18,7 @@ const pages = [{
   img: require('../assets/tablet.png')
 }, {
   titles: ['Buy a Tablet or xPhone for college.', 'Get arPods.'],
-  descriptions: ['Just the right amount of everything'],
+  descriptions: [''],
   img: require('../assets/tablet.png')
 }];
 const initialState = {
