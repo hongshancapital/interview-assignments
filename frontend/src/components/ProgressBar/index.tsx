@@ -17,8 +17,8 @@ function ProgressBar(props: Props) {
     width = "100%",
     height = "2px",
     borderRadius = "1px",
-    barColor = "#aaa",
-    progressColor = "#eee",
+    barColor = "rgb(170, 170, 170)",
+    progressColor = "rgb(238, 238, 238)",
     duration = 3,
     run = false,
     onProgressEnd = () => {},
@@ -37,6 +37,7 @@ function ProgressBar(props: Props) {
 
   return (
     <div
+      data-testid="progress-bar"
       className="progress-bar"
       style={{
         width,
@@ -45,10 +46,12 @@ function ProgressBar(props: Props) {
       }}
     >
       <div
+        data-testid="progress-bar-bar"
         className="progress-bar-bar"
         style={{ backgroundColor: barColor, borderRadius }}
       ></div>
       <div
+        data-testid={"progress-bar-progress"}
         className={`progress-bar-progress ${
           running ? "progress-bar-progress-run" : ""
         }`}
