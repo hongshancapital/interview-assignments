@@ -1,10 +1,11 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import "./index.scss";
 import ProgressBar from "../ProgressBar";
 
 type Props = {
   children: ReactElement[];
   duration: number;
+  startWithIndex?: number;
   progressBarWidth?: number;
   progressBarHeight?: number;
 };
@@ -13,6 +14,7 @@ function Carousel(props: Props) {
   const {
     children,
     duration,
+    startWithIndex = 0,
     progressBarWidth = 40,
     progressBarHeight = 2,
   } = props;
@@ -27,9 +29,18 @@ function Carousel(props: Props) {
     }
   };
 
+  useEffect(() => {
+    if (startWithIndex > children.length - 1 || startWithIndex < 0) {
+      setIndexShowing(0);
+    } else {
+      setIndexShowing(startWithIndex);
+    }
+  }, [startWithIndex, children]);
+
   return (
     <div className="carousel">
       <div
+        data-testid="slides"
         className="slides"
         style={{ transform: `translateX(-${indexShowing * 100}%)` }}
       >
@@ -37,10 +48,10 @@ function Carousel(props: Props) {
           return c;
         })}
       </div>
-      <div className="propress-bars">
+      <div className="propress-bars" data-testid="progress-bars">
         {children.map((_, i) => {
           return (
-            <div style={{ padding: "0 3px" }}>
+            <div key={_.key} style={{ padding: "0 3px" }}>
               <ProgressBar
                 duration={duration}
                 run={i === indexShowing}
@@ -66,6 +77,7 @@ export function Slide(props: SlideProps) {
 
   return (
     <div
+      data-testid="slide"
       style={{
         width: "100%",
         height: "100%",
