@@ -1,0 +1,52 @@
+html, body,#root,.App,.page-container, .page-content, .page-content-container, .page-item{
+  width: 100%;
+  height: 100%;
+}
+.page-container{
+  overflow: hidden;
+}
+.empty{
+  height: 180px;
+  width: 100%;
+}
+.page-content{
+  transition: transform 0.5s linear;
+}
+.page-item-0 .title, .page-item-0 .text{
+  color: #fff;
+}
+
+.page-item{
+  background-repeat: no-repeat;
+  background-size: cover;
+  float: left;
+  background-position: bottom;
+}
+
+.navigator{
+  position: absolute;
+  bottom: 50px;
+  width: 100%
+}
+.navigator-container{
+  margin: auto;
+  width: 150px;
+  display: flex;
+  height: 2px;
+  justify-content: space-between;
+}
+.navigator-container .item {
+  width: 46px;
+  height: 2px;
+  border: 1px;
+  background-color: #aaa;
+}
+.navigator-container .item > div{
+  width: 0;
+  height: 100%;
+}
+.navigator-container .item > .selected{
+  width: 100%;
+  transition: width 3s linear;
+  background: #fff;
+}
