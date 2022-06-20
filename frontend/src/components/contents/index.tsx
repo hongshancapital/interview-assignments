@@ -3,12 +3,12 @@ import { ContentItemType } from './conf';
 import './index.scss';
 
 function ContentItem(props: ContentItemType) {
-  const { title, describetion, imgUrl, style } = props;
+  const { Title, Describetion, imgUrl, style } = props;
   return (
     <div className="content-item" style={{ ...style }}>
       <article>
-        <h1 dangerouslySetInnerHTML={{ __html: title }}></h1>
-        <p dangerouslySetInnerHTML={{ __html: describetion }}></p>
+        <Title />
+        <Describetion />
       </article>
       <img src={imgUrl} alt="" />
     </div>
