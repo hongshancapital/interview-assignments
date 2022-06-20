@@ -30,7 +30,7 @@ describe('1: BasicTest', () => {
       const child = items?.[i + 1];
       const inner = child?.innerHTML;
       item.title.length && expect(inner).toContain(item.title[0]);
-      (item as any)?.subTitle?.length && expect(inner).toContain((item as any).subTitle[0]);
+      (item as {subTitle: string[]})?.subTitle?.length && expect(inner).toContain((item as {subTitle: string[]}).subTitle[0]);
       const container = child?.querySelector('.banner-container');
       expect(container).toBeDefined();
     });
@@ -44,8 +44,9 @@ describe('1: BasicTest', () => {
     const content = container.querySelector('.carousel-container .carousel-content');
     expect(content).toBeDefined();
     testTranslate(content, 1);
-    expect(setTimeout).toHaveBeenCalledTimes(1);
-    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 2500);
+    expect(setTimeout).toHaveBeenCalledTimes(2);
+    expect(setTimeout).toHaveBeenNthCalledWith(1, expect.any(Function), 2500); // waiting
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 50); // dot step
   });
 });
 

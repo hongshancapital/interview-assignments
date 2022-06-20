@@ -8,9 +8,10 @@ export const useDot = (props: DotProps): DotResult => {
   const data = useOnce(() => {
     const { plugin, data } = dotPluginFactory({
       onChange: setProgress,
-      enableDot: props.enableDot
+      enableDot: props.enableDot,
+      frameTime: 50
     })
-    props.carousel.usePlugin(plugin)
+    props.carousel.addHooks(plugin)
     return data
   })
 

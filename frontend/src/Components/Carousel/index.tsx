@@ -72,8 +72,7 @@ export default function Carousel (props: PropsWithChildren<CarouselProps>) {
     return () => {
       coreData.carousel.unmount()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [coreData])
 
   // 使用事件代理，其实对于 react 而言必要性大不。但是从数据层面，至少降低了函数数量
   const dotJumpHandler = (e: React.MouseEvent) => {

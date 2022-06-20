@@ -1,5 +1,6 @@
+import type React from 'react'
 import type Carousel from './core'
-import type { NormalPlugin }  from './core'
+import type { CarouselHooks as Hooks } from './core'
 
 export interface CarouselProps {
   interval?: number;
@@ -11,7 +12,7 @@ export interface CarouselProps {
   roll?: boolean;
 }
 
-export type PluginFactoryResult<D, P = NormalPlugin> = {
+export type PluginFactoryResult<D, P = Hooks> = {
   plugin: P;
   data: D;
 }
@@ -34,6 +35,7 @@ export interface CorePluginResult {
 export interface DotPluginOpt {
   enableDot: boolean;
   onChange(progress: number): void;
+  frameTime: number;
 }
 
 export interface DotProps {

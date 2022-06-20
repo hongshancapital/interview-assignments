@@ -1,5 +1,5 @@
 import { noop } from '../../utils/share'
-import type { CorePlugin } from './core'
+import type { CarouselCoreHooks as CoreHook, CarouselHooks as Hooks } from './core'
 import {
   PluginFactoryResult as R,
   CorePluginOpt,
@@ -8,7 +8,7 @@ import {
   DotPluginResult
 } from './type'
 
-export function corePluginFactory (opt: CorePluginOpt): R<CorePluginResult, CorePlugin> {
+export function corePluginFactory (opt: CorePluginOpt): R<CorePluginResult, CoreHook & Hooks> {
   let stepTime = opt.stepTime
   let interval = opt.interval
   let transitionEnd = noop
@@ -61,17 +61,24 @@ export function corePluginFactory (opt: CorePluginOpt): R<CorePluginResult, Core
 }
 
 export function dotPluginFactory (opt: DotPluginOpt): R<DotPluginResult> {
-  let { onChange } = opt
+  let { onChange, frameTime } = opt
   let useDot = opt.enableDot
   let current = -1
   let pause = false
-  const changePause = (value: boolean) => pause = value
+  const changePause = (value: boolean) => {
+    pause = value
+  }
   const enablePause = changePause.bind(null, true)
+  // const runLoop = (fn: (t: number) => boolean) => {
+  //   requestAnimationFrame(t => {
+  //     const canContinue = fn(t)
+  //     canContinue && runLoop(fn)
+  //   })
+  // }
   const runLoop = (fn: (t: number) => boolean) => {
-    requestAnimationFrame(t => {
-      const canContinue = fn(t)
-      canContinue && runLoop(fn)
-    })
+    setTimeout(() => {
+      fn(Date.now()) && runLoop(fn)
+    }, frameTime)
   }
   return {
     plugin: {
@@ -109,7 +116,7 @@ export function dotPluginFactory (opt: DotPluginOpt): R<DotPluginResult> {
       setEnableDot (enable) {
         useDot = enable
       },
-      clean() {
+      clean () {
         onChange = noop
       }
     }
