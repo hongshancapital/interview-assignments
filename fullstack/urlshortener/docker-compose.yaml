@@ -1,0 +1,20 @@
+version: "2.4"
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=dummy
+      - POSTGRES_PASSWORD=dummy
+      - POSTGRES_DB=postgres
+  server:
+    build: server
+    environment:
+      - DATABASE_URL=postgresql://dummy:dummy@postgres:5432/postgres
+      - BASE_URL=http://localhost
+    ports:
+      - "80:80"
+    entrypoint: ['waitforit', '-address=tcp://postgres:5432', '--', 'node', 'dist/index.js']
+  web:
+    build: web
+    ports:
+      - "8080:8080"
