@@ -5,7 +5,7 @@ import { server } from "../app";
 describe("test API", () => {
   test("direct get url expect undefined", async () => {
     const randomUrl = `${Math.random() * 10000}`;
-    supertest(server)
+    await supertest(server)
       .get("/api/v1/get")
       .query({
         key: randomUrl,
