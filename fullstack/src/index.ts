@@ -41,12 +41,15 @@ app.get("/api/v1/storage", (req, res, next) => {
 
   res.json(
     ResUtil.showResult({
-      data: `${Const_Host}/${key}`,
+      data: `${key}`,
     })
   );
   return;
 });
 
-app.listen(Const_Listen_Port, () => {
-  console.log(`Server listening on port: ${Const_Listen_Port}`);
-});
+// app.listen(Const_Listen_Port, () => {
+//   console.log(`Server listening on port: ${Const_Listen_Port}`);
+// });
+
+// 导出以供测试
+export const ExpressApp = app;
