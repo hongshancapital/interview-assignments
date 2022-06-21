@@ -26,7 +26,7 @@ export class Storage {
     let randomKeyStr = "";
     while (isExist) {
       // 生成随机数
-      let randomKey = (Math.random() * Const_Base) % Const_Max_Size;
+      let randomKey = Math.trunc(Math.random() * Const_Base) % Const_Max_Size;
       // 通过36进制转换为字符串
       randomKeyStr = randomKey.toString(Const_Radix);
       isExist = this.db[randomKey] !== undefined;
