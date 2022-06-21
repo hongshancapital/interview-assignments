@@ -19,23 +19,21 @@ function Carousel(props: Props) {
     progressBarHeight = 2,
   } = props;
 
-  const [indexShowing, setIndexShowing] = useState(0);
-
-  const handleProgressEnd = () => {
-    if (indexShowing === children.length - 1) {
-      setIndexShowing(0);
-    } else {
-      setIndexShowing(indexShowing + 1);
-    }
-  };
+  const [indexShowing, setIndexShowing] = useState(
+    startWithIndex > children.length - 1 || startWithIndex < 0
+      ? 0
+      : startWithIndex
+  );
 
   useEffect(() => {
-    if (startWithIndex > children.length - 1 || startWithIndex < 0) {
-      setIndexShowing(0);
-    } else {
-      setIndexShowing(startWithIndex);
-    }
-  }, [startWithIndex, children]);
+    setTimeout(() => {
+      if (indexShowing === children.length - 1) {
+        setIndexShowing(0);
+      } else {
+        setIndexShowing(indexShowing + 1);
+      }
+    }, duration * 1000);
+  }, [indexShowing, children, duration]);
 
   return (
     <div className="carousel">
@@ -58,7 +56,6 @@ function Carousel(props: Props) {
                 width={`${progressBarWidth}px`}
                 height={`${progressBarHeight}px`}
                 borderRadius={`${progressBarHeight / 2}px`}
-                onProgressEnd={handleProgressEnd}
               />
             </div>
           );
