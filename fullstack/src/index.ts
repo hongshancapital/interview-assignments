@@ -1,6 +1,6 @@
 import express from "express";
 import { Storage } from "./model/index";
-import { ResUtil, ShortUrlUtil } from "./util/index";
+import { ResUtil } from "./util/index";
 
 const Const_Host = "https://www.sequoiacap.cn";
 const Const_Listen_Port = process.env.PORT || 3000;
@@ -29,10 +29,6 @@ app.get("/api/v1/set", (req, res, next) => {
   if (targetUrl === "undefined") {
     res.json(ResUtil.showError({ msg: "未检测到url" }));
     // 明确指明程序到此终止, 增加可读性
-    return;
-  }
-  if (ShortUrlUtil.isLegal(targetUrl) === false) {
-    res.json(ResUtil.showError({ msg: "url不合法, 请检测后重试" }));
     return;
   }
 

@@ -17,9 +17,3 @@ export class ResUtil {
     };
   }
 }
-
-export class ShortUrlUtil {
-  static isLegal(url: string) {
-    return true;
-  }
-}
