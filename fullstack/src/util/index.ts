@@ -3,7 +3,7 @@
  */
 export class ResUtil {
   static showError({ code = 10000, msg = "", data = {} }) {
-    ResUtil.showResult({
+    return ResUtil.showResult({
       code,
       msg,
       data,
