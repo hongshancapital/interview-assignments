@@ -48,7 +48,7 @@ function Carousel(props: Props) {
           return <Slide key={c.key}>{c}</Slide>;
         })}
       </div>
-      <div className="propress-bars" data-testid="progress-bars">
+      <div className="progress-bars" data-testid="progress-bars">
         {children.map((_, i) => {
           return (
             <div key={_.key} style={{ padding: "0 3px" }}>
@@ -78,6 +78,7 @@ function Slide(props: SlideProps) {
   return (
     <div
       data-testid="slide"
+      className="slide"
       style={{
         width: "100%",
         height: "100%",
