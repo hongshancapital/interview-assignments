@@ -39,28 +39,38 @@ export const Carousel = forwardRef<Instance, Props>(
     ref
   ) => {
     const [current, setCurrent] = useState(initialCurrent);
-    const [precent, setPrecent] = useState(0);
+    const [countTime, _setCountTime] = useState(0);
+    const countTimeRef = useRef(0);
     const timerRef = useRef<NodeJS.Timeout>();
-    const precentTimerRef = useRef<NodeJS.Timeout>();
 
     const sum = children.length;
 
+    const setCountTime = (s: number) => {
+      countTimeRef.current = s;
+      _setCountTime(s);
+    };
+
     const doTiming = () => {
       if (autoplay) {
-        setPrecent(0);
-        timerRef.current && clearInterval(timerRef.current);
-        precentTimerRef.current && clearInterval(precentTimerRef.current);
+        setCountTime(0);
+        timerRef.current && clearTimeout(timerRef.current);
 
-        timerRef.current = setInterval(() => {
-          setCurrent((pre) => (pre + 1 === sum ? 0 : pre + 1));
-        }, autoplayTime);
+        const cb = (init?: boolean) => {
+          if (!init) {
+            setCountTime(countTimeRef.current + calcTime);
+          }
 
-        precentTimerRef.current = setInterval(() => {
-          setPrecent((pre) => {
-            const newPrecent = pre + (calcTime / autoplayTime) * 100;
-            return newPrecent > 100 ? 100 : newPrecent;
-          });
-        }, calcTime);
+          const restTime = autoplayTime - countTimeRef.current;
+          if (restTime <= 0) {
+            setCurrent((pre) => (pre + 1 === sum ? 0 : pre + 1));
+          } else if (restTime < calcTime) {
+            timerRef.current = setTimeout(cb, restTime);
+          } else {
+            timerRef.current = setTimeout(cb, calcTime);
+          }
+        };
+
+        cb(true);
       }
     };
 
@@ -73,7 +83,9 @@ export const Carousel = forwardRef<Instance, Props>(
     }));
 
     useEffect(() => {
+      // doTiming 方法无状态，不需要作为 dependence
       doTiming();
+      // onChange 方法为外界传入方法，不需要在改变时重新触发
       onChange?.(current);
     }, [current]);
 
@@ -89,8 +101,10 @@ export const Carousel = forwardRef<Instance, Props>(
             transform: `translate3d(-${(100 / sum) * current}%, 0px, 0px)`,
           }}
         >
-          {children.map((node) => (
-            <div className="components-carousel-node">{node}</div>
+          {children.map((node, index) => (
+            <div key={index} className="components-carousel-node">
+              {node}
+            </div>
           ))}
         </div>
 
@@ -103,8 +117,8 @@ export const Carousel = forwardRef<Instance, Props>(
             >
               {current === index && (
                 <div
-                  className="components-carousel-dot-precent"
-                  style={{ width: `${precent}%` }}
+                  className="components-carousel-dot-percent"
+                  style={{ width: `${countTime / autoplayTime}%` }}
                 />
               )}
             </div>
