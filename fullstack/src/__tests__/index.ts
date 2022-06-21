@@ -2,7 +2,7 @@ import { ResUtil } from "../util/index";
 import supertest from "supertest";
 import { server } from "../app";
 
-describe("test API", () => {
+describe("API test", () => {
   test("direct get url expect undefined", async () => {
     const randomUrl = `${Math.random() * 10000}`;
     await supertest(server)
