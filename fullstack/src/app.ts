@@ -10,8 +10,7 @@ const app = express();
 // 根据key获取url
 app.get("/api/v1/get", (req, res, next) => {
   // 确保传入参数一定是string
-  let targetKey = `${req.query?.key}`;
-
+  let targetKey = `${req.query.key}`;
   let url = Storage.get(targetKey);
   if (url === undefined) {
     res.json(ResUtil.showError({ msg: "未找到对应url" }));
@@ -27,7 +26,7 @@ app.get("/api/v1/get", (req, res, next) => {
 app.get("/api/v1/storage", (req, res, next) => {
   // 确保传入参数一定是string
   // 不需要检测url是否合法, 直接储存即可.
-  let targetUrl = `${req.query?.longUrl}`;
+  let targetUrl = `${req.query.longUrl}`;
   if (targetUrl === "undefined") {
     res.json(ResUtil.showError({ msg: "未检测到url" }));
     return;

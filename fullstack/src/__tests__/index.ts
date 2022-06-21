@@ -3,6 +3,12 @@ import supertest from "supertest";
 import { server } from "../app";
 
 describe("API test", () => {
+  test("get without key", async () => {
+    await supertest(server)
+      .get("/api/v1/get")
+      .expect(ResUtil.showError({ msg: "未找到对应url" }));
+  });
+
   test("direct get url expect undefined", async () => {
     const randomUrl = `${Math.random() * 10000}`;
     await supertest(server)
@@ -11,6 +17,14 @@ describe("API test", () => {
         key: randomUrl,
       })
       .expect(ResUtil.showError({ msg: "未找到对应url" }));
+  });
+
+  test("save without url", async () => {
+    const randomUrl = `${Math.random() * 10000}`;
+    let request = await supertest(server);
+    await request
+      .get("/api/v1/storage")
+      .expect(ResUtil.showError({ msg: "未检测到url" }));
   });
 
   test("save url then get", async () => {
