@@ -1,11 +1,11 @@
 import { ResUtil } from "../util/index";
 import supertest from "supertest";
-import { ExpressApp } from "../index";
+import { server } from "../app";
 
 describe("test API", () => {
   test("direct get url expect undefined", async () => {
     const randomUrl = `${Math.random() * 10000}`;
-    supertest(ExpressApp)
+    supertest(server)
       .get("/api/v1/get")
       .query({
         key: randomUrl,
@@ -15,7 +15,7 @@ describe("test API", () => {
 
   test("save url then get", async () => {
     const randomUrl = `${Math.random() * 10000}`;
-    let request = await supertest(ExpressApp);
+    let request = await supertest(server);
     let res = await request.get("/api/v1/storage").query({
       longUrl: randomUrl,
     });
@@ -31,7 +31,7 @@ describe("test API", () => {
 
   test("save same url then get", async () => {
     const randomUrl = `${Math.random() * 10000}`;
-    let request = await supertest(ExpressApp);
+    let request = await supertest(server);
     let res = await request.get("/api/v1/storage").query({
       longUrl: randomUrl,
     });
