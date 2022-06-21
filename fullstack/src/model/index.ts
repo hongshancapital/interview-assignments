@@ -29,7 +29,7 @@ export class Storage {
       let randomKey = (Math.random() * Const_Base) % Const_Max_Size;
       // 通过36进制转换为字符串
       randomKeyStr = randomKey.toString(Const_Radix);
-      isExist = this.db[randomKey] === undefined;
+      isExist = this.db[randomKey] !== undefined;
     }
     // 空缺位数补0
     randomKeyStr = randomKeyStr.padStart(Const_Short_Url_Length, "0");
