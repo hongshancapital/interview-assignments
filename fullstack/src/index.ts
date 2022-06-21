@@ -28,7 +28,7 @@ app.get("/api/v1/get", (req, res, next) => {
 });
 
 // 将url转为短网址key
-app.get("/api/v1/set", (req, res, next) => {
+app.get("/api/v1/storage", (req, res, next) => {
   // 确保传入参数一定是string
   // 不需要检测url是否合法, 直接储存即可.
   let targetUrl = `${req.query?.longUrl}`;
