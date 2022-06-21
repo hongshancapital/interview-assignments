@@ -16,7 +16,10 @@ const Const_Base = Math.pow(10, `${Const_Max_Size}`.length + 1);
  * key-value数据库, 用于存储.
  */
 export class Storage {
+  // 将url按shortUrlKey => url的方式存储
   private static db: { [key: string]: string } = {};
+  // 按url => shortUrlKey的方式存储, 便于判断url是否已经生成过短网址
+  private static reverseDb: { [key: string]: string } = {};
 
   /**
    * 生成一个随机且不在db中存在的key
@@ -51,8 +54,14 @@ export class Storage {
    * @returns
    */
   static add(value: string): string {
+    if (this.reverseDb[value] !== undefined) {
+      // 已经存储过, 直接返回原记录即可
+      return this.reverseDb[value];
+    }
+
     let key = this.generateKey();
     this.db[key] = value;
+    this.reverseDb[value] = key; // 额外存一份反向链接, 方便检测
     return key;
   }
 }
