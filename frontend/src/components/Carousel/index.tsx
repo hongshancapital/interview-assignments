@@ -45,7 +45,7 @@ function Carousel(props: Props) {
         style={{ transform: `translateX(-${indexShowing * 100}%)` }}
       >
         {children.map((c) => {
-          return c;
+          return <Slide key={c.key}>{c}</Slide>;
         })}
       </div>
       <div className="propress-bars" data-testid="progress-bars">
@@ -72,7 +72,7 @@ type SlideProps = {
   children: ReactElement;
 };
 
-export function Slide(props: SlideProps) {
+function Slide(props: SlideProps) {
   const { children } = props;
 
   return (

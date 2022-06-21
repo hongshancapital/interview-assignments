@@ -1,19 +1,13 @@
 import React from "react";
-import Carousel, { Slide } from "..";
+import Carousel from "..";
 import { render } from "@testing-library/react";
 
 const CarouselSlides = ({ duration = 0, startWithIndex = 0 }) => {
   return (
     <Carousel duration={duration} startWithIndex={startWithIndex}>
-      <Slide key="slide1">
-        <p>slide 1</p>
-      </Slide>
-      <Slide key="slide2">
-        <p>slide 2</p>
-      </Slide>
-      <Slide key="slide3">
-        <p>slide 3</p>
-      </Slide>
+      <p key="slide1">slide 1</p>
+      <p key="slide2">slide 2</p>
+      <p key="slide3">slide 3</p>
     </Carousel>
   );
 };

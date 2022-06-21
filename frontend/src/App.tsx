@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Carousel, { Slide } from "./components/Carousel";
+import Carousel from "./components/Carousel";
 
 import iphone from "./assets/iphone.png";
 import tablet from "./assets/tablet.png";
@@ -56,22 +56,21 @@ function App() {
       <Carousel duration={3}>
         {slides.map((s) => {
           return (
-            <Slide key={s.title}>
-              <div
-                data-testid={s.testId}
-                style={{
-                  background: `no-repeat url(${s.imageSrc})`,
-                  backgroundColor: s.backgroundColor,
-                  color: s.color,
-                  ...slideStyle,
-                }}
-              >
-                <div className="desc">
-                  <p className="title">{s.title}</p>
-                  {s.text && <p className="text">{s.text}</p>}
-                </div>
+            <div
+              key={s.title}
+              data-testid={s.testId}
+              style={{
+                background: `no-repeat url(${s.imageSrc})`,
+                backgroundColor: s.backgroundColor,
+                color: s.color,
+                ...slideStyle,
+              }}
+            >
+              <div className="desc">
+                <p className="title">{s.title}</p>
+                {s.text && <p className="text">{s.text}</p>}
               </div>
-            </Slide>
+            </div>
           );
         })}
       </Carousel>
