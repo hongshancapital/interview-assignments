@@ -2,6 +2,7 @@ import express from "express";
 import { Storage } from "./model/index";
 import { ResUtil } from "./util/index";
 
+const Const_Host = "https://www.sequoiacap.cn";
 // express实例
 const app = express();
 
@@ -36,7 +37,11 @@ app.get("/api/v1/storage", (req, res, next) => {
 
   res.json(
     ResUtil.showResult({
-      data: `${key}`,
+      data: {
+        key,
+        host: Const_Host,
+        url: `${Const_Host}/${key}`,
+      },
     })
   );
   return;

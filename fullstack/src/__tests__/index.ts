@@ -33,7 +33,7 @@ describe("API test", () => {
     let res = await request.get("/api/v1/storage").query({
       longUrl: randomUrl,
     });
-    let key = JSON.parse(res.text).data;
+    let key = JSON.parse(res.text)?.data?.key;
 
     await request
       .get("/api/v1/get")
@@ -49,13 +49,13 @@ describe("API test", () => {
     let res = await request.get("/api/v1/storage").query({
       longUrl: randomUrl,
     });
-    let key = JSON.parse(res.text).data;
+    let key = JSON.parse(res.text)?.data?.key;
 
     // 二次存入相同url
     let res2 = await request.get("/api/v1/storage").query({
       longUrl: randomUrl,
     });
-    let key2 = JSON.parse(res2.text).data;
+    let key2 = JSON.parse(res2.text)?.data?.key;
     // 期待返回的key值不变
     expect(key2).toBe(key);
 
