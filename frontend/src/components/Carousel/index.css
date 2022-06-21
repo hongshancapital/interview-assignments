@@ -1,0 +1,77 @@
+.m-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.m-carousel .img-list {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.m-carousel .img-item {
+    position: relative;
+    flex: 0 0 100%;
+    height: 100%;
+}
+
+.m-carousel .img-content {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+.m-carousel .img-link {
+    color: inherit;
+    text-decoration: none;
+    font-size: 40px;
+}
+
+.m-carousel .img-link:hover {
+    text-decoration: underline;
+}
+
+.m-carousel .img-desc {
+    font-size: 20px;
+}
+
+.m-carousel .img-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 下方进度条 */
+.m-carousel .process-list {
+    display: flex;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.m-carousel .process-item {
+    width: 80px;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.m-carousel .process-item + .process-item {
+    margin-left: 10px;
+}
+
+.m-carousel .process-inner {
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    border-radius: 2px;
+}
