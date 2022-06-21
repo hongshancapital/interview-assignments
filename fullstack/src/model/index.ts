@@ -23,8 +23,11 @@ export class Storage {
 
   /**
    * 生成一个随机且不在db中存在的key
+   *
+   * 也可以用随机排序的字符串作为映射字符, 但只要最终id是递增的, 就总会被人找到规律, 反而没有安全性. 不如随机数法, 在样本量小于1000亿时有良好的性能
    */
   private static generateKey() {
+    // 碰撞后需要重新生成一个key, 当数据量达到1000亿时, 连续碰撞5次的概率也只有(1/10)^5, 不足万分之一.
     let isExist = true;
     let randomKeyStr = "";
     while (isExist) {
