@@ -20,12 +20,12 @@ const CarouselContentContainer = (props: {
     children?: React.ReactNode;
     parentRef: any
 }) => {
-    const { current, children, parentRef } = props 
+    const { current, children, parentRef } = props
     const [offset, setOffset] = useState(0)
     useEffect(() => {
         setOffset(-parentRef?.current?.offsetWidth * (current || 0) || 0)
     }, [parentRef, current])
-    return <div className="carousel-content-container" 
+    return <div className="carousel-content-container"
         style={{
             left: offset
         }}
@@ -40,18 +40,18 @@ const CarouselContentContainer = (props: {
 
 const Dots = (props: {
     totalCount: number
-    onChange: (current: number) => void 
+    onChange: (current: number) => void
     current?: number
-    autoPlay?: boolean 
+    autoPlay?: boolean
 }) => {
     const { totalCount, onChange, autoPlay = true, current } = props
     const [st, setSt] = useState<any>(null)
-    
+
     useEffect(() => {
-        if(st) {
+        if (st) {
             clearInterval(st)
         }
-        if(autoPlay) {
+        if (autoPlay) {
             let st = setInterval(() => {
                 onChange((current || 0) + 1 < totalCount ? (current || 0) + 1 : 0)
             }, 2000)
@@ -66,10 +66,13 @@ const Dots = (props: {
         const clz = classNames("carousel-dot", {
             [`active`]: current === index
         })
-        
+
         return <div className={clz} key={`carousel-dot-${index}`} onClick={() => {
             onChange(index)
-        }}></div>
+        }}>
+            <div className="active-dot-process">
+            </div>
+        </div>
     })
     return <div className="carousel-dot-container">
         {subs}
@@ -83,20 +86,20 @@ export const Carousel = (props: CarouselProps) => {
     const totalCount = React.useMemo(() => React.Children.count(props.children), [props.children]);
     const className = classNames(props?.prefixCls, 'carousel')
     const onChange = useCallback((value: number) => {
-        if  (props.onChange) {
+        if (props.onChange) {
             props.onChange(value)
-        }   else {
+        } else {
             setCurrent(value)
         }
     }, [props.onChange])
 
     return <div className={className} ref={containerRef} style={props.style}>
-        <CarouselContentContainer 
-            parentRef={containerRef} 
+        <CarouselContentContainer
+            parentRef={containerRef}
             totalCount={totalCount}
             current={typeof props.current === 'number' ? props.current : current}
         >{props.children}</CarouselContentContainer>
-        <Dots 
+        <Dots
             autoPlay={props.autoPlay}
             totalCount={totalCount}
             current={typeof props.current === 'number' ? props.current : current}

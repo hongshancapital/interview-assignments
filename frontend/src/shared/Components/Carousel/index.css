@@ -1,10 +1,11 @@
 .carousel {
-  position: relative;
-  width: 100%;
-  min-height: 300px;
-  overflow: hidden;
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    overflow: hidden;
 }
-.carousel-content-container { 
+
+.carousel-content-container {
     width: 100%;
     position: absolute;
     vertical-align: top;
@@ -12,7 +13,7 @@
     transition: left 1s linear;
 }
 
-.carousel-content-container>.carousel-item-container{
+.carousel-content-container>.carousel-item-container {
     display: inline-block;
     width: 100%;
 }
@@ -34,8 +35,31 @@
     background-color: rgb(161, 161, 161);
     border: 1px solid rgb(161, 161, 161);
     margin-left: 5px;
+    position: relative;
+    overflow: hidden;
 }
 
-.carousel>.carousel-dot-container>.carousel-dot.active {
-    background-color:rgb(249, 249, 249);
+.carousel-dot>.active-dot-process {
+    background-color: rgb(249, 249, 249);
+    border: none;
+    width: 24px;
+    height: 3px;
+    margin-left: -24px;
+}
+
+.carousel-dot.active>.active-dot-process {
+    margin-left: 0px;
+    animation-duration: 2s;
+    animation-name: slidein;
+}
+
+
+@keyframes slidein {
+    from {
+        margin-left: -24px;
+    }
+
+    to {
+        margin-left: 0px;
+    }
 }
