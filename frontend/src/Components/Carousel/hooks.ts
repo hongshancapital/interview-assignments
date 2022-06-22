@@ -4,13 +4,12 @@ import { noop, useTemporary } from '../../utils/share'
 import { CarouselStatus as Status, CoreProps, CoreResult, DotProps, DotResult, DraggerProps, DraggerResult } from './type'
 
 export const useCarousel = (props: CoreProps): CoreResult => {
-
   const [status, setStatus] = useState(Status.waiting)
   const [target, setTarget] = useState(0)
 
   const [temporary, updateTemporary] = useTemporary({
     reject: noop,
-    props, // 将 props 挂载在临时变量，effect 只关注 status 变化
+    props,
     status,
     jumpTarget: 0
   })
@@ -20,15 +19,15 @@ export const useCarousel = (props: CoreProps): CoreResult => {
   const data = useRef({
     current: 0,
     transitionEnd: noop,
-    jump(index: number) {
+    jump (index: number) {
       temporary.reject()
       temporary.jumpTarget = index
       setStatus(Status.jumping)
     },
-    pause() {
+    pause () {
       setStatus(Status.pause)
     },
-    resume(index: number) {
+    resume (index: number) {
       if (temporary.status !== Status.pause) {
         return
       }
@@ -63,7 +62,7 @@ export const useCarousel = (props: CoreProps): CoreResult => {
   return {
     status,
     target,
-    ...data.current,
+    ...data.current
   }
 }
 
@@ -71,13 +70,14 @@ const FRAME_TIME = 50
 export const useDot = (...args: DotProps): DotResult => {
   const [config, data] = args
   const [progress, setProgress] = useState(0)
+  // 避免每次执行 runLoopFactory
   const loopData = useMemo(runLoopFactory, [])
   const [temporary, updateTemporary] = useTemporary({
     time: 0,
     ...loopData,
     current: -1
   })
-  updateTemporary({ time: config.time })
+  config.enableDot && updateTemporary({ time: config.time })
 
   useEffect(() => {
     if (!config.enableDot) {
@@ -103,36 +103,35 @@ export const useDot = (...args: DotProps): DotResult => {
     } else if (data.status === Status.pause) {
       tmp.cleanLoop()
     }
-    
   }, [data.status, config.enableDot, temporary])
 
-  // 由于 setProgress 是在 effect 中，因此 current 修改也需要在 effect 中，否则可能出现一帧 waiting start progress 为 100
+  // 由于 setProgress 是在 effect 中，因此 current 修改也需要在 effect 中，否则可能出现一帧 waiting start 时 progress 为 100
   useEffect(() => {
     temporary.current = data.current
   }, [data, temporary])
 
   let isCurrent = true
-  if (temporary.current !== data.current) {
+  if (config.enableDot && temporary.current !== data.current) {
     temporary.cleanLoop()
     isCurrent = false
   }
 
   return {
-    getProgress(index) {
+    getProgress (index) {
       return isCurrent && index === data.current ? progress : 0
     }
   }
 }
 
 export const useDragger = (...args: DraggerProps): DraggerResult => {
-  const [ config, data ] = args
+  const [config, data] = args
   const [translate, setTranslate] = useState<number | null>(null)
 
   const [tem, updateTemporary] = useTemporary({
     config,
     data
   })
-  updateTemporary({ config, data })
+  config.enableDrag && updateTemporary({ config, data })
 
   const events = useMemo((): DraggerResult['events'] => {
     let darg = false
@@ -149,8 +148,10 @@ export const useDragger = (...args: DraggerProps): DraggerResult => {
       // 由于使用 drag 前后要加一个因此需要减 1
       const base = startTranslate + move
       let index = Math.round(-base / step) - 1
-      if (index === -1 || index > tem.config.length - 1) {
-        index = index === -1 ? tem.config.length - 1 : 0
+      if (index === -1) {
+        index = tem.config.length - 1
+      } else if (index > tem.config.length - 1) {
+        index = 0
       }
       setTranslate(null)
       tem.data.resume(index)
@@ -186,7 +187,7 @@ export const useDragger = (...args: DraggerProps): DraggerResult => {
   }, [tem])
 
   return {
-    events,
+    events: config.enableDrag ? events : {},
     translate
   }
 }

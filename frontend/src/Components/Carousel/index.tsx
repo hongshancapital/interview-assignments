@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { useCarousel, useDot, useDragger } from './hooks'
+import { noop } from '../../utils/share'
 import type { PropsWithChildren, FunctionComponent } from 'react'
 import { CarouselProps } from './type'
 import './index.css'
@@ -23,7 +24,7 @@ export default function Carousel (props: PropsWithChildren<CarouselProps>) {
   }
 
   const carouselData = useCarousel({
-    interval: interval,
+    interval,
     length: items.length
   })
 
@@ -38,11 +39,13 @@ export default function Carousel (props: PropsWithChildren<CarouselProps>) {
   }, carouselData)
 
   // 使用事件代理，其实对于 react 而言必要性大不。但是从数据层面，至少降低了函数数量
-  const dotJumpHandler = (e: React.MouseEvent) => {
-    const dataset = (e.target as HTMLElement).dataset
-    const index = dataset?.index
-    index && carouselData.jump(+index)
-  }
+  const dotJumpHandler = dots
+    ? (e: React.MouseEvent) => {
+        const dataset = (e.target as HTMLElement).dataset
+        const index = dataset?.index
+        index && carouselData.jump(+index)
+      }
+    : noop
 
   const fill = items.length && dragable
 
@@ -52,9 +55,8 @@ export default function Carousel (props: PropsWithChildren<CarouselProps>) {
         transform: `translate(${(carouselData.target + fixStep) * -100}%, 0)`,
         transition: `transform ${stepTime / 1000}s linear`
       }
-    : {
-        transform: `translate(${draggerData.translate}px, 0)`
-      }
+    : { transform: `translate(${draggerData.translate}px, 0)` }
+
   return (
     <div
       className="carousel-container"

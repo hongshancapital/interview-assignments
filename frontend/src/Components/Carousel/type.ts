@@ -58,10 +58,10 @@ export type DraggerProps = [
 
 export interface DraggerResult {
   events: {
-    onMouseDown(e: React.MouseEvent): void;
-    onMouseUp(e: React.MouseEvent): void;
-    onMouseMove(e: React.MouseEvent): void;
-    onMouseLeave(e: React.MouseEvent): void;
+    onMouseDown?(e: React.MouseEvent): void;
+    onMouseUp?(e: React.MouseEvent): void;
+    onMouseMove?(e: React.MouseEvent): void;
+    onMouseLeave?(e: React.MouseEvent): void;
   },
   translate: number | null,
 }
