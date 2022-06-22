@@ -12,12 +12,7 @@ function App() {
     style={{
       height: '100vh'
     }}>
-        <ImageContent basicBackgroundColor="#111111"
-          style={{
-            backgroundSize: '34% auto',
-            backgroundPosition: '50% 50%'
-          }}
-        image={iphone} title={<p className="font-in-dark">xPhone</p>} description={
+        <ImageContent basicBackgroundColor="#111111" image={iphone} title={<p className="font-in-dark">xPhone</p>} description={
           <>
             <p className="font-in-dark">Lots to love. Less to spend</p>
             <p className="font-in-dark">Starting at $399</p>

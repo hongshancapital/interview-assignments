@@ -16,9 +16,11 @@ export const ImageContent = (props: ImageContentProps) => {
     return <div className={clz} style={{
         backgroundColor: props?.basicBackgroundColor,
         ...(props?.style || {}),
-        backgroundImage: `url(${props.image})`
     }}>
         <div className="image-content-title title">{props.title}</div>
         <div className="image-content-description text">{props.description}</div>
+        <div className="image-content-image" style={{
+            backgroundImage: `url(${props.image})`
+        }}></div>
     </div>
 }
