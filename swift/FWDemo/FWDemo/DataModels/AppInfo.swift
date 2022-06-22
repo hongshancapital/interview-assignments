@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 数据模型
 struct AppInfo : Identifiable, Decodable {
     
     var id : Int

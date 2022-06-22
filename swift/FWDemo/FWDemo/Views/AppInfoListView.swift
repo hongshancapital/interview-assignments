@@ -20,7 +20,6 @@ struct AppInfoListView: View {
                 List{
                     ForEach(viewModel.datalist) { appInfo in
                         AppInfoRow(appInfo: appInfo)
-                            .listRowSeparatorTint(.none)
                     }
                     .listRowBackground(EmptyView())
                     .listRowSeparator(.hidden)

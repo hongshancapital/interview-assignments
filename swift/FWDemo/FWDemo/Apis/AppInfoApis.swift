@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-/// app 相关的接口
+/// app 相关的接口：可以对api接口进行分类集中管理
 enum AppInfoApis {
     
     /// 查询app列表数据，param1-页码，param2-单页数据量

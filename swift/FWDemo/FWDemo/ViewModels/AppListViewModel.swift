@@ -21,6 +21,10 @@ class AppListViewModel : ObservableObject {
     
     var cancellable : AnyCancellable?
     
+    deinit {
+        cancellable?.cancel()
+    }
+    
     /// 下拉刷新数据
     func refresh() {
         if inRefreshing || inLoadingMore {
@@ -51,15 +55,15 @@ class AppListViewModel : ObservableObject {
         }
         .receive(on: RunLoop.main)
         .sink(receiveCompletion: {completion in
-            switch completion {
-                case .finished:
-                    print("==== applist : fetch success")
-                case .failure(let e):
-                    print("==== applist : fetch error : \(e)")
-            }
+//            switch completion {
+//                case .finished:
+//                    print("==== applist : fetch success")
+//                case .failure(let e):
+//                    print("==== applist : fetch error : \(e)")
+//            }
             
         }, receiveValue: { datalist in
-            print("==== applist : fetch data : \(datalist) \n === \(datalist.count)")
+//            print("==== applist : fetch data : \(datalist) \n === \(datalist.count)")
             self.pageIndex = pageIndex
             self.inRefreshing = false
             self.inLoadingMore = false

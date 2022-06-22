@@ -12,6 +12,7 @@ enum Method {
     case post
 }
 
+/// App网络层：在这里封装基础的网络能力“get，post，download，upload”。
 class NetworkManager {
     static let shared = NetworkManager()
     

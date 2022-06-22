@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 定义request标准，后续可以扩展更多功能支持，比如：request-format、请求加密等
 protocol RequestType {
     
     var baseURL : URL { get }

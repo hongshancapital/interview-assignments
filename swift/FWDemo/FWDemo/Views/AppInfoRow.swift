@@ -55,7 +55,7 @@ struct AppInfoRow: View {
                             .tryMap{ $0.data }
                             .decode(type: FavoriteApiResponse.self, decoder: JSONDecoder())
                             .sink(receiveCompletion: {completion in
-                                print("==== favorite completion : \(completion)")
+//                                print("==== favorite completion : \(completion)")
                             }, receiveValue: {response in
                                 
                             })

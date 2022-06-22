@@ -34,25 +34,13 @@ class FWDemoTests: XCTestCase {
     }
 
     func testApplistApi() throws {
-        var data = [AppInfo]()
-        _ = NetworkManager.shared.sendRequest(requestType: AppInfoApis.getAppInfolist(1, 20))
-        .tryMap{ $0.data }
-        .decode(type: AppApiResponse.self, decoder: JSONDecoder())
-        .sink(receiveCompletion: {completion in
-            switch completion {
-                case .finished:
-                    print("==== success")
-                case .failure(let e):
-                    XCTAssert(false, "AppList接口请求出错:\(e)")
-            }
-        }, receiveValue: {response in
-            data = response.results
-        })
+        let appListViewModal = AppListViewModel()
+        appListViewModal.refresh()
         let exp = self.expectation(description: "等待接口请求")
         DispatchQueue.global().asyncAfter(deadline: .now() + 10) {
             exp.fulfill()
         }
         waitForExpectations(timeout: 10)
-        XCTAssert(data.count > 0, "AppList接口请求出错")
+        XCTAssert(appListViewModal.datalist.count > 0, "AppList接口请求出错")
     }
 }
