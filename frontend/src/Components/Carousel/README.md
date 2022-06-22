@@ -13,3 +13,24 @@
 2. 一开始设计的时候并没有尝试写 hooks（之前只是有概念，也知道底层原理，但是没有实践），所以在结合封装 Class 时有一点后悔如此设计，好在找到套路后好像还行
 
 暂时就写这么多吧，其实感触确实还挺多的
+
+## 重写思路
+
+1. 核心 hook 定义状态，并提供修改状态方法。
+2. dot 作为单独 hook
+3. dragger 作为单独 hook
+
+### 核心 hook
+
+- 入参为 carousel 配置
+- 出参为 carousel 状态信息 & jump & pause & resume & transitionEnd 方法
+
+### dot hook
+
+- 入参为配置及状态 & jump
+- 出参为 getProgress
+
+### dragger hook
+
+- 入参为配置 & pause & resume
+- 出参为 events & translate

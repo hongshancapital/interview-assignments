@@ -1,8 +1,5 @@
-import React, { memo, useState, useEffect } from 'react'
-import Core from './core/index'
-import { corePluginFactory } from './plugin'
-import { useDot, useDragger } from './hooks'
-import { useOnce } from '../../utils/share'
+import React, { memo } from 'react'
+import { useCarousel, useDot, useDragger } from './hooks'
 import type { PropsWithChildren, FunctionComponent } from 'react'
 import { CarouselProps } from './type'
 import './index.css'
@@ -25,67 +22,34 @@ export default function Carousel (props: PropsWithChildren<CarouselProps>) {
     items = props.children.filter(item => item.type.displayName === ITEM_NAME)
   }
 
-  // core plugin & init logic
-  const [translate, setTranslate] = useState(dragable ? -100 : 0)
-  const coreData = useOnce(() => {
-    let fixStep = dragable ? 1 : 0
-    const { data, plugin } = corePluginFactory({
-      interval,
-      stepTime,
-      setTranslate (index) {
-        const value = -(index + fixStep) * 100
-        setTranslate(value)
-      }
-    })
-    const carousel = new Core(plugin)
-    carousel.init(items.length)
-    return {
-      ...data,
-      carousel,
-      enableDragger (enable: boolean) {
-        fixStep = enable ? 1 : 0
-      }
-    }
+  const carouselData = useCarousel({
+    interval: interval,
+    length: items.length
   })
 
-  // enable dragger for setTranslate
-  useEffect(() => {
-    coreData.enableDragger(dragable)
-  }, [dragable, coreData])
+  const dotData = useDot(
+    { time: interval, enableDot: !!dots, dotJump },
+    carouselData
+  )
 
-  // dot plugin
-  const dotData = useDot({
-    enableDot: !!dots,
-    dotJump,
-    carousel: coreData.carousel
-  })
-
-  // dragger hook
   const draggerData = useDragger({
     enableDrag: dragable,
-    carousel: coreData.carousel
-  })
-
-  // carousel effect
-  useEffect(() => {
-    coreData.carousel.mount()
-    return () => {
-      coreData.carousel.unmount()
-    }
-  }, [coreData])
+    length: items.length
+  }, carouselData)
 
   // 使用事件代理，其实对于 react 而言必要性大不。但是从数据层面，至少降低了函数数量
   const dotJumpHandler = (e: React.MouseEvent) => {
     const dataset = (e.target as HTMLElement).dataset
     const index = dataset?.index
-    index && coreData.carousel.jump(+index)
+    index && carouselData.jump(+index)
   }
 
   const fill = items.length && dragable
 
+  const fixStep = dragable ? 1 : 0
   const style = draggerData.translate === null
     ? {
-        transform: `translate(${translate}%, 0)`,
+        transform: `translate(${(carouselData.target + fixStep) * -100}%, 0)`,
         transition: `transform ${stepTime / 1000}s linear`
       }
     : {
@@ -98,7 +62,7 @@ export default function Carousel (props: PropsWithChildren<CarouselProps>) {
       <div
         className="carousel-content"
         style={style}
-        onTransitionEnd={coreData.transitionEnd}
+        onTransitionEnd={carouselData.transitionEnd}
         {...draggerData.events}
       >
         {fill && items[items.length - 1]}

@@ -1,6 +1,4 @@
 import type React from 'react'
-import type Carousel from './core'
-import type { CarouselHooks as Hooks } from './core'
 
 export interface CarouselProps {
   interval?: number;
@@ -12,53 +10,51 @@ export interface CarouselProps {
   roll?: boolean;
 }
 
-export type PluginFactoryResult<D, P = Hooks> = {
-  plugin: P;
-  data: D;
+// carousel hook
+export enum CarouselStatus {
+  waiting,
+  jumping,
+  pause,
 }
-
-/** CorePlugin */
-
-export interface CorePluginOpt {
+export interface CoreProps {
   interval: number;
-  stepTime: number;
-  setTranslate: (index: number) => void;
+  length: number;
 }
 
-export interface CorePluginResult {
-  transitionEnd: () => void;
-  setInterval: (interval: number) => void;
-  setStepTime: (time: number) => void;
+export interface CoreResult {
+  status: CarouselStatus;
+  target: number;
+  current: number;
+  transitionEnd(): void;
+  jump(index: number): void;
+  pause(): void;
+  resume(index: number): void;
 }
 
-/** Dot */
-export interface DotPluginOpt {
-  enableDot: boolean;
-  onChange(progress: number): void;
-  frameTime: number;
-}
+// dot hook
 
-export interface DotProps {
-  enableDot: boolean;
-  dotJump: boolean;
-  carousel: Carousel;
-}
-
-export interface DotPluginResult {
-  getCurrent(): number;
-  setEnableDot(enable: boolean): void;
-  clean(): void;
-}
+export type DotProps = [
+  {
+    enableDot: boolean;
+    dotJump: boolean;
+    time: number;
+  },
+  Omit<CoreResult, 'transitionEnd' | 'pause' | 'resume'>
+]
 
 export interface DotResult {
   getProgress(index: number): number;
 }
 
-/** Dragger */
-export interface DraggerProps {
-  enableDrag: boolean;
-  carousel: Carousel;
-}
+// dragger hook
+
+export type DraggerProps = [
+  {
+    enableDrag: boolean;
+    length: number;
+  },
+  Pick<CoreResult, 'pause' | 'resume'>
+]
 
 export interface DraggerResult {
   events: {
