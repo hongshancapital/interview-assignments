@@ -8,7 +8,7 @@ import tablet from './assets/tablet.png'
 function App() {
   return <div className="App">
     <Carousel 
-      autoPlay={false}
+      autoPlay={true}
     style={{
       height: '100vh'
     }}>
