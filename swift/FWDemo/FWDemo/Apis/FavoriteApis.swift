@@ -74,3 +74,9 @@ extension FavoriteApis : RequestType {
         }
     }
 }
+
+struct FavoriteApiResponse : Decodable {
+    let code : Int          /// 状态码
+    let message : String    /// 状态描述
+    let result : Bool       /// 收藏\取消收藏结果
+}
