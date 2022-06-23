@@ -13,7 +13,6 @@ const useRect = (deps: React.DependencyList) => {
   
   const handleChangeSize = () => {
     const rect = rootRef.current?.getBoundingClientRect();
-    console.log('rect', rect)
     if (!rect) return;
     
     setSize({

@@ -12,7 +12,7 @@ import useRect from './hooks/useRect';
 
 export interface CarouselProps {
   // 自动轮播时长，单位毫秒
-  autoplay?: number;
+  autoplay?: false | number;
   // 轮播过渡时长，单位毫秒
   duration?: number;
   // 初始化定位序号
@@ -39,6 +39,11 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     itemWidth,
   } = useRect([count]);
   
+  // 所有轮播组件总宽度
+  const containerStyle = useMemo(() => ({
+    width: itemWidth * count
+  }), [itemWidth, count]);
+  
   const {
     carouselRef,
     currentIndex,
@@ -49,16 +54,17 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     count,
     duration,
     width: itemWidth,
+    initialIndex,
   });
   
-  useEffect(() => {
+  /*useEffect(() => {
     if (itemWidth) {
       slideGoTo({
         type: 'index',
         index: initialIndex,
       })
     }
-  }, [initialIndex, itemWidth]);
+  }, [initialIndex, itemWidth]);*/
   
   const autoPlayTimer = useRef<NodeJS.Timeout | null>(null);
   // 自动轮播
@@ -71,7 +77,15 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     }, autoplay);
   };
   
-  useEffect(onAutoPlay, [count, autoplay, currentIndex, itemWidth]);
+  const onStopPlay = () => {
+    autoPlayTimer.current && clearTimeout(autoPlayTimer.current)
+    autoPlayTimer.current = null;
+  };
+  
+  useEffect(() => {
+    onAutoPlay();
+    return onStopPlay;
+  }, [count, autoplay, currentIndex, itemWidth]);
   
   return (
     <div
@@ -82,9 +96,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
       <div
         ref={carouselRef}
         className={styles.carousel__container}
-        style={{
-          width: count * itemWidth
-        }}
+        style={containerStyle}
       >
         {React.Children.map(children, (child, index) => {
           if (!React.isValidElement(child)) return null;
