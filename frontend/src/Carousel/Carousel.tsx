@@ -45,9 +45,17 @@ const Carousel: React.FC<CarouselProps> = (props) => {
   } = useSlide({
     count,
     duration,
-    initialIndex,
     width: size.width,
-  })
+  });
+  
+  useEffect(() => {
+    if (size.width) {
+      slideGoTo({
+        type: 'index',
+        index: initialIndex,
+      })
+    }
+  }, [initialIndex, size.width]);
   
   const handleChangeSize = () => {
     const rect = rootRef.current?.getBoundingClientRect();
