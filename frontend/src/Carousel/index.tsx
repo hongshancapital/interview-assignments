@@ -39,7 +39,12 @@ export const Carousel = ({
 
   return (
     <div className='carousel-box'>
-      <div className={'img-box active-' + currentIndex}>
+      <div className={'img-box '}
+        ref={(node) => {
+          if (node) {
+            node.style.setProperty('transform', `translateX(-${currentIndex * 100}%)`);
+          }
+        }}>
         {
           list.map((item: ICarouselItemProps, index: number) => {
             return <CarouselItem
