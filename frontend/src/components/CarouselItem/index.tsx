@@ -14,7 +14,9 @@ const CarouselItem = ({
   return (
     <div
       className={styles.body}
-      style={{ backgroundColor: customBackgroundColor }}
+      style={{
+        backgroundColor: customBackgroundColor,
+      }}
     >
       {children}
     </div>

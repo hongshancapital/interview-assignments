@@ -28,20 +28,6 @@ const DescriptionDomMemo = React.memo(
   }
 );
 
-const ImgDomMemo = React.memo(
-  ({ imgUrl, title }: { imgUrl?: string; title?: string }) => {
-    return imgUrl ? (
-      <img
-        className={styles.img}
-        src={imgUrl}
-        alt={title ? `${title}-img` : `img`}
-        decoding='async'
-        loading='lazy'
-      />
-    ) : null;
-  }
-);
-
 /**
  * @description: 每个轮播图子项的可业务定制化内容
  * @param {string} title 大标题
@@ -53,10 +39,17 @@ const ImgDomMemo = React.memo(
 const CarouselContent = (props: CarouselContentPropsType) => {
   const { title, description, imgUrl, fontColor } = props;
   return (
-    <div className={styles.body}>
+    <div
+      className={styles.body}
+      style={{
+        backgroundImage: `url(${imgUrl})`,
+        backgroundPosition: 'center -10vh',
+        backgroundSize: 'auto 100%',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <TitleDomMemo {...{ title, fontColor }} />
       <DescriptionDomMemo {...{ description, fontColor }} />
-      <ImgDomMemo {...{ imgUrl, title }} />
     </div>
   );
 };

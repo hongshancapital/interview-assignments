@@ -4,14 +4,16 @@ import Carousel from './components/Carousel';
 import CarouselContent from './components/CarouselContent';
 import CarouselItem from './components/CarouselItem';
 import { infoItemType } from './interface';
+import airpods from './assets/airpods.png';
+import iphone from './assets/iphone.png';
+import tablet from './assets/tablet.png';
 
 // 轮播图数据
 const info: Array<infoItemType> = [
   {
     title: 'xPhone',
     description: 'Lots to Love.Less to spend.Starting at $399.',
-    imgUrl:
-      'https://www.apple.com.cn/iphone-12/images/meta/wechat/iphone-12_specs__ffy8c0h8c2ai_og.png',
+    imgUrl: iphone,
     fontColor: '#fff',
     customBackgroundColor: '#000',
     indicatorBackgroundColor: '#a3a3a3',
@@ -19,19 +21,17 @@ const info: Array<infoItemType> = [
   {
     title: 'Tablet',
     description: 'Just the right amount of everything.',
-    imgUrl:
-      'https://www.apple.com.cn/v/ipad-pro/ai/images/specs/12_9_in_ipad_pro__dqrvlzepem4i_large_2x.jpg',
+    imgUrl: tablet,
     fontColor: '#000',
-    customBackgroundColor: '#fff',
-    indicatorBackgroundColor: '#000',
+    customBackgroundColor: 'rgba(249, 249, 249, 1)',
+    indicatorBackgroundColor: 'rgba(160,159,159,1)',
   },
   {
     title: 'Buy a Tablet or xPhone for college. \n Get arPods.',
-    imgUrl:
-      'https://www.apple.com.cn/v/airpods/compare/b/images/overview/airpods_3gen_white__car4z3m37ss2_large_2x.png',
+    imgUrl: airpods,
     fontColor: '#000',
-    customBackgroundColor: '#a3a3a3',
-    indicatorBackgroundColor: '#000',
+    customBackgroundColor: 'rgba(239, 239,241,1)',
+    indicatorBackgroundColor: 'rgba(160,159,159,1)',
   },
 ];
 

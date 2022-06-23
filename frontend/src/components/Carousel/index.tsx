@@ -97,7 +97,9 @@ const Carousel = ({
                 className={styles.indicatorInner}
                 style={{
                   animationDuration: isActiveIndex ? `${time}s` : '0s',
-                  backgroundColor: isActiveIndex ? '#fff' : undefined,
+                  backgroundColor: isActiveIndex
+                    ? 'rgba(249,249,249,1)'
+                    : undefined,
                 }}
               ></div>
             </div>
