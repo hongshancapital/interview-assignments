@@ -1,45 +1,139 @@
 # TypeScript Fullstack Engineer Assignment
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+### 如何运行
+```BASH
+$ docker compose up
+# 等待所有服务运行成功
+# 浏览器访问 http://localhost:3000
+fullstack-nodejs-1  | [nodemon] starting `node dist/server.js dist/server.js`
+fullstack-nodejs-1  | Server listening on port: 3000
+```
 
-撰写两个 API 接口
+### 集成案例
+docker container成功运行后，浏览器访问 http://localhost:3000
+![preview.png](https://github.com/lijingbo8119/interview-assignments/raw/master/fullstack/preview.png)
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+### 数据库相关
+数据库采用MySQL，由docker compose初始化mysql service时自动创建Schema，如下：
+```BASH
+$ cat docker-compose.yml | head -n 12
+```
+```YAML
+version: "3.9"  # optional since v1.27.0
+services:
 
-限制
+  mysql:
+    image: mysql
+    volumes:
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql // 初始化数据库
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=dev_root_password
+      - TZ=Asia/Shanghai
+```
+```SQL
+create schema short_url collate utf8mb4_unicode_ci;
 
-- 短域名长度最大为 8 个字符（不含域名）
+use short_url;
 
-递交作业内容
+create table short_urls (
+    id int auto_increment primary key,
+    long_url varchar(2048) not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null
+);
+```
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+### 基础架构
+采用前后端分离的形式进行开发
+* 前端：React + TypeScript，入口文件: src/client/index.tsx
+* 后端：Express + TypeScript，入口文件: src/server/server.ts
+* 通信：前端通过axios（fetch API）与后端接口通信
 
-其他
+### 算法
+采用英文字母a-z大小写与数字的组合，做10进制与64位转换。
+```TypeScript
+export class Shorter {
+    // 字符表打乱，让生成的short_path看上去没有那么有规律。
+    private static readonly alphabet: string[] = [
+        '8', 'M', 'j', 'e', '0', 'O', 'l', '4', 'u', 'N',
+        's', 'x', 'g', 'B', 'd', 'h', 'a', 'p', 'C', 'G',
+        'b', 'Y', '7', 'f', 'F', 'W', 'w', 'k', 'c', 'X',
+        'V', 'v', 'i', 'n', 'z', 'R', '2', 'E', 'T', 'y',
+        'I', 'o', 'U', 'K', 't', 'm', 'q', 'L', 'H', 'S',
+        '6', '1', 'Z', '3', 'Q', '5', 'J', 'D', 'r', 'A',
+        '9', 'P',
+    ];
 
-- 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
+    // id加上一个基本整数，保证生成的short_path最短为5位
+    private static readonly baseNum: number = 100000000;
 
-## 岗位职责
+    // MySQL主键id转为short_path
+    public static idToStr(id: number): string {
+        let num = id + Shorter.baseNum;
+        let arr: number[] = [];
+        while (num > 0) {
+            arr.push(Math.trunc(num % 62));
+            num = Math.trunc(num / 62);
+        }
+        let str = '';
+        for (let i = arr.length - 1; i >= 0; i--) {
+            str = str + Shorter.alphabet[arr[i]]
+        }
+        return str
+    }
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+    // short_path转为MySQL主键id
+    public static strToId(str: string): number {
+        let arr: number[] = str.split('').reverse().map((s: string) => Shorter.findIndex(s))
+        let num = 0;
+        for (let i = arr.length - 1; i >= 0; i--) {
+            num += arr[i] * Math.pow(62, i)
+        }
+        return num - Shorter.baseNum
+    }
 
-## 要求
+    private static findIndex(s: string): number {
+        for (let i = 0; i < Shorter.alphabet.length; i++) {
+            if (s === Shorter.alphabet[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+```
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+### Test
+
+server模块中的routes由tests模块中的http.ts脚本进行模拟http请求测试。
+
+```BASH
+$ docker exec -it fullstack-nodejs-1 /bin/sh
+$ npm run test:coverage
+
+--------------------------------------|---------|----------|---------|---------|-------------------
+File                                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------------------|---------|----------|---------|---------|-------------------
+All files                             |   63.55 |    34.78 |   73.68 |   62.83 |                   
+ models/file:/var/www/html/src/models |   96.29 |    66.66 |     100 |   96.29 |                   
+  http.ts                             |     100 |     87.5 |     100 |     100 | 16                
+  shortUrl.ts                         |   92.85 |       50 |     100 |   92.85 | 23                
+ server                               |       0 |        0 |       0 |       0 |                   
+  routes.ts                           |       0 |        0 |       0 |       0 | 8-69              
+  server.ts                           |       0 |        0 |       0 |       0 | 4-10              
+ server/file:/var/www/html/src/server |      98 |      100 |     100 |   97.82 |                   
+  db.ts                               |     100 |      100 |     100 |     100 |                   
+  lib.ts                              |      96 |      100 |     100 |   95.23 | 43                
+  repositroy.ts                       |     100 |      100 |     100 |     100 |                   
+--------------------------------------|---------|----------|---------|---------|-------------------
+
+=============================== Coverage summary ===============================
+Statements   : 63.55% ( 75/118 )
+Branches     : 34.78% ( 16/46 )
+Functions    : 73.68% ( 14/19 )
+Lines        : 62.83% ( 71/113 )
+================================================================================
+```
+
+

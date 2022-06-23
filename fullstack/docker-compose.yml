@@ -1,0 +1,23 @@
+version: "3.9"  # optional since v1.27.0
+services:
+
+  mysql:
+    image: mysql
+    volumes:
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=dev_root_password
+      - TZ=Asia/Shanghai
+
+  nodejs:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    working_dir: /var/www/html
+    command: ./entrypoint.sh
