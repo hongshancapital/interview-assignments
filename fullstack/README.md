@@ -50,8 +50,11 @@ create table short_urls (
 * 后端：Express + TypeScript，入口文件: src/server/server.ts
 * 通信：前端通过axios（fetch API）与后端接口通信
 
-### 算法
-采用英文字母a-z大小写与数字的组合，做10进制与64位转换。
+### 业务逻辑及算法
+* 采用英文字母a-z大小写与数字的组合，做10进制与64位转换。
+* 将long_url通过post http请求发送到后端，后端在MySQL中生成一条记录。采用主键id作为short path，拼接short path url返回前端。
+* 访问short path url，后端验证携带的short_path参数，尝试转换为int id，从数据库检索对应记录，获取对应长地址，进行返回302进行重定向操作。
+
 ```TypeScript
 export class Shorter {
     // 字符表打乱，让生成的short_path看上去没有那么有规律。
