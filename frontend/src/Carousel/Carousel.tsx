@@ -8,6 +8,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import useSlide from './hooks/useSlide';
 import styles from './Carousel.module.scss';
+import useRect from './hooks/useRect';
 
 export interface CarouselProps {
   // 自动轮播时长，单位毫秒
@@ -31,10 +32,12 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     style,
   } = props;
   
-  const rootRef = useRef<HTMLDivElement | null>(null);
-  const [size, setSize] = useState({ width: 0, height: 0 });
-  
   const count = useMemo(() => React.Children.count(children), [children]);
+  
+  const {
+    rootRef,
+    itemWidth,
+  } = useRect([count]);
   
   const {
     carouselRef,
@@ -45,31 +48,20 @@ const Carousel: React.FC<CarouselProps> = (props) => {
   } = useSlide({
     count,
     duration,
-    width: size.width,
+    width: itemWidth,
   });
   
   useEffect(() => {
-    if (size.width) {
+    if (itemWidth) {
       slideGoTo({
         type: 'index',
         index: initialIndex,
       })
     }
-  }, [initialIndex, size.width]);
-  
-  const handleChangeSize = () => {
-    const rect = rootRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
-    setSize({
-      width: rect.width,
-      height: rect.height,
-    })
-  };
-  
-  useEffect(() => handleChangeSize(), [count]);
+  }, [initialIndex, itemWidth]);
   
   const autoPlayTimer = useRef<NodeJS.Timeout | null>(null);
+  // 自动轮播
   const onAutoPlay = () => {
     if (count <= 1) return;
     if (!autoplay) return;
@@ -79,7 +71,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     }, autoplay);
   };
   
-  useEffect(onAutoPlay, [count, autoplay, currentIndex, size.width]);
+  useEffect(onAutoPlay, [count, autoplay, currentIndex, itemWidth]);
   
   return (
     <div
@@ -91,14 +83,14 @@ const Carousel: React.FC<CarouselProps> = (props) => {
         ref={carouselRef}
         className={styles.carousel__container}
         style={{
-          width: count * size.width
+          width: count * itemWidth
         }}
       >
         {React.Children.map(children, (child, index) => {
           if (!React.isValidElement(child)) return null;
           return (
             React.cloneElement(child, {
-              style: { width: size.width },
+              style: { width: itemWidth },
             })
           );
         })}
