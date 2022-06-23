@@ -41,10 +41,11 @@ const CarouselContentContainer = (props: {
 const Dots = (props: {
     totalCount: number
     onChange: (current: number) => void
+    onAutoChange: () => void
     current?: number
     autoPlay?: boolean
 }) => {
-    const { totalCount, onChange, autoPlay = true, current } = props
+    const { totalCount, onChange, autoPlay = true, current, onAutoChange } = props
     const [st, setSt] = useState<any>(null)
 
     useEffect(() => {
@@ -53,7 +54,7 @@ const Dots = (props: {
         }
         if (autoPlay) {
             let st = setInterval(() => {
-                onChange((current || 0) + 1 < totalCount ? (current || 0) + 1 : 0)
+                onAutoChange()
             }, 2000)
             setSt(st)
         }
@@ -61,7 +62,8 @@ const Dots = (props: {
             clearInterval(st)
             setSt(null)
         }
-    }, [autoPlay, current])
+    }, [autoPlay])
+
     const subs = new Array(totalCount).fill('').map((_, index) => {
         const clz = classNames("carousel-dot", {
             [`active`]: current === index
@@ -104,6 +106,16 @@ export const Carousel = (props: CarouselProps) => {
             totalCount={totalCount}
             current={typeof props.current === 'number' ? props.current : current}
             onChange={onChange}
+            onAutoChange={() => {
+                setCurrent((_v) => {
+                    const targetValue = _v + 1 < totalCount ? _v + 1 : 0
+                    if(props.onChange) {
+                        props.onChange(targetValue)
+                    }
+                    return targetValue
+                })
+                
+            }}
         ></Dots>
     </div>
 }
