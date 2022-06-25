@@ -5,10 +5,13 @@
  * @LastEditors: danjp
  * @Description:
  */
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo } from 'react';
 import useSlide from './hooks/useSlide';
 import styles from './Carousel.module.scss';
 import useRect from './hooks/useRect';
+import CarouselDots from './CarouselDots';
+import useResize from './hooks/useResize';
+import classNames from 'classnames';
 
 export interface CarouselProps {
   // 自动轮播时长，单位毫秒
@@ -25,7 +28,7 @@ export interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = (props) => {
   const {
     autoplay = 3000,
-    duration = 1000,
+    duration = 500,
     initialIndex = 0,
     children,
     className,
@@ -37,76 +40,40 @@ const Carousel: React.FC<CarouselProps> = (props) => {
   const {
     rootRef,
     itemWidth,
+    onChangeSize,
   } = useRect([count]);
   
-  // 所有轮播组件总宽度
-  const containerStyle = useMemo(() => ({
-    width: itemWidth * count
-  }), [itemWidth, count]);
-  
   const {
-    carouselRef,
-    currentIndex,
+    current,
     slideGoTo,
-    onNext,
-    onPrev,
   } = useSlide({
     count,
-    duration,
-    width: itemWidth,
     initialIndex,
   });
   
-  /*useEffect(() => {
-    if (itemWidth) {
-      slideGoTo({
-        type: 'index',
-        index: initialIndex,
-      })
-    }
-  }, [initialIndex, itemWidth]);*/
+  // 视图大小发生变化，重新获取容器宽高
+  useResize(onChangeSize);
   
-  const autoPlayTimer = useRef<NodeJS.Timeout | null>(null);
-  // 自动轮播
-  const onAutoPlay = () => {
-    if (count <= 1) return;
-    if (!autoplay) return;
-    
-    autoPlayTimer.current = setTimeout(() => {
-      onNext();
-    }, autoplay);
-  };
-  
-  const onStopPlay = () => {
-    autoPlayTimer.current && clearTimeout(autoPlayTimer.current)
-    autoPlayTimer.current = null;
-  };
-  
-  useEffect(() => {
-    onAutoPlay();
-    return onStopPlay;
-  }, [count, autoplay, currentIndex, itemWidth]);
+  const carouselStyle = useMemo(() => ({
+    width: itemWidth * count,
+    transition: `all ${duration}ms`,
+    transform: `translateX(${current * itemWidth * -1}px)`
+  }), [current, itemWidth, duration]);
   
   return (
     <div
       ref={rootRef}
-      className={styles.carousel}
+      className={classNames(styles.carousel, className)}
       style={style}
     >
       <div
-        ref={carouselRef}
         className={styles.carousel__container}
-        style={containerStyle}
+        style={carouselStyle}
       >
-        {React.Children.map(children, (child, index) => {
-          if (!React.isValidElement(child)) return null;
-          return (
-            React.cloneElement(child, {
-              style: { width: itemWidth },
-            })
-          );
-        })}
+        {children}
       </div>
+      {/* 指示符宽度动画过渡完成再轮播下一页 */}
+      <CarouselDots current={current} count={count} duration={autoplay} onTransitionEnd={slideGoTo} />
     </div>
   );
 };

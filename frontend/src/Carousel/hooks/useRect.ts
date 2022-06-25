@@ -28,6 +28,7 @@ const useRect = (deps: React.DependencyList) => {
     itemWidth: size.width,
     // 可以用来实现垂直方向的轮播
     itemHeight: size.height,
+    onChangeSize: handleChangeSize,
   };
 };
 

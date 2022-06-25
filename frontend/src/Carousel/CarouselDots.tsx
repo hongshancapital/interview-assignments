@@ -8,14 +8,16 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import styles from './CarouselDots.module.scss';
 
-export interface CarouselDotsProps {
+type CarouselDotsProps = {
   current: number;
   count: number;
-  duration: number;
+  duration: false|number;
+  // 指示符动画过渡完成事件
+  onTransitionEnd(): void;
 }
 
 const CarouselDots: React.FC<CarouselDotsProps> = (props) => {
-  const { current, count, duration } = props;
+  const { current, count, duration, onTransitionEnd } = props;
   const list = useMemo(() => Array.from({ length: count }), [count]);
   
   return (
@@ -28,7 +30,7 @@ const CarouselDots: React.FC<CarouselDotsProps> = (props) => {
         </div>
         <div className={styles.container__barWrapper}>
           {list.map((_, index) => (
-            <Bar key={index} current={current} activeIndex={index} />
+            <Bar key={index} duration={duration} current={current} activeIndex={index} onTransitionEnd={onTransitionEnd} />
           ))}
         </div>
       </div>
@@ -41,29 +43,30 @@ export default (props: CarouselDotsProps) => {
   return <CarouselDots {...props} />
 };
 
-interface BarProps {
-  current: number;
+type BarProps = Omit<CarouselDotsProps, 'count'> & {
   activeIndex: number;
 }
-const Bar: React.FC<BarProps> = ({ current, activeIndex }) => {
+const Bar: React.FC<BarProps> = ({ duration, current, activeIndex, onTransitionEnd }) => {
   const progressRef = useRef<HTMLDivElement | null>(null)
   
   useEffect(() => {
     const dom = progressRef.current;
     if (!dom) return;
-    
+    if (!duration) return;
+  
     if (current === activeIndex) {
       dom.style.width = '100%';
-      dom.style.transition = 'width 2s';
+      dom.style.transition = `width ${duration}ms`;
     } else {
       dom.style.width = '0';
-      dom.style.transition = 'width 0s';
+      dom.style.transition = 'width 0ms';
     }
+    onTransitionEnd();
   }, [current, activeIndex])
   
   return (
     <div className={styles.container__barWrapper__bar}>
-      <div ref={progressRef} className={styles.container__barWrapper__bar__progress} />
+      <div ref={progressRef} className={styles.container__barWrapper__bar__progress} onTransitionEnd={onTransitionEnd} />
     </div>
   )
 };
