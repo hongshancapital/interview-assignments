@@ -5,7 +5,7 @@
  * @LastEditors: danjp
  * @Description:
  */
-import React, { useMemo } from 'react';
+import React, { useImperativeHandle, useMemo } from 'react';
 import useSlide from './hooks/useSlide';
 import styles from './Carousel.module.scss';
 import useRect from './hooks/useRect';
@@ -25,7 +25,14 @@ export interface CarouselProps {
   style?: React.CSSProperties;
 }
 
-const Carousel: React.FC<CarouselProps> = (props) => {
+export interface CarouselRef {
+  current: number,
+  goTo: (index: number) => void;
+  next: () => void;
+  prev: () => void;
+}
+
+const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
   const {
     autoplay = 3000,
     duration = 500,
@@ -51,8 +58,19 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     initialIndex,
   });
   
+  useImperativeHandle(ref, () => ({
+    current,
+    prev: () => slideGoTo(-1),
+    next: () => slideGoTo(1),
+    goTo: slideGoTo,
+  }), [current]);
+  
   // 视图大小发生变化，重新获取容器宽高
   useResize(onChangeSize);
+  
+  const handleTransitionEnd = () => {
+    slideGoTo(1);
+  }
   
   const carouselStyle = useMemo(() => ({
     width: itemWidth * count,
@@ -73,9 +91,9 @@ const Carousel: React.FC<CarouselProps> = (props) => {
         {children}
       </div>
       {/* 指示符宽度动画过渡完成再轮播下一页 */}
-      <CarouselDots current={current} count={count} duration={autoplay} onTransitionEnd={slideGoTo} />
+      <CarouselDots current={current} count={count} duration={autoplay} onTransitionEnd={handleTransitionEnd} />
     </div>
   );
-};
+});
 
 export default Carousel;

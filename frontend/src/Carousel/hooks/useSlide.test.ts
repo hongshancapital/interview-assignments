@@ -30,7 +30,7 @@ describe('useSlide', () => {
   it('should call the `slideGoTO` to show the next carousel', () => {
     const { result } = setup({ count: 3 });
     act(() => {
-      result.current.slideGoTo();
+      result.current.slideGoTo(1);
     });
     expect(result.current.current).toEqual(1);
   })

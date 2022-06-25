@@ -25,12 +25,17 @@ const useSlide = (options: SlideParams) => {
     return initialIndex;
   });
   
-  const slideGoTo  = () => {
+  const slideGoTo  = (index: number) => {
     if (count <= 1) return;
-  
+    
     setCurrent(prevCurrent => {
-      if (prevCurrent >= count - 1) return 0;
-      return prevCurrent + 1;
+      let nextCurrent = prevCurrent;
+      if (index < 0) {
+        nextCurrent = prevCurrent < 0 ? count - 1 : prevCurrent + index;
+      } else if (index > 0) {
+        nextCurrent = prevCurrent >= count - 1 ? 0 : prevCurrent + index;
+      }
+      return nextCurrent;
     });
   };
   

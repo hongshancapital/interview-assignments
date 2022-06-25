@@ -1,5 +1,5 @@
-import React from "react";
-import Carousel from './Carousel/Carousel';
+import React from 'react';
+import Carousel, { CarouselRef } from './Carousel/Carousel';
 import { PageDataList } from './PageData';
 import styles from './Page.module.scss';
 import './App.css';
@@ -9,7 +9,7 @@ function App() {
     <div className='App'>
       <Carousel>
         {PageDataList.map((item) => (
-          <div className={styles.container} style={item.style}>
+          <div key={item.id} className={styles.container} style={item.style}>
             <img src={item.img} className={styles.img} alt={item.title} />
             <div className={styles.content}>
               <div className={styles.title} dangerouslySetInnerHTML={{ __html: item.title }}/>
