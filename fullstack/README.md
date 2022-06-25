@@ -19,6 +19,20 @@ $ npm run test 跑覆盖率
 
 技术栈：Express + React + bootstrap + Mongoose
 
+src - client 前端代码
+         组件核心 app.tsx, index.tsx
+         头部组件 header.tsx
+         链接输入框组件 inputByApi.tsx
+
+src - server 后台代码
+         common 通用东西
+         controller 路由控制器层
+         models 表
+         service 服务层
+
+打包前端： public 文件里的js
+打包后台:  dist server.js
+
 --------------------
 2.单元测试代码以及单元测试覆盖率
 
