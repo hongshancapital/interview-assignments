@@ -1,0 +1,93 @@
+// First override some or all individual color variables
+$primary: #25408f;
+$secondary: #8f5325;
+$success: #3e8d63;
+$info: #13101c;
+$warning: #945707;
+$danger: #d62518;
+$light: #f8f9fa;
+$dark: #343a40;
+
+// Then add them to your custom theme-colors map, together with any additional colors you might need
+$theme-colors: (
+	primary: $primary,
+	secondary: $secondary,
+	success: $success,
+	info: $info,
+	warning: $warning,
+	danger: $danger,
+	light: $light,
+	dark: $dark,
+	// add any additional color below
+);
+
+// Scaffolding
+// -------------------------
+@import "themes/default/variables";
+
+@import "lib/bootstrap/bootstrap";
+@import "lib/font-awesome/font-awesome";
+
+@import "themes/default/default";
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	padding-top: 80px;
+	margin-bottom: 75px;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+
+	p, ul {
+		margin-bottom: 0;
+	}
+}
+
+// Input Fields
+// -------------------------
+
+textarea {
+	resize: vertical;
+}
+
+// Navbar
+// -------------------------
+
+.navbar-nav img {
+	width: 30px;
+	height: 30px;
+	margin: -15px 15px -15px;
+}
+
+// Alerts
+// -------------------------
+
+.alert {
+	margin-top: 20px;
+}
+
+// Thumbnails
+// -------------------------
+
+.thumbnail {
+	padding: 0;
+	border-radius: 0;
+	box-shadow: 0 0 5px #ccc, inset 0 0 0 #000;
+}
+
+// Font Icons
+// -------------------------
+
+.fa {
+	margin-right: 6px;
+}
+
+
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
