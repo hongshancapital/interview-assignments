@@ -7,7 +7,7 @@
  */
 import React, { useEffect, useRef, useState } from 'react';
 
-const useRect = (deps: React.DependencyList) => {
+const useRect = (deps: React.DependencyList = []) => {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   

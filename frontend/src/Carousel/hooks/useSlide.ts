@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 export type SlideParams = {
   count: number;
-  initialIndex: number;
+  initialIndex?: number;
 }
 
 const useSlide = (options: SlideParams) => {
@@ -19,12 +19,13 @@ const useSlide = (options: SlideParams) => {
   } = options;
   
   const [current, setCurrent] = useState(() => {
+    if (!initialIndex) return 0;
     if (initialIndex > count) return count - 1;
     if (initialIndex < 0) return 0;
     return initialIndex;
   });
   
-  const slideGoTo  = (direction?: 'prev' | 'next') => {
+  const slideGoTo  = () => {
     if (count <= 1) return;
   
     setCurrent(prevCurrent => {
