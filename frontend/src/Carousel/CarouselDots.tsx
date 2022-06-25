@@ -16,7 +16,7 @@ type CarouselDotsProps = {
   onTransitionEnd(): void;
 }
 
-const CarouselDots: React.FC<CarouselDotsProps> = (props) => {
+const CarouselDotsContent: React.FC<CarouselDotsProps> = (props) => {
   const { current, count, duration, onTransitionEnd } = props;
   const list = useMemo(() => Array.from({ length: count }), [count]);
   
@@ -38,10 +38,12 @@ const CarouselDots: React.FC<CarouselDotsProps> = (props) => {
   );
 };
 
-export default (props: CarouselDotsProps) => {
+const CarouselDots: React.FC<CarouselDotsProps> = (props) => {
   if (props.count <= 1) return null;
-  return <CarouselDots {...props} />
+  return <CarouselDotsContent {...props} />
 };
+
+export default CarouselDots;
 
 type BarProps = Omit<CarouselDotsProps, 'count'> & {
   activeIndex: number;
@@ -62,6 +64,7 @@ const Bar: React.FC<BarProps> = ({ duration, current, activeIndex, onTransitionE
       dom.style.transition = 'width 0ms';
     }
     onTransitionEnd();
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, [current, activeIndex])
   
   return (

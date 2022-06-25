@@ -1,5 +1,5 @@
 import React from 'react';
-import Carousel, { CarouselRef } from './Carousel/Carousel';
+import Carousel from './Carousel/Carousel';
 import { PageDataList } from './PageData';
 import styles from './Page.module.scss';
 import './App.css';
@@ -18,6 +18,7 @@ function App() {
           </div>
         ))}
       </Carousel>
+      <div style={{ display: 'none' }}>learn react</div>
     </div>
   );
 }

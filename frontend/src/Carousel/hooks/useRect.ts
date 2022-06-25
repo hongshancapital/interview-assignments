@@ -21,6 +21,7 @@ const useRect = (deps: React.DependencyList = []) => {
     });
   };
   
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(handleChangeSize, deps);
   
   return {

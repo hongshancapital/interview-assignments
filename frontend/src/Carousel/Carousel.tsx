@@ -6,12 +6,12 @@
  * @Description:
  */
 import React, { useImperativeHandle, useMemo } from 'react';
+import classNames from 'classnames';
 import useSlide from './hooks/useSlide';
-import styles from './Carousel.module.scss';
 import useRect from './hooks/useRect';
 import CarouselDots from './CarouselDots';
 import useResize from './hooks/useResize';
-import classNames from 'classnames';
+import styles from './Carousel.module.scss';
 
 export interface CarouselProps {
   // 自动轮播时长，单位毫秒
@@ -58,6 +58,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
     initialIndex,
   });
   
+  /* eslint-disable react-hooks/exhaustive-deps */
   useImperativeHandle(ref, () => ({
     current,
     prev: () => slideGoTo(-1),
@@ -76,7 +77,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>((props, ref) => {
     width: itemWidth * count,
     transition: `all ${duration}ms`,
     transform: `translateX(${current * itemWidth * -1}px)`
-  }), [current, itemWidth, duration]);
+  }), [current, count, itemWidth, duration]);
   
   return (
     <div
