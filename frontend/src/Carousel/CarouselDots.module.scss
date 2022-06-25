@@ -1,15 +1,18 @@
+.wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .container {
   position: relative;
   margin-top: 10px;
-  width: 320px;
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 180px;
 
   &__page {
-    height: 100px;
-
     position: absolute;
     top: 0;
 
@@ -34,14 +37,14 @@
     justify-content: space-between;
     align-items: center;
     &__bar {
-      width: 100px;
-      height: 5px;
+      width: 50px;
+      height: 3px;
       border-radius: 2px;
       background-color: #ddd;
       &__progress {
         width: 0;
         height: 100%;
-        background-color: red;
+        background-color: #fff;
         border-radius: 2px;
       }
     }

@@ -19,16 +19,18 @@ const CarouselDots: React.FC<CarouselDotsProps> = (props) => {
   const list = useMemo(() => Array.from({ length: count }), [count]);
   
   return (
-    <div className={styles.container}>
-      <div className={styles.container__page}>
-        {list.map((_, index) => (
-          <div key={index} className={styles.container__page__item} />
-        ))}
-      </div>
-      <div className={styles.container__barWrapper}>
-        {list.map((_, index) => (
-          <Bar key={index} current={current} activeIndex={index} />
-        ))}
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <div className={styles.container__page}>
+          {list.map((_, index) => (
+            <div key={index} className={styles.container__page__item} />
+          ))}
+        </div>
+        <div className={styles.container__barWrapper}>
+          {list.map((_, index) => (
+            <Bar key={index} current={current} activeIndex={index} />
+          ))}
+        </div>
       </div>
     </div>
   );
