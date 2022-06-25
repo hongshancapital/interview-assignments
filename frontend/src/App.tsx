@@ -1,15 +1,18 @@
 import React from "react";
-import "./App.css";
 import Carousel from './Carousel/Carousel';
+import { AirpodsPage, PhonePage, TabletPage } from './Page';
+import './App.css';
 
 function App() {
-  return <div className="App">
-    <Carousel initialIndex={1}>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-    </Carousel>
-  </div>;
+  return (
+    <div className='App'>
+      <Carousel>
+        <PhonePage />
+        <TabletPage />
+        <AirpodsPage />
+      </Carousel>
+    </div>
+  );
 }
 
 export default App;
