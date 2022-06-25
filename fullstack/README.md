@@ -5,7 +5,8 @@
 ```bash
 $ cd fullstack
 $ yarn install
-$ npm run dev  
+$ npm run build
+$ npm run start
 $ open http://localhost:3000/
 
 $ npm run dev  前后端调式模式. 第一次使用可能需要多等会,生成前端,后端打包文件.有报错不急.
