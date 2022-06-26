@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { carouselPropsType } from './interface';
-import styles from './index.module.css';
+// import styles from './index.module.css';
+import './index.scss';
 /**
  * @description: 轮播组件
  * @param {number} switchingTime 间隔时间，默认3s，以毫秒为单位3000ms=3s
@@ -77,24 +78,24 @@ const Carousel = ({
   );
 
   return (
-    <div className={styles.body}>
+    <div className='body'>
       <div
-        className={styles.content}
+        className='content'
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}
       >
         {children}
       </div>
-      <div className={styles.dots}>
+      <div className='dots'>
         {React.Children.map(children, (child, index) => {
           const isActiveIndex: boolean = index === activeIndex;
           return (
             <div
-              className={styles.indicatorOuter}
+              className='indicatorOuter'
               style={{ backgroundColor: `${indicatorColorList[activeIndex]}` }}
               onClick={() => onClickIndicator(index)}
             >
               <div
-                className={styles.indicatorInner}
+                className='indicatorInner'
                 style={{
                   animationDuration: isActiveIndex ? `${time}s` : '0s',
                   backgroundColor: isActiveIndex

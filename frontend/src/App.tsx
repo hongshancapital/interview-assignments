@@ -35,22 +35,6 @@ const info: Array<infoItemType> = [
   },
 ];
 
-const CarouselContentDomMemo = React.memo(
-  ({
-    title,
-    description,
-    imgUrl,
-    fontColor,
-    customBackgroundColor,
-  }: infoItemType) => {
-    return (
-      <CarouselItem customBackgroundColor={customBackgroundColor}>
-        <CarouselContent {...{ title, description, imgUrl, fontColor }} />
-      </CarouselItem>
-    );
-  }
-);
-
 const App = () => {
   const [infoState] = useState(info);
   const indicatorColorList = useMemo(
@@ -61,7 +45,21 @@ const App = () => {
     <div className='App'>
       <Carousel indicatorColorList={indicatorColorList}>
         {infoState?.map((item, index) => {
-          return <CarouselContentDomMemo {...item} />;
+          const {
+            title,
+            description,
+            imgUrl,
+            fontColor,
+            customBackgroundColor,
+          }: infoItemType = item;
+          return (
+            <CarouselItem
+              customBackgroundColor={customBackgroundColor}
+              key={`CarouselItem-${index}`}
+            >
+              <CarouselContent {...{ title, description, imgUrl, fontColor }} />
+            </CarouselItem>
+          );
         })}
       </Carousel>
     </div>
