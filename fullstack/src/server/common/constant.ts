@@ -9,4 +9,8 @@ export enum STATE {
 
 export const CHARSET: string = "~9876543210ABCDEFGHIJKLMNOPQRSTU$#@%!abcdefghijklmnopqrstuvw-=";
 
+export const REGEXP = {
+    HTTP : /(http|https):\/\/\S*/
+}
+
 

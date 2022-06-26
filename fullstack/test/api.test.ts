@@ -15,7 +15,6 @@ describe("GET /api/long/to/short", () => {
             .expect(200)
             .then( (res)=> {
                 assert(res.body.code === 0)
-                console.log(res.body.data)
             });
     });
 
@@ -26,7 +25,6 @@ describe("GET /api/long/to/short", () => {
             .expect(200)
             .then( (res)=> {
                 assert(res.body.code === 0)
-                console.log(res.body.data)
             });
     });
 
@@ -36,7 +34,16 @@ describe("GET /api/long/to/short", () => {
             .expect(200)
             .then( (res)=> {
                 assert(res.body.code === 1)
-                console.log(JSON.stringify(res.body));
+            });
+    });
+
+    it("oriUrl is not url", async () => {
+        let oriUrl = 'hasdasdasdads';
+        return await request.get(`/api/long/to/short?oriUrl=${oriUrl}`)
+            .expect("Content-Type", /json/)
+            .expect(200)
+            .then( (res)=> {
+                assert(res.body.code === 1)
             });
     });
 });
@@ -49,17 +56,25 @@ describe("GET /api/short/to/long", () => {
             .expect(200)
             .then( (res)=> {
                 assert(res.body.code === 0)
-                console.log(res.body.data)
             });
     });
 
-    it("oriUrl is null", async () => {
+    it("shortUrl is null", async () => {
         return await request.get(`/api/short/to/long`)
             .expect("Content-Type", /json/)
             .expect(200)
             .then( (res)=> {
                 assert(res.body.code === 1)
-                console.log(JSON.stringify(res.body));
+            });
+    });
+
+    it("shortUrl is not url ", async () => {
+        let shortUrl = 'hdsadasd';
+        return await request.get(`/api/short/to/long?shortUrl=${shortUrl}`)
+            .expect("Content-Type", /json/)
+            .expect(200)
+            .then( (res)=> {
+                assert(res.body.code === 1)
             });
     });
 });

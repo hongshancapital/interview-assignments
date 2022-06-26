@@ -1,5 +1,6 @@
 import {Request, Response, NextFunction} from "express";
 import ShortDomainService from "../service/shortDomainService";
+import {REGEXP} from "../common/constant";
 
 export default class ShortDomainController {
     /**
@@ -11,12 +12,17 @@ export default class ShortDomainController {
     public static async shortToLong(req: Request, res: Response, next: NextFunction) {
         try {
             // 此处应该有更多的参数效验， 演示demo就省略参数效验了。
-            const {shortUrl}= req.query;
+            let {shortUrl} = req.query;
+            shortUrl = shortUrl.toString();
+
             if(!shortUrl){
                 throw new Error('短地址shortUrl必须有');
             }
+            if(!new RegExp(REGEXP.HTTP).test(shortUrl)){
+                throw new Error('请输入一个正确的url!');
+            }
 
-            let result = await ShortDomainService.shortToLong(shortUrl.toString());
+            let result = await ShortDomainService.shortToLong(shortUrl);
 
             res.send({
                 code: 0,
@@ -41,12 +47,18 @@ export default class ShortDomainController {
     public static async longToShort(req: Request, res: Response, next: NextFunction) {
         try {
             // 此处应该有更多的参数效验， 演示demo就省略参数效验了。
-            const {oriUrl}= req.query;
+            let {oriUrl}= req.query;
+            oriUrl = oriUrl.toString();
+
             if(!oriUrl){
                 throw new Error('原地址oriUrl必须有');
             }
 
-            let result = await ShortDomainService.longToShort(oriUrl.toString());
+            if(!new RegExp(REGEXP.HTTP).test(oriUrl)){
+                throw new Error('请输入一个正确的url!');
+            }
+
+            let result = await ShortDomainService.longToShort(oriUrl);
 
             res.send({
                 code: 0,
