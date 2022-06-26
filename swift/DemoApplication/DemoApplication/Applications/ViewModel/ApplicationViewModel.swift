@@ -59,8 +59,8 @@ final class ApplicationViewModel: ObservableObject {
         status = .loading
         cancellable = service
             .request(request())
-            .map {
-                $0.suffix(from: pageIndex * pageSize)
+            .map { datas -> [ApplicationItem] in
+                return Array(datas.suffix(from: pageIndex * pageSize))
             }
             .receive(on: RunLoop.main)
             .sink { items in

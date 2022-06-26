@@ -20,8 +20,7 @@ struct NetworkRequestService {
     
     private init() { }
     
-    //TODO: 后期将ApplicationIem转成泛型参数（T: Decodable）传入
-    func request(_ request: URLRequest) -> AnyPublisher<[ApplicationItem], Never> {
+    func request<T: Decodable>(_ request: URLRequest) -> AnyPublisher<[T], Never> {
         let publisher = URLSession.shared.dataTaskPublisher(for: request)
 #if DEBUG
             .handleEvents(receiveSubscription: {
@@ -44,7 +43,7 @@ struct NetworkRequestService {
                 return data
             }
             .retry(2)
-            .decode(type: Response.self, decoder: JSONDecoder())
+            .decode(type: Response<T>.self, decoder: JSONDecoder())
             .map {
                 return $0.items
             }
