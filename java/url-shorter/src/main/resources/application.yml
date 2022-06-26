@@ -1,0 +1,17 @@
+server:
+  # tomcat 配置
+  tomcat:
+    # 接收队列长度
+    accept-count: 5000
+    # 最小空闲线程数
+    min-spare-threads: 100
+    # POST请求提交大小
+    max-http-form-post-size: 50MB
+    # 最大链接数
+    max-connections: 10000
+    # 最大线程数
+    max-threads: 1000
+
+shorturl:
+  domain: http://127.0.0.1:8080/a
+  expiryday: 10 # 有效时间，单位天
