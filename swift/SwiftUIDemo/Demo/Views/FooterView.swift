@@ -35,10 +35,7 @@ struct FooterView: View {
         if state == .stopped {
             HStack(alignment: .bottom) {
                 Spacer()
-                if !isNoMoreData {
-                    ProgressView()
-                }
-                Text(isNoMoreData ? "No more data." : "Loading...")
+                Text(isNoMoreData ? "No more data." : "Pull up to load more")
                     .offset(CGSize(width: 15, height: 0))
                 Spacer()
             }

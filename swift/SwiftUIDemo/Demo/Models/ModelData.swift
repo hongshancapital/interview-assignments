@@ -27,7 +27,7 @@ final class ModelData: ObservableObject {
         }
     }
     
-    private func getApps() -> [AppModel] {
+    func getApps() -> [AppModel] {
         
         guard self.isRefreshing || !self.isNoMoreData else { return apps}
         guard let items = self.results?.results else { return apps}
@@ -42,8 +42,6 @@ final class ModelData: ObservableObject {
             
             startIndex = 0
             endIndex = self.pageCount
-            
-            self.isRefreshing = false
         } else {
             // 加载更多
             self.pageIndex += 1
@@ -55,8 +53,6 @@ final class ModelData: ObservableObject {
                 endIndex = items.count - self.pageCount * (self.pageIndex - 1) + startIndex
                 self.isNoMoreData = true
             }
-            
-            self.isLoading = false
         }
         
         guard endIndex <= items.count else { return apps}
@@ -75,6 +71,13 @@ final class ModelData: ObservableObject {
             
             apps.append(app)
         }
+        
+        if self.isRefreshing {
+            self.isRefreshing = false
+        } else {
+            self.isLoading = false
+        }
+        
         return apps
     }
 }
