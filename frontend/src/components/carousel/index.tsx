@@ -16,6 +16,7 @@ interface Item {
 function Carousel(props: CarouselProps) {
   const { content, switchTime } = props
   const [current, setCurrent] = useState(0)
+  const [firstRender, setFirstRender] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,6 +26,7 @@ function Carousel(props: CarouselProps) {
         setCurrent(current + 1)
       }
     }, switchTime)
+    setFirstRender(true)
     return () => clearInterval(timer)
   }, [current, switchTime, content.length])
 
@@ -45,7 +47,7 @@ function Carousel(props: CarouselProps) {
         {
           content && content.map((_, index: number) => (
             <span className="outer" key={index}>
-              <span className="inner" style={index === current ? {width: '100%', transition: `width ${switchTime/1000}s linear`} : {}}></span>
+              <span className="inner" style={(firstRender && (index === current)) ? {width: '100%', transition: `width ${switchTime/1000}s linear`} : {}}></span>
             </span>
           ))
         }
