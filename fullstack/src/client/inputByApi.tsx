@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+// @ts-ignore
 import copy from "copy-to-clipboard";
 
 /* HOOK REACT EXAMPLE */
