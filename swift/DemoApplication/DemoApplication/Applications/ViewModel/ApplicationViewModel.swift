@@ -60,7 +60,8 @@ final class ApplicationViewModel: ObservableObject {
         cancellable = service
             .request(request())
             .map { datas -> [ApplicationItem] in
-                return Array(datas.suffix(from: pageIndex * pageSize))
+                //MARK: 此处为了App稳定性，对数组操作时应该对可操作范围进行判断，防止数组越界
+                return Array(datas.suffix(from: datas.count > pageIndex * pageSize ? pageIndex * pageSize : datas.count))
             }
             .receive(on: RunLoop.main)
             .sink { items in

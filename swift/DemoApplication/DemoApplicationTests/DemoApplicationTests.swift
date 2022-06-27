@@ -26,9 +26,9 @@ class DemoApplicationTests: XCTestCase {
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
     
+    let viewModel = ApplicationViewModel()
+    
     func testRefresh() throws {
-        let viewModel = ApplicationViewModel()
-        
         viewModel.refresh()
         
         let expectation = self.expectation(description: "下拉刷新")
@@ -39,8 +39,8 @@ class DemoApplicationTests: XCTestCase {
         XCTAssert(viewModel.items.count == 20, "获取的items应为20")
     }
     
+    //MARK: 测试前请先执行一次`testRefresh`方法
     func testLoadNextpage() throws {
-        let viewModel = ApplicationViewModel()
         viewModel.loadNextPage()
         
         let expectation = self.expectation(description: "上滑或上拉加载更多")
@@ -73,15 +73,18 @@ class DemoApplicationTests: XCTestCase {
         let publisher = NetworkRequestService
             .shared
             .request(request)
+            .map { items -> [ApplicationItem] in
+                    return Array(items)
+            }
             .sink(receiveCompletion: {
                 print(".sink() 收到结束回调", String(describing: $0))
                 switch $0 {
                 case .finished: expectation.fulfill()
                 case .failure: XCTFail()
                 }
-            }, receiveValue: {
-                XCTAssertNotNil($0)
-                XCTAssertTrue($0.count > 0)
+            }, receiveValue: { someValue in   //([ApplicationItem])
+                XCTAssertNotNil(someValue)
+                XCTAssertTrue(someValue.count > 0)
             })
         XCTAssertNotNil(publisher)
         wait(for: [expectation], timeout: 5.0)
