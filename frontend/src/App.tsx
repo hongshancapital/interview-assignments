@@ -15,7 +15,7 @@ const info: Array<infoItemType> = [
     description: 'Lots to Love.Less to spend.Starting at $399.',
     imgUrl: iphone,
     fontColor: '#fff',
-    customBackgroundColor: '#000',
+    customBackgroundColor: 'rgba(18,18,18,1)',
     indicatorBackgroundColor: '#a3a3a3',
   },
   {
@@ -30,7 +30,7 @@ const info: Array<infoItemType> = [
     title: 'Buy a Tablet or xPhone for college. \n Get arPods.',
     imgUrl: airpods,
     fontColor: '#000',
-    customBackgroundColor: 'rgba(239, 239,241,1)',
+    customBackgroundColor: 'rgba(239, 239, 241, 0.9)',
     indicatorBackgroundColor: 'rgba(160,159,159,1)',
   },
 ];
