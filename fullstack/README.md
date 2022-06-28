@@ -1,45 +1,66 @@
-# TypeScript Fullstack Engineer Assignment
+## 简历
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+详见简历.pdf
 
-撰写两个 API 接口
+## 架构设计图
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+### 技术方案
+- TypeScript + TypeORM / Sqlite3 (非工作电脑，方便快速安装调试，在 nedb 和 sqlite 间选择了相对主流的 sqlite)
+- Mocha + Chai
 
-限制
+### 设计分层
+- 参考 Rails （或者 egg.js）做了 路由表、控制层和模型层的划分
+- 个人倾向不是复杂业务逻辑不会使用 Service 层，所以这里业务逻辑也在控制层消化掉了
+- 模型层的引入是为了方便理解库表设计，因为单表没必要画实体关系图，所以靠 ORM 注释说明了
 
-- 短域名长度最大为 8 个字符（不含域名）
+### API 流程图
+见谅，因为用的非开发机，所以没有装专业的绘图软件，这里用 flowchart.js 表示接口流程
 
-递交作业内容
+#### 读请求
+```flow
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+st=>start: 开始
+op=>operation: 获取短链 Code
+e=>end: 结束
+isExistModel=>condition: 查询是否存在
+404=>operation: 返回 404 不存在的请求
+build=>operation: 根据 origin 和 path 构造 link
+data=>operation: 返回数据
 
-其他
+st->op->isExistModel
+isExistModel(yes)->build->data->e
+isExistModel(no)->404->e
+```
 
-- 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
+#### 写请求
+```flow
+st=>start: 开始
+op=>operation: 响应请求
+e=>end: 结束
+isValidUri=>condition: 是否为合法 URI
+isExistModel=>condition: 是否已经落库
+401=>operation: 返回 401 无效请求
+save=>operation: 持久化数据
+isProduced=>condition: 数据保存成功
+501=>operation: 抛出内部服务异常
+build=>operation: 根据 origin 和 short code 构造短链
+data=>operation: 返回数据
 
-## 岗位职责
+st->op->isValidUri
+isValidUri(no)->401->e
+isValidUri(yes)->isExistModel
+isExistModel(yes)->build->data->e
+isExistModel(no)->save->isProduced
+isProduced(yes)->build->data->e
+isProduced(no)->501->e
+```
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+## 简历补充
+- PHP、Ruby、Java、Node 服务端开发、部署经验（低 QPS、内部和初创产品）
+ - 所以没有分布式、分库表经验
+- 有产品、视觉、交互设计经验，数据统计分析有所了解
+- 负责过性能、效率相关工作
+- 有项目管理经验
+- 有技术敏感度，学习能力强
+- mac 环境下开发效率提升有独到见解
 
-## 要求
-
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
