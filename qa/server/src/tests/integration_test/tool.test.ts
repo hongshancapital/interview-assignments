@@ -1,8 +1,8 @@
-import {get, post} from "./axios-client";
+import {get, post} from "../axios-client";
 
 it('create a new tools', async () => {
     const response = await post('http://localhost:5000/toolbox/create',
-        { "name": "Appium"+Date.parse(new Date().toString()), "tools": "E2E"});
+        {"name": "Appium" + Date.parse(new Date().toString()), "tools": "E2E"});
     expect(response.status).toEqual(200);
     expect(response.data).toEqual({"message": "success"});
 });

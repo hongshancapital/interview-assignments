@@ -22,3 +22,15 @@ Create entry
 ### get '/toolbox'
 
 List entry
+
+## Test - Just implement part of happy path test for API level, not include unit test
+
+### Mock test - No need to start the server
+```
+yarn test:mock
+```
+
+### Integration test - Need to start the server
+```
+yarn test:integration
+```
