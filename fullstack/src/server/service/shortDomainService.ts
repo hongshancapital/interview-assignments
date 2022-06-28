@@ -1,4 +1,4 @@
-import {CHARSET, STATE} from "../common/constant";
+import {CHARSET, STATE,SEQ_STEP} from "../common/constant";
 import {ShortUrl} from "../models/shortUrl";
 import {Counter} from "../models/counter";
 
@@ -10,6 +10,10 @@ _CHARSET = base62.indexCharset(_CHARSET);
 
 export default class ShortDomainService {
 
+    /**
+     * 短链接找长的 方法
+     * @param shortUrl 短链接
+     */
     public static async shortToLong(shortUrl: string) {
         // 查询数据库中是否存在
         return ShortUrl.findOne({shortUrl: shortUrl, state: STATE.EFFECT}).lean();
@@ -28,7 +32,7 @@ export default class ShortDomainService {
         }
 
         // 自增id生成的对应短码
-        const obj = await Counter.findOneAndUpdate({_id: 'shortUrl'}, {$inc: {seq_val: 1}}, {
+        const obj = await Counter.findOneAndUpdate({_id: 'shortUrl'}, {$inc: {seq_val: SEQ_STEP}}, {
             upsert: true,
             new: true
         }).lean();
