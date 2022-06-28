@@ -24,17 +24,13 @@
     border-radius: 0;
   }
 
-  @include box-shadow($input-box-shadow);
-  @include transition($input-transition);
+
 
   // Unstyle the caret on `<select>`s in IE10+.
   &::-ms-expand {
     background-color: transparent;
     border: 0;
   }
-
-  // Customize the `:focus` state to imitate native WebKit styles.
-  @include form-control-focus();
 
   // Placeholder
   &::placeholder {
@@ -146,7 +142,6 @@ select.form-control {
   padding: $input-padding-y-sm $input-padding-x-sm;
   font-size: $font-size-sm;
   line-height: $input-line-height-sm;
-  @include border-radius($input-border-radius-sm);
 }
 
 select.form-control-sm {
@@ -159,7 +154,6 @@ select.form-control-sm {
   padding: $input-padding-y-lg $input-padding-x-lg;
   font-size: $font-size-lg;
   line-height: $input-line-height-lg;
-  @include border-radius($input-border-radius-lg);
 }
 
 select.form-control-lg {
@@ -241,17 +235,6 @@ select.form-control-lg {
   }
 }
 
-
-// Form validation
-//
-// Provide feedback to users when form field values are valid or invalid. Works
-// primarily for client-side validation via scoped `:invalid` and `:valid`
-// pseudo-classes but also includes `.is-invalid` and `.is-valid` classes for
-// server side validation.
-
-@include form-validation-state("valid", $form-feedback-valid-color);
-@include form-validation-state("invalid", $form-feedback-invalid-color);
-
 // Inline forms
 //
 // Make forms appear inline(-block) by adding the `.form-inline` class. Inline
@@ -273,8 +256,6 @@ select.form-control-lg {
     width: 100%;
   }
 
-  // Kick in the inline
-  @include media-breakpoint-up(sm) {
     label {
       display: flex;
       align-items: center;
@@ -331,5 +312,4 @@ select.form-control-lg {
     .custom-control-label {
       margin-bottom: 0;
     }
-  }
 }
