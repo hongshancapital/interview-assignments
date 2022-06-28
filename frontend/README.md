@@ -68,3 +68,7 @@ Or you can check the `App.tsx` for demo.
 // 3. Add some test case...
 
 ```
+
+## About Me
+
+Please check my resume in the `./resume` dir. Thanks for your time. 🦊~💕
