@@ -23,7 +23,7 @@ Create entry
 
 List entry
 
-## Test - Just implement part of happy path test for API level, not include unit test
+## Test - Just implement part of happy path tests for API level, not include unit test
 
 ### Mock test - No need to start the server
 ```
