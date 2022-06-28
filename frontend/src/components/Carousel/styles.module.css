@@ -1,0 +1,69 @@
+.Carousel {
+    position: relative;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8rem;
+    overflow: hidden;
+    padding: 0;
+}
+.CarouselItem,
+.CarouselItem img {
+    width: 8rem;
+    display: block;
+    height: 5rem;
+}
+.CarouseWraper {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+.indicator {
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    transform: translateX(50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: .6;
+    width: 100%;
+    height: .5rem;
+    padding: 0;
+}
+.indicator li {
+    text-indent: -999rem;
+    width: .6rem;
+    height: .04rem;
+    display: block;
+    border-radius: .04rem;
+    list-style: none;
+    margin-right: .2rem;
+    background-color: #4343446e;
+    display: flex;
+    justify-content: flex-start;
+    --delay: 2000;
+    transition: all .1s linear;
+}
+.indicator li:hover {
+    transform: scaleX(1.1) scaleY(1.5); 
+}
+.indicator li.on .dot {
+    animation-name: growup;
+    animation-fill-mode:forwards
+}
+@keyframes growup {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+.indicator li .dot {
+    display: block;
+    background-color: #e9e8e9;
+    width: 0%;
+}
