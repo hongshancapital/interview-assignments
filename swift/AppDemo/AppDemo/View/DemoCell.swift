@@ -36,8 +36,9 @@ struct DemoCell: View {
             Spacer()
             Image(systemName: model.isCollected ? "heart.fill" : "heart")
                     .resizable()
+                    .animation(.easeIn(duration: 0.15))
+                    .frame(width: model.isCollected ? 23 : 20, height: model.isCollected ? 23 : 20)
                     .foregroundColor(model.isCollected ? Color(.systemRed) : Color(.lightGray))
-                    .frame(width: 20, height: 20)
                     .onTapGesture(perform: onClickCollect)
         }
                 .padding(12)
