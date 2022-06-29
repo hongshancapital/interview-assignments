@@ -32,7 +32,7 @@ struct DemoListView: View {
                                     .onAppear(perform: store.loadMore)
                         }
                         let loadingString = store.hasMore ? "Loading..." : "No more data"
-                        Text(loadingString).font(.headline).foregroundColor(Color(.secondaryLabel))
+                        Text(loadingString).font(.body).foregroundColor(Color(.secondaryLabel))
                     }
                             .frame(maxWidth: .infinity)
                             .listRowBackground(Color(.systemGray6))

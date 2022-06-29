@@ -24,11 +24,13 @@ struct DemoCell: View {
                     placeholder: {
                         ProgressView()
                     })
-                    .frame(width: 48, height: 48)
-            VStack(alignment: .leading, spacing: 8) {
-                Text(model.artistName).font(.title3).lineLimit(1)
-                Text(model.description).font(.body).lineLimit(2)
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(8)
+            VStack(alignment: .leading,spacing: 5) {
+                Text(model.artistName).font(.headline).lineLimit(2)
+                Text(model.description).font(.caption).lineLimit(2)
             }
+
             Spacer()
             Image(systemName: model.isCollected ? "heart.fill" : "heart")
                     .resizable()
