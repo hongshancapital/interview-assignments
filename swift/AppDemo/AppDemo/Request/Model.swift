@@ -16,7 +16,6 @@ struct Response<T: Decodable>: Decodable {
     var data: T?
 }
 
-
 struct BusinessError {
     enum ErrorType: Int {
         // 后台的错误码,简易搭建的后台,目前所有的抛错统一为code是1,暂无其它错误码

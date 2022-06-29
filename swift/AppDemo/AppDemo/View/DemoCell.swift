@@ -46,4 +46,3 @@ struct DemoCell: View {
                 .cornerRadius(8)
     }
 }
-

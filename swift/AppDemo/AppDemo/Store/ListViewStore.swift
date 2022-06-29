@@ -24,7 +24,6 @@ class ListViewStore: ObservableObject {
     // 是否正在点击收藏,简易的处理下防重复请求
     private var isRequestDoCollected = false
 
-
     // 刷新函数,外部只关联函数名即可
     @Sendable func refresh() {
         request(isRefresh: true)
