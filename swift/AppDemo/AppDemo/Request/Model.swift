@@ -5,9 +5,15 @@
 
 import Foundation
 
+///
+/// 后台返回的数据结构
+///
 struct Response<T: Decodable>: Decodable {
+    // code码,为0则为正常响应,其它为失败,后台的兜底失败码为1
     var code: Int
+    // 错误信息
     var message: String?
+    // 业务数据
     var result: T?
 }
 
@@ -18,12 +24,12 @@ struct BusinessError {
     }
 
     // 错误类型
-    let type: ErrorType
+    let type: ErrorType?
     // 错误信息
     let message: String?
 
     init(code: Int, message: String?) {
-        type = ErrorType(rawValue: code) ?? .default
+        type = ErrorType(rawValue: code)
         self.message = message
     }
 }

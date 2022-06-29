@@ -6,9 +6,12 @@ import SwiftUI
 
 struct DemoCell: View {
     private let model: DemoModel
+    private var onClickCollect: () -> Void
 
-    init(model: DemoModel) {
+    init(model: DemoModel,
+         onClickCollect: @escaping () -> Void) {
         self.model = model
+        self.onClickCollect = onClickCollect
     }
 
     internal var body: some View {
@@ -27,10 +30,18 @@ struct DemoCell: View {
                 Text(model.description).font(.body).lineLimit(2)
             }
             Spacer()
-            Image(systemName: "heart").resizable().frame(width: 20, height: 20)
+            Image(systemName: model.isCollected ? "heart.fill" : "heart")
+                    .resizable()
+                    .foregroundColor(model.isCollected ? Color(.systemRed) : Color(.lightGray))
+                    .frame(width: 20, height: 20)
+                    //                    .onTapGesture {
+                    //                        model.isCollected.toggle()
+                    //                    }
+                    .onTapGesture(perform: onClickCollect)
         }
                 .padding(12)
                 .background(Color.white)
                 .cornerRadius(8)
     }
 }
+

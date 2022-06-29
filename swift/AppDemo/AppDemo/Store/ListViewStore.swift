@@ -12,6 +12,7 @@ class ListViewStore: ObservableObject {
     private let pageSize = 20
     private var currentPage = 0
     private var getListCancellable: AnyCancellable?
+    private var doCollectedCancellable: AnyCancellable?
 
     @Sendable func refresh() {
         request(isRefresh: true)
@@ -42,10 +43,29 @@ class ListViewStore: ObservableObject {
                             case true:
                                 weakSelf.dataSource = list
                             case false:
-                                weakSelf.dataSource.append(contentsOf: list)
+                                var arr = weakSelf.dataSource
+                                arr.append(contentsOf: list)
+                                weakSelf.dataSource = arr
                             }
                             let hasMore = list.count == weakSelf.pageSize
                             weakSelf.hasMore = hasMore
                         })
+    }
+
+    func doCollected(index: Int) {
+        var model = dataSource[index]
+        let isCollected = !model.isCollected
+        doCollectedCancellable = Api.doCollected(
+                id: model.id,
+                isCollected: isCollected).sinkResultData(
+                dataCls: Bool.self,
+                receiveCompletion: { completion in
+
+                },
+                receiveValue: { [weak self] in
+                    guard  let weakSelf = self, let isCollected = $0 else { return }
+                    model.isCollected = isCollected
+                    weakSelf.dataSource[index] = model
+                })
     }
 }

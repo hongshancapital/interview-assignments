@@ -19,8 +19,10 @@ struct DemoListView: View {
                 ProgressView().onAppear(perform: store.refresh).navigationTitle("App")
             case false:
                 List {
-                    ForEach(store.dataSource) {
-                        DemoCell(model: $0)
+                    ForEach(store.dataSource.indices, id: \.self) { index in
+                        DemoCell(model: store.dataSource[index]) {
+                            store.doCollected(index: index)
+                        }
                                 .listRowBackground(Color(.systemGray6))
                                 .listRowSeparator(.hidden)
                     }
