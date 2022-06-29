@@ -39,6 +39,24 @@ class AppDemoTests: XCTestCase {
         waitForExpectations(timeout: 20)
     }
 
+    func testDoCollected() {
+        let expectation = expectation(description: "异步需要的expectation")
+        cancellable = Api.doCollected(id: 469, isCollected: true).sinkResultData(dataCls: Bool.self,
+                receiveCompletion: {
+                    switch $0 {
+                    case .finished:
+                        break
+                    case .failure(let err):
+                        XCTFail("请求过程失败,error是:\(err)")
+                    }
+                    expectation.fulfill()
+                },
+                receiveValue: {
+                    XCTAssertNotNil($0, "result返回错误,不应该为nil")
+                })
+        waitForExpectations(timeout: 20)
+    }
+
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.

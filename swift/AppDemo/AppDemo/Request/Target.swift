@@ -8,9 +8,10 @@ import Foundation
 import Combine
 
 private let domain = "http://localhost:8080"
+
 //private let domain = "http://demo-api.jeffreywei.cn"
 
-enum RequestMethod: String {
+enum RequestMethod {
     case get
     case post
 }
@@ -32,7 +33,8 @@ extension Target {
             let url = urlComponents.url!
             return URLSession.shared.dataTaskPublisher(for: url)
         case .post:
-            var request = URLRequest.init(url: URL(string: domain)!)
+            var request = URLRequest.init(url: URL(string: "\(domain)/\(urlString)")!)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = try? JSONSerialization.data(withJSONObject: data)
             return URLSession.shared.dataTaskPublisher(for: request)
@@ -52,7 +54,9 @@ extension Target {
     func sinkResultData<T: Decodable>(dataCls: T.Type,
                                       receiveCompletion: @escaping (Subscribers.Completion<Error>) -> Void,
                                       receiveValue: @escaping (T?) -> Void) -> AnyCancellable {
-        publisher.map { $0.data }
+        publisher.map {
+                    $0.data
+                }
                 .decode(type: Response<T>.self, decoder: JSONDecoder())
                 .tryMap { response -> T? in
                     switch response.code {

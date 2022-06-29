@@ -14,11 +14,4 @@ struct DemoModel: Identifiable, Decodable {
     var icon: String
     // 是否收藏
     var isCollected: Bool = false
-
-    init(id: Int, artistName: String, description: String, icon: String) {
-        self.id = id
-        self.artistName = artistName
-        self.description = description
-        self.icon = icon
-    }
 }

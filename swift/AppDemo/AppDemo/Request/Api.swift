@@ -7,6 +7,7 @@ import Foundation
 
 enum Api {
     case getDemoList(pageSize: Int, pageNum: Int)
+    case doCollected(id: Int, isCollected: Bool)
 }
 
 extension Api: Target {
@@ -14,18 +15,25 @@ extension Api: Target {
         switch self {
         case .getDemoList:
             return "api/demo/getDemoList"
+        case .doCollected:
+            return "/api/demo/doCollected"
         }
     }
     var method: RequestMethod {
         switch self {
         case .getDemoList:
             return .get
+        case .doCollected:
+            return .post
         }
     }
     var data: [String: LosslessStringConvertible] {
         switch self {
         case .getDemoList(pageSize: let pageSize, pageNum: let pageNum):
             return ["pageSize": pageSize, "pageNum": pageNum]
+        case .doCollected(id: let id, isCollected: let isCollected):
+            return ["id": id, "isCollected": isCollected]
         }
     }
+
 }
