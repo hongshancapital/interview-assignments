@@ -23,7 +23,8 @@ class AppDemoTests: XCTestCase {
 
     func testGetDemoListApi() {
         let expectation = expectation(description: "异步需要的expectation")
-        cancellable = Api.getDemoList(pageSize: 20, pageNum: 1).sinkResponseData(dataCls: [DemoModel].self,
+        cancellable = Api.getDemoList(pageSize: 20, pageNum: 1).sinkResponseData(
+                dataCls: [DemoModel].self,
                 receiveCompletion: {
                     XCTAssertTrue(Thread.isMainThread, "封装的sink函数回调不在主线程!")
                     switch $0 {
@@ -43,7 +44,8 @@ class AppDemoTests: XCTestCase {
 
     func testDoCollected() {
         let expectation = expectation(description: "异步需要的expectation")
-        cancellable = Api.doCollected(id: 469, isCollected: true).sinkResponseData(dataCls: Bool.self,
+        cancellable = Api.doCollected(id: 469, isCollected: true).sinkResponseData(
+                dataCls: Bool.self,
                 receiveCompletion: {
                     XCTAssertTrue(Thread.isMainThread, "封装的sink函数回调不在主线程!")
                     switch $0 {

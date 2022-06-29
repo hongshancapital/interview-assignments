@@ -10,7 +10,8 @@ import SwiftUI
 import Combine
 
 struct DemoListView: View {
-    @ObservedObject var store = ListViewStore()
+    @StateObject var store = ListViewStore()
+    @State var isError = false
     var body: some View {
         let isEmpty = store.dataSource.count == 0
         NavigationView {
@@ -21,7 +22,15 @@ struct DemoListView: View {
                 listView
             }
         }
+                .onReceive(store.$currentError) {
+                    guard $0 != nil else { return }
+                    isError = true
+                }
+                .alert(isPresented: $isError) {
+                    Alert(title: Text(store.currentError?.localizedDescription ?? "暂无错误提示"))
+                }
     }
+
     var listView: some View {
         List {
             ForEach(store.dataSource.indices, id: \.self) { index in
