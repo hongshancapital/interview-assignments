@@ -14,18 +14,19 @@ struct Response<T: Decodable>: Decodable {
     // 错误信息
     var message: String?
     // 业务数据
-    var result: T?
+    var data: T?
 }
 
 
 struct BusinessError {
     enum ErrorType: Int {
+        // 后台的错误码,简易搭建的后台,目前所有的抛错统一为code是1,暂无其它错误码
         case `default` = 1
     }
 
     // 错误类型
     let type: ErrorType?
-    // 错误信息
+    // 后台的错误描述,简易搭建的后台,目前所有的业务抛错message统一为'后台异常,请稍后重试'
     let message: String?
 
     init(code: Int, message: String?) {

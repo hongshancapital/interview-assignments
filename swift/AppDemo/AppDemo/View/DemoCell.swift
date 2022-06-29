@@ -5,8 +5,10 @@
 import SwiftUI
 
 struct DemoCell: View {
+    // 渲染对应的model
     private let model: DemoModel
-    private var onClickCollect: () -> Void
+    // 点击收藏事件
+    private let onClickCollect: () -> Void
 
     init(model: DemoModel,
          onClickCollect: @escaping () -> Void) {
@@ -26,7 +28,7 @@ struct DemoCell: View {
                     })
                     .frame(width: 50, height: 50)
                     .cornerRadius(8)
-            VStack(alignment: .leading,spacing: 5) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text(model.artistName).font(.headline).lineLimit(2)
                 Text(model.description).font(.caption).lineLimit(2)
             }
@@ -36,9 +38,6 @@ struct DemoCell: View {
                     .resizable()
                     .foregroundColor(model.isCollected ? Color(.systemRed) : Color(.lightGray))
                     .frame(width: 20, height: 20)
-                    //                    .onTapGesture {
-                    //                        model.isCollected.toggle()
-                    //                    }
                     .onTapGesture(perform: onClickCollect)
         }
                 .padding(12)

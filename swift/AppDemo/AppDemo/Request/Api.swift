@@ -6,7 +6,9 @@
 import Foundation
 
 enum Api {
+    // 获取demo列表
     case getDemoList(pageSize: Int, pageNum: Int)
+    // 根据id给demo对象收藏
     case doCollected(id: Int, isCollected: Bool)
 }
 
@@ -35,5 +37,4 @@ extension Api: Target {
             return ["id": id, "isCollected": isCollected]
         }
     }
-
 }

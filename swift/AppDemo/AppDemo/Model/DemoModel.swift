@@ -1,5 +1,6 @@
 //
 // Created by Jeffrey Wei on 2022/6/27.
+// 实体对象,和数据库数据关联
 //
 
 import Foundation

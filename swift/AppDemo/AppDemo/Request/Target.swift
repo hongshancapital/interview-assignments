@@ -45,15 +45,16 @@ extension Target {
 extension Target {
     ///
     /// target的sink函数,请求的简单封装,内部会解析解析后台返回的response,code不为0会抛出一个BusinessError类型的业务错误,
-    /// 否则根据dataCls解析出data返回直接供外部使用
+    /// 否则直接将使用dataCls解析出data并返回供外部使用
+    /// 回调函数将会在在主线程
     /// - Parameters:
     ///   - dataCls:解析后台返回数据结构Response里的data数据的类型
     ///   - receiveCompletion:完成和失败的回调
     ///   - receiveValue:接收到值的回调
     /// - Returns:可取消的AnyCancellable
-    func sinkResultData<T: Decodable>(dataCls: T.Type,
-                                      receiveCompletion: @escaping (Subscribers.Completion<Error>) -> Void,
-                                      receiveValue: @escaping (T?) -> Void) -> AnyCancellable {
+    func sinkResponseData<T: Decodable>(dataCls: T.Type,
+                                        receiveCompletion: @escaping (Subscribers.Completion<Error>) -> Void,
+                                        receiveValue: @escaping (T?) -> Void) -> AnyCancellable {
         publisher.map {
                     $0.data
                 }
@@ -61,7 +62,7 @@ extension Target {
                 .tryMap { response -> T? in
                     switch response.code {
                     case 0:
-                        return response.result
+                        return response.data
                     default:
                         throw BusinessError(code: response.code, message: response.message)
                     }

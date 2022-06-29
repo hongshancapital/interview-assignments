@@ -23,8 +23,9 @@ class AppDemoTests: XCTestCase {
 
     func testGetDemoListApi() {
         let expectation = expectation(description: "异步需要的expectation")
-        cancellable = Api.getDemoList(pageSize: 20, pageNum: 10).sinkResultData(dataCls: [DemoModel].self,
+        cancellable = Api.getDemoList(pageSize: 20, pageNum: 1).sinkResponseData(dataCls: [DemoModel].self,
                 receiveCompletion: {
+                    XCTAssertTrue(Thread.isMainThread, "封装的sink函数回调不在主线程!")
                     switch $0 {
                     case .finished:
                         break
@@ -34,6 +35,7 @@ class AppDemoTests: XCTestCase {
                     expectation.fulfill()
                 },
                 receiveValue: {
+                    XCTAssertTrue(Thread.isMainThread, "封装的sink函数回调不在主线程!")
                     XCTAssertNotNil($0, "result返回错误,不应该为nil")
                 })
         waitForExpectations(timeout: 20)
@@ -41,8 +43,9 @@ class AppDemoTests: XCTestCase {
 
     func testDoCollected() {
         let expectation = expectation(description: "异步需要的expectation")
-        cancellable = Api.doCollected(id: 469, isCollected: true).sinkResultData(dataCls: Bool.self,
+        cancellable = Api.doCollected(id: 469, isCollected: true).sinkResponseData(dataCls: Bool.self,
                 receiveCompletion: {
+                    XCTAssertTrue(Thread.isMainThread, "封装的sink函数回调不在主线程!")
                     switch $0 {
                     case .finished:
                         break
@@ -52,24 +55,9 @@ class AppDemoTests: XCTestCase {
                     expectation.fulfill()
                 },
                 receiveValue: {
+                    XCTAssertTrue(Thread.isMainThread, "封装的sink函数回调不在主线程!")
                     XCTAssertNotNil($0, "result返回错误,不应该为nil")
                 })
         waitForExpectations(timeout: 20)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
