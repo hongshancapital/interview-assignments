@@ -1,0 +1,37 @@
+{
+  "include": ["src", "prisma", "test"],
+  // "exclude": ["test", "**/*.spec.ts", "**/*.e2e-spec.ts"],
+  "compilerOptions": {
+    /* Type Checking */
+    "strict": true,
+    "strictPropertyInitialization": false,
+    /* Modules */
+    "module": "NodeNext",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    /* Emit */
+    "sourceMap": true,
+    "declaration": false,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": true,
+    /* JavaScript Support */
+    "allowJs": true,
+    "isolatedModules": false,
+    /* Language and Environment */
+    "target": "ES2017",
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    /* Projects */
+    "incremental": true,
+    /* Completeness */
+    "skipLibCheck": true
+  }
+}
