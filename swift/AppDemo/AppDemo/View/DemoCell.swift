@@ -13,7 +13,15 @@ struct DemoCell: View {
 
     internal var body: some View {
         HStack {
-            Image(systemName: "heart").resizable().frame(width: 48, height: 48)
+            AsyncImage(
+                    url: URL(string: model.icon),
+                    content: {
+                        $0.resizable()
+                    },
+                    placeholder: {
+                        ProgressView()
+                    })
+                    .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 8) {
                 Text(model.artistName).font(.title3).lineLimit(1)
                 Text(model.description).font(.body).lineLimit(2)
