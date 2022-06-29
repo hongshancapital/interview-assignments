@@ -27,6 +27,7 @@ struct DemoListView: View {
                     isError = true
                 }
                 .alert(isPresented: $isError) {
+                    // 错误处理暂时简单的alert一下
                     Alert(title: Text(store.currentError?.localizedDescription ?? "暂无错误提示"))
                 }
     }
@@ -42,8 +43,7 @@ struct DemoListView: View {
             }
             HStack(alignment: .center, spacing: 8) {
                 if store.hasMore == true {
-                    ProgressView()
-                            .onAppear(perform: store.loadMore)
+                    ProgressView().onAppear(perform: store.loadMore)
                 }
                 let loadingString = store.hasMore ? "Loading..." : "No more data"
                 Text(loadingString).font(.body).foregroundColor(Color(.secondaryLabel))

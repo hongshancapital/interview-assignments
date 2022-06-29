@@ -7,7 +7,6 @@ import Foundation
 
 ///
 /// 后台返回的数据结构
-///
 struct Response<T: Decodable>: Decodable {
     // code码,为0则为正常响应,其它为失败,后台的兜底失败码为1
     var code: Int

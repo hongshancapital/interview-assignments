@@ -21,6 +21,7 @@ class AppDemoTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    // 测试获取demo数据列表第一页接口
     func testGetDemoListApi() {
         let expectation = expectation(description: "异步需要的expectation")
         cancellable = Api.getDemoList(pageSize: 20, pageNum: 1).sinkResponseData(
@@ -42,6 +43,7 @@ class AppDemoTests: XCTestCase {
         waitForExpectations(timeout: 20)
     }
 
+    // 测试点赞接口,id为469,目前数据库中总共68条数据,id从469到536
     func testDoCollected() {
         let expectation = expectation(description: "异步需要的expectation")
         cancellable = Api.doCollected(id: 469, isCollected: true).sinkResponseData(
