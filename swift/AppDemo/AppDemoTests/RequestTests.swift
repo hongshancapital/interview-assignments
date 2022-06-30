@@ -10,7 +10,7 @@ import XCTest
 @testable import AppDemo
 import Combine
 
-class AppDemoTests: XCTestCase {
+class RequestTests: XCTestCase {
     private var cancellable: AnyCancellable?
 
     override func setUpWithError() throws {
