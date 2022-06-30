@@ -9,7 +9,7 @@ import Combine
 
 // 自建后台api地址,数据为需求上的link地址的数据(link上的数据好像有的id不同或者没有,这里统一了下
 // 注意:后台为简单搭建,并无用户体系,尽量不要多人同时跑此demo,否则可能点击收藏的逻辑会混乱
-private let domain = "http://demo-api.jeffreywei.cn"
+ let domain = "http://demo-api.jeffreywei.cn"
 
 enum RequestMethod {
     case get
@@ -26,7 +26,7 @@ protocol Target {
 }
 
 extension Target {
-    private var publisher: URLSession.DataTaskPublisher {
+     var publisher: URLSession.DataTaskPublisher {
         switch method {
         case .get:
             var urlComponents = URLComponents(string: "\(domain)/\(urlString)")!
