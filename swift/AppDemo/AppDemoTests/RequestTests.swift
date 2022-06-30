@@ -23,7 +23,7 @@ class RequestTests: XCTestCase {
 
     // 测试获取demo数据列表第一页接口,并查看sinkResponseData的线程问题,后续接口不再测试线程问题
     func testGetDemoListApi() {
-        let expectation = expectation(description: "异步需要的expectation")
+        var expectation: XCTestExpectation? = expectation(description: "异步需要的expectation")
         cancellable = Api.getDemoList(pageSize: 20, pageNum: 1).sinkResponseData(
                 dataCls: [DemoModel].self,
                 receiveCompletion: {
@@ -34,7 +34,8 @@ class RequestTests: XCTestCase {
                     case .failure(let err):
                         XCTFail("请求过程失败,error是:\(err)")
                     }
-                    expectation.fulfill()
+                    expectation?.fulfill()
+                    expectation = nil
                 },
                 receiveValue: {
                     XCTAssertTrue(Thread.isMainThread, "封装的sink函数回调不在主线程!")
@@ -46,7 +47,7 @@ class RequestTests: XCTestCase {
 
     // 测试点赞接口,id为469,目前数据库中总共68条数据,id从469到536
     func testDoCollected() {
-        let expectation = expectation(description: "异步需要的expectation")
+        var expectation: XCTestExpectation? = expectation(description: "异步需要的expectation")
         cancellable = Api.doCollected(id: 469, isCollected: true).sinkResponseData(
                 dataCls: Bool.self,
                 receiveCompletion: {
@@ -56,7 +57,8 @@ class RequestTests: XCTestCase {
                     case .failure(let err):
                         XCTFail("请求过程失败,error是:\(err)")
                     }
-                    expectation.fulfill()
+                    expectation?.fulfill()
+                    expectation = nil
                 },
                 receiveValue: {
                     XCTAssertNotNil($0, "result返回错误,不应该为nil!")
@@ -69,7 +71,7 @@ class RequestTests: XCTestCase {
     /// 保证测到sinkResponseData函数抛错的情况
     /// (Request/Model和 Request/Target用例覆盖率达97%->100%)
     func testDoCollectedError() {
-        let expectation = expectation(description: "异步需要的expectation")
+        var expectation: XCTestExpectation? = expectation(description: "异步需要的expectation")
         cancellable = Api.doCollected(id: -1, isCollected: true).sinkResponseData(
                 dataCls: Bool.self,
                 receiveCompletion: {
@@ -81,7 +83,8 @@ class RequestTests: XCTestCase {
                         XCTAssertNotNil(businessError, "此处错误应该是一个BusinessError")
                         XCTAssertNotNil(businessError?.localizedDescription, "后台必须给出异常原因,此处没给!")
                     }
-                    expectation.fulfill()
+                    expectation?.fulfill()
+                    expectation = nil
                 },
                 receiveValue: { _ in
                 })
