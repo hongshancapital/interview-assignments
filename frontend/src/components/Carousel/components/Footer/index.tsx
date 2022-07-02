@@ -18,6 +18,7 @@ export default ({
         <View
           key={index}
           enable={current === index}
+          onClick={() => setCurrent(index)}
           onAnimationEnd={() =>
             setCurrent(current === configs.length - 1 ? 0 : current + 1)
           }

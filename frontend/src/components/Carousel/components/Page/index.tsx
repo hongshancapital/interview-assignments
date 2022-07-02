@@ -18,7 +18,10 @@ export default ({
   comments = [],
 }: Props) => {
   return (
-    <div className={`${styles.page} ${styles[theme]}`} style={{ background }}>
+    <div
+      style={{ background }}
+      className={`flex direction-column align-center ${styles.page} ${styles[theme]}`}
+    >
       {title.length > 0 &&
         title.map((title: string, idx: number) => (
           <div className={`title ${styles.title}`} key={`title-${idx}`}>
@@ -31,6 +34,7 @@ export default ({
             {comment}
           </div>
         ))}
+      <div className="flex-1"></div>
       <img src={img} />
     </div>
   );
