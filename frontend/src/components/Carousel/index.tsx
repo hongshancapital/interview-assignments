@@ -1,19 +1,15 @@
 import React from "react";
 import View from "./view";
-import { configs } from "./configs";
 import Footer from "./components/Footer";
+import styles from "./index.module.sass";
 
 export default () => {
   const [current, setCurrent] = React.useState<number>(0);
 
   return (
-    <div className="flex direction-column align-center">
-      <View />
-      <Footer
-        current={current}
-        length={configs.length}
-        setCurrent={setCurrent}
-      />
+    <div className={`flex direction-column align-center ${styles.window}`}>
+      <View current={current} />
+      <Footer current={current} setCurrent={setCurrent} />
     </div>
   );
 };
