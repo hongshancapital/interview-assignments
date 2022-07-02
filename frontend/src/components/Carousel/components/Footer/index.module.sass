@@ -5,8 +5,10 @@
     transform: translateX(0)
 
 .footer
+  bottom: 5rem
   display: flex
-  
+  position: absolute
+
   .item
     width: 3rem
     height: .2rem
@@ -14,16 +16,17 @@
     overflow: hidden
     position: relative
     border-radius: .1rem
-    background-color: gray
+    background-color: #a9a9a9
     
     .indicator
       width: 100%
       height: 100%
       position: absolute
-      background-color: black
+      background-color: #fafafa
+      transform: translateX(-100%)
     
       &.enable
-        anumation-delay: 300ms
+        anumation-delay: 500ms
         animation-duration: 3s
         animation-name: moving-indicator
         animation-timing-function: linear

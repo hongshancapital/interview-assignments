@@ -1,19 +1,26 @@
+import iphone from "../../assets/iphone.png";
+import tablet from "../../assets/tablet.png";
+import airpods from "../../assets/airpods.png";
+
 export const configs = [
   {
-    background: "",
+    img: iphone,
+    theme: "dark",
     title: ["xPhone"],
-    img: import("../../assets/iphone.png"),
+    background: "#111111",
     comments: ["Lots to love. Less to spend", "Starting at $399."],
   },
   {
-    background: "",
+    img: tablet,
+    theme: "default",
     title: ["Tablet"],
-    img: import("../../assets/tablet.png"),
+    background: "#fafafa",
     comments: ["Just the right amount of everything."],
   },
   {
-    background: "",
-    img: import("../../assets/airpods.png"),
+    img: airpods,
+    theme: "default",
+    background: "#f1f1f3",
     title: ["Buy a Tablet or xPhone for college.", "Get airPods."],
   },
 ];
