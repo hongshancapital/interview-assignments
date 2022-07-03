@@ -1,6 +1,6 @@
 # 短域名服务
 
-## API 说明
+## 一、API 说明
 
 ### 1.生成短域名
 
@@ -56,7 +56,7 @@ curl -i "http://localhost:3000/55cdssg1"
     - statusCode: 404 资源不存在
 
 
-## 单元测试
+## 二、单元测试
 - 启动单测
 ```
 npm run test
@@ -102,7 +102,7 @@ Snapshots:   0 total
 Time:        17.171 s
 ```
 
-## 集成测试
+## 三、集成测试
 - 集成测试
 ```
 npm run test:e2e
@@ -124,19 +124,19 @@ Snapshots:   0 total
 Time:        3.172 s, estimated 4 s
 ```
 
-## 流程设计
+## 四、流程设计
 
 ### 1.生成长链接
 
 ```mermaid
 graph LR
-A["API请求: POST /"] -->C("请求参数是否有效?")
-  C -->|无效| D[返回400]
-  C -->|有效| E[雪花算法生成id] --> F(写数据库)
-    F --> |成功| G[返回201+短域名]
-    F --> |失败| H(检查失败原因是否为索引重复)
-      H --> |否| G[返回500]
-      H --> |是| I("再次生成id重试，最多3次") 
+A["API请求: POST /"] -->B("请求参数是否有效?")
+  B -->|无效| C[返回400]
+  B -->|有效| D[雪花算法生成id] --> E(写数据库)
+    E --> |成功| F[返回201+短域名]
+    E --> |失败| G(检查失败原因是否为索引重复)
+      G --> |否| H[返回500]
+      G --> |是| I("再次生成id重试，最多3次") 
         I --> |重试成功| J[返回201+短域名]
         I --> |重试成功| K[返回500]
 ```
@@ -214,7 +214,7 @@ A["API请求: GET /:id"] -->B("请求参数是否有效?")
 
 ### 
 
-## 一些考虑和假设
+## 五、一些考虑和假设
 
 1. 域名id唯一的考虑
   提交代码中域名id采用64进制表示法:`abcdefghijklmnopqrstuvwxyz-ABCDEFGHIJKLMNOPQRSTUVWXYZ@0123456789`；
@@ -242,9 +242,9 @@ A["API请求: GET /:id"] -->B("请求参数是否有效?")
   可以考虑对长链接添加索引，会降低写入性能；
 
 
-## SQL 
+## 六、SQL 
 
-### postgresql
+### 1.postgresql
 
 - 创建postgresql用户
 ```/bin/bash
@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS sl_link(
 );
 ```
 
-### redis的key
+### 2.redis的key
 
 - 长域名的key
 使用``id-${id}`` 作为长域名的key存放，ex： id为12345678，redis中key为 `id-12345678`, 过期时间为1小时
@@ -295,9 +295,9 @@ CREATE TABLE IF NOT EXISTS sl_link(
 使用``idl-${id}``作为分布式锁的key，ex：在需要读某个id为12345678的db内容时，redis分布式锁的key为`idl-12345678`, 过期时间1s
 
 
-## 部署运行
+## 七、部署运行
 
-### 本地运行
+### 1.本地运行
 - 环境准备
   安装node、postgresql、redis
 - 安装依赖npm install
@@ -325,13 +325,14 @@ npm run start:dev
 npm run build
 ```
 
-### 打包Docker镜像
+### 2.打包Docker镜像
 ```
 docker pull node:18.4-alpine
 docker build -t scdt-china/fs-hw-vizoss:latest .
 ```
 
-### Docker 运行
+### 3.Docker 运行
+**依赖Docker环境和第二步打包Docker镜像**
 ```
 docker run -p 13000:3000 --name fs-hw-vizoss \
   -e POSTGRES_HOST="192.168.0.103" \
@@ -346,7 +347,8 @@ docker run -p 13000:3000 --name fs-hw-vizoss \
   
 ```
 
-### Docker-compose
+### 4.Docker-compose
+**依赖Docker环境和第二步打包Docker镜像**
 ```
 docker pull redis:latest
 docker pull postgres:14
