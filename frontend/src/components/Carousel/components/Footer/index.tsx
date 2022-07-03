@@ -17,6 +17,7 @@ export default ({
       {arr.map((_, index: number) => (
         <View
           key={index}
+          idx={index}
           enable={current === index}
           onClick={() => setCurrent(index)}
           onAnimationEnd={() =>

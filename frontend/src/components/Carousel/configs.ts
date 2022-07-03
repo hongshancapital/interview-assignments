@@ -8,7 +8,7 @@ export const configs = [
     theme: "dark",
     title: ["xPhone"],
     background: "#111111",
-    comments: ["Lots to love. Less to spend", "Starting at $399."],
+    comments: ["Lots to love. Less to spend.", "Starting at $399."],
   },
   {
     img: tablet,

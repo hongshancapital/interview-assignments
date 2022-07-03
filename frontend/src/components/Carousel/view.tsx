@@ -8,14 +8,15 @@ export default ({ current }: { current: number }): React.ReactElement => {
 
   return (
     <div
+      data-testid="list"
       className={`flex direction-row align-items ${styles.list}`}
       style={{
         width: `${len * 100}%`,
-        transform: `translateX(${100 / len - (current * 100) / len}%)`,
+        transform: `translateX(${100 - current * 100}vw)`,
       }}
     >
       {configs.map((config, idx: number) => (
-        <div key={`page-${idx}`} style={{ width: `${100 / len}%` }}>
+        <div key={`page-${idx}`} style={{ width: "100vw" }}>
           <Page {...config} />
         </div>
       ))}

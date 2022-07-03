@@ -2,10 +2,12 @@ import React from "react";
 import styles from "./index.module.sass";
 
 export default ({
+  idx,
   enable,
   onClick,
   onAnimationEnd,
 }: {
+  idx: number;
   enable: boolean;
   onClick: () => void;
   onAnimationEnd: () => void;
@@ -14,6 +16,7 @@ export default ({
     <div
       className={styles.item}
       onClick={() => onClick()}
+      data-testid={`footer-${idx}`}
       onAnimationEnd={() => onAnimationEnd()}
     >
       <div
