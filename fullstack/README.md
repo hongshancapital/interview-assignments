@@ -127,10 +127,23 @@ Time:        3.172 s, estimated 4 s
 ## 流程设计
 
 ### 1.生成长链接
+
+```mermaid
+graph LR
+A["API请求: POST /"] -->C("请求参数是否有效?")
+  C -->|无效| D[返回400]
+  C -->|有效| E[雪花算法生成id] --> F(写数据库)
+    F --> |成功| G[返回201+短域名]
+    F --> |失败| H(检查失败原因是否为索引重复)
+      H --> |否| G[返回500]
+      H --> |是| I("再次生成id重试，最多3次") 
+        I --> |重试成功| J[返回201+短域名]
+        I --> |重试成功| K[返回500]
+```
 ```flow
   start=>start: API请求: POST /
   valid=>condition: 请求参数是否合法？
-  generateId=>operation: 使用雪花算法生成id
+  generateId=>operation: 雪花算法生成id
   checkDbIndexError=>condition: 检查是否索引重复
   retryGenerateId=>condition: 再次生成id重试,最多重复3次
   writeDb=>condition: 写数据库,是否成功？
@@ -150,7 +163,26 @@ Time:        3.172 s, estimated 4 s
   retryGenerateId(no)->end500-1
 ```
 
+
+
 ### 2.获取长链接
+
+
+```mermaid
+graph LR
+A["API请求: GET /:id"] -->B("请求参数是否有效?")
+  B -->|无效| C[返回400]
+  B -->|有效| D("查询缓存")
+    D -->|缓存存在| E("302重定向到长域名")
+    D -->|不存在| F["获取redis锁读数据库"]
+      F -->|加锁失败| G["等待100ms"] --> H("再次获取缓存")
+        H -->|获取成功| I["302重定向到长域名"]
+        H -->|获取失败| J[返回404]  
+      F -->|加锁成功| L("读数据库")
+        L -->|读成功| M["先写缓存后删redis锁"] --> N["302重定向到长域名"]
+        L -->|读失败| O["删除redis锁"] --> P[返回404]
+```
+
 ```flow
   start=>start: API请求: GET /:id
   valid=>condition: 请求参数是否合法？
@@ -178,6 +210,7 @@ Time:        3.172 s, estimated 4 s
   wait100(yes)->end302-2
   wait100(no)->end404-1
 ```
+
 
 ### 
 
