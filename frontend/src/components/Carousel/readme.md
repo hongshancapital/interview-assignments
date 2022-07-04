@@ -1,11 +1,16 @@
-import React from 'react';
-import './App.css';
+# Carousel 轮播组件
+
+* 支持自使用容器宽高
+* 支持总定义轮播内容
+* 支持自动轮播动画时间间隔，默认时间为 4s
+
+```js
 import Carousel from './components/Carousel';
 
 function App() {
   const data = [
     {
-      title: 'XPhone',
+      title: 'XPhone', // 轮播标题
       descs: [
         'Lots to love. Less to Spend.',
         'Starting at $399.'
@@ -38,5 +43,4 @@ function App() {
     </div>
   );
 }
-
-export default App;
+```
