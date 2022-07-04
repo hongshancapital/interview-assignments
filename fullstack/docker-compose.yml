@@ -1,0 +1,45 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:14
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - APP_DB_USER=vizoss
+      - APP_DB_PASS=vizoss
+      - APP_DB_NAME=fs_hw_vizoss
+    volumes:
+      - ./docker-compose/postgres/db:/docker-entrypoint-initdb.d/
+    ports:
+      - 15432:5432
+  redis:
+    image: redis:latest
+    restart: always
+    command: redis-server /etc/redis.conf
+    ports:
+      - 16379:6379
+    volumes:
+      - ./docker-compose/redis/data:/data
+      - ./docker-compose/redis/redis.conf:/etc/redis.conf
+  api-server:
+    image: scdt-china/fs-hw-vizoss:latest
+    restart: always
+    command: node ./dist/main.js
+    environment:
+      - POSTGRES_HOST=192.168.0.103
+      - POSTGRES_PORT=15432
+      - POSTGRES_USER=vizoss
+      - POSTGRES_PASSWORD=vizoss
+      - POSTGRES_DB=fs_hw_vizoss
+      - REDIS_HOST=192.168.0.103
+      - REDIS_PORT=16379
+      - REDIS_PASSWORD=
+    ports:
+      - 33000:3000
+
