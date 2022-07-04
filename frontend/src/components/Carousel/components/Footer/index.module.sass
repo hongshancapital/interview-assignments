@@ -1,0 +1,34 @@
+@keyframes moving-indicator 
+  0%
+    transform: translateX(-100%)
+  100%
+    transform: translateX(0)
+
+.footer
+  bottom: 5rem
+  display: flex
+  position: absolute
+
+  .item
+    width: 3rem
+    height: .2rem
+    margin: 0 .4rem
+    overflow: hidden
+    position: relative
+    border-radius: .1rem
+    background-color: #a9a9a9
+    cursor: pointer
+
+    .indicator
+      width: 100%
+      height: 100%
+      position: absolute
+      background-color: #fafafa
+      transform: translateX(-100%)
+    
+      &.enable
+        will-change: transform
+        anumation-delay: 500ms
+        animation-duration: 3s
+        animation-name: moving-indicator
+        animation-timing-function: linear
