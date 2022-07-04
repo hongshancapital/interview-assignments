@@ -1,0 +1,43 @@
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  & .carousel-content {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    transition: left 0.5s;
+    &.no-transition {
+      transition: none;
+    }
+    .carousel-item {
+      height: 100%;
+      flex: 1;
+    }
+  }
+  & .carousel-panel {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    .carousel-progress-wrapper {
+      margin: 12px;
+      width: 80px;
+      height: 2px;
+      background-color: #fff;
+      border-radius: 2px;
+      & .carousel-progress {
+        width: 0;
+        height: 100%;
+        background-color: #ccc;
+      }
+    }
+  }
+}
