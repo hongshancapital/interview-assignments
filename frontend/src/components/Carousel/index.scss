@@ -1,0 +1,73 @@
+.body {
+  width: 100vw;
+  height: 100vh;
+}
+
+@mixin content-transition($duration) {
+  transition: transform $duration;
+  -webkit-transition: transform $duration;
+  -moz-transition: transform $duration;
+  -ms-transition: transform $duration;
+  -o-transition: transform $duration;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  @include content-transition(0.3s);
+}
+
+$indicator-border-radius: 5px;
+
+@mixin indicator-border-radius-rules {
+  border-radius: $indicator-border-radius;
+  -webkit-border-radius: $indicator-border-radius;
+  -moz-border-radius: $indicator-border-radius;
+  -ms-border-radius: $indicator-border-radius;
+  -o-border-radius: $indicator-border-radius;
+}
+
+@mixin indicator-animation($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+
+  animation-name: $name;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+.dots {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+
+  .indicatorOuter {
+    width: 90px;
+    height: 5px;
+    background-color: #0000001a;
+    margin-left: 20px;
+    @include indicator-border-radius-rules;
+
+    .indicatorInner {
+      height: inherit;
+      @include indicator-border-radius-rules;
+
+      @include indicator-animation(progressBar) {
+        0% {
+          width: 0%;
+        }
+
+        100% {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
