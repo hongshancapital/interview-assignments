@@ -1,0 +1,133 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.banner_container {
+    position: relative;
+    margin:0 auto;
+    width: 100%;
+    height: 100vh;
+    /* 超出隐藏 */
+    overflow: hidden;
+}
+.banner_content{
+    
+}
+.s-content {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 200px;
+    text-align: center;
+    font-size: 50px;
+    line-height: 1.2;
+    color:black ;
+    z-index: 33;
+}
+
+ul.img_box {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+.img_box li:first-child> section {
+    color: #fff !important;
+}
+.img_box li {
+    float: left;
+    height: calc(100vh);
+    width: calc(100vw);
+    position: relative;
+    line-height: 12px;;
+    font-size: 40px;
+    list-style: none;
+}
+
+/* 图片大小 */
+.img_box li img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+
+}
+
+/* 小圆点 */
+.sel_box {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sel_box li {
+    list-style: none;
+    /* 转换为行内块元素 -- 一行显示 */
+    display: inline-block;
+    width: 100px;
+    height: 10px;
+    background-color: #ddd;
+    margin-right: 3px;
+    border-radius: 5px;
+    transition: all 3s;
+}
+
+/* 左箭头 */
+.left_btn {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 30px;
+    background-color: #fff;
+    line-height: 30px;
+    padding-left: 3px;
+    /* 将鼠标样式改为小手 */
+    cursor: pointer;
+}
+
+.right_btn {
+    position: absolute;
+    top: 50%;
+    left: 375px;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 30px;
+    background-color: #fff;
+    line-height: 30px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+
+/* 当前图片的小图点样式 */
+.sel_box .cur {
+    position: relative;
+   
+}
+@keyframes aw{
+    from{
+      width: 0
+    }
+    to{
+      width: 100%
+    }
+  }
+.sel_box .cur:before{
+    position: absolute;
+    left: 0;
+    width: 20%;
+    height: 10px;
+    background: #fff;
+    animation: aw 3s forwards;
+    border-radius: 10px;
+    content: '';
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+  }
