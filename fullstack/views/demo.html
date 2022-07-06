@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短域名服务demo</title>
+</head>
+<body>
+    请输入长域名
+    <input id="input" style="width: 300px" />
+    <button id="button">生成短域名</button>
+    <div id="result"></div>
+
+    <script type="text/javascript">
+        let input = window.document.getElementById('input');
+        let button = window.document.getElementById('button');
+        let result = window.document.getElementById('result');
+
+        button.addEventListener('click', () => {
+            fetch('/long2short', {
+                method: "post",
+                body: JSON.stringify({ long: input.value }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const shortUrl = location.origin + '/' + data.data;
+                    result.innerHTML = `短域名: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+                } else {
+                    alert(data.msg);
+                }
+            });
+        })
+
+    </script>
+</body>
+</html>
