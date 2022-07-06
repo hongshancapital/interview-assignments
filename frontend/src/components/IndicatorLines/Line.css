@@ -1,0 +1,24 @@
+.indicator-line{
+    width: 4vw;
+    height: 3px;
+    border-radius: 1px;
+    background-color: #aaaaaa;
+    margin: 0px 5px;
+    overflow: hidden;
+}
+.white-inside{
+    background-color: #f1f1f3;
+    width: 4vw;
+    height: 3px;
+    border-radius: 1px;
+    position: relative;
+    transform: translateX(-100%);
+}
+@keyframes moveRight{
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
