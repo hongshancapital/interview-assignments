@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+  position: relative;
+}
+
+.title {
+  font-size: 56px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.text {
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.product-item {
+  position: relative;
+  
+  &__content {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
