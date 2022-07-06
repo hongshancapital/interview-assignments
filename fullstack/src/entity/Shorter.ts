@@ -18,7 +18,7 @@ export class Shorter {
     @Column()
     path: string // link split origin
 
-    @Column()
+    @Column({ unique: true })
     shorter: string
     
     @CreateDateColumn() // timestamp if needed.

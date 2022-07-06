@@ -24,6 +24,25 @@ describe("TESTS", () => {
                     done();
                 });
         });
+
+        it("Should throw 401 when uri is invalid", (done) => {
+            chai.request(app)
+                .post('/shorter', { url: 'invalid uri' })
+                .end((err, response) => {
+                    response.should.have.status(401);
+                    done();
+                });
+        });
+
+        it("Should save shorter if url is exist", (done) => {
+            chai.request(app)
+                .post('/shorter', { url: 'https://eten.wang/blogs' })
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    response.body.should.be.a('object');
+                    done();
+                });
+        });
     });
 
     describe("GET /shorter/:shorter", () => {
@@ -34,6 +53,15 @@ describe("TESTS", () => {
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("Should response 404 when code is not exist", (done) => {
+            chai.request(app)
+                .get('/shorter/no-code')
+                .end((err, response) => {
+                    response.should.have.status(404);
                     done();
                 });
         });
