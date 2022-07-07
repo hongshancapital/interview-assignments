@@ -1,0 +1,52 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+
+    &-list {
+        display: flex;
+        transition: 1s ease;
+
+        &-item {
+            min-width: 100%;
+        }
+    }
+
+    &-dots {
+        position: absolute;
+        transform: translate(-50%, 0%);
+        display: flex;
+        left: 50%;
+        bottom: 5%;
+    }
+
+    &-dot {
+        position: relative;
+        width: 100px;
+        height: 5px;
+        background-color: #868686;
+        margin: 0 10px;
+        border-radius: 3px;
+        overflow: hidden;
+
+        &.cur::after {
+            position: absolute;
+            left: 0;
+            content: "";
+            background-color: aliceblue;
+            height: 100%;
+            animation: process 3s linear;
+        }
+
+
+    }
+}
+
+@keyframes process {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
