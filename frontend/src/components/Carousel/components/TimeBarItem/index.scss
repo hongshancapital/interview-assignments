@@ -1,0 +1,30 @@
+.comTimeBarItem {
+  position: relative;
+  width: 50px;
+  height: 2px;
+  background-color: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+
+  &:not(:last-of-type) {
+    margin-right: 10px;
+  }
+
+  @keyframes move {
+    from {
+      left: -100%;
+    }
+    to {
+      left: 0%;
+    }
+  }
+
+  .progress {
+    position: absolute;
+    top: 0;
+    animation: move 2s linear forwards;
+    width: 50px;
+    height: 2px;
+    background-color: #fff;
+  }
+}
