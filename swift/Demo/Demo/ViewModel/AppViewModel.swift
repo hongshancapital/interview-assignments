@@ -18,10 +18,11 @@ class AppViewModel: ObservableObject {
     private var likeInfo: [String: Bool]
     private var currentPage = 0
     private let pageSize = 10
-
+    
     private var cancellable: AnyCancellable?
     
     func requestAppinfos(_ isHeader: Bool) {
+        
         if isHeader {
             currentPage = 0
             hasMore = true
@@ -61,12 +62,14 @@ class AppViewModel: ObservableObject {
     }
     
     private func requestURL() -> URL {
+        
         let numbers = pageSize*(currentPage + 1)
         let urlString = "https://itunes.apple.com/search?entity=software&limit=\(numbers)&term=chat"
         return URL(string: urlString)!
     }
     
     init() {
+        
         if let tmpLikeInfo = UserDefaults.standard.value(forKey: "appLikeInfo") as? [String: Bool] {
             likeInfo = tmpLikeInfo
         } else {
@@ -75,12 +78,14 @@ class AppViewModel: ObservableObject {
     }
     
     func updateLikeStatus(with appId: Int, isLike: Bool) {
+        
         likeInfo.updateValue(isLike, forKey: "\(appId)")
         UserDefaults.standard.set(likeInfo, forKey: "appLikeInfo")
         UserDefaults.standard.synchronize()
     }
     
     func queryLikeStatus(with appId: Int) -> Bool {
+        
         let result = likeInfo["\(appId)"] ?? false
         return result
     }
