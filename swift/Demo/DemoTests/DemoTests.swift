@@ -33,4 +33,24 @@ class DemoTests: XCTestCase {
         }
     }
 
+    func testRequestAppinfos() throws {
+        let viewModel = AppViewModel.shared
+        viewModel.requestAppinfos(true)
+        let expectation = self.expectation(description: "延时等待获取数据")
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now()+5) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+
+        XCTAssert(viewModel.appInfos.count == 10, "获取的数据是10条数据才对")
+    }
+    
+    func testRequestAppLikeinfos() throws {
+        let viewModel = AppViewModel.shared
+        viewModel.updateLikeStatus(with: 123, isLike: true)
+//        let result = viewModel.queryLikeStatus(with: 122)
+        let result = viewModel.queryLikeStatus(with: 123)
+        XCTAssert(result == true, "已经收藏了123,没有收藏122")
+    }
+    
 }

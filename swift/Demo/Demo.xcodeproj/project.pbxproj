@@ -14,8 +14,10 @@
 		B7CE5A412872DD0300C71A5B /* DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A402872DD0300C71A5B /* DemoTests.swift */; };
 		B7CE5A4B2872DD0300C71A5B /* DemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A4A2872DD0300C71A5B /* DemoUITests.swift */; };
 		B7CE5A4D2872DD0300C71A5B /* DemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A4C2872DD0300C71A5B /* DemoUITestsLaunchTests.swift */; };
-		B7CE5A5B2872DD4B00C71A5B /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A5A2872DD4B00C71A5B /* ImageView.swift */; };
-		B7CE5A5D2872DDAB00C71A5B /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A5C2872DDAB00C71A5B /* Services.swift */; };
+		B7CE5A5B2872DD4B00C71A5B /* AppImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A5A2872DD4B00C71A5B /* AppImageView.swift */; };
+		B7CE5A642874362D00C71A5B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A632874362D00C71A5B /* AppViewModel.swift */; };
+		B7CE5A672874368300C71A5B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A662874368300C71A5B /* Model.swift */; };
+		B7CE5A6928743A6500C71A5B /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CE5A6828743A6500C71A5B /* RowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +48,10 @@
 		B7CE5A462872DD0300C71A5B /* DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7CE5A4A2872DD0300C71A5B /* DemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUITests.swift; sourceTree = "<group>"; };
 		B7CE5A4C2872DD0300C71A5B /* DemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		B7CE5A5A2872DD4B00C71A5B /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
-		B7CE5A5C2872DDAB00C71A5B /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		B7CE5A5A2872DD4B00C71A5B /* AppImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImageView.swift; sourceTree = "<group>"; };
+		B7CE5A632874362D00C71A5B /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		B7CE5A662874368300C71A5B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B7CE5A6828743A6500C71A5B /* RowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +102,11 @@
 		B7CE5A2E2872DD0100C71A5B /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				B7CE5A5F2872DE5700C71A5B /* App */,
-				B7CE5A312872DD0100C71A5B /* ContentView.swift */,
-				B7CE5A5C2872DDAB00C71A5B /* Services.swift */,
+				B7CE5A2F2872DD0100C71A5B /* DemoApp.swift */,
+				B7CE5A652874364E00C71A5B /* Model */,
+				B7CE5A592872DD4200C71A5B /* View */,
+				B7CE5A622874362100C71A5B /* ViewModel */,
 				B7CE5A5E2872DE4100C71A5B /* Resources */,
-				B7CE5A592872DD4200C71A5B /* Views */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -132,12 +136,14 @@
 			path = DemoUITests;
 			sourceTree = "<group>";
 		};
-		B7CE5A592872DD4200C71A5B /* Views */ = {
+		B7CE5A592872DD4200C71A5B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B7CE5A5A2872DD4B00C71A5B /* ImageView.swift */,
+				B7CE5A312872DD0100C71A5B /* ContentView.swift */,
+				B7CE5A5A2872DD4B00C71A5B /* AppImageView.swift */,
+				B7CE5A6828743A6500C71A5B /* RowView.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		B7CE5A5E2872DE4100C71A5B /* Resources */ = {
@@ -149,12 +155,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		B7CE5A5F2872DE5700C71A5B /* App */ = {
+		B7CE5A622874362100C71A5B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B7CE5A2F2872DD0100C71A5B /* DemoApp.swift */,
+				B7CE5A632874362D00C71A5B /* AppViewModel.swift */,
 			);
-			path = App;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B7CE5A652874364E00C71A5B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B7CE5A662874368300C71A5B /* Model.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,8 +301,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7CE5A5B2872DD4B00C71A5B /* ImageView.swift in Sources */,
-				B7CE5A5D2872DDAB00C71A5B /* Services.swift in Sources */,
+				B7CE5A642874362D00C71A5B /* AppViewModel.swift in Sources */,
+				B7CE5A5B2872DD4B00C71A5B /* AppImageView.swift in Sources */,
+				B7CE5A6928743A6500C71A5B /* RowView.swift in Sources */,
+				B7CE5A672874368300C71A5B /* Model.swift in Sources */,
 				B7CE5A322872DD0100C71A5B /* ContentView.swift in Sources */,
 				B7CE5A302872DD0100C71A5B /* DemoApp.swift in Sources */,
 			);
@@ -457,13 +473,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.liyongjie.icons.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liyongjie.apps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -487,13 +503,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.liyongjie.icons.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liyongjie.apps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
