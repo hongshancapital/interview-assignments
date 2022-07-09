@@ -1,0 +1,24 @@
+.indicators {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.indicator {
+    background-color: #9f9fa1;
+    height: 2px;
+    width: 60px;
+    margin-right: 8px;
+}
+
+.indicator:last-child {
+    margin-right: 0;
+}
+
+.indicator::-webkit-progress-value {
+    background-color: white;
+}
