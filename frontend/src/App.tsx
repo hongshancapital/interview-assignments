@@ -24,19 +24,18 @@ const DATA = [
 function App() {
   return (
     <div className="App">
-      {/* write your component here */}
       <Carousel>
         {DATA.map((v, index) => (
           <div
+            key={index}
             className="img-wrapper"
             style={{ backgroundImage: `url(${v.src})` }}
-            key={index}
           >
-            {v.title.map((item) => (
-              <h3>{item}</h3>
+            {v.title.map((item, index) => (
+              <h3 key={index}>{item}</h3>
             ))}
-            {v.content?.map((item) => (
-              <p>{item}</p>
+            {v.content?.map((item, index) => (
+              <p key={index}>{item}</p>
             ))}
           </div>
         ))}

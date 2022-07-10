@@ -40,7 +40,7 @@ export default function Carousel({
     <div className="carousel-container">
       {Array.isArray(children) ? (
         <div
-          className={`carousel-content`}
+          className="carousel-content"
           style={{ width: `${children.length}00%`, left: `-${cur}00%` }}
         >
           {children.map((v, index) =>
