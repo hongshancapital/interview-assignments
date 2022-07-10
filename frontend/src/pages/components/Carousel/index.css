@@ -1,0 +1,75 @@
+.carousel {
+    width: 100%;
+    height: 100%;
+}
+.carousel-item {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.carousel-item-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -150%);
+}
+.carousel-item-background {
+    flex: 1;
+    object-fit: cover;
+}
+.carousel-indicator-wrap{
+    position: absolute;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+.carousel-indicator{
+    width: 40px;
+    height: 3px;
+    display: inline-block;
+    background: #c0c4cc;
+    z-index: 4;
+}
+
+.carousel-indicator +.carousel-indicator {
+    margin-left: 10px;
+}
+
+.is-active {
+    z-index: 2;
+}
+
+.is-animating {
+    transition:  transform .4s linear;
+}
+@keyframes progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 40px;
+    }
+}
+
+.is-indicator-active {
+    width: 40px;
+    height: 3px;
+    background-color: #fff;
+    animation: progress 3s linear;
+    z-index: 5;
+}
+
+.is-indicator-active + .is-indicator-active {
+    margin-left: 10px;
+}
