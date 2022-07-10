@@ -1,8 +1,9 @@
-import React from "react";
-import "./App.css";
+import React, { FC } from 'react';
 
-function App() {
-  return <div className="App">{/* write your component here */}</div>;
-}
+import CarouselDemo from './pages/carousel-demo';
+
+const App: FC = () => {
+  return <CarouselDemo />;
+};
 
 export default App;

@@ -1,0 +1,5 @@
+{
+  "./src/**/*.{ts,tsx}": "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .gitignore",
+  "./src/**/*.{ts,tsx,sass,css}": "pretty-quick --staged",
+  "./src/**/*.{sass}": "stylelint '**/*.sass' --fix"
+}
