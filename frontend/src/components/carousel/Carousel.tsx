@@ -4,20 +4,19 @@ import './index.css'
 interface CarouselProps {
   duration?: number
   flashNext?: number
-  flashStart?: number
   children?: React.ReactNode
 }
 
 export const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
-  const { duration = 3000, flashNext = 500, flashStart = 300, children } = props
+  const { duration = 3000, flashNext = 500, children } = props
 
   const slidesLength = React.Children.count(children)
 
   const [currentSlide, setCurrentSlide] = useState<number>(0)
 
   const scrollSlides = useCallback(() => {
-    setCurrentSlide((currentSlide + 1) % 3)
-  }, [currentSlide])
+    setCurrentSlide((currentSlide + 1) % slidesLength)
+  }, [currentSlide, slidesLength])
 
   useEffect(() => {
     let carouselTimer: number = window.setInterval(scrollSlides, duration)
@@ -30,13 +29,11 @@ export const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
         className="carousel"
         style={{
           width: `${slidesLength * 100}%`,
-          transitionDuration: `${
-            currentSlide === 0 ? flashStart : flashNext
-          }ms`,
+          transitionDuration: `${flashNext}ms`,
           transform: `translateX(-${(currentSlide / slidesLength) * 100}%)`,
         }}
       >
-        {React.Children.toArray(children)}
+        {children}
       </div>
 
       <div className="carousel-indicator">

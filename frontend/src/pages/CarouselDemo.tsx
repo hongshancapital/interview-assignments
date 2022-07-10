@@ -39,7 +39,7 @@ const data: Array<any> = [
 
 export default function CarouselDemo() {
   return (
-    <Carousel duration={3000} flashNext={500} flashStart={300}>
+    <Carousel duration={3000} flashNext={500}>
       {data.map((slide: any) => (
         <CarouselSlide key={slide.key}>
           <div className="carousel-slide" style={slide.style}>
