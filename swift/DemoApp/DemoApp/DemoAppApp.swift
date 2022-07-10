@@ -1,0 +1,19 @@
+//
+//  DemoAppApp.swift
+//  DemoApp
+//
+//  Created by Gao on 2022/7/9.
+//
+
+import SwiftUI
+
+@main
+struct DemoAppApp: App {
+    @StateObject private var modelData = ModelData()
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environmentObject(modelData)
+        }
+    }
+}
