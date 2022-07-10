@@ -36,14 +36,16 @@ struct SingleCellView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.init(top: 10, leading: 0, bottom: 10, trailing: 0))
+
                 Button {
                     print("button")
                     model.setListData(bundleId: data.bundleId)
                 } label: {
                     Image(systemName: model.dic[data.bundleId] != nil ? "heart.fill" : "heart")
                         .resizable()
-                        .frame(width: 30, height: 30)
+                        .frame(width: 20, height: 20)
                         .tint(model.dic[data.bundleId] != nil ? Color.red : Color.black)
+                        .scaleEffect(model.dic[data.bundleId] != nil ? 1.2 : 1, anchor: .center)
                 }
                 .padding(.init(top: 0, leading: 5, bottom: 0, trailing: 15))
             }
