@@ -1,0 +1,41 @@
+.progress-bar-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-left: -20px;
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  margin-left: -50%;
+}
+
+.progress-bar {
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  margin-left: 15px;
+  background-color: darkgray;
+}
+
+.fill {
+  text-align: center;
+  background-color: #fff;
+  height: 100%;
+}
+
+.animation {
+  animation: move 3s linear;
+}
+
+.noanimation {
+  width: 0;
+}
+
+@keyframes move {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
