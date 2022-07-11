@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class ModelData: ObservableObject {
-   @Published var apps: [AppModel] = load("data.json")
+   @Published var appListData: [AppModel] = load("data.json")
 }
 
 

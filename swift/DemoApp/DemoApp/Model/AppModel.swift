@@ -22,3 +22,7 @@ struct AppModel: Hashable, Identifiable, Codable {
         case description = "description"
     }
 }
+
+enum LoadingState: Int {
+    case Loading = 1, LoadMore, NoMoreData
+}

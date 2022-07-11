@@ -34,15 +34,16 @@ struct AppRow: View {
         .padding(10)
         .background(Color(uiColor: .white))
         .cornerRadius(8)
-    
-    
     }
 }
 
 struct AppRow_Previews: PreviewProvider {
-    static var apps = ModelData().apps
     static var previews: some View {
-        AppRow(appModel: apps[0])
+        AppRow(appModel: AppModel(
+            id: 1,
+            iconUrl: "https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/34/59/8b/34598b2a-4c6d-cec4-a583-da1418c6ba1e/source/60x60bb.jpg",
+            name: "LiveMe – Live Stream & Go Live",
+            description: "LiveMe is a popular live streaming social network. It allows you to live stream your special moments"))
             .previewLayout(.fixed(width: 300, height: 70))
     }
 }

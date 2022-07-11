@@ -20,8 +20,9 @@
 		5AAE87472879712B0038B6EB /* AppRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE87462879712B0038B6EB /* AppRow.swift */; };
 		5AAE8749287971A50038B6EB /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE8748287971A50038B6EB /* ModelData.swift */; };
 		5AAE874B287975110038B6EB /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE874A287975110038B6EB /* FavoriteButton.swift */; };
-		5AAE874D287A59FA0038B6EB /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE874C287A59FA0038B6EB /* Response.swift */; };
 		5AAE8750287B212E0038B6EB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE874F287B212E0038B6EB /* ViewModel.swift */; };
+		5AECDD61287C54B60030B4CD /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECDD60287C54B60030B4CD /* ApiService.swift */; };
+		5AECDD63287C6C5B0030B4CD /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECDD62287C6C5B0030B4CD /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +59,9 @@
 		5AAE87462879712B0038B6EB /* AppRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRow.swift; sourceTree = "<group>"; };
 		5AAE8748287971A50038B6EB /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		5AAE874A287975110038B6EB /* FavoriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
-		5AAE874C287A59FA0038B6EB /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		5AAE874F287B212E0038B6EB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		5AECDD60287C54B60030B4CD /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		5AECDD62287C6C5B0030B4CD /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				5AAE871228796D790038B6EB /* DemoAppApp.swift */,
+				5AECDD5F287C548B0030B4CD /* Services */,
 				5AAE873D28796DAF0038B6EB /* Model */,
 				5AAE874E287B211E0038B6EB /* ViewModel */,
 				5AAE873C28796D9E0038B6EB /* Views */,
@@ -162,7 +165,6 @@
 			children = (
 				5AAE874228796F1F0038B6EB /* AppModel.swift */,
 				5AAE8748287971A50038B6EB /* ModelData.swift */,
-				5AAE874C287A59FA0038B6EB /* Response.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				5AAE874A287975110038B6EB /* FavoriteButton.swift */,
+				5AECDD62287C6C5B0030B4CD /* LoadingView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -189,6 +192,14 @@
 				5AAE874F287B212E0038B6EB /* ViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5AECDD5F287C548B0030B4CD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5AECDD60287C54B60030B4CD /* ApiService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,12 +333,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AAE874D287A59FA0038B6EB /* Response.swift in Sources */,
 				5AAE8750287B212E0038B6EB /* ViewModel.swift in Sources */,
 				5AAE871528796D790038B6EB /* ContentView.swift in Sources */,
+				5AECDD63287C6C5B0030B4CD /* LoadingView.swift in Sources */,
 				5AAE87452879711D0038B6EB /* AppList.swift in Sources */,
 				5AAE874328796F1F0038B6EB /* AppModel.swift in Sources */,
 				5AAE871328796D790038B6EB /* DemoAppApp.swift in Sources */,
+				5AECDD61287C54B60030B4CD /* ApiService.swift in Sources */,
 				5AAE874B287975110038B6EB /* FavoriteButton.swift in Sources */,
 				5AAE87472879712B0038B6EB /* AppRow.swift in Sources */,
 				5AAE8749287971A50038B6EB /* ModelData.swift in Sources */,

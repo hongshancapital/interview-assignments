@@ -9,58 +9,46 @@ import SwiftUI
 
 struct AppList: View {
     @StateObject var vm: ViewModel = ViewModel()
-    @EnvironmentObject var modelData: ModelData
+    
     var body: some View {
-        if vm.appList.count == 0 {
-            ProgressView()
-                .onAppear(perform: loadData)
-        }else{
             NavigationView {
-                List {
-                    ForEach(vm.appList) { appModel in
-                        AppRow(appModel: appModel)
-                            .listRowBackground(EmptyView())
-                            .listRowSeparator(.hidden)
-                        
-                    }
-                    HStack{
-                        Spacer()
-                        if !vm.hasNoMoreData {
+                Group {
+                    if let errorMsg = vm.errorMessage {
+                        Text(errorMsg)
+                    }else{
+                        if vm.loadingState == .Loading{
                             ProgressView()
-                                .padding(.trailing, 5)
+                        }else{
+                            List {
+                                ForEach(vm.data) { appModel in
+                                    AppRow(appModel: appModel)
+                                        .environmentObject(vm)
+                                        .listRowBackground(EmptyView())
+                                        .listRowSeparator(.hidden)
+                                        .onAppear{
+                                            vm.isLoadMore(app: appModel)
+                                        }
+                                    
+                                }
+                                LoadingView(loadingState: vm.loadingState)
+                                    .listRowSeparator(.hidden)
+                                    .listRowBackground(Color.clear)
+                            }
+                            .refreshable {
+                                vm.refreshSubject.send()
+                            }
+                            .listStyle(.grouped)
                         }
-                        Text(!vm.hasNoMoreData ? "Loading..." : "No more data")
-                            .foregroundColor(Color(uiColor: .placeholderText))
-                            .onAppear(perform: loadMore)
-                        Spacer()
                     }
-                    .listRowBackground(EmptyView())
-                    .listRowSeparator(.hidden)
                 }
                 .navigationTitle("APP")
-                .refreshable {
-                    vm.isRefreshing = true;
-                    vm.loadData()
-                }
-                .listStyle(.plain)
-                .background(Color(uiColor: .systemGroupedBackground))
-                }
             }
     }
-    func loadData() {
-        
-    }
-    func loadMore(){
-
-    }
-
 }
+
     
-  
-
-
 struct AppList_Previews: PreviewProvider {
     static var previews: some View {
-        AppList().environmentObject(ModelData())
+        AppList()
     }
 }

@@ -16,6 +16,7 @@ struct FavoriteButton: View {
         }label: {
             Label("Toggle Favorite", systemImage: isSet ? "heart.fill": "heart")
                 .labelStyle(.iconOnly)
+                .scaleEffect(isSet ? 1.4 : 1.2 )
                 .foregroundColor(isSet ? .red : .gray)
         }
     }
