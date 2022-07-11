@@ -56,6 +56,8 @@ export default function Carousel(props) {
   const imgLisCom = () => {
     if (imgList && imgList.length > 0) {
       return imgList.map((item, index) => {
+        const { titile, describe, fit, width = "100%", height = "100%" } = item;
+
         return (
           <div
             className={`slick-slide ${
@@ -67,21 +69,21 @@ export default function Carousel(props) {
               <div
                 className="slick-title"
                 style={{ color: item.fontColor }}
-                dangerouslySetInnerHTML={{ __html: item.titile }}
+                dangerouslySetInnerHTML={{ __html: titile }}
               ></div>
               <div
                 className="slick-describe"
                 style={{ color: item.fontColor }}
-                dangerouslySetInnerHTML={{ __html: item.describe }}
+                dangerouslySetInnerHTML={{ __html: describe }}
               ></div>
             </div>
 
             <img
               src={item.src}
               style={{
-                objectFit: item.fit,
-                width: item.width,
-                height: item.height,
+                objectFit: fit,
+                width: width,
+                height: height,
               }}
             ></img>
           </div>
@@ -96,10 +98,13 @@ export default function Carousel(props) {
   const slickDotsCom = () => {
     if (imgList && imgList.length > 0) {
       return imgList.map((item, index) => {
+        const { butBackColor = '' } = item;
+
         if (activeNumber === index){
           return (
-            <li className={`slick-active`}
-              style={{ backgroundColor: item.butBackColor ? item.butBackColor : `` }}
+            <li
+              className={`slick-active`}
+              style={{ backgroundColor: butBackColor }}
               key={index}
             >
               <button onClick={() => goTo(index)}>{index}</button>
@@ -108,7 +113,7 @@ export default function Carousel(props) {
         }
         else{
           return (
-            <li style={{ backgroundColor: item.butBackColor ? item.butBackColor : `` }} key={index}>
+            <li style={{ backgroundColor: butBackColor }} key={index}>
               <button onClick={() => goTo(index)}>{index}</button>
             </li>
           );
