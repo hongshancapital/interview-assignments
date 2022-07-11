@@ -1,0 +1,27 @@
+.part{
+    height: 3px;
+    flex-basis: 30%;
+    margin: 0 10px;
+    background-color: gray;
+}
+.progressbar{
+    width: 15vw;
+    display: flex;
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.progress-anima{
+    background: linear-gradient(to right, white 0%,white 50%,gray 50%,gray 100%);
+    background-size: 200% 100%;
+    animation: gradientBG 3000ms 500ms linear backwards ;
+}
+@keyframes gradientBG {
+    0% {
+        background-position-x:  100%;
+    }
+    100% {
+        background-position-x:  0%;
+    }
+  }
