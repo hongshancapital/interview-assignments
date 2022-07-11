@@ -19,17 +19,18 @@ interface ICarouselProps {
 
 interface ICarouselItemProps {
   carouselItem: ICarouselList;
-  currentItem: number;
+  currentIndex: number;
 }
 
 const CarouselItem = (props: ICarouselItemProps) => {
-  const { carouselItem, currentItem } = props;
+  const { carouselItem, currentIndex } = props;
   const { imgUrl, title, text, contentStyle } = carouselItem;
   const styleObj = {
     background: "url(" + imgUrl + ")",
     backgroundSize: "auto 100%",
+    backgroundRepeat: "no-repeat",
     backgroundPositionX: "50%",
-    left: `-${currentItem * 100}%`,
+    left: `-${currentIndex * 100}%`,
     transition: "left 0.5s linear",
   };
   return (
@@ -60,19 +61,19 @@ const Index = (props: ICarouselProps) => {
   }, [currentTime]);
 
   if (!carouselLen) return null;
-  const currentItem = currentTime % carouselLen;
+  const currentIndex = currentTime % carouselLen;
   return (
     <>
       {carouselList.map((item: any) => (
         <CarouselItem
           carouselItem={item}
-          currentItem={currentItem}
+          currentIndex={currentIndex}
           key={JSON.stringify(item)}
         />
       ))}
       <ProgressBar
-        len={carouselLen}
-        currentItem={currentItem}
+        count={carouselLen}
+        currentIndex={currentIndex}
         key="progressbar"
       />
     </>

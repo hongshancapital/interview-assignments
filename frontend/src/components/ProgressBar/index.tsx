@@ -2,16 +2,16 @@ import React from "react";
 import "./index.css";
 
 interface IProgressBarProps {
-  len: number;
-  currentItem: number;
+  count: number;
+  currentIndex: number;
 }
 const Index = (props: IProgressBarProps) => {
-  const { len, currentItem } = props;
+  const { count, currentIndex } = props;
   return (
     <div className="progressbar">
-      {Array.from(Array(len).keys()).map((i, index) => (
+      {Array.from(Array(count).keys()).map((i, index) => (
         <div
-          className={`${currentItem === index && "progress-anima"} part`}
+          className={`${currentIndex === index && "progress-anima"} part`}
           key={index}
         ></div>
       ))}
