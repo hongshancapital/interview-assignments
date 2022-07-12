@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useObserver } from "mobx-react";
+
 import "./style.css";
 
 const dotPositions = ["top", "bottom", "left", "right"];
 
 export default function Carousel(props) {
   const {
-    imgList,
-    autoplay, //是否自动切换(默认true)
+    imgList = [],
+    autoplay = true, //是否自动切换(默认true)
   } = props;
 
   //轮播列表索引(默认为0，第一个开始)
@@ -17,7 +18,6 @@ export default function Carousel(props) {
   const [times, setTimes] = useState(2000);
 
   const imgLen = useState(imgList && imgList.length ? imgList.length : 0);
-
   //切换到指定面板
   const goTo = (slideNumber) => {
     if (slideNumber < 0) {
@@ -56,26 +56,28 @@ export default function Carousel(props) {
   const imgLisCom = () => {
     if (imgList && imgList.length > 0) {
       return imgList.map((item, index) => {
-        const { titile, describe, fit, width = "100%", height = "100%" } = item;
-
+        const {
+          titile,
+          describe,
+          fit = "cover",
+          width = "100%",
+          height = "100%",
+        } = item;
+        
         return (
           <div
             className={`slick-slide ${
-              activeNumber === index ? "slick-active" : ""
+              activeNumber === index && "slick-active"
             }`}
             key={index}
           >
             <div className="slick-text">
-              <div
-                className="slick-title"
-                style={{ color: item.fontColor }}
-                dangerouslySetInnerHTML={{ __html: titile }}
-              ></div>
-              <div
-                className="slick-describe"
-                style={{ color: item.fontColor }}
-                dangerouslySetInnerHTML={{ __html: describe }}
-              ></div>
+              <div className="slick-title" style={{ color: item.fontColor }}>
+                {titile}
+              </div>
+              <div className="slick-describe" style={{ color: item.fontColor }}>
+                {describe}
+              </div>
             </div>
 
             <img
@@ -85,6 +87,7 @@ export default function Carousel(props) {
                 width: width,
                 height: height,
               }}
+              alt={titile}
             ></img>
           </div>
         );
@@ -100,24 +103,17 @@ export default function Carousel(props) {
       return imgList.map((item, index) => {
         const { butBackColor = '' } = item;
 
-        if (activeNumber === index){
-          return (
-            <li
-              className={`slick-active`}
-              style={{ backgroundColor: butBackColor }}
-              key={index}
-            >
-              <button onClick={() => goTo(index)}>{index}</button>
-            </li>
-          );
-        }
-        else{
-          return (
-            <li style={{ backgroundColor: butBackColor }} key={index}>
-              <button onClick={() => goTo(index)}>{index}</button>
-            </li>
-          );
-        }
+        return (
+          <li
+            className={`${
+              activeNumber === index && "slick-active"
+            }`}
+            style={{ backgroundColor: butBackColor }}
+            key={index}
+          >
+            <button onClick={() => goTo(index)}>{index}</button>
+          </li>
+        );
       });
     } else {
       return <></>;
@@ -126,16 +122,10 @@ export default function Carousel(props) {
 
   return useObserver(() => (
     <div className="my-carousel">
-      <div
-        className="slick-slider"
-        style={{ backgroundColor: imgList[activeNumber].backColor }}
-      >
-        <div className="slick-list">{imgLisCom()}</div>
+      <div className="slick-slider" style={{ backgroundColor: imgList[activeNumber]?.backColor }} >
+        <div className="slick-list">{ imgLisCom() }</div>
 
-        <ul
-          className={`slick-dots slick-dots-bottom`}
-          style={{ width: `{ ${imgLen * 36}}px` }}
-        >
+        <ul className={`slick-dots slick-dots-bottom`} style={{ width: `{ ${imgLen * 36}}px` }} >
           {slickDotsCom()}
         </ul>
       </div>
