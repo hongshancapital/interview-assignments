@@ -165,7 +165,6 @@
 1. 总体实现
 
 总体实现如图
-![Alt text](./docs/structure.svg)
 <img src="./docs/structure.svg">
 
 2. 服务实现
@@ -243,8 +242,6 @@ url: string //初始长链接
 4. 测试结果
 
 ![Alt text](./docs/testResult.png)
-<img src="./docs/testResult.png">
 
 覆盖率
 ![Alt text](./docs/coverage.png)
-<img src="./docs/coverage.png)">
