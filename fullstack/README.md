@@ -165,6 +165,8 @@
 1. 总体实现
 
 总体实现如图
+![Alt text](./docs/structure.svg)
+<img src="./docs/structure.svg">
 
 2. 服务实现
 
@@ -237,3 +239,12 @@ url: string //初始长链接
 未来可以基于需求添加创建时间，过期时间等数据
 
 **基于实现原则和开发效率， 在本作业里用系统的内存map 模拟实现。**
+
+4. 测试结果
+
+![Alt text](./docs/testResult.png)
+<img src="./docs/testResult.png">
+
+覆盖率
+![Alt text](./docs/coverage.png)
+<img src="./docs/coverage.png)">
