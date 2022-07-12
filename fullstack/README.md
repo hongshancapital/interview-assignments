@@ -244,4 +244,6 @@ url: string //初始长链接
 ![Alt text](./docs/testResult.png)
 
 覆盖率
+未覆盖到的代码是因为对http response 的处理是比较全面的，包含了很多http status， 而这个服务只用到了其中一部分，如200， 400， 422， 302. 
+服务本身的逻辑代码都是100%。
 ![Alt text](./docs/coverage.png)
