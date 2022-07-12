@@ -1,11 +1,11 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import Carousel, { CarouselSlide } from "./components/carousel";
 
 function App() {
   return (
     <div className="App">
-      <Carousel className="Carousel" duration={3000}>
+      <Carousel duration={3000}>
         <CarouselSlide className="tab1 colr1">
           <div className="title">xPhone</div>
           <div className="text">Lots to love.Less to spend.</div>

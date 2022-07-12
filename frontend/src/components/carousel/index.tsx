@@ -1,4 +1,4 @@
-import React, { ReactNode, useLayoutEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import "./index.scss";
 
 interface CarouselProps {
@@ -16,29 +16,22 @@ export function CarouselSlide({ children, className }: CarouselSlideProps) {
 }
 
 function Carousel({ children, className, duration }: CarouselProps) {
-  const [X, setX] = useState(0);
-  const [width, setWidth] = useState(window.innerWidth);
+  const [index, setIndex] = useState(0);
 
-  function resize() {
-    setWidth(window.innerWidth);
-  }
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     const count = React.Children.count(children);
     const tid = setTimeout(() => {
-      if (X >= count - 1) {
-        setX(0);
+      if (index >= count - 1) {
+        setIndex(0);
       } else {
-        setX(X + 1);
+        setIndex(index + 1);
       }
     }, duration);
 
-    window.addEventListener("resize", resize, false);
     return () => {
       clearTimeout(tid);
-      window.removeEventListener("resize", resize, false);
     };
-  }, [X, children, duration]);
+  }, [index, children, duration]);
 
   return (
     <div className={`carousel ${className}`}>
@@ -46,19 +39,19 @@ function Carousel({ children, className, duration }: CarouselProps) {
         className="slideWrap"
         style={{
           transitionDuration: "200ms",
-          transform: `translateX(-${X * width}px)`,
+          transform: `translateX(-${index * 100}%)`,
         }}
       >
         {children}
       </div>
       <div className="paginationWrap">
-        {React.Children.map(children, (child, index) => (
+        {React.Children.map(children, (child, idx) => (
           <div className="pagination">
             <div
               className="pagination-active"
               style={{
                 animation:
-                  X === index ? `progress ${duration / 1000}s linear` : "",
+                index === idx ? `progress ${duration / 1000}s linear` : "",
               }}
             ></div>
           </div>
