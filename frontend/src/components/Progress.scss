@@ -1,0 +1,32 @@
+@import '../common.scss';
+
+.progress {
+  width: 60px;
+  height: 100%;
+  border-radius: 1;
+  background-color: #ddd;
+  overflow: hidden;
+  cursor: pointer;
+
+  .progress-inner {
+    height: 100%;
+    width: 100%;
+    transform: translateX(100%);
+  }
+
+  &.dark {
+    .progress-inner {
+      background-color: $dark-bg-color;
+    }
+  }
+
+  &.light {
+    .progress-inner {
+      background-color: $light-bg-color;
+    }
+  }
+}
+
+.progress+.progress {
+  margin-left: 8px;
+}

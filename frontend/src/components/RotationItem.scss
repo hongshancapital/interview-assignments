@@ -1,0 +1,32 @@
+@import '../common.scss';
+
+.rotation-item {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: bottom 25% center;
+  background-size: auto 60%;
+
+  &.light {
+    background-color: $light-bg-color;
+    color: $light-color;
+  }
+
+  &.dark {
+    background-color: $dark-bg-color;
+    color: $dark-color;
+  }
+
+  .title {
+    margin: 20vh auto 0;
+    max-width: 80%;
+    font: $title-font;
+  }
+
+  .sub-title {
+    margin: 20px auto;
+    font: $sub-title-font;
+  }
+}
