@@ -1,19 +1,19 @@
 import React, { useMemo } from "react";
 import "./Slides.css";
-import { TSlide } from "./types";
+import { TSlide } from "./carousel-types";
 
-interface SlidesProps {
+interface TSlidesProps {
   slides: Array<TSlide>;
   currentSlide: number;
   width: number;
 }
 
-interface SlideProps {
+interface TSlideProps {
   slide: TSlide;
   width: number;
 }
 
-function Slide(props: SlideProps) {
+function Slide(props: TSlideProps) {
   const { slide, width } = props;
   const styleObj = useMemo(
     () => ({
@@ -42,7 +42,7 @@ function Slide(props: SlideProps) {
   );
 }
 
-function Slides(props: SlidesProps) {
+function Slides(props: TSlidesProps) {
   const { slides, currentSlide, width } = props;
 
   const styleObj = useMemo(() => {

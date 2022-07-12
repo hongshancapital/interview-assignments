@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import App from "./App";
-import dataSlide from "./data-slides";
+import dataSlide from "./components/data-slides";
 
 describe("验证元素已全部渲染", () => {
   const {unmount} = render(<App />);

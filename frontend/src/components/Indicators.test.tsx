@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import Indicators from "./Indicators";
-import dataSlides from "../data-slides";
+import dataSlides from "./data-slides";
 
 const progress = 80;
 
@@ -20,7 +20,7 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-describe("验证进度条和幻灯片翻页", () => {
+describe("验证进度条变化和幻灯片翻页", () => {
   test("执行回调", () => {
     let currentSlide = 0;
     const playSpeed = 3000;

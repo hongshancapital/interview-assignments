@@ -3,9 +3,9 @@ import useDocumentSize from "../hooks/useDocumentSize";
 import Slides from "./Slides";
 import Indicators from "./Indicators";
 import "./Carousel.css";
-import { TSlide } from "./types";
+import { TSlide } from "./carousel-types";
 
-export interface TCarouselProps {
+interface TCarouselProps {
   slides: Array<TSlide>;
   playSpeed?: number;
 }

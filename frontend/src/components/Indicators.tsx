@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from "react";
 import useRaf from "../hooks/useRaf";
 import "./Indicators.css";
-import { TSlide } from "./types";
+import { TSlide } from "./carousel-types";
 
-export interface IndicatorsProps {
+interface TIndicatorProps {
+  onPlayEnded: () => void;
+  playSpeed: number;
+}
+
+interface TIndicatorsProps extends TIndicatorProps {
   slides: Array<TSlide>;
-  currentSlide: number;
-  onPlayEnded: () => void;
-  playSpeed: number;
+  currentSlide: number
 }
 
-export interface IndicatorProps {
-  onPlayEnded: () => void;
-  playSpeed: number;
-}
-
-function Indicator() {
+function NormalIndicator() {
   return <progress max="100" value="0" className="indicator" />;
 }
 
-function ActiveIndicator(props: IndicatorProps) {
+function ActiveIndicator(props: TIndicatorProps) {
   const progress = useRaf(props.playSpeed, props.onPlayEnded);
   return <progress max="100" value={`${progress}`} className="indicator" />;
 }
 
-function Indicators(props: IndicatorsProps) {
+function Indicators(props: TIndicatorsProps) {
   const { slides, currentSlide, onPlayEnded, playSpeed } = props;
 
   return (
@@ -39,7 +37,7 @@ function Indicators(props: IndicatorsProps) {
             />
           );
         }
-        return <Indicator key={`indicator_${index}`} />;
+        return <NormalIndicator key={`indicator_${index}`} />;
       })}
     </div>
   );
