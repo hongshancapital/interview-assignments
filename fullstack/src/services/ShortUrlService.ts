@@ -32,7 +32,7 @@ export default class KeyGenerateService {
         let length = Max_Key_Length;
         let key = "";
         while (length > 0) {
-            let randomNum = Math.trunc(Math.random() * range);
+            const randomNum = Math.trunc(Math.random() * range);
             key += Key_Dictionary[randomNum];
             length--;
         }

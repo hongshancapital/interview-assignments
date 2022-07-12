@@ -1,4 +1,4 @@
-jest.unmock('../../../src/database/repository/ShortUrlRepo');
+jest.unmock('../../../../src/database/repository/ShortUrlRepo');
 //在这边stub 一个db是按照正常有数据库的情况进行测试
 const  mockDB: { [key: string]: string } = {};
 
@@ -14,7 +14,7 @@ export const mockAdd = jest.fn(
   },
 );
 
-jest.mock('../../../src/database/repository/ShortUrlRepo', () => ({
+jest.mock('../../../../src/database/repository/ShortUrlRepo', () => ({
   get findByKey() {
     return mockFindByKey;
   },

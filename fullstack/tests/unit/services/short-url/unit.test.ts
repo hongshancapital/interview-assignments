@@ -1,5 +1,5 @@
 import { mockFindByKey, mockAdd } from './mock';
-import KeyGenerateService from '../../../src/services/ShortUrlService'
+import KeyGenerateService from '../../../../src/services/ShortUrlService'
 
 describe('Integrition test for short url api', () => {
   beforeEach(() => {

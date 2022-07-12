@@ -1,5 +1,4 @@
 import { Response } from 'express';
-import { url } from 'inspector';
 
 // Helper code for the API consumer to understand the error and handle is accordingly
 enum ResponseStatus {
