@@ -15,7 +15,7 @@ const imgList = [
 
 function App() {
     return <div className="App">
-        <Carousel autoplay={false} imgList={ imgList } />
+        <Carousel imgList={ imgList } />
     </div>;
 }
 
