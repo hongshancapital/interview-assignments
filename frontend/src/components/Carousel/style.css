@@ -1,0 +1,179 @@
+.my-carousel {
+    box-sizing: border-box;
+    margin: 0 ;
+    padding: 0;
+    color: #000000d9;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: "tnum";
+    width: 100%;
+    height: 100%;
+}
+
+.slick-slider{
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+        height: 100%;
+}
+
+.slick-list{
+position: absolute;
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    opacity: 1;
+    height: 100%;
+    bottom: 0;
+}
+
+.slick-slide {
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.slick-slide.slick-active{
+    width: 100%;
+    display: block;
+}
+
+.slick-text{
+    height: 40%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 999;
+    white-space: pre-wrap;
+}
+
+.slick-title{
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 44px;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.slick-describe{
+    font-size: 24px;
+    line-height: 28px;
+    width: 100%;
+}
+
+.slick-slide img {
+    text-align: center;
+    overflow: hidden;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+/* 上下左右定位 */
+.slick-dots{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    margin-right: 15%;
+    margin-left: 15%;
+    padding-left: 0;
+    list-style: none;
+    margin: 0 auto;
+}
+
+/* 滚动到当前图片时，下面按钮样式 */
+.slick-dots li.slick-active {
+    width: 30px;
+}
+
+.slick-dots li.slick-active button {
+    background: #fff;
+    opacity: 1;
+    animation-fill-mode:forwards;
+    animation-name: progressBar;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+
+@keyframes progressBar {
+    0%{
+        width: 0%;
+    }
+    100% {
+        width: 30px;
+    }
+}
+/*******************************/
+
+/* 下面按钮默认样式 */
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    flex: 0 1 auto;
+    box-sizing: content-box;
+    width: 30px;
+    height: 3px;
+    margin: 0 3px;
+    padding: 0;
+    text-align: center;
+    text-indent: -999px;
+    vertical-align: top;
+    transition: all .5s;
+}
+
+.slick-dots li button{
+    display: block;
+    width: 100%;
+    height: 3px;
+    padding: 0;
+    color: transparent;
+    font-size: 0;
+    background: #fff;
+    border: 0;
+    border-radius: 1px;
+    outline: none;
+    cursor: pointer;
+    opacity: .3;
+    transition: all .5s;
+}
+/*******************************/
+
+.slick-dots-top{
+    top: 12px;
+}
+
+.slick-dots-left{
+    left: 12px;
+}
+
+.slick-dots-right{
+    right: 12px;
+}
+
+.slick-dots-bottom{
+    bottom: 12px;
+}
+/***********/
+
+
