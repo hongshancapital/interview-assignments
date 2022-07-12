@@ -1,0 +1,47 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.footer {
+  position: absolute;
+  display: flex;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+}
+
+.bar {
+  position: relative;
+  width: 60px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background-color: #000;
+  opacity: 0.3;
+
+  margin-right: 8px;
+}
+
+.bar:last-child {
+  margin-right: 0;
+}
+
+.progress {
+  height: 100%;
+  z-index: 1;
+  border-radius: 2px;
+  background: #fff;
+  position: absolute;
+}
+
+@keyframes mymove {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
