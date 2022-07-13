@@ -1,7 +1,8 @@
 import ShortUrlRepo from "../database/repository/ShortUrlRepo"
-// 生成key 基于的字符串集
-const Max_Key_Length = 8;
-const Key_Dictionary = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+// key 的长度
+const KEY_LENGTH = 8;
+// 生成随机字符串所基于的字符串集
+const KEY_DICTIONARY = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export default class KeyGenerateService {
 
@@ -28,12 +29,13 @@ export default class KeyGenerateService {
     
     //生成随机字符串
     private static generateKeyString(): string {
-        const range = Key_Dictionary.length - 1;
-        let length = Max_Key_Length;
+        const range = KEY_DICTIONARY.length - 1;
+        let length = KEY_LENGTH;
         let key = "";
         while (length > 0) {
+            //生成0-字典长度的随机数
             const randomNum = Math.trunc(Math.random() * range);
-            key += Key_Dictionary[randomNum];
+            key += KEY_DICTIONARY[randomNum];
             length--;
         }
         return key;

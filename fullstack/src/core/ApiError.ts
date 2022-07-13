@@ -6,6 +6,7 @@ import {
   BadRequestResponse,
 } from './ApiContentResponse';
 
+//Http 错误response的格式和状态
 enum ErrorType {
   INTERNAL = 'InternalError',
   NOT_FOUND = 'NotFoundError',
