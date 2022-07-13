@@ -243,3 +243,47 @@ url: string //初始长链接
 未覆盖到的代码是因为对http response 的处理是比较全面的，包含了很多http status， 而这个服务只用到了其中一部分，如200， 400， 422， 302. 
 服务本身的逻辑代码都是100%。
 ![Alt text](./docs/coverage.png)
+
+
+### 本地测试
+1. 我在Google云端deploy 了一份，可以直接调用（希望没有被ban...），
+- 转换长链接：
+```
+curl -X POST \
+  https://axiomatic-skill-355308.df.r.appspot.com/v1/short-url \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{"url":"{这里是要转换的url}"}'
+```
+- 查询短链接：
+```
+curl -X GET \
+  https://axiomatic-skill-355308.df.r.appspot.com/v1/short-url/这里是短链接的key \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: eb9c355e-7f39-ba53-44d2-9ff153f1454c'
+```
+  
+2.如果需要本地测试， 则需要到当前目录然后使用
+
+npm start 在本地运行
+或者
+npm test 跑单元测试
+
+
+- 转换长链接
+```
+curl -X POST \
+  http://localhost:3000/v1/short-url \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: ccf36320-323e-852b-2524-29a40ebe02bb' \
+  -d '{"url":"{这里是要转换的url}"}'
+```
+  
+- 查询短链接
+ ```
+curl -X GET \
+  http://localhost:3000/v1/short-url/这里是短链接的key \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+ ```
