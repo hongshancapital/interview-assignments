@@ -1,0 +1,42 @@
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.carousel-wrap {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    transition: transform 0s;
+}
+
+.carousel-item {
+    height: 100%;
+}
+
+.dot {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.dot-item {
+    display: inline-block;
+    width: 50px;
+    height: 3px;
+    margin: 0 10px;
+    background-color: gray;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.dot-item-inner {
+    width: 0;
+    height: 3px;
+    background-color: #fff;
+    transition: width 0s;
+} 
