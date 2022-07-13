@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-// Helper code for the API consumer to understand the error and handle is accordingly
+// Http 内容 response的格式和状态
 enum StatusCode {
   SUCCESS = '10000',
   FAILURE = '10001',

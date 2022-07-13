@@ -2,7 +2,7 @@
   "name": "fullstack-assignment",
   "version": "1.0.2",
   "scripts": {
-    "start": "npm run build && npm run serve",
+    "start": "npm install && npm run build && npm run serve",
     "serve": "node build/server.js",
     "build": "npm run clean && npm run build-ts",
     "clean": "rimraf ./build",
@@ -10,7 +10,7 @@
     "watch-ts": "tsc -w",
     "eslint": "eslint . --ext .ts",
     "upgrade": "npm update --save-dev && npm update --save",
-    "test": "jest --forceExit --detectOpenHandles --coverage --verbose"
+    "test": "npm install && jest --forceExit --detectOpenHandles --coverage --verbose"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

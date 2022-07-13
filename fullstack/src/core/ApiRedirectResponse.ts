@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-// Helper code for the API consumer to understand the error and handle is accordingly
+// Http 重定向response的格式和状态
 enum ResponseStatus {
   REDIRECT = 302,
 }

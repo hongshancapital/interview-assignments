@@ -18,6 +18,7 @@ export const shortenUrlRouter = express.Router();
 shortenUrlRouter.get("/:key", async (req: Request, res: Response) => {
 
     const key = req.params.key;
+    //检测key的合法性
     if (!validateKey(key)) {
         return new BadRequestResponse("Invalid key.").send(res);
     }
@@ -35,6 +36,7 @@ shortenUrlRouter.get("/:key", async (req: Request, res: Response) => {
 shortenUrlRouter.post("/", async (req: Request, res: Response) => {
 
     const url = req.body.url;
+    //检测url合法性
     if (!url) {
         return new BadRequestResponse("Url should not be empty.").send(res);
     }
