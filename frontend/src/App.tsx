@@ -23,24 +23,6 @@ function App() {
         img: require("./assets/airpods.png"),
         title: "Buy a Tablet or xPhone for college.\nGet airPods.",
       },
-      {
-        key: "iphone1",
-        img: require("./assets/iphone.png"),
-        title: "xPhone",
-        des: "Lots to love. Less to spend.\n Starting at $399",
-        color: "white",
-      },
-      {
-        key: "tablet1",
-        img: require("./assets/tablet.png"),
-        title: "Tablet",
-        des: "Just the right amount of everything.",
-      },
-      {
-        key: "airpods1",
-        img: require("./assets/airpods.png"),
-        title: "Buy a Tablet or xPhone for college.\nGet airPods.",
-      },
     ];
     return items.map((item) => {
       return <Banner {...item}></Banner>;

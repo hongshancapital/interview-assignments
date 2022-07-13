@@ -13,13 +13,14 @@
   width: 100%;
   /*这里使用will-change可以将carousel__container单独渲染一个图层，更大效率的使用合成线程*/
   will-change: transform;
-  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
 }
 /*轮播项*/
 .carousel__carousel-item {
-  display: inline-block;
   height: 100%;
   width: 100%;
+  flex: 0 0 auto;
 }
 /**轮播指示器*/
 .carousel__step {
