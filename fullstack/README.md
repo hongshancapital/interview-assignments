@@ -128,7 +128,7 @@
 
   - 为每一个请求随机生成八位字符串，查重成功以后返回， 失败则往复重新生成+查重直到成功。
 
-  - 优点：逻辑简单， 实现复杂度低，因为每次都是随机字符串所以并发风险很低。位数固定。
+  - 优点：逻辑简单， 实现复杂度低，因为每次都是10的14次方级别的随机字符串所以并发风险很低。位数固定。
 
   - 缺点： 需要查重， 高并发场景需要维护线程或者分布式系统并发安全。
 
@@ -146,7 +146,7 @@
 
   - 优点： 不用担心线程安全， 效率高
 
-  - 缺点： 实现复杂
+  - 缺点： 实现非常复杂
 
   
 
@@ -172,7 +172,7 @@
 
 graph LR
 
-Start((开始))-- 长链接--> ValidUrl{是否合法url?}
+Start((开始))-- Post长链接--> ValidUrl{是否合法url?}
 
 ValidUrl--no--> BadRequest(400 bad request )
 
@@ -184,7 +184,7 @@ CheckExist-- yes --> RandomKey
 
 CheckExist-- no --> Success(200 success )
 
-Success --> End((End))
+Success --> End((结束))
 
 BadRequest --> End
 
@@ -198,7 +198,7 @@ BadRequest --> End
 
 graph LR
 
-Start((开始))--短链接--> Validate{是否合法url?}
+Start((开始))--Get短链接--> Validate{是否合法key?}
 
 Validate--no--> BadRequest(400 bad request )
 
@@ -208,7 +208,7 @@ CheckExist-- yes --> Redirect(302 redirect )
 
 CheckExist-- no --> Unprocessable(422 unprocessable )
 
-Redirect --> E((End))
+Redirect --> E((结束))
 
 Unprocessable --> E
 
@@ -235,12 +235,12 @@ url: string //初始长链接
 **基于实现原则和开发效率， 在本作业里用系统的内存map 模拟实现。**
 
 ## 测试结果
-测试结果如图：
+### 测试结果如图：
 
 ![Alt text](./docs/testResult.png)
 
-覆盖率如图：
-未覆盖到的代码是因为对http response 的处理是比较全面的，包含了很多http status， 而这个服务只用到了其中一部分，如200， 400， 422， 302. 
+### 覆盖率如图：
+未覆盖到的代码是因为对http response 的处理是比较全面的，包含了其他的http status， 而这个服务只用到了其中一部分，如200， 400， 422， 302. 
 服务本身的逻辑代码都是100%。
 ![Alt text](./docs/coverage.png)
 
@@ -258,9 +258,8 @@ curl -X POST \
 - 查询短链接：
 ```
 curl -X GET \
-  https://axiomatic-skill-355308.df.r.appspot.com/v1/short-url/这里是短链接的key \
+  https://axiomatic-skill-355308.df.r.appspot.com/v1/short-url/{这里是短链接的key} \
   -H 'cache-control: no-cache' \
-  -H 'postman-token: eb9c355e-7f39-ba53-44d2-9ff153f1454c'
 ```
   
 2.如果需要本地测试， 则需要到当前目录然后使用
@@ -276,14 +275,12 @@ curl -X POST \
   http://localhost:3000/v1/short-url \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'postman-token: ccf36320-323e-852b-2524-29a40ebe02bb' \
   -d '{"url":"{这里是要转换的url}"}'
 ```
   
 - 查询短链接
  ```
 curl -X GET \
-  http://localhost:3000/v1/short-url/这里是短链接的key \
+  http://localhost:3000/v1/short-url/{这里是短链接的key} \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
  ```
