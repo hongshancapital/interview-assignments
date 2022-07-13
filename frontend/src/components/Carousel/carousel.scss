@@ -1,0 +1,78 @@
+%relative{
+    flex-shrink: 0;
+    position: relative;
+    height: 100vh;
+}
+.carousel{
+    overflow: hidden;
+    .content{
+        display: flex;
+        width: 300vw;
+        position: relative;
+        transition: left, linear, 0.5s;
+        .left{
+            @extend %relative;
+            width: 100vw;
+            background-color: #111;
+            color: white;
+            .left-img{
+                background-image: url("../../assets/iphone.png");
+                background-size: 55%;
+            }
+        }
+        .text{
+            width: 100vw;
+            position: absolute;
+            text-align: center;
+            margin-top: 10vh;
+            h1{
+                margin: 0.1em;
+            }
+        }
+        .img{
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            height: 40vh;
+        }
+        .middle{
+            @extend %relative;
+            width: 100vw;
+            background-color: #fafafa;
+            .middle-img{
+                background-image: url('../../assets/tablet.png');
+                background-size: 120%;
+            }
+        }
+        .right{
+            @extend %relative;
+            width: 100vw;
+            background-color: #f1f1f3;
+            .right-img{
+                background-image: url('../../assets/airpods.png');
+                background-size: 150%;
+            }
+        }
+    }
+    .progress{
+        position: fixed;
+        bottom: 5vh;
+        width: 100vw;
+        .margin-box{
+            width: 10vw;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+        .flex{
+            display: flex;
+            height: 4px;
+            background-color: rgb(137, 137, 137);
+            border-radius: 2px;
+            width: 3vw;
+            div{
+                background-color: white;
+                width: 0;
+            }
+        }
+    }
+}
