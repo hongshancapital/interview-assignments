@@ -12,16 +12,33 @@ struct AppListView: View {
 
     var list: AppState.AppList { store.appState.appList }
 
+    var listState: ListState { list.listState }
+
     var body: some View {
         ScrollView {
-            ForEach(list.displayAppList(with: store.appState.user)) { app in
-                AppInfoRow(
-                    model: app
-                )
+            PullToRefreshView(header: RefreshDefaultHeader(), footer: RefreshDefaultFooter()) {
+                ScrollView {
+                    ForEach(list.displayAppList(with: store.appState.user)) { app in
+                        AppInfoRow(
+                            model: app
+                        )
+                    }
+                    
+                }
             }
-            Spacer()
-                .frame(height: 20)
-        }.navigationBarTitle("App")
+            .environmentObject(listState)
+            
+            Spacer().frame(height: 60)
+        }
+        .addPullToRefresh(isHeaderRefreshing: $store.appState.appList.headerRefresh,
+                          onHeaderRefresh: {
+                              store.dispatch(.loadAppListHeader)
+                          },
+                          isFooterRefreshing: $store.appState.appList.footerRefresh,
+                          onFooterRefresh: {
+                              store.dispatch(.loadAppListFooter(index: list.pageIndex + 1))
+                          })
+        .navigationBarTitle("App")
     }
 }
 

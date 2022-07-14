@@ -37,8 +37,9 @@ struct AppInfoRow: View {
                     .lineLimit(2)
                     .font(.system(size: 11))
                     .foregroundColor(.black)
-            }.layoutPriority(1)
-                .padding(.top, 12)
+            }
+            .layoutPriority(1)
+            .frame(height: 58)
             Spacer()
             Button(action: {
                 self.store.dispatch(.toggleFavorite(id: self.model.id))
@@ -46,6 +47,7 @@ struct AppInfoRow: View {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .renderingMode(.template)
                     .foregroundColor(isFavorite ? .red : .gray)
+                    .scaleEffect(isFavorite ? 1.1 : 1)
 
             }
         }

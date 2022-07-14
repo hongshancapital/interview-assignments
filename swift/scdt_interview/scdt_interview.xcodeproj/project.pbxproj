@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E45FCA3528801C4000CBD7AF /* LynnRefreshDefaultViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FCA3128801C4000CBD7AF /* LynnRefreshDefaultViews.swift */; };
+		E45FCA3628801C4000CBD7AF /* LynnRefreshDefaultViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FCA3128801C4000CBD7AF /* LynnRefreshDefaultViews.swift */; };
+		E45FCA3728801C4000CBD7AF /* LynnRefreshState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FCA3228801C4000CBD7AF /* LynnRefreshState.swift */; };
+		E45FCA3828801C4000CBD7AF /* LynnRefreshState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FCA3228801C4000CBD7AF /* LynnRefreshState.swift */; };
+		E45FCA3928801C4000CBD7AF /* LynnPullToRefreshModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FCA3328801C4000CBD7AF /* LynnPullToRefreshModifier.swift */; };
+		E45FCA3A28801C4000CBD7AF /* LynnPullToRefreshModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FCA3328801C4000CBD7AF /* LynnPullToRefreshModifier.swift */; };
+		E45FCA3B28801C4000CBD7AF /* LynnPullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FCA3428801C4000CBD7AF /* LynnPullToRefresh.swift */; };
+		E45FCA3C28801C4000CBD7AF /* LynnPullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45FCA3428801C4000CBD7AF /* LynnPullToRefresh.swift */; };
 		E4A45221287E66CF00F83807 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A45220287E66CF00F83807 /* FileHelper.swift */; };
 		E4A45222287E66CF00F83807 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A45220287E66CF00F83807 /* FileHelper.swift */; };
 		E4A45224287E66F900F83807 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A45223287E66F900F83807 /* Helpers.swift */; };
@@ -70,6 +78,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E45FCA3128801C4000CBD7AF /* LynnRefreshDefaultViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LynnRefreshDefaultViews.swift; sourceTree = "<group>"; };
+		E45FCA3228801C4000CBD7AF /* LynnRefreshState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LynnRefreshState.swift; sourceTree = "<group>"; };
+		E45FCA3328801C4000CBD7AF /* LynnPullToRefreshModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LynnPullToRefreshModifier.swift; sourceTree = "<group>"; };
+		E45FCA3428801C4000CBD7AF /* LynnPullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LynnPullToRefresh.swift; sourceTree = "<group>"; };
 		E4A45220287E66CF00F83807 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		E4A45223287E66F900F83807 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		E4A45227287E6D0A00F83807 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
@@ -134,9 +146,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E45FCA3028801C4000CBD7AF /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				E45FCA3128801C4000CBD7AF /* LynnRefreshDefaultViews.swift */,
+				E45FCA3228801C4000CBD7AF /* LynnRefreshState.swift */,
+				E45FCA3328801C4000CBD7AF /* LynnPullToRefreshModifier.swift */,
+				E45FCA3428801C4000CBD7AF /* LynnPullToRefresh.swift */,
+			);
+			path = PullToRefresh;
+			sourceTree = "<group>";
+		};
 		E4A4521B287E661E00F83807 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E45FCA3028801C4000CBD7AF /* PullToRefresh */,
 				E4A4522A287E705500F83807 /* AppList */,
 			);
 			path = View;
@@ -463,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4A4522F287E723200F83807 /* AppAction.swift in Sources */,
+				E45FCA3928801C4000CBD7AF /* LynnPullToRefreshModifier.swift in Sources */,
 				E4A45240287EC52000F83807 /* AppState.swift in Sources */,
 				E4BE7D2B287FC3E90040B59B /* AppListView.swift in Sources */,
 				E4BE7D29287FC2C70040B59B /* AppListRootView.swift in Sources */,
@@ -481,6 +506,9 @@
 				E4A4524A287ECC8100F83807 /* AppCommand.swift in Sources */,
 				E4A45224287E66F900F83807 /* Helpers.swift in Sources */,
 				E4A45243287EC99700F83807 /* User.swift in Sources */,
+				E45FCA3728801C4000CBD7AF /* LynnRefreshState.swift in Sources */,
+				E45FCA3528801C4000CBD7AF /* LynnRefreshDefaultViews.swift in Sources */,
+				E45FCA3B28801C4000CBD7AF /* LynnPullToRefresh.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,18 +519,22 @@
 				E4A45230287E723200F83807 /* AppAction.swift in Sources */,
 				E4A45241287EC52000F83807 /* AppState.swift in Sources */,
 				E4DBB3DF287DC939002E9134 /* ContentView.swift in Sources */,
+				E45FCA3628801C4000CBD7AF /* LynnRefreshDefaultViews.swift in Sources */,
 				E4A4524F287ECD1900F83807 /* LoadAppListRequest.swift in Sources */,
 				E4A45235287E751800F83807 /* AppListViewModel.swift in Sources */,
 				E4DBB3DD287DC939002E9134 /* scdt_interviewApp.swift in Sources */,
 				E4A45248287ECBEE00F83807 /* FileStorage.swift in Sources */,
 				E4A45229287E6D0A00F83807 /* AppError.swift in Sources */,
 				E4A4522D287E714600F83807 /* Store.swift in Sources */,
+				E45FCA3828801C4000CBD7AF /* LynnRefreshState.swift in Sources */,
+				E45FCA3A28801C4000CBD7AF /* LynnPullToRefreshModifier.swift in Sources */,
 				E4A4523B287E7BBB00F83807 /* AppListModel.swift in Sources */,
 				E4A45255287ED1BD00F83807 /* AppListDataSource.swift in Sources */,
 				E4A45252287ECEAB00F83807 /* Sample.swift in Sources */,
 				E4A45222287E66CF00F83807 /* FileHelper.swift in Sources */,
 				E4A4524B287ECC8100F83807 /* AppCommand.swift in Sources */,
 				E4A45225287E66F900F83807 /* Helpers.swift in Sources */,
+				E45FCA3C28801C4000CBD7AF /* LynnPullToRefresh.swift in Sources */,
 				E4A45244287EC99700F83807 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

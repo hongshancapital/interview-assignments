@@ -39,7 +39,7 @@ class Store: ObservableObject {
             }
             appState.appList.loadingApps = true
             appState.appList.appsLoadingError = nil
-            appCommand = LoadAppListCommand(pageSize: 10, pageIndex: appState.appList.pageIndex, type: .loadData)
+            appCommand = LoadAppListCommand(pageSize: appState.appList.pageSize, pageIndex: 0, type: .loadData)
 
         case .loadAppListDone(result: let result):
             appState.appList.loadingApps = false
@@ -47,13 +47,16 @@ class Store: ObservableObject {
             case .success(let models):
                 appState.appList.pageIndex = 0
                 appState.appList.list = models
+                appState.appList.listState.setNoMore(false)
+
             case .failure(let error):
                 appState.appList.appsLoadingError = error
             }
 
         case .loadAppListHeader:
             appState.appList.headerRefresh = true
-            appCommand = LoadAppListCommand(pageSize: 10, pageIndex: appState.appList.pageIndex, type: .headerRefresh)
+            appState.appList.footerRefresh = false
+            appCommand = LoadAppListCommand(pageSize: appState.appList.pageSize, pageIndex: 0, type: .headerRefresh)
 
         case .loadAppListHeaderDone(result: let result):
             appState.appList.headerRefresh = false
@@ -61,12 +64,16 @@ class Store: ObservableObject {
             case .success(let models):
                 appState.appList.pageIndex = 0
                 appState.appList.list = models
+                appState.appList.listState.setNoMore(false)
+
             case .failure(let error):
                 appState.appList.appsLoadingError = error
             }
 
         case .loadAppListFooter(index: let index):
-            appCommand = LoadAppListCommand(pageSize: appState.appList.pageSize, pageIndex: appState.appList.pageIndex, type: .footerRefresh)
+            appState.appList.headerRefresh = false
+            appState.appList.footerRefresh = true
+            appCommand = LoadAppListCommand(pageSize: appState.appList.pageSize, pageIndex: index, type: .footerRefresh)
 
         case .loadAppListFooterDone(result: let result):
             switch result {
@@ -74,11 +81,12 @@ class Store: ObservableObject {
                 if !models.isEmpty {
                     appState.appList.pageIndex += 1
                 }
-                appState.appList.hasMoreData = models.count >= appState.appList.pageSize
+                appState.appList.listState.setNoMore(models.count < appState.appList.pageSize)
                 appState.appList.list?.append(contentsOf: models)
             case .failure(let error):
                 appState.appList.appsLoadingError = error
             }
+            appState.appList.footerRefresh = false
             
         case .toggleFavorite(let id):
             let user = appState.user

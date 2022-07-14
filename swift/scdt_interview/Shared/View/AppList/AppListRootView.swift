@@ -17,10 +17,16 @@ struct AppListRootView: View {
                 if store.appState.appList.list == nil {
                     VStack {
                         Spacer()
-                        ProgressView()
-                            .onAppear {
+                        if store.appState.appList.appsLoadingError != nil {
+                            RetryButton {
                                 self.store.dispatch(.loadAppList)
-                            }
+                            }.offset(y: -40)
+                        } else {
+                            ProgressView()
+                                .onAppear {
+                                    self.store.dispatch(.loadAppList)
+                                }
+                        }
                         Spacer()
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -30,7 +36,8 @@ struct AppListRootView: View {
                 }
             }
         }
-        //fix LayoutConstraints issue https://stackoverflow.com/questions/65316497/swiftui-navigationview-navigationbartitle-layoutconstraints-issue
+        /// fix LayoutConstraints issue
+        /// https://stackoverflow.com/questions/65316497/swiftui-navigationview-navigationbartitle-layoutconstraints-issue
         .navigationViewStyle(.stack)
     }
 
