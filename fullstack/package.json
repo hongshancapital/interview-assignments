@@ -1,0 +1,35 @@
+{
+  "name": "fullstack-shorturl",
+  "version": "1.0.0",
+  "description": "短域名服务",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "nodemon",
+    "build": "npm run test && tsc -p ./",
+    "test": "jest --no-cache --coverage",
+    "deploy": ""
+  },
+  "author": "james.li0122@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "base62": "^2.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "knex": "^2.1.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.5",
+    "@types/node": "^18.0.3",
+    "jest": "^28.1.2",
+    "nodemon": "^2.0.19",
+    "supertest": "^6.2.4",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  },
+  "coverageReporters": [
+    "html"
+  ]
+}
