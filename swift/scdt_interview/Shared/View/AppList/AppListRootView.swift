@@ -15,31 +15,23 @@ struct AppListRootView: View {
             ZStack {
                 Color.gray.opacity(0.1).edgesIgnoringSafeArea(.all)
                 if store.appState.appList.list == nil {
-                    ScrollView {
-                        VStack {
-
-                            if store.appState.appList.appsLoadingError != nil {
-                                RetryButton {
-                                    self.store.dispatch(.loadAppList)
-                                }.offset(y: -40)
-                            } else {
-                                ProgressView()
-                                    .offset(y: -40)
-                                    .frame(width: 50, height: 50, alignment: .center)
-                                    .onAppear {
-                                        self.store.dispatch(.loadAppList)
-                                    }
+                    VStack {
+                        Spacer()
+                        ProgressView()
+                            .onAppear {
+                                self.store.dispatch(.loadAppList)
                             }
-                        }
-                        
-                    }.navigationBarTitle("App")
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .navigationBarTitle("App")
                 } else {
                     AppListView()
                 }
-
             }
-            
         }
+        //fix LayoutConstraints issue https://stackoverflow.com/questions/65316497/swiftui-navigationview-navigationbartitle-layoutconstraints-issue
+        .navigationViewStyle(.stack)
     }
 
     struct RetryButton: View {
