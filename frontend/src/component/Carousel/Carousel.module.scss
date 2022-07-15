@@ -1,0 +1,52 @@
+.carousel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  &_slider {
+    height: 100%;
+    display: flex;
+    position: relative;
+    animation-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+  }
+  &_navigation {
+    position: absolute;
+    display: flex;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 2vh;
+    li {
+      width: 100px;
+      height: 4px;
+      border-radius: 2px;
+      background: #555;
+      margin: 0 15px;
+      list-style: none;
+      position: relative;
+      overflow: hidden;
+      &.active {
+        span {
+          display: block;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #aaa;
+          animation-timing-function: linear;
+          animation-name: move;
+          transform: translate3d(-100%, 0, 0);
+        }
+      }
+    }
+  }
+}
+@keyframes move {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
