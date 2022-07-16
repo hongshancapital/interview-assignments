@@ -20,21 +20,21 @@ struct AppList: View {
                             ProgressView()
                         }else{
                             List {
-                                ForEach(vm.data) { appModel in
-                                    AppRow(appModel: appModel)
+                                ForEach(Array(vm.data.enumerated()), id: \.offset) { index, appModel in
+                                    AppRow(appModel: appModel, index: index)
                                         .environmentObject(vm)
                                         .listRowBackground(EmptyView())
                                         .listRowSeparator(.hidden)
                                         .onAppear{
                                             vm.isLoadMore(app: appModel)
                                         }
-                                    
                                 }
                                 LoadingView(loadingState: vm.loadingState)
                                     .listRowSeparator(.hidden)
                                     .listRowBackground(Color.clear)
                             }
                             .refreshable {
+                                vm.loadingState = .Loading
                                 vm.refreshSubject.send()
                             }
                             .listStyle(.grouped)

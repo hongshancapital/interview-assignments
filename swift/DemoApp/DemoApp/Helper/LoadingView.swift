@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct LoadingView : View {
     var loadingState: LoadingState
     var body: some View {

@@ -11,13 +11,13 @@ import SwiftUI
 
 class ViewModel: ObservableObject {
     @Published var data: [AppModel] = []
-    @Published var favoriteArr: [Bool] = []
     @Published var loadingState: LoadingState = .Loading
     @Published var errorMessage: String?
+     
+    var cache: [AppModel] = []
     let pageSize: Int = 20
     var loadMoreSubject = CurrentValueSubject<Void, Error>(())
     var refreshSubject = PassthroughSubject<Void, Never>()
-    var favoriteSubject = PassthroughSubject<(Int, Bool), Never>()
     var cancellable = Set<AnyCancellable>()
     var dataService = ApiService()
     
@@ -35,11 +35,12 @@ class ViewModel: ObservableObject {
     }
     
    func addLoadAppsSubscription() {
-       self.dataService.getListData()
-           .flatMap{$0.publisher}
+       var cache: AnyPublisher<[AppModel], Error>
+       cache = self.cache.isEmpty ? self.dataService.getListData() : self.getCache()
+       cache.flatMap{$0.publisher}
            .collect(pageSize)
            .zip(self.loadMoreSubject)
-           .delay(for: .seconds(1), scheduler: DispatchQueue.global())
+           .delay(for: .seconds(0.5), scheduler: DispatchQueue.global())
            .receive(on: RunLoop.main)
            .handleEvents (
             receiveOutput: { [weak self] _ in
@@ -63,13 +64,21 @@ class ViewModel: ObservableObject {
    }
     
     func addRefreshSubscription(){
-        refreshSubject.debounce(for: .seconds(1), scheduler: RunLoop.main)
+        refreshSubject.debounce(for: .seconds(0.1), scheduler: RunLoop.main)
             .sink{ [weak self] _ in
                 self?.errorMessage = nil
                 self?.loadingState = .Loading
+                self?.cache = (self?.data)!
                 self?.data.removeAll()
                 self?.addLoadAppsSubscription()
             }
             .store(in: &cancellable)
     }
+    
+    func getCache() -> AnyPublisher<[AppModel], Error> {
+        return Future<[AppModel], Error> { promise in
+            promise(.success(self.cache))
+        }.eraseToAnyPublisher()
+    }
+                
 }
