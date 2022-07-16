@@ -8,20 +8,39 @@ function App() {
       {
         key: "iphone",
         img: require("./assets/iphone.png"),
-        title: "xPhone",
-        des: "Lots to love. Less to spend.\n Starting at $399",
+        title: [
+          "xPhone",
+          {
+            label: "Lots to love. Less to spend.",
+            fontSize: "2rem",
+            fontWeight: "normal",
+            marginTop: "10px",
+          },
+          {
+            label: "Starting at $399",
+            fontSize: "2rem",
+            fontWeight: "normal",
+          },
+        ],
         color: "white",
       },
       {
         key: "tablet",
         img: require("./assets/tablet.png"),
-        title: "Tablet",
-        des: "Just the right amount of everything.",
+        title: [
+          "Tablet",
+          {
+            label: "Just the right amount of everything.",
+            fontSize: "2rem",
+            fontWeight: "normal",
+            marginTop: "10px",
+          },
+        ],
       },
       {
         key: "airpods",
         img: require("./assets/airpods.png"),
-        title: "Buy a Tablet or xPhone for college.\nGet airPods.",
+        title: ["Buy a Tablet or xPhone for college", "Get airPods."],
       },
     ];
     return items.map((item) => {
