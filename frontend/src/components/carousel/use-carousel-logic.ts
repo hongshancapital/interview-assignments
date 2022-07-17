@@ -42,7 +42,7 @@ export const useCarouselLogic = (props: CarouselProps) => {
       return 'none'
     }
 
-    // 小于最大变化时间，则按比例计算动画时间，保证动画时间<变化周期
+    // 小于最大变化时间，则按比例计算动画时间，保证 动画时间<变化周期
     if(duration < MaxDurationTime * 1.1){
       transitionDuration = Math.trunc(duration / 2)
     }
@@ -50,6 +50,7 @@ export const useCarouselLogic = (props: CarouselProps) => {
     return `all ${transitionDuration}ms ease-in-out`
   },[duration])
 
+  // 容器动画结束事件
   const onContentTransitionEnd = useCallback(() => {
     if (actualActiveIndex.current === childCount) {
       setContentStyle({
