@@ -28,7 +28,7 @@ const MockData = [
 function App() {
   return (
     <div className="App">
-      <Carousel duration={3000}>
+      <Carousel duration={5000}>
         {MockData.map(({title,text, icon, className},index) => {
           return (
             <div className={`item ${className}`} key={index}>
