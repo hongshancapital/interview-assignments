@@ -1,0 +1,35 @@
+
+$prefix: 'carousel';
+
+.#{$prefix} {
+  width: 100%;
+  height: 100%;
+
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    // 创建层级作用域，避免内部层级泄漏
+    z-index: 0;
+  }
+
+  &__content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+}
