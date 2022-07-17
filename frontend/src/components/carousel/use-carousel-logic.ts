@@ -53,12 +53,12 @@ export const useCarouselLogic = (props: CarouselProps) => {
   const onContentTransitionEnd = useCallback(() => {
     if (actualActiveIndex.current === childCount) {
       setContentStyle({
-        transform: `translateX(0)`,
+        transform: `translateX(${calcToIndexNeedPercentage(0)})`,
         transition: 'none'
       })
       actualActiveIndex.current = 0
     }
-  },[childCount])
+  },[childCount, calcToIndexNeedPercentage])
 
   useEffect(() => {
     let handler = 0 as any

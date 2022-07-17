@@ -46,7 +46,7 @@ export const Carousel: FC<CarouselProps> = (props: CarouselProps) => {
   return (
     <div className={`${Prefix} ${className || ''}`} style={style}>
       <div className={`${Prefix}__wrapper`}>
-        <div className={`${Prefix}__content`} style={contentStyle} onTransitionEnd={onContentTransitionEnd}>
+        <div className={`${Prefix}__content`} data-testid={'content'} style={contentStyle} onTransitionEnd={onContentTransitionEnd}>
           {items}
         </div>
         {indicators}
