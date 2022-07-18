@@ -1,0 +1,67 @@
+.carousel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-content {
+  transform: translateX(0);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  transition: transform 0.5s linear;
+}
+
+.carousel-item {
+  height: 100%;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.carousel-dot {
+  width: 50px;
+  height: 3px;
+  background-color: #ccc;
+  margin-right: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.carousel-dot:last-child {
+  margin-right: 0;
+}
+
+.carousel-dot::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: white;
+  transform: translateX(-100%);
+}
+
+@keyframes step-animation {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.carousel-dot.active::before {
+  animation: 1s linear step-animation forwards;
+}
