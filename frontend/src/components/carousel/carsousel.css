@@ -1,0 +1,43 @@
+
+.carousel {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-indicators {
+    position: absolute;
+    flex-direction: row;
+    bottom: 80px;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0 auto;
+}
+
+.carousel-indicator {
+    position: relative;
+    flex: 0 1 auto;
+    width: 40px;
+    height: 3px;
+    margin: 0 0.3em;
+    cursor: pointer;
+}
+
+.carousel-content {
+    height: 100%; 
+    display: flex;
+    flex-direction: row;
+    flex-wrap:  nowrap;
+    overflow: auto;
+    position: relative;
+}
+
+.carousel-item { 
+    height: 100%;
+    width: 100%;
+}
+
