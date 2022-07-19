@@ -1,0 +1,77 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+/* 轮播图-图片样式 */
+.imgList {
+  height: 100%;
+  width: 300vw;
+  transform: translateX(0vw);
+  transition: all 1s ease;
+}
+
+.imgList0 {
+  transform: translateX(0vw);
+}
+
+.imgList1 {
+  transform: translateX(-100vw);
+}
+
+.imgList2 {
+  transform: translateX(-200vw);
+}
+
+.imgList li {
+  float: right;
+  width: 100vw;
+}
+
+.imgList li img {
+  width: 100%;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+}
+
+/* 底部滑块样式 */
+.ulSlide {
+  position: absolute;
+  bottom: 205px;
+  left: 45%;
+  z-index: 777;
+}
+
+.ulSlide li {
+  float: left;
+  width: 50px;
+  height: 2px;
+  margin: 0 6px;
+  background-color: rgb(177, 177, 177);
+}
+
+.ulSlide li.bg {
+  background-color: gray;
+}
+
+.ulSlide li div {
+  width: 50px;
+  height: 2px;
+  background-color: transparent;
+}
+
+.ulSlide li.active div {
+  background: gray;
+  animation: scaleX 3s linear;
+  animation-fill-mode: forwards;
+  transform-origin: 0;
+}
+
+@keyframes scaleX {
+  0% {
+    transform: scaleX(0)
+  }
+  100%{
+    transform: scaleX(1)
+  }
+}
