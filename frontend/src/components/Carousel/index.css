@@ -1,0 +1,55 @@
+.carousel-wrap {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s linear;
+}
+
+.carousel-controls {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-line {
+  height: 2px;
+  width: 40px;
+  margin: 0 5px;
+  background-color: #aaaaaa;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+@keyframes carousel-process-animation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.carousel-process {
+  height: 100%;
+  background-color: #ffffff;
+  animation-name: carousel-process-animation;
+  animation-timing-function: linear;
+}
+
+.carousel-hover {
+  cursor: pointer;
+}
