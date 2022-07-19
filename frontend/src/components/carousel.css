@@ -1,0 +1,40 @@
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.container {
+    position: relative;
+    overflow: hidden;
+}
+
+.img-container {
+    position: relative;
+    display: flex;
+    height: 100%;
+}
+
+.dot-container {
+    position: relative;
+    bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.dot-item {
+    display: inline-block;
+    width: 50px;
+    height: 6px;
+    margin-right: 5px;
+    border-radius: 3px;
+    background-color: grey;
+}
+
+.dot-item .dot-item-inner {
+    height: 100%;
+    width: 0;
+    border-radius: 3px;
+    background-color: white;
+}
