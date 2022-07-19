@@ -1,0 +1,61 @@
+.carousel {
+  width: 100vw;
+  overflow-x: hidden;
+  display: flex;
+}
+
+.carousel-wrapper {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 450ms;
+  display: flex;
+}
+
+.carousel-item {
+  width: 100vw;
+  height: 100vh;
+  flex: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100vh;
+  
+  position: relative;
+}
+.dot {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  width: 180px;
+  margin: 0;
+  padding: 0;
+  margin-left: -90px;
+  box-sizing: border-box;
+  display: flex;
+}
+.dot > li {
+  flex: 1;
+  height: 2px;
+  border-radius: 4px;
+  background-color: #555;
+  margin: 0 4px;
+}
+
+.dot > li {
+  position: relative;
+  overflow: hidden;
+}
+
+.dot > li > .process {
+  position: absolute;
+  content: "";
+  left: 0;
+  height: 2px;
+  border-radius: 4px;
+  background-color: #fff;
+  width: 100%;
+  transform: translateX(-100%);
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  
+}
