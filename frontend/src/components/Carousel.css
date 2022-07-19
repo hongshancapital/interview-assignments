@@ -1,0 +1,80 @@
+.carousel {
+    position: relative;
+}
+
+.carousel-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carousel-image-list {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+
+.carousel-image-item {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    background-size: auto 60%;
+    background-position: center 28vh;
+    background-repeat: no-repeat;
+}
+
+.carousel-image-content {
+    position: absolute;
+    top: 23.3%;
+    left: 0;
+    width: 100%;
+}
+
+.carousel-image-title {
+    font-size: 7.2vh;
+    line-height: 9.6vh;
+    font-weight: 500;
+    white-space: pre-line;
+}
+
+.carousel-image-subtitle {
+    font-size: 3.8vh;
+    line-height: 5vh;
+    white-space: pre-line;
+}
+
+.carousel-pagination {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    bottom: 8.1%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.carousel-pagination-dot {
+    width: 6vh;
+    height: 0.3vh;
+    border-radius: 1px;
+    background-color: #a9a9a9;
+    cursor: pointer;
+}
+
+.carousel-pagination-dot:not(:last-child) {
+    margin-right: 8px;
+}
+
+.carousel-pagination-dot-inner {
+    width: 0%;
+    height: 100%;
+    background-color: #fafafa;
+}
+
+@keyframes carousel-pagination-dot-animation {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
