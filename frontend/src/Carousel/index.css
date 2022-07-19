@@ -1,0 +1,78 @@
+.carousel-slidelist {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-container {
+  overflow: hidden;
+}
+
+.carousel-container, .slidelist-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slidelist-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slidelist-item.left {
+  transform: translate(-100%, 0);
+}
+
+.slidelist-item.right {
+  transform: translate(100%, 0);
+}
+
+.slidelist-item.active {
+  transform: translate(0, 0);
+}
+
+.slidebar-container {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  bottom: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+.slidebar-item {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 2px;
+  margin: 0 4px;
+  background-color: #999999;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.slidebar-progress {
+  width: 40px;
+  background-color: #ffffff;
+  transform: translate(-100%, 0);
+  height: 2px;
+}
+
+.slidebar-progress.active {
+  display: block;
+  animation-name: slidebar-animation;
+  animation-delay: 0s;
+  animation-timing-function: linear;
+}
+
+@keyframes slidebar-animation {
+  from {
+    transform: translate(-100%, 0);
+  }
+
+  to {
+    transform: translate(0, 0);
+  }
+}
