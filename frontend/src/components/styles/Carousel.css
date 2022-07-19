@@ -1,0 +1,48 @@
+.wrapper-root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.translate-main {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transition: all .5s;
+}
+
+.progress-container {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.outer-item {
+  width: 60px;
+  height: 2px;
+  border-radius: 2px;
+  background: gray;
+  overflow: hidden;
+}
+
+.outer-item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.inner-item {
+  width: 64px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+  transition: transform 3s linear 0s;
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.active-dot {
+  transform: translateX(0);
+  opacity: 1;
+}
