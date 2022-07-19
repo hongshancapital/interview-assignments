@@ -1,0 +1,27 @@
+.dot-wrap {
+  display: flex;
+  justify-content: center;
+  .dot-process {
+    width: 40px;
+    height: 2px;
+    background-color: rgb(153, 153, 153);
+    margin: 0 5px;
+    .dot-process-active {
+      width: 30px;
+      height: 2px;
+      background-color: #fff;
+      animation-name: process-dot;
+      animation-duration:3s;
+    }
+  }
+}
+
+
+@keyframes process-dot {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
