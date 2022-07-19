@@ -1,0 +1,90 @@
+.carousel {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+.carousel-box {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  left: 0;
+  transition: ease 1.8s;
+}
+.carousel-item {
+  float: left;
+  flex-shrink: 0;
+  background-color: #fff;
+}
+
+.carousel-item-content {
+  width: 40%;
+  height: inherit;
+  margin: 0 auto;
+}
+
+.carousel-content-text {
+  width: 100%;
+  height: 240px;
+  margin-top: 160px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.carousel-item-image {
+  width: 400px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.carousel-image-image {
+  width: 100%;
+}
+
+.carousel-dot {
+  width: 100%;
+  height: 20px;
+  position: absolute;
+  bottom: 30px;
+}
+
+.carousel-dot-content {
+  width: 200px;
+  height: 20px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.caursel-dot-content {
+  width: 36px;
+  height: 4px;
+  left: 20px;
+  border-radius: 2px;
+  background-color: #ccc;
+  float: left;
+  margin: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.caursel-dot-item {
+  position: absolute;
+  width: 40px;
+  height: 5px;
+  left: -40px;
+  background-color: #fff;
+}
+
+.carousel-dot-active {
+  transform: translate(40px, 0px);
+  /* transition: all 2s; */
+  transition-duration: 4s;
+}
+
+.carousel-dot-hide {
+  left: -40px;
+}
+
+.clear {
+  clear: both;
+}
