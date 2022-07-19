@@ -1,0 +1,27 @@
+.dotContainer {
+  position: absolute;
+  left: calc(50% - 80px);
+  bottom: 6%;
+  display: flex;
+}
+  
+.dotContainer .dotBox:not(:last-child) {
+  margin-right: 5px;
+}
+
+.dotBox {
+  width: 50px;
+  border-radius: 4px;
+  background-color: gray;
+  overflow: hidden;
+}
+
+.dotCenter {
+  height: 2px;
+  width: 0;
+  background-color: gainsboro;
+}
+
+.dotCenter.active {
+  width: 100%;
+}
