@@ -1,0 +1,100 @@
+// 图片切换的速度
+$speed: 400ms;
+
+.carousel-wrap {
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
+  .carousel-list {
+    min-width: 9999px;
+    height: 100%;
+    overflow: scroll;
+    transition: transform $speed ease;
+    @for $i from 0 to 20 {
+      &.active-index-#{$i} {
+        transform: translateX($i * -100vw);
+      }
+    }
+  }
+  .indicator {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.carousel-item {
+  width: 100vw;
+  height: 100%;
+  position: relative;
+  float: left;
+  text-align: center;
+  .ci-title-wrap {
+    position: absolute;
+    width: 100%;
+    top: 150px;
+    text-align: center;
+    .ci-title {
+      font-size: 50px;
+      font-weight: bold;
+      margin: 0 auto;
+    }
+    .ci-sub-title {
+      font-size: 30px;
+      margin: 10px auto;
+    }
+    &-0 {
+      color: #fff;
+      .ci-sub-title {
+        width: 400px;
+      }
+    }
+    &-2 {
+      .ci-sub-title {
+        font-size: 50px;
+        font-weight: bold;
+      }
+    }
+  }
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.indicator-item {
+  position: relative;
+  float: left;
+  width: 40px;
+  height: 2px;
+  background-color: #aaa;
+  margin-right: 10px;
+  border-radius: 10px;
+  &:last-child {
+    margin-right: 0;
+  }
+  > span {
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    background-color: #fff;
+    &.active {
+      animation-name: indicatorShow;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+@keyframes indicatorShow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
