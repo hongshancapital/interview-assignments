@@ -1,0 +1,35 @@
+.wrap{
+    width:300vw;
+    height: 100vh;
+    position: relative;
+  }
+  .wrap > div{
+    float: left;
+  }
+  .banner{
+    width:100vw;
+    height: 100vh;
+    position: relative;
+  }
+  .banner img{
+    position: absolute;
+    display: inline-block;
+    width: 100vw;
+    height: 90vh;
+    left: 50%;
+    top:0;
+    transform: translate(-50%,0);
+    z-index: 0;
+    object-fit:cover;
+  }
+  .banner .text{
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .banner .text span{
+      display: block;
+  }
+
+  
