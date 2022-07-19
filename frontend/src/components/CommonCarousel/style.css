@@ -1,0 +1,77 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.item {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    transition: transform .4s;
+}
+
+.title-group {
+    width: 100%;
+    margin-top: 100px;
+    position: absolute;
+    color: white;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-size: 50px;
+}
+
+.subtitle {
+    margin-top: 20px;
+    font-size: 30px;
+    white-space: pre;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+}
+
+.op {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    justify-content: space-evenly;
+    ;
+    bottom: 0;
+    width: 400px;
+    left: calc(50vw - 200px);
+    margin-bottom: 20px;
+}
+
+.inside {
+    height: 3px;
+    animation-name: op-animation;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+}
+
+.op-item {
+    cursor: pointer;
+    width: 70px;
+    height: 3px;
+    background: #cccccc;
+}
+
+@keyframes op-animation {
+    0% {
+        width: 0%
+    }
+
+    100% {
+        width: 100%
+    }
+}
