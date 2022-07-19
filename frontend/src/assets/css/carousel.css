@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.carousel-warp{
+    position: relative;
+    width : 1000px;
+    height: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.carousel-container{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    position: absolute;
+    top:0;
+    left: 0;
+    width : 3000px;
+    height: 600px;
+}
+.moveTransition{
+    transition: left 2s;
+    -webkit-transition: left 2s;
+}
+.carousel-warp .carousel-item{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.carousel-item-0{
+    background: url("../iphone.png") no-repeat center;
+    background-size: cover;
+}
+.carousel-item-1{
+    background: url("../tablet.png") no-repeat center;
+    background-size: cover;
+}
+.carousel-item-2{
+    background: url("../airpods.png") no-repeat center;
+    background-size: cover;
+}
+.pic-desc{
+    position: relative;
+    top : 90px;
+    z-index: 23;
+}
+.pic-desc .title{
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.pic-desc .sub-title-one{
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.pic-desc .sub-title-two{
+    font-size: 30px;
+    font-weight: bold;
+}
+.carousel-warp .carousel-item img{
+    width : 600px;
+    height: 600px;
+}
+.dot-block{
+    position: absolute;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    bottom: 30px;
+    height: 6px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 22;
+}
+.dot-item{
+    background: rgb(81,81,81);
+    width: 50px;
+    height: 3px ;
+    border-radius: 6px;
+    position: relative;
+}
+.dot-inside{
+    position: absolute;
+    left : 0 ;
+    top : 0;
+    background: rgb(214, 214, 214);
+    width: 0px;
+    height: 3px ;
+    border-radius: 6px;
+}
+.dot-active{
+    animation:mymove 2s;
+}
+
+
+@keyframes mymove
+{
+    from {width:0px;}
+    to {width:50px;}
+}
