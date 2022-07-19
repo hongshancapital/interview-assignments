@@ -1,0 +1,43 @@
+@import '../../../assets/sass/color.scss';
+
+.carousselIndicatorContainer {
+
+    * {
+        box-sizing: border-box;
+        
+    }
+    position: absolute;
+    bottom: 50px;
+    width: 100vw;
+    display: flex;
+    flex-flow: row;
+    justify-content:center;
+
+    li {
+        width: 45px;
+        height: 3px;
+        margin-left: 35px;
+        border-radius: 10px;
+        background-color: $grey-ccc;
+
+        .indicator-inner{
+            width: 0px;
+            height: 3px;
+            border-radius: 10px;
+            background-color: white;
+        }
+
+        .indicator-inner-select{
+            width: 45px;
+            transition: width 1.5s;
+        }
+    }
+
+}
+
+ul {
+    padding:0;
+    list-style: none;
+    list-style-type: none;
+}
+
