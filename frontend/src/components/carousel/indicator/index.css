@@ -1,0 +1,25 @@
+.indicator {
+  display: inline-block;
+  margin: 0 5px;
+  width: 40px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: gray;
+}
+
+.indicator-progress {
+  width: 0;
+  height: 100%;
+  border-radius: 1px;
+  background-color: white;
+}
+
+@keyframes changeProgress {
+  from {width:0;}
+	to {width:40px;}
+}
+
+@keyframes changeProgressFirst {
+  from {width:7px;}
+	to {width:40px;}
+}
