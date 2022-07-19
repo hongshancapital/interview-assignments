@@ -1,0 +1,42 @@
+@keyframes indicatorProgress {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.carousel-indicator{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 6%;
+  .indicator-item{
+    width: 60px;
+    height: 6px;
+    background: #aaa;
+    margin-right: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    border-radius: 6px;
+    &:last-child{
+      margin-right: 0;
+    }
+    .indicator-progress{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    &.is-active{
+      .indicator-progress{
+        animation: indicatorProgress linear forwards;
+        background: #fff;
+      }
+    }
+  }
+}
