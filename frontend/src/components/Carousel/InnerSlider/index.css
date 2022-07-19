@@ -1,0 +1,40 @@
+.inner_slider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.inner_slider_li, .inner_slider_li_anim {
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  width: 80px;
+  height: 4px;
+  margin: 0 8px;
+  background-color: #a0a0a0;
+  border-radius: 4px;
+}
+
+.inner_slider_li_anim:before {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  content: '';
+  width: 80px;
+  height: 4px;
+  background-color: #ffffff;
+  animation: move 3s linear 1; 
+}
+
+@keyframes move {
+  from {
+    transform: translateX(0%)
+  }
+  to {
+    transform: translateX(100%)
+  }
+}
