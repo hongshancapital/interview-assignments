@@ -1,0 +1,63 @@
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.slider-wrapper {
+    height: 100vh;
+    overflow: hidden;
+    margin: auto;
+    width: 100%;
+    transition: height 0.15s, ease-in;
+}
+
+.slider {
+    position: relative;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    transition: all 0.5s ease;
+}
+
+.slide {
+    flex-direction: column;
+    flex-flow: column;
+    min-width: 100%;
+    margin: 0;
+    position: relative;
+    text-align: center;
+}
+
+.progress-lines {
+    position: absolute;
+    bottom: 60px;
+    display: flex;
+    left: calc(50% - 90px);
+    z-index: 100;
+}
+
+.progress-line-wrapper .progress-line {
+    position: relative;
+    width: 40px;
+    height: 2px;
+    border-radius: 6px;
+    background-color: #a09fa0;
+    margin-right: 20px;
+    list-style: none;
+}
+
+.progress-line-wrapper .progress-line-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #f9f9f9;
+    height: 2.5px;
+    border-radius: 6px;
+    transition: width 3s ease;
+    border: none;
+    list-style: none;
+}
