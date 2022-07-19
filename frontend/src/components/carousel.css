@@ -1,0 +1,71 @@
+.slider-wrapper {
+    width: max-content;
+    height: 100%;
+  }
+  
+  .slider-item {
+    width: 100vw;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    padding: 20vh 0 30vh;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  
+  img {
+    height: 40vh;
+  }
+  
+  .title {
+    font-size: 56px;
+    font-weight: 600;
+  }
+  
+  .desc {
+    font-size: 28px;
+    font-weight: 400;
+    margin-top: 20px;
+  }
+  
+  
+  .slider-bar-wrapper {
+    position: fixed;
+    bottom: 20vh;
+    width: 100vw;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bar-wrapper {
+    display: inline-block;
+    width: 60px;
+    height: 5px;
+    background: #fff;
+    margin: 0 5px;
+    border-radius: 2px;
+  }
+  .bar {
+    width: 0;
+    height: 100%;
+    background: gray;
+  }
+  
+  .active-bar {
+    animation-name: fillBar;
+    animation-timing-function: linear;
+  }
+  
+  @keyframes fillBar {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
