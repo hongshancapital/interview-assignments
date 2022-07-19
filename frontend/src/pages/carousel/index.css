@@ -1,0 +1,125 @@
+.container{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.line{
+  width: 200px;
+  padding: 0;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  z-index: 1;
+}
+.line li{
+  list-style: none;
+  position: relative;
+  overflow: hidden;
+  width: 50px;
+  margin: 50px auto;
+  height: 2px;
+  background: rgb(121, 120, 120);
+  z-index: 1;
+}
+
+.line >.animate::before{
+  display: inline-block;
+  position: absolute;
+  left: -100%;
+  top: 0;
+  content: '';
+  height: 2px;
+  width: 50px;
+  z-index: 999;
+  background-color: #fff;
+  /* 依次对应：动画名、时长、匀速、无限循环 */
+  animation: move 3s linear infinite;
+}
+
+@keyframes move {
+  from {
+      left: -100%;
+  }
+  to {
+      left: 0%;
+  }
+}
+
+
+p{
+  font-size: 50px;
+  margin: 20px !important;
+}
+.iphone{
+  background-color: #111111;
+  color: #fff;
+  position: absolute;
+}
+.iphoneBox{
+  width: 26% !important;
+  height: 165px;
+  font-size: 28px;
+  position: absolute;
+  top: 20%;
+}
+.tablet{
+  background-color: #fafafa;
+}
+
+.tabletBox{
+  width: 32% !important;
+  height: 165px;
+  font-size: 28px;
+  position: absolute;
+  top: 20%;
+}
+
+.airPods{
+  background-color: #f1f1f3;
+}
+
+.airPodsBox{
+  position: absolute;
+  top: 20%;
+}
+.airPodsBox>p{
+  width: 750px;
+  margin: 0 auto;
+}
+
+.container .children{
+  overflow: scroll;
+  transition: transform 1s ease;
+}
+.container .children>div{
+  display: block;
+  float: left;
+  width: 33.333333333333336%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+/* .container .children>div:nth-child(1){
+  background-color: #111111;
+}
+.container .children>div:nth-child(2){
+  background-color: #fafafa;
+}
+.container .children>div:nth-child(3){
+  background-color: #f1f1f3;
+} */
+.container .children div:nth-child(1) img{
+  height:450px;
+  width: auto !important;
+}
+.container .children div img{
+  width: 100%;
+}
