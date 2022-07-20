@@ -1,0 +1,56 @@
+.App {
+  text-align: center;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dark {
+  color: #fff;
+  background: url("./assets/iphone.png") center bottom / cover no-repeat;
+  max-width: 100%;
+  background-color: #111111;
+  background-position-y: -20vh;
+}
+
+.light {
+  color: #000;
+  background: url("./assets/tablet.png") center bottom / cover no-repeat;
+  background-color: #FAFAFA;
+  background-position-y: -20vh;
+}
+
+.middle {
+  color: #000;
+  background: url("./assets/airpods.png") center bottom / cover no-repeat;
+  background-color: #F1F1F3;
+  background-position-y: -20vh;
+}
+.carousel-item {
+  &-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    padding-top: 20vh;
+  }
+  &-title { 
+    font-size: 56px;
+    font-weight: 600;
+    white-space: pre-wrap;
+  }
+  &-des { 
+    font-size: 28px;
+    font-weight: 400;
+    white-space: pre-wrap;
+    margin-top: 16px;
+  }
+  &-img {
+    margin-bottom: 96px;
+    margin-top: -96px;
+    &-0 {
+      height: 460px;
+    }
+  }
+}
+
