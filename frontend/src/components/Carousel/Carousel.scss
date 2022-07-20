@@ -1,0 +1,64 @@
+.carousel {
+  position: relative;
+  min-height: 100px;
+
+  &-panels {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  &-panel {
+    float: left;
+    display: block;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  &-dots {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8%;
+  }
+  
+  .dotHeight {
+    height: 2px;
+  }
+
+  &-dot {
+    @extend .dotHeight;
+    display: inline-flex;
+    width: 32px;
+    border-radius: 1px;
+    margin: 0 5px;
+    background-color: #a9a9a9;
+    color: transparent;
+    overflow: hidden;
+    cursor: pointer;
+    
+    em {
+      @extend .dotHeight;
+      display: block;
+      width: 100%;
+      transform: translateX(-100%);
+      background-color: #fafafa;
+      
+      &.animation {
+        animation: dot 3s linear;
+      }
+    }
+  }
+}
+
+@keyframes dot {
+  from {
+    // 动画优化：使用 transform 代替 width
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
