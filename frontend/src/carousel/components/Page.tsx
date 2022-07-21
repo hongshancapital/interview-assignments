@@ -1,19 +1,16 @@
 import { DataItem } from "../data";
-
+import style from "./page.module.sass";
 type PageProps = DataItem;
 
 function Page(props: PageProps) {
   return (
-    <div className="pageContainer" style={props.style}>
-      <div className="titleContainer">
+    <div className={style.pageContainer} style={props.style}>
+      <div className={style.titleContainer}>
         {props.title.map((title) => (
           <div key={title[0]} className="titleItem" style={title[1]}>
             {title[0]}
           </div>
         ))}
-      </div>
-      <div className="imageArea">
-        <span className="img" style={{ backgroundImage: props.asset }}></span>
       </div>
     </div>
   );

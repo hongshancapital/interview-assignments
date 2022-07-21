@@ -8,11 +8,15 @@ type TitleType = [
 export interface DataItem {
   title: TitleType[];
   style: {
-    backgroundColor: string;
+    background: string;
   };
   asset: string;
   id: string;
 }
+
+const phoneImg = require("../assets/iphone.png");
+const tableletImg = require("../assets/tablet.png");
+const airpodsImg = require("../assets/airpods.png");
 
 const data: DataItem[] = [
   {
@@ -33,7 +37,7 @@ const data: DataItem[] = [
       ],
     ],
     style: {
-      backgroundColor: "#111",
+      background: `url(${phoneImg}) center center / cover no-repeat`,
     },
     asset: require("../assets/iphone.png"),
     id: "iphone",
@@ -56,7 +60,7 @@ const data: DataItem[] = [
       ],
     ],
     style: {
-      backgroundColor: "#fff",
+      background: `url(${tableletImg}) center center / cover no-repeat`,
     },
     asset: require("../assets/tablet.png"),
     id: "tablet",
@@ -72,7 +76,7 @@ const data: DataItem[] = [
       ],
     ],
     style: {
-      backgroundColor: "#fff",
+      background: `url(${airpodsImg}) center center / cover no-repeat`,
     },
     asset: require("../assets/airpods.png"),
     id: "airpods",

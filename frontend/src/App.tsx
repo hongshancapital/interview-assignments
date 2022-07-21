@@ -1,10 +1,9 @@
-import React from "react";
-import "./App.sass";
+import style from "./app.module.sass";
 import Carousel from "./carousel";
 
 function App() {
   return (
-    <div className="App">
+    <div className={style.app}>
       <Carousel />
     </div>
   );
