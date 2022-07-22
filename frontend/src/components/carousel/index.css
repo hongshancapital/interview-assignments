@@ -1,0 +1,87 @@
+/** 轮播主样式 */
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.carousel-box {
+  height: 100%;
+  transition: transform 0s linear;
+}
+.carousel-wraper {
+  display: inline-flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.carousel-item {
+  width: 100vw;
+  height: 100%;
+}
+/** 渲染内容 */
+.content {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+}
+.content-wraper {
+  padding-top: 100px;
+  text-align: center;
+}
+.content-wraper p {
+  margin: 15px 0;
+  font-weight: bold;
+  font-size: 60px;
+  z-index: 1;
+}
+.content-wraper .subtitle {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+  z-index: 1;
+}
+.content-wraper img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 350px;
+  bottom: 100px;
+  z-index: 0;
+}
+/** 进度条 */
+.bar {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.bar-progress {
+  display: inline-flex;
+  width: 40px;
+  height: 3px;
+  background-color: gray;
+  border-radius: 3px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+.bar-progress-inner {
+  width: 0;
+  height: 3px;
+  background-color: #fff;
+  /* transition: width 0s; */
+  /* animation: ; */
+}
+@keyframes mymove {
+  from {
+    width: 0;
+  }
+  to {
+    width: 40px;
+  }
+}
