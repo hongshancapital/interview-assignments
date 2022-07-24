@@ -1,0 +1,65 @@
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+.carousel-container, .carousel-list, .carousel-inner-list {
+  width: 100%;
+  height: 100%;
+}
+
+.scdt-carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  display: flex;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  justify-content: center;
+  margin: 0 15%;
+  padding-left: 0;
+  list-style: none;
+}
+
+.scdt-carousel-dots li {
+  display: inline-block;
+  position: relative;
+  flex: 0 1 auto;
+  box-sizing: content-box;
+  height: 3px;
+  width: 35px;
+  margin: 0 5px;
+  padding: 0;
+  text-align: center;
+  vertical-align: top;
+  background-color: gray;
+}
+
+.scdt-carousel-dots li div {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  font-size: 0;
+  border: 0;
+  border-radius: 1px;
+  outline: none;
+  cursor: pointer;
+}
+
+.scdt-carousel-dots li.is-active div {
+  background-color: white;
+}
+
+.carousel-container:hover .scdt-carousel-dots li div {
+  animation-play-state: paused !important;
+}
+
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
