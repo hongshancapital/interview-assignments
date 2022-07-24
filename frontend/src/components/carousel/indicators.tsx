@@ -19,11 +19,8 @@ const Indicators: FC<IndicatorsProps> = memo(({
   onSelect,
 }) => {
   const ranges = useMemo(() => {
-    const ranges = [];
-    for(let i = 0; i < count; i++) {
-      ranges.push(i)
-    }
-
+    const ranges = new Array(count);
+    ranges.fill(0)
     return ranges;
   }, [count]);
 
@@ -34,8 +31,8 @@ const Indicators: FC<IndicatorsProps> = memo(({
   return (
     <ul className={style.Indicators}>
       {
-        ranges.map((i) =>
-          <li key={i} role="link" onClick={onClick(i)} className={classnames(style.Indicator, { [style.IndicatorActive]: activeIndex === i })}>
+        ranges.map((_, index) =>
+          <li key={index} role="link" onClick={onClick(index)} className={classnames(style.Indicator, { [style.IndicatorActive]: activeIndex === index })}>
             <div style={indicatorProgressStyle} />
           </li>
         )
