@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/aria-role */
 import React, {
   memo,
   FC,
@@ -98,7 +99,7 @@ const Carousel: FC<CarouselProps> = memo(({
 
   return (
     <div className={style.CarouseRoot}>
-      <div style={sliderContainerStyle} className={style.SlidesContainer}>
+      <div role="sliders" style={sliderContainerStyle} className={style.SlidesContainer}>
         {
           Children.map(children, (child) => (
             <div className={style.CarouselItem}>

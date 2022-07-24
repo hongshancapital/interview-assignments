@@ -35,7 +35,7 @@ const Indicators: FC<IndicatorsProps> = memo(({
     <ul className={style.Indicators}>
       {
         ranges.map((i) =>
-          <li key={i} onClick={onClick(i)} className={classnames(style.Indicator, { [style.IndicatorActive]: activeIndex === i })}>
+          <li key={i} role="link" onClick={onClick(i)} className={classnames(style.Indicator, { [style.IndicatorActive]: activeIndex === i })}>
             <div style={indicatorProgressStyle} />
           </li>
         )
