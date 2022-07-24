@@ -1,0 +1,84 @@
+.container {
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  transition: 0.3s;
+}
+
+.item {
+  background-position: 50% 80%;
+  background-repeat: no-repeat;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.phone {
+  background-color: #111;
+  color: #ffffff;
+  background-size: contain;
+  background-image: url(../../assets/iphone.png);
+}
+
+.tablet {
+  background-image: url(../../assets/tablet.png);
+  background-color: #fafafa;
+  color: #000;
+  background-size: cover;
+}
+
+.airpods {
+  background-image: url(../../assets/airpods.png);
+  background-color: #f1f1f1;
+  color: #000;
+  background-size: cover;
+}
+
+.pre {
+  white-space: pre;
+}
+
+.index {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);
+}
+
+.index-item {
+  background-color: rgb(148, 143, 143);
+  height: 2px;
+  width: 40px;
+  margin-left: 4px;
+  margin-right: 4px;
+  border-radius: 2px;
+}
+
+.index-progress {
+  background-color: #fafafa;
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+}
+
+.index-progress-active {
+  animation: progress;
+  animation-timing-function: linear;
+}
+
+@keyframes progress {
+  form {
+    height: 100%;
+    width: 0%;
+  }
+  to {
+    height: 100%;
+    width: 100%;
+  }
+}
