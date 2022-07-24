@@ -1,20 +1,20 @@
 // 整个组件的根
 .CarouseRoot {
-  width: 100%;
-  height: 100%;
   overflow: hidden;
-  display: relative;
+  position: relative;
 }
 
 // slides容器滑动画定义
 .SlidesContainer {
+  will-change: transform;
   transition-property: transform;
   transition-delay: 0s;
 
   // slide 容器样式
   .CarouselItem {
     display: inline-block;
-    width: 100%;
+    height: 100%;
+
   }
 }
 
@@ -23,7 +23,7 @@
   cursor: pointer;
   list-style: none;
   position: absolute;
-  bottom: 10px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   padding: 0;
@@ -48,6 +48,7 @@
       background-color: #fff;
       transform: translateX(-100%);
       animation-timing-function: linear;
+      will-change: transform;
     }
   
     // 引用进度动画

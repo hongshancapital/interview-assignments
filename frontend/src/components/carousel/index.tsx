@@ -89,16 +89,17 @@ const Carousel: FC<CarouselProps> = memo(({
   // slides的个数
   const childCount = Children.count(children);
   // 每个slide的高度和宽度
-  const carouselItemStyle = useMemo(() => ({ width: sizeState.width, height }), [height, sizeState.width]);
+  const carouselItemStyle = useMemo(() => ({ width: sizeState.width }), [sizeState.width]);
   // 循环激活索引
   const cyclicedActiveIndex = activeIndex % childCount;
   // slide container的样式，定义了总宽度和滑动动画
   const sliderContainerStyle = useMemo(() => ({
+    height,
     width:  childCount * sizeState.width,
     transitionDuration: `${duration}s`,
     transitionTimingFunction: timingFunction,
     transform: `translateX(${ -sizeState.width * (cyclicedActiveIndex) }px)`,
-  }), [childCount, sizeState.width, duration, timingFunction, cyclicedActiveIndex]);
+  }), [childCount, sizeState.width, duration, timingFunction, cyclicedActiveIndex, height]);
   // 改变当前激活的slide的回调，用于indicator的点击，因为需要传入子组件，所以需要用useCallback包裹以便于pure render的生效
   const onSelectCarouselItem = useCallback<SelectFunction>((index) => {
     setActiveIndex(index);

@@ -1,5 +1,8 @@
 # TypeScript Frontend Engineer Assignment
 
+## 最终实现
+![chrome-capture-2022-6-24 (1)](https://user-images.githubusercontent.com/7593506/180639067-2e1601cf-be7b-4caf-b024-f08bb7687f2b.gif)
+
 ## 要求
 
 - 实现 demo.mov 中的效果
