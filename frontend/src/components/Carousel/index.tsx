@@ -44,30 +44,33 @@ const Carousel: React.FC<ICarouselProps> = (props: ICarouselProps) => {
     afterChange?.(current);
   }, [current]);
 
-  const animationObj = { startTime: 0, runedTime: 0 };
+  const animationObj = useRef<any>(null);
   const goTo = (next: number) => {
     beforeChange?.(current, next);
     setCurrent(next);
     slideNumber.current = next;
-    animationObj.runedTime = 0;
+    if (animationObj.current?.runedTime) {
+      animationObj.current.runedTime = 0;
+    }
   };
 
   // autoplay 与暂停/开始
   useEffect(() => {
     if (autoplay) {
+      animationObj.current = { runedTime: 0, startTime: 0};
       let timer: NodeJS.Timer;
       const setTimer = () => {
-        animationObj.startTime = Date.now();
+        animationObj.current.startTime = Date.now();
         timer = setTimeout(() => {
           const next = slideNumber.current + 1 >= len ? 0 : slideNumber.current + 1;
           goTo(next);
-          animationObj.runedTime = 0;
+          animationObj.current.runedTime = 0;
           setTimer();
-        }, interval - animationObj.runedTime);
+        }, interval - animationObj.current.runedTime);
       };
       const mouseoverHandler = () => {
         clearTimeout(timer);
-        animationObj.runedTime += Date.now() - animationObj.startTime;
+        animationObj.current.runedTime += Date.now() - animationObj.current.startTime;
       };
       const mouseleaveHandler = () => {
         setTimer();
