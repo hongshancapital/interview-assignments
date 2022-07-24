@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useState} from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import './Carousel.css'
 
 
@@ -7,8 +7,8 @@ interface Props {
 }
 function Carousel(props: Props) {
     const { children } = props
-    const [selected, setSelected] = useState(2)
-    
+    const [selected, setSelected] = useState(0)
+
     useEffect(() => {
         const tick = setTimeout(() => {
             setSelected((selected + 1) % children.length)
@@ -19,12 +19,20 @@ function Carousel(props: Props) {
     })
     return <div className="carousel-container">
         {
-            children[selected % 3]
+            children.map((item, index) => {
+                return <div
+                    key={index}
+                    className='carousel-item-wrapper'
+                    style={{
+                        left: `${100 * index}%`,
+                        transform: `translateX(${-100 * selected}%)`
+                    }}>{item}</div>
+            })
         }
         <div className="indicator-box">
             {
                 children.map((item, index) => {
-                    return <div key={index} className="indicator-item" onClick={() => setSelected(index % children.length)}>
+                    return <div key={index} data-testid="indicator" className="indicator-item" onClick={() => setSelected(index % children.length)}>
                         {
                             selected === index && <div className="indicator-item-progress"></div>
                         }
