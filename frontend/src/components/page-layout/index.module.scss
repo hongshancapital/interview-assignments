@@ -1,0 +1,36 @@
+.LayoutRoot {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+
+  .Desc {
+    margin-top: 200px;
+    position: relative;
+    z-index: 1;
+    // 使用mix-blend-mode 让字体的颜色随着背景取反
+    mix-blend-mode: difference;
+    color: #fff;
+
+    & > H1 {
+      margin: 10px 0;
+      font-size: 2.5rem;
+    }
+
+    & > H2 {
+      margin: 10px 0;
+      font-size: 1.8rem;
+      font-weight: normal;
+    }
+  }
+
+  & > img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    object-position: bottom;
+    position: absolute;
+    bottom: 80px;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+}
