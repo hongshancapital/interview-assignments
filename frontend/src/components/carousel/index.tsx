@@ -15,7 +15,6 @@ import Indicators, { SelectFunction } from './indicators';
 
 /**
  * children: slide的内容
- * height?: slide的高度，外部指定，可以使数字可以是字符串
  * defaultActiveIndex: 初始化的时候激活哪个index的slide, index从0开始
  * duration: slides切换的间隔时间
  * interval: sldies过久触发一次切换
@@ -23,7 +22,6 @@ import Indicators, { SelectFunction } from './indicators';
  */
 interface CarouselProps {
   children: ReactNode,
-  height?: number|string,
   defaultActiveIndex?: number,
   duration?: number,
   interval?: number,
@@ -43,7 +41,6 @@ export enum TimingFunction {
 
 const Carousel: FC<CarouselProps> = memo(({
   children,
-  height = 160,
   defaultActiveIndex = 0,
   duration=0.3,
   timingFunction=TimingFunction.easeInOut,
@@ -68,11 +65,10 @@ const Carousel: FC<CarouselProps> = memo(({
   const cyclicedActiveIndex = activeIndex % childCount;
   // slide container的样式，定义了总宽度和滑动动画
   const sliderContainerStyle = useMemo(() => ({
-    height,
     transitionDuration: `${duration}s`,
     transitionTimingFunction: timingFunction,
     transform: `translateX(${ -100 * (cyclicedActiveIndex) }%)`,
-  }), [duration, timingFunction, cyclicedActiveIndex, height]);
+  }), [duration, timingFunction, cyclicedActiveIndex]);
   // 改变当前激活的slide的回调，用于indicator的点击，因为需要传入子组件，所以需要用useCallback包裹以便于pure render的生效
   const onSelectCarouselItem = useCallback<SelectFunction>((index) => {
     setActiveIndex(index);

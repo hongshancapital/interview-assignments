@@ -21,13 +21,6 @@ test('渲染轮播的子项的个数应该是正确的', () => {
   expect(carouselItems).toHaveLength(2)
 });
 
-test('渲染的轮播高度应该根据传入的height来确定', () => {
-  const height = 160;
-  const { getByRole } = render(<Carousel height={height}><div>I am a carousel children</div></Carousel>);
-  const sliders = getByRole("sliders")
-  expect(sliders).toHaveStyle({ height: `${height}px` })
-});
-
 
 test('轮播的defaultActiveIndex应该激活对应的卡片', () => {
   const defaultActiveIndex = 2;

@@ -8,9 +8,8 @@ import airpodIcon from './assets/airpods.png';
 import "./App.css";
 
 function App() {
-  const height = '100vh';
   return <div className="App">
-    <Carousel defaultActiveIndex={0} height={height}>
+    <Carousel defaultActiveIndex={0}>
       <PageLayout imageUrl={iphoneIcon} backgroundColor="#111111">
         <h1>xPhone</h1>
         <h2>Lots to love. Less to spend.</h2>
