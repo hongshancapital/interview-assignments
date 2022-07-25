@@ -1,0 +1,35 @@
+.demo {
+  &-item {
+    position: relative;
+    background-color: #111111;
+    height: 100vh;
+
+    &-title {
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      &.light {
+        color: #fff;
+      }
+
+      h1 {
+        font-size: 56px;
+      }
+
+      &-sub {
+        font-size: 28px;
+        margin: 0;
+      }
+    }
+
+    &.light {
+      background-color: #fafafa;
+    }
+
+    &-image {
+      position: absolute;
+      bottom: 10%;
+    }
+  }
+}
