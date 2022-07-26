@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCarouselActiveIndex } from '../hooks/useCarouselActiveIndex';
+import './carousel.css';
 
 interface ICarouselProps {
   children: JSX.Element | JSX.Element[];
@@ -14,7 +15,7 @@ export function Carousel(props: ICarouselProps): JSX.Element {
   }
 
   return (
-    <div className='carouselContainer' data-testid="carousel-component">
+    <div className='carouselContainer' data-testid='carousel-component'>
       {renderSlides()}
       {renderIndicators()}
     </div>

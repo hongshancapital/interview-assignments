@@ -6,11 +6,9 @@ const CAROUSEL_SLIDES: ISlideRendererProps[] = [
   {
     titles: ['title1'],
     descriptions: ['description1'],
-    image: {
-      src: require('./assets/iphone.png'),
-      alt: 'iPhone'
-    },
     wrapperStyle: {
+      backgroundSize: '50%',
+      backgroundImage: `url(${require('./assets/iphone.png')})`,
       backgroundColor: '#111',
       color: '#fff'
     }
@@ -18,11 +16,9 @@ const CAROUSEL_SLIDES: ISlideRendererProps[] = [
   {
     titles: ['title2'],
     descriptions: ['description2'],
-    image: {
-      src: require('./assets/tablet.png'),
-      alt: 'tablet'
-    },
     wrapperStyle: {
+      backgroundSize: '90%',
+      backgroundImage: `url(${require('./assets/tablet.png')})`,
       backgroundColor: '#fafafa',
       color: '#000'
     }
@@ -30,12 +26,10 @@ const CAROUSEL_SLIDES: ISlideRendererProps[] = [
   {
     titles: ['title3'],
     descriptions: ['description3'],
-    image: {
-      src: require('./assets/airpods.png'),
-      alt: 'airpods'
-    },
     wrapperStyle: {
-      backgroundColor: '#fafafa',
+      backgroundSize: '140%',
+      backgroundImage: `url(${require('./assets/airpods.png')})`,
+      backgroundColor: '#f1f1f3',
       color: '#000'
     }
   }
