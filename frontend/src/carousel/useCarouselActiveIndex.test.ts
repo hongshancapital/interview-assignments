@@ -21,4 +21,14 @@ describe('useCarouselActiveIndex', () => {
 
     expect(result.current).toBe(1);
   });
+
+  it('should return 0 after duration ms when current active index is the last one', () => {
+    const { result } = renderHook(() => useCarouselActiveIndex(3, 3000, 2));
+
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    })
+
+    expect(result.current).toBe(0);
+  });
 });
