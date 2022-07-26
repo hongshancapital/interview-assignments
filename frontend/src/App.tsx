@@ -4,8 +4,8 @@ import { Carousel, ISlideRendererProps, SlideRenderer } from './carousel';
 
 const CAROUSEL_SLIDES: ISlideRendererProps[] = [
   {
-    titles: ['title1'],
-    descriptions: ['description1'],
+    titles: ["xPhone"],
+    descriptions: ["Lots to love. Less to spend.", "Starting at $399."],
     wrapperStyle: {
       backgroundSize: '50%',
       backgroundImage: `url(${require('./assets/iphone.png')})`,
@@ -14,8 +14,8 @@ const CAROUSEL_SLIDES: ISlideRendererProps[] = [
     }
   },
   {
-    titles: ['title2'],
-    descriptions: ['description2'],
+    titles: ['Tablet'],
+    descriptions: ['Just the right amount of everything.'],
     wrapperStyle: {
       backgroundSize: '90%',
       backgroundImage: `url(${require('./assets/tablet.png')})`,
@@ -24,8 +24,8 @@ const CAROUSEL_SLIDES: ISlideRendererProps[] = [
     }
   },
   {
-    titles: ['title3'],
-    descriptions: ['description3'],
+    titles: ['Buy a Tablet or xPhone for college.', 'Get arPods.'],
+    descriptions: [],
     wrapperStyle: {
       backgroundSize: '140%',
       backgroundImage: `url(${require('./assets/airpods.png')})`,
