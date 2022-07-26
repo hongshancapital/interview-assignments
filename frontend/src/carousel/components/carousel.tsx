@@ -8,11 +8,11 @@ interface ICarouselProps {
 
 export function Carousel(props: ICarouselProps): JSX.Element {
   const children = Array.isArray(props.children) ? props.children : [props.children];
+  const activeIndex = useCarouselActiveIndex(children.length, props.slideDurationMs);
   if (children.length === 0) {
     return <></>;
   }
 
-  const activeIndex = useCarouselActiveIndex(children.length, props.slideDurationMs);
   return (
     <div className='carouselContainer' data-testid="carousel-component">
       {renderSlides()}

@@ -5,7 +5,9 @@ export function useCarouselActiveIndex(count: number, durationMs: number, defaul
   const [activeIndex, setActiveIndex] = React.useState(defaultActiveIndex || 0);
 
   useTimeout(() => {
-    setActiveIndex((activeIndex + 1) % count);
+    if (count > 0) {
+      setActiveIndex((activeIndex + 1) % count);
+    }
   }, durationMs);
 
   return activeIndex;

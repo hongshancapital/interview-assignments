@@ -31,4 +31,17 @@ describe('useCarouselActiveIndex', () => {
 
     expect(result.current).toBe(0);
   });
+
+  it('should always return default active index when count is 0', () => {
+    const defaultActiveIndex = 2;
+    const { result } = renderHook(() => useCarouselActiveIndex(0, 3000, defaultActiveIndex));
+
+    expect(result.current).toBe(defaultActiveIndex);
+
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    })
+
+    expect(result.current).toBe(defaultActiveIndex);
+  });
 });
