@@ -23,7 +23,7 @@ export function Carousel(props: ICarouselProps): JSX.Element {
 
   function renderSlides() {
     return (
-      <div className='carouselSlidesWrapper'>
+      <div className='carouselSlidesWrapper' style={{ left: `-${activeIndex * 100}%` }}>
         {
           children.map((child, index) => (
             <div key={index} data-testid={`carousel-slide-${index}`}
