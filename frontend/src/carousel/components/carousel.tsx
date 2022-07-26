@@ -14,7 +14,7 @@ export function Carousel(props: ICarouselProps): JSX.Element {
 
   const activeIndex = useCarouselActiveIndex(children.length, props.slideDurationMs);
   return (
-    <div className='carouselContainer'>
+    <div className='carouselContainer' data-testid="carousel-component">
       {renderSlides()}
       {renderIndicators()}
     </div>

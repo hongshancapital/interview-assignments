@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface ISlideRendererProps {
+export interface ISlideRendererProps {
   titles?: string[];
   descriptions?: string[];
   image: {
