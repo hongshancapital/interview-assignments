@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCarouselActiveIndex } from './useCarouselActiveIndex';
+import { useCarouselActiveIndex } from '../hooks/useCarouselActiveIndex';
 
 interface ICarouselProps {
   children: JSX.Element | JSX.Element[];
