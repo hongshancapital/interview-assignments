@@ -15,6 +15,13 @@ export function Carousel(props: ICarouselProps): JSX.Element {
   const activeIndex = useCarouselActiveIndex(children.length, props.slideDurationMs);
   return (
     <div className='carouselContainer'>
+      {renderSlides()}
+      {renderIndicators()}
+    </div>
+  );
+
+  function renderSlides() {
+    return (
       <div className='carouselSlidesWrapper'>
         {
           children.map((child, index) => (
@@ -26,6 +33,21 @@ export function Carousel(props: ICarouselProps): JSX.Element {
           ))
         }
       </div>
-    </div>
-  );
+    );
+  }
+
+  function renderIndicators() {
+    return (
+      <div className='carouselIndicatorsWrapper'>
+        {
+          Array(children.length).fill(0).map((_, index) =>
+            (
+              <span key={index} data-testid={`carousel-indicator-${index}`}
+                    className={`carouselIndicator ${index === activeIndex ? 'carouselIndicator__active' : ''}`}>
+              </span>
+            ))
+        }
+      </div>
+    );
+  }
 }
