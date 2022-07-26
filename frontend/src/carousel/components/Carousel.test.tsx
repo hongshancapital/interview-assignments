@@ -1,6 +1,6 @@
 import { act, getByTestId, render } from '@testing-library/react';
 import React from 'react';
-import { Carousel } from './carousel';
+import { Carousel } from './Carousel';
 
 describe('Carousel', () => {
   beforeEach(() => {
