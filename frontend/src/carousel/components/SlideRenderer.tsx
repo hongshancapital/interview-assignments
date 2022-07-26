@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 export interface ISlideRendererProps {
   titles?: string[];
@@ -6,12 +6,13 @@ export interface ISlideRendererProps {
   image: {
     src: string;
     alt?: string;
-  }
+  },
+  wrapperStyle?: CSSProperties;
 }
 
 export function SlideRenderer(props: ISlideRendererProps): JSX.Element {
   return (
-    <div className='slideWrapper'>
+    <div className='slideWrapper' style={props.wrapperStyle}>
       {props.titles?.map((title, index) =>
         <h1 key={index}>{title}</h1>
       )}

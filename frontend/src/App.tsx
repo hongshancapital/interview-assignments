@@ -9,6 +9,10 @@ const CAROUSEL_SLIDES: ISlideRendererProps[] = [
     image: {
       src: require('./assets/iphone.png'),
       alt: 'iPhone'
+    },
+    wrapperStyle: {
+      backgroundColor: '#111',
+      color: '#fff'
     }
   },
   {
@@ -17,6 +21,10 @@ const CAROUSEL_SLIDES: ISlideRendererProps[] = [
     image: {
       src: require('./assets/tablet.png'),
       alt: 'tablet'
+    },
+    wrapperStyle: {
+      backgroundColor: '#fafafa',
+      color: '#000'
     }
   },
   {
@@ -25,6 +33,10 @@ const CAROUSEL_SLIDES: ISlideRendererProps[] = [
     image: {
       src: require('./assets/airpods.png'),
       alt: 'airpods'
+    },
+    wrapperStyle: {
+      backgroundColor: '#fafafa',
+      color: '#000'
     }
   }
 ];
