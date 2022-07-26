@@ -1,12 +1,12 @@
 import React from 'react';
-import { useInterval } from 'usehooks-ts';
+import { useTimeout } from 'usehooks-ts';
 
-export function useCarouselActiveIndex(count: number, durationInMs: number, defaultActiveIndex?: number): number {
+export function useCarouselActiveIndex(count: number, durationMs: number, defaultActiveIndex?: number): number {
   const [activeIndex, setActiveIndex] = React.useState(defaultActiveIndex || 0);
 
-  useInterval(() => {
+  useTimeout(() => {
     setActiveIndex((activeIndex + 1) % count);
-  }, durationInMs);
+  }, durationMs);
 
   return activeIndex;
 }
