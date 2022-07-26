@@ -1,0 +1,77 @@
+li {
+    list-style-type: none;
+}
+
+img {
+    width: 100%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.box {
+    position: relative;
+    width: 375px;
+    height: 700px;
+    /* 居中 */
+    top: -30px;
+    left: 50%;
+    transform: translate(-50%, 10%);
+    overflow: hidden;
+}
+
+.imgs {
+    position: absolute;
+    width: 380px;
+    height: 284px;
+    top: 0;
+    left: 50%;
+    transform: translate(-55%, 0%);
+}
+.imgs img{
+    height: 200px;
+}
+.imgs li {
+    position: absolute;
+    width: 400px;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.imgs .one {
+    transform: translateX(-380px) scale(0.9);
+    z-index: 1;
+    opacity: .8;
+}
+
+.imgs .two {
+    width: 375px;
+    z-index: 2;
+}
+
+.imgs .three {
+    transform: translateX(380px) scale(0.9);
+    z-index: 1;
+    opacity: .8;
+}
+
+.list {
+    position: absolute;
+    top: 410px;
+    bottom: -25px;
+    left: 30%;
+    z-index: 777;
+}
+
+.list li {
+    float: left;
+    width: 7px;
+    height: 7px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 50%;
+    margin: 0 6px;
+    cursor: pointer;
+}
+
+/* 小圆圈改变后的样式 */
+.list .change {
+    background-color: rgb(236, 65, 65);
+}
