@@ -23,7 +23,7 @@ export function Carousel(props: ICarouselProps): JSX.Element {
 
   function renderSlides() {
     return (
-      <div className='carouselSlidesWrapper' style={{ left: `-${activeIndex * 100}%` }}>
+      <div className='carouselSlidesWrapper' style={{ left: `-${activeIndex * 100}vw` }}>
         {
           children.map((child, index) => (
             <div key={index} data-testid={`carousel-slide-${index}`}
@@ -43,9 +43,14 @@ export function Carousel(props: ICarouselProps): JSX.Element {
         {
           Array(children.length).fill(0).map((_, index) =>
             (
-              <span key={index} data-testid={`carousel-indicator-${index}`}
-                    className={`carouselIndicator ${index === activeIndex ? 'carouselIndicator__active' : ''}`}>
-              </span>
+              <div key={index} data-testid={`carousel-indicator-${index}`}
+                   className={`carouselIndicator ${index === activeIndex ? 'carouselIndicator__active' : ''}`}>
+                <div className='carouselIndicator-inner'
+                     style={{
+                       width: `${index === activeIndex ? '100%' : 0}`,
+                       transition: `width ${props.slideDurationMs}ms linear`
+                     }}></div>
+              </div>
             ))
         }
       </div>

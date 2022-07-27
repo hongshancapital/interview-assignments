@@ -5,20 +5,34 @@
 }
 
 .carouselSlidesWrapper {
-    position: absolute;
-    left: 100%;
-    transition: 1s;
+    position: relative;
+    transition: left 1s;
     display: flex;
 }
 
 .carouselIndicatorsWrapper {
-
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    top: 90%;
 }
 
 .carouselIndicator {
-
+    width: 50px;
+    height: 3px;
+    margin: 0 5px;
+    border-radius: 2px;
+    background-color: gray;
 }
 
-.carouselIndicator__active {
+.carouselIndicator__active .carouselIndicator-inner {
+    visibility: visible;
+}
 
+.carouselIndicator-inner {
+    visibility: hidden;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #fafafa;
 }
