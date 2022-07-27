@@ -45,11 +45,11 @@ export function Carousel(props: ICarouselProps): JSX.Element {
             (
               <div key={index} data-testid={`carousel-indicator-${index}`}
                    className={`carouselIndicator ${index === activeIndex ? 'carouselIndicator__active' : ''}`}>
-                <div className='carouselIndicator-inner'
-                     style={{
-                       width: `${index === activeIndex ? '100%' : 0}`,
-                       transition: `width ${props.slideDurationMs}ms linear`
-                     }}></div>
+                <div
+                  className='carouselIndicator-inner'
+                  style={{
+                    animationDuration: `${props.slideDurationMs}ms`
+                  }}></div>
               </div>
             ))
         }

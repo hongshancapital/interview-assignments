@@ -27,11 +27,20 @@
 }
 
 .carouselIndicator__active .carouselIndicator-inner {
-    visibility: visible;
+    animation: indicator-progress linear;
+}
+
+@keyframes indicator-progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
 }
 
 .carouselIndicator-inner {
-    visibility: hidden;
+    width: 0;
     height: 3px;
     border-radius: 2px;
     background-color: #fafafa;
