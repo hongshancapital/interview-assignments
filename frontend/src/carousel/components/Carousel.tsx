@@ -7,11 +7,11 @@ interface ICarouselProps {
   slideDurationMs: number;
 }
 
-export function Carousel(props: ICarouselProps): JSX.Element {
+export function Carousel(props: ICarouselProps): JSX.Element | null {
   const children = Array.isArray(props.children) ? props.children : [props.children];
   const activeIndex = useCarouselActiveIndex(children.length, props.slideDurationMs);
   if (children.length === 0) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -47,9 +47,7 @@ export function Carousel(props: ICarouselProps): JSX.Element {
                    className={`carouselIndicator ${index === activeIndex ? 'carouselIndicator__active' : ''}`}>
                 <div
                   className='carouselIndicator-inner'
-                  style={{
-                    animationDuration: `${props.slideDurationMs}ms`
-                  }}></div>
+                  style={{ animationDuration: `${props.slideDurationMs}ms` }}></div>
               </div>
             ))
         }
