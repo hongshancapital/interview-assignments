@@ -4,8 +4,6 @@ import data from "@/assets/data/data";
 import styles from "./carousel.module.sass";
 import { useEffect, useRef, useState } from "react";
 
-const CAROUSEL_TIME = 5000;
-
 function Carousel() {
   function calcStyle(i: number, index: number) {
     return {
@@ -17,10 +15,13 @@ function Carousel() {
     widthRef.current = document.body.clientWidth;
   }
 
+  function changeActivePage(index: number) {
+    setIndex(index);
+  }
+
   const [index, setIndex] = useState(0);
-  const timerRef = useRef<NodeJS.Timer>();
+
   const widthRef = useRef(document.body.clientWidth);
-  const length = data.length;
 
   useEffect(() => {
     window.addEventListener("resize", resizeWidth);
@@ -29,15 +30,6 @@ function Carousel() {
     };
   }, []);
 
-  useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setIndex((prev) => (prev + 1 >= length ? 0 : prev + 1));
-    }, CAROUSEL_TIME);
-    return () => {
-      timerRef.current && clearInterval(timerRef.current);
-    };
-  }, [length]);
-
   return (
     <div className={styles.container}>
       {data.map((d, i) => {
@@ -45,7 +37,7 @@ function Carousel() {
         const s = Object.assign({}, bgStyle, calcStyle(index, i));
         return <Page key={d.id} {...other} bgStyle={s} />;
       })}
-      <Progress active={index} />
+      <Progress onChange={changeActivePage} />
     </div>
   );
 }

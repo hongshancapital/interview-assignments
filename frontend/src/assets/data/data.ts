@@ -25,7 +25,8 @@ const data: DataItem[] = [
         "xPhone",
         {
           color: "#fff",
-          fontSize: "60px",
+          fontSize: "72px",
+          fontWeight: "bold",
         },
       ],
       [
@@ -34,7 +35,7 @@ const data: DataItem[] = [
           position: "relative",
           top: "12px",
           color: "#fff",
-          fontSize: "24px",
+          fontSize: "32px",
         },
       ],
       [
@@ -43,7 +44,7 @@ const data: DataItem[] = [
           position: "relative",
           top: "16px",
           color: "#fff",
-          fontSize: "24px",
+          fontSize: "32px",
         },
       ],
     ],
@@ -57,21 +58,24 @@ const data: DataItem[] = [
   },
   {
     bgStyle: {
-      background: "#fff",
+      background: "#fafafa",
     },
     title: [
       [
         "Tablet",
         {
-          color: "#fff",
-          fontSize: "32px",
+          color: "#000",
+          fontSize: "60px",
+          fontWeight: "bold",
         },
       ],
       [
         "Just the right amount of everything",
         {
+          position: "relative",
+          top: "12px",
           color: "#000",
-          fontSize: "32px",
+          fontSize: "24px",
         },
       ],
     ],
@@ -85,14 +89,23 @@ const data: DataItem[] = [
   },
   {
     bgStyle: {
-      background: "#fff",
+      background: "#f1f1f3",
     },
     title: [
       [
-        "Buy a Tablet or xPhone for college.\nGet arPods.",
+        "Buy a Tablet or xPhone for college.",
         {
           color: "#000",
-          fontSize: "32px",
+          fontSize: "60px",
+          fontWeight: "bold",
+        },
+      ],
+      [
+        "Get arPods.",
+        {
+          color: "#000",
+          fontSize: "60px",
+          fontWeight: "bold",
         },
       ],
     ],
