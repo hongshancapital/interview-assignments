@@ -1,5 +1,5 @@
 import style from "./app.module.sass";
-import Carousel from "./carousel";
+import Carousel from "./pages/carousel";
 
 function App() {
   return (

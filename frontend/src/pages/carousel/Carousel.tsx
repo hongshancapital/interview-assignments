@@ -1,9 +1,10 @@
 import Page from "./components/Page";
-import data from "./data";
+import Progress from "./components/Progress";
+import data from "@/assets/data/data";
 import styles from "./carousel.module.sass";
 import { useEffect, useRef, useState } from "react";
 
-const CAROUSEL_TIME = 3000;
+const CAROUSEL_TIME = 5000;
 
 function Carousel() {
   function calcStyle(i: number, index: number) {
@@ -28,22 +29,23 @@ function Carousel() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   timerRef.current = setInterval(() => {
-  //     setIndex((prev) => (prev + 1 >= length ? 0 : prev + 1));
-  //   }, CAROUSEL_TIME);
-  //   return () => {
-  //     timerRef.current && clearInterval(timerRef.current);
-  //   };
-  // }, [length]);
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setIndex((prev) => (prev + 1 >= length ? 0 : prev + 1));
+    }, CAROUSEL_TIME);
+    return () => {
+      timerRef.current && clearInterval(timerRef.current);
+    };
+  }, [length]);
 
   return (
     <div className={styles.container}>
       {data.map((d, i) => {
-        const { style, ...other } = d;
-        const s = Object.assign({}, style, calcStyle(index, i));
-        return <Page key={d.id} {...other} style={s} />;
+        const { bgStyle, ...other } = d;
+        const s = Object.assign({}, bgStyle, calcStyle(index, i));
+        return <Page key={d.id} {...other} bgStyle={s} />;
       })}
+      <Progress active={index} />
     </div>
   );
 }
