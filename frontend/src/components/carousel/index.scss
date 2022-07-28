@@ -1,0 +1,94 @@
+.carousel {
+  width   : 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  .carousel_item_box {
+    height: 100%;
+    position: relative;
+  }
+
+  .carousel_item_container {
+    display   : flex;
+    position  : relative;
+    transition: left 500ms ease 0s;
+
+    &>* {
+      flex: 1;
+    }
+  }
+
+  .carousel_indicator_container {
+    position   : absolute;
+    bottom     : 43px;
+    left       : 50%;
+    transform  : translate3d(-50%, 0, 0);
+    display    : flex;
+    align-items: center;
+
+    .carousel_indicator_item {
+      width           : 50px;
+      height          : 10px;
+      background-color: #eee;
+      margin-left     : 5px;
+    }
+
+    .liner {
+      width           : 0%;
+      height          : 100%;
+      background-color: #f00;
+    }
+
+    // .active {
+    //   animation        : 5s move;
+    // }
+  }
+
+  .carousel_pagination {
+    position       : absolute;
+    width          : 100%;
+    top            : 50%;
+    display        : flex;
+    justify-content: space-between;
+    margin-top     : -18px;
+    visibility: hidden;
+    &.visible{
+      visibility: visible;
+    }
+    .arrow {
+      cursor         : pointer;
+      width          : 36px;
+      height         : 36px;
+      border-radius  : 18px;
+      background     : var(--devui-highlight-overlay, rgba(255, 255, 255, .8));
+      box-shadow     : var(--devui-shadow-length-hover, 0 4px 16px 0) var(--devui-light-shadow, rgba(0, 0, 0, .1));
+      display        : inline-flex;
+      align-items    : center;
+      justify-content: center;
+      border         : 0;
+      outline        : 0;
+      transition     : background-color var(--devui-animation-duration-slow, .3s) var(--devui-animation-ease-in-out-smooth, cubic-bezier(.645, .045, .355, 1)); // 按钮hover时的动效
+
+      &:hover {
+        background: var(--devui-area, #f8f8f8);
+      }
+
+      &.arrow-left {
+        margin-left: 20px;
+      }
+
+      &.arrow-right {
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+@keyframes move {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
