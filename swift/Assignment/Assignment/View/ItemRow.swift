@@ -26,7 +26,7 @@ struct ItemRow: View {
         ProgressView()
       }
       .frame(width: 60, height: 60)
-
+      
       VStack(alignment: .leading) {
         Text(item.trackName)
           .font(.subheadline.bold())
@@ -35,7 +35,7 @@ struct ItemRow: View {
           .lineLimit(2)
           .font(.caption)
       }
-
+      
       Spacer()
       
       Button {
@@ -46,7 +46,6 @@ struct ItemRow: View {
           .symbolRenderingMode(item.isFavorite ? .multicolor : .monochrome)
           .foregroundColor(.gray)
       }
-
     }
     .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
     .background(Color(uiColor: .systemBackground))

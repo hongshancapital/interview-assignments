@@ -8,12 +8,12 @@
 import Foundation
 
 class AppListViewModel: ObservableObject {
-  
+
   @Published var items: [ListItem] = []
   @Published var isLoading = false
   private var page = 0
   var canLoadMore = true
-  
+
   @MainActor
   func loadData(_ request: MockRequest = MockRequest.initialLoad) async {
     isLoading = true
@@ -34,14 +34,14 @@ class AppListViewModel: ObservableObject {
       handle(error)
     }
   }
-  
+
   func refresh() async {
     page = 0
     canLoadMore = true
     items = []
     await loadData()
   }
-  
+
   func loadMoreIfNeeded(currentItem item: ListItem?) async {
     guard let item else {
       await loadMore()
@@ -49,9 +49,6 @@ class AppListViewModel: ObservableObject {
     }
     
     if item == items.last {
-      print(item.trackName)
-//      print("-----")
-//      print()
       await loadMore()
     }
   }
@@ -65,14 +62,14 @@ class AppListViewModel: ObservableObject {
     page += 1
     await loadData(MockRequest(parameter: .init(page: page)))
   }
-  
+
   func toggleFavorite(for item: ListItem) {
     guard let index = items.firstIndex (where: { $0.id == item.id }) else {
       return
     }
     items[index].isFavorite.toggle()
   }
-  
+
   private func handle(_ error: GeneralError) {
     switch error {
     case .networkFailure(let int):

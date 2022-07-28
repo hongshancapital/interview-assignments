@@ -8,8 +8,8 @@
 import Foundation
 
 enum HTTPMethod: String {
-    case GET
-    case POST
+  case GET
+  case POST
 }
 
 protocol Request {
@@ -26,7 +26,7 @@ struct MockRequest: Request {
 
   typealias Parameter = MockParameter
   typealias Response = Goods
-  
+
   let path = ""
   let method = HTTPMethod.GET
   var parameter: MockParameter
@@ -36,6 +36,6 @@ struct MockRequest: Request {
 struct MockParameter: Encodable {
   var limit = 10
   var page = 0
-  
+
   var offset: Int { (page + 1) * limit }
 }

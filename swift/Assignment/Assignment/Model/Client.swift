@@ -43,7 +43,7 @@ struct URLSessionClient: Client {
     guard 200 ..< 300 ~= response.statusCode else {
       return .failure(.networkFailure(response.statusCode))
     }
-
+    
     do {
       return .success(try data.decoded())
     } catch {
