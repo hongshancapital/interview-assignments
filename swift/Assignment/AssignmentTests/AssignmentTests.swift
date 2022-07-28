@@ -6,30 +6,58 @@
 //
 
 import XCTest
+@testable import Assignment
 
 final class AssignmentTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+  
+  var sut: AppListViewModel!
+  
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+    
+    sut = AppListViewModel()
+  }
+  
+  override func tearDownWithError() throws {
+    sut = nil
+    try super.tearDownWithError()
+  }
+  
+  func testInitializer() {
+    XCTAssertTrue(sut.items.isEmpty)
+    XCTAssertTrue(sut.canLoadMore)
+    XCTAssertFalse(sut.isLoading)
+  }
+  
+  func testInitialLoad() async {
+    XCTAssertEqual(sut.items.count, 0)
+    await sut.loadData()
+    XCTAssertEqual(sut.items.count, 10)
+  }
+  
+  func testLoadMore() async {
+    await sut.loadData()
+    XCTAssertEqual(sut.items.count, 10)
+    await sut.loadMoreIfNeeded(currentItem: sut.items.last!)
+    XCTAssertEqual(sut.items.count, 20)
+  }
+  
+  func testRefresh() async {
+    await sut.loadData()
+    await sut.loadMoreIfNeeded(currentItem: sut.items.last)
+    XCTAssertEqual(sut.items.count, 20)
+    await sut.refresh()
+    XCTAssertEqual(sut.items.count, 10)
+  }
+  
+  func testOnlyLastItemTriggersLoadMore() async {
+    await sut.loadData()
+    XCTAssertEqual(sut.items.count, 10)
+    await sut.loadMoreIfNeeded(currentItem: sut.items[3])
+    XCTAssertEqual(sut.items.count, 10)
+    
+    await sut.loadMoreIfNeeded(currentItem: sut.items.last)
+    XCTAssertEqual(sut.items.count, 20)
+  }
+  
 }

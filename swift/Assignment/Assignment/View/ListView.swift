@@ -21,8 +21,8 @@ struct ListView: View {
             .listRowBackground(Color.clear)
             .listRowInsets(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
             .environmentObject(viewModel)
-            .onAppear {
-              viewModel.loadMoreIfNeeded(currentItem: item)
+            .task {
+              await viewModel.loadMoreIfNeeded(currentItem: item)
             }
         }
         indicator
@@ -32,8 +32,11 @@ struct ListView: View {
       }
       .scrollContentBackground(Color(uiColor: .systemGroupedBackground))
       .listStyle(.plain)
+      .task {
+        await viewModel.loadData()
+      }
       .refreshable {
-        viewModel.refresh()
+        await viewModel.refresh()
       }
       .overlay {
         if viewModel.isLoading && viewModel.items.isEmpty {

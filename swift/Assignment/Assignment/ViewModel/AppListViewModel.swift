@@ -14,15 +14,8 @@ class AppListViewModel: ObservableObject {
   private var page = 0
   var canLoadMore = true
   
-  init() {
-    Task {
-      await loadData()
-    }
-  }
-  
   @MainActor
   func loadData(_ request: MockRequest = MockRequest.initialLoad) async {
-    
     isLoading = true
     try? await Task.sleep(nanoseconds: 2_000_000_000)
     let result = await MockDataClient.shared.fetchResult(with: request)
@@ -42,24 +35,24 @@ class AppListViewModel: ObservableObject {
     }
   }
   
-  func refresh() {
+  func refresh() async {
     page = 0
     canLoadMore = true
-    Task {
-      await loadData()
-    }
+    items = []
+    await loadData()
   }
   
-  func loadMoreIfNeeded(currentItem item: ListItem?) {
-    Task {
-      guard let item else {
-        await loadMore()
-        return
-      }
-      
-      if item == items.last {
-        await loadMore()
-      }
+  func loadMoreIfNeeded(currentItem item: ListItem?) async {
+    guard let item else {
+      await loadMore()
+      return
+    }
+    
+    if item == items.last {
+      print(item.trackName)
+//      print("-----")
+//      print()
+      await loadMore()
     }
   }
 
