@@ -46,6 +46,7 @@ struct ItemRow: View {
           .symbolRenderingMode(item.isFavorite ? .multicolor : .monochrome)
           .foregroundColor(.gray)
       }
+      .buttonStyle(.plain)
     }
     .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
     .background(Color(uiColor: .systemBackground))
