@@ -43,7 +43,7 @@ class AppListViewModel: ObservableObject {
   }
 
   func loadMoreIfNeeded(currentItem item: ListItem?) async {
-    guard let item else {
+    guard let item = item else {
       await loadMore()
       return
     }

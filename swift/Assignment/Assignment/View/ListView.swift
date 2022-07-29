@@ -13,7 +13,7 @@ struct ListView: View {
   private var viewModel = AppListViewModel()
   
   var body: some View {
-    NavigationStack {
+    NavigationView {
       List {
         ForEach(viewModel.items) { item in
           ItemRow(item: item)
@@ -30,9 +30,7 @@ struct ListView: View {
           .listRowSeparator(.hidden)
           .frame(maxWidth: .infinity, alignment: .center)
       }
-      // please review code on Xcode 14.0 beta 3
-      // after beta 4 `Color` is no longer an acceptable parameter
-      .scrollContentBackground(Color(uiColor: .systemGroupedBackground))
+      .background(Color(uiColor: .systemGroupedBackground))
       .listStyle(.plain)
       .task {
         await viewModel.loadData()
