@@ -36,7 +36,8 @@ class AppListViewModel: ObservableObject {
     
     switch result {
     case .success(let infoList):
-      items = Array(infoList.results[..<min(request.parameter.offset, infoList.results.count)])
+      var items = Array(infoList.results[..<min(request.parameter.offset, infoList.results.count)])
+      fakePreprocessFavorites(with: &items)
     case .failure(let error):
       handle(error)
     }
@@ -79,8 +80,34 @@ class AppListViewModel: ObservableObject {
     }
     items[index].isFavorite.toggle()
 
-    // persistence and request below
+    // fake favorites
+    await fakeStoreFavorite(with: item.id)
+  }
+
+  private func fakeStoreFavorite(with id: Int) async {
     try? await Task.sleep(nanoseconds: 2_000_000_000)
+    var currentFavoriteIDs = UserDefaults.standard.object(forKey: "MockFavorite") as? [Int] ?? []
+    if let index = currentFavoriteIDs.firstIndex(of: id) {
+      currentFavoriteIDs.remove(at: index)
+    } else {
+      currentFavoriteIDs.append(id)
+    }
+    UserDefaults.standard.set(currentFavoriteIDs, forKey: "MockFavorite")
+  }
+
+  private func fakePreprocessFavorites(with items: inout [ListItem]) {
+    defer { self.items = items }
+    
+    guard let currentFavoriteIDs = UserDefaults.standard.object(forKey: "MockFavorite") as? [Int] else {
+      return
+    }
+
+    for id in currentFavoriteIDs {
+      guard let index = items.firstIndex(where: { $0.id == id }) else {
+        continue
+      }
+      items[index].isFavorite = true
+    }
   }
 
   private func handle(_ error: GeneralError) {
