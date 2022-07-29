@@ -71,6 +71,7 @@ class AppListViewModel: ObservableObject {
     items[index].isFavorite.toggle()
 
     // persistence and request below
+    try? await Task.sleep(nanoseconds: 2_000_000_000)
   }
 
   private func handle(_ error: GeneralError) {

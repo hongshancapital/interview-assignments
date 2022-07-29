@@ -37,11 +37,9 @@ struct ItemRow: View {
       }
       
       Spacer()
-      
-      Button {
-        Task {
+
+      AsyncButton {
           await viewModel.toggleFavorite(for: item)
-        }
       } label: {
         Label("favorite", systemImage: item.isFavorite ? "heart.fill" : "heart")
           .labelStyle(.iconOnly)
