@@ -64,5 +64,7 @@ final class AssignmentTests: XCTestCase {
     XCTAssertFalse(sut.items.last!.isFavorite)
     await sut.toggleFavorite(for: sut.items.last!)
     XCTAssertTrue(sut.items.last!.isFavorite)
+    await sut.toggleFavorite(for: sut.items.last!)
+    XCTAssertFalse(sut.items.last!.isFavorite)
   }
 }
