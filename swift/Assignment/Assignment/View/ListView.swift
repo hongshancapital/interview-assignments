@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ListView: View {
   
-  @StateObject
-  private var viewModel = AppListViewModel()
+  @StateObject private var viewModel = AppListViewModel()
   
   var body: some View {
     NavigationView {
@@ -39,7 +38,7 @@ struct ListView: View {
         await viewModel.refresh()
       }
       .overlay {
-        if viewModel.isLoading && viewModel.items.isEmpty {
+        if viewModel.isLoading, viewModel.items.isEmpty {
           ProgressView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -50,7 +49,7 @@ struct ListView: View {
   
   var indicator: some View {
     Group {
-      if viewModel.isLoading, !viewModel.items.isEmpty {
+      if viewModel.isLoadingMore, !viewModel.items.isEmpty {
         HStack(spacing: 6) {
           ProgressView()
           Text("Loading...")

@@ -11,8 +11,15 @@ class AppListViewModel: ObservableObject {
 
   @Published var items: [ListItem] = []
   @Published var isLoading = false
+  @Published var isLoadingMore = false
+  @Published var canLoadMore = true
   private var page = 0
-  var canLoadMore = true
+
+  init() {
+    Task {
+      await loadData()
+    }
+  }
 
   @MainActor
   func loadData(_ request: MockRequest = MockRequest.initialLoad) async {
@@ -35,10 +42,10 @@ class AppListViewModel: ObservableObject {
     }
   }
 
+  @MainActor
   func refresh() async {
     page = 0
     canLoadMore = true
-    items = []
     await loadData()
   }
 
@@ -58,9 +65,11 @@ class AppListViewModel: ObservableObject {
     guard canLoadMore else {
       return
     }
-    
+
     page += 1
+    isLoadingMore = true
     await loadData(MockRequest(parameter: .init(page: page)))
+    isLoadingMore = false
   }
 
   @MainActor
