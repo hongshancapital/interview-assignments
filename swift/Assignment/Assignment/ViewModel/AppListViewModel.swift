@@ -63,11 +63,14 @@ class AppListViewModel: ObservableObject {
     await loadData(MockRequest(parameter: .init(page: page)))
   }
 
-  func toggleFavorite(for item: ListItem) {
+  @MainActor
+  func toggleFavorite(for item: ListItem) async {
     guard let index = items.firstIndex (where: { $0.id == item.id }) else {
       return
     }
     items[index].isFavorite.toggle()
+
+    // persistence and request below
   }
 
   private func handle(_ error: GeneralError) {

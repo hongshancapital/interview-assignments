@@ -30,6 +30,8 @@ struct ListView: View {
           .listRowSeparator(.hidden)
           .frame(maxWidth: .infinity, alignment: .center)
       }
+      // please review code on Xcode 14.0 beta 3
+      // after beta 4 `Color` is no longer an acceptable parameter
       .scrollContentBackground(Color(uiColor: .systemGroupedBackground))
       .listStyle(.plain)
       .task {

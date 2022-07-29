@@ -55,9 +55,14 @@ final class AssignmentTests: XCTestCase {
     XCTAssertEqual(sut.items.count, 10)
     await sut.loadMoreIfNeeded(currentItem: sut.items[3])
     XCTAssertEqual(sut.items.count, 10)
-    
     await sut.loadMoreIfNeeded(currentItem: sut.items.last)
     XCTAssertEqual(sut.items.count, 20)
   }
-  
+
+  func testFavorite() async {
+    await sut.loadData()
+    XCTAssertFalse(sut.items.last!.isFavorite)
+    await sut.toggleFavorite(for: sut.items.last!)
+    XCTAssertTrue(sut.items.last!.isFavorite)
+  }
 }

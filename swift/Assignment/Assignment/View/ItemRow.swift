@@ -39,7 +39,9 @@ struct ItemRow: View {
       Spacer()
       
       Button {
-        viewModel.toggleFavorite(for: item)
+        Task {
+          await viewModel.toggleFavorite(for: item)
+        }
       } label: {
         Label("favorite", systemImage: item.isFavorite ? "heart.fill" : "heart")
           .labelStyle(.iconOnly)
