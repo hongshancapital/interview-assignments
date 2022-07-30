@@ -2,10 +2,10 @@ import React from "react";
 import { IConfig } from "../../config";
 import './index.css';
 
-interface carouselSlideProps {
+interface CarouselSlideProps {
     info: IConfig;
 }
-export const CarouselSlide = (props: carouselSlideProps) => {
+export const CarouselSlide = (props: CarouselSlideProps) => {
     const { info } = props;
     return (<div style={info.style} className="carousel-slide">
         <div className="text-container">

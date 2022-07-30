@@ -5,7 +5,7 @@ import './index.css';
 interface CarouseProps {
     duration: number;
 }
-type progressAnimation = (progressIndex: number) => React.CSSProperties;
+type ProgressAnimation = (progressIndex: number) => React.CSSProperties;
 
 export const Carousel: React.FC<CarouseProps> = (props) => {
     const { children, duration, } = props;
@@ -24,7 +24,7 @@ export const Carousel: React.FC<CarouseProps> = (props) => {
         return () => clearInterval(timer);
     }, [count, duration, index]);
 
-   const progressAnimation: progressAnimation = useCallback((progressIndex: number) => {
+   const progressAnimation: ProgressAnimation = useCallback((progressIndex: number) => {
     const speed = 1000;
     if (progressIndex === index) {
         return {
