@@ -8,8 +8,9 @@
 import Foundation
 
 protocol Client {
+  associatedtype E: Error
   var host: String { get }
-  func fetchResult<R>(with request: R) async -> Result<R.Response, GeneralError> where R : Request
+  func fetchResult<R>(with request: R) async -> Result<R.Response, E> where R : Request
 }
 
 enum GeneralError: Error {

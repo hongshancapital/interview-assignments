@@ -56,6 +56,6 @@ struct ItemRow: View {
 
 struct ItemRow_Previews: PreviewProvider {
   static var previews: some View {
-    ItemRow(item: itemList.results.last!)
+    ItemRow(item: stubItemList.results.last!)
   }
 }

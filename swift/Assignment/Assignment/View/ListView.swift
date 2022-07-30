@@ -32,7 +32,7 @@ struct ListView: View {
       .background(Color(uiColor: .systemGroupedBackground))
       .listStyle(.plain)
       .task {
-        await viewModel.loadData()
+        await viewModel.loadData(.initialLoad)
       }
       .refreshable {
         await viewModel.refresh()

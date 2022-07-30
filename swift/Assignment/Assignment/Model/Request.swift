@@ -37,5 +37,6 @@ struct MockParameter: Encodable {
   var limit = 10
   var page = 0
 
-  var offset: Int { (page + 1) * limit }
+  var offset: Int { page * limit }
+  var nextOffset: Int { (page + 1) * limit }
 }

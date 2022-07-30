@@ -7,7 +7,7 @@
 
 import Foundation
 
-var itemList: Goods = load("Apps.json")
+var stubItemList: Goods = load("Apps.json")
 
 func load<T: Decodable>(_ filename: String) -> T {
   let data: Data

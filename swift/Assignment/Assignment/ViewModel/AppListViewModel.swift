@@ -17,12 +17,12 @@ class AppListViewModel: ObservableObject {
 
   init() {
     Task {
-      await loadData()
+      await loadData(.initialLoad)
     }
   }
 
   @MainActor
-  func loadData(_ request: MockRequest = MockRequest.initialLoad) async {
+  func loadData(_ request: MockRequest) async {
     isLoading = true
     try? await Task.sleep(nanoseconds: 2_000_000_000)
     let result = await MockDataClient.shared.fetchResult(with: request)
@@ -36,7 +36,7 @@ class AppListViewModel: ObservableObject {
     
     switch result {
     case .success(let infoList):
-      var items = Array(infoList.results[..<min(request.parameter.offset, infoList.results.count)])
+      var items = Array(infoList.results[..<min(request.parameter.nextOffset, infoList.results.count)])
       fakePreprocessFavorites(with: &items)
     case .failure(let error):
       handle(error)
@@ -47,7 +47,7 @@ class AppListViewModel: ObservableObject {
   func refresh() async {
     page = 0
     canLoadMore = true
-    await loadData()
+    await loadData(.initialLoad)
   }
 
   func loadMoreIfNeeded(currentItem item: ListItem?) async {

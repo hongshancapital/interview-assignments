@@ -1,5 +1,5 @@
 //
-//  AssignmentTests.swift
+//  ViewModelTests.swift
 //  AssignmentTests
 //
 //  Created by shinolr on 2022/7/27.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import Assignment
 
-final class AssignmentTests: XCTestCase {
+final class ViewModelTests: XCTestCase {
   
   var sut: AppListViewModel!
   
@@ -31,19 +31,31 @@ final class AssignmentTests: XCTestCase {
   
   func testInitialLoad() async {
     XCTAssertEqual(sut.items.count, 0)
-    await sut.loadData()
+    await sut.loadData(.initialLoad)
     XCTAssertEqual(sut.items.count, 10)
   }
   
-  func testLoadMore() async {
-    await sut.loadData()
+  func testLoadMoreIfNeeded() async {
+    await sut.loadData(.initialLoad)
     XCTAssertEqual(sut.items.count, 10)
     await sut.loadMoreIfNeeded(currentItem: sut.items.last!)
     XCTAssertEqual(sut.items.count, 20)
   }
+
+  func testNoMoreData() async {
+    await sut.loadData(.initialLoad)
+    XCTAssertEqual(sut.items.count, 10)
+    await sut.loadMoreIfNeeded(currentItem: sut.items.last!)
+    await sut.loadMoreIfNeeded(currentItem: sut.items.last!)
+    await sut.loadMoreIfNeeded(currentItem: sut.items.last!)
+    await sut.loadMoreIfNeeded(currentItem: sut.items.last!)
+    XCTAssertEqual(sut.items.count, 50)
+    await sut.loadMoreIfNeeded(currentItem: sut.items.last!)
+    XCTAssertEqual(sut.items.count, 50)
+  }
   
   func testRefresh() async {
-    await sut.loadData()
+    await sut.loadData(.initialLoad)
     await sut.loadMoreIfNeeded(currentItem: sut.items.last)
     XCTAssertEqual(sut.items.count, 20)
     await sut.refresh()
@@ -51,7 +63,7 @@ final class AssignmentTests: XCTestCase {
   }
   
   func testOnlyLastItemTriggersLoadMore() async {
-    await sut.loadData()
+    await sut.loadData(.initialLoad)
     XCTAssertEqual(sut.items.count, 10)
     await sut.loadMoreIfNeeded(currentItem: sut.items[3])
     XCTAssertEqual(sut.items.count, 10)
@@ -59,8 +71,8 @@ final class AssignmentTests: XCTestCase {
     XCTAssertEqual(sut.items.count, 20)
   }
 
-  func testFavorite() async {
-    await sut.loadData()
+  func testToggleFavorite() async {
+    await sut.loadData(.initialLoad)
     XCTAssertFalse(sut.items.last!.isFavorite)
     await sut.toggleFavorite(for: sut.items.last!)
     XCTAssertTrue(sut.items.last!.isFavorite)
