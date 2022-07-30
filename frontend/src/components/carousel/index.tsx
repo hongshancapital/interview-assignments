@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 
-import airpds from "../../assets/airpods.png";
-import iphone from "../../assets/iphone.png";
-import tablet from "../../assets/tablet.png";
+import airpds from "../../assets/airpods_8.png";
+import iphone from "../../assets/iphone_8.png";
+import tablet from "../../assets/tablet_8.png";
 import "./index.css";
 
 import BannerList, { Banner_Inter } from "./bannerList";
@@ -19,7 +19,7 @@ const bannerList: Banner_Inter[] = [
     imgUrl: iphone,
     backgroundColor: "#111111",
     title: "xPhone",
-    text: "Lost to love. Less to spend. Starting at $399.",
+    text: ["Lost to love. Less to spend.", "Starting at $399."],
     them: Them_Enum.dark,
   },
   {
@@ -33,7 +33,7 @@ const bannerList: Banner_Inter[] = [
     id: 3,
     imgUrl: airpds,
     backgroundColor: "#f0f0f2",
-    title: "Buy a Table or xPhone for college. Get arPods.",
+    title: ["Buy a Table or xPhone for college.", "Get arPods."],
   },
 ];
 

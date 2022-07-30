@@ -10,9 +10,9 @@ export enum Them_Enum {
 export interface BannerProp_Inter {
   imgUrl: string;
   backgroundColor: string;
-  title: string;
+  title: string | string[];
   them?: Them_Enum;
-  text?: string;
+  text?: string | string[];
 }
 
 type BannerProp = BannerProp_Inter & {
@@ -27,7 +27,6 @@ const Banner: FC<BannerProp> = ({
   them = Them_Enum.light,
   backgroundColor,
 }) => {
-  
   const bannerStyle: CSSProperties = {
     backgroundColor: backgroundColor,
     backgroundImage: `url(${imgUrl})`,
@@ -36,13 +35,34 @@ const Banner: FC<BannerProp> = ({
     left: `${index}00%`,
   };
 
+  if (!Array.isArray(title)) {
+    title = [title];
+  }
+  const titleDOM = title.map((titleContent, index) => (
+    <h1 className="title" key={index}>
+      {titleContent}
+    </h1>
+  ));
+
+  if (text && !Array.isArray(text)) {
+    text = [text];
+  }
+  const textDOM =
+    Array.isArray(text) &&
+    text.map((textContent, index) => (
+      <p role="row" className="text" key={index}>
+        {textContent}
+      </p>
+    ));
+
   return (
     <div
+      role="listitem" 
       className={`banner_control ${them === Them_Enum.dark && Them_Enum.dark}`}
       style={bannerStyle}
     >
-      <h1 className="title">{title}</h1>
-      {text && <p className="text">{text}</p>}
+      {titleDOM}
+      {textDOM}
     </div>
   );
 };

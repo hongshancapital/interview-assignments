@@ -14,7 +14,7 @@ test("各项元素正常渲染", () => {
   const tabletBannerElement = getByText(/^Tablet$/);
   expect(tabletBannerElement).toBeInTheDocument();
   const airPodsBannerElement = getByText(
-    /^Buy a Table or xPhone for college\. Get arPods\.$/
+    /^Buy a Table or xPhone for college\.$/
   );
   expect(airPodsBannerElement).toBeInTheDocument();
 
