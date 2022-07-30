@@ -66,7 +66,7 @@ const Carousel: FC = () => {
   });
 
   return (
-    <div className="carousel-control">
+    <div className="carousel-control" data-testid="carousel">
       <BannerList banners={bannerList} currentIndex={currentIndex} />
       <IndicatorList currentIndex={currentIndex} total={bannerList.length} />
     </div>

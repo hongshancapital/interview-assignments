@@ -27,6 +27,7 @@ const Banner: FC<BannerProp> = ({
   them = Them_Enum.light,
   backgroundColor,
 }) => {
+  
   const bannerStyle: CSSProperties = {
     backgroundColor: backgroundColor,
     backgroundImage: `url(${imgUrl})`,
@@ -34,8 +35,12 @@ const Banner: FC<BannerProp> = ({
     top: 0,
     left: `${index}00%`,
   };
+
   return (
-    <div className={`banner_control ${them === Them_Enum.dark && Them_Enum.dark}`} style={bannerStyle}>
+    <div
+      className={`banner_control ${them === Them_Enum.dark && Them_Enum.dark}`}
+      style={bannerStyle}
+    >
       <h1 className="title">{title}</h1>
       {text && <p className="text">{text}</p>}
     </div>

@@ -11,13 +11,21 @@ export interface BannerListProps_Inter {
   currentIndex?: number;
 }
 
-const BannerList: FC<BannerListProps_Inter> = ({ banners, currentIndex = 0}) => {
+const BannerList: FC<BannerListProps_Inter> = ({
+  banners,
+  currentIndex = 0,
+}) => {
+  
   const style: CSSProperties = {
-    left: `-${currentIndex}00%`
-  }
+    left: `-${currentIndex}00%`,
+  };
 
   return (
-    <div className="banner-list-control" style={style}>
+    <div
+      data-testid="banner-list"
+      className="banner-list-control"
+      style={style}
+    >
       {banners.map((bannerInfo, index) => {
         const { id, ...info } = bannerInfo;
         return <Banner {...info} key={id} index={index} />;
