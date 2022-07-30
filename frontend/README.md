@@ -1,5 +1,13 @@
 # TypeScript Frontend Engineer Assignment
 
+## 依次执行命令，然后查看项目
+
+npm i react-scripts
+yarn add typescript
+npm install smoothscroll-polyfill --save
+npm i --save-dev @types/smoothscroll-polyfill
+yarn start
+
 ## 要求
 
 - 实现 demo.mov 中的效果
