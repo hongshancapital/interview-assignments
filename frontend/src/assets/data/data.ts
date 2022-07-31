@@ -70,7 +70,7 @@ const data: DataItem[] = [
         },
       ],
       [
-        "Just the right amount of everything",
+        "Just the right amount of everything.",
         {
           position: "relative",
           top: "12px",
@@ -101,7 +101,7 @@ const data: DataItem[] = [
         },
       ],
       [
-        "Get arPods.",
+        "Get airPods.",
         {
           color: "#000",
           fontSize: "60px",
