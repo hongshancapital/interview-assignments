@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 6px;
+}
+body {
+  overflow: hidden;
+}
+.carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300vw;
+  height: 100vh;
+}
+.carousel .slide {
+  animation: sliding 9s ease-in-out infinite;
+  width: 100vw;
+  height: 100vh;
+}
+.carousel .slide:nth-of-type(1) {
+  color: #fff;
+  background-color: #171717;
+}
+.carousel .slide:nth-of-type(2) {
+  color: #060606;
+  background-color: #fff;
+}
+.carousel .slide:nth-of-type(3n) {
+  color: #060606;
+  background-color: #faf9f9;
+}
+.carousel .slide .title {
+  margin-top: 40rem;
+}
+.carousel .slide .title,
+.carousel .slide .text {
+  white-space: pre-wrap;
+}
+.carousel .slide img {
+  position: absolute;
+  bottom: 28rem;
+  width: 17rem;
+  transform: translateX(-50%);
+}
+@keyframes sliding {
+  0%,
+  28%,
+  100% {
+    transform: translateX(0);
+  }
+  33.33%,
+  61.33% {
+    transform: translateX(-100vw);
+  }
+  66.66%,
+  94.66% {
+    transform: translateX(-200vw);
+  }
+}
+.control {
+  position: relative;
+  top: -12rem;
+  margin: 0 auto;
+  z-index: 10;
+  display: flex;
+  width: 27.2rem;
+  height: 0.4rem;
+}
+.control .bar {
+  overflow: hidden;
+  width: 8rem;
+  height: 0.4rem;
+  margin-right: 1.6rem;
+  background-color: #a9a9a9;
+  border-radius: 0.2rem;
+}
+.control .bar:last-child {
+  margin-right: 0;
+}
+.control .bar .progress {
+  animation-name: progress;
+  animation-duration: 9s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  background-color: #fff;
+  height: 0.4rem;
+  width: 0.1rem;
+  transform-origin: left;
+}
+.control .bar:nth-of-type(1) .progress {
+  animation-delay: -0.48s;
+}
+.control .bar:nth-of-type(2) .progress {
+  animation-delay: 2.52s;
+}
+.control .bar:nth-of-type(3) .progress {
+  animation-delay: 5.52s;
+}
+@keyframes progress {
+  0%,
+  33.34%,
+  100% {
+    transform: scaleX(0);
+  }
+  5.33% {
+    transform: scaleX(14);
+  }
+  33.33% {
+    transform: scaleX(80);
+  }
+}
