@@ -2,17 +2,15 @@ import data from "@/assets/data/data";
 import { useEffect, useRef, useState } from "react";
 import style from "./progress.module.sass";
 import clsx from "clsx";
+import { CAROUSEL_TIME, INDEX } from "@/constants/const";
 
 interface ProgressProps {
   onChange: (index: number) => void;
 }
 
-// 轮播时间
-const CAROUSEL_TIME = 5000;
-
 function Progress(props: ProgressProps) {
   const length = data.length;
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(INDEX);
   const [init, setInit] = useState(false);
   const timerRef = useRef<NodeJS.Timer>();
 
@@ -20,7 +18,7 @@ function Progress(props: ProgressProps) {
     timerRef.current = setInterval(() => {
       setIndex((prev) => {
         const cur = prev + 1 >= length ? 0 : prev + 1;
-        props.onChange(cur);
+        // props.onChange(cur);
         return cur;
       });
     }, CAROUSEL_TIME);
@@ -30,6 +28,11 @@ function Progress(props: ProgressProps) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    props.onChange(index);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
 
   return (
     <div className={style.progressContainer}>
