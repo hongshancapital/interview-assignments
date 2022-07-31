@@ -1,19 +1,25 @@
 import Page from "./components/Page";
 import Progress from "./components/Progress";
-import data from "@/assets/data/data";
-import { INDEX } from "@/constants/const";
+import { DataItem } from "@/assets/data/data";
+import { CAROUSEL_TIME, INDEX } from "@/constants/const";
 import styles from "./carousel.module.sass";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
-function Carousel() {
+export interface CarouselProps {
+  datasource: DataItem[];
+  width: number;
+  interval?: number;
+}
+
+function Carousel({
+  datasource,
+  width,
+  interval = CAROUSEL_TIME,
+}: CarouselProps) {
   function calcStyle(i: number, index: number) {
     return {
-      transform: `translate(${(index - i) * widthRef.current}px)`,
+      transform: `translate(${(index - i) * width}px, 0px)`,
     };
-  }
-
-  function resizeWidth() {
-    widthRef.current = document.body.clientWidth;
   }
 
   function changeActivePage(index: number) {
@@ -22,23 +28,18 @@ function Carousel() {
 
   const [index, setIndex] = useState(INDEX);
 
-  const widthRef = useRef(document.body.clientWidth);
-
-  useEffect(() => {
-    window.addEventListener("resize", resizeWidth);
-    return () => {
-      window.removeEventListener("resize", resizeWidth);
-    };
-  }, []);
-
   return (
     <div className={styles.container}>
-      {data.map((d, i) => {
+      {datasource.map((d, i) => {
         const { bgStyle, ...other } = d;
         const s = Object.assign({}, bgStyle, calcStyle(index, i));
         return <Page key={d.id} {...other} bgStyle={s} />;
       })}
-      <Progress onChange={changeActivePage} />
+      <Progress
+        datasource={datasource}
+        interval={interval}
+        onChange={changeActivePage}
+      />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import style from "./app.module.sass";
-import Carousel from "./pages/carousel";
+import CarouselPage from "./pages/CarouselPage";
 
 function App() {
   return (
     <div className={style.app}>
-      <Carousel />
+      <CarouselPage />
     </div>
   );
 }

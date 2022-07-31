@@ -1,46 +1,47 @@
-import data from "@/assets/data/data";
 import { useEffect, useRef, useState } from "react";
 import style from "./progress.module.sass";
 import clsx from "clsx";
-import { CAROUSEL_TIME, INDEX } from "@/constants/const";
+import { INDEX } from "@/constants/const";
+import { DataItem } from "@/assets/data/data";
 
 interface ProgressProps {
+  datasource: DataItem[];
+  interval: number;
   onChange: (index: number) => void;
 }
 
-function Progress(props: ProgressProps) {
-  const length = data.length;
+function Progress({ datasource, interval, onChange }: ProgressProps) {
   const [index, setIndex] = useState(INDEX);
   const [init, setInit] = useState(false);
   const timerRef = useRef<NodeJS.Timer>();
 
   useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setIndex((prev) => {
-        const cur = prev + 1 >= length ? 0 : prev + 1;
-        // props.onChange(cur);
-        return cur;
-      });
-    }, CAROUSEL_TIME);
+    timerRef.current = setInterval(
+      () => setIndex((prev) => (prev + 1 >= datasource.length ? 0 : prev + 1)),
+      interval
+    );
     setInit(true);
+    setIndex(INDEX);
     return () => {
       timerRef.current && clearInterval(timerRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [interval, datasource.length]);
 
   useEffect(() => {
-    props.onChange(index);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+    onChange(index);
+  }, [index, onChange]);
 
   return (
     <div className={style.progressContainer}>
-      {data.map((d, i) => (
+      {datasource.map((d, i) => (
         <div className={style.progressItem} key={d.id}>
           <div
             className={clsx(style.progressBg, { [style.active]: i === index })}
-            style={{ width: !init ? "0px" : index === i ? "100%" : "0px" }}
+            style={{
+              width: !init ? "0px" : index === i ? "100%" : "0px",
+              transition:
+                i === index ? `width ${interval / 1000}s linear` : "none",
+            }}
           ></div>
         </div>
       ))}
