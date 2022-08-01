@@ -1,0 +1,79 @@
+.my-carousel {
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  .my-carousel-container {
+    width: auto;
+    height: 100%;
+    display: flex;
+  }
+  .my-carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 10px;
+    display: flex;
+    justify-content: center;
+
+    .my-carousel-dot + .my-carousel-dot {
+      margin-left: 10px;
+    }
+    .my-carousel-dot {
+      width: 40px;
+      height: 10px;
+      position: relative;
+      overflow: hidden;
+      background-color: #9f9f9f;
+      &[data-active="true"] {
+        background-color: #3a3a3acc;
+      }
+    }
+  }
+
+  &[data-autoplay="true"] {
+    .my-carousel-dots {
+      .my-carousel-dot {
+        width: 40px;
+        height: 10px;
+        position: relative;
+        overflow: hidden;
+        background-color: transparent;
+        span {
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 100%;
+          background-color: #9f9f9f;
+          width: 100%;
+          will-change: width;
+        }
+        &[data-active="true"] span {
+          background-color: #9f9f9f;
+          animation-name: changeWidth;
+          @keyframes changeWidth {
+            from {
+              width: 100%;
+            }
+            to {
+              width: 0%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// .my-carousel-row .my-carousel-container {
+//   flex-direction: row;
+// }
+// .my-carousel-direction .my-carousel-container {
+//   flex-direction: column;
+// }
+
+// .my-carousel-dot .my-carousel-dot[data-active="true"]::before {
+// }
