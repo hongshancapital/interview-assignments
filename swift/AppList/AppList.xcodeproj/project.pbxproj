@@ -19,6 +19,11 @@
 		817776AA28982B6200D5809D /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817776A928982B6200D5809D /* FileUtils.swift */; };
 		817776AB28982EFF00D5809D /* Apps.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8177769F28982A3F00D5809D /* Apps.geojson */; };
 		817776AC28982F0200D5809D /* Apps.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8177769F28982A3F00D5809D /* Apps.geojson */; };
+		817776B028982F9800D5809D /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817776AF28982F9800D5809D /* ActivityIndicatorView.swift */; };
+		817776B328982FF700D5809D /* LynnPullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817776B228982FF700D5809D /* LynnPullToRefresh.swift */; };
+		817776B52898304300D5809D /* LynnPullToRefreshModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817776B42898304300D5809D /* LynnPullToRefreshModifier.swift */; };
+		817776B72898307000D5809D /* LynnRefreshDefaultViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817776B62898307000D5809D /* LynnRefreshDefaultViews.swift */; };
+		817776B92898309D00D5809D /* LynnRefreshState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817776B82898309D00D5809D /* LynnRefreshState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,11 @@
 		817776A428982AFD00D5809D /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		817776A628982B3100D5809D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		817776A928982B6200D5809D /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
+		817776AF28982F9800D5809D /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
+		817776B228982FF700D5809D /* LynnPullToRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LynnPullToRefresh.swift; sourceTree = "<group>"; };
+		817776B42898304300D5809D /* LynnPullToRefreshModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LynnPullToRefreshModifier.swift; sourceTree = "<group>"; };
+		817776B62898307000D5809D /* LynnRefreshDefaultViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LynnRefreshDefaultViews.swift; sourceTree = "<group>"; };
+		817776B82898309D00D5809D /* LynnRefreshState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LynnRefreshState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +113,7 @@
 		817776732898299600D5809D /* AppList */ = {
 			isa = PBXGroup;
 			children = (
+				817776AD28982F6B00D5809D /* View */,
 				817776A828982B4E00D5809D /* Utils */,
 				817776A328982AE900D5809D /* Model */,
 				817776A028982A5D00D5809D /* Home */,
@@ -170,6 +181,34 @@
 				817776A928982B6200D5809D /* FileUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		817776AD28982F6B00D5809D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				817776B128982FC900D5809D /* PullToRefresh */,
+				817776AE28982F7100D5809D /* ActivityIndicatorView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		817776AE28982F7100D5809D /* ActivityIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				817776AF28982F9800D5809D /* ActivityIndicatorView.swift */,
+			);
+			path = ActivityIndicatorView;
+			sourceTree = "<group>";
+		};
+		817776B128982FC900D5809D /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				817776B228982FF700D5809D /* LynnPullToRefresh.swift */,
+				817776B42898304300D5809D /* LynnPullToRefreshModifier.swift */,
+				817776B62898307000D5809D /* LynnRefreshDefaultViews.swift */,
+				817776B82898309D00D5809D /* LynnRefreshState.swift */,
+			);
+			path = PullToRefresh;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,10 +343,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				817776B328982FF700D5809D /* LynnPullToRefresh.swift in Sources */,
+				817776B52898304300D5809D /* LynnPullToRefreshModifier.swift in Sources */,
 				817776A228982A7600D5809D /* HomeView.swift in Sources */,
+				817776B72898307000D5809D /* LynnRefreshDefaultViews.swift in Sources */,
 				817776A528982AFD00D5809D /* AppModel.swift in Sources */,
 				817776752898299600D5809D /* AppListApp.swift in Sources */,
+				817776B028982F9800D5809D /* ActivityIndicatorView.swift in Sources */,
 				817776A728982B3100D5809D /* HomeViewModel.swift in Sources */,
+				817776B92898309D00D5809D /* LynnRefreshState.swift in Sources */,
 				817776AA28982B6200D5809D /* FileUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
