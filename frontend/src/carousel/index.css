@@ -1,0 +1,69 @@
+/*轮播*/
+.carousel {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s linear;
+  overflow: hidden;
+  position: relative;
+}
+/*轮播容器*/
+.carousel__container {
+  transform: translateX(0);
+  height: 100%;
+  width: 100%;
+  /*这里使用will-change可以将carousel__container单独渲染一个图层，更大效率的使用合成线程*/
+  will-change: transform;
+  display: flex;
+  flex-wrap: nowrap;
+}
+/*轮播项*/
+.carousel__carousel-item {
+  height: 100%;
+  width: 100%;
+  flex: 0 0 auto;
+}
+/**轮播指示器*/
+.carousel__step {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+/*轮播指示器项*/
+.carousel__step__step-item {
+  width: 50px;
+  height: 3px;
+  background-color: #aaa;
+  margin-right: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.carousel__step__step-item:last-child {
+  margin-right: 0;
+}
+/*显示轮播进度*/
+.carousel__step__step-item::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: white;
+  transform: translateX(-100%);
+  will-change: transform;
+}
+/*轮播进度动画*/
+@keyframes step-active {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.carousel__step__step-item.active::before {
+  animation: 1s linear step-active forwards;
+}
