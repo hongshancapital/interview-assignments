@@ -1,0 +1,47 @@
+.carouselContainer {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.carouselSlidesWrapper {
+    position: relative;
+    transition: left 1s;
+    display: flex;
+}
+
+.carouselIndicatorsWrapper {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    top: 90%;
+}
+
+.carouselIndicator {
+    width: 50px;
+    height: 3px;
+    margin: 0 5px;
+    border-radius: 2px;
+    background-color: gray;
+}
+
+.carouselIndicator__active .carouselIndicator-inner {
+    animation: indicator-progress linear;
+}
+
+@keyframes indicator-progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.carouselIndicator-inner {
+    width: 0;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #fafafa;
+}
