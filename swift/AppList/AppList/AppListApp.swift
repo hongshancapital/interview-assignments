@@ -12,7 +12,7 @@ struct AppListApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                HomeView().navigationTitle("App")
+                HomeView()
             }
         }
     }
