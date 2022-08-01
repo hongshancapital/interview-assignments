@@ -12,7 +12,7 @@ struct HeaderBoundsPreferenceKey: PreferenceKey {
         let bounds: Anchor<CGRect>
     }
     static var defaultValue: [Item] = []
-    
+
     // 每次有新的init(bounds)就加入value数组
     static func reduce(value: inout [Item], nextValue: () -> [Item]) {
         value.append(contentsOf: nextValue())
@@ -24,7 +24,7 @@ struct FooterBoundsPreferenceKey: PreferenceKey {
         let bounds: Anchor<CGRect>
     }
     static var defaultValue: [Item] = []
-    
+
     static func reduce(value: inout [Item], nextValue: () -> [Item]) {
         value.append(contentsOf: nextValue())
     }
@@ -44,7 +44,7 @@ extension EnvironmentValues {
         get { self[HeaderRefreshDataKey.self] }
         set { self[HeaderRefreshDataKey.self] = newValue }
     }
-    
+
     var footerRefreshData: RefreshData {
         get { self[FooterRefreshDataKey.self] }
         set { self[FooterRefreshDataKey.self] = newValue }
