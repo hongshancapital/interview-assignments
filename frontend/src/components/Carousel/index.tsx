@@ -23,10 +23,11 @@ const Carousel: FC<CarouselProps> = (props) => {
     onChange,
   } = props;
 
+  const slideWaitTime = interval + animationDuration;
+
   const [currentIndex, isFirstRender] = useSlide(
     items,
-    interval,
-    animationDuration,
+    slideWaitTime,
     onChange
   );
 

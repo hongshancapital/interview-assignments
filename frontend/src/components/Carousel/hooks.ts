@@ -3,8 +3,7 @@ import { CarouselItem } from "./types";
 
 export const useSlide = (
   items: CarouselItem[],
-  interval: number,
-  animationDuration: number,
+  waitTime: number,
   onChange?: (item: CarouselItem, index: number) => void
 ): [number, boolean] => {
   const [index, setIndex] = useState(0);
@@ -18,7 +17,7 @@ export const useSlide = (
     timer.current = setTimeout(() => {
       setIndex(nextIndex);
       onChangeRef.current?.(items[nextIndex], nextIndex);
-    }, interval + animationDuration);
+    }, waitTime);
 
     return () => {
       if (timer.current) {
@@ -26,7 +25,7 @@ export const useSlide = (
         timer.current = null;
       }
     };
-  }, [items, interval, animationDuration, nextIndex]);
+  }, [items, waitTime, nextIndex]);
 
   return [index, isFirstRender];
 };
