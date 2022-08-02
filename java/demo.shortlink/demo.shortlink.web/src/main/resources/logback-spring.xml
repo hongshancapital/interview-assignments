@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <!-- 将Maven pom.xml的属性应用到logback中来, 需要在pom.xml中指定build resources -->
+    <property scope="system" name="SYSTEM_NAME" value="demo.shortlink"/>
+    <property scope="system" name="LOG_DIR" value="/apps/logs"/>
+
+    <appender name="ROOT_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${SYSTEM_NAME}/system.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/${SYSTEM_NAME}/system.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-20(%d{yyy-MM-dd HH:mm:ss.SSS} [%thread][%X{traceId}]) %-5level - %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="ROOT_APPENDER"/>
+    </root>
+
+</configuration>

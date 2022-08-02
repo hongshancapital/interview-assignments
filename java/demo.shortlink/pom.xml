@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.7</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.xinerde.demo</groupId>
+	<artifactId>demo.shortlink</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>demo.shortlink</name>
+	<description>短链服务</description>
+
+	<modules>
+		<module>demo.shortlink.dao</module>
+		<module>demo.shortlink.impl</module>
+		<module>demo.shortlink.service</module>
+		<module>demo.shortlink.web</module>
+		<module>demo.shortlink.core</module>
+		<module>demo.shortlink.job</module>
+	</modules>
+
+	<properties>
+		<!-- 内部jar版本 -->
+		<demo.shortlink.version>0.0.1-SNAPSHOT</demo.shortlink.version>
+		<!-- 第三方jar版本号 -->
+		<spring-boot-starter.version>2.6.7</spring-boot-starter.version>
+		<java.version>1.8</java.version>
+		<lombok.version>1.18.8</lombok.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<common-collections4.version>4.4</common-collections4.version>
+		<ehcache.version>2.10.6</ehcache.version>
+		<logback-ext-spring.version>0.1.5</logback-ext-spring.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- ************ 子模块jar包 ************ -->
+			<dependency>
+				<groupId>com.xinerde.demo</groupId>
+				<artifactId>demo.shortlink.dao</artifactId>
+				<version>${demo.shortlink.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xinerde.demo</groupId>
+				<artifactId>demo.shortlink.impl</artifactId>
+				<version>${demo.shortlink.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xinerde.demo</groupId>
+				<artifactId>demo.shortlink.service</artifactId>
+				<version>${demo.shortlink.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xinerde.demo</groupId>
+				<artifactId>demo.shortlink.web</artifactId>
+				<version>${demo.shortlink.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xinerde.demo</groupId>
+				<artifactId>demo.shortlink.core</artifactId>
+				<version>${demo.shortlink.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xinerde.demo</groupId>
+				<artifactId>demo.shortlink.job</artifactId>
+				<version>${demo.shortlink.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xinerde.demo</groupId>
+				<artifactId>demo.shortlink.war</artifactId>
+				<version>${demo.shortlink.version}</version>
+			</dependency>
+
+			<!-- ************ 公司内部外围公共jar ************ -->
+
+			<!-- ************ 外部第三方jar ************ -->
+			<dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${common-collections4.version}</version>
+            </dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring-boot-starter.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring-boot-starter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.logback-extensions</groupId>
+				<artifactId>logback-ext-spring</artifactId>
+				<version>${logback-ext-spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+			</dependency>
+			<!-- swagger依赖 -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>2.9.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>2.9.2</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<finalName>demo.shortlink</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

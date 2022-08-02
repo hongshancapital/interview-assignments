@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.xinerde.demo</groupId>
+        <artifactId>demo.shortlink</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>demo.shortlink.impl</artifactId>
+
+    <dependencies>
+        <!-- ************ 子模块jar包 ************ -->
+        <dependency>
+            <groupId>com.xinerde.demo</groupId>
+            <artifactId>demo.shortlink.service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xinerde.demo</groupId>
+            <artifactId>demo.shortlink.dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xinerde.demo</groupId>
+            <artifactId>demo.shortlink.core</artifactId>
+        </dependency>
+
+        <!-- ************ 内部公共jar ************ -->
+       
+        <!-- ************ 外部第三方jar ************ -->
+        <dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>28.2-android</version>
+		</dependency>
+    </dependencies>
+
+</project>
