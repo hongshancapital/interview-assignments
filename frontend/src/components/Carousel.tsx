@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../App.css';
 import '../styles.css';
 import Slide from '../models/slide';
+import { prepareStyles } from '../helpers/styles';
 
 interface CarouselProps {
   slides: Slide[];
@@ -10,6 +11,12 @@ interface CarouselProps {
 }
 
 function Carousel({ slides, pauseTime, transTime }: CarouselProps) {
+  useEffect(() => {
+    const style = document.createElement('style');
+    document.head.appendChild(style);
+    style.innerHTML = `${prepareStyles(slides.length, pauseTime, transTime)}`;
+  }, [slides.length, pauseTime, transTime]);
+
   const controlBars = [];
 
   for (let i = 0; i < slides.length; i++) {
