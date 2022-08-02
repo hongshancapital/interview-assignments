@@ -8,7 +8,7 @@ test("should render ", async () => {
   expect(result.current[0]).toBe(0);
   expect(result.current[1]).toBe(false);
 
-  await act(async () => await new Promise((r) => setTimeout(r, 2100)));
+  await act(() => new Promise((r) => setTimeout(r, 2100)));
 
   expect(result.current[0]).toBe(1);
 });
