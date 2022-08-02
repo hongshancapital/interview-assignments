@@ -1,0 +1,48 @@
+.carousel {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+  }
+  
+  .slide-wrap {
+    height: 100%;
+    display: flex;
+    transition: all ease;
+    transition-duration: 400ms;
+
+  }
+  
+  .progress-wrap {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .progress {
+    width: 50px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #aaa;
+    margin-left: 5px;
+    position: relative;
+  }
+
+  .progress-active {
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #fff;
+  }
+  
+  @keyframes progress {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
