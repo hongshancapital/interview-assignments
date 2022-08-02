@@ -26,7 +26,7 @@
 
 1. 考虑到 CSS 动画的性能，我避免改变 layout，比如 width 属性，而多用 transform 属性。
 2. src/assets 目录中提供了轮播图所需的图片。我用 Paint.net（开源、免费）抠出需要的图片，放在 public/images 目录中。
-3.  `<Carousel>` 组件位于 `src\components\Carousel.tsx`；其样式定义于 `src\styles.css`； `src\App.tsx` 使用 `<Carousel>` 组件。
+3.  `<Carousel>` 组件位于 `src\components\Carousel.tsx`；其样式定义于 `src\styles.css` 和 `src\helpers\styles.ts`；`src\App.tsx` 使用 `<Carousel>` 组件。
 
 
 
@@ -38,15 +38,5 @@
 
 ## 5. 已知问题
 
- `<Carousel>` 组件还未完全实现。`src\styles.css` 中，与动画有关的样式需要移到 `src\components\Carousel.tsx` 中，再改写。
-
- `<Carousel>` 组件有 3 个属性。改写后的样式会自动适应这 3 个属性。
-
-```tsx
-interface CarouselProps {
-  slides: Slide[];
-  pauseTime: number;
-  transTime: number;
-}
-```
-
+1. 不清楚怎么写测试 `Carousel.test.tsx`；
+2. 轮播图的下方还有 3 个滚动条的圆角消失了？
