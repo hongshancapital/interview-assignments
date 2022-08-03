@@ -1,0 +1,27 @@
+.carousel-item {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+.product-img {
+    width: 100vw;
+    height: 100vh;
+    /* 图片的fit没有找到很好的方式，cover会导致产品图标有点大 */
+    /* todo: 如果要完全符合，需要切图 */
+    object-fit: cover;
+}
+
+.title {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+}
+
+h1 {
+    font-size: 60px;
+}
+
+h3 {
+    font-size: 30px;
+}
