@@ -13,7 +13,7 @@ final class InterviewDemoTests: XCTestCase {
     func test_countSmallerThen50_canLoadMore(){
         let sut = HomeViewModel()
         
-        sut.homeDataListFetchCount = 49
+        sut.pageSize = 49
         
         let expected = true
         
@@ -25,7 +25,7 @@ final class InterviewDemoTests: XCTestCase {
     func test_countGreaterThen50_canLoadMore(){
         let sut = HomeViewModel()
         
-        sut.homeDataListFetchCount = 51
+        sut.pageSize = 51
         
         let expected = false
         
@@ -37,14 +37,14 @@ final class InterviewDemoTests: XCTestCase {
     func test_afterRefresh_countEqual20() async{
         let sut = HomeViewModel()
         
-        sut.homeDataListFetchCount = 51
+        sut.pageSize = 51
         
         //reset to 10,after network,it plus 10 = 20
         let expected = 20
         
         await sut.refresh()
         
-        let actual = sut.homeDataListFetchCount
+        let actual = sut.pageSize
         
         XCTAssertEqual(expected, actual)
     }
@@ -52,7 +52,7 @@ final class InterviewDemoTests: XCTestCase {
     func test_fetchData_withSpecifiedCount() async{
         let sut = HomeViewModel()
         
-        sut.homeDataListFetchCount = 34
+        sut.pageSize = 34
         
         let expected = 34
         

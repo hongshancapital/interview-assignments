@@ -11,26 +11,24 @@ class HomeViewModel:ObservableObject{
     
     @Published var homeDataList:[Result]?
     
-    @Published var homeDataListFetchCount:Int = 10
+    @Published var pageSize:Int = 10
     
     // MARK: Main Fetch Data Func
     @MainActor
-    func fetchHomeDataList(timeOut:TimeInterval = 8,isRefresh:Bool=false) async {
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = timeOut
-        
+    func fetchHomeDataList(isRefresh:Bool=false) async {
         if isRefresh{
-            self.homeDataListFetchCount = 10
+            self.pageSize = 10
         }
         
         let jsonData = Task { () -> DataModel in
-            let url = URL(string: "https://itunes.apple.com/search?entity=software&limit=\(homeDataListFetchCount)&term=chat")!
-            let (data, _) = try await URLSession(configuration: sessionConfig).data(from: url)
-                return try JSONDecoder().decode(DataModel.self, from: data)
-            }
+            let url = URL(string: "https://itunes.apple.com/search?entity=software&limit=\(pageSize)&term=chat")!
+            let (data, _) = try await URLSession.shared.data(from: url)
+            return try JSONDecoder().decode(DataModel.self, from: data)
+        }
         do {
-            self.homeDataList = try await jsonData.value.results
-            self.homeDataListFetchCount+=10
+            guard let newData = try await jsonData.value.results else {fatalError("")}
+            self.homeDataList == nil ? self.homeDataList = newData : isRefresh ? self.homeDataList = newData : self.homeDataList!.append(contentsOf: newData[homeDataList!.count..<pageSize])
+            self.pageSize+=10
         }
         catch{
             print("load data fail")
@@ -39,7 +37,7 @@ class HomeViewModel:ObservableObject{
     
     // MARK: is now can load more data form server
     func canLoadMore() -> Bool{
-        return !(self.homeDataListFetchCount >= 50)
+        return !(self.pageSize >= 50)
     }
     
     // MARK: load more func
@@ -49,7 +47,7 @@ class HomeViewModel:ObservableObject{
         }
     }
     
-    // MARK: refresh all listData func ,reset the homeDataListFetchCount also,to load data form begining
+    // MARK: refresh all listData func ,reset the pageSize also,to load data form begining
     func refresh() async {
         await self.fetchHomeDataList(isRefresh: true)
     }
