@@ -1,5 +1,15 @@
 # TypeScript Frontend Engineer Assignment
 
+## 使用
+
+- 1、查看 Demo
+
+  yarn && yarn start
+
+- 2、运行测试用例
+
+  yarn test
+
 ## 要求
 
 - 实现 demo.mov 中的效果
