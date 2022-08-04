@@ -1,11 +1,11 @@
-import React, { memo, useMemo, CSSProperties, useEffect, useState } from "react";
+import React, { memo, useMemo, CSSProperties, useEffect, useState, Children } from "react";
 import "./App.css";
 import { DURING, CONFIG } from "./constant";
 import { IConfig, ICarousel } from "./typings";
 
 const { setInterval, clearInterval } = window; 
 
-const Card = memo(({
+export const Card = memo(({
   title = [],
   content = [],
   fontColor = "#000",
@@ -32,19 +32,21 @@ const Card = memo(({
   );
 });
 
-const Carousel = memo(({
+export const Carousel = memo(({
   interval = 3000,
-  config = [],
+  children,
 }: ICarousel) =>{
   let timer: number = 0;
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const count = Children.count(children);
+
+  useEffect(() =>{
+    setCurrentIndex(0);
+  }, []);
 
   useEffect(() =>{
     timer = setInterval(() => {
-      setCurrentIndex(prev => prev < config.length - 1 ?
-        prev + 1 :
-        0
-      );
+      setCurrentIndex(prev => prev < count - 1 ? prev + 1 : 0);
     }, interval);
 
     return () => {
@@ -52,39 +54,32 @@ const Carousel = memo(({
     }
   }, []);
 
-  const scrollerStyle = useMemo<CSSProperties>(() => {
-    return {
-      width: `${100 * config.length}%`,
-      transform: `translateX(${currentIndex * -100}vw)`,
-    }
-  }, [config.length, currentIndex]);
+  const scrollerStyle = useMemo<CSSProperties>(() => ({
+    width: `${100 * count}%`,
+    transform: `translateX(${Math.max(currentIndex, 0) * -100}vw)`,
+  }), [count, currentIndex]);
+
+  const getProcessStyle = (index: number): CSSProperties =>
+    index === currentIndex ?
+      { transitionDuration: `${interval / 1000}s` } :
+      {};
 
   return (
     <main className="App">
       <section className="scroller" style={scrollerStyle}>
-        {
-          config.map((item, index) => {
-            const { title, content, fontColor, backgroundImage} = item;
-            return <Card
-              key={`${index}-${title}`}
-              title={title}
-              content={content}
-              fontColor={fontColor}
-              backgroundImage={backgroundImage}
-            />
-          })
-        }
+        { children }
       </section>
       <aside className="slick">
         <ul className="slick-list">
           {
-            config.map((_, index) => {
-              return (
-                <li className={`slick-dot ${index === currentIndex ? 'active' : '' }`}>
-                  <div className="process" />
-                </li>
-              )
-            })
+            new Array(count).fill(0).map((_, index) => (
+              <li
+                key={`${index}-slick-dot`}
+                className={`slick-dot ${index === currentIndex ? 'active' : '' }`}
+              >
+                <div className="process" style={getProcessStyle(index)} />
+              </li>
+            ))
           }
         </ul>
       </aside>
@@ -93,7 +88,22 @@ const Carousel = memo(({
 });
 
 function App() {
- return <Carousel interval={DURING} config={CONFIG}/>
+ return (
+  <Carousel interval={DURING}>
+    {
+      CONFIG.map((item, index) => {
+        const { title, content, fontColor, backgroundImage} = item;
+        return <Card
+          key={`${index}-${title}`}
+          title={title}
+          content={content}
+          fontColor={fontColor}
+          backgroundImage={backgroundImage}
+        />
+      })
+    }
+  </Carousel>
+ )
 }
 
 export default App;

@@ -6,6 +6,6 @@ export interface IConfig {
 }
 
 export interface ICarousel {
-  config: IConfig[];
+  children?: React.ReactNode;
   interval: number;
 }
