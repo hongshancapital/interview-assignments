@@ -14,7 +14,7 @@ export const Card = memo(({
   const style: CSSProperties = {
     color: fontColor,
     backgroundImage: `url(${backgroundImage})`,
-  }
+  };
 
   return (
     <section style={style} className="card">
