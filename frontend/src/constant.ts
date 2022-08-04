@@ -7,30 +7,29 @@ export const DURING: number = 3000;
 
 export const CONFIG: IConfig[] = [
   {
-    title: "231",
-    fontColor: "#fff",
-    backgroundImage: airpods,
-    content: [
-      "asdasd",
-      "asdasdasd",
-    ]
-  },
-  {
-    title: "231",
-    fontColor: "#fff",
-    backgroundImage: tablet,
-    content: [
-      "asdasd",
-      "asdasdasd",
-    ]
-  },
-  {
-    title: "231",
+    title: ["xPhone"],
     fontColor: "#fff",
     backgroundImage: iphone,
     content: [
-      "asdasd",
-      "asdasdasd",
+      "Lots to love.Less to spend.",
+      "Starting at $399.",
     ]
+  },
+  {
+    title: ["Tablet"],
+    fontColor: "#000",
+    backgroundImage: tablet,
+    content: [
+      "Just the right amount of everything.",
+    ]
+  },
+  {
+    title: [
+      "Buy a Tablet or xPhone for college.",
+      "Get AirPods."
+    ],
+    fontColor: "#000",
+    backgroundImage: airpods,
+    content: []
   }
 ]

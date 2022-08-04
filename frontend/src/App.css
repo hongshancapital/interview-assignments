@@ -1,6 +1,10 @@
-ul, p {
+ul, p, h1, li {
   margin: 0;
   padding: 0;
+}
+
+li {
+  list-style: none;
 }
 
 .App {
@@ -9,15 +13,73 @@ ul, p {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: #000;
+}
+
+.scroller {
+  height: 100%;
+  display: flex;
+  transition: all 0.5s ease-in-out;
 }
 
 .title {
   font-size: 56px;
   font-weight: 600;
+  margin-top: 25vh;
 }
 
 .text {
   font-size: 28px;
   font-weight: 400;
+}
+
+.title > h1, .text > p {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card {
+  height: 100vh;
+  width: 100vw;
+  flex-shrink: 0;
+  background-color: #111;
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.slick {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 1px);
+}
+
+.slick .slick-list {
+  display: flex;
+}
+
+.slick .slick-dot {
+  margin-right: 6px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #d1d1d1;
+  width: 80px;
+  overflow: hidden;
+}
+
+.slick-dot.active .process {
+  transition: 3s ease-in-out;
+  width: 100%;
+}
+
+.process {
+  width: 0;
+  height: 100%;
+  background-color: #fff;
+}
+
+.slick-dot:last-child {
+  margin-right: 0;
 }

@@ -1,49 +1,99 @@
-import React, { memo } from "react";
+import React, { memo, useMemo, CSSProperties, useEffect, useState } from "react";
 import "./App.css";
 import { DURING, CONFIG } from "./constant";
-import { IConfig } from "./typings";
+import { IConfig, ICarousel } from "./typings";
+
+const { setInterval, clearInterval } = window; 
 
 const Card = memo(({
-  title = "",
+  title = [],
   content = [],
   fontColor = "#000",
   backgroundImage = "",
 }: IConfig) => {
-  console.log('backgroundImage', backgroundImage);
-
-  const style: React.CSSProperties = {
+  const style: CSSProperties = {
     color: fontColor,
+    backgroundImage: `url(${backgroundImage})`,
   }
 
   return (
-    <section style={style}>
-      <div className="title">{title}</div>
-      <div className="content">
+    <section style={style} className="card">
+      <div className="title">
         {
-          content.map((text, index) => <p key={`${index}-${text}`} className="text">{text}</p>)
+          title.map((text, index) => <h1 key={`${index}-${text}`}>{text}</h1>)
+        }
+      </div>
+      <div className="content text">
+        {
+          content.map((text, index) => <p key={`${index}-${text}`}>{text}</p>)
         }
       </div>
     </section>
   );
 });
 
-function App() {
+const Carousel = memo(({
+  interval = 3000,
+  config = [],
+}: ICarousel) =>{
+  let timer: number = 0;
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  useEffect(() =>{
+    timer = setInterval(() => {
+      setCurrentIndex(prev => prev < config.length - 1 ?
+        prev + 1 :
+        0
+      );
+    }, interval);
+
+    return () => {
+      clearInterval(timer);
+    }
+  }, []);
+
+  const scrollerStyle = useMemo<CSSProperties>(() => {
+    return {
+      width: `${100 * config.length}%`,
+      transform: `translateX(${currentIndex * -100}vw)`,
+    }
+  }, [config.length, currentIndex]);
+
   return (
-    <div className="App">
-      {
-        CONFIG.map((config, index) => {
-          const { title, content, fontColor, backgroundImage} = config;
-          return <Card
-            key={`${index}-${title}`}
-            title={title}
-            content={content}
-            fontColor={fontColor}
-            backgroundImage={backgroundImage}
-          />
-        })
-      }
-    </div>
+    <main className="App">
+      <section className="scroller" style={scrollerStyle}>
+        {
+          config.map((item, index) => {
+            const { title, content, fontColor, backgroundImage} = item;
+            return <Card
+              key={`${index}-${title}`}
+              title={title}
+              content={content}
+              fontColor={fontColor}
+              backgroundImage={backgroundImage}
+            />
+          })
+        }
+      </section>
+      <aside className="slick">
+        <ul className="slick-list">
+          {
+            config.map((_, index) => {
+              return (
+                <li className={`slick-dot ${index === currentIndex ? 'active' : '' }`}>
+                  <div className="process" />
+                </li>
+              )
+            })
+          }
+        </ul>
+      </aside>
+    </main>
   );
+});
+
+function App() {
+ return <Carousel interval={DURING} config={CONFIG}/>
 }
 
 export default App;
