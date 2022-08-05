@@ -14,9 +14,15 @@ export interface IPosterData {
 }
 
 export interface IDescData {
-  title: boolean
-  color: string
   text: string
+  style: IDescStyle
+}
+
+export interface IDescStyle {
+  color: string
+  fontSize: string
+  marginTop: string
+  marginBottom: string
 }
 
 export interface ICarouselAction {

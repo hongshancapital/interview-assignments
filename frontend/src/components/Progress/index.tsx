@@ -31,7 +31,12 @@ export default function Progress( { pid }: { pid: number}) {
     <div className="progress">
       <div className="progress-wrap">
         <div className="progress-bar progress-outer">
-          <div className="progress-bar progress-inner" ref={inner}></div>
+          <div 
+            className="progress-bar progress-inner" 
+            ref={inner} 
+            style={{ background: pid === progressId ? '#fff' : '#9aa0a6'}}
+          >
+          </div>
         </div>
       </div>
     </div>

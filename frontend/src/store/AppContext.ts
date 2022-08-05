@@ -1,6 +1,20 @@
 import React, { createContext, useContext, useReducer } from 'react'
-import { ICarouselData, ICarouselAction, ECarouselActionType, TCarouselAction } from "./types"
+import { ICarouselData, IDescStyle, ECarouselActionType, TCarouselAction } from "./types"
 const LAST_ID = 2
+
+ const DESC_MAIN: IDescStyle = {
+  color: '#000',
+  fontSize: '40px',
+  marginTop: '224px',
+  marginBottom: '32px'
+ }
+
+ const DESC_VICE: IDescStyle = {
+  color: '#000',
+  fontSize: '32px',
+  marginTop: '12px',
+  marginBottom: '0px'
+ }
 
 export const initialData: ICarouselData = {
   move: false,
@@ -9,57 +23,51 @@ export const initialData: ICarouselData = {
   posters: [
     { 
       posterId: 0,
-      bgColor:'#000', 
+      bgColor:'#101010', 
       pic:'iphone.png', 
       descs: [
         {
-          color: '#fff',      
-          title: true,
           text: 'xPhone',
+          style: { ...DESC_MAIN, color: '#fff' }
         },
         {
-          color: '#fff',
-          title: false,
           text: 'Lots to love. Less to spend.',
+          style: { ...DESC_VICE, color: '#fff' }
         },
         {
-          color: '#fff',
-          title: false,
-          text: 'Starting at $399.'
+          text: 'Starting at $399.',
+          style: { ...DESC_VICE, color: '#fff' }
         },
       ]
     },
     {
       posterId: 1,
-      bgColor:'#fff', 
+      bgColor:'#fafafa', 
 		  pic:'tablet.png',  
       descs: [
         {
-          color: '#000',
-          title: true,
           text: 'Tablet',
+          style: DESC_MAIN
         },
         {
-          color: '#000',
-          title: false,
           text: 'Just the right amount of everything.',
+          style: { ...DESC_VICE, marginTop: '0px' }
         },
       ]
     },
     {
       posterId: 2,
-      bgColor:'#fff', 
+      bgColor:'#f2f2f4', 
 		  pic:'airpods.png',
       descs: [
         {
-          color: '#000',
-          title: true,
           text: 'Buy a Tablet or xPhone for college.',
+          style: { ...DESC_MAIN, marginBottom: '0px' }
+
         },
         {
-          color: '#000',
-          title: true,
           text: 'Get arPods',
+          style: { ...DESC_MAIN, marginTop: '12px' }
         },
       ]
     },
