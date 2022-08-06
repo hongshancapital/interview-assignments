@@ -1,0 +1,365 @@
+@use 'sass:math';
+
+/**
+* spacing
+**/
+$spacing-none: 0;
+$spacing-1: 2px;
+$spacing-2: 4px;
+$spacing-3: 6px;
+$spacing-4: 8px;
+$spacing-5: 10px;
+$spacing-6: 12px;
+$spacing-7: 16px;
+$spacing-8: 20px;
+$spacing-9: 24px;
+$spacing-10: 32px;
+$spacing-11: 36px;
+$spacing-12: 40px;
+$spacing-13: 48px;
+$spacing-14: 56px;
+$spacing-15: 60px;
+$spacing-16: 64px;
+$spacing-17: 72px;
+$spacing-18: 80px;
+$spacing-19: 84px;
+$spacing-20: 96px;
+$spacing-21: 100px;
+$spacing-22: 120px;
+
+$spacing-small: $spacing-4 !default;
+$spacing-base: $spacing-7 !default;
+$spacing-large: $spacing-10 !default;
+
+/**
+* padding
+**/
+$padding-y-xs: 0.125rem !default;
+$padding-x-xs: 0.25rem !default;
+
+$padding-y-sm: 0.25rem !default;
+$padding-x-sm: 0.5rem !default;
+
+$padding-y: 0.375rem !default;
+$padding-x: 0.75rem !default;
+
+$padding-y-lg: 0.5rem !default;
+$padding-x-lg: 1rem !default;
+
+/**
+* margin
+**/
+$margin-y-sm: 0.125rem !default;
+$margin-x-sm: 0.25rem !default;
+
+$margin-y-sm: 0.25rem !default;
+$margin-x-sm: 0.5rem !default;
+
+$margin-y: 0.375rem !default;
+$margin-x: 0.75rem !default;
+
+$margin-y-lg: 0.5rem !default;
+$margin-x-lg: 1rem !default;
+
+/**
+* gray
+**/
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+/**
+* app colors
+**/
+$blue: #0d6efd !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #d63384 !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #fadb14 !default;
+$green: #52c41a !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
+
+$primary: $blue !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-800 !default;
+
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+);
+
+/**
+* transparent background
+**/
+$transparent-bg-35: rgba(
+  $color: #000,
+  $alpha: 0.035,
+) !default;
+$transparent-bg-50: rgba(
+  $color: #000,
+  $alpha: 0.05,
+) !default;
+$transparent-bg-75: rgba(
+  $color: #000,
+  $alpha: 0.075,
+) !default;
+$transparent-bg-100: rgba(
+  $color: #000,
+  $alpha: 0.1,
+) !default;
+$transparent-bg-200: rgba(
+  $color: #000,
+  $alpha: 0.2,
+) !default;
+$transparent-bg-300: rgba(
+  $color: #000,
+  $alpha: 0.35,
+) !default;
+$transparent-bg-400: rgba(
+  $color: #000,
+  $alpha: 0.4,
+) !default;
+$transparent-bg-500: rgba(
+  $color: #000,
+  $alpha: 0.5,
+) !default;
+
+/**
+* font-family
+**/
+$font-family-sans-serif: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
+  'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
+$font-family-monospace: sfmono-regular, menlo, monaco, consolas,
+  'Liberation Mono', 'Courier New', monospace !default;
+$font-family-base: $font-family-sans-serif !default;
+
+// font-size
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg: $font-size-base * 1.25 !default;
+$font-size-sm: $font-size-base * 0.875 !default;
+$font-size-xs: $font-size-base * 0.75 !default;
+$font-size-root: null !default;
+
+// font-weight
+$font-weight-lighter: lighter !default;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-500: 500 !default;
+$font-weight-bold: 700 !default;
+$font-weight-bolder: bolder !default;
+$font-weight-base: $font-weight-normal !default;
+
+// line-height
+$line-height-xs: 1 !default;
+$line-height-sm: 1.25 !default;
+$line-height-base: 1.5 !default;
+$line-height-lg: 2 !default;
+
+// header size
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;
+
+// link
+$link-color: $primary !default;
+$link-decoration: none !default;
+$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-decoration: underline !default;
+
+// circle
+$circle-radius-base: 1.5rem !default;
+$circle-radius-sm: $circle-radius-base * 0.875 !default;
+$circle-radius-lg: $circle-radius-base * 2 !default;
+
+// body
+$body-bg: $white !default;
+$body-color: $gray-900 !default;
+$body-text-align: null !default;
+
+$headings-font-family: null !default;
+$headings-font-style: null !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.2 !default;
+$headings-color: null !default;
+
+// Paragraphs
+$paragraph-margin-bottom: 1rem !default;
+
+// others
+$headings-margin-bottom: math.div($spacing-base, 2) !default;
+$headings-font-family: null !default;
+$headings-font-style: null !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.2 !default;
+$headings-color: null !default;
+
+$display1-size: 6rem !default;
+$display2-size: 5.5rem !default;
+$display3-size: 4.5rem !default;
+$display4-size: 3.5rem !default;
+
+$display1-weight: 300 !default;
+$display2-weight: 300 !default;
+$display3-weight: 300 !default;
+$display4-weight: 300 !default;
+$display-line-height: $headings-line-height !default;
+
+$lead-font-size: $font-size-base * 1.25 !default;
+$lead-font-weight: 300 !default;
+
+$small-font-size: 0.875em !default;
+
+$sub-sup-font-size: 0.75em !default;
+
+$text-muted: $gray-600 !default;
+
+$initialism-font-size: $small-font-size !default;
+
+$blockquote-small-color: $gray-600 !default;
+$blockquote-small-font-size: $small-font-size !default;
+$blockquote-font-size: $font-size-base * 1.25 !default;
+
+$hr-color: inherit !default;
+$hr-height: 1px !default;
+$hr-opacity: 0.25 !default;
+
+$legend-margin-bottom: 0.5rem !default;
+$legend-font-size: 1.5rem !default;
+$legend-font-weight: null !default;
+
+$mark-padding: 0.2em !default;
+
+$dt-font-weight: $font-weight-bold !default;
+
+$nested-kbd-font-weight: $font-weight-bold !default;
+
+$list-inline-padding: 0.5rem !default;
+
+$mark-bg: #fcf8e3 !default;
+
+$hr-margin-y: $spacing-base !default;
+
+// Code
+$code-font-size: $small-font-size !default;
+$code-color: $pink !default;
+$pre-color: null !default;
+
+// options
+$enable-pointer-cursor-for-buttons: true !default;
+
+// border and border radius
+$border-width: 1px !default;
+$border-color: $gray-300 !default;
+
+$border-radius-none: 0 !default;
+$border-radius-xs: 2px !default;
+$border-radius-sm: 2px !default;
+$border-radius: 4px !default;
+$border-radius-lg: 8px !default;
+$border-radius-circle: 50% !default;
+
+// Progress bars
+$progress-font-size: $font-size-base * 0.75 !default;
+$progress-bg: $gray-200 !default;
+$progress-border-radius: $border-radius !default;
+$progress-bar-color: $white !default;
+$progress-bar-transition: width 0.6s ease !default;
+
+/**
+* bock size
+**/
+$block-size-none: 0;
+$block-size-1: 4px;
+$block-size-2: 8px;
+$block-size-3: 12px;
+$block-size-4: 16px;
+$block-size-5: 20px;
+$block-size-6: 24px;
+$block-size-7: 28px;
+$block-size-8: 32px;
+$block-size-9: 36px;
+$block-size-10: 40px;
+$block-size-11: 44px;
+$block-size-12: 48px;
+$block-size-13: 52px;
+$block-size-14: 56px;
+$block-size-15: 60px;
+$block-size-16: 64px;
+$block-size-17: 68px;
+$block-size-18: 72px;
+$block-size-19: 76px;
+$block-size-20: 80px;
+$block-size-21: 84px;
+$block-size-22: 88px;
+$block-size-23: 92px;
+$block-size-24: 96px;
+$block-size-25: 100px;
+
+$block-size-mini: $block-size-6 !default;
+$block-size-small: $block-size-9 !default;
+$block-size-base: $block-size-12 !default;
+$block-size-large: $block-size-24 !default;
+
+/**
+* box-shadow
+**/
+$shadow-none: none;
+$shadow-special: 0 0 1px rgba($black, 0.3);
+$shadow1-center: 0 0 5px rgba($black, 0.1);
+$shadow1-up: 0 -2px 5px rgba($black, 0.1);
+$shadow1-down: 0 2px 5px rgba($black, 0.1);
+$shadow1-left: -2px 0 5px rgba($black, 0.1);
+$shadow1-right: 2px 0 5px rgba($black, 0.1);
+$shadow1-left-up: -2px -2px 5px rgba($black, 0.1);
+$shadow1-left-down: -2px 2px 5px rgba($black, 0.1);
+$shadow1-right-up: 2px -2px 5px rgba($black, 0.1);
+$shadow1-right-down: 2px 2px 5px rgba($black, 0.1);
+$shadow2-center: 0 0 10px rgba($black, 0.1);
+$shadow2-up: 0 -4px 10px rgba($black, 0.1);
+$shadow2-down: 0 4px 10px rgba($black, 0.1);
+$shadow2-left: -4px 0 10px rgba($black, 0.1);
+$shadow2-right: 4px 0 10px rgba($black, 0.1);
+$shadow2-left-up: -4px -4px 10px rgba($black, 0.1);
+$shadow2-left-down: -4px 4px 10px rgba($black, 0.1);
+$shadow2-right-up: 4px -4px 10px rgba($black, 0.1);
+$shadow2-right-down: 4px 4px 10px rgba($black, 0.1);
+$shadow3-center: 0 0 20px rgba($black, 0.1);
+$shadow3-up: 0 -8px 20px rgba($black, 0.1);
+$shadow3-down: 0 8px 20px rgba($black, 0.1);
+$shadow3-left: -8px 0 20px rgba($black, 0.1);
+$shadow3-right: 8px 0 20px rgba($black, 0.1);
+$shadow3-left-up: -8px -8px 20px rgba($black, 0.1);
+$shadow3-left-down: -8px 8px 20px rgba($black, 0.1);
+$shadow3-right-up: 8px -8px 20px rgba($black, 0.1);
+$shadow3-right-down: 8px 8px 20px rgba($black, 0.1);
+
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075) !default;
+$box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
+$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
+$box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;

@@ -1,0 +1,106 @@
+$pr-carousel-indicator: 'pr-carousel-indicator';
+
+$pr-carousel-indicator-white: $white !default;
+$pr-carousel-indicator-padding-y: $padding-y !default;
+$pr-carousel-indicator-padding-x: $padding-x !default;
+
+$pr-carousel-indicator-bg: $gray-600 !default;
+$pr-carousel-indicator-animate-bg: $gray-100 !default;
+$pr-carousel-indicator-bottom: $spacing-9 !default;
+
+.#{$pr-carousel-indicator} {
+  position: absolute;
+  z-index: 2;
+
+  &-item {
+    position: relative;
+    display: inline-block;
+    background-color: $pr-carousel-indicator-bg;
+    opacity: 0.6;
+    overflow: hidden;
+    cursor: pointer;
+
+    &-active {
+      opacity: 0.9;
+    }
+
+    &-animate {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 100%;
+      background-color: $pr-carousel-indicator-animate-bg;
+      animation-name: widthChanging;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+.#{$pr-carousel-indicator}-top,
+.#{$pr-carousel-indicator}-bottom {
+  @include flex(inline-flex);
+
+  left: 50%;
+  transform: translateX(-50%);
+  padding: $pr-carousel-indicator-padding-y $pr-carousel-indicator-padding-x;
+
+  .#{$pr-carousel-indicator}-item {
+    margin-right: 10px;
+  }
+}
+
+.#{$pr-carousel-indicator}-bottom {
+  bottom: $pr-carousel-indicator-bottom;
+}
+
+.#{$pr-carousel-indicator}-top {
+  top: 4px;
+}
+
+.#{$pr-carousel-indicator}-right,
+.#{$pr-carousel-indicator}-left {
+  @include flex(inline-flex, column);
+
+  top: 50%;
+  transform: translateY(-50%);
+  padding: $pr-carousel-indicator-padding-x $pr-carousel-indicator-padding-y;
+
+  .#{$pr-carousel-indicator}-item {
+    margin-bottom: 10px;
+  }
+}
+
+.#{$pr-carousel-indicator}-right {
+  right: $spacing-4;
+}
+
+.#{$pr-carousel-indicator}-left {
+  left: 4px;
+}
+
+.#{$pr-carousel-indicator}-dot {
+  .#{$pr-carousel-indicator}-item {
+    width: $spacing-4;
+    height: $spacing-4;
+    border-radius: 50%;
+  }
+}
+
+.#{$pr-carousel-indicator}-line {
+  .#{$pr-carousel-indicator}-item {
+    width: 40px;
+    height: 2px;
+    border-radius: 1px;
+  }
+}
+
+@keyframes widthChanging {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
