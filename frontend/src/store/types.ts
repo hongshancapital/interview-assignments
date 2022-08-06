@@ -9,7 +9,7 @@ export interface ICarouselData {
 export interface IPosterData {
   posterId: number
   bgColor: string
-  pic: string
+  pic: IPic
   descs: IDescData[]
 }
 
@@ -23,6 +23,12 @@ export interface IDescStyle {
   fontSize: string
   marginTop: string
   marginBottom: string
+}
+
+export interface IPic {
+  name: string
+  width: string
+  height: string
 }
 
 export interface ICarouselAction {

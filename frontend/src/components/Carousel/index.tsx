@@ -37,7 +37,7 @@ export default function Carousel() {
     }
   },[move])
   return (
-    <div className="carousel">
+    <div className="Carousel">
       <div className="carousel-wrap">
         <div className="carousel-track" ref={track}>
           {

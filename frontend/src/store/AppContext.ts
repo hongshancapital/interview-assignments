@@ -23,8 +23,12 @@ export const initialData: ICarouselData = {
   posters: [
     { 
       posterId: 0,
-      bgColor:'#101010', 
-      pic:'iphone.png', 
+      bgColor:'#000', 
+      pic: {
+        name: 'iphone.png',
+        width: '90px',
+        height: '110px'
+      },
       descs: [
         {
           text: 'xPhone',
@@ -43,7 +47,11 @@ export const initialData: ICarouselData = {
     {
       posterId: 1,
       bgColor:'#fafafa', 
-		  pic:'tablet.png',  
+      pic: {
+        name: 'tablet.png',
+        width: '96px',
+        height: '96px'
+      }, 
       descs: [
         {
           text: 'Tablet',
@@ -57,8 +65,12 @@ export const initialData: ICarouselData = {
     },
     {
       posterId: 2,
-      bgColor:'#f2f2f4', 
-		  pic:'airpods.png',
+      bgColor:'#f1f1f3', 
+      pic: {
+        name: 'airpods.png',
+        width: '102px',
+        height: '92px'
+      }, 
       descs: [
         {
           text: 'Buy a Tablet or xPhone for college.',

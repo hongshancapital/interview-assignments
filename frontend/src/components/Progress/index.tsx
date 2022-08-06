@@ -28,7 +28,7 @@ export default function Progress( { pid }: { pid: number}) {
     }
   }, [progressId])
   return (
-    <div className="progress">
+    <div className="Progress">
       <div className="progress-wrap">
         <div className="progress-bar progress-outer">
           <div 
