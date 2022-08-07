@@ -1,0 +1,59 @@
+.carouselContainer{
+    height:100%;
+    width:100%;
+    position:relative;
+    overflow:hidden;
+}
+
+.contentWrapper{
+    display:flex;
+    height:100%;
+    width:100%;
+    position:relative;
+    transition: left 1s;
+}
+
+.carouselChildWrapper{
+    height:100%;
+    width:100%;
+    position:absolute;
+    top:0px;
+}
+
+.indexPanel{
+    height:30px;
+    width:100%;
+    position:absolute;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    bottom:8vh;
+}
+
+.progress{
+    position:relative;
+    background-color:#a9a9a9;
+    height:3px;
+    width:45px;
+    margin:0px 4px;
+    overflow:hidden;
+}
+
+.moveProgress{
+    background-color:white;
+    height:3px;
+    width:45px;
+    position:absolute;
+    left:-45px;
+    top:0px;
+    animation: move;
+    animation-timing-function:linear;
+}
+@keyframes move{
+    from {
+        left: -45px;
+    }
+    to {
+        left: 0px;
+    }
+}
