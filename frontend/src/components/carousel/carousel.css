@@ -1,0 +1,46 @@
+.carousel{
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 5px solid #272727;
+}
+.carousel-box{
+  position: relative;
+  display: flex;
+  transition: transform 0.3s linear;
+  width: calc(100vw - 10px);
+  height: calc(100vh - 10px);
+}
+
+.carousel-progress{
+  z-index: 10;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 62px;
+  display: flex;
+  justify-content: center;
+}
+.carousel-progress >div{
+  width: 42px;
+  height: 3px;
+  border-radius: 3px;
+  margin-right: 10px;
+  background-color: #a8a8a8;
+}
+.carousel-progress >div span{
+  display: block;
+  width:0px;
+  height: 100%;
+  background-color: #f8f8f8;
+  z-index: 20;
+  /* animation: move 2.5s; */
+}
+
+@keyframes move{
+  from {
+    width: 0;
+  }
+  to {
+    width: 42px;
+  }
+}
