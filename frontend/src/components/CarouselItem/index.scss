@@ -1,0 +1,24 @@
+.carouser__item {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: bottom;
+  }
+  // item 标题内容容器
+  &__container {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    left: 0;
+  }
+  &__title {
+    margin: 0 0 20px 0;
+    font-size: 3rem;
+    font-weight: bold;
+  }
+}
