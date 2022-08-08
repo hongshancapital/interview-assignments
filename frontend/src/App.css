@@ -1,14 +1,41 @@
-.App {
-  text-align: center;
-  position: relative;
+.main {
+  width: 100%;
+  height: 100%;
 }
 
-.title {
+.main .item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main .item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main .item .container {
+  position: absolute;
+  top: 10vh;
+  text-align: center;
+}
+
+.main .item .container .title {
   font-size: 56px;
   font-weight: 600;
 }
 
-.text {
+.main .item .container .text {
   font-size: 28px;
   font-weight: 400;
+}
+
+.xPhone {
+  color: #fff;
+}
+
+.tablet .airpods {
+  color: black;
 }
