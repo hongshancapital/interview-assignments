@@ -1,0 +1,81 @@
+.carousel {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.carousel .slick-slider {
+    position: relative;
+    display: block;
+}
+
+.carousel .slick-initialized .slick-slide {
+    display: block;
+}
+
+.carousel .slick-list {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.carousel .slick-slider .slick-list, .carousel .slick-slider .slick-track {
+    transform: translateZ(0);
+}
+
+.carousel .slick-track:after, .carousel .slick-track:before {
+    display: table;
+    content: "";
+}
+
+.carousel .slick-slide {
+    display: none;
+    float: left;
+    height: 100%;
+    min-height: 1px;
+}
+
+.carousel .slick-dots {
+    position: absolute;
+    bottom: 24px;
+    display: block;
+    width: 100%;
+    height: 3px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    list-style: none;
+}
+
+.carousel .slick-dots li {
+    position: relative;
+    display: inline-block;
+    margin: 0 2px;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+}
+
+.carousel .slick-dots li button {
+    display: block;
+    width: 16px;
+    height: 3px;
+    padding: 0;
+    color: transparent;
+    font-size: 0;
+    background: #ccc;
+    border: 0;
+    border-radius: 1px;
+    outline: none;
+    cursor: pointer;
+    opacity: .3;
+    transition: all .5s;
+}
+
+.carousel .slick-dots li.slick-active button {
+    width: 24px;
+    background: #fff;
+    opacity: 1;
+}
