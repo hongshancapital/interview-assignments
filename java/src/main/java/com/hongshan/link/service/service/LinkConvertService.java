@@ -9,14 +9,6 @@ import javax.annotation.Resource;
  * @author heshineng
  * created by 2022/8/8
  * link数据转换类业务逻辑
- * <p>
- * 待实现逻辑
- * 1.controller 层校验
- * 2.数据层处理
- * 3.逻辑全部校验并自测
- * 4.补全单元测试，并测试单测覆盖率，截图
- * 5.gitignore 不需要的文件处理
- * 6.文档架构图，设计思路 及 一些其他改进优化项 Markdown 格式
  */
 @Service
 public class LinkConvertService {
