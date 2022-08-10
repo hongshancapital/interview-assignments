@@ -20,7 +20,7 @@ export const initialData: ICarouselData = {
   posters: [
     { 
       posterId: 0,
-      bgColor:'#000', 
+      bgColor:'#111', 
       pic: {
         name: 'iphone.png',
         width: '90px',
