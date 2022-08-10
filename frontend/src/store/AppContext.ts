@@ -5,15 +5,12 @@ const LAST_ID = 2
  const DESC_MAIN: IDescStyle = {
   color: '#000',
   fontSize: '40px',
-  marginTop: '224px',
-  marginBottom: '32px'
+  paddingTop: '224px'
  }
 
  const DESC_VICE: IDescStyle = {
   color: '#000',
   fontSize: '32px',
-  marginTop: '12px',
-  marginBottom: '0px'
  }
 
 export const initialData: ICarouselData = {
@@ -36,11 +33,11 @@ export const initialData: ICarouselData = {
         },
         {
           text: 'Lots to love. Less to spend.',
-          style: { ...DESC_VICE, color: '#fff' }
+          style: { ...DESC_VICE, color: '#fff', paddingTop: '32px' }
         },
         {
           text: 'Starting at $399.',
-          style: { ...DESC_VICE, color: '#fff' }
+          style: { ...DESC_VICE, color: '#fff', paddingTop: '12px' }
         },
       ]
     },
@@ -55,11 +52,11 @@ export const initialData: ICarouselData = {
       descs: [
         {
           text: 'Tablet',
-          style: DESC_MAIN
+          style: { ...DESC_MAIN }
         },
         {
           text: 'Just the right amount of everything.',
-          style: { ...DESC_VICE, marginTop: '0px' }
+          style: { ...DESC_VICE, paddingTop: '32px' }
         },
       ]
     },
@@ -74,12 +71,12 @@ export const initialData: ICarouselData = {
       descs: [
         {
           text: 'Buy a Tablet or xPhone for college.',
-          style: { ...DESC_MAIN, marginBottom: '0px' }
+          style: { ...DESC_MAIN }
 
         },
         {
           text: 'Get arPods',
-          style: { ...DESC_MAIN, marginTop: '12px' }
+          style: { ...DESC_MAIN, paddingTop: '12px' }
         },
       ]
     },

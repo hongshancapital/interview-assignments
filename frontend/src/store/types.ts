@@ -21,8 +21,8 @@ export interface IDescData {
 export interface IDescStyle {
   color: string
   fontSize: string
-  marginTop: string
-  marginBottom: string
+  paddingTop?: string
+  paddingBottom?: string
 }
 
 export interface IPic {
