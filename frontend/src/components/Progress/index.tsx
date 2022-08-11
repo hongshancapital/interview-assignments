@@ -17,7 +17,7 @@ export default function Progress( { pid }: { pid: number}) {
           ],
           { duration: 3000, fill: 'forwards' }
         );
-        const anim = new Animation(keyframes, document.timeline);
+        const anim = new Animation(keyframes);
         anim.play()
         const finish = anim.finished
         finish.then(() => {

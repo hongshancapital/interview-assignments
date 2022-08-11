@@ -26,7 +26,7 @@ export default function Carousel() {
         ],
         { duration: 500, fill: 'forwards' }
       )
-      const anim = new Animation(keyframes, document.timeline)
+      const anim = new Animation(keyframes)
       anim.play()
       const finish = anim.finished
       finish.then(() => {
