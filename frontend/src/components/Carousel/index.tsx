@@ -12,12 +12,9 @@ export default function Carousel() {
   let dispatch:React.Dispatch<TCarouselAction> | null  = useCarouselDispatch() 
   const track = useRef<HTMLDivElement>(null)
   // const catchRect = useRef<DOMRect | undefined>(undefined)
-  console.log('???????????!!!!!!!!!!!!')
   useLayoutEffect(()=>{
     // catchRect.current =  track?.current?.getBoundingClientRect()
-    console.log('xxxxxxxx', move)
     if (move) {
-      console.log('yyyyyyyyyyy')
       let distance = 0
       if (progressId < lastId) {
         distance = START_POINT - (progressId + 1) * DISTANCE
@@ -29,21 +26,19 @@ export default function Carousel() {
         ],
         { duration: 500, fill: 'forwards' }
       )
-      console.log('????????')
       const anim = new Animation(keyframes)
       anim.play()
       let finish = anim.finished
       finish.then(() => {
-          console.log('--- dispatch SET_CURRENT -----', progressId)
-          if (dispatch) {
-            dispatch({
-              type: ECarouselActionType.SET_CURRENT,
-            })
-          }
+        if (dispatch) {
+          dispatch({
+            type: ECarouselActionType.SET_CURRENT,
+          })
+        }
       })
-      return () => {
-        dispatch = null
-      }
+    }
+    return () => {
+      dispatch = null
     }
   },[move])
   return (

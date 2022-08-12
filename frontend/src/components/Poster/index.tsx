@@ -9,7 +9,7 @@ export default function Poster({ pid } : { pid: number}) {
   const poster = posters[pid]
   const { descs, pic } = poster
   const picName = require(`../../assets/${pic.name}`)
-  const size = (pid + 1) * 100
+  const size = (pid + 1) * 50
   const bgSize = `${size}vw`
   return (
     <div className="Poster" style={{ background: poster.bgColor }}>

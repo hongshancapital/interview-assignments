@@ -1,17 +1,14 @@
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react"
 import { useCarousel, useCarouselDispatch } from "../../store/AppContext"
-import { ECarouselActionType } from '../../store/types'
+import { ECarouselActionType, TCarouselAction } from "../../store/types"
 import "./styles.css"
 
 export default function Progress( { pid }: { pid: number}) {
   const { progressId } = useCarousel()
-  const dispatch = useCarouselDispatch()
+  let dispatch:React.Dispatch<TCarouselAction> | null  = useCarouselDispatch() 
   const inner = useRef<HTMLDivElement>(null)
-  console.log('ppp111111', pid)
   useLayoutEffect(()=>{
-    console.log('ppp22222')
     if (pid === progressId) {
-      console.log('ppp3333333333333333333', progressId)
       const keyframes = new KeyframeEffect(
           inner.current, 
           [
@@ -23,13 +20,16 @@ export default function Progress( { pid }: { pid: number}) {
         const anim = new Animation(keyframes);
         anim.play()
         const finish = anim.finished
-        console.log('ppp4444')
         finish.then(() => {
-          console.log('ppp55555')
-          dispatch({
-            type: ECarouselActionType.SET_MOVE
-          })
+          if (dispatch) {
+            dispatch({
+              type: ECarouselActionType.SET_MOVE
+            })
+          }
         })
+    }
+    return () => {
+      dispatch = null
     }
   }, [progressId])
   return (

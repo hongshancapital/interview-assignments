@@ -1,15 +1,10 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { KeyframeEffect, Animation } from './types'
 import App from '../App';
 
-test('renders learn react link', () => {
-  // const { getByText } = render(<App />);
-  // const linkElement = getByText(/learn react/i);
-  // expect(linkElement).toBeInTheDocument();
+test('how to test ?', async () => {
   window.KeyframeEffect = KeyframeEffect
   window.Animation = Animation
   render(<App />);
-  if (window) console.log('ooooooooook')
-  if (document.timeline) { console.log('1111111') } else { console.log('2222222')}
 });
