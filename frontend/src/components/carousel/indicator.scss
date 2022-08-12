@@ -1,0 +1,16 @@
+.carousel-indicator {
+  position: absolute;
+  display: flex;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  justify-content: center;
+
+  .indicator-wrapper {
+    display: flex;
+
+    & :not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
