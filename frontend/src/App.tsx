@@ -4,6 +4,7 @@ import Carousel from "./components/Carousel";
 import { AppProvider } from "./providers/AppProvider";
 
 function App() {
+  console.log('----App-----')
   return (
     <AppProvider>
       <div className="App">

@@ -9,7 +9,7 @@ test('renders learn react link', () => {
   // expect(linkElement).toBeInTheDocument();
   window.KeyframeEffect = KeyframeEffect
   window.Animation = Animation
-  const { getByText } = render(<App />);
+  render(<App />);
   if (window) console.log('ooooooooook')
   if (document.timeline) { console.log('1111111') } else { console.log('2222222')}
 });

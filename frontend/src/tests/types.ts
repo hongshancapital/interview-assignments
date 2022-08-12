@@ -17,9 +17,9 @@ export class KeyframeEffect {
 
 export class Animation {
   constructor(kf: string) {
-    this.finished = new Promise((res, rej)=> {})
+    this.finished = new Promise((res, rej)=> { res() })
   }
-  finished: InstanceType<typeof Promise>
+  finished: Promise<void>
   play() {}
 }
 
