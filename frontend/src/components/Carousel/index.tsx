@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useLayoutEffect } from "react"
 import Poster from "../Poster"
 import Progress from "../Progress"
-import { useCarousel, useCarouselDispatch } from "../../store/AppContext"
-import { ECarouselActionType, TCarouselAction } from "../../store/types"
+import { useCarousel, useCarouselDispatch } from "../../stores/AppContext"
+import { ECarouselActionType, TCarouselAction } from "../../stores/types"
 import "./styles.css"
 const START_POINT = 0
 const DISTANCE = 100

@@ -1,7 +1,7 @@
 import React from "react"
 import { text } from "stream/consumers"
-import { useCarousel, useCarouselDispatch } from "../../store/AppContext"
-import { ECarouselActionType } from "../../store/types"
+import { useCarousel, useCarouselDispatch } from "../../stores/AppContext"
+import { ECarouselActionType } from "../../stores/types"
 import "./styles.css"
 
 export default function Poster({ pid } : { pid: number}) {

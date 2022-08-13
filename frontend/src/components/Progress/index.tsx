@@ -1,6 +1,6 @@
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react"
-import { useCarousel, useCarouselDispatch } from "../../store/AppContext"
-import { ECarouselActionType, TCarouselAction } from "../../store/types"
+import { useCarousel, useCarouselDispatch } from "../../stores/AppContext"
+import { ECarouselActionType, TCarouselAction } from "../../stores/types"
 import "./styles.css"
 
 export default function Progress( { pid }: { pid: number}) {
