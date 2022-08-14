@@ -1,4 +1,4 @@
-import React, { FC, memo, PropsWithChildren, ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { FC, memo, PropsWithChildren, ReactElement, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { CarouselItem } from './CarouselItem';
 import styles from './Carousel.module.css';
 import { Indicator } from './Indicator';
@@ -46,7 +46,7 @@ const MemoCarousel: FC<CarouselProps> = memo<PropsWithChildren<CarouselProps>>(
           {items}
         </div>
         {indicator && (
-          <div className={styles.indicatorOuter}>
+          <div className={styles.indicatorOuter} key={items.length}>
             {items.map((_, i) => (
               <Indicator duration={duration} key={i} active={i === current} width={indicatorWidth} />
             ))}

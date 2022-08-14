@@ -5,6 +5,7 @@ import { FullScreen } from './components/FullScreen';
 
 const commonStyle = { fontSize: 32, fontWeight: 'bold', color: '#fff' };
 function App() {
+
   return (
     <div className="App">
       <Carousel>

@@ -13,26 +13,34 @@ const MemoIndicator = memo<IndicatorProps>(({ duration = 0, active, width = 40 }
 
   const start = useRef(0);
   const interval = useRef(1000 / 60);
+  const animationId = useRef(0);
+  const reset = () => {
+    start.current = 0;
+    updateInnerWidth(0);
+  };
   const play = (t: DOMHighResTimeStamp) => {
     if (!start.current) start.current = t;
     const d = t - start.current;
     // 控制时间，在duration内执行动画
     if (d < duration) {
-      requestAnimationFrame(play);
+      animationId.current = requestAnimationFrame(play);
       // 更新逻辑 每秒多少宽度(px/ms)，然后根据60fps来计算获取每次需要更新的宽度
       updateInnerWidth((prev) => prev + (width / duration) * interval.current);
-    } else {
-      start.current = 0;
-      updateInnerWidth(0);
-    }
+    } else reset();
   };
 
   useEffect(() => {
-    if (!active) return;
-    const animationId = requestAnimationFrame(play);
-    return () => {
-      cancelAnimationFrame(animationId);
+    const destroy = () => {
+      start.current = 0;
+      cancelAnimationFrame(animationId.current);
     };
+
+    if (!active) {
+      reset();
+      return destroy;
+    }
+    animationId.current = requestAnimationFrame(play);
+    return destroy;
   }, [active]);
 
   return (
