@@ -7,7 +7,7 @@ export interface IndicatorProps {
   width?: number;
 }
 
-/** 跑马灯指示 */
+/** 指示器 */
 const MemoIndicator = memo<IndicatorProps>(({ duration = 0, active, width = 40 }) => {
   const [innerWidth, updateInnerWidth] = useState(0);
 
