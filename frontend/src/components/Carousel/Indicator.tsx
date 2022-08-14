@@ -45,7 +45,11 @@ const MemoIndicator = memo<IndicatorProps>(({ duration = 0, active, width = 40 }
 
   return (
     <div className={styles.indicator} style={{ width }}>
-      <div className={styles.indicatorInner} style={{ width: innerWidth }}></div>
+      <div
+        className={styles.indicatorInner}
+        data-testid={active ? 'test-active' : ''}
+        style={{ width: innerWidth }}
+      ></div>
     </div>
   );
 });

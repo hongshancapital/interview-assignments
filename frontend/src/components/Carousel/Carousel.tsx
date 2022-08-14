@@ -85,7 +85,18 @@ const MemoCarousel: FC<CarouselProps> = memo<PropsWithChildren<CarouselProps>>(
       useImperativeHandle(
         ref,
         () => {
-          return { pause, play, update: (index: number) => setInCurrent(index) };
+          return {
+            pause,
+            play,
+            update: (index: number) => {
+              setInCurrent((prev) => {
+                if (prev >= items.length - 1) {
+                  return 0;
+                }
+                return prev + 1;
+              });
+            },
+          };
         },
         []
       );
