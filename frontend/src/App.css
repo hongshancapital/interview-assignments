@@ -1,6 +1,9 @@
 .App {
   text-align: center;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .title {
@@ -11,4 +14,51 @@
 .text {
   font-size: 28px;
   font-weight: 400;
+}
+
+.ppt {
+  height: 400px;
+  box-sizing: border-box;
+  padding-top: 80px;
+  position: relative;
+}
+
+.ppt .ppt-img {
+  width: 100%;
+  height: 200px;
+  margin-top: 60px;
+  object-fit: contain;
+  object-position: bottom;
+  position: absolute;
+  left: 0px;
+  bottom: 40px;
+}
+
+.ppt p {
+  font-size: 20px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.ppt h1 {
+  padding: 0px;
+  margin: 0px;
+}
+
+
+.ppt.item1 {
+  color: #fff;
+  background: rgb(17, 17, 17);
+}
+
+.ppt.item2 {
+  color: #000;
+  background: #fbfafa;
+  /* background: url('./assets/iphone.png'); */
+}
+
+.ppt.item3 {
+  color: #000;
+  background: #f1f1f3;
+  /* background: url('./assets/tablet.png'); */
 }
