@@ -6,5 +6,9 @@ import App from '../App';
 test('test', async () => {
   window.KeyframeEffect = KeyframeEffect
   window.Animation = Animation
-  render(<App />);
+  const { container } = render(<App />);
+  const posters = container.getElementsByClassName('Poster');
+  const progresses = container.getElementsByClassName('Progress');
+  expect(posters.length).toBe(3);
+  expect(progresses.length).toBe(3);
 });
