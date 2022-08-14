@@ -30,11 +30,10 @@ export class Animation {
   finished: Promise<void> | undefined
   duration: number
   play() {
-    const duration = this.duration
     this.finished = new Promise((res, rej)=> { 
       setTimeout(()=>{
         res()
-      }, duration)
+      }, 0)
     })
   }
 }
