@@ -25,11 +25,16 @@ export class KeyframeEffect {
 export class Animation {
   constructor(kf: KeyframeEffect) {
     this.finished = undefined
+    this.duration = kf.option.duration
   }
   finished: Promise<void> | undefined
+  duration: number
   play() {
+    const duration = this.duration
     this.finished = new Promise((res, rej)=> { 
-      res()
+      setTimeout(()=>{
+        res()
+      }, duration)
     })
   }
 }
