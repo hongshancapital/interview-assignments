@@ -3,7 +3,7 @@ import { useCarousel, useCarouselDispatch } from "../../stores/AppContext"
 import { ECarouselActionType, TCarouselAction } from "../../stores/types"
 import "./styles.css"
 
-export default function Progress( { pid }: { pid: number}) {
+export default function Progress( { pid, time=3000 }: { pid: number, time?: number}) {
   const { progressId } = useCarousel()
   let dispatch:React.Dispatch<TCarouselAction> | null  = useCarouselDispatch() 
   const inner = useRef<HTMLDivElement>(null)
@@ -15,7 +15,7 @@ export default function Progress( { pid }: { pid: number}) {
             { transform: 'scaleX(0%)', transformOrigin: 'left center' }, 
             { transform: 'scaleX(100%)', transformOrigin: 'left center' }
           ],
-          { duration: 3000, fill: 'forwards' }
+          { duration: time, fill: 'forwards' }
         );
         const anim = new Animation(keyframes);
         anim.play()
