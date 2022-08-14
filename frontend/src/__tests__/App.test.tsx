@@ -11,14 +11,14 @@ beforeAll(() => {
 
 beforeEach(cleanup)
 
-test('the number of poster and progress need to be the same', async () => {
+test('the number of posters and progresses need to be the same', async () => {
   const { container } = render(<App />);
   const posters = container.getElementsByClassName('Poster');
   const progresses = container.getElementsByClassName('Progress');
   expect(posters.length).toBe(progresses.length);
 });
 
-test('check the poster info', async () => {
+test('check poster info', async () => {
   const { container } = render(<App />);
   const posters = container.getElementsByClassName('Poster');
   for(let i = 0; i < posters.length; i++) {
