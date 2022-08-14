@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './App.css';
-import { Carousel } from './components/Carousel';
+import { Carousel, CarouselRefMethod } from './components/Carousel';
 import { FullScreen } from './components/FullScreen';
 
 const commonStyle = { fontSize: 32, fontWeight: 'bold', color: '#fff' };
 function App() {
 
+  const carousel = useRef<CarouselRefMethod>(null)
+
+  useEffect(() => {
+    setTimeout(() => {
+      carousel.current?.play(); 
+    }, 3000);
+    setTimeout(() => {
+      carousel.current?.pause();
+    }, 5000);
+  }, [])
+
   return (
     <div className="App">
-      <Carousel>
+      <Carousel ref={carousel} autoplay={false}>
         <Carousel.Item>
           <FullScreen center style={{ ...commonStyle, backgroundColor: '#32bbeb' }}>
             Hello World
