@@ -1,0 +1,71 @@
+.carousel_container {
+	overflow: hidden;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.carousel_container .inner {
+	white-space: nowrap;
+	transition: transform 0.6s;
+	height: 100%;
+}
+
+.carousel_item {
+	display: inline-flex;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	color: '#111';
+	background-color: #fff;
+	background-position: center 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	word-wrap: break-word;
+}
+
+.carousel_item .text_section {
+	padding: 10%;
+	white-space: pre-line;
+}
+
+.indicator {
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 3%;
+	width: 100%;
+	z-index: 100;
+}
+
+.indicator .indicator_outer {
+	width: 60px;
+	height: 3px;
+	background-color: #ccc;
+	margin-left: 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	list-style: none;
+}
+
+.indicator .indicator_inside {
+	height: 100%;
+	border-radius: 5px;
+	animation-fill-mode: forwards;
+	animation-name: progressBar;
+	animation-iteration-count: infinite;
+	animation-duration: 0s;
+}
+
+@keyframes progressBar {
+	0% {
+		width: 0%;
+	}
+
+	100% {
+		width: 100%;
+	}
+}
