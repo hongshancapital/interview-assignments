@@ -1,0 +1,58 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.swiper-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+}
+
+.swiper-content::-webkit-scrollbar {
+  display: none;
+}
+
+.swiper-content-item {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.swiper-indicator-root {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 5%;
+  display: flex;
+  flex-direction: row;
+}
+
+.swiper-indicator-item {
+  width: 40px;
+  height: 2px;
+  background-color: #a9a9a9;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-radius: 2px;
+}
+
+.swiper-indicator-item-active {
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+  animation-name: item-active;
+  animation-duration: 3000ms;
+}
+
+@keyframes item-active {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
