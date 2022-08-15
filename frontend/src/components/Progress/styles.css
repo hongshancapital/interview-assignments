@@ -1,0 +1,45 @@
+.progress {
+    height: 3px;
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+}
+
+.progress-item {
+    height: 100%;
+    width: 50px;
+    position: relative;
+}
+
+.progress-back {
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    opacity: 0.4;
+    position: absolute;
+}
+
+.progress-indicator {
+    height: 100%;
+    width: 0;
+    background-color: #fff;
+}
+
+.progress-item.on .progress-indicator {
+    animation-name: progressBar;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+}
+
+@keyframes progressBar {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
