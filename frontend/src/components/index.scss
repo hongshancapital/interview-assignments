@@ -1,0 +1,63 @@
+.carousel-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    &>.carousel-slider-container {
+        display: flex;
+
+        .carousel-item {
+            flex: 1;
+            position: relative;
+            height: 100vh;
+        }
+    }
+
+    .carousel-dots {
+        display: flex;
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        cursor: pointer;
+
+        li {
+            position: relative;
+            width: 50px;
+            height: 3px;
+            background: #74737438;
+            margin: 0 5px;
+            border-radius: 2px;
+        }
+
+        @keyframes progress-move {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .carousel-dots-progress {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            left: 0;
+            top: 0;
+            animation-name: progress-move;
+            animation-timing-function: linear;
+            background: #fbfafb;
+        }
+      
+        .slide-animation-running-state {
+            animation-play-state: running,
+        }
+
+        .slide-animation-paused-state {
+            animation-play-state: paused,
+        }
+    }
+}
