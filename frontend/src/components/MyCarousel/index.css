@@ -1,0 +1,56 @@
+.myCarousel-container {
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: yellowgreen;
+}
+
+.myCarousel-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+
+.myCarousel-item {
+  height: 100%;
+}
+
+.dots-list {
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dots-item {
+  position: relative;
+  width: 60px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: #cecece;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.dots-item:nth-last-child() {
+  margin-right: 0px;
+}
+
+.dots-active {
+  background-color: #f6f6f6;
+}
+
+.progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 8px;
+  border-radius: 4px;
+  background-color: #f20;
+}
