@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, within, cleanup } from '@testing-library/react';
 import { KeyframeEffect, Animation } from './types'
-import { initialData } from '../stores/AppContext'
+import { initialData } from '../stores/CarouselContext'
 import App from '../App';
 
 beforeAll(() => {

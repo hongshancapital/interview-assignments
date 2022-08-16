@@ -1,14 +1,13 @@
 import React, { useRef, useEffect, useLayoutEffect } from "react"
 import Poster from "../Poster"
 import Progress from "../Progress"
-import { useCarousel, useCarouselDispatch } from "../../stores/AppContext"
+import { useCarousel, useCarouselDispatch } from "../../stores/CarouselContext"
 import { ECarouselActionType, TCarouselAction } from "../../stores/types"
 import "./styles.css"
 const START_POINT = 0
 const DISTANCE = 100
 
 export default function Carousel() {
-  //TODO Carousel作为独立组件, 各项属性应由props传入, 应新增一层warp组件处理context
   const { posters, move, progressId, lastId } = useCarousel()
   let dispatch:React.Dispatch<TCarouselAction> | null  = useCarouselDispatch() 
   const track = useRef<HTMLDivElement>(null)

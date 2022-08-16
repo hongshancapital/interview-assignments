@@ -1,6 +1,6 @@
 import React from "react"
 import { text } from "stream/consumers"
-import { useCarousel, useCarouselDispatch } from "../../stores/AppContext"
+import { useCarousel, useCarouselDispatch } from "../../stores/CarouselContext"
 import { ECarouselActionType } from "../../stores/types"
 import "./styles.css"
 

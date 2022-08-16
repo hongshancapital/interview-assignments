@@ -1,5 +1,5 @@
 import React, { useReducer }from "react";
-import { CarouselContext, CarouselDispatchContext, initialData, carouselReducer} from '../stores/AppContext';
+import { CarouselContext, CarouselDispatchContext, initialData, carouselReducer} from '../stores/CarouselContext';
 
 
 export function AppProvider({ children }: { children: JSX.Element }) {

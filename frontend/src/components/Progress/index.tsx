@@ -1,5 +1,5 @@
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react"
-import { useCarousel, useCarouselDispatch } from "../../stores/AppContext"
+import { useCarousel, useCarouselDispatch } from "../../stores/CarouselContext"
 import { ECarouselActionType, TCarouselAction } from "../../stores/types"
 import "./styles.css"
 
@@ -37,9 +37,8 @@ export default function Progress( { pid, time=3000 }: { pid: number, time?: numb
       <div className="progress-wrap">
         <div className="progress-bar progress-outer">
           <div 
-            className="progress-bar progress-inner" 
-            ref={inner} 
-            style={{ background: pid === progressId ? '#fff' : '#9aa0a6'}}
+            className={`progress-bar progress-inner ${pid === progressId ? 'progress-active' : 'progress-inactive'}`} 
+            ref={inner}
           >
           </div>
         </div>
