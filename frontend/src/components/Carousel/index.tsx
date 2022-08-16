@@ -24,7 +24,7 @@ export default function Carousel() {
         [
           { transform: `translateX(${distance}vw)`, transformOrigin: 'left center' }
         ],
-        { duration: 500, fill: 'forwards' }
+        { duration: 400, fill: 'forwards' }
       )
       const anim = new Animation(keyframes)
       anim.play()
