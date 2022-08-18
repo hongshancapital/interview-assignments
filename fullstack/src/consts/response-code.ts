@@ -1,0 +1,6 @@
+export const RESPONSE_CODE = {
+  SUCCESS: 0,
+  ERROR_PARAMS_EMPTY: 1,
+  ERROR_LENGTH: 2,
+  ERROR_NO_MATCHED: 3,
+}
