@@ -7,6 +7,7 @@ import Swiper from "./components/Swiper";
 function App() {
   return <div className="App">
     <Swiper perStayTime={4000} perAniTime={300} initcialIndex={0} autoPlay={true}>
+      {/* swiperItem 中目前没有额外逻辑，先不封装 */}
       <div className="swiper__item">
         <div className="swiper__item__one">
           <h1 className="swiper__item_title">xPhone</h1>
