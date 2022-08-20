@@ -13,6 +13,7 @@ import { IPosterData } from "../stores/types"
 const OFFSET_BASE = 100
 const DEFAULT_TIME = 3000
 const IS_AUTO_PLAY = true
+
 export type Props = {
   posters: IPosterData[],
   autoPlay: boolean,
