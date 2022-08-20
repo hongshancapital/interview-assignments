@@ -1,0 +1,29 @@
+.carousel-wrap {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.carousel-container {
+  height: 100%;
+  width: 300vw;
+  display: flex;
+  transition-duration: 400ms;
+  transform-origin: left center;
+}
+
+.progress-container {
+  position: fixed;
+  width: 100%;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0px;
+  bottom: 52px;
+}
+
+.progress-container>.Progress:nth-child(2) {
+  margin-left: 8px;
+  margin-right: 8px;
+}
