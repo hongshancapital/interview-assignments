@@ -1,0 +1,28 @@
+.line-dot {
+    width: 40px;
+    border-top: 2px solid #727272;
+}
+.line-dot.active::after {
+    width: 0px;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    content: "";
+    border-top: 2px solid rgba(255,255,255,0.8);
+    animation: LeftToRight 3s linear;
+}
+@keyframes LeftToRight{
+    0% {
+        width: 0px;
+    }
+    100% {
+        width: 40px;
+    }
+}
+.slick-dots li {
+    width: 40px;
+}
+.slick-dots {
+    position: absolute;
+    bottom: 1vmin;
+}
