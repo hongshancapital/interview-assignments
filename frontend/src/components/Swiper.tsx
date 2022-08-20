@@ -36,7 +36,6 @@ const Swiper: React.ForwardRefExoticComponent<
       }, perStayTime + perAniTime);
 
       return () => {
-        console.log(11);
         clearTimeout(timer.current);
       };
     }
