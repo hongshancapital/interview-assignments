@@ -4,10 +4,10 @@ import { storeInstance } from '../src/store';
 let u32 = new Uint32Array(2)
 
 describe('func test', () => {
-    it('optimalFilterSize', () => {
+    it('optimalFilterSize test', () => {
         expect(optimalFilterSize(100000000, 0.01)).toBe(958505838);
     })
-    it('optimalHashes', () => {
+    it('optimalHashes test', () => {
         expect(optimalHashes(958505838, 100000000)).toBe(7);
     })
 })
@@ -40,7 +40,7 @@ describe('bloom conflict', () => {
 describe('bloom test', () => {
 
 
-    it('bloom error', () => {
+    it('fpp error', () => {
         expect(() => { new BloomFilter(4294967294, 1) }).toThrowError('fpp must be less than 1');
     })
 

@@ -1,13 +1,13 @@
 import { storeInstance } from '../src/store';
 
 describe('IStore defined', () => {
-    it('instance', () => {
+    it('instance should be defined', () => {
         expect(storeInstance).toBeDefined();
     })
 
 })
 
-describe('IStore method', () => {
+describe('IStore method test', () => {
     it('has', () => {
         expect(storeInstance.has('test')).toBe(false);
     })

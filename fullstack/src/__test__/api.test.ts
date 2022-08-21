@@ -3,17 +3,17 @@ import supertest from 'supertest';
 
 const api = supertest(server);
 
-describe('Web', () => {
-    it('/', async () => {
+describe('Web api test', () => {
+    it('/ should return welcome', async () => {
         const response = await api.get('/')
             .expect(200)
             .expect('welcome')
     })
-    it('/favicon.ico', async () => {
+    it('/favicon.ico should return 404', async () => {
         const response = await api.get('/favicon.ico')
             .expect(404)
     })
-    it('get /create', async () => {
+    it('get /create should return 405', async () => {
         const response = await api.get('/create')
             .expect(405)
     })
@@ -51,7 +51,7 @@ describe('Web', () => {
     })
 })
 
-describe('confilct', () => {
+describe('hash confilct test', () => {
 
     const OLD_ENV = process.env;
 
@@ -64,7 +64,7 @@ describe('confilct', () => {
         process.env = OLD_ENV;
     });
 
-    it('get /3kb2uL', async () => {
+    it('get /3kb2uL should return url not found', async () => {
         process.env.BF_SIZE = '10';
         process.env.BF_FPP = '0.9';
         let server = require('../src/web').server;

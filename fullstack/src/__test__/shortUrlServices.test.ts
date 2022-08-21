@@ -2,7 +2,7 @@ import { createShortUrl, loadShortUrl } from '../src/shortUrlServices';
 import { storeInstance } from '../src/store';
 import { hashUrl } from '../src/hash';
 
-describe('createShortUrl', () => {
+describe('createShortUrl test', () => {
     it('http://www.baidu.com', () => {
         let long = 'http://www.baidu.com';
         let short = createShortUrl(long);
