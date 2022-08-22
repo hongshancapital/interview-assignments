@@ -5,9 +5,14 @@ import React, {
   useRef,
   useLayoutEffect,
   PropsWithChildren,
+  FunctionComponentElement,
 } from "react";
 
-import "./Swiper.css";
+import "./Carousel.css";
+
+import CarouselIndicator from "./CarouselIndicator";
+import CarouselItem from "./CarouselItem";
+
 interface Props {
   perStayTime: number;
   perAniTime: number;
@@ -15,13 +20,13 @@ interface Props {
   autoPlay?: boolean;
 }
 
-const Swiper: React.ForwardRefExoticComponent<
+const Carousel: React.ForwardRefExoticComponent<
   PropsWithChildren<Props> & React.RefAttributes<any>
 > = React.forwardRef((props, externalElRef) => {
   const { perStayTime, perAniTime, children, autoPlay } = props;
   const [current, setCurrent] = useState(props.initcialIndex);
   const timer = useRef<number>();
-  const swiperElRef = useRef(null);
+  const carouselElRef = useRef(null);
 
   const count = useMemo(() => {
     return React.Children.count(children);
@@ -30,7 +35,6 @@ const Swiper: React.ForwardRefExoticComponent<
   useEffect(() => {
     if (autoPlay) {
       // 每一次副作用开启一次定时器，实现循环轮播
-      // 如果有点击切换，记得清楚此定时器后在 setCurrent
       timer.current = window.setTimeout(() => {
         setCurrent((current + 1) % count);
       }, perStayTime + perAniTime);
@@ -45,48 +49,42 @@ const Swiper: React.ForwardRefExoticComponent<
     //抛出ref
     if (externalElRef) {
       if (typeof externalElRef === "object") {
-        externalElRef.current = swiperElRef.current;
+        externalElRef.current = carouselElRef.current;
       } else {
-        externalElRef(swiperElRef);
+        externalElRef(carouselElRef);
       }
     }
   });
 
+
+  const renderCarouselItem = () => {
+    return React.Children.map(props.children, (child, index) => {
+      //TODO 这里判断是否是carouselItem
+      if (React.isValidElement(child)) {
+        return child
+      } else {
+        return
+      }
+    })
+  }
+
   return (
-    <div className="swiper" ref={swiperElRef}>
+    <div className="carousel" ref={carouselElRef}>
       <div
-        className="swiper__wrapper"
+        className="carousel__wrapper"
         style={{
           transform: `translateX(-${100 * current}%)`,
           transition: `transform ${perAniTime / 1000}s linear`,
         }}
       >
-        {props.children}
+        {renderCarouselItem()}
       </div>
 
-      {/* 这里pagination 当作内置组件了 */}
-      <div className="swiper__pagination__bar">
-        <ul className="swiper__pagination">
-          {React.Children.map(props.children, (c, i) => (
-            <li className="swiper__pagination__item">
-              <span
-                className={`swiper__pagination__item__fill ${
-                  current > i ? "actived" : ""
-                }`}
-                style={
-                  current === i
-                    ? {
-                        animation: `slideRight ${perStayTime / 1000}s forwards`,
-                      }
-                    : {}
-                }
-              ></span>
-            </li>
-          ))}
-        </ul>
+      <div className="carousel__indicator__bar">
+        <CarouselIndicator current={current} onIndexChange={(i) => {setCurrent(i) }} duration={perStayTime} count={count}></CarouselIndicator>
       </div>
     </div>
   );
 });
 
-export default Swiper;
+export default Carousel;
