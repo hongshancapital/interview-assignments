@@ -68,7 +68,7 @@ describe('bloom test', () => {
         })
     })
 
-    it('bloom create2', () => {
+    it('bloom create2 for test two hashes have the same bit', () => {
         var bf = new BloomFilter(1000, 0.01);
         expect(bf).toBeInstanceOf(BloomFilter);
         expect(bf.byteSize).toBe(300);
