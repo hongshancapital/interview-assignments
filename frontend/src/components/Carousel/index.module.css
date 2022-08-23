@@ -1,0 +1,60 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.scroller {
+    white-space: nowrap;
+    transition: transform linear .6s;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.wrapper {
+    display: inline-block;
+}
+
+.pager {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 40px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.pager__item {
+    position: relative;
+    width: 36px;
+    height: 4px;
+    background: rgba(153, 153, 153);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.pager__item__progress {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    animation-name: Progress;
+    animation-timing-function: linear;
+}
+
+
+@keyframes Progress {
+    0% {
+        transform: translate3d(-36px, 0 ,0);
+    }
+    100% {
+        transform: translate3d(0, 0 ,0);
+    }
+}
