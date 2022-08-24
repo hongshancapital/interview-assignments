@@ -31,7 +31,7 @@ export const Carousel: React.FC<{}> = ({ children }) => {
   const style: React.CSSProperties = {
     transform: "translateX(0)",
     width: `${(length + 2) * 100}%`,
-    left: `-${current * 100}%`,
+    left: `-${(current + 1) * 100}%`,
   };
 
   if (target !== current) {
