@@ -9,10 +9,10 @@ export function merge<S = any>(source: S | undefined, target: S): S {
       }
       return arr as any;
     }
-    return source;
+    return source === undefined ? target : source;
   } else if (typeof source === "object") {
     if (source === null) {
-      return target;
+      return source;
     }
     if (Object.prototype.toString.call(target) === "[object Object]") {
       const obj = Object.assign({}, source);
@@ -25,7 +25,7 @@ export function merge<S = any>(source: S | undefined, target: S): S {
       }
       return obj;
     }
-    return source;
+    return target;
   }
   return target;
 }

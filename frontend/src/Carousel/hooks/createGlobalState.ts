@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { merge } from "../utils/merge";
 
 /**
  * this method is copied from react-use
@@ -10,7 +11,8 @@ export function createGlobalState<S = any>(initialState: S) {
     state: initialState,
     setState(state: Partial<S>) {
       store.setters.forEach((setter) => {
-        setter(state);
+        store.state = merge(store.state, state) as S;
+        setter(store.state);
       });
     },
     setters: [],
@@ -25,6 +27,6 @@ export function createGlobalState<S = any>(initialState: S) {
         store.setters = store.setters.filter((setter) => setter !== setState);
       };
     }, []);
-    return [state, store.setState];
+    return [state, store.setState] as const;
   };
 }

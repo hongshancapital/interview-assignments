@@ -21,7 +21,7 @@ test("array merge test", () => {
 test("null source merge", () => {
   const target = { a: 1, b: 2 };
   const result = merge(null, target);
-  expect(result).toBe(target);
+  expect(result).toBe(null);
 });
 
 test("none source merge", () => {
@@ -34,5 +34,5 @@ test("wrong types merge", () => {
   const source = {};
   const target: any[] = [];
   const result = merge(source, target);
-  expect(result).toBe(source);
+  expect(result).toBe(target);
 });
