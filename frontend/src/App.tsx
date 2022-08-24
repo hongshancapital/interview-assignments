@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel } from "./components/carousel/carousel";
+import { Carousel } from "./components/carousel/Carousel";
 import imgIphone from "./assets/iphone.png";
 import imgTablet from "./assets/tablet.png";
 import imgAirpods from "./assets/airpods.png";
