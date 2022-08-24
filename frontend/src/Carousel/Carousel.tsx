@@ -13,7 +13,7 @@ export interface Props {
 }
 
 export const Carousel: React.FC<Props> = (props) => {
-  const { option = { delay: 2000, speed: 1000 }, children } = props;
+  const { option = { delay: 3000, speed: 1000 }, children } = props;
 
   const childrens = React.Children.toArray(children);
   const count = React.Children.count(children);
