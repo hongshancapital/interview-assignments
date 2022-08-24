@@ -27,13 +27,11 @@ function Carousel({ duration = 3000, data }: CarouselProps) {
         setIndex(Index + 1);
       }
     }, duration);
+    setPLeft(Index * 100);
     return () => {
       clearInterval(timer.current);
     };
   }, [Index, duration, itemLen]);
-  useEffect(() => {
-    setPLeft(Index * 100);
-  }, [Index]);
   return (
     <div className="carousel" onMouseEnter={onMouseIn}>
       <div
