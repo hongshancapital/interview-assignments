@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Carousel, CarouselItem } from "./Carousel";
+import { Carousel, CarouselItem, Indicator } from "./Carousel";
 
 function App() {
   const [goodsList, setGoodsList] = useState<
@@ -40,7 +40,7 @@ function App() {
   ]);
 
   return (
-    <Carousel className="poster-content">
+    <Carousel className="poster-content" autoplay={{ duration: 3000, stopAtGesture: false }}>
       {goodsList.map((good, goodIndex) => (
         <CarouselItem
           key={`good-${goodIndex + 1}`}
@@ -61,6 +61,7 @@ function App() {
           ))}
         </CarouselItem>
       ))}
+      <Indicator />
     </Carousel>
   );
 }

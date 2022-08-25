@@ -1,3 +1,27 @@
 .indicator {
   display: flex;
+  position: absolute;
+}
+
+.indicator-item {
+  width: 60px;
+  background-color: gray;
+  position: relative;
+  height: 2px;
+  border-radius: 2px;
+}
+
+.indicator-item ~ .indicator-item {
+  margin-left: 10px;
+}
+
+.indicator-item .progress {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: red;
+  transition-timing-function: linear;
 }
