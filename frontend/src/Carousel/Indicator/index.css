@@ -1,0 +1,57 @@
+.indicator {
+  display: flex;
+  position: absolute;
+}
+
+.indicator-item {
+  background-color: gray;
+  position: relative;
+  border-radius: 2px;
+}
+
+.indicator.horizontal {
+  flex-flow: row;
+  align-items: center;
+}
+
+.indicator.vertical {
+  flex-flow: column;
+  justify-content: center;
+}
+
+.indicator.vertical .indicator-item {
+  width: 2px;
+  height: 60px;
+}
+
+.indicator.horizontal .indicator-item {
+  height: 2px;
+  width: 60px;
+}
+
+.indicator.horizontal .indicator-item ~ .indicator-item {
+  margin-left: 10px;
+}
+
+.indicator.vertical .indicator-item ~ .indicator-item {
+  margin-top: 10px;
+}
+
+.indicator.vertical .indicator-item .progress {
+  width: 100%;
+  height: 0;
+}
+
+.indicator.horizontal .indicator-item .progress {
+  height: 100%;
+  width: 0;
+}
+
+.indicator-item .progress {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #ffffff;
+  transition-timing-function: linear;
+}
