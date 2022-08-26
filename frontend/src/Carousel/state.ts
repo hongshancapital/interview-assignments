@@ -1,21 +1,11 @@
 import { createGlobalState } from "./hooks/createGlobalState";
 
-export interface ICarouselState {
-  current: number | null;
-  autoPlay?: boolean;
-  duration?: number;
-  stopAtGesture?: boolean;
-  inDrag: boolean;
-  direction: "vertical" | "horizontal";
-  count: number;
-}
+export const DEFAULT_AUTOPLAY = { autoPlay: true, duration: 3000, stopAtGesture: false };
 
-export const DEFAULT_AUTOPLAY = { autoPlay: true, duration: 1000, stopAtGesture: false };
-
-export const useCarouselState = createGlobalState<ICarouselState>({
-  current: null,
-  inDrag: false,
-  direction: "horizontal",
-  count: 0,
-  ...DEFAULT_AUTOPLAY,
-});
+export const useCurrentState = createGlobalState<number | null>(null);
+export const useAutoPlayState = createGlobalState<boolean>(true);
+export const useAutoPlayDurationState = createGlobalState<number>(3000);
+export const useStopAtGestureState = createGlobalState<boolean>(true);
+export const useItemsCountState = createGlobalState<number>(0);
+export const useInDragState = createGlobalState<boolean>(false);
+export const useInTransitionState = createGlobalState<boolean>(false);

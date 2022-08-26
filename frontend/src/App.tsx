@@ -40,7 +40,7 @@ function App() {
   ]);
 
   return (
-    <Carousel className="poster-content" autoplay={{ duration: 3000, stopAtGesture: false }}>
+    <Carousel className="poster-content">
       {goodsList.map((good, goodIndex) => (
         <CarouselItem
           key={`good-${goodIndex + 1}`}

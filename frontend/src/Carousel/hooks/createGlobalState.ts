@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 
 /**
  * this method is copied from react-use
@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
  */
 
 export function createGlobalState<S = any>(initialState: S) {
-  const store: { state: S; setState: (state: Partial<S>) => void; setters: Function[] } = {
+  const store: { state: S; setState: (state: S) => void; setters: Function[] } = {
     state: initialState,
-    setState(state: Partial<S>) {
+    setState(state: S) {
+      store.state = state;
       store.setters.forEach((setter) => {
         setter(state);
       });
@@ -19,12 +20,14 @@ export function createGlobalState<S = any>(initialState: S) {
   return () => {
     const [state, setState] = useState<S>(store.state);
     useEffect(() => {
+      setState(store.state);
+
       store.setters.push(setState);
 
       return () => {
         store.setters = store.setters.filter((setter) => setter !== setState);
       };
     }, []);
-    return [state, store.setState] as const;
+    return [state, store.setState as Dispatch<S>] as const;
   };
 }

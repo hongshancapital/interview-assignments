@@ -1,5 +1,13 @@
 import React, { FC, HTMLAttributes, useCallback, useMemo } from "react";
-import { useCarouselState } from "../state";
+import {
+  useAutoPlayDurationState,
+  useAutoPlayState,
+  useCurrentState,
+  useInDragState,
+  useInTransitionState,
+  useItemsCountState,
+  useStopAtGestureState,
+} from "../state";
 import { classnames } from "../utils/classnames";
 import { merge } from "../utils/merge";
 import "./index.css";
@@ -22,7 +30,7 @@ const ALIGN_MAP = {
 export const Indicator: FC<IIndicatorProps & HTMLAttributes<HTMLDivElement>> = ({
   horizontalAlign = "center",
   verticalAlign = "bottom",
-  direction,
+  direction = "horizontal",
   children,
   className,
   style,
@@ -37,25 +45,34 @@ export const Indicator: FC<IIndicatorProps & HTMLAttributes<HTMLDivElement>> = (
     [horizontalAlign, verticalAlign]
   );
 
-  const [{ current, direction: swipeDirection, inDrag, autoPlay, duration, stopAtGesture, count }] =
-    useCarouselState();
+  const [current, setCurrent] = useCurrentState();
+  const [inDrag] = useInDragState();
+  const [autoPlay] = useAutoPlayState();
+  const [duration] = useAutoPlayDurationState();
+  const [stopAtGesture] = useStopAtGestureState();
+  const [count] = useItemsCountState();
+  const [inTransition] = useInTransitionState();
+
+  const transitionProperty = useMemo(() => (direction === "horizontal" ? "width" : "height"), [direction]);
 
   const getTransitionProperty = useCallback(
     (index: number) => {
       if (autoPlay && stopAtGesture && inDrag) return "none";
-      if (index === current) return "width";
+      if (index === current) return transitionProperty;
       return "none";
     },
-    [inDrag, autoPlay, stopAtGesture, current]
+    [autoPlay, current, inDrag, stopAtGesture, transitionProperty]
   );
 
-  const getWidth = useCallback((index: number) => (index === current ? "100%" : 0), [current]);
-
-  console.log(current);
+  const getSize = useCallback(
+    (index: number) =>
+      (autoPlay && stopAtGesture && inDrag) || inTransition ? 0 : index === current ? "100%" : 0,
+    [current, inDrag, stopAtGesture, autoPlay, inTransition]
+  );
 
   return (
     <div
-      className={classnames("indicator", className)}
+      className={classnames("indicator", className, direction)}
       style={{
         ...style,
         top: position.top,
@@ -67,13 +84,19 @@ export const Indicator: FC<IIndicatorProps & HTMLAttributes<HTMLDivElement>> = (
       {...divProps}
     >
       {new Array(count).fill(null).map((...[, index]) => (
-        <div key={`indicator-item-${index}`} className="indicator-item">
+        <div
+          key={`indicator-item-${index}`}
+          className="indicator-item"
+          onClick={() => {
+            setCurrent(index);
+          }}
+        >
           <span
             className="progress"
             style={{
               transitionProperty: getTransitionProperty(index),
               transitionDuration: (duration ?? 0) + "ms",
-              width: getWidth(index),
+              [transitionProperty]: getSize(index),
             }}
           ></span>
         </div>

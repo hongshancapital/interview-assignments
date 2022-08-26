@@ -7,17 +7,26 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-import { fromEvent, map, merge as mergePipe, Subject, switchMap, takeUntil } from "rxjs";
+import { filter, fromEvent, map, merge as mergePipe, Subject, switchMap, takeUntil } from "rxjs";
 import { useObservable } from "rxjs-hooks";
+import { useInterval } from "./hooks/useInterval";
 import "./index.css";
 import { Indicator } from "./Indicator";
 import { CarouselItem } from "./Item";
-import { DEFAULT_AUTOPLAY, useCarouselState } from "./state";
+import {
+  DEFAULT_AUTOPLAY,
+  useAutoPlayDurationState,
+  useAutoPlayState,
+  useCurrentState,
+  useInDragState,
+  useInTransitionState,
+  useItemsCountState,
+  useStopAtGestureState,
+} from "./state";
 import { classnames } from "./utils/classnames";
 import { merge } from "./utils/merge";
 
@@ -38,15 +47,29 @@ export interface ICarouselProps {
 
 const globalMove$ = fromEvent<PointerEvent>(window, "pointermove");
 const globalUp$ = mergePipe(
-  fromEvent<PointerEvent>(window, "pointerup"),
+  fromEvent<PointerEvent>(window, "pointerup").pipe(filter((e) => e.button === 0)),
   fromEvent<PointerEvent>(window, "pointercancel")
 );
+
+const resetDrag$ = new Subject<void>();
+const gesture$ = new Subject<PointerEvent>();
+
+function useInDrag() {
+  const [, setInDrag] = useInDragState();
+  const inDrag = useObservable<boolean>(
+    () => mergePipe(gesture$.pipe(map(() => true)), mergePipe(globalUp$, resetDrag$).pipe(map(() => false))),
+    false
+  );
+  useEffect(() => {
+    setInDrag(inDrag);
+  }, [inDrag, setInDrag]);
+}
 
 export const Carousel: FC<ICarouselProps & HTMLAttributes<HTMLDivElement>> = ({
   children,
   className,
   timingFunc = "ease-in-out",
-  transitionDuration = ".2s",
+  transitionDuration = ".25s",
   direction = "horizontal",
   resetPercent = 30,
   autoplay,
@@ -55,34 +78,30 @@ export const Carousel: FC<ICarouselProps & HTMLAttributes<HTMLDivElement>> = ({
   const mainRef = useRef<HTMLDivElement | null>(null);
   const currentRef = useRef<number | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
-  const timerRef = useRef<number | null>(null);
-  const translateRef = useRef<number>(0);
 
-  const [, setCarouselState] = useCarouselState();
-  const resetDrag$ = useRef(new Subject<void>());
-  const gesture$ = useRef(new Subject<PointerEvent>());
-  const [current, setCurrent] = useState<number | null>(null);
-  const [clientWidth, updateClientWidth] = useState<number>(0);
-  const { items, indicator } = useFilterChildren(children);
+  const [inTransition, setInTransition] = useInTransitionState();
+  const [clientSize, updateClientSize] = useState<number>(0);
+  const [items, indicator] = useFilterChildren(children);
+  const [itemsCount] = useItemsCountState();
+
+  const [current, setCurrent] = useCurrentState();
+  useInDrag();
+  const [inDrag] = useInDragState();
+
+  useAutoPlay(autoplay);
+  const [autoPlay] = useAutoPlayState();
+  const [stopAtGesture] = useStopAtGestureState();
+  const [duration] = useAutoPlayDurationState();
 
   const translate = useMemo(
-    () => -(clientWidth / items.length) * (current || 0),
-    [current, clientWidth, items.length]
-  );
-
-  const inDrag = useObservable<boolean>(
-    () =>
-      mergePipe(
-        gesture$.current.pipe(map(() => true)),
-        mergePipe(globalUp$, resetDrag$.current).pipe(map(() => false))
-      ),
-    false
+    () => -(clientSize / itemsCount) * (current || 0),
+    [current, clientSize, itemsCount]
   );
 
   const [mx, my] = useObservable(
     () =>
       mergePipe(
-        gesture$.current.pipe(
+        gesture$.pipe(
           switchMap((startEvent) =>
             globalMove$.pipe(
               map(
@@ -93,52 +112,67 @@ export const Carousel: FC<ICarouselProps & HTMLAttributes<HTMLDivElement>> = ({
             )
           )
         ),
-        resetDrag$.current.pipe(map(() => [null, null] as const))
+        resetDrag$.pipe(
+          map(() => {
+            return [null, null] as const;
+          })
+        )
       ),
     [0, 0]
   );
 
-  const { autoPlay, duration, stopAtGesture } = useAutoPlay(autoplay);
+  const timerDelay = useMemo(() => {
+    if (inTransition) return null;
+    if (autoPlay) {
+      if (stopAtGesture) return !inDrag ? duration : null;
+      return duration;
+    }
+    return null;
+  }, [inTransition, autoPlay, stopAtGesture, inDrag, duration]);
 
-  useLayoutEffect(() => {
-    setTimeout(() => {
+  const switchItem = useCallback(() => {
+    if (inDrag && autoPlay && !stopAtGesture) {
+      resetDrag$.next();
+    }
+    if (current === itemsCount - 1) {
       setCurrent(0);
-    });
-  }, []);
+    } else {
+      setCurrent((current ?? 0) + 1);
+    }
+  }, [autoPlay, current, inDrag, itemsCount, setCurrent, stopAtGesture]);
+
+  useInterval(switchItem, timerDelay);
 
   useEffect(() => {
-    setCarouselState({
-      autoPlay,
-      current,
-      direction,
-      duration,
-      inDrag,
-      stopAtGesture,
-      count: items.length,
+    currentRef.current = current;
+  });
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setCurrent(0);
     });
-  }, [autoPlay, duration, stopAtGesture, direction, inDrag, current, items.length, setCarouselState]);
+    return () => {
+      clearTimeout(id);
+    };
+  }, [setCurrent]);
 
   useEffect(() => {
     if (!inDrag) {
       if (direction === "horizontal" && mx !== null) {
         if (Math.abs(mx) > ((contentRef.current?.clientWidth || 0) * resetPercent) / 100) {
           const newCurrent = (currentRef.current ?? 0) - mx / Math.abs(mx);
-          setCurrent(newCurrent < 0 || newCurrent > items.length - 1 ? 0 : newCurrent);
-        } else {
-          setCurrent(currentRef.current);
+          setCurrent(newCurrent < 0 || newCurrent > itemsCount - 1 ? 0 : newCurrent);
         }
       }
       if (direction === "vertical" && my !== null) {
         if (Math.abs(my) > ((contentRef.current?.clientHeight || 0) * resetPercent) / 100) {
           const newCurrent = (currentRef.current ?? 0) - my / Math.abs(my);
-          setCurrent(newCurrent < 0 || newCurrent > items.length - 1 ? 0 : newCurrent);
-        } else {
-          setCurrent(currentRef.current);
+          setCurrent(newCurrent < 0 || newCurrent > itemsCount - 1 ? 0 : newCurrent);
         }
       }
-      resetDrag$.current.next();
+      resetDrag$.next();
     }
-  }, [mx, my, inDrag, items.length, direction, resetPercent]);
+  }, [direction, inDrag, itemsCount, mx, my, resetPercent, setCurrent]);
 
   const translateMemo = useMemo(() => {
     if (inDrag) {
@@ -157,31 +191,11 @@ export const Carousel: FC<ICarouselProps & HTMLAttributes<HTMLDivElement>> = ({
     [direction, translateMemo]
   );
 
-  const setTimer = useCallback(() => {
-    timerRef.current = setInterval(() => {
-      if (!stopAtGesture) {
-        resetDrag$.current.next();
-      }
-      if (currentRef.current === items.length - 1) {
-        setCurrent(0);
-      } else {
-        setCurrent((currentRef.current ?? 0) + 1);
-      }
-    }, duration) as any;
-  }, [duration, items.length, stopAtGesture]);
-
-  const clearTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
-
   useEffect(() => {
     let observer: ResizeObserver;
     if (mainRef.current && contentRef.current) {
       observer = new ResizeObserver(() => {
-        updateClientWidth(
+        updateClientSize(
           direction === "horizontal" ? contentRef.current!.scrollWidth : contentRef.current!.scrollHeight
         );
       });
@@ -190,41 +204,15 @@ export const Carousel: FC<ICarouselProps & HTMLAttributes<HTMLDivElement>> = ({
     return () => {
       observer.disconnect();
     };
-  }, [direction, items.length]);
-
-  useEffect(() => {
-    currentRef.current = current;
-    translateRef.current = translate;
-  }, [current, translate]);
+  }, [direction, itemsCount]);
 
   useEffect(() => {
     if (contentRef.current) {
-      updateClientWidth(
+      updateClientSize(
         direction === "horizontal" ? contentRef.current.scrollWidth : contentRef.current.scrollHeight
       );
     }
-  }, [items.length, direction]);
-
-  useEffect(() => {
-    if (autoPlay) {
-      if (stopAtGesture) {
-        if (inDrag && timerRef.current) {
-          clearTimer();
-        }
-        if (!inDrag && !timerRef.current) {
-          setTimer();
-        }
-      } else {
-        if (!timerRef.current) {
-          setTimer();
-        }
-      }
-    } else {
-      if (timerRef.current) {
-        clearTimer();
-      }
-    }
-  }, [autoPlay, inDrag, stopAtGesture, clearTimer, setTimer]);
+  }, [itemsCount, direction]);
 
   return (
     <div
@@ -239,9 +227,15 @@ export const Carousel: FC<ICarouselProps & HTMLAttributes<HTMLDivElement>> = ({
       <div
         ref={(e) => {
           contentRef.current = e;
-          contentRef.current?.addEventListener("pointerdown", (ev) => gesture$.current.next(ev as any));
+          contentRef.current?.addEventListener("pointerdown", (ev) => {
+            if (ev.button === 0) {
+              gesture$.next(ev as any);
+            }
+          });
+          e?.addEventListener("transitionstart", () => setInTransition(true));
+          e?.addEventListener("transitionend", () => setInTransition(false));
         }}
-        className="carousel-content"
+        className={classnames("carousel-content", direction)}
         style={{
           transitionTimingFunction: timingFunc,
           transitionDuration,
@@ -257,7 +251,11 @@ export const Carousel: FC<ICarouselProps & HTMLAttributes<HTMLDivElement>> = ({
 };
 
 function useAutoPlay(autoplay: ICarouselProps["autoplay"]) {
-  return useMemo<typeof DEFAULT_AUTOPLAY>(() => {
+  const [, setAutoPlay] = useAutoPlayState();
+  const [, setAutoPlayDuration] = useAutoPlayDurationState();
+  const [, setStopAtGesture] = useStopAtGestureState();
+
+  const { autoPlay, duration, stopAtGesture } = useMemo<typeof DEFAULT_AUTOPLAY>(() => {
     if (autoplay === true || autoplay === undefined) {
       return merge({} as any, DEFAULT_AUTOPLAY);
     } else if (autoplay === null || autoplay === false) {
@@ -266,10 +264,17 @@ function useAutoPlay(autoplay: ICarouselProps["autoplay"]) {
       return merge({ ...DEFAULT_AUTOPLAY }, { ...(autoplay as any) });
     }
   }, [autoplay]);
+
+  useEffect(() => {
+    setAutoPlay(autoPlay);
+    setAutoPlayDuration(duration);
+    setStopAtGesture(stopAtGesture);
+  }, [autoPlay, duration, stopAtGesture, setAutoPlay, setAutoPlayDuration, setStopAtGesture]);
 }
 
 function useFilterChildren(children: ReactNode) {
-  return useMemo<{ items: CarouselItemNode[]; indicator: IndicatorNode | null }>(() => {
+  const [, setItemsCount] = useItemsCountState();
+  const { items, indicator } = useMemo<{ items: CarouselItemNode[]; indicator: IndicatorNode | null }>(() => {
     if (Object.prototype.toString.call(children) === "[object Array]") {
       const childList = children as (CarouselItemNode | CarouselItemNode[] | IndicatorNode)[];
       const items: CarouselItemNode[] = [];
@@ -297,4 +302,10 @@ function useFilterChildren(children: ReactNode) {
     }
     return { items: [], indicator: null };
   }, [children]);
+
+  useEffect(() => {
+    setItemsCount(items.length);
+  }, [items.length, setItemsCount]);
+
+  return [items, indicator] as const;
 }
