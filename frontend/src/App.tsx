@@ -3,7 +3,7 @@ import "./App.css";
 import { Carousel, CarouselItem, Indicator } from "./Carousel";
 
 function App() {
-  const [goodsList, setGoodsList] = useState<
+  const [goodsList] = useState<
     {
       pic: string;
       bgColor: string;
