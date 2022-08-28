@@ -1,0 +1,102 @@
+/*轮播*/
+.carousel {
+    width: 100%;
+    height: 100%;
+    transition: transform 1s linear;
+    overflow: hidden;
+    position: relative;
+}
+/*轮播容器*/
+.carousel-container {
+    transform: translateX(0);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+/*轮播项*/
+.carousel-item {
+    height: 100%;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+
+/**banner样式*/
+.banner {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+/*banner图片*/
+.banner-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+/*banner标题样式*/
+.banner-title {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    left: 0;
+}
+/*大标题*/
+.banner-label {
+    margin: 0 0 20px 0;
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+/*描述*/
+.banner-note {
+    font-size: 1.5rem;
+}
+
+
+/**轮播条*/
+.carousel-step {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+/*轮播条 没项*/
+.carousel-step-item {
+    width: 50px;
+    height: 3px;
+    background-color: #aaa;
+    margin-right: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.carousel-step-item:last-child {
+    margin-right: 0;
+}
+
+/*显示轮播进度*/
+.carousel-step-item .carousel-step-item-bg {
+    width: 0;
+    height: 100%;
+    border-radius: 4px;
+    background-color: white;
+}
+/*轮播进度动画*/
+@keyframes step-active {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+.carousel-step-item.active .carousel-step-item-bg {
+    animation: 1s linear step-active forwards;
+}
