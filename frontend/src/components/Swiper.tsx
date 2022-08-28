@@ -5,7 +5,12 @@ interface Props {
     contents: JSX.Element[]
     duration?: number
 }
-
+/**
+ * 
+ * @param contents any JSX.Element array need show
+ * @param duration duration time before next page 
+ * @returns 
+ */
 export const Swiper = (props: Props) => {
     const { contents, duration } = props
 
@@ -30,17 +35,19 @@ export const Swiper = (props: Props) => {
 
     return <div className={'swiper'}>
         <div className='swiper-container'>
-            {contents.map(content =>
-                <div className={'swiper-content'} 
-                style={{ width:width, transform: `translate3d(${-curContent * width}px,0,0)` }}>
+            {contents.map((content, index) =>
+                <div className={'swiper-content'}
+                    key={index}
+                    style={{ width: width, transform: `translate3d(${-curContent * width}px,0,0)` }}>
                     {content}
                 </div>)}
         </div>
         <div className={'indicator'}>
             {contents.map((_, index) =>
-                <div className='indicator-pointer'>
-                    <div className='indicator-process' 
-                    style={curContent === index ? { width: '40px', transition: `${duration ?? 3000}ms ease-in-out` } : {}} />
+                <div className='indicator-pointer'
+                    key={index}>
+                    <div className='indicator-process'
+                        style={curContent === index ? { width: '40px', transition: `${duration ?? 3000}ms ease-in-out` } : {}} />
                 </div>
             )}
         </div>
