@@ -17,9 +17,25 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./",
+    "rootDir": "./src",
+    "types": ["node", "jest"],
+    "paths": {
+			"@src": ["src"],
+			"@src/*": ["src/*"],
+      "@components": ["src/components"],
+			"@components/*": ["src/components/*"],
+			"@constants": ["src/constants"],
+			"@constants/*": ["src/constants/*"],
+			"@interfaces": ["src/interfaces"],
+			"@interfaces/*": ["src/interfaces/*"],
+			"@assets": ["src/assets"],
+			"@assets/*": ["src/assets/*"]
+		}
   },
   "include": [
-    "src"
+    "src",
+    "./setupTests.ts",
   ]
 }

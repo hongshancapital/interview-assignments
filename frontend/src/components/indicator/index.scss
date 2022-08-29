@@ -1,0 +1,27 @@
+$indicatorWidth: 40px;
+
+.indicator {
+    margin: 0 5px;
+    height: 2px;
+    width: $indicatorWidth;
+    background-color: #bbbbbb;
+    border-radius: 1px;
+
+    &-item {
+        width: 0;
+        height: 2px;
+        background-color: white;
+    }
+
+    @keyframes cover {
+        from {}
+        to {
+            width: $indicatorWidth;
+        }
+    }
+
+    .is-active {
+        animation-name: cover;
+        animation-timing-function: linear;
+    }
+}

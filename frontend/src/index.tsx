@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Carousel from './components/carousel';
+import Page from './components/page';
+import { CarouselList, animationProps } from './constants';
+import 'reset.css';
 import './index.css';
-import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Carousel {...animationProps}>
+      {
+        CarouselList.map(carousel => <Page {...carousel} />)
+      }
+    </Carousel>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
