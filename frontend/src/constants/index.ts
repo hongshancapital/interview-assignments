@@ -1,4 +1,4 @@
-import { PageItem, imageEnum } from "../interfaces";
+import { PageItem, imageEnum } from "src/interfaces";
 
 export const CarouselList: PageItem[] = [{
     title: ["xPhone"],

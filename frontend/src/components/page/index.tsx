@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from "react";
-import { PageItem } from "../../interfaces";
-import Image from "../../components/image";
+import { PageItem } from "src/interfaces";
+import Image from "src/components/image";
 import "./index.scss";
 
 const Page: FC<PageItem> = props => {

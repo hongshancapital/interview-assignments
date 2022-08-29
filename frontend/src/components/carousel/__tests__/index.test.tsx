@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Page from '../../../components/page';
-import Carsousel from '../../../components/carousel';
-import { CarouselList, animationProps } from '../../../constants';
+import Page from 'src/components/page';
+import Carsousel from 'src/components/carousel';
+import { CarouselList, animationProps } from 'src/constants';
 
 describe('carousel test', () => {
   test('appear', () => {
