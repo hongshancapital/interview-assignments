@@ -1,0 +1,63 @@
+.carousel_container {
+    overflow: hidden;
+}
+
+.carousel_content {
+    flex-wrap: nowrap;
+    transition: transform 0.3S;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel_item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #fff;
+    background: rgb(133, 133, 133);
+}
+
+
+/* img {
+    display: block;
+    width: 100vw;
+    height: 100%;
+} */
+
+.carousel_dots {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.dots_outer {
+    width: 80px;
+    height: 10px;
+    background: #0000001a;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.dots_inner {
+    height: 100%;
+    border-radius: 5px;
+    animation-fill-mode: forwards;
+    animation-name: progressDots;
+    animation-iteration-count: infinite;
+    transition-timing-function: linear;
+}
+
+@keyframes progressDots {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}

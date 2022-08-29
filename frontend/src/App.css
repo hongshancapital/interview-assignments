@@ -1,14 +1,59 @@
 .App {
-  text-align: center;
-  position: relative;
+    text-align: center;
+    position: relative;
+    background: #000;
 }
 
 .title {
-  font-size: 56px;
-  font-weight: 600;
+    font-size: 56px;
+    font-weight: 600;
 }
 
 .text {
-  font-size: 28px;
-  font-weight: 400;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.info {
+    width: 100vw;
+    height: 100%;
+    position: relative;
+}
+
+.info_img {
+    display: block;
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+}
+
+.img_first {
+    bottom: -25px;
+    /* height: 00px; */
+}
+
+.info_title {
+    position: absolute;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000;
+    font-weight: 900;
+    font-size: 60px;
+}
+
+.info_content {
+    position: absolute;
+    top: 284px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000;
+    font-size: 40px;
+}
+
+.content_first,
+.title_first {
+    z-index: 999;
+    display: block;
+    color: #fff;
 }
