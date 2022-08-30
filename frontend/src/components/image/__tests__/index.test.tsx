@@ -4,8 +4,8 @@ import Image from 'src/components/image';
 import { imageEnum } from "src/interfaces";
 import { CarouselList } from 'src/constants';
 
-describe('image test', () => {
-  test('appear', async () => {
+describe('Image test', () => {
+  test('Image should display', async () => {
     const { findByTestId } = render(<Image src={CarouselList[0].imageSrc} type={imageEnum.iphone} />);
     const imageDOM = await findByTestId(imageEnum.iphone);
     expect(imageDOM).toBeInTheDocument();

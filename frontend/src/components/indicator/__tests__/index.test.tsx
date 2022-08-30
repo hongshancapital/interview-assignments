@@ -9,8 +9,8 @@ const animationProps = {
   currentIndex: 0,
 }
 
-describe('indicator test', () => {
-  test('appear', () => {
+describe('Indicator test', () => {
+  test('Indicator should display', () => {
 
     const onAnimationEnd = jest.fn();
 

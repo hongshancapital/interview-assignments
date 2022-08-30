@@ -4,8 +4,8 @@ import Page from 'src/components/page';
 import Carsousel from 'src/components/carousel';
 import { CarouselList, animationProps } from 'src/constants';
 
-describe('carousel test', () => {
-  test('appear', () => {
+describe('Carousel test', () => {
+  test('Carousel should display', () => {
     const { getByTestId } = render(<Carsousel {...animationProps}>
       {
         CarouselList.map((carousel,i) => <Page key={i} {...carousel} />)
@@ -15,7 +15,7 @@ describe('carousel test', () => {
     expect(carouselDOM).toBeInTheDocument();
   })
 
-  test('childNodes length', () => {
+  test('checking child nodes length', () => {
     const { getByTestId } = render(<Carsousel {...animationProps}>
       {
         CarouselList.map((carousel,i) => <Page key={i} {...carousel} />)
