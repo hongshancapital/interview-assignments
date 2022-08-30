@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useCallback, useMemo, useState } from "react";
-import Indicator from "../../components/indicator";
+import Indicator from "src/components/indicator";
 import "./index.scss";
 
 export interface Props {

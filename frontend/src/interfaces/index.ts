@@ -3,6 +3,7 @@ export interface PageItem {
     subtitle?: string[];
     icon: imageType | any;
     fontColor: string;
+    imageSrc: string;
     backgroundColor?: string;
 }
 

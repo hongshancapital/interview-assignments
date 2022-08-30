@@ -1,14 +1,25 @@
-import React, { FC } from "react";
-import { imageType } from "../../interfaces";
+import React, { FC, useMemo } from "react";
+import { type imageType } from 'src/interfaces';
 import "./index.scss";
 
 export interface Props {
-    imageType: imageType,
+  src: string,
+  type: imageType;
 }
 
 const Image: FC<Props> = props => {
-    const { imageType } = props;
-   return <div className={`image-outter ${imageType}`}></div>
+  const { src, type } = props;
+
+  const style = useMemo(() => ({
+    backgroundImage: `url(${src})`,
+  }), [src]);
+
+  return (
+    <div
+      className={`image-outter ${type}`}
+      style={style}
+      data-testid={type} />
+  );
 }
 
 export default Image;

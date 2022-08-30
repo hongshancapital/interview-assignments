@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from "react";
-import { PageItem } from "../../interfaces";
-import Image from "../../components/image";
+import { PageItem } from "src/interfaces";
+import Image from "src/components/image";
 import "./index.scss";
 
 const Page: FC<PageItem> = props => {
@@ -10,6 +10,7 @@ const Page: FC<PageItem> = props => {
     icon,
     fontColor,
     backgroundColor,
+    imageSrc,
   } = props;
 
   const style = useMemo(() => ({
@@ -39,7 +40,7 @@ const Page: FC<PageItem> = props => {
   return <div className="page-item" style={style}>
     {TitleComponent}
     {SubTitleComponent}
-    <Image imageType={icon} />
+    <Image src={imageSrc} type={icon} />
   </div>;
 }
 

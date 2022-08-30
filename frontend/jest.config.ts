@@ -91,11 +91,7 @@ export default {
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
     '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
-    '@interfaces(.*)$': '<rootDir>/src/interfaces$1',
-    '@assets(.*)$': '<rootDir>/src/assets$1',
-    '@src(.*)$': '<rootDir>/src/src$1',
-    '@components(.*)$': '<rootDir>/src/components$1',
-    '@constants(.*)$': '<rootDir>/src/constants$1',
+    'src(.*)$': '<rootDir>/src/$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
