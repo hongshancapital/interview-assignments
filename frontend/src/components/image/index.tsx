@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { imageType } from "src/interfaces";
+import { imageType } from "../../interfaces";
 import "./index.scss";
 
 export interface Props {
