@@ -1,0 +1,86 @@
+<configuration status="OFF" monitorInterval="30">
+    <Properties>
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS}|%p|%c|%L|%m%n</Property>
+        <Property name="logPath">logs</Property>
+    </Properties>
+    <Appenders>
+        <!--设置在控制台打印日志-->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+        <!--设置级别为 DEBUG 日志输出到 debug.log 中-->
+        <RollingRandomAccessFile name="debug"
+                                 immediateFlush="false"
+                                 fileName="${logPath}/debug.log"
+                                 filePattern="${logPath}/debug-%d{yyyy-MM-dd}.log">
+            <Filters>
+                <!--设置只输出级别为 debug 的日志-->
+                <ThresholdFilter level="DEBUG"/>
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <!-- 按天生成日志文件-->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <!-- 最多保存日志文件的数目 -->
+            <DefaultRolloverStrategy max="15"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="info"
+                                 immediateFlush="false"
+                                 fileName="${logPath}/info.log"
+                                 filePattern="${logPath}/info-%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="60"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="warn"
+                                 immediateFlush="false"
+                                 fileName="${logPath}/warn.log"
+                                 filePattern="${logPath}/warn-%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="60"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="error"
+                                 immediateFlush="false"
+                                 fileName="${logPath}/error.log"
+                                 filePattern="${logPath}/error-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Filters>
+                <ThresholdFilter level="ERROR"/>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="60"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.scdt" level="DEBUG" additivity="true">
+            <AppenderRef ref="debug"/>
+            <AppenderRef ref="info"/>
+            <AppenderRef ref="warn"/>
+            <AppenderRef ref="error"/>
+        </Logger>
+        <!-- org.springframework 只输出 ERROR 级别以上的日志 -->
+        <Logger name="org.springframework" level="ERROR"/>
+        <!-- org.apache 只输出 ERROR 级别以上的日志 -->
+        <Logger name="org.apache" level="ERROR"/>
+        <Root level="DEBUG">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</configuration>
