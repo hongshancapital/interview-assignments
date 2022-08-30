@@ -5,7 +5,7 @@ export interface Props {
   currentIndex: number;
   activeIndex: number;
   animationDuration: string;
-  onAnimationEnd: Function;
+  onAnimationEnd: () => void;
 }
 
 const Indicator: FC<Props> = props => {
@@ -21,10 +21,8 @@ const Indicator: FC<Props> = props => {
 
   const classNames = useMemo(() => {
     const cls = {
-      className: ['indicator-item', isActive ? 'is-active' : ''].join(' ')
-    }
-    if (typeof onAnimationEnd === 'function') {
-      Reflect.set(cls, 'onAnimationEnd', onAnimationEnd);
+      className: ['indicator-item', isActive ? 'is-active' : ''].join(' '),
+      onAnimationEnd
     }
     return cls;
   }, [isActive, onAnimationEnd]);

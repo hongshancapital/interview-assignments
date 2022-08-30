@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "eslint": "^8.23.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "reset.css": "^2.0.2"
+    "reset.css": "^2.0.2",
+    "stylelint": "^14.11.0",
+    "stylelint-config-sass-guidelines": "^9.0.1",
+    "stylelint-config-standard": "^28.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.1",
@@ -15,6 +21,9 @@
     "@types/node": "^17.0.13",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.36.0",
+    "@typescript-eslint/parser": "^5.36.0",
+    "eslint-plugin-react": "^7.31.1",
     "node-sass": "^5.0.0",
     "react-scripts": "^5.0.0",
     "sass-loader": "^11.0.1",
@@ -27,7 +36,22 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "test": "jest --config=jest.config.ts --watchAll",
-    "coverage": "jest --config=jest.config.ts --coverage"
+    "coverage": "jest --config=jest.config.ts --coverage",
+    "lint": "npx eslint ./src/ --fix",
+    "stylelint": "npx stylelint \"**/*.scss\" --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/*": [
+      "prettier --write",
+      "eslint src --fix",
+      "stylelint src --fix",
+      "git add"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"

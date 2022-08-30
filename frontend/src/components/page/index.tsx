@@ -27,7 +27,7 @@ const Page: FC<PageItem> = props => {
 
   const TitleComponent = useMemo(() => {
     return <div className="page-title">
-        {title?.map((el, i) => <div key={i} className="page-title__item" style={titleStyle}>{el}</div>)}
+        {title?.map((el, i) => <div key={i} className="page-title-item" style={titleStyle}>{el}</div>)}
       </div>
 
   }, [titleStyle, title]);

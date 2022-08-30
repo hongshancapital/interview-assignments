@@ -1,7 +1,7 @@
 export interface PageItem {
     title: string[];
     subtitle?: string[];
-    icon: imageType | any;
+    icon: imageType;
     fontColor: string;
     imageSrc: string;
     backgroundColor?: string;
@@ -19,5 +19,5 @@ export interface AnimationProps {
   animationDuration: string;
   animationMoveDuration: string;
   activeIndex: number;
-  onAnimationEnd?: Function;
+  onAnimationEnd: () => void;
 }

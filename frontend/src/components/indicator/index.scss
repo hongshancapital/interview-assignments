@@ -1,27 +1,26 @@
-$indicatorWidth: 40px;
+$indicator-width: 40px;
+
+@keyframes cover {
+  to {
+    width: $indicator-width;
+  }
+}
 
 .indicator {
-    margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 1px;
+  height: 2px;
+  margin: 0 5px;
+  width: $indicator-width;
+
+  &-item {
+    background-color: #fff;
     height: 2px;
-    width: $indicatorWidth;
-    background-color: #bbbbbb;
-    border-radius: 1px;
+    width: 0;
+  }
 
-    &-item {
-        width: 0;
-        height: 2px;
-        background-color: white;
-    }
-
-    @keyframes cover {
-        from {}
-        to {
-            width: $indicatorWidth;
-        }
-    }
-
-    .is-active {
-        animation-name: cover;
-        animation-timing-function: linear;
-    }
+  .is-active {
+    animation-name: cover;
+    animation-timing-function: linear;
+  }
 }
