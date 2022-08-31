@@ -25,13 +25,26 @@ class UnitTesting_AppListViewModel_Tests: XCTestCase {
     }
 
     
+    
+    @MainActor
+    func test_AppListViewModel_init() async throws {
+        try await Task.sleep(nanoseconds: 3_000_000_000)
+        
+        XCTAssertFalse(vm.appInfos.isEmpty)
+        XCTAssertFalse(vm.isLoding)
+        XCTAssertFalse(vm.showNoMoreData)
+    }
+    
+    
     @MainActor
     func test_AppListViewModel_fetchFirstPageData_shouldReturnedFirstPageDatas() async throws {
 
         await vm.fetchFirstPageData()
+        try await Task.sleep(nanoseconds: 3_000_000_000)
         
         // 跟服务器返回数据对比是否正确
         let datas = await dataService.fetchAppInfos()
+        
         XCTAssertTrue(vm.appInfos.count == datas.count)
         for index in 0...(datas.count - 1) {
             XCTAssertTrue(vm.appInfos[index].trackId == datas[index].trackId)
@@ -49,16 +62,16 @@ class UnitTesting_AppListViewModel_Tests: XCTestCase {
     @MainActor
     func test_AppListViewModel_fetchNextPageData_shouldReturnedNextPageDatas() async throws {
         
-        
         await vm.fetchFirstPageData()
-        var datas:[AppInfoModel] = await dataService.fetchAppInfos()
+        try await Task.sleep(nanoseconds: 3_000_000_000)
+        var datas = await dataService.fetchAppInfos()
     
-        
         // 模拟不停下滑
-        for page in 1...9 {
+        for page in 1...5 {
             await vm.fetchNextPageData()
-            let returnedData = await dataService.fetchAppInfos(page: page)
             try await Task.sleep(nanoseconds: 3_000_000_000)
+            let returnedData = await dataService.fetchAppInfos(page: page)
+
             datas.append(contentsOf: returnedData)
             
             // 跟服务器返回数据对比是否正确
@@ -83,11 +96,10 @@ class UnitTesting_AppListViewModel_Tests: XCTestCase {
         await vm.fetchFirstPageData()
         try await Task.sleep(nanoseconds: 3_000_000_000)
         
-        for _ in 0...9 {
+        for _ in 0...5 {
             await vm.fetchNextPageData()
+            try await Task.sleep(nanoseconds: 3_000_000_000)
         }
-        print(vm.appInfos.count)
-        
         
         for _ in 0...999 {
             // 随机取模型
@@ -107,8 +119,5 @@ class UnitTesting_AppListViewModel_Tests: XCTestCase {
             XCTAssertTrue(appInfo.isCollected == collectedApps.contains(appInfo.trackId))
         }
         
-        
     }
-
-
 }

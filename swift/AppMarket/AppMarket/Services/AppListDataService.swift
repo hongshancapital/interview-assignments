@@ -67,11 +67,22 @@ class AppListDataService {
         // 确保取出的数据不会越界
         let returnedStarIndex = page * pageCount < 0 ? 0 : page * pageCount
         let returnedEndIndex = (page + 1) * pageCount - 1 > allAppInfos.count - 1 ? allAppInfos.count - 1 : (page + 1) * pageCount - 1
-        guard returnedEndIndex > returnedStarIndex else {
+        guard returnedEndIndex >= returnedStarIndex else {
             return []
         }
         
         try? await Task.sleep(nanoseconds: 2_000_000_000)
+        
+        guard returnedEndIndex != returnedStarIndex else {
+            let appInfo = allAppInfos[returnedEndIndex]
+            return [AppInfoModel(
+                trackId: appInfo.trackId,
+                trackName: appInfo.trackName,
+                artworkUrl100: appInfo.artworkUrl100,
+                description: appInfo.description ?? "",
+                isCollected: collectedApps.contains(appInfo.trackId)
+            )]
+        }
         
         return allAppInfos[returnedStarIndex...returnedEndIndex]
             .map { appInfo in

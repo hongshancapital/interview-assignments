@@ -14,7 +14,7 @@ class UnitTesting_AppListDataService_Tests: XCTestCase {
     var allAppInfos: [AppInfo]!
     var oldCollectedApps: [Double]!
     
-
+    
     override func setUpWithError() throws {
         dataService = AppListDataService()
         allAppInfos =  UnitTesting_CollectedAppsHelper.loadMockData()
@@ -35,13 +35,11 @@ class UnitTesting_AppListDataService_Tests: XCTestCase {
         
             let collected = UnitTesting_CollectedAppsHelper.fetchCollectedApps()
             // 随机生成页数和每页数据条数
-            let page: Int = Int.random(in: -999...999)
-            let pageCount: Int = Int.random(in: -99...99)
+            let page: Int = Int.random(in: -9...99)
+            let pageCount: Int = Int.random(in: -9...99)
             dataService.pageCount = pageCount
-            
+
             let datas = await dataService.fetchAppInfos(page: page)
-            
-            XCTAssertFalse(Thread.isMainThread)
             
             if pageCount <= 0 || page < 0 {
                 XCTAssertTrue(datas.isEmpty)
@@ -49,32 +47,38 @@ class UnitTesting_AppListDataService_Tests: XCTestCase {
                 XCTAssertTrue(datas.isEmpty)
             } else {
                 // 检测返回不为空的情况下数据的正确性
-                let starIndex = page * pageCount
-                let endIndex = (page + 1) * pageCount - 1
-                if endIndex < allAppInfos.count {
-                    // 整页取满的情况
+                if pageCount == 1 {
+                    // 只有一条数据的情况
                     XCTAssertTrue(datas.count == pageCount)
-                    var dataIndex = 0
-                    for allAppInfosIndex in starIndex...endIndex {
-                        XCTAssertTrue(datas[dataIndex].trackId == allAppInfos[allAppInfosIndex].trackId)
-                        XCTAssertTrue(datas[dataIndex].isCollected == collected.contains(datas[dataIndex].trackId))
-                        dataIndex += 1
-                    }
-                    
+                    XCTAssertTrue(datas[0].trackId == allAppInfos[page].trackId)
+                    XCTAssertTrue(datas[0].isCollected == collected.contains(datas[0].trackId))
                 } else {
-                    // 非整页取满的情况
-                    XCTAssertTrue(datas.count == pageCount - (endIndex - allAppInfos.count + 1))
-                    var dataIndex = 0
-                    for allAppInfosIndex in starIndex...(pageCount - 1) {
-                        XCTAssertTrue(datas[dataIndex].trackId == allAppInfos[allAppInfosIndex].trackId)
-                        XCTAssertTrue(datas[dataIndex].isCollected == collected.contains(datas[dataIndex].trackId))
-                        dataIndex += 1
+                    let starIndex = page * pageCount
+                    let endIndex = (page + 1) * pageCount - 1
+                    if endIndex < allAppInfos.count {
+                        // 整页取满的情况
+                        XCTAssertTrue(datas.count == pageCount)
+                        var dataIndex = 0
+                        for allAppInfosIndex in starIndex...endIndex {
+                            XCTAssertTrue(datas[dataIndex].trackId == allAppInfos[allAppInfosIndex].trackId)
+                            XCTAssertTrue(datas[dataIndex].isCollected == collected.contains(datas[dataIndex].trackId))
+                            dataIndex += 1
+                        }
+                        
+                    } else {
+                        // 非整页取满的情况
+                        XCTAssertTrue(datas.count == pageCount - (endIndex - allAppInfos.count + 1))
+                        var dataIndex = 0
+                        for allAppInfosIndex in starIndex...(allAppInfos.count - 1) {
+                            XCTAssertTrue(datas[dataIndex].trackId == allAppInfos[allAppInfosIndex].trackId)
+                            XCTAssertTrue(datas[dataIndex].isCollected == collected.contains(datas[dataIndex].trackId))
+                            dataIndex += 1
+                        }
                     }
                 }
             
             }
         }
-        
     }
 
     // 检测收藏或取消的app的id是否正确保存在本地

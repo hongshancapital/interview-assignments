@@ -10,20 +10,39 @@ import XCTest
 
 class UnitTesting_AppListRowViewModel_Tests: XCTestCase {
 
+    @MainActor
+    func test_AppListRowViewModel_init() async throws {
+        
+        let appInfo = UnitTesting_CollectedAppsHelper.simpleAppInfoModel()
+        
+        let vm = ApplistRowViewModel(appInfo: appInfo)
+        
+        try await Task.sleep(nanoseconds: 3_000_000_000)
+        XCTAssertTrue(Thread.isMainThread)
+        XCTAssertFalse(vm.isLoading)
+        XCTAssertNotNil(vm.image)
+        
+        
+    }
+    
 
     @MainActor
     func test_AppListRowViewModel_fetchImage_shouldReturnedImage() async throws {
         
         let appInfo = UnitTesting_CollectedAppsHelper.simpleAppInfoModel()
-        
         let vm = ApplistRowViewModel(appInfo: appInfo)
+        try await Task.sleep(nanoseconds: 3_000_000_000)
+        
+        vm.image = nil
         await vm.fetchImage()
         
+        try await Task.sleep(nanoseconds: 3_000_000_000)
         XCTAssertTrue(Thread.isMainThread)
         XCTAssertFalse(vm.isLoading)
         XCTAssertNotNil(vm.image)
         
     }
+    
 
 
 }

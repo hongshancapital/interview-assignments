@@ -10,17 +10,14 @@ import XCTest
 
 class UnitTesting_AppListRowDataService_Tests: XCTestCase {
 
-
     func test_AppListRowDataService_downloadImage_shouldUpdateCollectedApps() async throws {
-        
         let dataService = ApplistRowDataService()
         
         let image = try await dataService.downloadImage(url: URL(string: UnitTesting_CollectedAppsHelper.simpleAppInfoModel().artworkUrl100)!)
+        
         XCTAssertNotNil(image)
         XCTAssertFalse(Thread.isMainThread)
         
-        
     }
-
-
+    
 }

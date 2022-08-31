@@ -8,6 +8,7 @@
 import Foundation
 @testable import AppMarket
 
+
 class UnitTesting_CollectedAppsHelper {
     
     static let userDefaultCollectedAppsKey = "CollectedApps"
@@ -40,6 +41,7 @@ class UnitTesting_CollectedAppsHelper {
     static func reductOldCollectedApps() {
         UserDefaults.standard.set(oldCollectedApps, forKey: userDefaultCollectedAppsKey)
     }
+    
     
     static func simpleAppInfoModel() -> AppInfoModel {
         AppInfoModel(
