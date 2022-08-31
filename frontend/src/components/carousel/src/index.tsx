@@ -27,6 +27,9 @@ const Carousel: FC<CarouselProps> = ({ autoPlay = true, duration = 3000, showPro
     transitionDuration: `1s`,
     width: `${(items?.length || 0) * SCREEN_WIDTH}px`,
   }
+  const progressAnimStyle: CSSProperties = {
+    animation: `loadProgress ${Math.floor(_duration / 1000)}s linear infinite`,
+  }
 
   const [activeIdx, setActiveIdx] = useState(0)
 
@@ -74,7 +77,11 @@ const Carousel: FC<CarouselProps> = ({ autoPlay = true, duration = 3000, showPro
       <div className="dots">
         {items.map((_, idx) => {
           if (activeIdx === idx) {
-            return <div className="dot">{showProgress && <div className="progress"></div>}</div>
+            return (
+              <div className={classnames('dot', { active: !showProgress })}>
+                {showProgress && <div className="progress" style={progressAnimStyle}></div>}
+              </div>
+            )
           }
 
           return <div data-idx={idx} className={classnames('dot')}></div>
