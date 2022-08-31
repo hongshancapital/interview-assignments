@@ -2,7 +2,7 @@ import iphone from "../assets/iphone.png";
 import tablet from "../assets/tablet.png";
 import airpods from "../assets/airpods.png";
 
-export default [
+const carouselItems = [
   {
     id: 1,
     title: "xPhone",
@@ -27,3 +27,5 @@ export default [
     pic: airpods,
   },
 ];
+
+export default carouselItems;
