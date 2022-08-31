@@ -42,8 +42,7 @@ const Carousel: React.FC<CarouselProps> = ({
                   style={
                     idx === index
                       ? {
-                          width: "100%",
-                          transition: `width ${interval}ms linear`,
+                          animation: `dot-active ${interval}ms linear`,
                         }
                       : {}
                   }
