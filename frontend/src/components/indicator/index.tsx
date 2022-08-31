@@ -28,7 +28,7 @@ const Indicator: FC<Props> = props => {
   }, [isActive, onAnimationEnd]);
 
   return <div className="indicator" data-testid="indicator">
-    <div {...classNames} style={style}></div>
+    <div {...classNames} style={style} data-testid="indicator-item"></div>
   </div>
 }
 

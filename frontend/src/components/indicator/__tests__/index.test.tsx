@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Indicator from 'src/components/indicator';
+import { fireEvent } from '@testing-library/react';
 
 const animationProps = {
   animationDuration: '3s',
@@ -21,17 +22,16 @@ describe('Indicator test', () => {
     expect(indicatorDOM).toBeInTheDocument();
   })
 
-  test('onAnimationEnd called', (done) => {
+  test('onAnimationEnd called', () => {
 
     const onAnimationEnd = jest.fn();
 
-    render(<Indicator {...animationProps} onAnimationEnd={onAnimationEnd} />);
+    const { getByTestId } = render(<Indicator {...animationProps} onAnimationEnd={onAnimationEnd} />);
 
     expect(onAnimationEnd).toHaveBeenCalledTimes(0);
 
-    setTimeout(() => {
-      expect(onAnimationEnd).toHaveBeenCalledTimes(1);
-      done();
-    }, 4000);
+    fireEvent.animationEnd(getByTestId('indicator-item'));
+
+    expect(onAnimationEnd).toHaveBeenCalledTimes(1);
   })
 });
