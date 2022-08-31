@@ -1,0 +1,87 @@
+.cmpContent{
+  text-align: center;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.container{
+  width: 300vw;
+  height: 100vh;
+  display: flex;
+  transition: .5s ease;
+  left: 0;
+}
+.bg-1{
+  background: #000;
+}
+.bg-2{
+  background: #fff;
+}
+.bg-3{
+  background: #ddd;
+}
+.banner{
+  width: 100vw;
+  margin-top: 10vh;
+  height: 80vh;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.textContent>h1{
+  font-size: 50px;
+}
+.textContent>h2{
+  font-size: 30px;
+}
+.imgContent{
+  position: relative;
+  height: 50vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+.imgContent>img{
+  position: absolute;
+  height: 50vh;
+  left: -100%;
+  right: -100%;
+  margin: auto;
+}
+
+.dots{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 10vh;
+  z-index: 1;
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+}
+.dotContainer{
+  position: relative;
+  background: #999;
+  width: 40px;
+  height: 2px;
+}
+.dotContainer>div{
+  height: 100%;
+  background: #fff;
+}
+
+
+@keyframes process {
+  0%{
+    width: 0;
+  }
+  100%{
+    width: 100%;
+  }
+}
