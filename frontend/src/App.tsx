@@ -2,8 +2,15 @@ import React from "react";
 import "./App.css";
 import Carousel from "./Carousel";
 import CarouselItem from "./CarouselItem";
+type CarouselItemConfig = {
+  key: number;
+  title: string;
+  color: string;
+  desc?: string;
+  image: string;
+};
 
-const list = [
+const list: CarouselItemConfig[] = [
   {
     key: 1,
     title: "xPhone",
@@ -31,11 +38,13 @@ const list = [
 function App() {
   return (
     <div className="App">
-      <Carousel>
-        {list.map((item) => (
-          <CarouselItem {...item} />
-        ))}
-      </Carousel>
+      <div className="container">
+        <Carousel interval={3000} transitionDuration={500}>
+          {list.map((item) => (
+            <CarouselItem {...item} />
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
 }

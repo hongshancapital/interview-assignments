@@ -1,9 +1,18 @@
 import React from "react";
 import "./Carousel.css";
 import { useSlider } from "./hooks";
-const Carousel: React.FC<{ children: React.ReactNode[] }> = ({ children }) => {
+type CarouselProps = {
+  interval: number;
+  transitionDuration: number;
+  children: React.ReactNode[];
+};
+const Carousel: React.FC<CarouselProps> = ({
+  interval,
+  transitionDuration,
+  children,
+}) => {
   const count = React.Children.count(children);
-  const index = useSlider(count);
+  const index = useSlider(count, interval);
   return (
     <div className="wrapper">
       <div
@@ -11,6 +20,7 @@ const Carousel: React.FC<{ children: React.ReactNode[] }> = ({ children }) => {
         style={{
           width: `${100 * count}%`,
           transform: `translateX(-${(100 * index) / count}%)`,
+          transition: `transform ${transitionDuration}ms ease`,
         }}
       >
         {children.map((child, idx) => {
@@ -26,10 +36,19 @@ const Carousel: React.FC<{ children: React.ReactNode[] }> = ({ children }) => {
         {children.map((child, idx) => {
           return (
             <div className="dot-outer" key={idx}>
-              <div
-                className="dot-inner"
-                style={{ width: `${idx === index ? "100%" : 0}` }}
-              ></div>
+              {
+                <div
+                  className="dot-inner"
+                  style={
+                    idx === index
+                      ? {
+                          width: "100%",
+                          transition: `width ${interval}ms linear`,
+                        }
+                      : {}
+                  }
+                ></div>
+              }
             </div>
           );
         })}
