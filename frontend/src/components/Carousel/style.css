@@ -1,0 +1,59 @@
+.carousel-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-items {
+  display: flex;
+  overflow-x: visible;
+  transition-property: transform;
+  will-change: transform;
+}
+
+.indicators {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.indicator {
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #a9a9a9;
+}
+
+.indicator:not(:first-child) {
+  margin-left: 8px;
+}
+
+.progress {
+  height: 100%;
+  background-color: #fff;
+  width: 0;
+  overflow: hidden;
+}
+
+.progress.active {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.progress.animate {
+  animation: animateProgress ease;
+}
+
+@keyframes animateProgress {
+  form {
+    width: 0;
+  }
+  to {
+    width: 40px;
+  }
+}
