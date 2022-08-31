@@ -4,13 +4,15 @@ import { string10to62 } from '../util/base';
 import { UrlModel, UrlData } from '../model/url';
 import { SHORE_BASE, DBQuery } from '../data/constant';
 import md5 from 'blueimp-md5';
+import { callSnow } from '../util/grpc_client';
+import { SnowReply } from '../../../gen/snow_pb';
 
 const indexRoute: express.Router = express.Router();
 
 // url 转换
 indexRoute.post('/', async (req: Request, res: Response) => {
     let search: string = req.body['search'];
-    let isShort = search.length <= SHORE_BASE.length + 8;
+    let isShort = search.length <= SHORE_BASE.length + 10;
     
     // 高级函数 方便动态查询
     async function queryModel(query: DBQuery): Promise<UrlData | null> {
@@ -35,8 +37,12 @@ indexRoute.post('/', async (req: Request, res: Response) => {
     // 情况2: 长链接 + 无缓存
     if (!isShort && 
         await queryModel({ "hash_url": hash_url }) == null) {
-        let snowflake = new SnowFlake(1n, 1n);                 // 雪花算法 保证唯一性
-        let short_url = string10to62(snowflake.nextId());      // 转为短链接
+        // let snowflake = new SnowFlake(1n, 1n);                 // 雪花算法 保证唯一性
+        // let short_url = string10to62(snowflake.nextId());      // 转为短链接
+        let result: SnowReply|null = await callSnow("host: #1");               // RPC 调用生成编码
+        console.log(result.getMessage());
+        let short_url = string10to62(BigInt(result.getMessage()));      // 转为短链接
+        console.log(short_url);
         await UrlModel.create({ short_url, long_url: search, hash_url });
         res.status(200).json({
             code: 0,

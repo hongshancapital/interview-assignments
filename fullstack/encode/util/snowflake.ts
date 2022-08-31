@@ -8,7 +8,7 @@
 // 雪花算法  -- 本地生成
 export default class SnowFlake {
     // private readonly twepoch = 1548988646430n
-    private readonly twepoch = 1661397758514n
+    private readonly twepoch = 1661926259003n
 
     private readonly workerIdBits: bigint = 5n // 标识ID
     private readonly dataCenterIdBits: bigint = 5n // 机器ID

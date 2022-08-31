@@ -28,7 +28,7 @@ describe('url adjust POST /', () => {
         const res = await request(server)
                 .post('/')
                 .set('Content-Type', 'application/json')
-                .send(JSON.stringify({ search: "http::/www.huang/iHK6Cbni" }))
+                .send(JSON.stringify({ search: "http::/www.huang/a9euzmOyY" }))
         expect(res.status).toEqual(200)
     })
 })
