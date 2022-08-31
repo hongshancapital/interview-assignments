@@ -16,6 +16,7 @@ export const Carousel: React.FC = () => {
           transitionDuration: transitionDuration + 'ms',
           transform: `translateX(${-curIndex * 100}%)`
         }}
+        data-testid='swiper-wrapper'
       >
         {slideItems.map((item) => {
           const { slideId, imgUrl, descContents } = item;
@@ -32,7 +33,7 @@ export const Carousel: React.FC = () => {
   /** 渲染锚点指示器 */
   const renderIndicator = () => {
     return (
-      <div className='indicator-wrapper'>
+      <div className='indicator-wrapper' data-testid='indicator-wrapper'>
         {slideItems.map((item, index) => {
           return (<div
             key={item.slideId}

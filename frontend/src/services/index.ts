@@ -3,7 +3,7 @@
  * 这里暂时是前端写死的默认数据，如果数据改成读后台，可直接重构getCarouselData即可。
  */
 import { CarouselData } from '../models';
-import { mockAnimationConfig, mockSlideItems } from './mock';
+import { mockAnimationConfig, mockSlideItems } from '../mocks';
 
 /** 获取走马灯组件的业务数据 */
 export function getCarouselData(): CarouselData {

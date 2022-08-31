@@ -1,12 +1,12 @@
-import { DEFAULT_ANIMATION_CONFIG } from '../../constant';
-import { AnimationConfig, SlideItem } from '../../models';
+import { DEFAULT_ANIMATION_CONFIG } from '../constant';
+import { AnimationConfig, SlideItem } from '../models';
 
 export const mockAnimationConfig: AnimationConfig = DEFAULT_ANIMATION_CONFIG;
 
 export const mockSlideItems: SlideItem[] = [
   {
     slideId: 1,
-    imgUrl: require('../../assets/iphone.png'),
+    imgUrl: require('../assets/iphone.png'),
     descContents: [
       {
         id: '1',
@@ -43,7 +43,7 @@ export const mockSlideItems: SlideItem[] = [
   },
   {
     slideId: 2,
-    imgUrl: require('../../assets/tablet.png'),
+    imgUrl: require('../assets/tablet.png'),
     descContents: [
       {
         id: '1',
@@ -70,7 +70,7 @@ export const mockSlideItems: SlideItem[] = [
   },
   {
     slideId: 3,
-    imgUrl: require('../../assets/airpods.png'),
+    imgUrl: require('../assets/airpods.png'),
     descContents: [
       {
         id: '1',

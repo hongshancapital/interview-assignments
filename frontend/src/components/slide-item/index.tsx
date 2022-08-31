@@ -14,13 +14,13 @@ export const SlideItem: React.FC<SlideItemProps> = (props: SlideItemProps) => {
 
   /** 渲染背景图 */
   const renderBgImg = () => {
-    return imgUrl ? <img className='slide-img' src={imgUrl} alt='' /> : null;
+    return imgUrl ? <img className='slide-img' src={imgUrl} alt='slide-img' /> : null;
   }
 
   /** 渲染文字描述内容 */
   const renderDescContents = () => {
     return (
-      <div className='slide-desc'>
+      <div className='slide-desc' data-testid='slide-desc'>
         {
           descContents.map((desc) => {
             const { id, text, style } = desc;
