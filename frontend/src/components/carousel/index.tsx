@@ -18,22 +18,23 @@ function Carousel(props: CarouselProps) {
   const [current, setCurrent] = useState(-1);
 
   useEffect(() => {
-    const intervalId = start();
-    return () => stop(intervalId)
-  }, []);
-
-  function start() {
-    if (current === -1) {
-      setCurrent(0);
+    function start() {
+      if (current === -1) {
+        setCurrent(0);
+      }
+      return setInterval(() => {
+        setCurrent((current) => getNext(current, props.items));
+      }, 3000);
     }
-    return setInterval(() => {
-      setCurrent((current) => getNext(current, props.items));
-    }, 3000);
-  }
+  
+    function stop(intervalId: ReturnType<typeof setInterval>) {
+      clearInterval(intervalId);
+    }
 
-  function stop(intervalId: ReturnType<typeof setInterval>) {
-    clearInterval(intervalId);
-  }
+    const intervalId = start();
+
+    return () => stop(intervalId)
+  }, [current, props.items]);
 
   return (
     <div className={`Carousel ${props.className}`}>
