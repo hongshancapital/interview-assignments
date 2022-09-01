@@ -2,16 +2,14 @@ import * as React from "react";
 import { BaseComponent } from "./types";
 
 export interface CarouselProps extends BaseComponent {
-  /* 自动轮播，false 不自动，或传入秒数控制自动轮播速度 */
-  auto?: false | number;
-  /* 从第几个选项开始轮播，默认为 1 */
-  startAt?: number;
+  /* 自动轮播，默认为 true */
+  auto?: boolean;
+  /* 自动轮播速度，默认 3000，即 3000ms，仅当 auto 为 true 时生效 */
+  speed?: number;
   /* 是否循环播放，默认为是 */
   cycle?: boolean;
   /* 过渡动画速度，默认 300，即 300ms */
   transitionDuration?: number;
-  /* 自动轮播速度，默认 3000，即 3000ms */
-  speed?: number;
 }
 
 const CarouselNavigateContext = React.createContext<{
@@ -27,7 +25,13 @@ export const useCarouselNavigate = () =>
   React.useContext(CarouselNavigateContext);
 
 const Carousel: React.FC<CarouselProps> = (props) => {
-  const { children, cycle, transitionDuration = 300, speed = 3000 } = props;
+  const {
+    children,
+    cycle = true,
+    transitionDuration = 300,
+    auto = true,
+    speed = 3000,
+  } = props;
   const child = Array.isArray(children) ? children : [children];
 
   if (child.some((item) => item.type.displayName !== "Paper")) {
@@ -80,7 +84,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
 
   React.useEffect(() => {
     let timer: any;
-    if (cycle) {
+    if (auto) {
       timer = setInterval(
         () => {
           gotoNext();
@@ -98,7 +102,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
         clearInterval(timer);
       }
     };
-  }, [cycle, gotoNext, speed, transitionDuration, currentPaper]);
+  }, [auto, gotoNext, speed, transitionDuration, currentPaper]);
 
   return (
     <CarouselNavigateContext.Provider
