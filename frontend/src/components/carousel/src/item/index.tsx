@@ -1,5 +1,4 @@
 import { FC, CSSProperties } from 'react'
-import classnames from 'classnames'
 
 import { getReverseColor } from '@/utils/index'
 import { useResizeWindow } from '@/hooks/useResizeWindow'
