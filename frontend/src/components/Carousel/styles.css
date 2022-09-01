@@ -1,0 +1,52 @@
+.carousel{
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+}
+.carousel-container{
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  transition: transform;
+}
+.carousel-slide{
+  flex: 1;
+  font-size: 32px;
+}
+
+.indicator-wrap{
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+
+}
+.indicator-wrap .indicator-span{
+  cursor: pointer;
+  pointer-events: auto;
+  background: #aaa;
+  width: 80px;
+  height: 4px;
+  margin:0 3px;
+}
+@keyframes indicatorSpan {
+  0%{
+    width: 0;
+  }
+  100%{
+    width: 100%;
+  }
+}
+.indicator-wrap .indicator-span i{
+  display: block;
+  background: #f0f0f0;
+  width: 0;
+  height: 100%;
+}
+.indicator-wrap .indicator-span.active i{
+  animation: indicatorSpan linear;
+}
