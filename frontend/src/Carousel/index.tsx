@@ -16,23 +16,35 @@ function Carousel({stayDuration, switchDuration, size, children} : CarouselProps
     const refProgressList = useRef(null)
     const [_curIndex, setCurIndex] = useState(0)
 
-    // 进度条
+    // 所有进度条添加动画监听 和 回收函数
     useEffect(()=>{
         const len = React.Children.count(children)
-        const target = getCurrent(refProgressList).childNodes[_curIndex].childNodes[0]
 
-        // 监听进度条动画结束
-        target.onanimationend = ()=>{
-            target.className = "progress_inner"
-            target.onanimationend = null
+        const progresses = getCurrent(refProgressList).childNodes
+        for(let i = 0; i < progresses.length; i++){
+            const current = progresses[i].childNodes[0]
+            current.onanimationend = ()=>{
+                current.className = "progress_inner"
 
-            const nextIndex = (_curIndex + 1) % len
-            setCurIndex(nextIndex)
+                setCurIndex((oldIndex)=> (oldIndex + 1) % len) 
+            }
         }
+        return ()=>{
+            for(let i = 0; i < progresses.length; i++){
+                const current = progresses[i].childNodes[0]
+                current.onanimationend = null
+            }
+        }
+    },[children])
 
-        // 进度条添加动画
-        target.className += " progress_change"
-    },[_curIndex, children])
+    //给当前的progress添加动画
+    useEffect(()=>{
+        const len = React.Children.count(children)
+        if(_curIndex >= len)    return
+
+        const current = getCurrent(refProgressList).childNodes[_curIndex].childNodes[0]
+        current.className += " progress_change"
+    }, [_curIndex, children])
 
     function getCurrent(refValue: any){
         return refValue.current as any
