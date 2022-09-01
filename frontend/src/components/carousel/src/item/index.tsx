@@ -24,11 +24,13 @@ const CarouselItem: FC<CarouselItemProps> = ({ title, desc = '', bgImg, bgColor,
 
   return (
     <div className={classnames('carousel-item-container', { active })} style={containerStyle}>
-      <div className="title" style={textStyle}>
-        {title}
-      </div>
-      <div className="text" style={textStyle}>
-        {desc}
+      <div>
+        <div className="title" style={textStyle}>
+          {title}
+        </div>
+        <div className="text" style={textStyle}>
+          {desc}
+        </div>
       </div>
 
       {bgImg && <Img className="img" src={bgImg} />}

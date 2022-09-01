@@ -24,7 +24,6 @@ const Carousel: FC<CarouselProps> = ({ autoPlay = true, duration = 3000, showPro
   const _duration = !duration || duration <= 0 ? 3000 : duration
 
   const carouselContentStyle: CSSProperties = {
-    transitionDuration: `1s`,
     width: `${(items?.length || 0) * SCREEN_WIDTH}px`,
   }
   const progressAnimStyle: CSSProperties = {
@@ -32,11 +31,6 @@ const Carousel: FC<CarouselProps> = ({ autoPlay = true, duration = 3000, showPro
   }
 
   const [activeIdx, setActiveIdx] = useState(0)
-
-  useEffect(() => {
-    setTransition()
-  }, [activeIdx])
-
   const setTransition = () => {
     const distance = (0 - activeIdx) * SCREEN_WIDTH
     if (contentContainer.current) {
@@ -45,6 +39,10 @@ const Carousel: FC<CarouselProps> = ({ autoPlay = true, duration = 3000, showPro
       el.style.transform = `translate3d(${distance}px, 0, 0)`
     }
   }
+
+  useEffect(() => {
+    setTransition()
+  }, [activeIdx])
 
   let clearTimer = useRafInterval(() => {
     setActiveIdx(activeIdx === (items?.length || 0) - 1 ? 0 : activeIdx + 1)
