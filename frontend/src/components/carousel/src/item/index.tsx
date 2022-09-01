@@ -2,6 +2,7 @@ import { FC, CSSProperties } from 'react'
 import classnames from 'classnames'
 
 import { getReverseColor } from '@/utils/index'
+import { useResizeWindow } from '@/hooks/useResizeWindow'
 
 import type { CarouselItemProps } from '../typing'
 
@@ -10,12 +11,12 @@ import Img from '@/components/img'
 import './index.scss'
 
 const CarouselItem: FC<CarouselItemProps> = ({ title, desc = '', bgImg, bgColor, active = false, idx }) => {
-  const SCREEN_WIDTH = window.screen.width
+  const { screenWidth } = useResizeWindow()
 
   const containerStyle: CSSProperties = {
     backgroundColor: bgColor,
-    width: SCREEN_WIDTH,
-    left: (idx || 0) * SCREEN_WIDTH,
+    width: screenWidth,
+    left: (idx || 0) * screenWidth,
   }
 
   const textStyle: CSSProperties = {
@@ -23,7 +24,7 @@ const CarouselItem: FC<CarouselItemProps> = ({ title, desc = '', bgImg, bgColor,
   }
 
   return (
-    <div className={classnames('carousel-item-container', { active })} style={containerStyle}>
+    <div className="carousel-item-container" style={containerStyle}>
       <div>
         <div className="title" style={textStyle}>
           {title}

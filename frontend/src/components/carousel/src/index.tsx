@@ -1,6 +1,8 @@
 import { FC, useEffect, useState, useRef, CSSProperties } from 'react'
 import { useRafInterval } from 'ahooks'
 
+import { useResizeWindow } from '@/hooks/useResizeWindow'
+
 import CarouselItem from './item'
 
 import type { CarouselProps } from './typing'
@@ -18,31 +20,19 @@ const CarouselSwitcher: FC<CarouselSwitcherProps> = () => {
 }
 
 const Carousel: FC<CarouselProps> = ({ autoPlay = true, duration = 3000, showProgress = true, items }) => {
-  const SCREEN_WIDTH = window.screen.width
-  const contentContainer = useRef(null)
-
   const _duration = !duration || duration <= 0 ? 3000 : duration
 
-  const carouselContentStyle: CSSProperties = {
-    width: `${(items?.length || 0) * SCREEN_WIDTH}px`,
-  }
+  const { screenWidth } = useResizeWindow()
   const progressAnimStyle: CSSProperties = {
     animation: `loadProgress ${Math.floor(_duration / 1000)}s linear infinite`,
   }
 
+  const contentContainer = useRef(null)
   const [activeIdx, setActiveIdx] = useState(0)
-  const setTransition = () => {
-    const distance = (0 - activeIdx) * SCREEN_WIDTH
-    if (contentContainer.current) {
-      const el = contentContainer.current as HTMLElement
-
-      el.style.transform = `translate3d(${distance}px, 0, 0)`
-    }
-  }
-
+  const [transformDistance, setTransformDistance] = useState(0)
   useEffect(() => {
-    setTransition()
-  }, [activeIdx])
+    setTransformDistance((0 - activeIdx) * screenWidth)
+  }, [activeIdx, screenWidth])
 
   let clearTimer = useRafInterval(() => {
     setActiveIdx(activeIdx === (items?.length || 0) - 1 ? 0 : activeIdx + 1)
@@ -66,7 +56,14 @@ const Carousel: FC<CarouselProps> = ({ autoPlay = true, duration = 3000, showPro
   return (
     <div className="carousel-container">
       <CarouselSwitcher duration={_duration} showProgress={showProgress} />
-      <div ref={contentContainer} className="carousel-content" style={carouselContentStyle}>
+      <div
+        ref={contentContainer}
+        className="carousel-content"
+        style={{
+          transform: `translate3d(${transformDistance}px, 0, 0)`,
+          width: `${(items?.length || 0) * screenWidth}px`,
+        }}
+      >
         {items.map((item, idx) => (
           <CarouselItem key={`carousel-item-${item.title}-${idx}`} {...item} active={activeIdx === idx} idx={idx} />
         ))}
@@ -76,13 +73,13 @@ const Carousel: FC<CarouselProps> = ({ autoPlay = true, duration = 3000, showPro
         {items.map((_, idx) => {
           if (activeIdx === idx) {
             return (
-              <div className={classnames('dot', { active: !showProgress })}>
+              <div key={`carousel-dot-${idx}`} data-idx={idx} className={classnames('dot', { active: !showProgress })}>
                 {showProgress && <div className="progress" style={progressAnimStyle}></div>}
               </div>
             )
           }
 
-          return <div data-idx={idx} className={classnames('dot')}></div>
+          return <div key={`carousel-dot-${idx}`} data-idx={idx} className={classnames('dot')}></div>
         })}
       </div>
     </div>
