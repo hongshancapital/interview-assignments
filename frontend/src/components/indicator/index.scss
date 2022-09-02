@@ -1,0 +1,26 @@
+$indicator-width: 40px;
+
+@keyframes cover {
+  to {
+    width: $indicator-width;
+  }
+}
+
+.indicator {
+  background-color: #bbb;
+  border-radius: 1px;
+  height: 2px;
+  margin: 0 5px;
+  width: $indicator-width;
+
+  &-item {
+    background-color: #fff;
+    height: 2px;
+    width: 0;
+  }
+
+  .is-active {
+    animation-name: cover;
+    animation-timing-function: linear;
+  }
+}

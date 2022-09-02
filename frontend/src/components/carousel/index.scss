@@ -1,0 +1,29 @@
+.carousel-outer {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-inner {
+    display: flex;
+    height: 100%;
+    transition-property: transform;
+    transition-timing-function: linear;
+    width: 100%;
+  }
+
+  .indicator-lines {
+    align-items: center;
+    bottom: 60px;
+    display: flex;
+    justify-content: space-between;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+}
