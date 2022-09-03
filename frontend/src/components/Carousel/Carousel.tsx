@@ -1,151 +1,76 @@
 import * as React from "react";
-import { BaseComponent } from "./types";
+import { useCarouselNavigate } from "./Provider";
+import throttle from "./utils/throttle";
 
-export interface CarouselProps extends BaseComponent {
-  /* 自动轮播，默认为 true */
-  auto?: boolean;
-  /* 自动轮播速度，默认 3000，即 3000ms，仅当 auto 为 true 时生效 */
-  speed?: number;
-  /* 是否循环播放，默认为是 */
-  cycle?: boolean;
-  /* 过渡动画速度，默认 300，即 300ms */
-  transitionDuration?: number;
-}
+const Carousel: React.FC = (props) => {
+  const { children } = props;
+  const papersChildren = React.useMemo(
+    () => (Array.isArray(children) ? children : [children]),
+    [children]
+  );
 
-const CarouselNavigateContext = React.createContext<{
-  gotoPrev: () => void;
-  gotoNext: () => void;
-  goto: (paper: number) => void;
-}>({
-  gotoPrev: () => {},
-  gotoNext: () => {},
-  goto: () => {},
-});
-export const useCarouselNavigate = () =>
-  React.useContext(CarouselNavigateContext);
-
-const Carousel: React.FC<CarouselProps> = (props) => {
-  const {
-    children,
-    cycle = true,
-    transitionDuration = 300,
-    auto = true,
-    speed = 3000,
-  } = props;
-  const child = Array.isArray(children) ? children : [children];
-
-  if (child.some((item) => item.type.displayName !== "Paper")) {
-    throw new Error("Carousel 组件只接受 Paper 组件作为子组件");
+  if (papersChildren.some((item) => item.type.displayName !== "Paper")) {
+    throw new Error("Carousel 只接受 Paper 作为子组件！");
   }
 
   const [wrapperWidth, setWrapperWidth] = React.useState(0);
-  const contentWidth =
-    wrapperWidth * (child.length === 1 ? 1 : child.length + 2);
-  const [currentPaper, setCurrentPaper] = React.useState(0);
-  const [towards, setTowards] = React.useState<"left" | "right">("right");
+  const wrapperRef = React.useRef<HTMLDivElement>();
 
-  const gotoPrev = React.useCallback(() => {
-    setTowards("left");
-    setCurrentPaper((prev) => prev - 1);
-    if (cycle && currentPaper === 0) {
-      // 过渡动画执行完毕再重置 paper
-      const timer = setTimeout(() => {
-        setCurrentPaper(child.length - 1);
-        clearTimeout(timer);
-      }, transitionDuration);
-    }
-  }, [cycle, currentPaper, transitionDuration]);
+  const { gotoNext, currentPaper, carouselConfig, setTotalPaper } =
+    useCarouselNavigate();
+  const { auto, speed, transitionDuration } = carouselConfig;
 
-  const gotoNext = React.useCallback(() => {
-    setTowards("right");
-    setCurrentPaper((prev) => prev + 1);
-    if (cycle && currentPaper === child.length - 1) {
-      // 过渡动画执行完毕再重置 paper
-      const timer = setTimeout(() => {
-        setCurrentPaper(0);
-        clearTimeout(timer);
-      }, transitionDuration);
-    }
-  }, [cycle, currentPaper, transitionDuration]);
+  React.useEffect(() => {
+    setTotalPaper(papersChildren.length);
+  }, [papersChildren, setTotalPaper]);
 
-  const goto = React.useCallback(
-    (paper: number) => {
-      if (paper === currentPaper) {
-        return;
-      }
-      if (paper > child.length - 1) {
-        throw new Error("跳转目标大于轮播项总数！");
-      }
-      setTowards(paper - currentPaper > 0 ? "right" : "left");
-      setCurrentPaper(paper);
-    },
-    [currentPaper]
-  );
+  React.useEffect(() => {
+    const throttledSetWrapperWidth = throttle(() => {
+      setWrapperWidth(wrapperRef.current?.clientWidth ?? 0);
+    });
+    window.addEventListener("resize", throttledSetWrapperWidth);
+    return () => {
+      window.removeEventListener("resize", throttledSetWrapperWidth);
+    };
+  }, []);
 
   React.useEffect(() => {
     let timer: any;
     if (auto) {
-      timer = setInterval(
-        () => {
-          gotoNext();
-        },
-        /*
-         * gotoNext 中会在 transitionDuration ms 后再设置一遍 currentPaper
-         * 这会让 gotoNext 更新，也就会让本 effect 更新，从而触发 clearInterval，interval 重新开始计时
-         * 直接导致的结果是，每当一个循环结束，等待的时间是 speed + transitionDuration，所以此时需要减去 transitionDuration
-         */
-        currentPaper === 0 ? speed - transitionDuration : speed
-      );
+      timer = setInterval(() => {
+        gotoNext();
+      }, speed);
     }
     return () => {
       if (timer) {
         clearInterval(timer);
       }
     };
-  }, [auto, gotoNext, speed, transitionDuration, currentPaper]);
+  }, [auto, gotoNext, speed]);
 
   return (
-    <CarouselNavigateContext.Provider
-      value={{
-        gotoPrev,
-        gotoNext,
-        goto,
+    <div
+      className="carousel-wrapper"
+      ref={(ref) => {
+        if (ref) {
+          wrapperRef.current = ref;
+          setWrapperWidth(ref.clientWidth ?? 0);
+        }
       }}
     >
-      {currentPaper}
       <div
-        className="carousel-wrapper"
-        ref={(ref) => {
-          setWrapperWidth(ref?.getBoundingClientRect().width ?? 0);
+        className="carousel-content"
+        style={{
+          width: `${wrapperWidth * papersChildren.length}px`,
+          transform: `translate3d(${
+            currentPaper * (wrapperWidth ?? 0) * -1
+          }px, 0, 0)`,
+          transitionDuration: `${transitionDuration}ms`,
         }}
       >
-        <div
-          className="carousel-content"
-          style={{
-            width: `${contentWidth}px`,
-            transform: `translate(${currentPaper * wrapperWidth * -1}px)`,
-            transitionDuration: `${transitionDuration}ms`,
-            transitionProperty: (
-              towards === "right"
-                ? currentPaper === 0
-                : currentPaper === child.length - 1
-            )
-              ? "none"
-              : "transform",
-          }}
-        >
-          {child.length === 1 ? (
-            children
-          ) : (
-            <>
-              {child[child.length - 1]}
-              {children}
-              {child[0]}
-            </>
-          )}
-        </div>
+        {papersChildren}
       </div>
-    </CarouselNavigateContext.Provider>
+    </div>
   );
 };
 
