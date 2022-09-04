@@ -16,9 +16,9 @@ const Carousel: React.FC = (props) => {
   const [wrapperWidth, setWrapperWidth] = React.useState(0);
   const wrapperRef = React.useRef<HTMLDivElement>();
 
-  const { gotoNext, currentPaper, carouselConfig, setTotalPaper } =
+  const { gotoNext, currentPaper, carouselConfig, setTotalPaper, totalPaper } =
     useCarouselNavigate();
-  const { auto, speed, transitionDuration } = carouselConfig;
+  const { auto, speed, transitionDuration, cycle } = carouselConfig;
 
   React.useEffect(() => {
     setTotalPaper(papersChildren.length);
@@ -41,12 +41,15 @@ const Carousel: React.FC = (props) => {
         gotoNext();
       }, speed);
     }
+    if (!cycle && timer && currentPaper === totalPaper - 1) {
+      clearInterval(timer);
+    }
     return () => {
       if (timer) {
         clearInterval(timer);
       }
     };
-  }, [auto, gotoNext, speed]);
+  }, [auto, gotoNext, speed, cycle, currentPaper, totalPaper]);
 
   return (
     <div
@@ -54,11 +57,12 @@ const Carousel: React.FC = (props) => {
       ref={(ref) => {
         if (ref) {
           wrapperRef.current = ref;
-          setWrapperWidth(ref.clientWidth ?? 0);
+          setWrapperWidth(wrapperRef.current.clientWidth ?? 0);
         }
       }}
     >
       <div
+        data-testid="carousel-content"
         className="carousel-content"
         style={{
           width: `${wrapperWidth * papersChildren.length}px`,

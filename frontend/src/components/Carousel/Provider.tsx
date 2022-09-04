@@ -57,6 +57,9 @@ const Provider: React.FC<CarouselProviderProps> = (props) => {
   }, [cycle, currentPaper, totalPaper]);
 
   const gotoNext = React.useCallback(() => {
+    if (!cycle && currentPaper === totalPaper - 1) {
+      return;
+    }
     if (cycle && currentPaper === totalPaper - 1) {
       setCurrentPaper(0);
     } else {
