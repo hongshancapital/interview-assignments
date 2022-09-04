@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import AirPodsImg from "./assets/airpods.png";
 import IPhoneImg from "./assets/iphone.png";
 import TabletImg from "./assets/tablet.png";
 import CarouselProvider, { Carousel, Paper } from "./components/Carousel";
@@ -21,7 +22,7 @@ Starting at $399.`,
   },
   {
     className: "ar-pods",
-    img: IPhoneImg,
+    img: AirPodsImg,
     title: `Buy a Tablet or xPhone for college.
 Get arPods.`,
   },
