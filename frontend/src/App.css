@@ -12,3 +12,64 @@
   font-size: 28px;
   font-weight: 400;
 }
+
+
+
+
+div, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+
+li {
+  list-style-type: none;
+}
+
+.box {
+  width: 375px;
+  height: 284px;
+  overflow: hidden;
+  position: relative;
+}
+
+.imgs {
+  height: 284px;
+  display: flex;
+  transition: all 0.5s;
+}
+
+.item {
+  width: 375px;
+  height: 284px;
+  box-sizing: border-box;
+}
+
+img {
+  width: 375px;
+  height: 284px;
+}
+
+.icon-container {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+}
+.icon-box {
+  width: 30px;
+  height: 2px;
+  margin: 10px;
+  background-color: #282c34;
+}
+.icon-item {
+  height: 100%;
+  width: 0;
+  transition: width 2s;
+}
+.icon-item-active {
+  width: 100%;
+  background-color: #fff;
+}
