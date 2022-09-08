@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import CarouselDemo from './CarouselDemo'
+import CarouselDemo from './components/Carousel/__demo__'
 
 
 function App() {

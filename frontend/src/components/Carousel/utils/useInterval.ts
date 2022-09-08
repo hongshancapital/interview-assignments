@@ -1,17 +1,17 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 
 export function useInterval(callback: Function, delay: null | number) {
-  const refIntervalId = useRef<any>(null);
+  const refIntervalId = useRef<NodeJS.Timer | null>(null);
   const refSavedCallback = useRef<Function>(()=>{});
 
   // 
-  const setUpInterval = () => {
+  const setUpInterval = useCallback(() => {
     if (delay !== null) {
       refIntervalId.current = setInterval(() => {
         refSavedCallback.current();
       }, delay);
     }
-  };
+  }, [delay])
 
   // 清除定时器
   const cleanUpInterval = () => {
@@ -32,7 +32,7 @@ export function useInterval(callback: Function, delay: null | number) {
   useEffect(() => {
     setUpInterval();
     return cleanUpInterval;
-  }, [delay]);
+  }, [delay, setUpInterval]);
 
   return resetInterval;
 }

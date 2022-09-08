@@ -1,31 +1,29 @@
-import React, {useMemo, ReactNode} from "react";
+import React, {useMemo} from "react";
 import {IndicatorProps} from './interface'
-// import './styles.css'
 
 function Indicator(props: IndicatorProps){
   const {activeIndex, delay, length, onDotClick} = props
-  const nodeList = useMemo(()=>{
-    const IndicatorNodes:ReactNode[] = []
-    for(let i= 0; i < length; i++){
-      IndicatorNodes.push(
-        <span 
-          role="indicator"
-          className={`indicator-span ${activeIndex === i ? 'active' : ''}`} 
-          key={i}
-          onClick={() => {
-            onDotClick && onDotClick(i)
-          }}
-        >
-          <i style={{animationDuration: (activeIndex === i ? delay : 0) + 'ms'} }></i>
-        </span>
-      )
-    }
-    return IndicatorNodes
-  }, [activeIndex, delay, length])
 
+  // 根据props传入数量生成相等数量的数组，来进行map
+  const DotList = useMemo(()=>{
+    return new Array(length).fill('')
+  }, [length])
+  
   return (
     <div className='indicator-wrap'>
-      {nodeList}
+      {
+        DotList.map((_, index) => (
+          <span 
+            className={`indicator-span ${activeIndex === index ? 'active' : ''}`} 
+            key={index}
+            onClick={() => {
+              onDotClick && onDotClick(index)
+            }}
+          >
+            <i style={{animationDuration: (activeIndex === index ? delay : 0) + 'ms'} }></i>
+          </span>
+        ))
+      }
     </div>
   )
 }

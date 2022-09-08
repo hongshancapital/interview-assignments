@@ -18,7 +18,8 @@ describe('Indicator', () => {
     expect(indicators[activeIndex]).toHaveClass('active')
   })
 
-  
+  // 这里只是为了测试当前单元组件点击回调参数是否正确
+  // 组件的组合测试在index.test.tsx文件中已经写了
   it('点击指示器回调参数正确', () => {
     const clickIndex = 3
     const {find} = render(<Indicator activeIndex={2} length={6} delay={4000} onDotClick={onDotClick} />)

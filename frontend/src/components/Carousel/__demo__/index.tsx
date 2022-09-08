@@ -1,12 +1,20 @@
 import React from "react";
-import "./App.css";
+import style from "./styles.module.css";
 
-import Carousel from "./components/Carousel";
-import Img1 from "./assets/iphone.png"
-import Img2 from "./assets/tablet.png"
-import Img3 from "./assets/airpods.png"
+import Carousel from "..";
+import Img1 from "../../../assets/iphone.png"
+import Img2 from "../../../assets/tablet.png"
+import Img3 from "../../../assets/airpods.png"
 
-const listData = [
+export interface BannerItemProps {
+  id: number | string;
+  title: string; 
+  subTitle?: string; 
+  img: string; 
+  color: string;
+}
+
+export const listData:BannerItemProps[] = [
   {
     id: 1,
     title: 'XPhone',
@@ -31,18 +39,12 @@ const listData = [
   },
 ]
 
-interface BannerItemProps {
-  title: string; 
-  subTitle?: string; 
-  img: string; 
-  color: string;
-}
 
-function BannerItem(props: BannerItemProps){
+export function BannerItem(props: BannerItemProps){
   const {title, subTitle, img, color} = props
   return (
     <div 
-      className="banner-item"
+      className={style['banner-item']}
       style={{
         backgroundImage: `url(${img})`,
         color: color,
