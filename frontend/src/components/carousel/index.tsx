@@ -19,9 +19,9 @@ export const Carousel: React.FC = () => {
         data-testid='swiper-wrapper'
       >
         {slideItems.map((item) => {
-          const { slideId, imgUrl, descContents } = item;
+          const { slideId, bgColor, imgUrl, descContents } = item;
           return (
-            <div key={slideId} className='swiper-item'>
+            <div key={slideId} className='swiper-item' style={{ backgroundColor: bgColor }}>
               <SlideItem imgUrl={imgUrl} descContents={descContents}/>
             </div>
           )

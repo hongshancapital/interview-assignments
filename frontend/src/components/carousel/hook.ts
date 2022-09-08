@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DEFAULT_ANIMATION_CONFIG } from '../../constant';
 import { AnimationConfig, SlideItem } from '../../models';
 import { getCarouselData } from '../../services';

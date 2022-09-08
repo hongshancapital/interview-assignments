@@ -7,6 +7,7 @@ export const mockSlideItems: SlideItem[] = [
   {
     slideId: 1,
     imgUrl: require('../assets/iphone.png'),
+    bgColor: '#111111',
     descContents: [
       {
         id: '1',
@@ -15,7 +16,7 @@ export const mockSlideItems: SlideItem[] = [
           color: 'white',
           fontSize: '40px',
           fontWeight: 'bold',
-          lineHeight: '60px',
+          lineHeight: '40px',
         }
       },
       {
@@ -23,10 +24,10 @@ export const mockSlideItems: SlideItem[] = [
         text: 'Lots to love.Less to spend.',
         style: {
           color: 'white',
-          fontSize: '30px',
+          fontSize: '28px',
           fontWeight: 'normal',
-          lineHeight: '40px',
-          marginTop: '15px',
+          lineHeight: '28px',
+          marginTop: '10px',
         }
       },
       {
@@ -34,7 +35,7 @@ export const mockSlideItems: SlideItem[] = [
         text: 'Starting at $399.',
         style: {
           color: 'white',
-          fontSize: '30px',
+          fontSize: '28px',
           fontWeight: 'normal',
           lineHeight: '40px',
         }
@@ -44,6 +45,7 @@ export const mockSlideItems: SlideItem[] = [
   {
     slideId: 2,
     imgUrl: require('../assets/tablet.png'),
+    bgColor: '#fafafa',
     descContents: [
       {
         id: '1',
@@ -52,7 +54,7 @@ export const mockSlideItems: SlideItem[] = [
           color: 'black',
           fontSize: '40px',
           fontWeight: 'bold',
-          lineHeight: '60px',
+          lineHeight: '40px',
         }
       },
       {
@@ -60,10 +62,10 @@ export const mockSlideItems: SlideItem[] = [
         text: 'Just the right amount of everything.',
         style: {
           color: 'black',
-          fontSize: '30px',
+          fontSize: '28px',
           fontWeight: 'normal',
-          lineHeight: '40px',
-          marginTop: '15px',
+          lineHeight: '28px',
+          marginTop: '10px',
         }
       },
     ],
@@ -71,6 +73,7 @@ export const mockSlideItems: SlideItem[] = [
   {
     slideId: 3,
     imgUrl: require('../assets/airpods.png'),
+    bgColor: '#f1f1f3',
     descContents: [
       {
         id: '1',
@@ -79,7 +82,7 @@ export const mockSlideItems: SlideItem[] = [
           color: 'black',
           fontSize: '40px',
           fontWeight: 'bold',
-          lineHeight: '60px',
+          lineHeight: '40px',
         }
       },
       {
@@ -89,7 +92,7 @@ export const mockSlideItems: SlideItem[] = [
           color: 'black',
           fontSize: '40px',
           fontWeight: 'bold',
-          lineHeight: '60px',
+          lineHeight: '52px',
         }
       },
     ],

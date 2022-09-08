@@ -13,6 +13,8 @@ export interface CarouselData {
 export interface SlideItem {
   /** 滑块id */
   slideId: number;
+  /** 滑块区域背景色 */
+  bgColor: string;
   /** 图片url */
   imgUrl: string;
   /** 文本描述配置 */
