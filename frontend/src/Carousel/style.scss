@@ -1,0 +1,121 @@
+.carousel {
+  // 宽高等比缩放
+  padding-top: min(100vh, calc(100% * 9 / 16));
+  overflow: hidden;
+  position: relative;
+
+  .carousel-inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transform: translate(0, 0);
+    transition: transform 300ms ease-in-out;
+    display: flex;
+    align-items: stretch;
+
+    .carousel-item {
+      position: relative;
+      flex: 0 0 var(--item-width);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: auto 70%;
+        background-image: var(--item-bg-image);
+      }
+
+      &::before {
+        // 使用图片的边缘色自动填满整个容器
+        transform-origin: center top;
+        background-position: center top;
+        background-size: 100% auto;
+        height: 1%;
+        transform: scale(1, 100);
+      }
+
+      .content {
+        height: 70%;
+
+        .title,
+        .description {
+          text-align: center;
+          // 使用 CSS 混合模式自动匹配文本颜色
+          mix-blend-mode: difference;
+          filter: invert(100%);
+        }
+
+        .title {
+          font-size: 5vw;
+          line-height: 1.2;
+          font-weight: 600;
+        }
+
+        .description {
+          margin-top: 1vw;
+          font-size: 2.4vw;
+          line-height: 1.2;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  .ctrl-bar {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, 0);
+    display: flex;
+    align-items: center;
+
+    .ctrl-dot {
+      width: 4vw;
+      height: 2px;
+      border-radius: 1px;
+      background-color: #666;
+      margin: 0 0.4vw;
+      cursor: pointer;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: -8px;
+        bottom: -8px;
+        left: 0;
+        right: 0;
+      }
+
+      @keyframes pending {
+        from {
+          width: 0%;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      &.active::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.6);
+        animation: pending var(--carousel-interval) linear;
+      }
+    }
+  }
+}
