@@ -56,7 +56,6 @@ function App() {
       {cardsData.map((v)=>{
         return <Card key={v.theKey} theKey={v.theKey} imgUrl={v.imgUrl} titles={v.titles} details={v.details} styles={v.styles}/>
       })}
-      {/* <div style={{width: '100%', height: '100%', backgroundColor: '#FF0000', flexShrink: 0}}>888</div> */}
     </Carousel>
   </div>;
 }
