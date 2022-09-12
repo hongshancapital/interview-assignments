@@ -13,7 +13,7 @@ const cardsData : CardProps[] = [
     ],
     details:[
       'Lots to love. Less to spend.',
-      'Starting at $399'
+      'Starting at $399.'
     ],
     styles:{
       fontColor: '#FFFFFF',
