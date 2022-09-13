@@ -1,52 +1,149 @@
-# Java Assignment
+# 设计文档
+## 需求分析
+- 短域名需求主要是需要能通过原始较长域名生成一个唯一的短域名
+- 不需要保证相同原始域名生成相同短域名
+- 可以使用雪花算法生成趋势递增的long id然后转换成短字符串来实现短域名
 
-## 这是什么？
+## 假设
+- 相同url生成的短url不需要相同
+- 生成的短url未被访问后会失效
+- 考虑到实际可能并发，把Snowflake算法中的sequence bit调整为1位，worker bit调整
+为3位。既单worker每毫秒可以生成2个短域名，最多可以支持8个worker
 
-为了节省大家的时间，我们使用作业分配来对Java候选人进行资格预审。这使我们在面试中保持客观，专注于候选人解决​​复杂问题并捍卫他们选择技术或方法的能力。我们还评估候选人如何处理来自同事、管理层或运营团队的压力，时间压力，批评和审查。
+## 系统架构
+### 工程结构
+~~~shell
+.
+├── HELP.md
+├── README.md
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── jacoco.gradle #jacoco的单独配置文件，其中主要把集成测试的单元测试的结果组合做成report
+├── lombok.config 
+├── settings.gradle
+├── src
+│   ├── isolationTest #集成测试，主要测试api的返回是否符合期望
+│   │   └── java
+│   │       └── io
+│   │           └── nigelwy
+│   │               └── javaassignments
+│   │                   └── controller
+│   │                       └── ShortUrlControllerTest.java
+│   ├── main
+│   │   ├── java
+│   │   │   └── io
+│   │   │       └── nigelwy
+│   │   │           └── javaassignments
+│   │   │               ├── JavaAssignmentsApplication.java
+│   │   │               ├── ShortUrlProperties.java #配置一定得是类而不是用@Vaule注入
+│   │   │               ├── api
+│   │   │               │   ├── ShortUrlApi.java
+│   │   │               │   └── response
+│   │   │               │       └── GenerateShorturlResponse.java
+│   │   │               ├── config
+│   │   │               │   ├── ApplicationConfiguration.java
+│   │   │               │   └── OpenApiConfig.java
+│   │   │               ├── controller
+│   │   │               │   └── ShortUrlController.java
+│   │   │               ├── repository
+│   │   │               │   ├── InMemoryUrlRepository.java
+│   │   │               │   └── UrlRepository.java
+│   │   │               ├── service
+│   │   │               │   ├── ShortUrlService.java
+│   │   │               │   ├── SnowflakeUrlGenerator.java
+│   │   │               │   └── UrlGenerator.java
+│   │   │               └── util
+│   │   │                   └── Snowflake.java
+│   │   └── resources
+│   │       └── application.yaml
+│   └── test #单元测试，测试方法的分支，逻辑
+│       └── java
+│           └── io
+│               └── nigelwy
+│                   └── javaassignments
+│                       ├── Constants.java
+│                       ├── repository
+│                       │   └── InMemoryUrlRepositoryTest.java
+│                       └── service
+│                           ├── ShortUrlServiceTest.java
+│                           └── SnowflakeUrlGeneratorTest.java
+└── test_report.png
+~~~
 
-***要考虑参加面试，您需要完成下面的“作业”部分。***
-
-### Assignment
-
-> **Tips: 记得注意仔细审题**
-
-#### 实现短域名服务（细节可以百度/谷歌）
-
-撰写两个 API 接口:
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
-
-限制：
-- 短域名长度最大为 8 个字符
-- 采用SpringBoot，集成Swagger API文档；
-- JUnit编写单元测试, 使用Jacoco生成测试报告(测试报告提交截图)；
-- 映射数据存储在JVM内存即可，防止内存溢出；
-
-**递交作业内容** 
-- 源代码(按照生产级的要求编写整洁的代码，使用gitignore过滤掉非必要的提交文件，如class文件)
-- Jacoco单元测试覆盖率截图(行覆盖率和分支覆盖率85%+)
-- 文档：完整的设计思路、架构设计图以及所做的假设(Markdown格式)
-
-**加分项** 
-- 系统性能测试方案以及测试结果
+### 设计思路
+- 需要一个接口生成短url，一个接口返回长url
+  - 生成短url的接口采用POST方法，返回Json格式的长短url对象
+  - 返回短url的接口采用GET方法，找到结果是返回302浏览器直接重定向，找不到结果则返回404
+  - 为了使得整体的url更短, 直接在跟路径上实现了接口
+  - ShortUrlApi定义接口契约，添加swagger注解，做到实现和文档分离
+- 生成短Url的接口需要做两件事，生成短url和存储映射关系。
+生成短Url和的实现方式（算法），映射存储的方式（内存/分布式高速缓存，过期策略等等）都会随着产品演进发生变化，
+因此抽象出UrlGenerator和UrlRepository这两个接口来定义契约，ShortUrlService作为调度器来串联处理逻辑。
+- SnowflakeUrlGenerator采用雪花算法生成62进制短url，只有一个异常分支是生成的域名长度超过设定的限度8。
+同时权衡了可能的并发量，对sequence和worker的bit做了调整。因为雪花算法是外部提供的算法，秉承不对依赖进行
+测试的原则，把Snowflake这个类加了jacoco exclude。
+- InMemoryUrlRepository使用了Google的Inmemory cache实现，简单加了一个1天的过期时间和最大key数量上限
+来避免OOM。这些配置可以参数化，也可以有更高级的过期策略，这些都是后续的优化空间。
 
 
+## 测试报告
+![Jacoco Report](./test_report.png)
 
-## Job Description
+## 性能测试
+性能测试使用的工具位[hey](https://github.com/rakyll/hey)
+性能测试结果符合预期, 约2000每秒
+~~~shell
+at 18:47:38 ❯ hey -z 20s -m POST http://localhost:8080/\?originUrl\=https://www.baidu.com
 
-### 岗位职责
-
-1. 负责公司内部自用产品开发，能够独立的按产品需求进行技术方案设计和编码实现，确保安全、可扩展性、质量和性能;
-2. 在负责的业务上有独立的见解和思考，对业务产品具有独立沟通、完善业务需求和识别方案风险的能力;
-3. 具有持续优化、追求卓越的激情和能力，能持续关注和学习相关领域的知识，并能使用到工作当中;
-4. 具备和第三方供应商进行沟通，对设计方案进行审核的能力;
-
-### 要求
-
-1. 5年软件研发/解决方案设计工作经验(金融领域经验加分)；
-2. Java基础扎实，熟悉高级特性和类库、多线程编程以及常见框架(SpringBoot等)；
-3. 具备基本系统架构能力，熟悉缓存、高可用等主流技术；
-5. 持续保持技术激情，善于快速学习，注重代码质量，有良好的软件工程知识和编码规范意识；
-
+Summary:
+  Total:	20.0256 secs
+  Slowest:	0.1345 secs
+  Fastest:	0.0004 secs
+  Average:	0.0252 secs
+  Requests/sec:	1985.3630
 
 
+Response time histogram:
+  0.000 [1]	|
+  0.014 [10062]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.027 [11475]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.041 [11401]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  0.054 [6707]	|■■■■■■■■■■■■■■■■■■■■■■■
+  0.067 [36]	|
+  0.081 [16]	|
+  0.094 [10]	|
+  0.108 [0]	|
+  0.121 [0]	|
+  0.135 [50]	|
+
+
+Latency distribution:
+  10% in 0.0060 secs
+  25% in 0.0122 secs
+  50% in 0.0250 secs
+  75% in 0.0379 secs
+  90% in 0.0440 secs
+  95% in 0.0461 secs
+  99% in 0.0481 secs
+
+Details (average, fastest, slowest):
+  DNS+dialup:	0.0000 secs, 0.0004 secs, 0.1345 secs
+  DNS-lookup:	0.0000 secs, 0.0000 secs, 0.0032 secs
+  req write:	0.0000 secs, 0.0000 secs, 0.0016 secs
+  resp wait:	0.0251 secs, 0.0002 secs, 0.1296 secs
+  resp read:	0.0000 secs, 0.0000 secs, 0.0116 secs
+
+Status code distribution:
+  [201]	39758 responses
+~~~
+
+## 后续优化
+- 在分布式环境通过环境变量传入雪花算法的worker id
+- 在分布式环境使用类似redis的缓存代替jvm存储
+- 短时间的热点url生成可以通过一定策略做到生成相同的短url
+- 公共的错误返回结构，ControllerAdvice

@@ -1,0 +1,106 @@
+apply plugin: "jacoco"
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+ext {
+    jacocoInstrMin = 0.9 // Instruction coverage
+    jacocoBranchMin = 0.9  // Branch coverage
+
+    // Files to be ignored
+    jacocoExcludes = ["**/Snowflake.**"]
+}
+
+//Unit test===========================
+//Unit test report
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoExcludes)
+        })
+    }
+}
+
+//Unit test code coverage
+jacocoTestCoverageVerification {
+    executionData test
+    violationRules {
+        rule {
+            element = 'BUNDLE'
+            limit {
+                counter = 'INSTRUCTION'
+                minimum = jacocoInstrMin
+            }
+        }
+
+        rule {
+            element = 'BUNDLE'
+            limit {
+                counter = 'BRANCH'
+                minimum = jacocoBranchMin
+            }
+        }
+    }
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoExcludes)
+        })
+    }
+}
+
+
+//isolationTest test already be added by test-sets plugin===========================
+
+//All test===========================
+//Unit test and Isolation Test report all together
+task jacocoAllTestReport(type: JacocoReport) {
+    sourceSets sourceSets.main
+    executionData test, isolationTest
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoExcludes)
+        })
+    }
+}
+
+//All test code coverage together
+task jacocoAllTestCoverageVerification(type: JacocoCoverageVerification) {
+    executionData test, isolationTest
+    sourceDirectories.from = files(sourceSets.main.allSource.srcDirs)
+    classDirectories.from = files(sourceSets.main.output)
+
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoExcludes)
+        })
+    }
+
+
+    violationRules {
+        rule {
+            element = 'BUNDLE'
+            limit {
+                counter = 'INSTRUCTION'
+                minimum = jacocoInstrMin
+            }
+        }
+
+        rule {
+            element = 'BUNDLE'
+            limit {
+                counter = 'BRANCH'
+                minimum = jacocoBranchMin
+            }
+        }
+    }
+}
+jacocoAllTestReport {
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+jacocoAllTestCoverageVerification.dependsOn jacocoAllTestReport
+check.dependsOn jacocoAllTestReport
+check.dependsOn jacocoAllTestCoverageVerification
