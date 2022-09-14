@@ -61,7 +61,7 @@ export const Carousel: React.FC<CarouselProps> = ({
   if (!Array.isArray(dataSource) || !dataSource?.length) return null;
 
   return (
-    <div className={`carousel ${className || ''}`.trim()} style={style}>
+    <div className={`carousel ${className || ''}`} style={style}>
       {/* 轮播的内容 */}
       <div
         className="carousel-inner"
@@ -112,7 +112,7 @@ export const Carousel: React.FC<CarouselProps> = ({
       >
         {dataSource.map(({ key }: CarouselItem) => (
           <div
-            className={`ctrl-dot ${key === activeKey ? 'active' : ''}`.trim()}
+            className={`ctrl-dot ${key === activeKey ? 'active' : ''}`}
             onClick={() => {
               setIsRunning(false);
               setActiveKey(key);
