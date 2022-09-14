@@ -1,0 +1,28 @@
+.wrapper {
+  display: inline-block;
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+  width: 100%;
+  .item {
+    display: inline-block;
+    cursor: pointer;
+    height: 2px;
+    border-radius: 1px;
+    border-right: 40px solid #666;
+    margin-right: 8px;
+    position: relative;
+    &:last-child {
+      margin-right: unset;
+    }
+  }
+  .activeItem {
+    position: absolute;
+    box-shadow: 0px 0px 1px 0.2px #fff;
+    height: 2px;
+    border-radius: 1px;
+    top: -0px;
+    border-left: 40px solid #FFF;
+    transition: border-left-width linear;
+  }
+}
