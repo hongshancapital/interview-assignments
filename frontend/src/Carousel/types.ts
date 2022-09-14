@@ -14,5 +14,3 @@ export interface CarouselProps {
   className?: string;
   style?: CSSProperties;
 }
-
-export type Timer = ReturnType<typeof setInterval>;

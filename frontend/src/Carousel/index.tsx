@@ -1,13 +1,13 @@
 import React, {
   CSSProperties,
-  Fragment,
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
-import { CarouselProps, CarouselItem, Timer } from './types';
+import MultiLine from './MultiLine';
+import useInterval from './useInterval';
+import { CarouselProps, CarouselItem } from './types';
 import './style.scss';
 
 export const Carousel: React.FC<CarouselProps> = ({
@@ -27,59 +27,36 @@ export const Carousel: React.FC<CarouselProps> = ({
     [activeKey]
   );
 
-  // 支持使用换行符 \n 分割多行文本
-  const renderMultiLine = useCallback(
-    (text: string) => (
-      <>
-        {String(text)
-          .split('\n')
-          .map((x: string, i: number) => (
-            <Fragment key={x}>
-              {i > 0 ? <br /> : null}
-              {x}
-            </Fragment>
-          ))}
-      </>
-    ),
-    []
+  // 动画播放状态
+  const [isRunning, setIsRunning] = useState(true);
+
+  useInterval(
+    () => {
+      if (!dataSource?.length) return;
+
+      const currentIndex = dataSource.findIndex((x) => x.key === activeKey);
+      if (currentIndex < 0) return;
+
+      const nextIndex = (currentIndex + 1) % dataSource.length;
+      const nextKey = dataSource[nextIndex]?.key;
+
+      if (nextKey) {
+        setActiveKey(nextKey);
+      }
+    },
+    isRunning ? interval : null
   );
 
-  const timer = useRef<Timer | null>(null);
-
-  const clearTimer = useCallback(() => {
-    if (timer.current) {
-      clearInterval(timer.current);
-      timer.current = null;
-    }
-  }, []);
-
-  const initTimer = useCallback(() => {
-    timer.current = setInterval(() => {
-      const currentIndex = dataSource.findIndex((x) => x.key === activeKey);
-      const nextIndex = (currentIndex + 1) % dataSource?.length;
-      const nextKey = dataSource?.[nextIndex]?.key;
-      setActiveKey(nextKey);
-    }, interval);
-  }, [dataSource, activeKey, interval]);
-
+  // 根据页面可见性 暂停/重启 轮播
   useEffect(() => {
-    clearTimer();
-    initTimer();
-
-    // 根据页面可见性 暂停/重启 轮播
     const handleVisibilityChange = () => {
-      clearTimer();
-      if (!document.hidden) {
-        initTimer();
-      }
+      setIsRunning(!document.hidden);
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
-
     return () => {
-      clearTimer();
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [clearTimer, initTimer]);
+  }, []);
 
   if (!Array.isArray(dataSource) || !dataSource?.length) return null;
 
@@ -110,10 +87,14 @@ export const Carousel: React.FC<CarouselProps> = ({
               key={`item-${key}`}
             >
               <div className="content">
-                {title && <div className="title">{renderMultiLine(title)}</div>}
+                {title && (
+                  <div className="title">
+                    <MultiLine text={title} />
+                  </div>
+                )}
                 {description && (
                   <div className="description">
-                    {renderMultiLine(description)}
+                    <MultiLine text={description} />
                   </div>
                 )}
               </div>
@@ -133,7 +114,11 @@ export const Carousel: React.FC<CarouselProps> = ({
           <div
             className={`ctrl-dot ${key === activeKey ? 'active' : ''}`.trim()}
             onClick={() => {
+              setIsRunning(false);
               setActiveKey(key);
+            }}
+            onMouseLeave={() => {
+              setIsRunning(true);
             }}
             key={`dot-${key}`}
           />
