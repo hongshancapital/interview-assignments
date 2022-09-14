@@ -1,10 +1,4 @@
-import React, {
-  CSSProperties,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { CSSProperties, useEffect, useMemo, useState } from 'react';
 import MultiLine from './MultiLine';
 import useInterval from './useInterval';
 import { CarouselProps, CarouselItem } from './types';

@@ -4,7 +4,7 @@ import { CarouselItem } from './Carousel/types';
 import imgPhone from './assets/iphone.png';
 import imgTablet from './assets/tablet.png';
 import imgAirpods from './assets/airpods.png';
-import './App.css';
+// import './App.css';
 
 const CAROUSEL_DATA: CarouselItem[] = [
   {
@@ -27,11 +27,7 @@ const CAROUSEL_DATA: CarouselItem[] = [
 ];
 
 function App() {
-  return (
-    <div className="App">
-      <Carousel dataSource={CAROUSEL_DATA} defaultKey="airpods" />
-    </div>
-  );
+  return <Carousel dataSource={CAROUSEL_DATA} defaultKey="airpods" />;
 }
 
 export default App;
