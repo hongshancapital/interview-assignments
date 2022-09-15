@@ -53,6 +53,7 @@ const Progress: React.FC<ProgressProps> = (props: ProgressProps) => {
     <>
       <div className="progress-container">
         <div
+          role="progress-percent"
           className="progress-percent"
           style={{
             width,
