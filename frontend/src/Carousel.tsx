@@ -22,9 +22,16 @@ interface IProps {
             dscroll(cur);
         }
     },[cur])    
+
+
+    const divStyle: React.CSSProperties = {
+        width: 100* len + 'vw', 
+        transform:`translateX(-${cur}vw)` 
+      };
+
     // 下面样式都可当组件 循环输出
     return <><div className='win'>
-             <ul className='cwrap' style={{width: 100* len + 'vw', transform:`translateX(-${cur}vw)` }}>
+             <ul className='cwrap' style={divStyle}>
                     <li className="c1"></li>
                     <li className="c2"></li>
                     <li className="c3"></li>
