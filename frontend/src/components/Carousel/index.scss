@@ -1,0 +1,68 @@
+.smable-carousel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    transition: transform 0.6s;
+    .smable-carousel-item {
+      width: 100%;
+      height: 100%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      .smable-carousel-info {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        .smable-carousel-info-1 {
+          height: 100%;
+          padding-top: 20vh;
+          p{
+            font-size: large;
+          }
+        }
+        .smable-carousel-info-2{
+          position: absolute;
+          bottom: 20vh;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+  .dot {
+    position: absolute;
+    bottom: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+    .outter {
+      width: 50px;
+      height: 3px;
+      background-color: #5e5a5a1a;
+      margin-left: 20px;
+      border-radius: 5px;
+    }
+    @keyframes smable {
+      0% {
+        width: 0%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+    .inner {
+      height: 100%;
+      border-radius: 5px;
+      animation-fill-mode: forwards;
+      animation-name: smable;
+      animation-iteration-count: infinite;
+    }
+  }
+}
