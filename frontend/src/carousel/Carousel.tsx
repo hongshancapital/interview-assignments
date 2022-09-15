@@ -27,17 +27,38 @@ export default function Carousel() {
       <div className={s['carousel-inner']}>
         {imgInfo.map((info, index) => <div
           key={index}
-          className={`${s['carousel-item']} ${s[info.position]}`}
+          className={`${s['carousel-item']} ${s[info.position]} ${s[info.name]}`}
         >
+          <div className={s.title}>
+            <div>
+              <h1>
+                {info.titles.map((title, tIndex) => <span key={tIndex}>{title}<br/></span>)}
+              </h1>
 
-          {info.titles.map((title, tIndex) => <h1 key={tIndex}>{title}</h1>)}
+              {info.subtitles.map((subtitle, subIndex) => <h2
+                key={subIndex}
+                className={subIndex === 0 ? s.first : ''}
 
-          {info.subtitles.map((subtitle, subIndex) => <h2 key={subIndex}>{subtitle}</h2>)}
+              >{subtitle}</h2>)}
+            </div>
+          </div>
 
-          <img src={require(`../assets/${info.imgName}`)} alt="" />
+          <div className={s.picture}>
+            <img src={require(`../assets/${info.imgName}`)} alt="" />
+          </div>
 
         </div>)}
       </div>
+
+      <div className={s.indicators}>
+        {imgInfo.map((info, index) => {
+          const highlight = (info.position === 'active' ? 'highlight' : '');
+          return (<div key={index} className={s['g-container']}>
+            <div className={`${s['g-progress']} ${s[highlight]}`}></div>
+          </div>);
+        })}
+      </div>
+
     </div>
   );
 }
