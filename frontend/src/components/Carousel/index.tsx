@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
 import Pagination from "../Pagination";
-import Item from "./item";
+import Item, { ItemProps } from "./item";
 import "./carousel.css";
 
 export interface CarouselProps {
-  datasource: { title: string; sub: string; image: string; color: string }[];
+  datasource: ItemProps[];
   timeout?: number;
 }
 
@@ -28,6 +28,8 @@ const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
         <div className="wrapper" style={wrapperStyle}>
           {datasource.map((item) => (
             <Item
+              key={item.id}
+              id={item.id}
               title={item.title}
               sub={item.sub}
               image={item.image}

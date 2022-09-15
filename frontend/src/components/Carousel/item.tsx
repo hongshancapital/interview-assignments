@@ -1,6 +1,7 @@
 import React from "react";
 
 export interface ItemProps {
+  id: string;
   title: string;
   sub: string;
   image: string;

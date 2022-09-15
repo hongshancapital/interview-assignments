@@ -24,7 +24,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
     const items = [];
     for (let i = 0; i < size; ++i) {
       items.push(
-        <div className="pagination-item">
+        <div className="pagination-item" key={i}>
           <Progress
             activeIndex={activeIndex}
             index={i}

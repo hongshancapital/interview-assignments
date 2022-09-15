@@ -12,18 +12,21 @@ function App() {
         timeout={3000}
         datasource={[
           {
+            id: '1',
             title: "Buy a Tablet or xPhone for college.<br/>Get arPods.",
             sub: "",
             image: airpods,
             color: "#000",
           },
           {
+            id: '2',
             title: "xPhone",
             sub: "Lots to love. Less to spend.<br/>Starting at $399.",
             image: iphone,
             color: "#fff",
           },
           {
+            id: '3',
             title: "Tablet",
             sub: "Just the right amount of everything.",
             image: tablet,
