@@ -29,6 +29,7 @@ const Carousel: FC<ICarousel> = ({
         style={{
           transform: `translateX(-${cur * 100}%)`,
         }}
+        data-testid="carousel-inner-wrapper"
       >
         {items.map((item, idx) => (
           <div

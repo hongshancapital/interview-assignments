@@ -19,7 +19,7 @@ const Indicator: FC<IIndicator> = ({
 }) => {
 
   return (
-    <div className={css.wrapper} style={style}>
+    <div className={css.wrapper} style={style} data-testid="indicator-wrapper">
       {Array(count).fill(undefined).map((_, index) => (
         <div
           className={css.item}
