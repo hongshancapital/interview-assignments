@@ -15,7 +15,7 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
 
   useEffect(() => {
     onActiveChange(activeIndex);
-  }, [activeIndex]);
+  }, [activeIndex, onActiveChange]);
 
   const render = () => {
     if (size === 0) {

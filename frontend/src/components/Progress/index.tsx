@@ -1,3 +1,3 @@
-import progress from "./progrss";
+import progress from "./progress";
 
 export default progress;

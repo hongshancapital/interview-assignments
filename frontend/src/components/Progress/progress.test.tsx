@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Progress from "./progrss";
+import Progress from "./progress";
 
 test("reset progress stoped to execute", (done) => {
   let executed = false;
@@ -45,7 +45,7 @@ test("active progress should be 100%", (done) => {
     <Progress index={1} activeIndex={1} onTimeout={() => {}} timeout={100} />
   );
   setTimeout(() => {
-    expect(result.getByRole("progress-percent").style.width).toBe("100%");
+    expect(result.getByTestId('progress-percent').style.width).toBe("100%");
     done();
   }, 1000);
 });
@@ -55,7 +55,7 @@ test("active progress should be 0px", (done) => {
     <Progress index={1} activeIndex={2} onTimeout={() => {}} timeout={100} />
   );
   setTimeout(() => {
-    expect(result.getByRole("progress-percent").style.width).toBe("0px");
+    expect(result.getByTestId("progress-percent").style.width).toBe("0px");
     done();
   }, 1000);
 });

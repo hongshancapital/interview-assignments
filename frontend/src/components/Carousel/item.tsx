@@ -15,7 +15,7 @@ const CarouselItem: React.FC<ItemProps> = (props: ItemProps) => {
         <div dangerouslySetInnerHTML={{ __html: props.title }} />
         <div className="sub" dangerouslySetInnerHTML={{ __html: props.sub }} />
       </div>
-      <img src={props.image}></img>
+      <img alt={props.title} src={props.image}></img>
     </div>
   );
 };
