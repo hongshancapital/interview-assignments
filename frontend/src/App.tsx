@@ -6,7 +6,7 @@ import { mockData } from './components/Carousel/mock';
 function App() {
   return (
     <div className='App'>
-      <Carousel dataInfo={mockData} startIndex={1} />
+      <Carousel dataInfo={mockData} />
     </div>
   );
 }
