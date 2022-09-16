@@ -1,5 +1,9 @@
 package scdt.interview.java.common.algorithm;
 
+/**
+ * @author Laerfu Zhang
+ */
+
 public class Numberic {
 
 	private static final char[] DIGITAL_NORMAL = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',

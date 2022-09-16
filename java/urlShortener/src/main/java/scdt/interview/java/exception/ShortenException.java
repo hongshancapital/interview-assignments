@@ -5,6 +5,7 @@ import lombok.Setter;
 
 /**
  * 短链接自定义异常
+ * @author Laerfu Zhang
  */
 @SuppressWarnings("serial")
 @Getter
