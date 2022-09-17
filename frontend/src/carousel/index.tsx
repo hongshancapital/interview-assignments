@@ -23,8 +23,7 @@ const Carousel: React.FC<Props> = (props) => {
     useEffect(() => {
         let count = 0
         const timer = setInterval(() => {
-            count = ++count % slides.length
-            setCurrentIndex(count)
+            setCurrentIndex(++count % slides.length)
         }, duration)
 
         return () => {
@@ -42,9 +41,9 @@ const Carousel: React.FC<Props> = (props) => {
                 }}
             >
                 {/* content of slide */}
-                { slides.length ? slides.map((slide) => {
+                { slides.length ? slides.map((slide, index) => {
                     return (
-                        <div key={slide.slideId} className='carousel-item'>
+                        <div key={index} className='carousel-item'>
                             <Slide slide={slide} />
                         </div>
                     )
@@ -56,7 +55,7 @@ const Carousel: React.FC<Props> = (props) => {
                 { slides.map((slide, index) => {
                     return (
                         <div
-                            key={slide.slideId}
+                            key={index}
                             className={`indicator-item ${index === currentIndex ? 'active' : ''}`}
                             style={{ animationDuration: duration + 'ms' }}
                         ></div>

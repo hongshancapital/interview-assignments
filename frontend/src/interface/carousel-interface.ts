@@ -10,8 +10,6 @@ export interface CarouselConfig {
 
 /** the content of slide */
 export interface SlideContent {
-    /** id for the slide */
-    slideId: number
     /** backgorund color */
     bgColor: string
     /** descriptions */
@@ -23,23 +21,10 @@ export interface SlideContent {
 /** setting of the descriptions inside the slide */
 export interface DescConfig {
     content: string
-    style: DescStyle
-}
-
-/** style sheet for the descriptions */
-export interface DescStyle {
-    color: string
-    fontFamily?: string
-    fontSize: string
-    fontWeight?: string
-    lineHeight: string
-    marginTop?: string
-    marginBottom?: string
+    type: string
 }
 
 /** configuration of the picture */
 export interface PicConfig {
     url: string
-    width: string
-    height: string
 }

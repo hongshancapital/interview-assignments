@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import Carousel from "./carousel";
-import { CarouselConfig } from "./interface/carousel-interface";
-import { getCarouselData } from './service/carousel-service'
+import { mockData } from './mock/carousel-mock'
 
 function App() {
-  const [carouselData, setCarouselData] = useState<CarouselConfig>()
-
-  useEffect(() => {
-    /** mock fetching data from backend */
-    const res = getCarouselData()
-    setCarouselData(res)
-  }, [])
 
   return <div className="App">
-    { carouselData ? <Carousel duration={carouselData.duration} transitionDuration={carouselData.transitionDuration} slides={carouselData.slides} /> : null }
+    { mockData ? <Carousel duration={mockData.duration} transitionDuration={mockData.transitionDuration} slides={mockData.slides} /> : null }
   </div>;
 }
 

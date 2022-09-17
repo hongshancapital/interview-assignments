@@ -1,5 +1,6 @@
 import React from 'react'
 import { SlideContent } from '../../../interface/carousel-interface'
+import { titleStyle, descStyle } from '../../../config/index'
 import './index.css'
 
 interface Props {
@@ -9,16 +10,22 @@ interface Props {
 const Slide: React.FC<Props> = (props) => {
     const { slide } = props
     const {descContent, pic} = slide
-    /** get the style for the image */
-    const getImgStyle = () => {
-        if (pic) {
-            return {
-                width: pic.width,
-                height: pic.height
-            }
+
+    const getStyle = (type: string) => {
+        let style
+        if (type === 'title') {
+            style = titleStyle
         }
 
-        return {}
+        if (type === 'desc') {
+            style = descStyle
+        }
+
+        if (slide.bgColor === 'black') {
+            style = {...style, color: 'white'}
+        }
+
+        return style
     }
 
     return (
@@ -28,10 +35,9 @@ const Slide: React.FC<Props> = (props) => {
             <div className='slide-wrapper'>
                 <div className='slide-desc'>
                     {descContent && descContent.length ? descContent.map((desc, index) => {
-                        const { content, style } = desc
-                        console.log('content: ', content)
+                        const { content, type } = desc
                         return (
-                            <div key={index} style={{...style}}>{content}</div>
+                            <div key={index} style={{...getStyle(type)}}>{content}</div>
                         )
                     }) : null}
                 </div>
