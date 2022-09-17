@@ -1,0 +1,61 @@
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carousel-wrapper {
+    transform: translateX(0);
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.carousel-item {
+    width: 100%;
+    height: 100%;
+    flex: 0 0 auto;
+}
+
+.indicator-wrapper {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.indicator-item {
+    width: 50px;
+    height: 3px;
+    background-color: gray;
+    margin-right: 5px;
+    overflow: hidden;
+}
+
+.indicator-item::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: white;
+    transform: translateX(-100%);
+    will-change: transform;
+}
+
+/*轮播进度动画*/
+@keyframes item-progressing {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+.indicator-item.active::before {
+    animation: 3s linear item-progressing forwards;
+}
