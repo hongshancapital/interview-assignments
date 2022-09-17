@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- debug:为true时，将打印logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+<!-- scan:为true时，配置文件如果发生改变，将会被重新加载。默认值为true。 -->
+<!-- scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。如："60 seconds" -->
+<configuration debug="false">
+    <!-- 定义变量，name是变量的名称，value是变量的值。定义的变量会被插入到logger上下文中。定义后，可以用“${name}”来使用变量。 -->
+    <property name="LOG_HOME" value="log/shortdomain"/>
+    <property name="FILENAME_PREFIX" value="%d{yyyyMMdd}/%d{yyyyMMdd}-task"/>
+    <property name="NORMAL_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}: %msg%n"/>
+
+    <!-- 1.输出到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 日志文档输出格式 -->
+        <encoder>
+            <pattern>${NORMAL_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 2.输出到文档 -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_HOME}/root.log</file>
+        <encoder>
+            <pattern>${NORMAL_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 3.滚动输出到文档 -->
+    <!-- 按时间滚动输出，既负责滚动也负责触发滚动  -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 设置时会先输出到指定文件，发生滚动时才进行归档，不设置时直接保存至归档位置 -->
+        <!--<file>${LOG_HOME}/task.log</file>-->
+        <!-- 日志文档输出格式 -->
+        <encoder>
+            <pattern>${NORMAL_PATTERN}</pattern>
+        </encoder>
+        <!-- 日志文档的滚动策略，按日期记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${FILENAME_PREFIX}.log</fileNamePattern>
+            <!-- 可选节点，控制保留的日志文档的最大数量，超出数量就删除旧文件。-->
+            <!-- 单位根据滚动策略确定，如上为按天滚动，则这里是保留365天。注意，删除旧文件时，那些为了归档而创建的目录也会被删除。 -->
+            <maxHistory>365</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 设置某一个包或者具体的某一个类的日志打印级别 -->
+    <logger name="org.springframework" level="info"/>
+    <logger name="com.alibaba" level="debug">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- 日志级别从高到低分为FATAL > ERROR > WARN > INFO > DEBUG > TRACE，如果设置为WARN，则低于WARN的信息都不会输出 -->
+    <!-- 设置日志级别，如果没有设置具体的logger，均会根据root的定义 -->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
