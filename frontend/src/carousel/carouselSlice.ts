@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../app/store';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface ImgInfo {
   position: string;
@@ -75,7 +74,6 @@ export const carouselSlice = createSlice({
 
     scrollTo: (state, action) => {
       const { active } = action.payload;
-      console.log(active);
 
       Object.assign(state, {
         active,

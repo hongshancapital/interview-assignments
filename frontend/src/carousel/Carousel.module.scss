@@ -1,5 +1,7 @@
+$carousel-transition-duration: 1s;
+$progress-duration: 5s;
+
 .carousel {
-  background-color: grey;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -16,12 +18,12 @@
   }
 
   .carousel-item {
-    background-color: yellow;
     display: flex;
     flex-direction: column;
 
     position: relative;
     visibility: hidden;
+    z-index: 0;
 
     float: left;
     width: 100%;
@@ -50,11 +52,13 @@
         line-height: 32px;
         font-weight: 400;
       }
+
       h2.first {
         margin-top: 20px;
       }
       
     }
+
     .picture {
       display: flex;
       align-items: center;
@@ -68,13 +72,13 @@
     z-index: 1000;
 
     visibility: visible;
-    animation: slidein 1s;
+    animation: slidein $carousel-transition-duration;
   }
 
   .prev {
     position: relative;
     visibility: visible;
-    animation: slideout 1s;
+    animation: slideout $carousel-transition-duration;
   }
 
   .iphone {
@@ -86,7 +90,6 @@
   }
   .airpods {
     background-color: #f1f1f3;
-
   }
 }
 
@@ -104,28 +107,27 @@
   height: 70px;
 }
 
-.g-container {
-    width: 50px;
-    height: 2px;
-    border-radius: 3px;
-    background: #a9a9a9;
-    overflow: hidden;
-    margin-right: 8px;
+.indicator-container {
+  width: 50px;
+  height: 2px;
+  border-radius: 3px;
+  background: #a9a9a9;
+  overflow: hidden;
+  margin-right: 8px;
 }
-.g-progress {
-    width: 0;
-    height: inherit;
-    border-radius: 3px 0 0 3px;
-    background: #fafafa;
+.indicator-progress {
+  width: 0;
+  height: inherit;
+  border-radius: 3px 0 0 3px;
+  background: #fafafa;
 }
 
 .highlight {
-  -webkit-animation: lineGrow 10s ease-in;
-  -webkit-animation-fill-mode: forwards;
+  animation: progress-grow $progress-duration ease-in;
+  animation-fill-mode: forwards;
 }
 
 //
-
 
 @keyframes slidein {
   from {
@@ -147,7 +149,7 @@
   }
 }
 
-@keyframes lineGrow {
+@keyframes progress-grow {
   0% {
     width: 0px;
   }

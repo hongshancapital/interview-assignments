@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { scrollTo } from './carouselSlice';
@@ -7,20 +7,21 @@ import s from './Carousel.module.scss';
 export default function Carousel() {
   const { active, imgInfo } = useAppSelector((state) => state.carousel)
   const dispatch = useAppDispatch();
-  let timer: number;
   useEffect(() => {
+    let timer: number;
+
     const scrollExe = (activeIndex: number) => {
 
       dispatch(scrollTo({ active: activeIndex }));
 
       const next = (activeIndex + 1) % imgInfo.length;
-      timer = window.setTimeout(() => scrollExe(next), 10000);  
+      timer = window.setTimeout(() => scrollExe(next), 5000);  
     }
     scrollExe(active);
 
     return () => window.clearTimeout(timer);
 
-  }, []);
+  }, [dispatch, active, imgInfo.length]);
 
   return (
     <div className={s.carousel}>
@@ -53,8 +54,8 @@ export default function Carousel() {
       <div className={s.indicators}>
         {imgInfo.map((info, index) => {
           const highlight = (info.position === 'active' ? 'highlight' : '');
-          return (<div key={index} className={s['g-container']}>
-            <div className={`${s['g-progress']} ${s[highlight]}`}></div>
+          return (<div key={index} className={s['indicator-container']}>
+            <div className={`${s['indicator-progress']} ${s[highlight]}`}></div>
           </div>);
         })}
       </div>
