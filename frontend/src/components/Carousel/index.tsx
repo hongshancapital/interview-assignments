@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, CSSProperties } from 'react';
 import { switchTime } from './config';
-import './index.css';
+import './index.scss';
 
 interface IDataInfo {
   imgUrl: string;
@@ -18,7 +18,7 @@ function Carousel(props: IProps) {
 
   const lengthArr = useMemo(() => {
     return Array.from(Array(dataInfo.length).keys());
-  }, [props.dataInfo.length]);
+  }, [dataInfo.length]);
 
   const [curIndex, setIndex] = useState(startIndex);
 
@@ -44,11 +44,16 @@ function Carousel(props: IProps) {
         <div
           className='carousel-item'
           key={index}
-          style={{
-            backgroundImage: `url(${imgUrl})`,
-            left: index - curIndex === 0 ? 0 : `${index - curIndex}00%`,
-            color: fontColor,
-          }}
+          style={
+            {
+              // eslint-disable-next-line no-useless-computed-key
+              ['--carousel-item-left']:
+                index - curIndex === 0 ? 0 : `${index - curIndex}00%`,
+              // eslint-disable-next-line no-useless-computed-key
+              ['--carousel-bg-img']: `url(${imgUrl})`,
+              color: fontColor,
+            } as CSSProperties
+          }
         >
           <h1 key={'h1-' + index}>
             {transformArr(title)
