@@ -2,27 +2,24 @@ import React, { useState, useEffect, useMemo } from "react";
 import "./index.css";
 import { PREFIX_CLS } from "./constans";
 
-interface CarouselProps {
-  data: Array<{
-    id?: string | number;
-    title?: string | React.ReactNode;
-    description?: string | React.ReactNode;
-    image?: string;
-    backgroundColor?: string;
-    color?: string;
-  }>;
+export interface CarouselProps {
   duration?: number;
   onChange?: () => any;
   height?: number | string;
+  children: Array<React.ReactElement> | React.ReactElement;
 }
 
-export const Carousel = React.forwardRef<{ slickNum: number }, CarouselProps>(
+export interface RefAttributes {
+  active: number;
+}
+
+export const Carousel = React.forwardRef<RefAttributes, CarouselProps>(
   (
-    { duration = 3000, onChange = () => {}, data = [], height = "200px" },
+    { duration = 3000, onChange = () => {}, height = "200px", children },
     ref
   ) => {
     const [current, setCurrent] = useState<number>(0);
-    
+
     const time = useMemo(
       () => ((duration % 60000) / 1000).toFixed(0),
       [duration]
@@ -31,10 +28,27 @@ export const Carousel = React.forwardRef<{ slickNum: number }, CarouselProps>(
     React.useImperativeHandle(
       ref,
       () => {
-        return { slickNum: current };
+        return { active: current };
       },
       [current]
     );
+
+    const resetAnimation = () => {
+      document
+        .getAnimations?.()
+        .filter((animation: any) => {
+          return animation.animationName === "progressBar";
+        })
+        .forEach((animation) => {
+          animation.cancel();
+          animation.play();
+        });
+    };
+
+    const handleIndicatorClick = (index: number) => {
+      setCurrent(index);
+      resetAnimation();
+    };
 
     useEffect(() => {
       const timer = setTimeout(() => {
@@ -44,6 +58,7 @@ export const Carousel = React.forwardRef<{ slickNum: number }, CarouselProps>(
         } else {
           setCurrent(current + 1);
         }
+        resetAnimation();
       }, duration);
       return () => {
         if (timer) clearTimeout(timer);
@@ -55,49 +70,22 @@ export const Carousel = React.forwardRef<{ slickNum: number }, CarouselProps>(
         <div
           className={`${PREFIX_CLS}-wrapper`}
           style={{
-            backgroundColor: data[current]?.backgroundColor,
             transform: `translateX(-${current * 100}%)`,
-            transition: `${duration / 1000}s`,
+            transition: `1s`,
           }}
         >
-          {data.map((item, i) => {
-            const {
-              backgroundColor = "#fff",
-              color = "#000",
-              image = "",
-              title = "",
-              description = "",
-            } = item;
-            return (
-              <div
-                className={`${PREFIX_CLS}-item`}
-                key={item.id || i}
-                style={{
-                  backgroundColor,
-                  color,
-                }}
-              >
-                <div className={`${PREFIX_CLS}-item_info`}>
-                  <div className={`${PREFIX_CLS}-item_title`}>{title}</div>
-                  <div className={`${PREFIX_CLS}-item_description`}>
-                    {description}
-                  </div>
-                </div>
-                <div className={`${PREFIX_CLS}-item_image`}>
-                  <img src={image} alt='图片' />
-                </div>
-              </div>
-            );
+          {React.Children.map(children, (child) => {
+            return React.cloneElement(child as React.ReactElement, {});
           })}
         </div>
         <div className={`${PREFIX_CLS}-indicator`}>
-          {data.map((item, index) => {
+          {React.Children.map(children, (_child, index) => {
             return (
-              <React.Fragment key={item.id || index}>
+              <React.Fragment>
                 <div
                   className={`${PREFIX_CLS}-indicator_item`}
                   onClick={() => {
-                    setCurrent(index);
+                    handleIndicatorClick(index);
                   }}
                 >
                   <div

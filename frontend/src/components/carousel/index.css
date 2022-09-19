@@ -1,14 +1,14 @@
-.carousel{
+.carousel {
   width: 100%;
   overflow: hidden;
 }
 
-.carousel-wrapper{
-  white-space:nowrap;
+.carousel-wrapper {
+  white-space: nowrap;
   height: 100%;
 }
 
-.carousel-item{
+.carousel-item {
   position: relative;
   display: inline-block;
   align-items: center;
@@ -19,11 +19,11 @@
   background-color: #312520;
 }
 
-.carousel-indicator{
+.carousel-indicator {
   width: 100%;
-  position:absolute;
-  bottom:0;
-  display:flex;
+  position: absolute;
+  bottom: 0;
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -32,16 +32,16 @@
   cursor: pointer;
 }
 
-.carousel-indicator_item{
+.carousel-indicator_item {
   width: 60px;
-  height:4px;
-  background-color:#ccc;
+  height: 4px;
+  background-color: #ccc;
   margin-left: 20px;
-  border-radius:2px;
+  border-radius: 2px;
   overflow: hidden;
 }
 
-.carousel-indicator_inside{
+.carousel-indicator_inside {
   background-color: #ffffff;
   height: 100%;
   border-radius: 4px;
@@ -50,18 +50,24 @@
   animation-iteration-count: infinite;
 }
 
-.carousel-item_info{
+.carousel-item_info {
   z-index: 1;
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
+  top: 30%;
+  transform: translate(-50%, -50%);
 }
-.carousel-item_title{
-  font-size: 40px;
+.carousel-item_title {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.carousel-item_image{
+.carousel-item_description {
+  font-size: 30px;
+}
+
+.carousel-item_image {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -72,7 +78,7 @@
   overflow: hidden;
 }
 
-img{
+img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -86,4 +92,3 @@ img{
     width: 100%;
   }
 }
-

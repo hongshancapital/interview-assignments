@@ -1,1 +1,1 @@
-export const PREFIX_CLS = 'carousel';
+export const PREFIX_CLS = "carousel";
