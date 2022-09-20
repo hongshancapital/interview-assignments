@@ -1,0 +1,43 @@
+.carousel {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.carouse-item {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  transition: all 1000ms linear 0s;
+}
+.carouse-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  white-space: nowrap;
+}
+.carouse-dot {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 50px;
+  height: 2px;
+  background: #a9a9a9;
+  border-radius: 3px;
+  margin-right: 5px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px #a9a9a960;
+}
+.carouse-dot-process {
+  width: 0;
+  height: 100%;
+  background: #fff;
+  transition: all 1000ms linear 0s;
+}
+.carouse-dot:last-of-type {
+  margin-right: 0;
+}
