@@ -1,0 +1,71 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  .container {
+    // 定义变量
+    --total: 0;
+    --current: 0;
+    --duration: 300ms;
+    
+    // 中间变量
+    --translate-move: calc(var(--current) / var(--total) * -100%);
+
+    display: flex;
+    align-items: center;
+
+    @if var(--total) == 0 {
+      width: 100%;
+      transition: all var(--duration);
+    } @else {
+      transform:  translateX(var(--translate-move));
+      width: calc(var(--total) * 100%);
+      transition: all var(--duration);
+    }
+  
+    > div {
+      flex: 1;
+    }
+  }
+
+  .dots {
+    position: absolute;
+    width: 100%;
+    bottom: 40px;
+    display: flex;
+    justify-content: center;
+  
+    > .dot {
+      width: 40px;
+      height: 3px;
+      background: #ccc;
+      margin-right: 8px;
+      cursor: pointer;
+      border-radius: 3px;
+      position: relative;
+
+      .selected {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        display: block;
+        animation-name: progress;
+        height: 100%;
+        width: 100%;
+        background: #fff;
+        animation-timing-function: linear;
+      }
+
+      @keyframes progress {
+        from {width: 0;}
+        to {width: 100%;}
+      }
+    }
+  }
+}
+
+
+
+
