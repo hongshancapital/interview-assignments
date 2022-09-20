@@ -1,0 +1,79 @@
+ul,li,div,span{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+.banner {
+    position: relative
+}
+.banner .img-box{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+.img-box ul{
+    display: flex;
+    position: absolute;
+}
+.img-box ul li{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    white-space: pre-line;
+}
+.img-box ul li .big-title{
+    position: relative;
+    z-index: 1;
+    margin-top: 20vh;
+    font-size: 60px;
+    font-weight: 500;
+}
+.img-box ul li .small-title{
+    position: relative;
+    z-index: 1;
+    margin-top: 2vh;
+    font-size: 28px;
+    font-weight: 500;
+}
+.img-box img{
+    position: absolute;
+    bottom: 15vh;
+    left: 50vw;
+    margin-left: -15vw;
+    pointer-events: none;
+    display: block;
+    width: 30vw;
+    z-index: 0;
+}
+.banner .controller{
+    position: absolute;
+    bottom: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.banner .controller ul{
+    display: flex;
+    justify-content: center;
+}
+.banner .controller li{
+    margin:0 5px
+}
+.controller .ct-btn{
+    width: 40px;
+    height: 4px;
+    background: #666;
+    border-radius: 10px
+
+}
+.controller .ct-btn .ct-btn-inner{
+    width: 0;
+    height: 0;
+    background: #fff;
+    border-radius: 10px
+}
+.controller .ct-btn .active {
+    width: 40px;
+    height: 4px;
+}
