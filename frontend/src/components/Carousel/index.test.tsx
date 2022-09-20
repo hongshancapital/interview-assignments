@@ -22,8 +22,8 @@ describe('carousel item switch correctly', () => {
       mockData[1].title.toString()
     ).parentElement;
 
-    expect(secondPage).toHaveStyle(`left: 0`);
-    expect(firstPage).toHaveStyle('left: -100%');
+    expect(secondPage).toHaveStyle(`--carousel-item-left: 0`);
+    expect(firstPage).toHaveStyle('--carousel-item-left: -100%');
 
     act(() => {
       jest.runOnlyPendingTimers();
@@ -43,16 +43,16 @@ describe('carousel item switch correctly', () => {
       mockData[1].title.toString()
     ).parentElement;
 
-    expect(firstPage).toHaveStyle('left: 0');
-    expect(secondPage).toHaveStyle(`left: 100%`);
+    expect(firstPage).toHaveStyle('--carousel-item-left: 0');
+    expect(secondPage).toHaveStyle(`--carousel-item-left: 100%`);
 
     await userEvent.click(carousel);
-    expect(secondPage).toHaveStyle(`left: 0`);
-    expect(firstPage).toHaveStyle('left: -100%');
+    expect(secondPage).toHaveStyle(`--carousel-item-left: 0`);
+    expect(firstPage).toHaveStyle('--carousel-item-left: -100%');
 
     await userEvent.click(carousel);
     await userEvent.click(carousel);
-    expect(firstPage).toHaveStyle('left: 0');
-    expect(secondPage).toHaveStyle(`left: 100%`);
+    expect(firstPage).toHaveStyle('--carousel-item-left: 0');
+    expect(secondPage).toHaveStyle(`--carousel-item-left: 100%`);
   });
 });
