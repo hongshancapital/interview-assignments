@@ -1,0 +1,37 @@
+  
+  .progress_wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    bottom: 50px;
+  }
+  
+  .progress_wrapper .item {
+    width: 30px;
+    height: 2px;
+    border-radius: 2px;
+    margin: 0 4px;
+    background-color: #a9a9a9;
+  }
+  
+  .progress_wrapper .item .progress_active {
+    background-color: #fafafa;
+    border-radius: 2px;
+    height: 100%;
+    width: 0;
+    animation: progress;
+    animation-timing-function: linear;
+    animation-duration: 3s;
+  }
+  
+  @keyframes progress {
+    form {
+      width: 0%;
+    }
+  
+    to {
+      width: 100%;
+    }
+  }
+  
