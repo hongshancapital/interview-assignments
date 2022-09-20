@@ -1,0 +1,71 @@
+div, p {
+    margin: 0;
+}
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+.container {
+    width: 400vw;
+    display: flex;
+}
+.item {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.item .item-title {
+    font-size: 50px;
+    width: 500px;
+}
+.item .item-describe {
+    font-size: 30px;
+    width: 500px;
+    margin: 50px 0 300px;
+}
+.item .item-img {
+    width: 100px;
+    height: 100px;;
+}
+.line {
+    display: flex;
+    position: absolute;
+    bottom: 20%;
+    width: 100%;
+    justify-content: center;
+}
+.line-item {
+    width: 60px;
+    position: relative;
+    height: 4px;
+    overflow: hidden;
+}
+.line-item-top {
+    background-color: #fff;
+    height: 4px;
+    width: 50px;
+    right: 0;
+    position: absolute;
+}
+.line-item-bottom {
+    height: 4px;
+    width: 50px;
+    background-color: grey;
+    position: absolute;
+    right: 0;
+    
+}
+#animate {
+    animation: translate 3s linear;
+}
+@keyframes translate {
+    0% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(50px);
+    }
+}
