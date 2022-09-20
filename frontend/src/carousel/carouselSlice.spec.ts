@@ -8,21 +8,21 @@ describe('carousel reducer', () => {
     active: 2,
     imgInfo: [
       {
-        position: 'prev',
+        condition: 'prev',
         name: 'iphone',
         imgName: 'iphone.png',
         titles: ['xPhone'],
         subtitles: ['Lots to love. Less to spend.', 'Starting at $399']
       },
       {
-        position: '',
+        condition: '',
         name: 'tablet',
         imgName: 'tablet.png',
         titles: ['Tablet'],
         subtitles: ['Just the right amount of everything.'] 
       },
       {
-        position: 'active',
+        condition: 'active',
         name: 'airpods',
         imgName: 'airpods.png',
         titles: ['Buy a Tablet or xPhone for college.', 'Get airpods'],
@@ -36,21 +36,21 @@ describe('carousel reducer', () => {
       active: 0,
       imgInfo: [
         {
-          position: 'active',
+          condition: 'active',
           name: 'iphone',
           imgName: 'iphone.png',
           titles: ['xPhone'],
           subtitles: ['Lots to love. Less to spend.', 'Starting at $399']
         },
         {
-          position: '',
+          condition: '',
           name: 'tablet',
           imgName: 'tablet.png',
           titles: ['Tablet'],
           subtitles: ['Just the right amount of everything.'] 
         },
         {
-          position: 'prev',
+          condition: 'prev',
           name: 'airpods',
           imgName: 'airpods.png',
           titles: ['Buy a Tablet or xPhone for college.', 'Get airpods'],
@@ -60,11 +60,16 @@ describe('carousel reducer', () => {
     });
   });
 
-  it('should handle scroll', () => {
+  it('should start scroll if `condition` === `active` ', () => {
     const actual = carouselReducer(initialState, scrollTo({ active: 0 }));
     expect(actual.active).toEqual(0);
-    expect(actual.imgInfo[0].position).toEqual('active');
-    expect(actual.imgInfo[2].position).toEqual('prev');
+    expect(actual.imgInfo[0].condition).toEqual('active');
+    expect(actual.imgInfo[2].condition).toEqual('prev');
+  });
+
+  it('should not start scroll if `condition` !== `active` ', () => {
+    const actual = carouselReducer(initialState, scrollTo({ active: 0 }));
+    expect(actual.imgInfo[1].condition).toEqual('');
   });
 
 });

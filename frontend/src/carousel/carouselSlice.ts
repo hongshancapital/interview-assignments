@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface ImgInfo {
-  position: string;
+  condition: string;
   name: string;
   imgName: string;
   titles: string[];
@@ -17,21 +17,21 @@ const initialState: CarouselState = {
   active: 0,
   imgInfo: [
     {
-      position: 'active',
+      condition: 'active',
       name: 'iphone',
       imgName: 'iphone.png',
       titles: ['xPhone'],
       subtitles: ['Lots to love. Less to spend.', 'Starting at $399']
     },
     {
-      position: '',
+      condition: '',
       name: 'tablet',
       imgName: 'tablet.png',
       titles: ['Tablet'],
       subtitles: ['Just the right amount of everything.'] 
     },
     {
-      position: 'prev',
+      condition: 'prev',
       name: 'airpods',
       imgName: 'airpods.png',
       titles: ['Buy a Tablet or xPhone for college.', 'Get airpods'],
@@ -48,7 +48,7 @@ const buildInfo = (imgInfo: ImgInfo[], active: number) => {
 
       return {
         ...info,
-        position: 'active'
+        condition: 'active'
       }
     }
 
@@ -56,13 +56,13 @@ const buildInfo = (imgInfo: ImgInfo[], active: number) => {
 
       return {
         ...info,
-        position: 'prev'
+        condition: 'prev'
       }
     }
 
     return {
       ...info,
-      position: ''
+      condition: ''
     }
   });
 }

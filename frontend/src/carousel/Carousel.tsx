@@ -28,7 +28,7 @@ export default function Carousel() {
       <div className={s['carousel-inner']}>
         {imgInfo.map((info, index) => <div
           key={index}
-          className={`${s['carousel-item']} ${s[info.position]} ${s[info.name]}`}
+          className={`${s['carousel-item']} ${s[info.condition]} ${s[info.name]}`}
         >
           <div className={s.title}>
             <div>
@@ -53,7 +53,7 @@ export default function Carousel() {
 
       <div className={s.indicators}>
         {imgInfo.map((info, index) => {
-          const highlight = (info.position === 'active' ? 'highlight' : '');
+          const highlight = (info.condition === 'active' ? 'highlight' : '');
           return (<div key={index} className={s['indicator-container']}>
             <div className={`${s['indicator-progress']} ${s[highlight]}`}></div>
           </div>);
