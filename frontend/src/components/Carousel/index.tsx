@@ -20,7 +20,7 @@ const Carousel: FC<ICarousel> = ({
       setCur(cur => (cur + 1) % items.length);
     }, periodicTime);
     return () => clearInterval(timer);
-  }, [periodicTime, items.length]);
+  }, [cur, periodicTime, items.length]);
 
   return (
     <div className={css.wrapper} style={style}>
