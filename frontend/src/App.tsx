@@ -21,7 +21,7 @@ const data: Array<DataItem> = [
   {
     id: "1",
     title: "xPhone",
-    description: "Lots to love.Less to spend.\nStarting at $399",
+    description: <><div>Lots to love.Less to spend.</div><span>Starting at $399</span></>,
     image: IphonePng,
     backgroundColor: "rgba(14,14,14)",
     color: "#fff",
@@ -31,12 +31,12 @@ const data: Array<DataItem> = [
     title: "Tablet",
     description: "Just the right amount of everything.",
     image: TabletPng,
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(249,249,249)",
     color: "#000",
   },
   {
     id: "3",
-    title: "Buy a Tablet or xPhone for college.\n",
+    title: <><div>Buy a Tablet or xPhone for college.</div><span>Get airPods.</span></>,
     description: "",
     image: AirpodsPng,
     backgroundColor: "#eee",
@@ -47,8 +47,7 @@ const data: Array<DataItem> = [
 function App() {
   return (
     <div className='App'>
-      <p>React Carousel</p>
-      <Carousel duration={3000} height={"600px"}>
+      <Carousel duration={3000} height={"700px"}>
         {data.map((item) => {
           return (
             <CarouselItem
@@ -65,6 +64,7 @@ function App() {
           );
         })}
       </Carousel>
+      <p>React Carousel</p>
     </div>
   );
 }

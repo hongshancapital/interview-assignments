@@ -4,7 +4,7 @@ import { PREFIX_CLS } from "./constans";
 
 export interface CarouselProps {
   duration?: number;
-  onChange?: () => any;
+  onChange?: (current: number) => void;
   height?: number | string;
   children: Array<React.ReactElement> | React.ReactElement;
 }
@@ -36,7 +36,7 @@ export const Carousel = React.forwardRef<RefAttributes, CarouselProps>(
     const resetAnimation = () => {
       document
         .getAnimations?.()
-        .filter((animation: any) => {
+        .filter((animation: Record<string,any>) => {
           return animation.animationName === "progressBar";
         })
         .forEach((animation) => {
@@ -52,7 +52,7 @@ export const Carousel = React.forwardRef<RefAttributes, CarouselProps>(
 
     useEffect(() => {
       const timer = setTimeout(() => {
-        onChange();
+        onChange?.(current);
         if (current >= 2) {
           setCurrent(0);
         } else {
