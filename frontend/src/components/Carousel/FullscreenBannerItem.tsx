@@ -15,7 +15,6 @@ interface BannerListProps {
 
 function BannerList(props: BannerListProps): ReactElement {
   const { carouselData } = props;
-  console.log('BannerList --- ')
 
   return (
     <>

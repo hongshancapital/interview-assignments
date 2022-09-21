@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
 import ProgressBarItem from './ProgressBarItem';
+import { ItemProps } from './FullscreenBannerItem'
 
 interface ProgressBarProps {
   delay: number;
-  carouselData: Array<Object>
+  carouselData: Array<ItemProps>
   currentIndex: number;
   clickProgressBar: (clickIndex: number) => void;
 }
@@ -25,7 +26,7 @@ function ProgressBar(props: ProgressBarProps): ReactElement {
   return (
     <div className="progress-bar" data-testid="progress-bar">
       {
-        carouselData.map((item: any, index: number) => (
+        carouselData.map((item: ItemProps, index: number) => (
 
           <ProgressBarItem
             key={item.id}

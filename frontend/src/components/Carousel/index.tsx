@@ -12,14 +12,8 @@ function Carousel() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 位置
-  // const moveto = (moveIndex: number) => {
-  //   setCurrentIndex(moveIndex);
-  // }
-
   const resetInterval = useAnimation(() => {
     const moveIndex = currentIndex === carouselData.length - 1 ? 0 : currentIndex + 1;
-    // moveto(moveIndex);
     setCurrentIndex(moveIndex);
   }, delay);
 
