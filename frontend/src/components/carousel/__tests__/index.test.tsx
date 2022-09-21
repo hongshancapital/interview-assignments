@@ -186,15 +186,6 @@ describe("Carousel", () => {
 
     for (let i = 0; i < fakeData.length; i++) {
       expect(
-        container?.getElementsByClassName("carousel-item_title")[i].textContent
-      ).toBe(fakeData[i].title);
-
-      expect(
-        container?.getElementsByClassName("carousel-item_description")[i]
-          .textContent
-      ).toBe(fakeData[i].description);
-
-      expect(
         container?.getElementsByTagName("img")[i].getAttribute("src")
       ).toBe(fakeData[i].image);
     }
