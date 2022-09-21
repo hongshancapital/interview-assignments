@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, ReactNode, useEffect, useState } from 'react';
+import React, { CSSProperties, FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import css from './index.module.scss';
 import Indicator from './Indicator';
 
@@ -13,14 +13,24 @@ const Carousel: FC<ICarousel> = ({
   periodicTime = 3000,
   items = []
 }) => {
-  const [cur, setCur] = useState(0);
+  const [cur, setCur] = useState<number>(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
+  const timer = useRef<ReturnType<typeof setInterval>>();
+
+  const autoPlay = useCallback(() => {
+    if (timer.current) clearInterval(timer.current);
+    timer.current = setInterval(() => {
       setCur(cur => (cur + 1) % items.length);
     }, periodicTime);
-    return () => clearInterval(timer);
-  }, [cur, periodicTime, items.length]);
+    return () => timer.current && clearInterval(timer.current);
+  }, [items.length, periodicTime]);
+
+  useEffect(autoPlay, [autoPlay]);
+
+  const handleItemChange = (index: number) => {
+    setCur(index % items.length);
+    autoPlay();
+  };
 
   return (
     <div className={css.wrapper} style={style}>
@@ -43,7 +53,7 @@ const Carousel: FC<ICarousel> = ({
       <Indicator
         count={items.length}
         current={cur}
-        setCur={setCur}
+        setCur={handleItemChange}
         duration={periodicTime}
       />
     </div>

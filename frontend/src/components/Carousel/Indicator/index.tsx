@@ -28,7 +28,7 @@ const Indicator: FC<IIndicator> = ({
         >
           <div
             className={cx({ [css.activeItem]: index === current })}
-            style={{ transitionDuration: index === current ? `${duration}ms` : '' }}
+            style={{ animationDuration: index === current ? `${duration}ms` : 'unset' }}
           />
         </div>
       ))}

@@ -9,7 +9,7 @@
     cursor: pointer;
     height: 2px;
     border-radius: 1px;
-    border-right: 40px solid #666;
+    border-right: 40px solid #999;
     margin-right: 8px;
     position: relative;
     &:last-child {
@@ -23,6 +23,17 @@
     border-radius: 1px;
     top: -0px;
     border-left: 40px solid #FFF;
-    transition: border-left-width linear;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-name: indicatorProgress;
+  }
+}
+
+@keyframes indicatorProgress {
+  from {
+    border-left: 0px solid #FFF;
+  }
+  to {
+    border-left: 40px solid #FFF;
   }
 }
