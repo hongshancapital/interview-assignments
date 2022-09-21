@@ -5,23 +5,19 @@ const useInterval = (
   delay: number
 ): [boolean, React.Dispatch<boolean>] => {
   const [stop, stopHandle] = useState(false);
-  const timer = useRef({ callBack, id: 0 });
+  const timer = useRef(callBack);
 
   useEffect(() => {
-    timer.current.callBack = callBack;
+    timer.current = callBack;
   }, [callBack]);
 
   useEffect(() => {
-    function tick() {
+    const id = window.setInterval(() => {
       if (stop) return;
-      timer.current.callBack();
-    }
+      timer.current();
+    }, delay);
 
-    timer.current.id = window.setInterval(tick, delay);
-
-    return () => {
-      clearInterval(timer.current.id);
-    };
+    return () => clearInterval(id);
   }, [delay, stop]);
 
   return [stop, stopHandle];

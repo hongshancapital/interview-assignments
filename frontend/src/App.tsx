@@ -4,7 +4,7 @@ import img_1 from "./assets/iphone.png";
 import img_2 from "./assets/tablet.png";
 import img_3 from "./assets/airpods.png";
 
-const dataList = [
+export const dataList = [
   {
     key: "xPhone",
     url: img_1,

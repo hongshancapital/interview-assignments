@@ -8,7 +8,7 @@ const ScrollBox = ({ currentInd, dataList }: ScrollBoxProps) => {
   const leftStr = `-${innerWidth * currentInd}px`;
 
   return (
-    <div className={scssStyle.item_box}>
+    <div className={scssStyle.container}>
       <div className={scssStyle.scroll_box} style={{ left: leftStr }}>
         {dataList.map((item, i) => (
           <div
