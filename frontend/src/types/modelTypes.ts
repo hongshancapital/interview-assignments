@@ -13,6 +13,5 @@ export interface IBaseInf {
 
 /** ICarouselInf 定制类型 */ 
 export interface ICarouselInf extends IBaseInf {
-    color?:string,
-    backgroundColor?:string
+    color?:string
 }

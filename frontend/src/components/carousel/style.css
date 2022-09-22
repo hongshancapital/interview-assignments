@@ -15,17 +15,31 @@
     min-width: 100vw;
     min-height: 100vh;
     background: no-repeat fixed center;
-    background-size: auto 100%;
-    background-position-y: -20px;
+    background-size: auto 60%;
+    background-position-x: 50%;
+    background-position-y: 70%;
+}
+
+.carousel-item::after {
+    position: absolute;
+    top: 0px;
+    z-index: -1;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background-image: inherit;
+    content: '';
 }
 
 .carousel-title {
     display: block;
     margin: 0;
-    margin-top: 20vh;
+    margin-top: 24vh;
+    margin-bottom: 10px;
     font-size: 56px;
     font-weight: 600;
 }
+
 .carousel-item span {
     display: block;
 }
@@ -42,20 +56,21 @@
     justify-content: center;
     width: 100%;
     left: 50%;
-    bottom: 5vh;
+    bottom: 8vh;
     transform: translateX(-50%);
 }
 
 .carousel-indicator {
-    width: 50px;
-    height: 3px;
-    margin-right: 10px;
+    width: 40px;
+    height: 2px;
+    margin-right: 5px;
     background-color: #a9a9a9;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .carousel-indicator-active {
-    height: 3px;
+    width: 40px;
+    height: 2px;
     background-color: #fff;
     animation: indicatorLoading ease;
 }
@@ -66,6 +81,6 @@
     }
 
     100% {
-        width: 50px;
+        width: 40px;
     }
 }

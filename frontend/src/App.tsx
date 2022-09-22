@@ -16,8 +16,7 @@ function getData(): ICarouselInf[] {
       description: "Lots to love.Less to spend.\nStarting at $399.",
       imageUrl: xPhone,
       link: '',
-      color: '#fff',
-      backgroundColor:'#111'
+      color: '#fff'
     },
     {
       id: 1,
@@ -25,8 +24,7 @@ function getData(): ICarouselInf[] {
       description: "Just the right amount of everything",
       imageUrl: tablet,
       link: '',
-      color: '#000',
-      backgroundColor:'#fafafa'
+      color: '#000'
     },
     {
       id: 2,
@@ -34,8 +32,7 @@ function getData(): ICarouselInf[] {
       description: '',
       imageUrl: airpods,
       link: '',
-      color: '#000',
-      backgroundColor:'#f1f1f3'
+      color: '#000'
     }
   ]
 }
@@ -43,7 +40,7 @@ function getData(): ICarouselInf[] {
 function App() {
   return (
     <div className="App">
-      <Carousel data={getData()} onChange={(item,i) => {console.log('onchange',i,item)}} onClick={(item, i) => {console.log('onclick',i,item)}} />
+      <Carousel data={getData()} />
     </div>
   );
 }

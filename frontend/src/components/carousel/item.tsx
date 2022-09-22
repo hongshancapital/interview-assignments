@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React from 'react';
 
 import { ICarouselInf } from '../../types/modelTypes';
 
@@ -7,7 +7,6 @@ const CarourselItem = ({
     description = '',
     imageUrl = '',
     color = '#fff',
-    backgroundColor = '',
 }: ICarouselInf) => {
 
     // 根据换行符格式化（换行的控制在数据输入侧控制）
@@ -18,7 +17,7 @@ const CarourselItem = ({
     }
 
     return (
-        <div className='carousel-item' style={{ backgroundImage: `url(${imageUrl})`, color, backgroundColor  }}>
+        <div className='carousel-item' style={{ backgroundImage: `url(${imageUrl})`, color  }}>
             <h3 className='carousel-title'>{formatText(title)}</h3>
             <div className='carousel-desc'>{formatText(description)}</div>
         </div>

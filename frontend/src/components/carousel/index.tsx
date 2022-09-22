@@ -26,7 +26,20 @@ const Caroursel = ({
 
     // 切换帧事件
     const switchEvt = (index: undefined | number) => {
-        setCurrent(((index == undefined ? current + 1 : index)) % len);
+        if (index === undefined) {
+            // 自动模式，计算当前值
+            index = current + 1;
+        } else if (index === current) {
+            // 手动设置index模式时，如果和当前帧一样，则不做动作；
+            return;
+        } else {
+            // 手动设置index模式时，清除动画
+            commonRef.current.timer && clearTimeout(commonRef.current.timer);
+        }
+
+        commonRef.current.timer = undefined;
+
+        setCurrent(index % len);
         onChange && onChange(data[current], current);
     };
 
@@ -47,16 +60,11 @@ const Caroursel = ({
         itemData.link && window.open(itemData.link);
     }
 
-    // 指示器点击事件
-    const indicatorClientEvt = (index: number) => {
-        commonRef.current.timer && clearTimeout(commonRef.current.timer);
-        switchEvt(index);
-    }
-
     useEffect(() => {
         // 开启定时轮换
         commonRef.current.timer = window.setTimeout(switchEvt, switchInterval);
-    }, [current]);
+    }, [current]); //eslint-disable-line 
+    //避免依赖报错，这里不用依赖switchEvt和switchInterval
 
     return (
 
@@ -67,7 +75,7 @@ const Caroursel = ({
             </div>
             <div className='carousel-indicators'>
                 {data.map((itemData, i) => {
-                    return <div key={i} className='carousel-indicator' onClick={() => indicatorClientEvt(i)}>
+                    return <div key={i} className='carousel-indicator' onClick={() => switchEvt(i)}>
                         <div className={current === i ? 'carousel-indicator-active' : ''}
                             style={{ animationDuration: `${switchInterval}ms` }} />
                     </div>
