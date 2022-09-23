@@ -1,0 +1,73 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+ }
+ 
+ .carousel-ul {
+    display: flex;
+    min-width: 100vw;
+ }
+ 
+ .carousel-li {
+     padding-top: 25vh;
+     box-sizing: border-box;
+     width: 100vw;
+     min-width: 100vw;
+     height: 100vh;
+     /**
+     * 三张图尺寸有点不一样，若想铺满屏幕，使用background-size: cover; 
+     * 若想图片中的设备等高，使用background-size: auto 100%;
+     * 
+     */
+     background-size: auto 100%;
+     /* background-size: cover; */
+     background-position: center;
+ }
+ 
+ .title {
+ 
+ }
+ 
+ .desc {
+     margin-top: 20px;
+     line-height: 30px;
+ }
+ 
+ 
+ /* 底部progress */
+ 
+ .progress-ul {
+     position: fixed;
+     left: 50%;
+     bottom: 4vh;
+     transform: translateX(-50%);
+     display: flex;
+ }
+ 
+ .progress-li {
+     width: 40px;
+     height: 2px;
+     margin-right: 10px;
+     background-color: gray;
+     cursor:pointer;
+     border-radius: 8px;
+ }
+ .not-mg-right {
+     margin-right: 0;
+ }
+ .active {
+     background: #fff;
+     animation: animation linear;
+     height: 2px;
+     width: 40px;
+ }
+ 
+ @keyframes animation {
+     0% {
+         width: 0px;
+     }
+ 
+     100% {
+         width: 40px;
+     }
+ }
