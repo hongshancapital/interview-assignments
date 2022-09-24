@@ -11,7 +11,8 @@ import SwiftUI
 struct HomeListDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            
+            ContentView().environmentObject(LoadDataModel())
         }
     }
 }
