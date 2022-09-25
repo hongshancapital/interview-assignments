@@ -1,0 +1,15 @@
+source 'https://cdn.cocoapods.org/'
+
+platform :ios, '15.0'
+use_frameworks!
+
+def internal_pods
+  pod 'GCore', :path => './GCore'
+  pod 'GUIKit', :path => './GUIKit'
+end
+  
+target 'App' do
+  
+  internal_pods
+  
+end
