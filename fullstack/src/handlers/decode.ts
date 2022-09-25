@@ -17,8 +17,8 @@ export const decodeHandler: Handler = async (req, res) => {
     if (doc) {
       url = doc.url;
       await getCacheService().set(
-        doc.url,
         doc.alias,
+        doc.url,
         doc.expireAt - Date.now()
       );
     }
