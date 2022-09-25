@@ -12,9 +12,11 @@ export async function reset() {
 }
 
 export async function close() {
-  await getCacheService().model.disconnect();
+  const promises: Promise<unknown>[] = [getCacheService().model.quit()];
 
   for (const conn of connections) {
-    await conn.close();
+    promises.push(conn.close());
   }
+
+  await Promise.all(promises);
 }
