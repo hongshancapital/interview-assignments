@@ -43,8 +43,10 @@
 10 秒, 并发 10 个请求
 
 ```
-MacBook Pro (13-inch, M1, 2020)
-16G Memo
+MacBook Pro (13-inch, M1, 2020) 16G 1T
+Node: 16.4
+MongoDB: 6.0.1
+Redis: 7.0.5
 ```
 
 /encode
