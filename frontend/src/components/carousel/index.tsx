@@ -39,8 +39,9 @@ const Caroursel = ({
 
         commonRef.current.timer = undefined;
 
-        setCurrent(index % len);
-        onChange && onChange(data[current], current);
+        index = index % len;
+        setCurrent(index);
+        onChange && onChange(data[index], index);
     };
 
     // 点击事件
