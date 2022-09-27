@@ -1,0 +1,69 @@
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel .carousel-items {
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  transition: transform linear;
+}
+
+.carousel .carousel-item {
+  width: 100%;
+  height: 100%;
+  padding-top: 10%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  background-position: bottom;
+  background-size: cover;
+}
+
+.carousel .carousel-item p {
+  margin: 0;
+}
+
+.carousel .carousel-item .carousel-item__title {
+  font-size: 48px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.carousel .carousel-item .carousel-item__subtitle {
+  font-size: 28px;
+}
+
+.carousel .carousel-legends {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.carousel .carousel-legends .carousel-legend {
+  width: 50px;
+  height: 2px;
+  margin: 0 10px;
+  border-radius: 1px;
+  background-color: #9c9b98;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.carousel .carousel-legends .carousel-legend .carousel-legend__inner {
+  width: 0;
+  height: 100%;
+  border-radius: 1px;
+  background-color: #ffffff;
+}
+
+.carousel-legends .carousel-legend.active .carousel-legend__inner {
+  width: 100%;
+  transition: width linear;
+}

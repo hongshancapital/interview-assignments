@@ -1,0 +1,62 @@
+.carousel2 {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel2 .carousel-items {
+  width: 100%;
+  white-space: nowrap;
+  transition: transform linear;
+}
+
+.carousel2 .carousel-items::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  vertical-align: middle;
+}
+
+.carousel2 .carousel-item {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.carousel2 .carousel-item img {
+  max-width: 100%;
+  /* 避免出现滚动条 */
+  max-height: 100vh;
+  vertical-align: top;
+}
+
+.carousel2 .carousel-legends {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.carousel2 .carousel-legends .carousel-legend {
+  width: 50px;
+  height: 2px;
+  margin: 0 10px;
+  border-radius: 1px;
+  background-color: #9c9b98;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.carousel2 .carousel-legends .carousel-legend .carousel-legend__inner {
+  width: 0;
+  height: 100%;
+  border-radius: 1px;
+  background-color: #ffffff;
+}
+
+.carousel2 .carousel-legends .carousel-legend.active .carousel-legend__inner {
+  width: 100%;
+  transition: width linear;
+}
