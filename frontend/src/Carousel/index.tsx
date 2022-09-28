@@ -24,8 +24,6 @@ export const Carousel: React.FC<CarouselProps> = ({
       () => dataSource.findIndex((x: CarouselItem) => x.key === activeKey),
       [activeKey]
     );
-  
-    // 支持使用换行符 \n 分割多行文本
     const renderMultiLine = useCallback((text: string) => (
       <>
         {String(text)
@@ -114,8 +112,6 @@ export const Carousel: React.FC<CarouselProps> = ({
           )
         )}
       </div>
-
-      {/* 控制栏 */}
       <div
         className="control-bar"
         style={
