@@ -1,5 +1,5 @@
 import React from "react";
-import "./assets/styles/App.css";
+import "./assets/styles/App.scss";
 import Phone from "./assets/imgs/iphone.png";
 import Tablet from "./assets/imgs/tablet.png";
 import Airpods from "./assets/imgs/airpods.png";

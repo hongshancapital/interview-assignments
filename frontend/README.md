@@ -1,6 +1,7 @@
 # Carousel for React
 
-> 使用 react hook 制作
+> 使用 react hook 制作 <br/>
+> 设计思路: 工具类，只提供功能，不处理内容渲染，与业务解耦
 
 ### Version / 版本
 
@@ -40,7 +41,7 @@
      indicator       boolean，是否有指示器，默认true
      controls        boolean，是否有左右按钮，默认true
      autoplay        boolean，是否自动播放，默认true
-     duration        number，每一帧停顿时间，基于autoplay为true的时候
+     duration        number，每一帧停顿时间，基于autoplay为true的时候，默认3000ms
 
 ## Plans / 计划展望
 

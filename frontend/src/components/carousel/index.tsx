@@ -1,26 +1,27 @@
 import React, { useState, useEffect, useRef, ReactNode } from "react";
-import "../../assets/styles/carousel.css";
+import "./carousel.scss";
 import Controls from "./controls";
 import Indicator from "./indicator";
 import { isEmpty, sliderSort } from "./tool";
+import { Options } from "./options";
 
-const Carousel = (props: any) => {
+const Carousel = (props: Options) => {
   const [init] = useState<boolean>(!0);
   const [numo] = useState<number>(React.Children.count(props.children) || 0); // origin
   const [num, setNum] = useState<number>(numo || 0);
   const [width, setWidth] = useState<number>(props.width || 0); // 默认屏幕宽度
   const [height] = useState<number | string>(props.height || 300); // 默认300
-  const [loop] = useState<boolean>(isEmpty(props.loop) ? true : props.loop); // 默认循环
+  const [loop] = useState<boolean>(props.loop || isEmpty(props.loop)); // 默认循环
   const [indicator] = useState<boolean>(
-    isEmpty(props.indicator) ? true : props.indicator
+    props.indicator || isEmpty(props.indicator)
   ); // 默认有指示器
   const [duration] = useState<number>(props.duration || 3000); // 默认3000ms
   const [autoplay] = useState<boolean>(
-    isEmpty(props.autoplay) ? true : props.autoplay
+    props.autoplay || isEmpty(props.autoplay)
   ); // 默认自动播放
   const [play, setPlay] = useState<boolean>(false); // 播放
   const [controls] = useState<boolean>(
-    isEmpty(props.controls) ? true : props.controls
+    props.controls || isEmpty(props.controls)
   ); // 默认含有方向按钮
   const [idx, setIdx] = useState<number>(0); // 当前帧
   const [idxs, setIdxs] = useState<Array<Array<number>>>(sliderSort(num)); // 排序
@@ -65,7 +66,7 @@ const Carousel = (props: any) => {
     /* 保持slider显示效果，元素补全(loop) */
     if (!numo) return;
     width === 0 && setWidth(el.current?.clientWidth || 480);
-    if (isEmpty(props.children.length)) {
+    if (!props.children?.hasOwnProperty("length")) {
       /* 仅一个元素*/
       if (loop) {
         let temp = [props.children, props.children, props.children];
