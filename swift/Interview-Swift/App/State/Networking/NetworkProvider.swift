@@ -16,7 +16,6 @@ final class NetworkErrorHUG: ErrorHUGType {
         ConsoleLog.error("Error Domain=\(nsError.domain) Code=\(nsError.code)\n",
             context: nsError.userInfo.map({ "\t\($0.key): \($0.value)" }).joined(separator: "\n"))
  
-        // TODO: 错误状态码处理
         switch nsError.code {
         case 400, 404, 401:
             ConsoleLog.error(error)
@@ -51,7 +50,6 @@ struct NetworkProvider {
         header["X-Beta"] = "true"
         #endif
         header["X-Client"] = "iOS/1.2.3"
-        // TODO:
         return header
     }
     

@@ -88,9 +88,4 @@ class Store: ObservableObject {
         
         return (appState, appCommand)
     }
-    
-    
-    deinit {
-        print("deinit")
-    }
 }
