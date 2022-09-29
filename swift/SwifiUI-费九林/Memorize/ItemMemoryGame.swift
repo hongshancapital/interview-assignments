@@ -42,7 +42,7 @@ class ItemMemoryGame: ObservableObject {
     
      func generateItems(refreshing: Bool,closures: @escaping () -> Void)  {
          
-         if self.page <= 0 {
+         if self.page <= 0 || refreshing == true {
              self.page = 1
          }
          
