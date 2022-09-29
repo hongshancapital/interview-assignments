@@ -2,7 +2,7 @@ export const carouselItems = [
   {
     title: "xPhone",
     titleStyle: { color: "#fff" },
-    subTitle: "Lots to love. Less to spend.\nStarting at $399",
+    subTitle: "Lots to love. Less to spend.\nStarting at $399.",
     subTitleStyle: { color: "#fff" },
     url: require("../assets/iphone.png"),
   },
@@ -12,7 +12,7 @@ export const carouselItems = [
     url: require("../assets/tablet.png"),
   },
   {
-    title: "Buy a Tablet or xPhone for college.\nGet arPods",
+    title: "Buy a Tablet or xPhone for college.\nGet arPods.",
     subTitle: "",
     url: require("../assets/airpods.png"),
   },

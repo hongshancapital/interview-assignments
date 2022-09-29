@@ -13,9 +13,9 @@
 }
 
 .carousel .carousel-item {
+  position: relative;
   width: 100%;
   height: 100%;
-  padding-top: 10%;
   box-sizing: border-box;
   display: inline-block;
   vertical-align: middle;
@@ -25,16 +25,29 @@
 
 .carousel .carousel-item p {
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;;
+}
+
+.carousel .carousel-item .carousel-item__info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 25%;
+  text-align: center;
 }
 
 .carousel .carousel-item .carousel-item__title {
-  font-size: 48px;
-  line-height: 1.5;
+  font-size: 80px;
+  line-height: 1.2;
   font-weight: 700;
 }
 
 .carousel .carousel-item .carousel-item__subtitle {
-  font-size: 28px;
+  margin-top: 10px;
+  font-size: 40px;
+  line-height: 1.2;
 }
 
 .carousel .carousel-legends {
@@ -63,7 +76,7 @@
   background-color: #ffffff;
 }
 
-.carousel-legends .carousel-legend.active .carousel-legend__inner {
+.carousel .carousel-legends .carousel-legend.active .carousel-legend__inner {
   width: 100%;
   transition: width linear;
 }

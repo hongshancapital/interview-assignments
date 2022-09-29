@@ -53,18 +53,18 @@ function Carousel({
         }}
         data-testid='carousel-items'
       >
-        {data.map(
-          ({ url, title, subTitle, titleStyle, subTitleStyle }, index) => {
-            // 处理换行数据
-            const titles = title?.split("\n").filter(v => v.trim()) || [];
-            const subTitles = subTitle?.split("\n").filter(v => v.trim()) || [];
-            return (
-              <div
-                key={index}
-                title={title}
-                className='carousel-item'
-                style={{ backgroundImage: `url(${url})` }}
-              >
+        {data.map(({ url, title, subTitle, titleStyle, subTitleStyle }, index) => {
+          // 处理换行数据
+          const titles = title?.split("\n").filter(v => v.trim()) || [];
+          const subTitles = subTitle?.split("\n").filter(v => v.trim()) || [];
+          return (
+            <div
+              key={index}
+              title={title}
+              className='carousel-item'
+              style={{ backgroundImage: `url(${url})` }}
+            >
+              <div className='carousel-item__info'>
                 <p className='carousel-item__title' style={titleStyle}>
                   {titles.map((t, index) => (
                     <span key={index}>
@@ -82,9 +82,9 @@ function Carousel({
                   ))}
                 </p>
               </div>
-            );
-          },
-        )}
+            </div>
+          );
+        })}
       </div>
 
       {data.length > 0 && (
@@ -93,16 +93,11 @@ function Carousel({
             const isActive = current === index;
             const transitionDuration = `${duration}s`;
             return (
-              <div
-                key={index}
-                className={`carousel-legend ${isActive ? "active" : ""}`}
-              >
+              <div key={index} className={`carousel-legend ${isActive ? "active" : ""}`}>
                 <div
                   className='carousel-legend__inner'
                   style={{
-                    transitionDuration: isActive
-                      ? transitionDuration
-                      : undefined,
+                    transitionDuration: isActive ? transitionDuration : undefined,
                   }}
                 ></div>
               </div>
