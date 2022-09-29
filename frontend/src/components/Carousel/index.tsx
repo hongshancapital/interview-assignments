@@ -20,6 +20,8 @@ export interface CarouselItem {
 interface CarouselProps {
   // 轮播项
   data: CarouselItem[];
+  // 轮播项唯一key
+  itemKey?: string;
   // 轮播间隔时间，单位s，默认值4
   duration?: number;
   // 轮播切换动画完成时间，单位s，默认值0.3
@@ -28,10 +30,12 @@ interface CarouselProps {
 
 function Carousel({
   data,
+  itemKey = "title",
   duration = CAROUSEL_DURATION_DEFAULT,
   transitionDuration = CAROUSEL_TRANSITION_DURATION_DEFAULT,
 }: CarouselProps) {
   const [current, setCurrent] = useState<number>(0);
+  const translateX = current === 0 ? "0" : `-${100 * current}%`;
 
   useEffect(() => {
     if (data.length > 1) {
@@ -42,7 +46,6 @@ function Carousel({
     }
   }, [current, data, duration]);
 
-  const translateX = current === 0 ? "0" : `-${100 * current}%`;
   return (
     <div className='carousel'>
       <div
@@ -53,13 +56,21 @@ function Carousel({
         }}
         data-testid='carousel-items'
       >
-        {data.map(({ url, title, subTitle, titleStyle, subTitleStyle }, index) => {
-          // 处理换行数据
+        {data.map((item, index) => {
+          const { url, title, subTitle, titleStyle, subTitleStyle } = item;
+
+          // 获取列表识别key
+          const key =
+            (itemKey
+              ? item[itemKey as Exclude<keyof typeof item, "titleStyle" | "subTitleStyle">]
+              : index) ?? index;
+          // 处理文本换行
           const titles = title?.split("\n").filter(v => v.trim()) || [];
           const subTitles = subTitle?.split("\n").filter(v => v.trim()) || [];
+
           return (
             <div
-              key={index}
+              key={key}
               title={title}
               className='carousel-item'
               style={{ backgroundImage: `url(${url})` }}
