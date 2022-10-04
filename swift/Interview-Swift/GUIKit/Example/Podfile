@@ -1,0 +1,17 @@
+use_frameworks!
+
+platform :ios, '15.0'
+
+target 'GUIKit_Example' do
+  pod 'GUIKit', :path => '../'
+
+
+end
+
+
+target 'GUIKit_Tests' do
+  inherit! :search_paths
+
+  pod 'GUIKit', :path => '../'
+  
+end
