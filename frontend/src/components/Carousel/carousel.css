@@ -1,0 +1,81 @@
+
+.carousel {
+  overflow: hidden;
+}
+
+.banner {
+  height: 100%;
+  display: flex;
+  transition: .5s;
+}
+
+.banner .banner-item {
+  width: 100vw;
+  flex-wrap: nowrap;
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+  color: #fff;
+  position: relative;
+  background-size: auto 50%;
+  background-repeat: no-repeat;
+  background-position: center 70%;
+}
+
+.banner .banner-item .banner-item-text {
+  margin-top: 25vh;
+}
+
+.banner .banner-item .banner-item-title {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  white-space: pre-line;
+}
+
+.banner .banner-item .banner-item-desc {
+  font-size: 24px;
+  white-space: pre-line;
+}
+
+.progress-bar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 40px;
+  bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.progress-bar-item {
+  width: 35px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #acacac;
+  margin: 4px;
+  position: relative;
+}
+
+@keyframes progressBarWidth {
+  0%{
+    width: 0;
+  }
+  100%{
+    width: 100%;
+  }
+}
+
+.progress-bar-item span {
+  display: block;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+
+.progress-bar-item span.active{
+  animation: progressBarWidth linear;
+}
