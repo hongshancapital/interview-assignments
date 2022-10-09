@@ -1,0 +1,73 @@
+*{
+    margin: 0; padding: 0;
+}
+.win{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.cwrap{
+    height: 100vw;
+    width: 100vw;
+    position: relative;
+    transition: transform .5s ease;
+    transform: translateX(0);
+}
+.cwrap li{
+    font-style: normal;
+    width: 100vw;
+    height: 100vh;
+    float:left;
+    list-style: none;
+}
+.cwrap li.c1{
+    background-color: red;
+    
+}
+.cwrap li.c2{
+    background-color: green;
+}
+.cwrap li.c3{
+    background-color: blue;
+}
+
+
+.linebox{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.lineboxwrap{
+    width: 80px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: aliceblue;
+    position: relative;
+}
+.lineboxwrap .line{
+    border-radius: 5px;
+    height: 10px;
+    background-color: aquamarine;
+    position: absolute;
+    left:0;
+    top:0;
+    animation: mymove 3s linear .5s;
+}
+
+@keyframes mymove
+{
+	from {width:0px;}
+	to {width:80px;}
+}
+
+@-webkit-keyframes mymove 
+{
+	from {width:0px;}
+	to {width:80px;}
+}
