@@ -1,81 +1,76 @@
-# TypeScript Frontend Engineer Assignment
+# 设计思路
 
-## 要求
+从 Demo.mov 和 assets 中的图片中得知：
+ 
+1. 图片素材大小不一，宽为2880px的倍数，可以通过 backgroundSize 来控制图片大小相同
+2. loading 状态可以看做进度条展示，可以单独拆分组件
+3. Demo.mov 中，每个 Banner 的文案不同，Banner 内容需要自定义，最好不要通过通用的方式来传值显示
 
-- 实现 demo.mov 中的效果
-- 封装为 `<Carousel>` 组件
-- 使用 React Hooks 实现，不能用 Class Component
-- 使用 TypeScript 实现
+需要两个组件，一个Demo
 
-## 加分项
+- Progress 组件
+```ts
+// 进度条组件，可以控制动画的加载和时长
+// props
+interface IProgress {
+    /**
+     * 是否激活状态
+     * 激活状态才会有进度条动画
+     */
+    active?: boolean;
+    /**
+     * 进度条时长 默认为 2000
+     */
+    duration?: number;
+}
+```
 
-- 单元测试
+- Carousel 组件
 
-## 岗位职责
+```ts
+// 只控制 Carousel 的轮播效果，不关心 Banner 中的布局和展示，这样自定义的效果会更灵活
+interface ICarouselProps {
+    /**
+     * 子元素
+     */
+    children: React.ReactNode;
+    /**
+     * 轮播时间
+     */
+    duration?: number;
+    /**
+     * 是否显示进度条
+     */
+    dots?: boolean;
+}
+```
 
-- 根据产品交互稿构建⾼质量企业级 Web 应⽤
-- 技术栈: React + SASS
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
-- 与后端⼯程师协同交付产品
 
-## 要求
+- App 例子
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+1. 通过 `backgroundSize` 来控制图片大小
+2. 所有 `Banner` 中的效果都是使用方自定义
 
-## Create React App 信息
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 单元测试
 
-## Available Scripts
+-------------------------|---------|----------|---------|---------|-------------------
+File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------------|---------|----------|---------|---------|-------------------
+All files                |   88.57 |    91.66 |    90.9 |   88.57 |
+ src                     |     100 |      100 |     100 |     100 |
+  App.tsx                |     100 |      100 |     100 |     100 |
+ src/components/Carousel |   84.61 |    88.88 |   85.71 |   84.61 |
+  index.tsx              |   84.61 |    88.88 |   85.71 |   84.61 | 83-87
+ src/components/Progress |     100 |      100 |     100 |     100 |
+  index.tsx              |     100 |      100 |     100 |     100 |
+-------------------------|---------|----------|---------|---------|-------------------
 
-In the project directory, you can run:
+Test Suites: 3 passed, 3 total
+Tests:       9 passed, 9 total
+Snapshots:   3 passed, 3 total
 
-### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Email
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+56496477@qq.com
