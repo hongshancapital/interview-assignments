@@ -9,9 +9,7 @@
 
 
 
-to do:
-1 格式化代码
-2 drop console log
+
 
 
 # TypeScript Frontend Engineer Assignment
