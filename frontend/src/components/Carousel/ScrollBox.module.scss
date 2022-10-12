@@ -1,0 +1,41 @@
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .scroll_box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    transition: 1000ms;
+
+    .item {
+      position: relative;
+      text-align: center;
+      width: 100vw;
+      height: 100vh;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-size: cover;
+
+      .text_box {
+        width: 100%;
+        font-size: 32px;
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        z-index: 9;
+        transform: translate(-50%);
+        mix-blend-mode: difference;
+        filter: invert(100%);
+
+        .title {
+          font-size: 56px;
+          font-weight: bold;
+          margin-bottom: 12px;
+        }
+      }
+    }
+  }
+}
