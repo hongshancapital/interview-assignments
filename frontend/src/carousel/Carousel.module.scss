@@ -1,0 +1,157 @@
+$carousel-transition-duration: 1s;
+$progress-duration: 5s;
+
+.carousel {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+
+  .carousel-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+  }
+
+  .carousel-item {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    visibility: hidden;
+    z-index: 0;
+
+    float: left;
+    width: 100%;
+    height: 100%;
+    margin-right: -100%;
+
+    .title {
+      flex: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 55px;
+        height: 60px;
+        line-height: 60px;
+      }
+
+      h2 {
+        margin:0;
+        padding:0;
+        font-size: 25px;
+        height: 32px;
+        line-height: 32px;
+        font-weight: 400;
+      }
+
+      h2.first {
+        margin-top: 20px;
+      }
+      
+    }
+
+    .picture {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: auto;
+      img {
+        width: 120px;
+      }
+    }
+  }
+
+  .active {
+    position: relative;
+    z-index: 1000;
+
+    visibility: visible;
+    animation: slidein $carousel-transition-duration;
+  }
+
+  .prev {
+    position: relative;
+    visibility: visible;
+    animation: slideout $carousel-transition-duration;
+  }
+
+  .iphone {
+    background-color: #111111;
+    color: #ffffff;
+  }
+  .tablet {
+    background-color: #fafafa;
+  }
+  .airpods {
+    background-color: #f1f1f3;
+  }
+}
+
+// 
+.indicators {
+  position:fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1500;
+
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 70px;
+}
+
+.indicator-container {
+  width: 50px;
+  height: 2px;
+  border-radius: 3px;
+  background: #a9a9a9;
+  overflow: hidden;
+  margin-right: 8px;
+}
+.indicator-progress {
+  width: 0;
+  height: inherit;
+  border-radius: 3px 0 0 3px;
+  background: #fafafa;
+}
+
+.highlight {
+  animation: progress-grow $progress-duration ease-in;
+  animation-fill-mode: forwards;
+}
+
+//
+
+@keyframes slidein {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideout {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes progress-grow {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 100%;
+  }
+}
