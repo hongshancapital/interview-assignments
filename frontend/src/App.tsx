@@ -1,8 +1,11 @@
-import React from "react";
-import "./App.css";
+import React from 'react';
+import { Carousel } from './components';
+import './App.css';
 
 function App() {
-  return <div className="App">{/* write your component here */}</div>;
+  return <div className='App' data-testid='app'>
+    <Carousel />
+  </div>;
 }
 
 export default App;
