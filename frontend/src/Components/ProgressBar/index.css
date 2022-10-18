@@ -1,0 +1,32 @@
+.progress-bar {
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  transform: translateX(-50%);
+  height: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-item {
+  width: 70px;
+  height: 3px;
+  background-color: #707070;
+  cursor: pointer;
+}
+
+.progress-content {
+  height: 3px;
+  background-color: #fafafa;
+  animation: progress linear 3s;
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
