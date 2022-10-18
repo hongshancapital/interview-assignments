@@ -9,6 +9,6 @@ import Foundation
 
 struct AppModel: Codable {
     var trackName: String
-    var trackId: String
+    var trackId: Int
     var screenshotUrls: [String]
 }

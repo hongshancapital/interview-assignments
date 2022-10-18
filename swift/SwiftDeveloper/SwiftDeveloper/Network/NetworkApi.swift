@@ -8,10 +8,12 @@
 import Foundation
 
 class NetworkApi {
-    private var appsModel: AppsModel?
+    static let shared = NetworkApi()
 
+    private var appsModel: AppsModel?
+    
     init() {
-        appsModel = FileLoader.loadAppsDataFromFilename("data.json")
+        appsModel = FileLoader.loadAppsDataFromFilename("data")
     }
 
     func fetchApps(offset: Int,
