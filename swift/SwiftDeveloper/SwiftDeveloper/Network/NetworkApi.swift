@@ -21,7 +21,7 @@ class NetworkApi {
                    onSuccess: @escaping (_ appsModel: AppsModel) -> Void,
                    onError: @escaping (_ errorMessage: String) -> Void)
     {
-        let seconds = 3.0
+        let seconds = 1.0
 
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [weak self] in
             if let appsModel = self?.appsModel {

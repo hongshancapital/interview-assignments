@@ -9,14 +9,23 @@ import SwiftUI
 
 struct HomeScreen: View {
     @StateObject var homeViewModel = HomeViewModel()
-    
+
     var body: some View {
-        List(homeViewModel.appsModel.results, id: \.trackId) {
-            Text($0.trackName)
+        ZStack {
+            if homeViewModel.firstLoading {
+                ProgressView()
+            } else {
+                List(homeViewModel.appsModel.results, id: \.trackId) {
+                    Text($0.trackName)
+                }
+                .navigationTitle("App")
+                .refreshable {
+                    homeViewModel.fetchData(isRerefeshing: true)
+                }
+            }
         }
-        .navigationTitle("App")
-        .refreshable {
-            print("hello")
+        .onAppear {
+            homeViewModel.fetchFirstTime()
         }
     }
 }
