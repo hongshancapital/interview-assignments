@@ -1,0 +1,56 @@
+.container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+.carouselContainer{
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s;
+}
+.imgContainer{
+    width: 300%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    user-select: none;
+}
+.imgItem{
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.progressContainer{
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.progressItem{
+    width: 60px;
+    height: 4px;
+    background-color: #464242;
+    margin-right: 16px;
+    border-radius: 2px;
+}
+.progress{
+    height: 4px;
+    background-color: #f4f4f4;
+    animation-name: runProgress;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-play-state: running;
+}
+@keyframes runProgress {     
+    0% {width: 0;}     
+    100% {width: 100%;} 
+}
