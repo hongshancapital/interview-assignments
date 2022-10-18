@@ -27,5 +27,7 @@ struct HomeScreen: View {
         .onAppear {
             homeViewModel.fetchFirstTime()
         }
+        .animation(.easeInOut, value: homeViewModel.firstLoading)
+
     }
 }
