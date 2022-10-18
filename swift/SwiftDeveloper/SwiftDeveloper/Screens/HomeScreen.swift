@@ -5,4 +5,13 @@
 //  Created by zhe wu on 2022/10/18.
 //
 
-import Foundation
+import SwiftUI
+
+struct HomeScreen: View {
+    var body: some View {
+        List {
+            Text("Home Screen!")
+                .padding()
+        }.navigationTitle("App")
+    }
+}
