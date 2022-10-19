@@ -12,6 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var loading = false
     @Published var firstLoading = true
     @Published var errorMesage: String?
+    @Published var favorites: [Int] = []
 
     func fetchFirstTime() {
         firstLoading = true
@@ -54,5 +55,17 @@ class HomeViewModel: ObservableObject {
             self?.firstLoading = false
             self?.errorMesage = errorMessage
         }
+    }
+
+    func toggleFavorite(appId: Int) {
+        if let index = favorites.firstIndex(of: appId) {
+            favorites.remove(at: index)
+        } else {
+            favorites.append(appId)
+        }
+    }
+
+    func isFavorited(appId: Int) -> Bool {
+        return favorites.firstIndex(of: appId) != nil
     }
 }

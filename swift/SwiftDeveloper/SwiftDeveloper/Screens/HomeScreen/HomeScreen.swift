@@ -25,7 +25,10 @@ struct HomeScreen: View {
 
                 List {
                     ForEach(homeViewModel.appsModel.results, id: \.trackId) {
-                        AppRow(appModel: $0)
+                        AppRow(appModel: $0,
+                               isFavorited: homeViewModel.isFavorited(appId: $0.trackId)) { appId in
+                            homeViewModel.toggleFavorite(appId: appId)
+                        }
 //                        Text($0.trackName)
                     }
                     .listRowInsets(.init())
