@@ -13,16 +13,8 @@ struct HomeScreen: View {
     var body: some View {
         ZStack {
             if homeViewModel.firstLoading {
-                ProgressView()
+                ScreenLoadingView()
             } else {
-//                List(homeViewModel.appsModel.results, id: \.trackId) {
-//                    Text($0.trackName)
-//                        .listRowBackground(Color.clear)
-//                }
-//                .refreshable {
-//                    homeViewModel.fetchData(isRerefeshing: true)
-//                }
-
                 List {
                     ForEach(homeViewModel.appsModel.results, id: \.trackId) {
                         AppRow(appModel: $0,
