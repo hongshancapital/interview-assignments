@@ -25,7 +25,8 @@ struct HomeScreen: View {
 
                 List {
                     ForEach(homeViewModel.appsModel.results, id: \.trackId) {
-                        Text($0.trackName)
+                        AppRow(appModel: $0)
+//                        Text($0.trackName)
                     }
                     .listRowInsets(.init())
                     .listRowSeparator(.hidden)

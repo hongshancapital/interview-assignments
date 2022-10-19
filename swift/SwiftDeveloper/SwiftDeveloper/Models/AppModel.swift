@@ -11,4 +11,5 @@ struct AppModel: Codable {
     var trackName: String
     var trackId: Int
     var screenshotUrls: [String]
+    var description: String
 }
