@@ -11,7 +11,7 @@ class NetworkApi {
     static let shared = NetworkApi()
 
     private var appsModel: AppsModel?
-    
+
     init() {
         appsModel = FileLoader.loadAppsDataFromFilename("data")
     }
@@ -25,13 +25,19 @@ class NetworkApi {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [weak self] in
             if let appsModel = self?.appsModel {
-                let lastIndex = (offset + limit) < appsModel.resultCount ?
-                    offset + limit :
-                    appsModel.resultCount - 1
-                let resultsFetched = Array(appsModel.results[offset ..< lastIndex])
-                let appsFetched = AppsModel(resultCount: appsModel.resultCount,
-                                            results: resultsFetched)
-                onSuccess(appsFetched)
+                if offset >= appsModel.results.count {
+                    let appsFetched = AppsModel(resultCount: appsModel.resultCount,
+                                                results: [])
+                    onSuccess(appsFetched)
+                } else {
+                    let lastIndex = (offset + limit) < appsModel.resultCount ?
+                        offset + limit :
+                        appsModel.resultCount - 1
+                    let resultsFetched = Array(appsModel.results[offset ... lastIndex])
+                    let appsFetched = AppsModel(resultCount: appsModel.resultCount,
+                                                results: resultsFetched)
+                    onSuccess(appsFetched)
+                }
             } else {
                 onError("no data currently")
             }

@@ -10,18 +10,14 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published var appsModel = AppsModel(resultCount: 0, results: [])
     @Published var loading = false
-    @Published var firstLoading = false
+    @Published var firstLoading = true
     @Published var errorMesage: String?
-    
-//    init() {
-//        fetchNext()
-//    }
 
     func fetchFirstTime() {
         firstLoading = true
         fetchData(isRerefeshing: true)
     }
-    
+
 //    func fetchNext() {
 //        loading = true
 //
@@ -40,7 +36,7 @@ class HomeViewModel: ObservableObject {
 //
     func fetchData(isRerefeshing: Bool = false) {
         loading = true
-        
+
         NetworkApi.shared.fetchApps(offset: isRerefeshing ? 0 : appsModel.results.count,
                                     limit: 20) { [weak self] appsModelFetched in
             self?.appsModel.resultCount = appsModelFetched.resultCount
@@ -49,7 +45,7 @@ class HomeViewModel: ObservableObject {
             } else {
                 self?.appsModel.results.append(contentsOf: appsModelFetched.results)
             }
-            
+
             self?.loading = false
             self?.errorMesage = nil
             self?.firstLoading = false

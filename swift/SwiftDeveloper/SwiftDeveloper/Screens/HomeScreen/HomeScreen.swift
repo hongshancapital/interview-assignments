@@ -33,6 +33,16 @@ struct HomeScreen: View {
                     .listRowBackground(Color.clear)
 //                    .padding(.vertical, 1)
 //                    .background(Color(UIColor.red))
+
+                    if !homeViewModel.firstLoading {
+                        LoadingMoreView(isFinished: homeViewModel.appsModel.resultCount == homeViewModel.appsModel.results.count)
+                            .listRowInsets(.init())
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .onAppear {
+                                homeViewModel.fetchData()
+                            }
+                    }
                 }
                 .listStyle(.plain)
                 .environment(\.defaultMinListRowHeight, 1)
