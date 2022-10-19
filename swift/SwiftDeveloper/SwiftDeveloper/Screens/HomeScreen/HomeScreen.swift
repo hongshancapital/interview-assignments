@@ -15,19 +15,37 @@ struct HomeScreen: View {
             if homeViewModel.firstLoading {
                 ProgressView()
             } else {
-                List(homeViewModel.appsModel.results, id: \.trackId) {
-                    Text($0.trackName)
+//                List(homeViewModel.appsModel.results, id: \.trackId) {
+//                    Text($0.trackName)
+//                        .listRowBackground(Color.clear)
+//                }
+//                .refreshable {
+//                    homeViewModel.fetchData(isRerefeshing: true)
+//                }
+
+                List {
+                    ForEach(homeViewModel.appsModel.results, id: \.trackId) {
+                        Text($0.trackName)
+                    }
+                    .listRowInsets(.init())
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+//                    .padding(.vertical, 1)
+//                    .background(Color(UIColor.red))
                 }
-                .navigationTitle("App")
+                .listStyle(.plain)
+                .environment(\.defaultMinListRowHeight, 1)
+                .padding(.horizontal)
                 .refreshable {
                     homeViewModel.fetchData(isRerefeshing: true)
                 }
             }
         }
+        .background(Color(UIColor.systemGroupedBackground))
+        .navigationTitle("App")
         .onAppear {
             homeViewModel.fetchFirstTime()
         }
         .animation(.easeInOut, value: homeViewModel.firstLoading)
-
     }
 }
