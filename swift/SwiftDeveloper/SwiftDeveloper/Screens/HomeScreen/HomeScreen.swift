@@ -21,13 +21,10 @@ struct HomeScreen: View {
                                isFavorited: homeViewModel.isFavorited(appId: $0.trackId)) { appId in
                             homeViewModel.toggleFavorite(appId: appId)
                         }
-//                        Text($0.trackName)
                     }
                     .listRowInsets(.init())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
-//                    .padding(.vertical, 1)
-//                    .background(Color(UIColor.red))
 
                     if !homeViewModel.firstLoading {
                         LoadingMoreView(isFinished: homeViewModel.appsModel.resultCount == homeViewModel.appsModel.results.count)
