@@ -38,7 +38,7 @@ struct HomeScreen: View {
                 }
                 .listStyle(.plain)
                 .environment(\.defaultMinListRowHeight, 1)
-                .padding(.horizontal)
+//                .padding(.horizontal)
                 .refreshable {
                     homeViewModel.fetchData(isRerefeshing: true)
                 }

@@ -49,5 +49,6 @@ struct AppRow: View {
         .background(Color(UIColor.systemBackground))
         .cornerRadius(10)
         .padding(.vertical, 4)
+        .padding(.horizontal)
     }
 }
