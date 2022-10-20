@@ -1,0 +1,39 @@
+
+.carousel-main
+  display: flex
+  flex-direction: row
+  overflow: hidden
+
+  .carousel-item
+    height: 100vh
+    width: 100vw
+    overflow: hidden
+    
+
+.carousel-dots-group
+  display: flex
+  position: fixed
+  top: 91%
+  left: 50%
+  transform: translateX(-50%)
+
+  .carousel-dots-item
+    width: 6.2rem
+    margin: 0 1rem
+    height: 4px
+    border-radius: 4px
+    background: #ccc
+    cursor: pointer
+
+    .carousel-dots-item-dot
+      background: #fff
+      border-radius: 4px
+      height: 4px
+      width: 0%
+
+      &.active
+        @keyframes dot-active 
+            0%   
+              width: 0%
+            100% 
+              width: 100%

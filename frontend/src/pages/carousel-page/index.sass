@@ -1,0 +1,42 @@
+
+body 
+  margin: 0px
+  padding: 0px
+
+.carousel-page-main
+  
+  .carousel-main 
+    height: 100vh
+    width: 100vw
+
+    .carousel-page-content
+      height: 100%
+      background-attachment: fixed
+      background-position: 50% 70%
+      background-repeat: no-repeat
+      background-size: auto 54%
+      background-clip: padding-box
+
+      .carousel-page-content-title
+        font-size: 8rem
+        line-height: 12rem
+        font-weight: bold
+        padding-top: 22vh
+        white-space: pre-line
+
+        @media (max-width: 960px) 
+          font-size: 3rem
+          line-height: 4rem
+        
+
+      .carousel-page-content-content
+        font-size: 4rem
+        line-height: 6rem
+        white-space: pre-line
+
+        @media (max-width: 960px) 
+          font-size: 1.5rem
+          line-height: 2rem
+
+        &.active
+          animation: fadeIn 1s
