@@ -1,0 +1,53 @@
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+}
+.carousel {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  transition-property: transform;
+  transition-timing-function: linear;
+}
+
+.carousel-indicator {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  column-gap: 10px;
+  width: 200px;
+}
+
+.carousel-indicator__item {
+  flex: 1;
+  height: 4px;
+  background-color: rgb(153, 153, 153);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-indicator__item.active::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  border-radius: 2px;
+  background-color: rgb(248, 248, 248);
+  animation-name: fill-width;
+  animation-timing-function: linear;
+  animation-duration: inherit;
+}
+
+@keyframes fill-width {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
