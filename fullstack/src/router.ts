@@ -25,10 +25,7 @@ export class Router {
   }
   async saveLink(req: Request<SaveLinkResData, SaveLinkReqBody>, res: Response<SaveLinkResData>) {
     const valid = isLink(req.body?.link);
-    console.log([
-      valid,
-      req.body?.link,
-    ])
+
     if (valid) {
       return res.send(successBody(await this.service.saveLink(req.body.link)));
     } else {
