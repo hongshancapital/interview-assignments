@@ -23,8 +23,6 @@ export const getShortUrlApi = async (req: Request, res: Response) => {
 export const getOriginUrlApi = async (req: Request, res: Response) => {
   const shortUrl = req.params.url || '';
 
-  console.log(shortUrl);
-
   try {
     const originUrl = await getOriginUrl(shortUrl);
 
