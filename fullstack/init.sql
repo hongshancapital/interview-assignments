@@ -1,0 +1,10 @@
+--env: sqlite3
+
+--create table
+CREATE TABLE IF NOT EXISTS `url_map`
+(
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `brief` VARCHAR(255) NOT NULL UNIQUE,
+  `origin` VARCHAR(255) NOT NULL UNIQUE,
+  `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
