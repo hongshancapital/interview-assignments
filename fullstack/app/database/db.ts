@@ -1,7 +1,7 @@
 import path from 'path';
 import {verbose,Database} from 'sqlite3';
 import { DataModal } from '..';
-import { SUCCESS, PARAM_ERROR } from '../common/errMap';
+import { SUCCESS, PARAM_ERROR } from '../common/errCode';
 
 const sqlite3 = verbose();
 
