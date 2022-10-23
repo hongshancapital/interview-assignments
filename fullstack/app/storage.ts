@@ -1,11 +1,11 @@
 import {verbose,Database} from 'sqlite3';
 import { DataModal } from '.';
-import { PARAM_ERROR } from './errMap';
+import { SUCCESS, PARAM_ERROR } from './errMap';
 
 const sqlite3 = verbose();
 const db: Database = new sqlite3.Database('./work.db');
 
-export const query = (data: DataModal = {}) => {
+export const query = (data: DataModal = {}) : Promise<Array<DataModal> | number> => {
   const { short_url, origin_md5 } = data;
 
   let sql: string = 'select * from url_map where ';
@@ -43,7 +43,7 @@ export const insert = (data: DataModal = {}) => {
       if (err) {
         reject(PARAM_ERROR);
       } else {
-        resolve(true);
+        resolve(SUCCESS);
       }
     });
   });
@@ -67,7 +67,7 @@ export const remove = (data: DataModal = {}) => {
       if (err) {
         reject(PARAM_ERROR);
       } else {
-        resolve(true);
+        resolve(SUCCESS);
       }
     });
   });
