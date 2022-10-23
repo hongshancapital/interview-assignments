@@ -1,0 +1,45 @@
+{
+  "name": "@wangwangtou/short-link-service",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "repository": "https://github.com/wangwangtou/interview-assignments",
+  "author": "wangwangtou",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf lib/ && tsc",
+    "lint": "eslint --ext .tsx --ext .ts src/ tests/",
+    "test": "nyc --reporter=html mocha -r ts-node/register tests/**/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.12",
+    "@types/express": "^4.17.14",
+    "@types/mocha": "^8.0.1",
+    "@types/pg": "^8.6.5",
+    "@types/sinon": "^10.0.13",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "chai": "^4.2.0",
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^8.1.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.0.5",
+    "sinon": "^14.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.8.0"
+  }
+}
