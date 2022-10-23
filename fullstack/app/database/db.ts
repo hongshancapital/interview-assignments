@@ -1,9 +1,11 @@
+import path from 'path';
 import {verbose,Database} from 'sqlite3';
 import { DataModal } from '..';
 import { SUCCESS, PARAM_ERROR } from '../common/errMap';
 
 const sqlite3 = verbose();
-const db: Database = new sqlite3.Database('./work.db');
+
+const db: Database = new sqlite3.Database(path.join(__dirname + '../../../work.db'));
 
 export const query = (data: DataModal = {}) : Promise<Array<DataModal>> => {
   const { short_url, origin_md5 } = data;
