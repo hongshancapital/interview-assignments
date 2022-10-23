@@ -1,6 +1,6 @@
-import {describe, expect, test} from '@jest/globals';
-import { query, insert, remove } from '../app/storage';
-import { SUCCESS, PARAM_ERROR } from '../app/errMap';
+import { describe, expect, test } from '@jest/globals';
+import { query, insert, remove } from '../db';
+import { SUCCESS, PARAM_ERROR } from '../../common/errMap';
 
 const mockdata: any = {
   short_url: 'abcdefgh',

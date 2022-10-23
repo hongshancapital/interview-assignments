@@ -1,13 +1,25 @@
+import { query, insert } from '../database/db';
+import { NOT_FOUND } from '../common/errMap';
 
 export const getOriginUrl = async (shortUrl: string) => {
 
-  // step.1 查询数据库是否已存在shortUrl
+  let rows = null;
+  try {
+    rows = await query({
+      short_url: shortUrl
+    });
 
-  // step.2-1 存在 - 返回长链
+    const data = rows[0] || {};
+    const originUrl = data.origin_url;
 
-  // step.2-2 不存在，报错
+    if (!originUrl) {
+      throw NOT_FOUND;
+    }
 
-  return Promise.resolve(shortUrl);
+    return Promise.resolve(originUrl);
+  } catch (e) {
+    return Promise.reject(e);
+  }
 }
 
 export const getShortUrl = async (originUrl: string) => {
