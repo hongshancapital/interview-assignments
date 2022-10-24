@@ -1,0 +1,41 @@
+.progress {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.progress_container {
+  position: relative;
+  width: 50px;
+  height: 2px;
+  border-radius: 2px;
+  border-top-left-radius: 50%;
+  background: gray;
+}
+
+.progress_container+.progress_container {
+  margin-left: 10px;
+}
+
+@keyframes loading {
+  from {
+    right: 100%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+.progress_content {
+  position: absolute;
+  left:0;
+  right: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.progress_loading {
+  animation: loading 3s linear;
+}
