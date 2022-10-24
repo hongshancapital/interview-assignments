@@ -28,13 +28,13 @@ const Carousel = (props: Props) => {
             width: getWidth(length),
             transform: `translateX(-${getWidth(currentIndex)})`
         }
-    }, [length, currentIndex, interval])
+    }, [length, currentIndex])
 
     const updateIndex = useCallback((index: number) => {
         index = index % length
         setIndex(index)
         onChange(index)
-    }, [setIndex, onChange])
+    }, [setIndex, onChange, length])
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -42,7 +42,7 @@ const Carousel = (props: Props) => {
         }, interval)
 
         return () => clearTimeout(timer)
-    }, [currentIndex, updateIndex])
+    }, [interval, currentIndex, updateIndex])
 
     if (!length) {
         console.error('Child component is required in Carousel')
