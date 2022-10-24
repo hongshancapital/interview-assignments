@@ -5,7 +5,7 @@ import { SUCCESS, PARAM_ERROR } from '../../common/errCode';
 const mockdata: any = {
   short_url: 'abcdefgh',
   origin_url: 'https://www.baidu.com',
-  origin_md5: 'F9751DE431104B125F48DD79CC55822A'
+  origin_hash: 'F9751DE431104B125F48DD79CC55822A'
 };
 
 describe('sqlite3 CURD', () => {
