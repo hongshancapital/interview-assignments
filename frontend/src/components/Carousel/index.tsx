@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react"
+import React, { useEffect, useState, useMemo, useCallback } from "react"
 import SlickList from "../SlickList"
 import './index.css'
 
@@ -30,19 +30,19 @@ const Carousel = (props: Props) => {
         }
     }, [length, currentIndex, interval])
 
+    const updateIndex = useCallback((index: number) => {
+        index = index % length
+        setIndex(index)
+        onChange(index)
+    }, [setIndex, onChange])
+
     useEffect(() => {
         const timer = setTimeout(() => {
             updateIndex(currentIndex + 1)
         }, interval)
 
         return () => clearTimeout(timer)
-    }, [currentIndex])
-
-    const updateIndex = (index: number) => {
-        index = index % length
-        setIndex(index)
-        onChange(index)
-    }
+    }, [currentIndex, updateIndex])
 
     if (!length) {
         console.error('Child component is required in Carousel')
