@@ -1,5 +1,5 @@
 import path from 'path';
-import {verbose,Database} from 'sqlite3';
+import { verbose, Database } from 'sqlite3';
 import { DataModal } from '..';
 import { SUCCESS, PARAM_ERROR } from '../common/errCode';
 
@@ -31,7 +31,7 @@ export const query = (data: DataModal = {}) : Promise<Array<DataModal>> => {
   });
 }
 
-export const insert = (data: DataModal = {}) : Promise<Array<DataModal> | string> => {
+export const insert = (data: DataModal = {}) : Promise<string> => {
   const { short_url, origin_url, origin_hash } = data;
 
   if (!short_url || !origin_url || !origin_hash) {

@@ -10,9 +10,9 @@ interface ErrorMsgMap {
 }
 
 export const errMsgMap: ErrorMsgMap = {
-  PARAM_ERROR: '输入参数错误',
+  [PARAM_ERROR]: '输入参数错误',
 
-  NOT_FOUND: '未查询到对应数据',
+  [NOT_FOUND]: '未查询到对应数据',
 
-  DEFAULT_MESSAGE: '系统内部错误'
+  [DEFAULT_CODE]: '系统内部错误'
 };

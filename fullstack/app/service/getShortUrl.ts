@@ -1,23 +1,51 @@
+import mmh from '../common/mmh';
+import { encodeBase62 } from '../common/base62';
+import { SUCCESS, NOT_FOUND, DEFAULT_CODE } from '../common/errCode';
 import { query, insert } from '../database/db';
-import { NOT_FOUND } from '../common/errCode';
+import { DataModal } from '..';
 
-export const getShortUrl = async (originUrl: string) => {
+export const getShortUrl = async (originUrl: string) : Promise<string | any> => {
 
-  // step.1 查询长链是否存在
+  const hash: number = mmh(originUrl);
 
-  // step.2-1 存在 - 返回短链
+  try {
+    const rows: Array<DataModal> = await query({
+      origin_hash: hash 
+    });
+    const data: DataModal = rows[0] || {};
 
-  // step.2-2 不存在，生成新的短链
+    if (originUrl !== data.origin_url) {
+      // hash conflict
+      // TODO
+      throw NOT_FOUND;
+    }
 
-  // step.3 hash
+    if (!data.short_url) {
+      throw NOT_FOUND;
+    }
 
-  // step.4 62进制转义
+    return Promise.resolve(data.short_url);
+  } catch (err) {
+    if (err !== NOT_FOUND) {
+      return Promise.reject(err);
+    }
+  }
 
-  // step.5 唯一索引插入检测
+  const shortUrl: string = encodeBase62(hash);
 
-  // step.6-1 插入成功，返回短链
+  try {
+    const result = await insert({
+      short_url: shortUrl,
+      origin_hash: hash,
+      origin_url: originUrl
+    });
 
-  // step.6-2 插入失败，短链撞hash，回到step3
+    if (result !== SUCCESS) {
+      throw DEFAULT_CODE;
+    }
+  } catch (err) {
+    return Promise.reject(err);
+  }
 
-  return Promise.resolve(originUrl);
+  return Promise.resolve(shortUrl);
 }

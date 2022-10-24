@@ -6,7 +6,7 @@ import { DataModal } from '../..';
 const mockdata: Array<DataModal> = [{
   short_url: 'abcdefgh',
   origin_url: 'https://www.baidu.com',
-  origin_hash: 'F9751DE431104B125F48DD79CC55822A'
+  origin_hash: 3912604874
 }];
 
 const emptyMockdata: Array<DataModal> = [];

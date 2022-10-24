@@ -9,6 +9,10 @@ const mockdata: any = {
 };
 
 describe('sqlite3 CURD', () => {
+  test('query before inserted', () => {
+    return expect(query(mockdata)).resolves.toHaveLength(0);
+  });
+
   test('insert by invalid params', () => {
     return expect(insert()).rejects.toBe(PARAM_ERROR);
   });

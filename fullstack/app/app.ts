@@ -3,9 +3,11 @@ import {getShortUrlApi, getOriginUrlApi} from './route/route';
 
 const app: Application = express();
 
-app.route('/api/shorturl/:url')
+app.use(express.urlencoded());
+
+app.route('/api/shorturl')
   .get(getOriginUrlApi)
-  .post(getShortUrlApi)
+  .post(getShortUrlApi) // x-www-form-urlencoded
 ;
 
 app.listen(8080);

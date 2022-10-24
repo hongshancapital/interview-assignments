@@ -1,8 +1,9 @@
 import { query } from '../database/db';
 import { PARAM_ERROR, NOT_FOUND } from '../common/errCode';
+import { DataModal } from '..';
 
 export const getOriginUrl = async (shortUrl: string): Promise<string | any> => {
-  let rows = null;
+  let rows: Array<DataModal> = [];
 
   if (!shortUrl) {
     return Promise.reject(PARAM_ERROR);
@@ -13,14 +14,13 @@ export const getOriginUrl = async (shortUrl: string): Promise<string | any> => {
       short_url: shortUrl
     });
 
-    const data = rows[0] || {};
-    const originUrl = data.origin_url;
+    const data: DataModal = rows[0] || {};
 
-    if (!originUrl) {
+    if (!data.origin_url) {
       throw NOT_FOUND;
     }
 
-    return Promise.resolve(originUrl);
+    return Promise.resolve(data.origin_url);
   } catch (err) {
     return Promise.reject(err);
   }

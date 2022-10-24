@@ -1,4 +1,4 @@
-import { Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { getShortUrl } from '../service/getShortUrl';
 import { getOriginUrl } from '../service/getOriginUrl';
 
@@ -11,8 +11,18 @@ interface ResponseData {
   data?: {}
 }
 
+function getParam(obj: any, name: string) : string {
+  if (obj[name]) {
+    return obj[name];
+  }
+
+  return '';
+}
+
+// TODO 域名拼接到短链
+
 export const getShortUrlApi = async (req: Request, res: Response) => {
-  const originUrl = req.params.url || '';
+  const originUrl = getParam(req.body, 'url');
 
   try {
     const shortUrl = await getShortUrl(originUrl);
@@ -36,7 +46,7 @@ export const getShortUrlApi = async (req: Request, res: Response) => {
 }
 
 export const getOriginUrlApi = async (req: Request, res: Response) => {
-  const shortUrl = req.params.url || '';
+  const shortUrl = getParam(req.query, 'url');
 
   try {
     const originUrl = await getOriginUrl(shortUrl);
