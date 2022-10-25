@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { encodeBase62, decodeBase62 } from '../base62';
+import { encodeBase62 } from '../base62';
 
 describe('Base62 test', () => {
   test('encode edge', () => {
@@ -13,19 +13,9 @@ describe('Base62 test', () => {
     expect(encodeBase62(Number.MAX_SAFE_INTEGER)).toBe('');
   });
 
-  test('decode edge', () => {
-    expect(decodeBase62('0')).toBe(0);
-    expect(decodeBase62('ZZZZZZZZ')).toBe(Math.pow(62, 8) - 1);
+  test('encode valid', () => {
+    expect(encodeBase62(1)).toBe('a');
+    expect(encodeBase62(12)).toBe('m');
+    expect(encodeBase62(1234)).toBe('wU');
   });
-
-  test('decode invalid input', () => {
-    expect(decodeBase62('ABC%%^@D')).toBe(NaN);
-    expect(decodeBase62('ABCDEFGHIJKLMN')).toBe(NaN);
-  });
-
-  const table: Array<number> = [1, 1234, 1234567, 1728394719];
-  test.each(table)('encode & decode', data => {
-    expect(decodeBase62(encodeBase62(data))).toBe(data);
-  });
-
 });
