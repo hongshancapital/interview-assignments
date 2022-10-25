@@ -14,7 +14,7 @@ export const encodeBase62 = (decimal: number) : string => {
   let tmp: number = decimal;
   let res: Array<string> = [];
 
-  if (decimal < 0 || decimal > MAX_VALUE) {
+  if (isNaN(decimal) || decimal < 0 || decimal > MAX_VALUE) {
     return '';
   }
 

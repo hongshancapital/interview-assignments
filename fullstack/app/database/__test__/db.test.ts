@@ -1,12 +1,14 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test, jest } from '@jest/globals';
 import { query, insert, remove } from '../db';
-import { SUCCESS, PARAM_ERROR } from '../../common/errCode';
+import { SUCCESS, PARAM_ERROR, DB_RUNTIME_ERROR } from '../../common/errCode';
 
 const mockdata: any = {
   short_url: 'abcdefgh',
   origin_url: 'https://www.baidu.com',
   origin_hash: 'F9751DE431104B125F48DD79CC55822A'
 };
+
+jest.spyOn(console, 'log').mockImplementation(() => {});
 
 describe('sqlite3 CURD', () => {
   test('query before inserted', () => {
@@ -22,7 +24,7 @@ describe('sqlite3 CURD', () => {
   });
 
   test('insert by replicative params', () => {
-    return expect(insert(mockdata)).rejects.toBe(PARAM_ERROR);
+    return expect(insert(mockdata)).rejects.toBe(DB_RUNTIME_ERROR);
   });
 
   test('query by invalid params', () => {

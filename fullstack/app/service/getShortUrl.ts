@@ -1,23 +1,35 @@
 import mmh from '../common/mmh';
 import { encodeBase62 } from '../common/base62';
-import { SUCCESS, NOT_FOUND, DEFAULT_CODE } from '../common/errCode';
+import { addPostfix } from '../common/url';
+import { SUCCESS, NOT_FOUND, HASH_ERROR, BASE62_ERROR, DEFAULT_CODE, PARAM_ERROR } from '../common/errCode';
 import { query, insert } from '../database/db';
 import { DataModal } from '..';
 
 export const getShortUrl = async (originUrl: string) : Promise<string | any> => {
 
-  const hash: number = mmh(originUrl);
+  if (!originUrl) {
+    return Promise.reject(PARAM_ERROR);
+  }
+
+  let hash: number = NaN;
 
   try {
+    hash = mmh(originUrl);
+
+    if (!hash) {
+      throw HASH_ERROR;
+    }
+
     const rows: Array<DataModal> = await query({
       origin_hash: hash 
     });
     const data: DataModal = rows[0] || {};
 
-    if (originUrl !== data.origin_url) {
+    if (data.origin_url && originUrl !== data.origin_url) {
       // hash conflict
-      // TODO
-      throw NOT_FOUND;
+      // add a postfix at the end of origin url
+      const urlWithPostfix: string = addPostfix(originUrl);
+      return getShortUrl(urlWithPostfix);
     }
 
     if (!data.short_url) {
@@ -31,9 +43,13 @@ export const getShortUrl = async (originUrl: string) : Promise<string | any> => 
     }
   }
 
-  const shortUrl: string = encodeBase62(hash);
-
   try {
+    const shortUrl: string = encodeBase62(hash);
+
+    if (!shortUrl) {
+      throw BASE62_ERROR;
+    }
+
     const result = await insert({
       short_url: shortUrl,
       origin_hash: hash,
@@ -43,9 +59,9 @@ export const getShortUrl = async (originUrl: string) : Promise<string | any> => 
     if (result !== SUCCESS) {
       throw DEFAULT_CODE;
     }
+
+    return Promise.resolve(shortUrl);
   } catch (err) {
     return Promise.reject(err);
   }
-
-  return Promise.resolve(shortUrl);
 }

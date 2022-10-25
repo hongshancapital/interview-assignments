@@ -8,6 +8,7 @@ describe('Base62 test', () => {
   });
 
   test('encode invalid input', () => {
+    expect(encodeBase62(NaN)).toBe('');
     expect(encodeBase62(-200)).toBe('');
     expect(encodeBase62(Number.MAX_SAFE_INTEGER)).toBe('');
   });

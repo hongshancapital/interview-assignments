@@ -4,6 +4,7 @@ import { getOriginUrl } from '../service/getOriginUrl';
 
 import { SUCCESS, errMsgMap } from '../common/errCode';
 import { getErrCode } from '../common/errHandler';
+import { addShortDomain, removeShortDomain } from '../common/url';
 
 interface ResponseData {
   errCode: string,
@@ -19,13 +20,13 @@ function getParam(obj: any, name: string) : string {
   return '';
 }
 
-// TODO 域名拼接到短链
-
 export const getShortUrlApi = async (req: Request, res: Response) => {
-  const originUrl = getParam(req.body, 'url');
+  const originUrl: string = getParam(req.body, 'url');
 
   try {
-    const shortUrl = await getShortUrl(originUrl);
+    let shortUrl: string = await getShortUrl(originUrl);
+    shortUrl = addShortDomain(shortUrl);
+
     const resData: ResponseData = {
       errCode: SUCCESS,
       data: { url: shortUrl }
@@ -33,7 +34,7 @@ export const getShortUrlApi = async (req: Request, res: Response) => {
 
     res.send(resData);
   } catch(err) {
-    let errCode = getErrCode(err);
+    let errCode: string = getErrCode(err);
     const resData: ResponseData = {
       errCode,
       errMsg: errMsgMap[errCode]
@@ -46,10 +47,11 @@ export const getShortUrlApi = async (req: Request, res: Response) => {
 }
 
 export const getOriginUrlApi = async (req: Request, res: Response) => {
-  const shortUrl = getParam(req.query, 'url');
+  let shortUrl: string = getParam(req.query, 'url');
+  shortUrl = removeShortDomain(shortUrl);
 
   try {
-    const originUrl = await getOriginUrl(shortUrl);
+    const originUrl: string = await getOriginUrl(shortUrl);
     const resData: ResponseData = {
       errCode: SUCCESS,
       data: { url: originUrl }
@@ -57,7 +59,7 @@ export const getOriginUrlApi = async (req: Request, res: Response) => {
 
     res.send(resData);
   } catch(err) {
-    let errCode = getErrCode(err);
+    let errCode: string = getErrCode(err);
     const resData: ResponseData = {
       errCode,
       errMsg: errMsgMap[errCode]

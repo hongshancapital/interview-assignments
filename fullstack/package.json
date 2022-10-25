@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "init": "sqlite3 work.db < init.sql && npm i",
-    "build": "tsc",
     "dev": "nodemon --exec ts-node ./app/app.ts",
+    "build": "tsc",
+    "start": "nohup node ./dist/app.js >> error.log 2>&1 &",
     "test": "jest",
-    "coervage": "jest --coverage"
+    "jest-coervage": "jest --coverage"
   },
   "repository": {
     "type": "git",

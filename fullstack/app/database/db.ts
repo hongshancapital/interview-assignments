@@ -1,7 +1,7 @@
 import path from 'path';
 import { verbose, Database } from 'sqlite3';
 import { DataModal } from '..';
-import { SUCCESS, PARAM_ERROR } from '../common/errCode';
+import { SUCCESS, PARAM_ERROR, DB_RUNTIME_ERROR } from '../common/errCode';
 
 const sqlite3 = verbose();
 
@@ -23,7 +23,10 @@ export const query = (data: DataModal = {}) : Promise<Array<DataModal>> => {
   return new Promise((resolve, reject) => {
     db.all(sql, (err: Error | null, rows: Array<DataModal>) => {
       if (err) {
-        reject(err);
+        // error log
+        console.log(err);
+
+        reject(DB_RUNTIME_ERROR);
       } else {
         resolve(rows);
       }
@@ -43,7 +46,10 @@ export const insert = (data: DataModal = {}) : Promise<string> => {
   return new Promise((resolve, reject) => {
     db.run(sql, [short_url, origin_url, origin_hash], ( err: Error | null ) => {
       if (err) {
-        reject(PARAM_ERROR);
+        // error log
+        console.log(err);
+
+        reject(DB_RUNTIME_ERROR);
       } else {
         resolve(SUCCESS);
       }
@@ -67,7 +73,10 @@ export const remove = (data: DataModal = {}) : Promise<Array<DataModal> | string
   return new Promise((resolve, reject) => {
     db.run(sql, ( err: Error | null ) => {
       if (err) {
-        reject(PARAM_ERROR);
+        // error log
+        console.log(err);
+
+        reject(DB_RUNTIME_ERROR);
       } else {
         resolve(SUCCESS);
       }

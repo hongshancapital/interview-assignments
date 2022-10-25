@@ -3,7 +3,7 @@ import {getShortUrlApi, getOriginUrlApi} from './route/route';
 
 const app: Application = express();
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 
 app.route('/api/shorturl')
   .get(getOriginUrlApi)
