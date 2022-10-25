@@ -1,8 +1,9 @@
-import express, { Application, Request, Response } from 'express';
-import {getShortUrlApi, getOriginUrlApi} from './route/route';
+import express, { Application } from 'express';
+import {getShortUrlApi, getOriginUrlApi} from './route/api';
 
 const app: Application = express();
 
+app.use(express.json({ type: 'application/json' }));
 app.use(express.urlencoded({ extended: false }));
 
 app.route('/api/shorturl')
@@ -10,4 +11,6 @@ app.route('/api/shorturl')
   .post(getShortUrlApi) // x-www-form-urlencoded
 ;
 
-app.listen(8080);
+const server = app.listen(8080);
+
+export { app, server };

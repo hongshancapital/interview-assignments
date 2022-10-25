@@ -32,7 +32,7 @@ export const getShortUrlApi = async (req: Request, res: Response) => {
       data: { url: shortUrl }
     };
 
-    res.send(resData);
+    res.json(resData);
   } catch(err) {
     let errCode: string = getErrCode(err);
     const resData: ResponseData = {
@@ -40,7 +40,7 @@ export const getShortUrlApi = async (req: Request, res: Response) => {
       errMsg: errMsgMap[errCode]
     };
 
-    res.send(resData);
+    res.json(resData);
   }
 
   res.status(200).end();
@@ -57,7 +57,7 @@ export const getOriginUrlApi = async (req: Request, res: Response) => {
       data: { url: originUrl }
     };
 
-    res.send(resData);
+    res.json(resData);
   } catch(err) {
     let errCode: string = getErrCode(err);
     const resData: ResponseData = {
@@ -65,7 +65,7 @@ export const getOriginUrlApi = async (req: Request, res: Response) => {
       errMsg: errMsgMap[errCode]
     };
 
-    res.send(resData);
+    res.json(resData);
   }
 
   res.status(200).end();
