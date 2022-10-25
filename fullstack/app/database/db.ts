@@ -11,17 +11,20 @@ export const query = (data: DataModal = {}) : Promise<Array<DataModal>> => {
   const { short_url, origin_hash } = data;
 
   let sql: string = 'select * from url_map where ';
+  let param: Array<string | number> = [];
 
   if (short_url) {
-    sql += '`short_url` = ' + `'${short_url}'`;
+    sql += '`short_url` = ?';
+    param.push(short_url);
   } else if (origin_hash) {
-    sql += '`origin_hash` = ' + `'${origin_hash}'`;
+    sql += '`origin_hash` = ?';
+    param.push(origin_hash);
   } else {
     return Promise.reject(PARAM_ERROR);
   }
 
   return new Promise((resolve, reject) => {
-    db.all(sql, (err: Error | null, rows: Array<DataModal>) => {
+    db.all(sql, param, (err: Error | null, rows: Array<DataModal>) => {
       if (err) {
         // error log
         console.log(err);
@@ -57,21 +60,16 @@ export const insert = (data: DataModal = {}) : Promise<string> => {
   });
 }
 
-export const remove = (data: DataModal = {}) : Promise<Array<DataModal> | string> => {
-  const { short_url, origin_hash } = data;
-
-  let sql: string = 'delete from url_map where ';
-
-  if (short_url) {
-    sql += '`short_url` = ' + `'${short_url}'`;
-  } else if (origin_hash) {
-    sql += '`origin_hash` = ' + `'${origin_hash}'`;
-  } else {
+export const removeByShortUrl = (shortUrl: string = '') : Promise<Array<DataModal> | string> => {
+  if (!shortUrl) {
     return Promise.reject(PARAM_ERROR);
   }
+
+  let sql: string = 'delete from url_map where `short_url` = ?';
+  let param: Array<string> = [ shortUrl ];
   
   return new Promise((resolve, reject) => {
-    db.run(sql, ( err: Error | null ) => {
+    db.run(sql, param, ( err: Error | null ) => {
       if (err) {
         // error log
         console.log(err);
