@@ -70,6 +70,11 @@ describe('getShortUrl function', () => {
     return expect(getShortUrl(mockOriginUrl)).rejects.toBe(DB_RUNTIME_ERROR);
   });
 
+  test('inserting does not return success', () => {
+    mockedInsert.mockImplementation(() => Promise.resolve(''));
+    return expect(getShortUrl(mockOriginUrl)).rejects.toBe(DB_RUNTIME_ERROR);
+  });
+
   test('everything is ok', () => {
     mockedInsert.mockImplementation(() => Promise.resolve(SUCCESS));
     return expect(getShortUrl(mockOriginUrl)).resolves.toBe(mockShortUrl);

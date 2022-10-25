@@ -1,7 +1,7 @@
 import mmh from '../common/mmh';
 import { encodeBase62 } from '../common/base62';
 import { addPostfix } from '../common/url';
-import { SUCCESS, NOT_FOUND, HASH_ERROR, BASE62_ERROR, DEFAULT_CODE, PARAM_ERROR } from '../common/errCode';
+import { SUCCESS, NOT_FOUND, HASH_ERROR, BASE62_ERROR, DB_RUNTIME_ERROR, PARAM_ERROR } from '../common/errCode';
 import { query, insert } from '../database/db';
 import { DataModal } from '..';
 
@@ -57,7 +57,7 @@ export const getShortUrl = async (originUrl: string) : Promise<string | any> => 
     });
 
     if (result !== SUCCESS) {
-      throw DEFAULT_CODE;
+      throw DB_RUNTIME_ERROR;
     }
 
     return Promise.resolve(shortUrl);
