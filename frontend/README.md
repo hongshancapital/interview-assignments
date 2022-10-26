@@ -1,3 +1,35 @@
+#
+- 实现了无缝滚动
+- 在幻灯片组件中调用了幻灯片组件，保持对幻灯片组件的资源数据无侵入性，符合单一职责，最少知识等原则
+- 实现了拖拽更改幻灯片，鼠标移入区域后停止自动更换，变为手动拖拽更换；移出后启动自动更换
+- 象征性的考虑到了幻灯片元素内部自定义结构，作为插槽书写在组件标签内部，更加灵活的自定义，解耦性更好（内部元素并非和.mov完全一致）
+- 象征性的考虑到幻灯片滚动的方向，切换时间间隔等主要因素（非完美版）
+- 考虑到了组件多次实例化的问题
+- 象征性的考虑到了部分ts类型声明的问题，没有全部使用any
+
+
+编译后演示地址（demo page after build）：
+https://dbx142857.gitee.io/react-carousel/
+
+其他个人作品演示集合（other personal FE demo）：
+https://www.yuque.com/docs/share/6b9d39a4-ee47-473a-846c-af75df83dbbe?# 《jack.d个人作品集汇总》
+
+
+个人微信(personal wechat id)
+dbx714285
+
+个人电话（tel）
+（+86 ）13373849087
+
+英文简历（Elglish resume）
+http://dbx142857.gitee.io/business-manage/static-files/Jack.du.pdf
+
+
+
+
+
+
+
 # TypeScript Frontend Engineer Assignment
 
 ## 要求
