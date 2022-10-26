@@ -8,6 +8,24 @@
 - 象征性的考虑到了部分ts类型声明的问题，没有全部使用any
 
 
+编译后演示地址（demo page after build）：
+https://dbx142857.gitee.io/react-carousel/
+
+其他个人作品演示集合（other personal FE demo）：
+https://www.yuque.com/docs/share/6b9d39a4-ee47-473a-846c-af75df83dbbe?# 《jack.d个人作品集汇总》
+
+
+个人微信(personal wechat id)
+dbx714285
+
+个人电话（tel）
+（+86 ）13373849087
+
+英文简历（Elglish resume）
+http://dbx142857.gitee.io/business-manage/static-files/Jack.du.pdf
+
+
+
 
 
 

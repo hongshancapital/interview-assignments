@@ -3,28 +3,30 @@ import "./Carousel.css";
 
 interface Types {
   children: React.ReactNode;
-  resourceList:Array<any>;
+  resourceList: Array<any>;
   direction?: "left" | "right";
   timeout?: number;
 }
 
 
 
-const Carousel: FC<Types> = ({ children, direction = "left", timeout = 3000,resourceList }) => {
-    
-    let timer: any = null;
-let pageWidth: number = 0;
-let disX: number = 0;
-let X: number = 0;
-let page: number = 0;
-let startX: number = 0;
-let endX: number = 0;
+const Carousel: FC<Types> = ({ children, direction = "left", timeout = 3000, resourceList }) => {
+
+  let timer: any = null;
+  let pageWidth: number = 0;
+  let disX: number = 0;
+  let X: number = 0;
+  let page: number = 0;
+  let startX: number = 0;
+  let endX: number = 0;
 
 
-    
-    {React.Children.map(children, (element:any, idx) => {
-        let el= React.cloneElement(element, { ref: idx });
-      })}
+
+  {
+    React.Children.map(children, (element: any, idx) => {
+      let el = React.cloneElement(element, { ref: idx });
+    })
+  }
   const dragBox = useRef<HTMLDivElement | null>(null);
 
   const swiper = useRef<HTMLDivElement | null>(null);
@@ -159,10 +161,10 @@ let endX: number = 0;
     fnMove();
   }, [fnOver, fnMove]);
 
-  
+
 
   return (
-    <div style={{position:'relative'}}>
+    <div style={{ position: 'relative' }}>
       <div className="swiper" ref={swiper}>
         <div className="swipers" ref={dragBox}>
           <div className="swipers-item" style={resourceList[getChildrenLength - 1].style}>
@@ -181,7 +183,7 @@ let endX: number = 0;
       <div className="pagnation" ref={pagnation}>
         {getChildren().map((item: any, index: any) => (
           <div onClick={() => fnTo(index)} key={index} className={pageIndex === index ? "active" : ""}>
-            <span style={{animation:pageIndex === index ?`myfirst ${timeout/1000}s linear`:'initial'}}></span>
+            <span style={{ animation: pageIndex === index ? `myfirst ${timeout / 1000}s linear` : 'initial' }}></span>
           </div>
         ))}
       </div>

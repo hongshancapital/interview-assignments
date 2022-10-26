@@ -7,9 +7,9 @@ import CarouselPage from './Carousel-Page/Carousel-Page'
 ReactDOM.render(
   <React.StrictMode>
     <div className='App'>
-    <CarouselPage />
+      <CarouselPage />
     </div>
-    
+
   </React.StrictMode>,
   document.getElementById('root')
 );
