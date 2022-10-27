@@ -1,0 +1,62 @@
+.carousel-slider {
+  // 占满屏幕
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  .page-wrapper {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 100%;
+
+    // 最多支持10个
+    $max-size: 9;
+    @for $index from 0 through $max-size {
+      &.translate-x-#{$index} { transform: translateX(-$index * 100vw) };  
+    }
+  }
+
+  .progress-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    bottom: 50px;
+
+    .progress-item {
+      width: 60px;
+      border-radius: 1px;
+      margin: 0 8px;
+      padding: 8px 0;
+      cursor: pointer;
+
+      .click-wrapper {
+        height: 3px;
+        background-color: #aaa;
+      }
+
+      .run-line {
+        background-color: #fff;
+        height: 100%;
+        width: 0;
+
+        &.active {
+          animation-timing-function: linear;
+          animation-name: changeWidth;
+        }
+      }
+    }
+  }
+}
+
+/* 时间线动画 */
+@keyframes changeWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}

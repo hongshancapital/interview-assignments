@@ -1,0 +1,70 @@
+.page-item {
+  position: relative;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+
+  .title-wrapper {
+    position: absolute;
+    z-index: 999;
+    padding-top: 10%;
+  }
+
+  .title {
+    margin-bottom: 20px;
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 24px;
+    margin: 0;
+    line-height: 36px;
+  }
+
+  .img {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    bottom: 100px;
+    background-size: auto 50%;
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+  }
+
+  &.phone {
+    background-color: #111111;
+    color: #ffffff;
+  }
+
+  &.tablet {
+    background-color: #fafafa;
+  }
+
+  &.airpods {
+    background-color: #f1f1f3;
+
+    p {
+      margin: 0;
+      font-size: 50px;
+      font-weight: bold;
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .page-item {
+    &.airpods {
+      .title {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 2rem;
+      }
+    }
+  }
+}
