@@ -1,8 +1,13 @@
 import React from "react";
+import { Carousel, CarouselItem } from "./components";
 import "./App.css";
 
-function App() {
-  return <div className="App">{/* write your component here */}</div>;
+function App({ carouselItems }: { carouselItems: CarouselItem[] }) {
+  return (
+    <div className='App'>
+      <Carousel data={carouselItems} />
+    </div>
+  );
 }
 
 export default App;
