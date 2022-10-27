@@ -10,7 +10,7 @@ interface Props {
 }
 
 const defaultIntervel = 4000
-const getWidth = (num: number) => num * 100 + 'vw'
+const getWidth = (num: number) => num * 100 + '%'
 
 const Carousel = (props: Props) => {
     const {
@@ -26,7 +26,7 @@ const Carousel = (props: Props) => {
     const style = useMemo(() => {
         return {
             width: getWidth(length),
-            transform: `translateX(-${getWidth(currentIndex)})`
+            left: `-${getWidth(currentIndex)}`
         }
     }, [length, currentIndex])
 

@@ -10,23 +10,26 @@ function App() {
   return (
     <div className="App">
       <Carousel interval={3000} activeIndex={0}>
-        <section className="item item1" key="item1">
+        <section className="item item1" style={{ backgroundImage: `url(${iphoneUrl})`}} key="item1">
           <em className="item-title">xPhone</em>
-          <span className="item-content">Lots to love. Less to spend.</span>
-          <span className="item-content">Starting at $399</span>
-          <img className="item-image" width="100" height="100" src={iphoneUrl} alt="xPhone" />
+          <span className="item-content">
+            Lots to love. Less to spend.<br />
+            Starting at $399
+          </span>
         </section>
 
-        <section className="item item2" key="item2">
+        <section className="item item2" style={{ backgroundImage: `url(${tabletUrl})` }} key="item2">
           <em className="item-title">Tablet</em>
-          <p className="item-content">Just the right amount of everything</p>
-          <img className="item-image" width="100" height="100" src={tabletUrl} alt="Tablet" />
+          <span className="item-content">
+            Just the right amount of everything
+          </span>
         </section>
 
-        <section className="item item3" key="item3">
-          <em className="item-title">Buy a Table or xPhone for college.</em>
-          <em className="item-title">Get airPods</em>
-          <img className="item-image" width="100" height="100" src={airpodsUrl} alt="airPods" />
+        <section className="item item3" style={{ backgroundImage: `url(${airpodsUrl})` }} key="item3">
+          <em className="item-title">
+            Buy a Table or xPhone for college.<br/>
+            Get airPods
+          </em>
         </section>
       </Carousel>
     </div>

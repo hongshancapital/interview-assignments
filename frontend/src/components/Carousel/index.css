@@ -1,16 +1,17 @@
 .carousel {
     position: relative;
-    width: 100vw;
     height: 100vh;
     overflow: hidden;
 }
 
 .carousel-inner {
+    position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
-    transition: transform ease-in-out .5s;
+    left: 0;
+    transition: left ease-in-out .5s;
 }
 
 .carousel-item {
@@ -22,7 +23,7 @@
 
 .slick-list {
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
 }
