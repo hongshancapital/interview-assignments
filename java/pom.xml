@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.sequoia</groupId>
+	<artifactId>interview-demo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>interview-demo</name>
+	<description>demo for sequoia inteview</description>
+	<properties>
+	<java.version>1.8</java.version>
+	<jacoco.version>0.8.3</jacoco.version>
+</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!--swagger-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>${jacoco.version}</version>
+		</dependency>
+	</dependencies>
+
+	<!--<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>-->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+					<dataFile>target/jacoco.exec</dataFile>
+					<outputDirectory>target/jacoco-ut</outputDirectory>
+                    <!--<excludes>
+						<exclude>**/model/**</exclude>
+						<exclude>**/controller/**</exclude>
+						<exclude>**/domain/impl/CounterShortLinkHandler.*</exclude>
+						<exclude>**/common/Config.*</exclude>
+						<exclude>**/common/Result.*</exclude>
+					</excludes>-->
+					<includes>
+						<include>**/controller/**</include>
+						<include>**/service/**</include>
+						<include>**/utils/**</include>
+					</includes>
+
+					<rules>
+						<rule implementation="org.jacoco.maven.RuleConfiguration">
+							<element>BUNDLE</element>
+							<limits>　　
+								<!-- 指定方法覆盖到50% -->
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>METHOD</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>0.85</minimum>
+								</limit>
+								<!-- 指定分支覆盖到50% -->
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>BRANCH</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>0.85</minimum>
+								</limit>
+								<!-- 指定类覆盖到100%，不能遗失任何类 -->
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>CLASS</counter>
+									<value>MISSEDCOUNT</value>
+									<maximum>0</maximum>
+								</limit>
+							</limits>
+						</rule>
+					</rules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
