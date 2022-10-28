@@ -56,6 +56,6 @@ class AppsViewModel: ObservableObject {
     func favoriteApp(_ app: AppModel, _ isFavorite: Bool) {
         let appModel = DataManager.shared.favoriteApp(app, isFavorite)
         let index = self.apps.firstIndex(where: {$0.id == appModel.id})!
-        self.apps[index] = appModel
+        self.apps[index].isFavorite = appModel.isFavorite
     }
 }

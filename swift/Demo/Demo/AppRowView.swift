@@ -9,8 +9,8 @@ import SwiftUI
 
 struct AppRowView: View {
     @EnvironmentObject var viewModel: AppsViewModel
-    var app: AppModel
-    
+    @State var app: AppModel
+
     var body: some View {
         HStack {
             WebImage(url: app.artworkUrl60)
@@ -32,9 +32,13 @@ struct AppRowView: View {
             
             Image(systemName:app.isFavorite ? "suit.heart.fill" : "suit.heart")
                 .foregroundColor(app.isFavorite ? .red : .gray)
-                .scaleEffect(CGFloat(app.isFavorite ? 1.2 : 1))
+                .scaleEffect(CGFloat(app.isFavorite ? 1.4 : 1))
+                .animation(.interactiveSpring(), value: app.isFavorite)
                 .onTapGesture {
-                    self.viewModel.favoriteApp(self.app, !self.app.isFavorite)
+                    //  BUG: 修改数据源 会触发Publisher 刷新整行 无法产生动画
+//                    self.viewModel.favoriteApp(self.app, !self.app.isFavorite)
+                    // 局部刷新有动画 数据源如何修改？
+                    self.app.isFavorite = !self.app.isFavorite
                 }
         }
     }
