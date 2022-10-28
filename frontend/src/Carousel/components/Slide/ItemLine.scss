@@ -1,0 +1,23 @@
+.line-item {
+    display: inline-flex;
+    width: 36px;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #a9a9a9;
+    margin: 0 5px;
+    position: relative;
+    .progress {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: inline-flex;
+        width: 0;
+        height: 3px;
+        border-radius: 2px;
+        transition: width 3s;
+        &.actived {
+          width: 36px;
+          background-color: #fafafa;
+        }
+    }
+}
