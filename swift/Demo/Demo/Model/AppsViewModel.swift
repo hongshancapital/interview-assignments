@@ -12,6 +12,7 @@ class AppsViewModel: ObservableObject {
     @Published var apps: [AppModel] = []
     @Published var isRefreshing: Bool = false
     @Published var isLoadMore: Bool = false
+    @Published var favorites: [Int] = []
     
     let pageSize = 20
     var pageIndex = 0
@@ -54,8 +55,16 @@ class AppsViewModel: ObservableObject {
     }
     
     func favoriteApp(_ app: AppModel, _ isFavorite: Bool) {
-        let appModel = DataManager.shared.favoriteApp(app, isFavorite)
-        let index = self.apps.firstIndex(where: {$0.id == appModel.id})!
-        self.apps[index].isFavorite = appModel.isFavorite
+        DataManager.shared.favoriteApp(app, isFavorite)
+        if let index = favorites.firstIndex(of: app.id) {
+            favorites.remove(at: index)
+        } else {
+            favorites.append(app.id)
+        }
+    }
+    
+    func isFavorite(_ app: AppModel) -> Bool {
+        let ret = favorites.firstIndex(of: app.id) != nil
+        return ret
     }
 }

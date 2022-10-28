@@ -54,7 +54,8 @@ final class DataManager {
         }
     }
     
-    func favoriteApp(_ app: AppModel, _ isFavorite: Bool) -> AppModel {
+    
+   @discardableResult func favoriteApp(_ app: AppModel, _ isFavorite: Bool) -> AppModel {
         guard let index = appModels.firstIndex(where: {$0.id == app.id}) else {
             return app
         }

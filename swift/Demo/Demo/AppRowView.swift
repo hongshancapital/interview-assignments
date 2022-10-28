@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct AppRowView: View {
-    @EnvironmentObject var viewModel: AppsViewModel
-    @State var app: AppModel
-
+    var app: AppModel
+    var isFavorite: Bool
+    var toggleFavorite: (_ app: AppModel) -> Void
+    
     var body: some View {
         HStack {
             WebImage(url: app.artworkUrl60)
@@ -30,15 +31,12 @@ struct AppRowView: View {
             
             Spacer()
             
-            Image(systemName:app.isFavorite ? "suit.heart.fill" : "suit.heart")
-                .foregroundColor(app.isFavorite ? .red : .gray)
-                .scaleEffect(CGFloat(app.isFavorite ? 1.4 : 1))
-                .animation(.interactiveSpring(), value: app.isFavorite)
+            Image(systemName:isFavorite ? "suit.heart.fill" : "suit.heart")
+                .foregroundColor(isFavorite ? .red : .gray)
+                .scaleEffect(CGFloat(isFavorite ? 1.4 : 1))
+                .animation(.interactiveSpring(), value: isFavorite)
                 .onTapGesture {
-                    //  BUG: 修改数据源 会触发Publisher 刷新整行 无法产生动画
-//                    self.viewModel.favoriteApp(self.app, !self.app.isFavorite)
-                    // 局部刷新有动画 数据源如何修改？
-                    self.app.isFavorite = !self.app.isFavorite
+                    toggleFavorite(self.app)
                 }
         }
     }
@@ -47,8 +45,12 @@ struct AppRowView: View {
 struct AppRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AppRowView(app: DataManager.shared.appModels[0])
-            AppRowView(app: DataManager.shared.appModels[1])
+            AppRowView(app: DataManager.shared.appModels[0], isFavorite: DataManager.shared.appModels[0].isFavorite, toggleFavorite: { app in
+                DataManager.shared.favoriteApp(app, !app.isFavorite)
+            })
+            AppRowView(app: DataManager.shared.appModels[1], isFavorite: DataManager.shared.appModels[0].isFavorite, toggleFavorite: { app in
+                DataManager.shared.favoriteApp(app, !app.isFavorite)
+            })
         }
     }
 }

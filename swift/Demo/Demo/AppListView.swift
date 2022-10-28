@@ -35,9 +35,11 @@ struct AppListView: View {
                 List {
                     ForEach(viewModel.apps, id: \.self) { app in
                         LazyVStack(alignment: .leading) {
-                            AppRowView(app: app)
-                                .environmentObject(viewModel)
-                                .padding(12)
+                            AppRowView(app: app, isFavorite: viewModel.isFavorite(app), toggleFavorite: { app in
+                                viewModel.favoriteApp(app, !app.isFavorite)
+                            })
+                            .environmentObject(viewModel)
+                            .padding(12)
                         }
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.bgColor)
