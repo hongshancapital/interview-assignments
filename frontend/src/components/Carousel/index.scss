@@ -1,0 +1,76 @@
+@keyframes loading {
+  from {
+    border-left: #FFF solid 0px;
+  }
+
+  to {
+    border-left: #FFF solid 46px;
+  }
+}
+
+.carousel-wrap {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  .carousel-item {
+    width: 100%;
+    height: 100%;
+    padding-top: 12vh;
+    position: absolute;
+    top: 0;
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: center;
+    transition: left 0.5s linear;
+
+    @for $i from -10 through 10 {
+      &.screen-#{$i} { left: 100% * $i; }
+    }
+
+    &::after {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      content: '';
+      display: block;
+      z-index: -1;
+      background-image: inherit;
+    }
+
+    p.title {
+      font-size: 52px;
+      margin-bottom: 12px;
+    }
+
+    p.sub-title {
+      margin-top: 6px;
+      font-size: 22px;
+    }
+  }
+
+
+  .dots-wrap {
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    bottom: 12vh;
+
+    .dots-item {
+      display: inline-block;
+      background-color: #CCC;
+      height: 100%;
+      width: 46px;
+      margin: 0 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      box-sizing: border-box;
+
+      &.active-dots {
+        animation: loading linear;
+      }
+    }
+  }
+}
