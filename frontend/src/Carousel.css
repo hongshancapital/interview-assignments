@@ -26,6 +26,12 @@
     background-color: #d3d3de;
     overflow: hidden;
 }
+.carousel-dot__wrapper {
+    /* 扩大可点击区域 */
+    padding: 8px 0;
+    cursor: pointer;
+    transition: transform .3s;
+}
 .carousel-dot__progress {
     content: '';
     display: block;
@@ -37,6 +43,10 @@
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     animation-fill-mode: backwards;
+    transition: transform .3s;
+}
+.carousel-dot__wrapper:hover {
+    transform: scaleY(4);
 }
 .carousel-dot__active .carousel-dot__progress  {
     animation-name: slidein;

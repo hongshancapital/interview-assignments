@@ -6,6 +6,7 @@ export default function useInterval(callback: () => void, delay: number) {
     const timer = useRef<number>();
     let startTime = useRef(0);
     let consumeTime = useRef(0);
+    const [stop, setStop] = useState(false);
 
     useLayoutEffect(() => {
         savedCallback.current = callback
@@ -16,10 +17,19 @@ export default function useInterval(callback: () => void, delay: number) {
         if (!delay && delay !== 0) {
             return;
         }
+        
         if (paused) {
+            console.log('paused', paused, 'stop', stop)
+            if (stop) {
+                clearInterval(timer.current);
+                startTime.current = 0;
+                consumeTime.current = 0;
+                return;
+            }
             clearInterval(timer.current);
             consumeTime.current = consumeTime.current + Date.now() - startTime.current;
         } else if (consumeTime.current) {
+            console.log('consume', consumeTime.current, stop)
             timer.current = window.setTimeout(() => {
                 savedCallback.current();
                 startTime.current = Date.now();
@@ -31,6 +41,9 @@ export default function useInterval(callback: () => void, delay: number) {
             }, delay - consumeTime.current);
             startTime.current = Date.now();
         } else {
+            if (stop) {
+                setStop(false);
+            }
             timer.current = window.setInterval(() => {
                 startTime.current = Date.now();
                 savedCallback.current();
@@ -40,7 +53,7 @@ export default function useInterval(callback: () => void, delay: number) {
         return () => {
             clearInterval(timer.current)
         };
-    }, [delay, paused]);
+    }, [delay, paused, stop]);
 
 
     return {
@@ -51,5 +64,11 @@ export default function useInterval(callback: () => void, delay: number) {
             setPause(false);
         },
         paused,
+        stop: () => {
+            setStop(true);
+        },
+        start: () => {
+            setStop(false);
+        }
     }
 }
