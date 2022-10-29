@@ -1,5 +1,11 @@
 # TypeScript Frontend Engineer Assignment
 
+## 一点说明
+
+- 提供的图片尺寸不一样，没有额外切图，暂时使用 `background-size: cover` 覆盖所有区域
+- 使用 CSS 实现的进度条
+- 额外实现了一个定时器的 pause 和 resume 功能，可以用来实现 hover 暂停滚动的效果
+
 ## 要求
 
 - 实现 demo.mov 中的效果

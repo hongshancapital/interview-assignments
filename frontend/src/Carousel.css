@@ -1,0 +1,55 @@
+.carousel {
+    overflow: hidden;
+}
+.carousel__wrapper {
+    display: flex;
+    position: relative;
+    overflow: visible;
+    transition: transform 0.3s ease-in-out;
+}
+.carousel__page {
+    flex: 1 0 100%;
+}
+
+.carousel__dots {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+}
+.carousel-dot {
+    width: 40px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #d3d3de;
+    overflow: hidden;
+}
+.carousel-dot__progress {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 1px;
+    background-color: #ffffff;
+    transform: translateX(-100%);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: backwards;
+}
+.carousel-dot__active .carousel-dot__progress  {
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+.carousel-dot__pause .carousel-dot__progress {
+    animation-play-state: paused;
+}
