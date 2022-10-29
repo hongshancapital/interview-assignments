@@ -1,0 +1,60 @@
+.carousel {
+  /* width: 700px; */
+  /* background: rgb(54, 77, 121); */
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-panel {
+  /* overflow: hidden; */
+  white-space: nowrap;
+  box-sizing: border-box;
+  transition: all 0.5s;
+}
+
+.carousel-item {
+  min-width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.carousel-indicator {
+  overflow: hidden;
+  display: inline-block;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-indicator .indicator {
+  width: 30px;
+  height: 4px;
+  border-radius: 2px;
+  margin-left: 6px;
+  background-color: gray;
+  user-select: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.carousel-indicator .indicator .active {
+  width: 0%;
+  height: 100%;
+  background-color: #fff;
+  float: left;
+  animation-fill-mode: forwards;
+  animation-name: progress;
+  animation-iteration-count: 1;
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
