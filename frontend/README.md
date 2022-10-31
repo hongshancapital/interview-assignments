@@ -6,7 +6,8 @@
 - 使用 CSS 实现的进度条
 - 鼠标悬浮暂停播放
 - 鼠标点击底部dot，可以选择任意页面跳转
-- 根据自己想要的额外功能，写了一个不太完美的定时器，提供 pause resume stop 的功能
+- 根据自己想要的额外功能，写了一个定时器 Hook `useInterval`，提供 pause resume stop 功能
+- 单测以 `useInterval` 为主
 
 ## 要求
 
