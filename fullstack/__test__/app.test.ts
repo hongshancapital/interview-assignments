@@ -1,12 +1,11 @@
 import request from "supertest";
 import {app} from "../src/app";
-import {controller, mysqlPool, redis} from "../src/bootstrap";
+import {controller, mysqlPool, redis, close} from "../src/bootstrap";
 
 describe("app test", () => {
 
   afterAll(async () => {
-    await mysqlPool.end();
-    await redis.disconnect();
+    await close()
   })
 
   test("get success", async () => {

@@ -1,12 +1,12 @@
 import Redis from "ioredis";
 import {Cache} from "../cache";
-import {redis} from "../bootstrap";
+import {redis, close} from "../bootstrap";
 
 describe("cache test", () => {
   const cache = new Cache(redis);
 
   afterAll(async () => {
-    await redis.disconnect()
+    await close()
   })
 
   test('cache set', async () => {

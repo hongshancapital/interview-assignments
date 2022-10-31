@@ -26,4 +26,9 @@ const cache = new Cache(redis);
 const idTranslator = new IdTranslator();
 const controller = new Controller(dbAccess, cache, idTranslator);
 
-export {controller, redis, mysqlPool};
+async function close() {
+  await mysqlPool.end();
+  await redis.disconnect();
+}
+
+export {controller, redis, mysqlPool, close};
