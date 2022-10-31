@@ -1,5 +1,15 @@
 # TypeScript Frontend Engineer Assignment
 
+## 一点说明
+
+- 提供的图片尺寸不一样，没有额外切图，暂时使用 `background-size: cover` 覆盖所有区域
+- 使用 CSS 实现的进度条
+- 鼠标悬浮暂停播放
+- 鼠标点击底部dot，可以选择任意页面跳转
+- 根据自己想要的额外功能，写了一个定时器 Hook `useInterval`，提供 pause resume stop 功能
+- 单测以 `useInterval` 为主
+- 包管理工具使用的 `pnpm`，不影响功能
+
 ## 要求
 
 - 实现 demo.mov 中的效果
