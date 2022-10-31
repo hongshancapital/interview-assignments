@@ -5,7 +5,7 @@
 - 使用 SwiftUI 实现 [demo.mov](demo.mov) 中的效果
 - Mock API 请求, 数据可参考 [Link](https://itunes.apple.com/search?entity=software&limit=50&term=chat)
 - 撰写相应的 UnitTest
-- **按实际工作标准提交代码（如正确缩进、去掉无用代码等）**
+- **按实际工作标准提交（如正确缩进、去掉无用代码等）**
 
 ## 加分项
 
