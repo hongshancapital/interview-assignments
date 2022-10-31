@@ -1,0 +1,43 @@
+.carousel {
+  width: 100vw;
+  height: 56.25vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel__container {
+  position: absolute;
+  height: 100%;
+}
+
+.carousel__container > div {
+  width: 100vw;
+  padding: 10vw 0;
+  height: calc(100% - 20vw);
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  float: left;
+}
+
+.carousel__container__dots {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 30px;
+  padding: 0;
+}
+.carousel__container__dots li {
+  margin: 0 5px;
+  list-style-type: none;
+  width: 40px;
+  height: 2px;
+  background-color: #999999;
+}
+
+.carousel__container__dots li > div {
+  background-color: #f9f9f9;
+  height: 100%;
+}
