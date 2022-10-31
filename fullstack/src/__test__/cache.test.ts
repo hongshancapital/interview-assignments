@@ -1,12 +1,12 @@
 import Redis from "ioredis";
 import {Cache} from "../cache";
+import {redis} from "../bootstrap";
 
 describe("cache test", () => {
-  const client = new Redis();
-  const cache = new Cache(client);
+  const cache = new Cache(redis);
 
   afterAll(async () => {
-    await client.disconnect()
+    await redis.disconnect()
   })
 
   test('cache set', async () => {
@@ -14,9 +14,16 @@ describe("cache test", () => {
   });
 
   test('cache get', async () => {
-    await client.setex('test2', 1, '1');
+    await redis.setex('test2', 1, '1');
     const v = await cache.get('test2');
     expect(v).toBe('1');
   });
+
+  test('cache remove', async () => {
+    await redis.set('test3', 1);
+    await cache.remove('test3');
+    const v = await redis.get('test3');
+    expect(v).toBeNull();
+  })
 })
 

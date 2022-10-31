@@ -1,22 +1,17 @@
 import {createPool} from "mysql";
 import {DbAccess} from "../db-access";
+import {mysqlPool} from "../bootstrap";
 
 describe("db-access test", () => {
-  const pool = createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'short_url'
-  })
-  const dbAccess = new DbAccess(pool);
+  const dbAccess = new DbAccess(mysqlPool);
 
   afterAll(async () => {
-    pool.end();
+    mysqlPool.end();
   })
 
   afterEach(async () => {
     return new Promise((resolve, reject) => {
-      pool.query('DELETE FROM short_url_info', (err, results) => {
+      mysqlPool.query('DELETE FROM short_url_info', (err, results) => {
         err ? reject(err) : resolve(results)
       })
     })

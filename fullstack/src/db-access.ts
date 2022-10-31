@@ -1,6 +1,5 @@
-import {Pool} from "mysql";
-
-const crypto = require('crypto');
+import {Pool} from 'mysql';
+import crypto from 'crypto';
 
 /**
  * 数据访问
