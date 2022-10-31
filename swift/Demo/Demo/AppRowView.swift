@@ -45,11 +45,15 @@ struct AppRowView: View {
 struct AppRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AppRowView(app: DataManager.shared.appModels[0], isFavorite: DataManager.shared.appModels[0].isFavorite, toggleFavorite: { app in
-                DataManager.shared.favoriteApp(app, !app.isFavorite)
+            AppRowView(app: NetWorkManager.shared.mockBackendApps[0], isFavorite: NetWorkManager.shared.mockBackendApps[0].isFavorite, toggleFavorite: { app in
+                Task {
+                    try? await NetWorkManager.shared.favoriteRequest(app, !app.isFavorite)
+                }
             })
-            AppRowView(app: DataManager.shared.appModels[1], isFavorite: DataManager.shared.appModels[0].isFavorite, toggleFavorite: { app in
-                DataManager.shared.favoriteApp(app, !app.isFavorite)
+            AppRowView(app: NetWorkManager.shared.mockBackendApps[1], isFavorite: NetWorkManager.shared.mockBackendApps[0].isFavorite, toggleFavorite: { app in
+                Task {
+                    try? await NetWorkManager.shared.favoriteRequest(app, !app.isFavorite)
+                }
             })
         }
     }

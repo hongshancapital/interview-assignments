@@ -21,10 +21,22 @@ class AppsViewModel: ObservableObject {
         pageIndex = 0
         self.isRefreshing = true
         Task {
-            let models = await DataManager.shared.fetchApps(pageSize, self.pageIndex)
-            await MainActor.run {
-                self.apps = models
-                self.isRefreshing = false
+            do {
+                let models = try await NetWorkManager.shared.fetchApps(pageSize, self.pageIndex)
+                await MainActor.run {
+                    self.apps = models
+                    self.isRefreshing = false
+                }
+            } catch NetworkError.badPageIndex {
+                // do somthing
+                await MainActor.run {
+                    self.isRefreshing = false
+                }
+            } catch {
+                // do somthing
+                await MainActor.run {
+                    self.isRefreshing = false
+                }
             }
         }
     }
@@ -33,14 +45,38 @@ class AppsViewModel: ObservableObject {
         pageIndex += 1
         self.isLoadMore = true
         Task {
-            let models = await DataManager.shared.fetchApps(pageSize, self.pageIndex)
-            await MainActor.run {
-                self.apps.append(contentsOf: models)
-                self.isLoadMore = false
+            do {
+                let models = try await NetWorkManager.shared.fetchApps(pageSize, self.pageIndex)
+                await MainActor.run {
+                    self.apps.append(contentsOf: models)
+                    self.isLoadMore = false
+                }
+            } catch {
+                // do somthing
+                await MainActor.run {
+                    self.isLoadMore = false
+                }
             }
         }
     }
     
+    func favoriteApp(_ app: AppModel, _ isFavorite: Bool) async {
+        do {
+            let respAppModel = try await NetWorkManager.shared.favoriteRequest(app, isFavorite)
+            await MainActor.run {
+                if respAppModel.isFavorite {
+                    addFavorite(app)
+                } else {
+                    removeFavorite(app)
+                }
+            }
+        } catch {
+            // do somthing
+        }
+    }
+}
+
+extension AppsViewModel {
     func itemOnAppear(_ app: AppModel) {
         if isLastItem(app) {
             self.loadMoreApps()
@@ -54,17 +90,19 @@ class AppsViewModel: ObservableObject {
         return self.apps.last?.id == app.id
     }
     
-    func favoriteApp(_ app: AppModel, _ isFavorite: Bool) {
-        DataManager.shared.favoriteApp(app, isFavorite)
-        if let index = favorites.firstIndex(of: app.id) {
-            favorites.remove(at: index)
-        } else {
+    func addFavorite(_ app: AppModel) {
+        if favorites.firstIndex(of: app.id) == nil {
             favorites.append(app.id)
         }
     }
     
+    func removeFavorite(_ app: AppModel) {
+        if let index = favorites.firstIndex(of: app.id) {
+            favorites.remove(at: index)
+        }
+    }
+        
     func isFavorite(_ app: AppModel) -> Bool {
-        let ret = favorites.firstIndex(of: app.id) != nil
-        return ret
+        return favorites.firstIndex(of: app.id) != nil
     }
 }

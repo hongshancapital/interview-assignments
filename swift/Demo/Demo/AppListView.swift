@@ -36,7 +36,9 @@ struct AppListView: View {
                     ForEach(viewModel.apps, id: \.self) { app in
                         LazyVStack(alignment: .leading) {
                             AppRowView(app: app, isFavorite: viewModel.isFavorite(app), toggleFavorite: { app in
-                                viewModel.favoriteApp(app, !app.isFavorite)
+                                Task {
+                                    await viewModel.favoriteApp(app, !viewModel.isFavorite(app))
+                                }
                             })
                             .environmentObject(viewModel)
                             .padding(12)

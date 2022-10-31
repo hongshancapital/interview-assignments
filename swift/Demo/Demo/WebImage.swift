@@ -24,9 +24,15 @@ struct WebImage: View {
     
     func loadImage() {
         Task {
-            let img = await ImageLoader.shared.loadImage(url: url)
-            await MainActor.run {
-                self.image = img
+            do {
+                let img = try await ImageLoader.shared.loadImage(url: url)
+                await MainActor.run {
+                    self.image = img
+                }
+            } catch {
+                await MainActor.run {
+                    self.image = UIImage() // placeholder
+                }
             }
         }
     }
@@ -34,6 +40,6 @@ struct WebImage: View {
 
 struct WebImage_Previews: PreviewProvider {
     static var previews: some View {
-        WebImage(url: DataManager.shared.appModels.first!.artworkUrl60)
+        WebImage(url: NetWorkManager.shared.mockBackendApps.first!.artworkUrl60)
     }
 }
