@@ -20,7 +20,7 @@ export class Controller {
 
   async getUrl(shortUrl: string): Promise<string | null> {
     const id = this.idTranslator.decode(shortUrl);
-    if(!id) {
+    if (!id) {
       return null;
     }
 
@@ -31,7 +31,6 @@ export class Controller {
 
     url = await this.dbAccess.getUrlById(id);
     //不管数据库是否存在，都缓存一下，防止不存在的 url 造成数据库压力
-    //todo:缓存过期时间移到配置文件
     await this.cache.set(id.toString(), url || '', Controller.CACHE_TIME);
 
     return url;
@@ -39,7 +38,7 @@ export class Controller {
 
   async saveUrl(url: string): Promise<string> {
     const exists = await this.dbAccess.getIdByUrl(url);
-    if(exists) {
+    if (exists) {
       return this.idTranslator.encode(exists);
     }
 

@@ -24,23 +24,23 @@ describe("controller test", () => {
 
   });
 
-    test('getUrl decode return null', async () => {
-      (idTranslator.decode as jest.MockedFunction<typeof idTranslator.decode>).mockReturnValue(null);
-        const v = await controller.getUrl('test');
-        expect(v).toBeNull();
-        expect(idTranslator.decode).toBeCalledWith('test');
-    });
+  test('getUrl decode return null', async () => {
+    (idTranslator.decode as jest.MockedFunction<typeof idTranslator.decode>).mockReturnValue(null);
+    const v = await controller.getUrl('test');
+    expect(v).toBeNull();
+    expect(idTranslator.decode).toBeCalledWith('test');
+  });
 
-    test('getUrl has cache', async () => {
-      const e = 'https://baidu.com';
-      (idTranslator.decode as jest.MockedFunction<typeof idTranslator.decode>).mockReturnValue(1);
-      (cache.get as jest.MockedFunction<typeof cache.get>).mockResolvedValue(e);
+  test('getUrl has cache', async () => {
+    const e = 'https://baidu.com';
+    (idTranslator.decode as jest.MockedFunction<typeof idTranslator.decode>).mockReturnValue(1);
+    (cache.get as jest.MockedFunction<typeof cache.get>).mockResolvedValue(e);
 
-      const v = await controller.getUrl('test');
-      expect(v).toBe(e);
-      expect(idTranslator.decode).toBeCalledWith('test');
-      expect(cache.get).toBeCalledWith('1');
-    });
+    const v = await controller.getUrl('test');
+    expect(v).toBe(e);
+    expect(idTranslator.decode).toBeCalledWith('test');
+    expect(cache.get).toBeCalledWith('1');
+  });
 
   test('getUrl no cache, no db result', async () => {
     (idTranslator.decode as jest.MockedFunction<typeof idTranslator.decode>).mockReturnValue(1);

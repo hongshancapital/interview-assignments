@@ -5,6 +5,7 @@ import Hashids from "hashids";
  */
 export class IdTranslator {
   private hashids: Hashids;
+
   constructor(salt: string = '') {
     this.hashids = new Hashids(salt, 5);
   }

@@ -7,10 +7,10 @@ app.post('/set', async (req: Request, res: Response) => {
   const url = req.query.url as string;
   //TODO 校验是否是url
   if (!url) {
-    return res.status(400).json({ message: 'url is required' });
+    return res.status(400).json({message: 'url is required'});
   }
   const shortUrl = await controller.saveUrl(url);
-  res.json({ shortUrl });
+  res.json({shortUrl});
 })
 
 app.get('/:shortUrl', async (req: Request, res: Response) => {
