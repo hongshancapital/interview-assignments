@@ -8,6 +8,7 @@
 - 鼠标点击底部dot，可以选择任意页面跳转
 - 根据自己想要的额外功能，写了一个定时器 Hook `useInterval`，提供 pause resume stop 功能
 - 单测以 `useInterval` 为主
+- 包管理工具使用的 `pnpm`，不影响功能
 
 ## 要求
 
