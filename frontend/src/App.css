@@ -1,14 +1,124 @@
-.App {
+@import "components/Carousel/carousel.css";
+
+@media (min-width: 0) and (max-width: 670px) {
+  :root {
+    --carousel-height: 100vh;
+    --carousel-width: 100%;
+  }
+
+  img {
+    bottom: 60px;
+  }
+}
+
+@media (min-width: 671px) and (max-width: 1200px) {
+  :root {
+    --carousel-height: 600px;
+    --carousel-width: 100%;
+  }
+
+  img {
+    bottom: 80px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --carousel-height: 778px;
+    --carousel-width: 100%;
+  }
+
+  img {
+    bottom: 100px;
+  }
+}
+
+.x-phone, .tablet, .ar-pods {
+  position: relative;
+  color: #000;
+}
+
+img {
+  position: absolute;
+  object-fit: scale-down;
+  object-position: bottom;
+  width: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.x-phone {
+  background-color: #101010;
+  color: #fff;
+}
+
+.tablet {
+  background-color: #fafafa;
+}
+
+.ar-pods {
+  background-color: #f2f2f4;
+}
+
+.info {
+  margin-top: 120px;
   text-align: center;
+  white-space: pre-wrap;
+}
+
+.info h1 {
+  font-size: 50px;
+  margin: 0 0 20px;
+}
+
+.info p {
+  font-size: 26px;
+  margin: 0;
+}
+
+.container {
   position: relative;
 }
 
-.title {
-  font-size: 56px;
-  font-weight: 600;
+.navigation {
+  display: flex;
+  justify-content: center;
+  height: 2px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
 }
 
-.text {
-  font-size: 28px;
-  font-weight: 400;
+.navigation .bar {
+  background-color: #a9a9a9;
+  width: 40px;
+  cursor: pointer;
+}
+
+.navigation .bar:nth-child(2) {
+  margin: 0 8px;
+}
+
+.navigation .bar-progress {
+  background-color: #fafafa;
+  width: 0;
+  height: 100%;
+}
+
+.navigation .in-progress {
+  animation-duration: 3s;
+  animation-name: progress;
+  animation-timing-function: linear;
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }

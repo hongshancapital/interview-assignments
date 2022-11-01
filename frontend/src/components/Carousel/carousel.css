@@ -1,0 +1,35 @@
+:root {
+  --carousel-height: 300px;
+  --carousel-width: 400px;
+}
+
+.carousel-wrapper {
+  width: var(--carousel-width);
+  height: var(--carousel-height);
+  overflow: hidden;
+}
+
+.carousel-content {
+  height: 100%;
+  display: flex;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.paper {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.paper .paper-content {
+  height: 100%;
+}
+
+.paper .floating-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
