@@ -5,7 +5,7 @@ import {Cache} from "./cache"
 /**
  * 控制器
  */
-export class Controller {
+export class Service {
   private dbAccess: DbAccess;
   private cache: Cache;
   private idTranslator: IdTranslator;
@@ -31,7 +31,7 @@ export class Controller {
 
     url = await this.dbAccess.getUrlById(id);
     //不管数据库是否存在，都缓存一下，防止不存在的 url 造成数据库压力
-    await this.cache.set(id.toString(), url || '', Controller.CACHE_TIME);
+    await this.cache.set(id.toString(), url || '', Service.CACHE_TIME);
 
     return url;
   }
@@ -43,7 +43,7 @@ export class Controller {
     }
 
     const id = await this.dbAccess.save(url);
-    await this.cache.set(id.toString(), url, Controller.CACHE_TIME);
+    await this.cache.set(id.toString(), url, Service.CACHE_TIME);
     return this.idTranslator.encode(id);
   }
 }

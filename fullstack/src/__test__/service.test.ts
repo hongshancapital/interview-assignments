@@ -1,7 +1,7 @@
 import {DbAccess} from "../db-access";
 import {IdTranslator} from "../id-translator";
 import {Cache} from "../cache"
-import {Controller} from "../controller";
+import {Service} from "../service";
 
 jest.mock('../db-access');
 jest.mock('../id-translator');
@@ -10,11 +10,11 @@ const DbAccessMock = DbAccess as jest.MockedClass<typeof DbAccess>;
 const IdTranslatorMock = IdTranslator as jest.MockedClass<typeof IdTranslator>;
 const CacheMock = Cache as jest.MockedClass<typeof Cache>;
 
-describe("controller test", () => {
+describe("service test", () => {
   const dbAccess = jest.mocked(new DbAccess({} as any));
   const cache = jest.mocked(new Cache({} as any));
   const idTranslator = jest.mocked(new IdTranslator());
-  const controller = new Controller(dbAccess, cache, idTranslator);
+  const service = new Service(dbAccess, cache, idTranslator);
 
   beforeEach(() => {
     DbAccessMock.mockClear();
@@ -24,7 +24,7 @@ describe("controller test", () => {
 
   test('getUrl decode return null', async () => {
     idTranslator.decode.mockReturnValue(null);
-    const v = await controller.getUrl('test');
+    const v = await service.getUrl('test');
     expect(v).toBeNull();
     expect(idTranslator.decode).toBeCalledWith('test');
   });
@@ -34,7 +34,7 @@ describe("controller test", () => {
     idTranslator.decode.mockReturnValue(1);
     cache.get.mockResolvedValue(e);
 
-    const v = await controller.getUrl('test');
+    const v = await service.getUrl('test');
     expect(v).toBe(e);
     expect(idTranslator.decode).toBeCalledWith('test');
     expect(cache.get).toBeCalledWith('1');
@@ -45,7 +45,7 @@ describe("controller test", () => {
     cache.get.mockResolvedValue(null);
     dbAccess.getUrlById.mockResolvedValue(null);
 
-    const v = await controller.getUrl('test');
+    const v = await service.getUrl('test');
     expect(v).toBe(null);
     expect(idTranslator.decode).toBeCalledWith('test');
     expect(cache.get).toBeCalledWith('1');
@@ -59,7 +59,7 @@ describe("controller test", () => {
     cache.get.mockResolvedValue(null);
     dbAccess.getUrlById.mockResolvedValue(e);
 
-    const v = await controller.getUrl('test');
+    const v = await service.getUrl('test');
     expect(v).toBe(e);
     expect(idTranslator.decode).toBeCalledWith('test');
     expect(cache.get).toBeCalledWith('1');
@@ -73,7 +73,7 @@ describe("controller test", () => {
     dbAccess.getIdByUrl.mockResolvedValue(1);
     idTranslator.encode.mockReturnValue(shortUrl);
 
-    const v = await controller.saveUrl(url);
+    const v = await service.saveUrl(url);
     expect(v).toBe(shortUrl);
     expect(dbAccess.getIdByUrl).toBeCalledWith(url);
     expect(idTranslator.encode).toBeCalledWith(1);
@@ -86,7 +86,7 @@ describe("controller test", () => {
     idTranslator.encode.mockReturnValue(shortUrl);
     dbAccess.save.mockResolvedValue(1);
 
-    const v = await controller.saveUrl(url);
+    const v = await service.saveUrl(url);
     expect(v).toBe(shortUrl);
     expect(dbAccess.getIdByUrl).toBeCalledWith(url);
     expect(idTranslator.encode).toBeCalledWith(1);

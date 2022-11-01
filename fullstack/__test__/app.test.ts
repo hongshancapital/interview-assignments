@@ -1,6 +1,6 @@
 import request from "supertest";
 import {app} from "../src/app";
-import {controller, mysqlPool, close} from "../src/bootstrap";
+import {service, mysqlPool, close} from "../src/bootstrap";
 
 describe("app test", () => {
 
@@ -18,7 +18,7 @@ describe("app test", () => {
 
   test("get success", async () => {
     const url = "https://www.baidu.com";
-    const shortUrl = await controller.saveUrl(url);
+    const shortUrl = await service.saveUrl(url);
     const res = await request(app).get("/" + shortUrl).send();
     expect(res.status).toBe(302);
     expect(res.headers['location']).toBe(url);

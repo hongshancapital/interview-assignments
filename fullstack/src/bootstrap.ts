@@ -1,5 +1,5 @@
 import {DbAccess} from "./db-access";
-import {Controller} from "./controller";
+import {Service} from "./service";
 import {IdTranslator} from "./id-translator";
 import {Cache} from "./cache";
 import {createPool} from "mysql";
@@ -24,11 +24,11 @@ const redis = new Redis(
 const dbAccess = new DbAccess(mysqlPool);
 const cache = new Cache(redis);
 const idTranslator = new IdTranslator();
-const controller = new Controller(dbAccess, cache, idTranslator);
+const service = new Service(dbAccess, cache, idTranslator);
 
 async function close() {
   await mysqlPool.end();
   await redis.disconnect();
 }
 
-export {controller, redis, mysqlPool, close};
+export {service, redis, mysqlPool, close};
