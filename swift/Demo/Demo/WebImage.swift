@@ -8,31 +8,16 @@
 import SwiftUI
 
 struct WebImage: View {
-    var url: String
-    @State private var image: UIImage?
+    var url: URL
     
     var body: some View {
         VStack {
-            if let image = image {
-                Image(uiImage: image)
-            } else {
+            AsyncImage(url: url) { image in
+                image
+                    .resizable()
+                    .cornerRadius(12)
+            } placeholder: {
                 ProgressView()
-            }
-        }
-        .onAppear(perform: loadImage)
-    }
-    
-    func loadImage() {
-        Task {
-            do {
-                let img = try await ImageLoader.shared.loadImage(url: url)
-                await MainActor.run {
-                    self.image = img
-                }
-            } catch {
-                await MainActor.run {
-                    self.image = UIImage() // placeholder
-                }
             }
         }
     }

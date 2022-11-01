@@ -26,45 +26,95 @@ struct AppListView: View {
         .padding(.top, 12)
     }
     
-    var body: some View {
-        NavigationView {
-            if viewModel.isRefreshing && viewModel.apps.count == 0 {
-                ProgressView()
-                    .navigationTitle(Text("App"))
-            } else {
-                List {
-                    ForEach(viewModel.apps, id: \.self) { app in
-                        LazyVStack(alignment: .leading) {
-                            AppRowView(app: app, isFavorite: viewModel.isFavorite(app), toggleFavorite: { app in
-                                Task {
-                                    await viewModel.favoriteApp(app, !viewModel.isFavorite(app))
-                                }
-                            })
-                            .environmentObject(viewModel)
-                            .padding(12)
-                        }
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.bgColor)
-                        .listRowInsets(EdgeInsets(top: 12, leading: 12, bottom: 0, trailing: 12))
-                        .background(.white)
-                        .cornerRadius(12)
-                        .onAppear {
-                            viewModel.itemOnAppear(app)
-                        }
-                        
-                        if viewModel.isLastItem(app) {
-                            refreshFooter
-                        }
-                    }
+    private var networkErrorView: some View {
+        VStack {
+            Spacer()
+            Text("Network error, please retry...")
+                .font(.headline)
+                .foregroundColor(.gray)
+                .padding()
+            Button("Retry") {
+                Task {
+                    await viewModel.loadNewApps()
                 }
-                .listStyle(.grouped)
-                .navigationTitle(Text("App"))
+            }
+            .buttonStyle(.bordered)
+            Spacer()
+        }
+    }
+    
+    private var emptyView: some View {
+        VStack {
+            Spacer()
+            Text("No data, please retry...")
+                .font(.headline)
+                .foregroundColor(.gray)
+                .padding()
+            Button("Retry") {
+                Task {
+                    await viewModel.loadNewApps()
+                }
+            }
+            .buttonStyle(.bordered)
+            Spacer()
+        }
+    }
+    
+    private var appsList: some View {
+        List {
+            ForEach(viewModel.apps) { app in
+                LazyVStack(alignment: .leading) {
+                    AppRowView(app: Binding(
+                        get: { app },
+                        set: { _ in
+                            Task {
+                                await viewModel.favoriteApp(app)
+                            }
+                        }
+                    ))
+                    .padding(12)
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.bgColor)
+                .listRowInsets(EdgeInsets(top: 12, leading: 12, bottom: 0, trailing: 12))
+                .background(.white)
+                .cornerRadius(12)
+                .task {
+                    await viewModel.itemOnAppear(app)
+                }
+                
+                if viewModel.isLastItem(app) {
+                    refreshFooter
+                }
             }
         }
-        .environmentObject(viewModel)
-        .onAppear(perform: viewModel.loadNewApps)
+        .listStyle(.grouped)
+    }
+    
+    var body: some View {
+        NavigationView {
+            Group {
+                if viewModel.isProgressing {
+                    ProgressView()
+                } else {
+                    if viewModel.apps.isEmpty {
+                        if let _ = viewModel.error {
+                            networkErrorView
+                        } else {
+                            emptyView
+                        }
+                    } else {
+                        appsList
+                    }
+                }
+            }
+            .navigationTitle(Text("App"))
+        }
+        .task {
+            await viewModel.loadNewApps()
+        }
         .refreshable {
-            viewModel.loadNewApps()
+            await viewModel.loadNewApps()
         }
     }
 }

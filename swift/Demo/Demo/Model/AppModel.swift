@@ -15,7 +15,7 @@ struct AppModel: Hashable, Codable, Identifiable {
     }
     var isFavorite: Bool = false
     var trackId: Int
-    var artworkUrl60: String
+    var artworkUrl60: URL
     var trackName: String
     var description: String
     
