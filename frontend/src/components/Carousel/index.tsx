@@ -15,20 +15,18 @@ const CarouselItem: React.FC<CarouselItemProps> = ({
   alt,
   title,
   desc,
-  imgHeight,
+  imgHeight = DEFAULT_IMG_HEIGHT,
   wrapperStyle,
-  titleStyle,
-  descStyle,
 }) => {
   return (
     <div className="carousel-item" style={wrapperStyle}>
       <div className="content">
-        <div className="title" style={titleStyle}>
+        <div className="title">
           {title.map((c, idx) => (
             <div key={`carousel_title_${idx}`}>{c}</div>
           ))}
         </div>
-        <div className="desc" style={descStyle}>
+        <div className="desc">
           {desc?.map((c, idx) => (
             <div key={`carousel_desc_${idx}`}>{c}</div>
           ))}
@@ -60,9 +58,7 @@ const CarouselProgress: React.FC<CarouselProgressProps> = ({
 
 const Carousel: React.FC<CarouselProps> = ({
   items,
-  imgHeight = DEFAULT_IMG_HEIGHT,
   slideInterval = DEFAULT_SLIDE_INTERVAL,
-  wrapperStyle,
 }) => {
   const activeIndex = useCarousel({
     itemsLength: items.length,
@@ -76,11 +72,7 @@ const Carousel: React.FC<CarouselProps> = ({
         style={{ transform: `translateX(${-activeIndex * 100}%)` }}
       >
         {items.map((config, idx) => (
-          <CarouselItem
-            imgHeight={imgHeight}
-            {...config}
-            key={`carousel_item_${idx}`}
-          />
+          <CarouselItem {...config} key={`carousel_item_${idx}`} />
         ))}
       </div>
       <CarouselProgress

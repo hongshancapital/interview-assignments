@@ -12,10 +12,8 @@ const useCarousel = (options: UseCarouselProps) => {
   const timer = useRef<NodeJS.Timer>();
 
   useEffect(() => {
-    let index = defaultActiveIndex;
     timer.current = setInterval(() => {
-      index = (index + 1) % itemsLength;
-      setActiveIndex(index);
+      setActiveIndex((index) => (index + 1) % itemsLength)
     }, slideInterval);
 
     return () => {
