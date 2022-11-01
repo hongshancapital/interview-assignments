@@ -1,7 +1,9 @@
 import Hashids from "hashids";
 
 /**
- * 数字与字符串id转换器
+ * 数字与字符串 id 转换器
+ *
+ * 采用 hashids 库，将数字 id 转换为字符串 id
  */
 export class IdTranslator {
   private hashids: Hashids;

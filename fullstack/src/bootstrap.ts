@@ -23,7 +23,8 @@ const redis = new Redis(
 
 const dbAccess = new DbAccess(mysqlPool);
 const cache = new Cache(redis);
-const idTranslator = new IdTranslator();
+const salt = process.env["HASHIDS_SALT"] ?? '';
+const idTranslator = new IdTranslator(salt);
 const service = new Service(dbAccess, cache, idTranslator);
 
 async function close() {
