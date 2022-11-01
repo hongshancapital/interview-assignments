@@ -1,0 +1,62 @@
+.carousel-container {
+  position: relative;
+  width: 400px;
+  height: 250px;
+}
+.carousel-list {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.carousel-track {
+  position: absolute;
+  display: flex;
+  transition: all ease 0.7s;
+}
+
+.carousel-indicator {
+  position: absolute;
+  bottom: 50px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.indicator {
+  position: relative;
+  top: -10px;
+  width: 40px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 1.5px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.progress {
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(170, 170, 170);
+}
+
+.active {
+  background-color: #fff;
+}
+
+.animate {
+  width: 0;
+  animation: progress 3s linear infinite;
+}
+
+@keyframes progress {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: inherit;
+  }
+}
