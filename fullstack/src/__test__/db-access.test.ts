@@ -9,7 +9,7 @@ describe("db-access test", () => {
     await close()
   })
 
-  afterEach(async () => {
+  beforeEach(async () => {
     return new Promise((resolve, reject) => {
       mysqlPool.query('DELETE FROM short_url_info', (err, results) => {
         err ? reject(err) : resolve(results)

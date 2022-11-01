@@ -1,8 +1,16 @@
 import request from "supertest";
 import {app} from "../src/app";
-import {controller, mysqlPool, redis, close} from "../src/bootstrap";
+import {controller, mysqlPool, close} from "../src/bootstrap";
 
 describe("app test", () => {
+
+  beforeEach(async () => {
+    return new Promise((resolve, reject) => {
+      mysqlPool.query('DELETE FROM short_url_info', (err, results) => {
+        err ? reject(err) : resolve(results)
+      })
+    })
+  })
 
   afterAll(async () => {
     await close()
@@ -19,10 +27,12 @@ describe("app test", () => {
   test("get bad url test", async () => {
     const res = await request(app).get("/").send();
     expect(res.status).toBe(404);
+    const res1 = await request(app).get("/123#$").send();
+    expect(res1.status).toBe(404);
   })
 
   test("get not found test", async () => {
-    const res = await request(app).get("/abc").send();
+    const res = await request(app).get("/abcde").send();
     expect(res.status).toBe(404);
   })
 
@@ -33,8 +43,15 @@ describe("app test", () => {
     expect(typeof res.body.shortUrl).toBe("string")
   })
 
-  test("set error", async () => {
+  test("set error - empty url", async () => {
     const url = "";
+    const res = await request(app).post("/set?url=" + encodeURIComponent(url)).send();
+    expect(res.status).toBe(400);
+    expect(typeof res.body.message).toBe("string")
+  })
+
+  test("set error - bad url", async () => {
+    const url = "abc://def.com";
     const res = await request(app).post("/set?url=" + encodeURIComponent(url)).send();
     expect(res.status).toBe(400);
     expect(typeof res.body.message).toBe("string")
