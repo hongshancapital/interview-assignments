@@ -2,7 +2,7 @@ create table short_url.short_url_info
 (
     id          int auto_increment
         primary key,
-    url         varchar(1024)                       not null,
+    url         varchar(5000)                       not null,
     url_hash    binary(16)                          not null,
     create_time timestamp default CURRENT_TIMESTAMP null,
     constraint id

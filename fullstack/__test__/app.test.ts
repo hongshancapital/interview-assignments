@@ -56,4 +56,17 @@ describe("app test", () => {
     expect(res.status).toBe(400);
     expect(typeof res.body.message).toBe("string")
   })
+
+  test("set error - max length", async () => {
+    const baseUrl = 'https://baidu.com/'
+    const url = "https://baidu.com/" + ('a'.repeat(5000 - baseUrl.length));
+    const res = await request(app).post("/set?url=" + encodeURIComponent(url)).send();
+    expect(res.status).toBe(200);
+    expect(typeof res.body.shortUrl).toBe("string")
+
+    const url2 = "https://baidu.com/" + ('a'.repeat(5001 - baseUrl.length));
+    const res2 = await request(app).post("/set?url=" + encodeURIComponent(url2)).send();
+    expect(res2.status).toBe(400);
+    expect(typeof res2.body.message).toBe("string")
+  })
 })

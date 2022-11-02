@@ -11,6 +11,10 @@ app.post('/set', async (req, res) => {
     return res.status(400).json({message: 'Illegal url'});
   }
 
+  if(url.length > 5000) {
+    return res.status(400).json({message: 'Url cannot exceed 5000 characters'});
+  }
+
   const shortUrl = await service.saveUrl(url);
   res.json({shortUrl});
 })
