@@ -29,7 +29,7 @@ hashids 是类似 base64 的数字到字符串的编码方式,相对于 base64 �
 
 ## 数据库设计
  - id int auto_increment primary key
- - url varchar(1024)
+ - url varchar(5000)
  - url_hash binary(16) index
  - create_time timestamp
 
