@@ -83,9 +83,8 @@ export default function Carousel(props: CarouseProps) {
       }
       activeRef.current = index;
       setActive(activeRef.current);
-      hasAutoRun && autoNext();
     },
-    [active, hasAutoRun, autoNext]
+    [active]
   );
 
   const handleMouseEnter = useCallback(() => {
@@ -105,10 +104,8 @@ export default function Carousel(props: CarouseProps) {
   }, [hasAutoRun, autoNext]);
 
   return (
-    // 做单元测试用
     <div
       className="carousel"
-      data-testid={active}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

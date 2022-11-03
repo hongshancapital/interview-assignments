@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Carousel from './component/index';
+import Carousel from './component/Carousel';
 import IphoneImg from "./assets/iphone.png";
 import TabletImg from "./assets/tablet.png";
 import AirpodsImg from "./assets/airpods.png";
@@ -47,7 +47,7 @@ function App() {
       },
     },
   ];
-  return <div className="app">
+  return <div className="App">
     <Carousel list={list} />
   </div>;
 }
