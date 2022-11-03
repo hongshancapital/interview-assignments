@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import "./Carousel.css";
-import type { CarouselItemProps, CarouseProps } from "./types";
+import type { CarouselItemProps, CarouseProps, CarouseBarProps } from "./types";
 
 function CarouselItem(props: CarouselItemProps) {
   const { title, text, panelStyle, goodsImgStyle } = props;
@@ -35,6 +35,25 @@ function CarouselItem(props: CarouselItemProps) {
   );
 }
 
+function CarouselBarItem(props: CarouseBarProps) {
+  const { currentIndex, isActive, interval, onClick } = props;
+  return (
+    <div
+      className="carousel-bar-item-container"
+      onClick={() => onClick(currentIndex)}
+    >
+      <div className="carousel-bar-item">
+        {isActive && (
+          <div
+            className="carousel-bar-item-progress"
+            style={{ animationDuration: `${interval / 1000}s` }}
+          ></div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Carousel(props: CarouseProps) {
   const { list, interval = 3000 } = props;
   const activeRef = useRef(0);
@@ -53,26 +72,29 @@ export default function Carousel(props: CarouseProps) {
     }, interval);
   }, [list.length, interval]);
 
-  const handleClickBar = useCallback((index: number) => {
-    if (index === active) {
-      return;
-    }
-    if (timer.current) {
-      clearInterval(timer.current);
-      timer.current = null;
-    }
-    activeRef.current = index;
-    setActive(activeRef.current);
-    hasAutoRun && autoNext();
-  }, [active, hasAutoRun, autoNext]);
+  const handleClickBar = useCallback(
+    (index: number) => {
+      if (index === active) {
+        return;
+      }
+      if (timer.current) {
+        clearInterval(timer.current);
+        timer.current = null;
+      }
+      activeRef.current = index;
+      setActive(activeRef.current);
+      hasAutoRun && autoNext();
+    },
+    [active, hasAutoRun, autoNext]
+  );
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     setHasAutoRun(false);
-  };
+  }, [setHasAutoRun]);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setHasAutoRun(true);
-  };
+  }, [setHasAutoRun]);
 
   useEffect(() => {
     hasAutoRun && autoNext();
@@ -105,17 +127,13 @@ export default function Carousel(props: CarouseProps) {
       <div className="carousel-bar">
         {list.map((item, index) => {
           return (
-            <div
+            <CarouselBarItem
               key={item.key}
-              className="carousel-bar-item-container"
-              onClick={() => handleClickBar(index)}
-            >
-              <div className="carousel-bar-item">
-                {active === index && (
-                  <div className="carousel-bar-item-progress" style={{animationDuration: `${interval/1000}s`}}></div>
-                )}
-              </div>
-            </div>
+              currentIndex={index}
+              isActive={active === index}
+              interval={interval}
+              onClick={handleClickBar}
+            />
           );
         })}
       </div>
