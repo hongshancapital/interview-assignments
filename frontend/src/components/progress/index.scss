@@ -1,0 +1,32 @@
+.progress-wrap {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  bottom: 60px;
+  .progress {
+    width: 45px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #aaa;
+    margin-left: 5px;
+    position: relative;
+
+    .progress-active {
+      position: absolute;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background-color: #fff;
+    }
+  }
+
+  @keyframes progress {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+}
