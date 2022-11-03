@@ -1,0 +1,83 @@
+.Carousel{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    * {
+        box-sizing: border-box;
+    }
+    >.wrap{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        transition: all 1s;
+        >.item{
+            width: 100%;
+            height: 100%;
+            padding-top: 5vh;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: auto 80%;
+            background-color: #fff;
+            &:nth-child(1){
+                background-color: #111111;
+                background-image: url(../assets/iphone.png);
+                >p{
+                    color: #fff;
+                }
+            }
+            &:nth-child(2){
+                background-color: #fafafa;
+                background-image: url(../assets/tablet.png);
+            }
+            &:nth-child(3){
+                background-color: #f1f1f3;
+                background-image: url(../assets/airpods.png);
+            }
+            >p{
+                text-align: center;
+                color: #333333;
+                padding: 0;
+                margin: 0;
+            }
+            >.title{
+                font-size: 28px;
+
+            }
+            >.describe{
+                font-size: 14px;
+            }
+        }
+    }
+    >.indicators{
+        position: absolute;
+        bottom: 5vh;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: no-wrap;
+        >.item{
+            position: relative;
+            width: 22px;
+            height: 25px;
+            display: inline-block;
+            padding: 12px 2px;
+            cursor: pointer;
+            .bg-line{
+                width: 100%;
+                height: 100%;
+                background-color: #a9a9a9;
+                border-radius: 2px;
+            }
+            .active-line{
+                position: absolute;
+                width: 0px;
+                height: 1px;
+                background-color: #fff;
+                top: 12px;
+                left: 2px;
+                border-radius: 2px;
+            }
+        }
+    }
+}
