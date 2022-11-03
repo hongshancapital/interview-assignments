@@ -71,15 +71,18 @@
 
 .carousel-bar-item-progress {
   position: relative;
-  left: -100%;
+  transform: translateX(-100%);
   background-color: #fff;
-  animation: slidein 3000ms linear;
+  animation-name: slidein;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 
 @keyframes slidein {
   from {
-    transform: translateX(0%);
+    transform: translateX(-100%);
   } to {
-    transform: translateX(100%);
+    left: 0;
+    transform: translateX(0);
   }
 }

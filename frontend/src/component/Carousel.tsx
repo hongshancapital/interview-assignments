@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import "./Carousel.css";
-import type { CarouselItemProps, CarouselList } from './types';
+import type { CarouselItemProps, CarouseProps } from "./types";
 
 function CarouselItem(props: CarouselItemProps) {
   const { title, text, panelStyle, goodsImgStyle } = props;
@@ -9,15 +9,23 @@ function CarouselItem(props: CarouselItemProps) {
       <div className="carousel-item-title-container">
         {Array.isArray(title) ? (
           title.map((titleItem) => {
-            return <div key={titleItem} className="carousel-item-title">{titleItem}</div>;
+            return (
+              <div key={titleItem} className="carousel-item-title">
+                {titleItem}
+              </div>
+            );
           })
         ) : (
           <div className="carousel-item-title">{title}</div>
         )}
       </div>
       {Array.isArray(text) ? (
-        text.map(textItem => {
-          return <div key={textItem} className="carousel-item-text">{textItem}</div>;
+        text.map((textItem) => {
+          return (
+            <div key={textItem} className="carousel-item-text">
+              {textItem}
+            </div>
+          );
         })
       ) : text ? (
         <div className="carousel-item-text">{text}</div>
@@ -27,13 +35,14 @@ function CarouselItem(props: CarouselItemProps) {
   );
 }
 
-export default function Carousel(props: { list: CarouselList }) {
-  const { list } = props;
+export default function Carousel(props: CarouseProps) {
+  const { list, interval = 3000 } = props;
   const activeRef = useRef(0);
   const [active, setActive] = useState(activeRef.current);
+  const [hasAutoRun, setHasAutoRun] = useState(true);
   let timer: React.MutableRefObject<any> = useRef(null);
 
-  const autoNext = () => {
+  const autoNext = useCallback(() => {
     timer.current = setInterval(() => {
       if (activeRef.current < list.length - 1) {
         activeRef.current = activeRef.current + 1;
@@ -41,10 +50,10 @@ export default function Carousel(props: { list: CarouselList }) {
         activeRef.current = 0;
       }
       setActive(activeRef.current);
-    }, 3000);
-  };
+    }, interval);
+  }, [list.length, interval]);
 
-  const handleClickBar = (index: number) => {
+  const handleClickBar = useCallback((index: number) => {
     if (index === active) {
       return;
     }
@@ -54,20 +63,33 @@ export default function Carousel(props: { list: CarouselList }) {
     }
     activeRef.current = index;
     setActive(activeRef.current);
-    autoNext();
+    hasAutoRun && autoNext();
+  }, [active, hasAutoRun, autoNext]);
+
+  const handleMouseEnter = () => {
+    setHasAutoRun(false);
+  };
+
+  const handleMouseLeave = () => {
+    setHasAutoRun(true);
   };
 
   useEffect(() => {
-    autoNext();
+    hasAutoRun && autoNext();
     return () => {
       clearInterval(timer.current);
       timer.current = null;
     };
-  }, []);
+  }, [hasAutoRun, autoNext]);
 
   return (
     // 做单元测试用
-    <div className="carousel" data-testid={active}>
+    <div
+      className="carousel"
+      data-testid={active}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div
         className="carousel-container"
         style={{
@@ -75,7 +97,7 @@ export default function Carousel(props: { list: CarouselList }) {
           transform: `translateX(-${active * (1 / list.length) * 100}%)`,
         }}
       >
-        {list.map(item => {
+        {list.map((item) => {
           const { key, ...rest } = item;
           return <CarouselItem key={key} {...rest} />;
         })}
@@ -90,7 +112,7 @@ export default function Carousel(props: { list: CarouselList }) {
             >
               <div className="carousel-bar-item">
                 {active === index && (
-                  <div className="carousel-bar-item-progress"></div>
+                  <div className="carousel-bar-item-progress" style={{animationDuration: `${interval/1000}s`}}></div>
                 )}
               </div>
             </div>

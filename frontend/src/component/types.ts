@@ -6,3 +6,8 @@ export interface CarouselItemProps {
 };
 
 export type CarouselList = Array<CarouselItemProps & { key: string }>;
+
+export interface CarouseProps {
+  list: CarouselList;
+  interval?: number;
+}
