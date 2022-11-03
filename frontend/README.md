@@ -1,5 +1,12 @@
 # TypeScript Frontend Engineer Assignment
 
+## 说明
+- 使用 css 完成底部进度条
+- 点击底部 bar，可以选择任意界面跳转；为方便点击，加大了长宽值；
+- 鼠标 hover Carousel 会暂停轮播，当前面板对应的底部 bar 会高亮显示；鼠标 hover 移除 Carousel 会重新自动轮播
+- 单测覆盖三种场景：自动轮播、点击底部 bar、mouseOver 和 mouseLeave Carousel
+- demo/demo.mov 有实现效果视频
+
 ## 要求
 
 - 实现 demo.mov 中的效果
