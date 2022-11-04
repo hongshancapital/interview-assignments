@@ -1,0 +1,86 @@
+.carousel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+  height: 100%;
+  transition: 500ms linear;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-item-title-container {
+  margin: 160px 0 10px 0;
+}
+
+.carousel-item-title {
+  font-size: 56px;
+  font-weight: 600;
+}
+
+.carousel-item-text {
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.carousel-item-img {
+  margin-top: 100px;
+  transform: scale(0.25);
+}
+
+.carousel-bar {
+  position: absolute;
+  display: flex;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-bar-item-container {
+  width: 60px;
+  height: 13px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.carousel-bar .carousel-bar-item-container:last-child {
+  margin-right: 0px;
+}
+
+.carousel-bar-item, .carousel-bar-item-progress {
+  position: relative;
+  overflow: hidden;
+  width: 50px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: #999;
+}
+
+.carousel-bar-item-progress {
+  position: relative;
+  transform: translateX(-100%);
+  background-color: #fff;
+  animation: slidein linear forwards;
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(-100%);
+  } to {
+    left: 0;
+    transform: translateX(0);
+  }
+}
