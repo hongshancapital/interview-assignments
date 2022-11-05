@@ -27,7 +27,7 @@ struct StoreList: View {
     var body: some View {
         NavigationView {
             content
-                .background(Color(UIColor.tertiarySystemGroupedBackground))
+                .background(Color(UIColor.systemGroupedBackground))
                 .navigationTitle(Constants.Name.app)
         }
     }
@@ -51,7 +51,7 @@ struct StoreList: View {
             ) {
                 ForEach(viewModel.apps, id: \.trackId) { app in
                     StoreItem(viewModel: viewModel, app: app)
-                        .background(Color(.systemBackground))
+                        .background(Color(.tertiarySystemBackground))
                         .cornerRadius(Constants.Layout.itemCornerRadius)
                 }
                 refreshFooter
