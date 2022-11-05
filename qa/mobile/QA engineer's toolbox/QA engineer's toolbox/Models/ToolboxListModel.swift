@@ -23,7 +23,7 @@ class ToolboxListModel: ObservableObject {
     @Published var options: [String];
     
     func loadToolboxList() {
-        guard let url = URL(string: "http://localhost:5000/toolbox") else {
+        guard let url = URL(string: "http://localhost:8000/toolbox") else {
             print("Invalid URL")
             return
         }
@@ -41,7 +41,7 @@ class ToolboxListModel: ObservableObject {
         }.resume()
     }
     func loadOptions() {
-        guard let url = URL(string: "http://localhost:5000/toolbox/options") else {
+        guard let url = URL(string: "http://localhost:8000/toolbox/options") else {
             print("Invalid URL")
             return
         }
@@ -60,7 +60,7 @@ class ToolboxListModel: ObservableObject {
     }
     func createToolboxPref(name: String, tools: String) {
         var json = [String:Any]()
-        guard let url = URL(string: "http://localhost:5000/toolbox/create") else {
+        guard let url = URL(string: "http://localhost:8000/toolbox/create") else {
             print("Invalid URL")
             return
         }
