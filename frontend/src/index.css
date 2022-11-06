@@ -11,3 +11,84 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h5,
+div {
+  margin: 0;
+}
+
+.carousel {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.carousel-dots {
+  display: flex;
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-dot {
+  position: relative;
+  width: 40px;
+  height: 5px;
+  background-color: gray;
+  cursor: pointer;
+}
+
+.carousel-dot:not(:last-child) {
+  margin-right: 10px;
+}
+
+.carousel-dot-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 5px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.item {
+  height: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.iphone {
+  padding-top: 200px;
+  color: #fff;
+  background-image: url('./assets/iphone.png');
+  background-size: 100% 100%;
+}
+
+.tablet {
+  padding-top: 200px;
+  color: #000;
+  background: url('./assets/tablet.png');
+  background-size: 100% 100%;
+}
+
+.airpods {
+  padding-top: 200px;
+  color: #000;
+  background: url('./assets/airpods.png');
+  background-size: 100% 100%;
+}

@@ -1,5 +1,10 @@
 # TypeScript Frontend Engineer Assignment
 
+## 说明
+
+- 点击bar，可以进行跳转
+- hover时暂停，bar处于高亮状态，mouseleave后重新开始轮播
+
 ## 要求
 
 - 实现 demo.mov 中的效果
