@@ -4,6 +4,7 @@ interface SwipeDotsProps {
   current: number;
   count: number;
   timing: number;
+  hidden: boolean;
   slideTo: (to: number, swiping?: boolean) => void;
 }
 
@@ -11,6 +12,7 @@ const CarouselDots: React.FC<SwipeDotsProps> = ({
   current,
   count,
   timing,
+  hidden,
   slideTo
 }) => {
   useEffect(() => {
@@ -26,6 +28,21 @@ const CarouselDots: React.FC<SwipeDotsProps> = ({
       }
     });
   }, [current, count, timing]);
+
+  useEffect(() => {
+    const dom = document.querySelectorAll('.carousel-dot-active')[current];
+    if (hidden) {
+      dom.setAttribute('style', 'width: 40px;');
+    } else {
+      dom.setAttribute('style', 'width: 0;');
+      requestAnimationFrame(() => {
+        dom.setAttribute(
+          'style',
+          `width: 40px;transition: width linear ${timing / 1000}s;`
+        );
+      });
+    }
+  }, [hidden]);
 
   const handleClickDot = (index: number) => {
     if (current === index) return;

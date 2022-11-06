@@ -5,8 +5,6 @@ import CarouselDots from './CarouselDots';
 
 import useSwipe from './hooks/useSwipe';
 import useVisibility from './hooks/useVisibility';
-import useEventListener from './hooks/useEventListener';
-import useTouch from './hooks/useTouch';
 import useResize from './hooks/useResize';
 
 export interface SwipeRef {
@@ -22,7 +20,6 @@ export interface SwipeProps {
   initialSwipe?: number;
   loop?: boolean;
   showIndicators?: boolean;
-  touchable?: boolean;
   style?: React.CSSProperties;
   children: React.ReactNode;
 }
@@ -35,13 +32,11 @@ export const CarouselContainer = React.forwardRef<SwipeRef, SwipeProps>(
       initialSwipe = 0,
       duration = 500,
       timing = 3000,
-      touchable = true,
       loop = true,
       onSlideChange,
       showIndicators = true
     } = props;
     const timer = useRef<NodeJS.Timeout | null>(null);
-    const touch = useTouch();
     const count = useMemo(() => React.Children.count(props.children), [
       props.children
     ]);
@@ -78,33 +73,6 @@ export const CarouselContainer = React.forwardRef<SwipeRef, SwipeProps>(
       timer.current = null;
     };
 
-    const onTouchStart = (event: React.TouchEvent | TouchEvent) => {
-      if (!touchable) return;
-      onPause();
-      touch.start(event);
-    };
-
-    const onTouchMove = (event: React.TouchEvent | TouchEvent) => {
-      if (!touchable) return;
-      touch.move(event);
-      const { deltaX } = touch.getDelta();
-      slideTo({ swiping: true, offset: deltaX });
-    };
-
-    const onTouchEnd = () => {
-      if (!touchable) return;
-      const { deltaX, time } = touch.end();
-      const delta = deltaX;
-      const step =
-        itemSize / 2 < Math.abs(delta) || Math.abs(delta / time) > 0.25
-          ? delta > 0
-            ? -1
-            : 1
-          : 0;
-      slideTo({ swiping: false, step });
-      onPlay();
-    };
-
     useEffect(() => {
       if (itemSize) {
         slideTo({ step: initialSwipe - current, swiping: true });
@@ -128,11 +96,6 @@ export const CarouselContainer = React.forwardRef<SwipeRef, SwipeProps>(
     useEffect(() => {
       hidden ? onPause() : onPlay();
     }, [hidden]);
-
-    useEventListener('touchmove', event => {}, {
-      passive: false,
-      target: swipeRef.current
-    });
 
     useResize(() => {
       onPause();
@@ -173,15 +136,7 @@ export const CarouselContainer = React.forwardRef<SwipeRef, SwipeProps>(
     };
 
     return (
-      <div
-        ref={root}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchCancel={onTouchEnd}
-        onTouchEnd={onTouchEnd}
-        style={props.style}
-        className='carousel'
-      >
+      <div ref={root} style={props.style} className='carousel'>
         <div
           ref={swipeRef}
           style={wrappStyle}
@@ -203,6 +158,7 @@ export const CarouselContainer = React.forwardRef<SwipeRef, SwipeProps>(
             current={current}
             count={count}
             timing={timing}
+            hidden={hidden}
             slideTo={handleSlideTo}
           />
         )}

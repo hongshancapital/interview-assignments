@@ -26,6 +26,7 @@ const useSwipe = ({ deps = [], count, duration, loop }: Props) => {
   ]);
 
   const swipeRef = useRef<HTMLDivElement>(null);
+
   const [refs, setRefs] = useRefs<SwipeItemRef>();
   const minCurrent = useMemo(() => (loop ? -1 : 0), [loop]);
   const maxCurrent = useMemo(() => (loop ? count : count - 1), [loop, count]);
@@ -75,7 +76,7 @@ const useSwipe = ({ deps = [], count, duration, loop }: Props) => {
       direction = 'right';
     }
     if ([-1, count - 1].includes(current)) {
-      refs[0].setOffset(direction === 'right' ? count * size : 0);
+      refs[0]?.setOffset(direction === 'right' ? count * size : 0);
       refs[refs.length - 1].setOffset(0);
     }
     if ([count, 0].includes(current)) {
