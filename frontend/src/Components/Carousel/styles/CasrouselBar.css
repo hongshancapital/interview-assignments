@@ -1,0 +1,52 @@
+.bar-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+}
+
+.carousel-bar-container {
+    width: 50px;
+    /* 扩大点击区域 */
+    height: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.carousel-bar,
+.carousel-bar-progress {
+    position: relative;
+    width: 50px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #999;
+    overflow: hidden;
+}
+.carousel-bar-progress{
+    background-color: #fff;
+}
+.carousel-bar-progress-auto {
+    position: relative;
+    width: 50px;
+    height: 2px;
+    border-radius: 1px;
+    overflow: hidden;
+    background-color: #fff;
+    animation: progress linear;
+}
+
+@keyframes progress {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        left: 0;
+        transform: translateX(0);
+    }
+}
