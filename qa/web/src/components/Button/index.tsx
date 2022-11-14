@@ -1,7 +1,7 @@
-import classNames from 'classnames';
-import React, { ReactNode } from 'react';
+import clsx from 'clsx';
+import { ReactNode } from 'react';
 
-import styles from './index.scss';
+import styles from './index.module.scss';
 
 export type ButtonSize = 'regular' | 'small' | 'tiny';
 
@@ -36,7 +36,7 @@ const Button = ({
   onMouseLeave,
 }: Props) => (
   <div
-    className={classNames(
+    className={clsx(
       styles.button,
       noBorder && styles.noBorder,
       disabled && styles.disabled,
