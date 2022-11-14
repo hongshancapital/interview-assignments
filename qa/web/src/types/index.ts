@@ -1,5 +1,4 @@
-
 export type ToolboxForm = {
-    name: string;
-    tools: string;
-}
+  name: string;
+  tools?: string;
+};
