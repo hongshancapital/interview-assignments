@@ -1,0 +1,15 @@
+{
+  "apps": [
+      {
+      "name": "encoder",
+      "env": {
+        PORT: 3000
+      },
+      "autorestart": true,
+      "script": "build/src/main.js",
+      "instances": 2,
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "max_memory_restart": "500M"
+    }
+  ]
+}
