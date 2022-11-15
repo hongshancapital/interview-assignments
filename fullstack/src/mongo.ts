@@ -15,10 +15,6 @@ const SlinkSchema = new Schema({
 
 mongoose.model('Slink', SlinkSchema);
 
-db.on('connected', () => {
-  console.log('database connect succeeded');
-});
-
 db.on('error', () => {
   throw new Error(`unable to connect to database at ${dbURI}`);
 });

@@ -9,12 +9,10 @@ const cache = new lru_cache_1.default({
     max: 1,
     maxAge: 1000 * 30,
     updateAgeOnGet: true,
-    maxSize: 5000,
+    maxSize: 10,
     length(value, key) {
-        const strLen = key.length + value.length;
+        const strLen = key.length + JSON.stringify(value).length;
         // 按最糟情况换算成M
-        console.log(strLen);
-        console.log(Math.floor((strLen * 2) / (1024 * 1024)));
         return Math.ceil((strLen * 2) / (1024 * 1024));
     },
 });

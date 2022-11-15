@@ -3,10 +3,10 @@ import { ReqInfo } from '../constant';
 
 const cache = new LRU({
   max: 1,
-  maxAge: 1000 * 30,
+  ttl: 1000 * 30,
   updateAgeOnGet: true,
   maxSize: 10,
-  length(value: ReqInfo, key: string) {
+  sizeCalculation(value: ReqInfo, key: string) {
     const strLen = key.length + JSON.stringify(value).length;
 
     // 按最糟情况换算成M
