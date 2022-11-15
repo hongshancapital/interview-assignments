@@ -9,6 +9,6 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post("/shorturl/create", createShortUrl);
-app.get("/longurl/get/:id", getLongUrl);
+app.get("/longurl/get", getLongUrl);
 
 export default app;

@@ -1,20 +1,18 @@
-import mongoose from 'mongoose';
+import { Schema, model, connect } from 'mongoose';
 import config from './config/index';
+import { ReqInfo } from './constant';
 
 const dbURI = config.DB;
-const { Schema } = mongoose;
 
-mongoose.connect(dbURI);
-
-const db = mongoose.connection;
-
-const SlinkSchema = new Schema({
-  id: String,
-  url: String,
+const schema = new Schema<ReqInfo>({
+  id: { type: String, required: true },
+  url: { type: String, required: true },
 });
 
-mongoose.model('Slink', SlinkSchema);
+model<ReqInfo>('Slink', schema);
 
-db.on('error', () => {
-  throw new Error(`unable to connect to database at ${dbURI}`);
-});
+async function run(): Promise<void> {
+  await connect(dbURI);
+};
+
+run();

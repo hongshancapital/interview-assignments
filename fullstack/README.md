@@ -79,14 +79,17 @@ md5算法稍微复杂一点，好处是可以生成固定长度的ID，且无法
 ## 0x03 项目运行
 
 ```bash
+# 发开模式
 npm run dev
 ```
 
 ```bash
+# 项目构建
 npm run build
 ```
 
 ```bash
-npm run test
+# 应用测试
+npm run coverage
 ```
 

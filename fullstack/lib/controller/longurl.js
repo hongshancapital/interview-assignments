@@ -8,45 +8,47 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLongUrl = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
+const mongoose_1 = require("mongoose");
 const cache_1 = require("../service/cache");
-const Slink = mongoose_1.default.model('Slink');
 const getLongUrl = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    console.log(id);
+    const id = req.query.id;
     if (!id) {
-        console.log('111');
         return res.status(400).json({ data: 'id为必传字段' });
     }
     let info = (0, cache_1.cacheGet)(id); // 从缓存中取数据
     if (!info) {
-        info = yield Slink.findOne({ id }).catch((err) => {
-            console.log(err);
-            console.log('33333');
-            // return res.status(400).json({ data: err });
+        const SlinkModel = (0, mongoose_1.model)('Slink');
+        SlinkModel.findOne({ id })
+            .populate('id')
+            .orFail()
+            .then((doc) => {
+            info = {
+                id: doc.id,
+                url: doc.url,
+            };
+            (0, cache_1.cacheSet)(id, info);
+            return res.status(200).json({
+                code: 0,
+                message: 'success',
+                data: {
+                    url: info.url,
+                },
+            });
+        })
+            .catch(() => {
+            return res.status(400).json({ data: '无效id' });
         });
-        // .catch((err) => {
-        //   console.log('333333')
-        //   console.log(err);
-        //   return res.status(400).json({ data: err });
-        // });
-        // const cacheVal = {
-        //   id: info.id,
-        //   url: info.url,
-        // };
-        // cacheSet(id, cacheVal);
     }
-    res.status(200).json({
-        code: 0,
-        message: 'success',
-        data: {
-            url: info.url,
-        },
-    });
+    else {
+        return res.status(200).json({
+            code: 0,
+            message: 'success',
+            data: {
+                url: info.url,
+            },
+        });
+    }
 });
 exports.getLongUrl = getLongUrl;
