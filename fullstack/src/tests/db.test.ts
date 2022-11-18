@@ -3,11 +3,12 @@ import dotenv from 'dotenv'
 import path from 'path'
 dotenv.config({ path: path.resolve(process.cwd(), '.env.test'), debug: true })
 
-import { ShortLinkRepository, conn, IShortLink } from '../db';
+import { mysqlConnection } from '../connection';
+import { ShortLinkRepository, IShortLink } from '../db';
 import { encodeID } from '../utils';
 
 const initdb = async () => {
-    const [ok, fields] = await conn.promise().query<OkPacket>('CREATE TABLE `shortlinks` (`id` int unsigned NOT NULL AUTO_INCREMENT,' +
+    const [ok, fields] = await mysqlConnection.promise().query<OkPacket>('CREATE TABLE `shortlinks` (`id` int unsigned NOT NULL AUTO_INCREMENT,' +
         '`hash` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,' +
         '`domain` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,' +
         '`path` varchar(8182) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,' +
@@ -20,21 +21,21 @@ const initdb = async () => {
 
 const cleardb = async () => {
     try {
-        const [ok, fields] = await conn.promise().query<OkPacket>('DROP TABLE `shortlinks`')
+        const [ok, fields] = await mysqlConnection.promise().query<OkPacket>('DROP TABLE `shortlinks`')
     } catch (e) {
 
     }
 }
 
 describe('test db', () => {
-    const slr: ShortLinkRepository = new ShortLinkRepository()
+    const slr: ShortLinkRepository = new ShortLinkRepository(mysqlConnection)
     beforeAll(async () => {
         await cleardb()
         await initdb()
     })
     afterAll(async () => {
-        // await cleardb()
-        await conn.promise().end()
+        await cleardb()
+        await mysqlConnection.promise().end()
     })
 
     test('add shortlink', async () => {
