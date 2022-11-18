@@ -86,7 +86,59 @@ describe('controller test', () => {
       }
     });
     req.db = {
+      getRepository: jest.fn().mockImplementation(() => ({
+        find: jest.fn().mockImplementation(() => Promise.resolve([]))
+      })),
       save: jest.fn().mockImplementation(() => Promise.resolve([{ id: 1}])),
+      create: jest.fn().mockImplementation(() => Promise.resolve({}))
+    };
+    const result = await encoder.setUrl(req, res);
+    expect(result.isSuccess).toBe(true);
+    expect(result.data).toBe('XE');
+    expect(req.db.save).toHaveBeenCalledTimes(1);
+    expect(req.db.create).toHaveBeenCalledTimes(1);
+  });
+  it('setUrl where url existed', async () => {
+    const longUrl = 'http://www.example.com';
+    req = createRequest({
+      method: 'POST',
+      url: '/encode',
+      body: {
+        url: longUrl
+      }
+    });
+    req.db = {
+      getRepository: jest.fn().mockImplementation(() => ({
+        find: jest.fn().mockImplementation(() => Promise.resolve([{ id: 1 }]))
+      })),
+      save: jest.fn().mockImplementation(() => Promise.resolve([{ id: 1}])),
+      create: jest.fn().mockImplementation(() => Promise.resolve({}))
+    };
+    const result = await encoder.setUrl(req, res);
+    expect(result.isSuccess).toBe(true);
+    expect(result.data).toBe('XE');
+    expect(req.db.save).toHaveBeenCalledTimes(0);
+    expect(req.db.create).toHaveBeenCalledTimes(0);
+  });
+  it('someone else set new url at the same time', async () => {
+    const longUrl = 'http://www.example.com';
+    req = createRequest({
+      method: 'POST',
+      url: '/encode',
+      body: {
+        url: longUrl
+      }
+    });
+    req.db = {
+      getRepository: jest.fn().mockImplementation(() => ({
+        find: jest.fn().mockImplementation(() => Promise.resolve([]))
+      })),
+      save: jest.fn().mockImplementation(() => {
+        req.db.getRepository = jest.fn().mockImplementation(() => ({
+          find: jest.fn().mockImplementation(() => Promise.resolve([1]))
+        }));
+        return Promise.reject(new Error('colorm unique error'))
+      }),
       create: jest.fn().mockImplementation(() => Promise.resolve({}))
     };
     const result = await encoder.setUrl(req, res);

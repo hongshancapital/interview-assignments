@@ -33,7 +33,8 @@ DROP TABLE IF EXISTS `url`;
 CREATE TABLE `url` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `original` varchar(9000) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `original_unique` (`original`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-15 21:11:22
+-- Dump completed on 2022-11-18 13:00:39

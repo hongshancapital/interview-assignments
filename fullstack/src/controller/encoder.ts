@@ -40,20 +40,40 @@ const encoder = {
    * 短域名存储接口：接受长域名信息，返回短域名信息
    */
   setUrl(req: Request, res: Response) {
-    const { url } = req.body;
+    let { url } = req.body;
     if (!url || url.length > MAX_URL_LENGTH) {
       return failure(`域名为空或长度超过${MAX_URL_LENGTH}，请检查`);
     }
-    return req.db.save(
-      req.db.create(Url, {
-        original: url
-      })
-    ).then((record) => {
+    url = url.trim();
+    function findIfExists (url: string) {
+      return req.db.getRepository(Url).find({
+        select: ['id'],
+        where: {
+          original: url
+        }
+      }).then((data) => {
+        return data[0];
+      });
+    }
+
+    return findIfExists(url).then((record) => {
+      if (record) {
+        return record;
+      }
+      return req.db.save(
+        req.db.create(Url, {
+          original: url
+        })
+      ).catch(() => {
+        return findIfExists(url)
+      });
+    }).then((record) => {
       // 加密id，限制结果最短长度为6
-      return hashids.encode(record.id, 6);
-    }).then((rs) => {
-      return success(rs);
-    })
+      if (record) {
+        return success(hashids.encode(record.id, 6));
+      }
+      return failure('生成短域名失败');
+    });
   }
 };
 export default encoder;
