@@ -1,5 +1,4 @@
 import { RowDataPacket, OkPacket, createConnection } from "mysql2";
-import { encodeID, decodeID, splitURL } from './utils';
 
 const conn = createConnection({
     host: process.env.DB_HOST,
