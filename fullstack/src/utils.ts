@@ -1,4 +1,4 @@
-import Hashids from "hashids";
+import Hashids from 'hashids';
 
 const salt: string | undefined = process.env.SALT;
 const urllength: number = process.env.URL_LENGTH ? process.env.URL_LENGTH as unknown as number : 8182;
