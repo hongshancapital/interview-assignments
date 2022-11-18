@@ -30,3 +30,4 @@ export function failure (msg?: string, data?: any): HTTPFailureResult {
   }
   return rs;
 }
+export const NOT_EXIST_URL = 'NOT_EXST';

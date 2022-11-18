@@ -16,7 +16,7 @@ const encoder = {
     }
     const decodeResult = hashids.decode(req.params.short);
     if (!decodeResult.length) {
-      return success('', '不存在对应url');
+      return failure('不存在对应url');
     }
     return req.redisClient.get(short).then((rs: string) => {
       if (!rs) {
@@ -29,8 +29,9 @@ const encoder = {
           const result = data[0] ? data[0].original : '';
           if (result) {
             req.redisClient.set(short, result);
+            return success(result);
           }
-          return success(result);
+          return failure('不存在对应url');
         });
       }
       return success(rs);
