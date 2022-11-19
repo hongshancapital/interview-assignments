@@ -1,0 +1,64 @@
+.interview-carousel {
+  position: relative;
+  overflow: hidden;
+
+  .item-container {
+    display: flex;
+    transition-property: transform;
+    transition-timing-function: linear;
+
+    .item {
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .indicator-container {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+
+    .indicator {
+      width: 40px;
+      height: 5px;
+      background-color: gray;
+      border-radius: 5px;
+      position: relative;
+
+      &:not(:last-child) {
+        margin-right: 5px;
+      }
+
+      .mark {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        width: 0;
+        border-radius: 5px;
+        background-color: white;
+
+        &.active {
+          width: 100%;
+          animation-name: active-mark-grow-width;
+          animation-timing-function: linear;
+        }
+
+        @keyframes active-mark-grow-width {
+          from {
+            width: 0;
+          }
+
+          to {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
