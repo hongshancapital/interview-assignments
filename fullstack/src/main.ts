@@ -6,11 +6,11 @@ import { connect, close } from './connection';
 
 const port = process.env.PORT;
 
-app.listen(port, () => {
-    connect()
+app.listen(port, async () => {
+    await connect()
     console.log(`application listening on port ${port}`)
 })
 
 app.on('close', async () => {
-    close()
+    await close()
 })
