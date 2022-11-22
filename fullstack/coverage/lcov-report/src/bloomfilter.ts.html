@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for cache.ts</title>
+    <title>Code coverage report for src/bloomfilter.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="prettify.css" />
-    <link rel="stylesheet" href="base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> cache.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> bloomfilter.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -115,22 +115,34 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,7 +151,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,76 +170,62 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { RedisClientType, defineScript } from 'redis'
-import crypto from 'crypto'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { RedisClientType } from 'redis'
 &nbsp;
-export class Cache {
+export class BloomFilter {
     private client: RedisClientType
-    private lockKey: string
+    private hashbf: string
+    private urlbf: string
+    private errorRate: number
+    private capacity: number
 &nbsp;
-    constructor(client: RedisClientType, lockKey: string = "_LOCK") {
+    constructor(client: RedisClientType, errorRate: number = 0.01, capacity: number = 100000, hashbf: string = 'HASH_BF', urlbf: string = 'URL_BF') {
         this.client = client
-        this.lockKey = lockKey
+        this.hashbf = hashbf
+        this.urlbf = urlbf
+        this.errorRate = errorRate
+        this.capacity = capacity
     }
 &nbsp;
-    async set(hash: string, url: string): Promise&lt;string | null&gt; {
-        return await this.client.SET(hash, url, {
-            PX: 5000
-        })
+    async removeAll() {
+        await this.client.DEL(this.hashbf);
+        await this.client.DEL(this.urlbf);
     }
 &nbsp;
-    async get(hash: string): Promise&lt;string | null&gt; {
-        return await this.client.GET(hash)
+    async init() {
+        this.client.bf.RESERVE(this.hashbf, this.errorRate, this.capacity);
+        this.client.bf.RESERVE(this.urlbf, this.errorRate, this.capacity);
     }
 &nbsp;
-    async tryLock(lockKey: string, timeout: number = 3000): Promise&lt;string | null&gt; {
-        const lockValue: string = crypto.randomBytes(20).toString('hex')
-        const c: string | null = await this.client.SET(lockKey + this.lockKey, lockValue, {
-            NX: true,
-            PX: timeout
-        })
-        return c == 'OK' ? lockValue : null
+    async exist(): Promise&lt;boolean&gt; {
+        return await this.client.EXISTS([this.urlbf, this.hashbf]) == 2
     }
 &nbsp;
-    async releaseLock(lockKey: string, lockValue: string): Promise&lt;boolean&gt; {
-        const sc = defineScript({
-            NUMBER_OF_KEYS: 1,
-            SCRIPT: `
-            if redis.call("get",KEYS[1]) == ARGV[1]
-            then
-                return redis.call("del",KEYS[1])
-            else
-                return 0
-            end
-            `,
-            transformArguments(key: string, value: string) {
-                return [key, value]
-            },
-            transformReply(reply: number): number {
-                return reply;
-            }
-        })
-        return await this.client.scriptsExecuter(sc, [lockKey + this.lockKey, lockValue]) == 1
+    async urlExist(url: string): Promise&lt;boolean&gt; {
+        return await this.client.bf.EXISTS(this.urlbf, url)
+    }
+&nbsp;
+    async urlAdd(url: string): Promise&lt;void&gt; {
+        await this.client.bf.ADD(this.urlbf, url)
+    }
+&nbsp;
+    async urlMAdd(urls: string[]): Promise&lt;void&gt; {
+        await this.client.bf.MADD(this.urlbf, urls)
+    }
+&nbsp;
+    async hashExist(hash: string): Promise&lt;boolean&gt; {
+        return await this.client.bf.EXISTS(this.hashbf, hash)
+    }
+&nbsp;
+    async hashAdd(hash: string): Promise&lt;void&gt; {
+        await this.client.bf.ADD(this.hashbf, hash)
+    }
+&nbsp;
+    async hashMAdd(hashes: string[]): Promise&lt;void&gt; {
+        await this.client.bf.MADD(this.hashbf, hashes)
     }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -226,16 +235,16 @@ export class Cache {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-22T16:26:32.701Z
+                at 2022-11-22T16:21:15.166Z
             </div>
-        <script src="prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="sorter.js"></script>
-        <script src="block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     
