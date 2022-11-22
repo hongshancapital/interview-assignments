@@ -4,7 +4,7 @@ import path from 'path'
 dotenv.config({ path: path.resolve(process.cwd(), '.env.test'), debug: true })
 
 import { mysqlConnection, connect, close } from '../connection';
-import { ShortLinkRepository, IShortLink } from '../db';
+import { ShortLinkRepository, IShortLink, createShortLink } from '../db';
 import { encodeID } from '../utils';
 
 const initdb = async () => {
@@ -40,13 +40,10 @@ describe('test db', () => {
     })
 
     test('add shortlink', async () => {
-        let sl: IShortLink = {
-            constructor: {
-                name: 'RowDataPacket'
-            },
+        let sl: IShortLink = createShortLink({
             domain: 'http://baidu.com',
             path: '/'
-        }
+        })
         let is: IShortLink | undefined = await slr.create(sl)
         expect(is).toBeDefined()
         expect(is?.domain).toStrictEqual('http://baidu.com')
@@ -76,6 +73,33 @@ describe('test db', () => {
         expect(is2?.domain).toStrictEqual('http://baidu.com')
         expect(is2?.path).toStrictEqual('/')
         expect(is2?.hash).toStrictEqual(hash)
+    })
+
+    test('count', async () => {
+        let count = await slr.count()
+        expect(count).toBe(1)
+
+        for (let i = 0; i < 19; i++) {
+            let sl: IShortLink = createShortLink({
+                domain: `http://baidu${i}.com`,
+                path: '/'
+            })
+            let is: IShortLink | undefined = await slr.create(sl)
+            expect(is).toBeDefined()
+            expect(is?.domain).toStrictEqual(`http://baidu${i}.com`)
+        }
+
+        count = await slr.count()
+        expect(count).toBe(20)
+    })
+
+    test('page', async () => {
+        let sls = await slr.findByPage(0, 10)
+        expect(sls.length).toBe(10)
+        sls = await slr.findByPage(1, 5)
+        expect(sls.length).toBe(5)
+        sls = await slr.findByPage(6, 3)
+        expect(sls.length).toBe(2)
     })
 
 })

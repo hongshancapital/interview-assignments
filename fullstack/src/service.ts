@@ -1,7 +1,7 @@
 import { ShortLinkRepository, IShortLink, createShortLink } from './db';
 import { BloomFilter } from './bloomfilter';
 import { Cache } from './cache';
-import { isURL, encodeID, decodeID, splitURL, delay } from './utils';
+import { encodeID, decodeID, splitURL, delay } from './utils';
 
 export class Service {
     private cache: Cache
@@ -12,6 +12,45 @@ export class Service {
         this.cache = cache
         this.bf = bf
         this.slr = slr
+    }
+
+    async init() {
+        // 初始化布隆过滤器，因为要遍历整张表所以超时时间延长
+        if (!await this.bf.exist()) {
+            let lv = await this.cache.tryLock('BloomFilter', 100000)
+            try {
+                if (lv) {
+                    this.bf.init()
+                    let size = 1000
+                    let count = await this.slr.count()
+                    let maxp = Math.floor(count / size) + 1
+                    for (let i = 0; i < maxp; i++) {
+                        let sls = await this.slr.findByPage(i, size)
+                        let hashs: string[] = sls.map(is => {
+                            // 有可能存在没有更新 hash 值的数据
+                            if (is.hash) {
+                                return is.hash!
+                            } else {
+                                is.hash = encodeID(is.id!)
+                                this.slr.update(is)
+                                return is.hash!
+                            }
+                        })
+                        let urls: string[] = sls.map(is => is.domain + is.path)
+                        this.bf.hashMAdd(hashs)
+                        this.bf.urlMAdd(urls)
+                    }
+                }
+            } catch (e) {
+                console.error('data is broken')
+            } finally {
+                // 只有一个拿到锁的进程需要释放
+                if (lv) {
+                    await this.cache.releaseLock('BloomFilter', lv!)
+                }
+            }
+        }
+
     }
 
     async urlHash(url: string): Promise<string | number> {

@@ -24,9 +24,13 @@ const splitURL = (str: string): string[] => {
     return [url.origin, url.pathname + url.search + url.hash]
 }
 
+const formatURL = (url: string): string => {
+    return splitURL(url).join('')
+}
+
 
 function delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export { encodeID, decodeID, isURL, splitURL, delay }
+export { encodeID, decodeID, isURL, splitURL, delay, formatURL }

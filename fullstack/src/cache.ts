@@ -20,11 +20,11 @@ export class Cache {
         return await this.client.GET(hash)
     }
 
-    async tryLock(lockKey: string): Promise<string | null> {
+    async tryLock(lockKey: string, timeout: number = 3000): Promise<string | null> {
         const lockValue: string = crypto.randomBytes(20).toString('hex')
         const c: string | null = await this.client.SET(lockKey + this.lockKey, lockValue, {
             NX: true,
-            PX: 3000
+            PX: timeout
         })
         return c == 'OK' ? lockValue : null
     }

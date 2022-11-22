@@ -16,21 +16,31 @@ export class ShortLinkRepository {
         this.conn = conn
     }
 
+    async findByPage(page: number, size: number): Promise<IShortLink[]> {
+        let [rows, fields] = await this.conn.promise().query<IShortLink[]>('SELECT * FROM `shortlinks` LIMIT ? OFFSET ?', [size, page * size])
+        return rows
+    }
+
+    async count(): Promise<number> {
+        let [rows, fields] = await this.conn.promise().query<RowDataPacket[]>('SELECT count(id) AS id_count FROM `shortlinks`')
+        return rows[0].id_count
+    }
+
     // 通过 crc32 哈希建立的索引加快查找速度
     async findByUrl(domain: string, path: string): Promise<IShortLink | undefined> {
-        let [rows, fields] = await this.conn.promise().execute<IShortLink[]>('SELECT * from `shortlinks` where `domain_crc32` = crc32(?) and `path_crc32` = crc32(?) and `domain` = ? and `path` = ?',
+        let [rows, fields] = await this.conn.promise().execute<IShortLink[]>('SELECT * FROM `shortlinks` WHERE `domain_crc32` = crc32(?) AND `path_crc32` = crc32(?) AND `domain` = ? AND `path` = ?',
             [domain, path, domain, path])
         return rows?.[0]
     }
 
     async findById(id: number): Promise<IShortLink | undefined> {
-        let [rows, fields] = await this.conn.promise().execute<IShortLink[]>('SELECT * from `shortlinks` where id = ?', [id])
+        let [rows, fields] = await this.conn.promise().execute<IShortLink[]>('SELECT * FROM `shortlinks` WHERE id = ?', [id])
         return rows?.[0]
     }
 
     // 插入时只有 domain 与 path
     async create(shortlink: IShortLink): Promise<IShortLink | undefined> {
-        let [res, fields] = await this.conn.promise().execute<OkPacket>('INSERT INTO `shortlinks` (`domain`,`path`,`domain_crc32`,`path_crc32`) values (?,?,crc32(?),crc32(?))',
+        let [res, fields] = await this.conn.promise().execute<OkPacket>('INSERT INTO `shortlinks` (`domain`,`path`,`domain_crc32`,`path_crc32`) VALUES (?,?,crc32(?),crc32(?))',
             [shortlink.domain, shortlink.path, shortlink.domain, shortlink.path])
         if (res.insertId) {
             return await this.findById(res.insertId)
