@@ -3,13 +3,15 @@ import crypto from 'crypto'
 
 export class Cache {
     private client: RedisClientType
+    private lockKey: string
 
-    constructor(client: RedisClientType) {
+    constructor(client: RedisClientType, lockKey: string = "_LOCK") {
         this.client = client
+        this.lockKey = lockKey
     }
 
     async set(hash: string, url: string): Promise<string | null> {
-        return await this.client.SET(hash, url,{
+        return await this.client.SET(hash, url, {
             PX: 5000
         })
     }
@@ -20,7 +22,7 @@ export class Cache {
 
     async tryLock(lockKey: string): Promise<string | null> {
         const lockValue: string = crypto.randomBytes(20).toString('hex')
-        const c: string | null = await this.client.SET(lockKey, lockValue, {
+        const c: string | null = await this.client.SET(lockKey + this.lockKey, lockValue, {
             NX: true,
             PX: 3000
         })
@@ -45,6 +47,6 @@ export class Cache {
                 return reply;
             }
         })
-        return await this.client.scriptsExecuter(sc, [lockKey, lockValue]) == 1
+        return await this.client.scriptsExecuter(sc, [lockKey + this.lockKey, lockValue]) == 1
     }
 }

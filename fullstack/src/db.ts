@@ -49,3 +49,18 @@ export class ShortLinkRepository {
         }
     }
 }
+
+export declare type ShortLink = {
+    domain: string
+    path: string
+}
+
+export function createShortLink(shortlink: ShortLink): IShortLink {
+    return {
+        constructor: {
+            name: 'RowDataPacket'
+        },
+        domain: shortlink.domain,
+        path: shortlink.path
+    }
+}

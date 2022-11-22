@@ -28,6 +28,15 @@ describe("test BloomFilter", () => {
         expect(bloomFilter.hashExist('abcd')).resolves.toBeTruthy()
     })
 
+    test('test hash add and exist', async () => {
+        await bloomFilter.hashAdd('abcd')
+        await bloomFilter.hashAdd('abcd')
+        await bloomFilter.hashAdd('abcd')
+
+        expect(bloomFilter.hashExist('abcd')).resolves.toBeTruthy()
+    })
+
+
     test('test hash madd and exist', async () => {
         await bloomFilter.hashMAdd(['abcd','asf','sdf'])
         expect(await bloomFilter.hashExist('abcd')).toBeTruthy()

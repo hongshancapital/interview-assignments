@@ -24,4 +24,9 @@ const splitURL = (str: string): string[] => {
     return [url.origin, url.pathname + url.search + url.hash]
 }
 
-export { encodeID, decodeID, isURL, splitURL }
+
+function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export { encodeID, decodeID, isURL, splitURL, delay }
