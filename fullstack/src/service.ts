@@ -15,24 +15,6 @@ export class Service {
     }
 
     async urlHash(url: string): Promise<string | number> {
-        let lv: string | null = null
-        try {
-            lv = await this.cache.tryLock(url)
-            if (lv) {
-                return await this.createUrlHash(url)
-            } else {
-                while (lv == null) {
-                    await delay(500)
-                    lv = await this.cache.tryLock(url)
-                }
-                return await this.createUrlHash(url)
-            }
-        } finally {
-            await this.cache.releaseLock(url, lv!)
-        }
-    }
-
-    private async createUrlHash(url: string): Promise<string | number> {
         const [domain, path] = splitURL(url)
         let shortlink: IShortLink | undefined
         if (await this.bf.urlExist(url)) {
@@ -41,10 +23,10 @@ export class Service {
                 return shortlink.hash!
             } else {
                 // 可能存在，找不到新创建
-                shortlink = await this.newShortlink(domain, path)
+                shortlink = await this.findOrCreateWithLock(url)
             }
         } else {
-            shortlink = await this.newShortlink(domain, path)
+            shortlink = await this.findOrCreateWithLock(url)
         }
         if (shortlink) {
             //创建成功
@@ -57,12 +39,40 @@ export class Service {
         }
     }
 
+    private async findOrCreateWithLock(url: string): Promise<IShortLink | undefined> {
+        const [domain, path] = splitURL(url)
+        let lv: string | null = null
+        try {
+            lv = await this.cache.tryLock(url)
+            if (lv) {
+                return await this.findOrCreate(domain, path)
+            } else {
+                while (lv == null) {
+                    await delay(500)
+                    lv = await this.cache.tryLock(url)
+                }
+                return await this.findOrCreate(domain, path)
+            }
+        } finally {
+            await this.cache.releaseLock(url, lv!)
+        }
+    }
+
+    private async findOrCreate(domain: string, path: string): Promise<IShortLink | undefined> {
+        let shortlink = await this.slr.findByUrl(domain, path)
+        if (shortlink) {
+            return shortlink
+        } else {
+            return this.newShortlink(domain, path)
+        }
+    }
+
     private async newShortlink(domain: string, path: string): Promise<IShortLink | undefined> {
         let isl: IShortLink | undefined = await this.slr.create(createShortLink({
             domain,
             path
         }))
-        if (isl) {
+        if (isl && isl.id) {
             isl.hash = encodeID(isl.id!)
             isl = await this.slr.update(isl)
         }
@@ -89,7 +99,9 @@ export class Service {
                             shortlink = await this.slr.findById(slid)
                         }
                     }
-                    return shortlink?.domain! + shortlink?.path!
+                    const url = shortlink?.domain! + shortlink?.path!
+                    this.cache.set(hash, url)
+                    return url
                 } catch (e) {
                     return -1
                 } finally {
