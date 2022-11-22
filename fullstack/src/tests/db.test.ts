@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import path from 'path'
 dotenv.config({ path: path.resolve(process.cwd(), '.env.test'), debug: true })
 
-import { mysqlConnection } from '../connection';
+import { mysqlConnection, connect, close } from '../connection';
 import { ShortLinkRepository, IShortLink } from '../db';
 import { encodeID } from '../utils';
 
@@ -30,12 +30,13 @@ const cleardb = async () => {
 describe('test db', () => {
     const slr: ShortLinkRepository = new ShortLinkRepository(mysqlConnection)
     beforeAll(async () => {
+        await connect()
         await cleardb()
         await initdb()
     })
     afterAll(async () => {
         await cleardb()
-        await mysqlConnection.promise().end()
+        await close()
     })
 
     test('add shortlink', async () => {

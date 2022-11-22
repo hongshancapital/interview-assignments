@@ -8,8 +8,10 @@ export class Cache {
         this.client = client
     }
 
-    async add(hash: string, url: string): Promise<void> {
-        await this.client.SET(hash, url)
+    async set(hash: string, url: string): Promise<string | null> {
+        return await this.client.SET(hash, url,{
+            PX: 5000
+        })
     }
 
     async get(hash: string): Promise<string | null> {
@@ -20,7 +22,7 @@ export class Cache {
         const lockValue: string = crypto.randomBytes(20).toString('hex')
         const c: string | null = await this.client.SET(lockKey, lockValue, {
             NX: true,
-            PX: 5000
+            PX: 3000
         })
         return c == 'OK' ? lockValue : null
     }
