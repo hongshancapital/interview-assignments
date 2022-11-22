@@ -29,7 +29,7 @@ const formatURL = (url: string): string => {
 }
 
 
-function delay(ms: number) {
+function delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 

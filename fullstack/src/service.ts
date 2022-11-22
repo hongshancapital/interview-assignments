@@ -42,7 +42,7 @@ export class Service {
                     }
                 }
             } catch (e) {
-                console.error('data is broken')
+                console.error('data is broken', e)
             } finally {
                 // 只有一个拿到锁的进程需要释放
                 if (lv) {
@@ -84,13 +84,13 @@ export class Service {
         try {
             lv = await this.cache.tryLock(url)
             if (lv) {
-                return await this.findOrCreate(domain, path)
+                return this.findOrCreate(domain, path)
             } else {
                 while (lv == null) {
                     await delay(500)
                     lv = await this.cache.tryLock(url)
                 }
-                return await this.findOrCreate(domain, path)
+                return this.findOrCreate(domain, path)
             }
         } finally {
             await this.cache.releaseLock(url, lv!)
@@ -128,21 +128,18 @@ export class Service {
                 let lv: string | null = null
                 let shortlink: IShortLink | undefined
                 try {
-                    let slid = decodeID(hash)
                     lv = await this.cache.tryLock(hash)
                     if (lv) {
-                        shortlink = await this.slr.findById(slid)
+                        return this.getOrRead(hash)
                     } else {
                         while (lv == null) {
                             await delay(500)
-                            shortlink = await this.slr.findById(slid)
+                            lv = await this.cache.tryLock(hash)
                         }
+                        return this.getOrRead(hash)
                     }
-                    const url = shortlink?.domain! + shortlink?.path!
-                    this.cache.set(hash, url)
-                    return url
                 } catch (e) {
-                    return -1
+                    return -2
                 } finally {
                     this.cache.releaseLock(hash, lv!)
                 }
@@ -150,6 +147,23 @@ export class Service {
 
         } else {
             return 0
+        }
+    }
+
+    private async getOrRead(hash: string) {
+        let url = await this.cache.get(hash)
+        if (url) {
+            return url!
+        } else {
+            let slid = decodeID(hash)
+            let shortlink = await this.slr.findById(slid)
+            if (shortlink) {
+                const url = shortlink?.domain! + shortlink?.path!
+                this.cache.set(hash, url)
+                return url
+            } else {
+                return -1
+            }
         }
     }
 

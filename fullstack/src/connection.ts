@@ -3,13 +3,13 @@ import { createConnection, Connection } from 'mysql2'
 import { createClient, RedisClientType } from 'redis';
 
 export const redisClient: RedisClientType = createClient({
-    url: process.env.REDIS_URL
+    url: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379'
 });
 
 
 export const mysqlConnection: Connection = createConnection({
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT as unknown as number,
+    port: process.env.DB_PORT as unknown as number ?? 3306,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME

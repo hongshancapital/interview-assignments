@@ -43,7 +43,9 @@ describe('splitURL', () => {
 })
 
 test('delay', async () => {
-    await delay(10)
+    await delay(500)
+
+    expect(1).toBe(1)
 })
 
 test('format url', async () => {
