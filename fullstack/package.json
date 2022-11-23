@@ -6,6 +6,8 @@
   "author": "wsk",
   "license": "MIT",
   "scripts": {
+    "start": "node build/main.js",
+    "prestart": "tsc -p tsconfig.json",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "build": "tsc -p tsconfig.json"

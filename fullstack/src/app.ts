@@ -14,10 +14,6 @@ app.use(bodyParser.json());
 
 const service = new Service(new Cache(redisClient), new BloomFilter(redisClient), new ShortLinkRepository(mysqlConnection))
 
-app.on('ready', async () => {
-    service.init()
-})
-
 app.post('/shortlink', async (req: Request, res: Response) => {
     let url: string = req.body.url;
     if (url && isURL(url)) {
@@ -68,4 +64,4 @@ app.get('/shortlink', async (req: Request, res: Response) => {
     }
 })
 
-export { app }
+export { app, service }
