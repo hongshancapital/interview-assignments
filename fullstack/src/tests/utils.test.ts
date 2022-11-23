@@ -20,6 +20,14 @@ describe('isURL test', () => {
         expect(isURL('http://baidu.com:8080')).toBeTruthy()
     })
 
+    test('length > 8182', () => {
+        expect(isURL('http://baidu.com:8080/aaa'.padEnd(8183))).toBeFalsy()
+    })
+
+    test('domain > 300', () => {
+        expect(isURL('http://baidu'.padEnd(301)+'.com:8080')).toBeFalsy()
+    })
+
 })
 
 describe('encode decode', () => {

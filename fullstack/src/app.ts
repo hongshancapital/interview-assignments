@@ -20,7 +20,7 @@ app.on('ready', async () => {
 
 app.post('/shortlink', async (req: Request, res: Response) => {
     let url: string = req.body.url;
-    if (isURL(url)) {
+    if (url && isURL(url)) {
         url = formatURL(url)
         let hash: string | number = await service.urlHash(url)
         if (typeof hash == 'string') {
@@ -37,7 +37,7 @@ app.post('/shortlink', async (req: Request, res: Response) => {
 
 app.get('/shortlink', async (req: Request, res: Response) => {
     let hash: string = req.query.hash as string;
-    if (!hash) {
+    if (!hash || hash.length > 8) {
         res.status(400).json({
             error: 'wrong hash'
         })
@@ -49,10 +49,10 @@ app.get('/shortlink', async (req: Request, res: Response) => {
             url
         })
     } else {
-        switch (url as number) {
+        switch (url) {
             case 0:
-                res.json({
-                    url: ''
+                res.status(400).json({
+                    error: 'hash not exist'
                 })
                 break
             case -1:
