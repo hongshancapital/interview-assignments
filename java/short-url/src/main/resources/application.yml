@@ -1,0 +1,15 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: short-url
+
+short-url:
+    generateMode: INTEGER
+    urlMapMode: HASH
+    recyclingStrategyMode: LRU
+    urlMaxLen: 8
+    shortUrlDomain: https://jin.com/
+    startRecyclingStrategyMemoryPercent: 0.7
+    highestMemoryPercent: 0.95
+    MaxPendingEvent: 88888888
