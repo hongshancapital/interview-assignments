@@ -14,16 +14,16 @@ struct HomeRow: View {
     var isFavorite: Bool = false
     
     var favoriteButton : some View {
-        Button {
+        Image(
+            uiImage: UIImage(
+                systemName: isFavorite ? "heart.fill" : "heart"
+            ) ?? UIImage()
+        )
+        .renderingMode(.template)
+        .foregroundColor(isFavorite ? .red : .gray)
+        .frame(width: 50, height: 50)
+        .onTapGesture {
             self.isFavorite.toggle()
-        } label: {
-            Image(
-                uiImage: UIImage(
-                    systemName: isFavorite ? "heart.fill" : "heart"
-                )!
-            )
-            .renderingMode(.template)
-            .foregroundColor(isFavorite ? .red : .gray)
         }
     }
     

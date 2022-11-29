@@ -31,30 +31,20 @@ struct HomeList: View {
         UITableView.appearance().separatorColor = .clear
         UITableView.appearance().backgroundColor = tableBackgroundColor
         UITableViewCell.appearance().backgroundColor = tableBackgroundColor
-//        UITableViewCell.appearance().selectedBackgroundView = UIView()
+        UITableViewCell.appearance().selectedBackgroundView = UIView()
     }
-
+    
     var body: some View {
         ZStack {
             Color(tableBackgroundColor).edgesIgnoringSafeArea(.all)
-            if #available(iOS 15.0, *) {
-                List{
-                    rows(apps: apps)
-                }
-                .listStyle(.plain)
-            } else if #available(iOS 14.0, *) {
-                ScrollView {
-                    LazyVStack {
-                        rows(apps: apps)
-                    }
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                }
-            } else {
-                List{
-                    rows(apps: apps)
-                }
+            List{
+                rows(apps: apps)
             }
+            .listStyle(.plain)
+        }
+        .pullDownToRefresh {
+            print("ok")
+            sleep(5)
         }
     }
     
@@ -63,6 +53,13 @@ struct HomeList: View {
             if #available(iOS 15.0, *) {
                 listRow(app: app)
                     .listRowSeparator(.hidden)
+            }else if #available(iOS 14.0, *) {
+                listRow(app: app)
+                    .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 90)
+                    .listRowInsets(EdgeInsets(top: -1, leading: 0, bottom: 0, trailing: 0))
+                    .background(Color(tableBackgroundColor))
+                    
             } else {
                 listRow(app: app)
             }
