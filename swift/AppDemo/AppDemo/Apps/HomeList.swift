@@ -32,7 +32,7 @@ struct HomeList: View {
             .onAppear {
                 Task {
                     // 模拟慢网速
-                    try? await Task.sleep(nanoseconds: 3_000_000_000)
+//                    try? await Task.sleep(nanoseconds: 3_000_000_000)
                     await store.dispatch(action: .refresh)
                 }
             }
@@ -62,7 +62,7 @@ struct HomeList: View {
         }
         .pullDownToRefresh {
             // 模拟慢网速
-            try? await Task.sleep(nanoseconds: 3_000_000_000)
+//            try? await Task.sleep(nanoseconds: 3_000_000_000)
             await store.dispatch(action: .refresh)
         }
     }
@@ -78,7 +78,7 @@ struct HomeList: View {
                     .onAppear {
                         Task {
                             // 模拟慢网速
-                            try? await Task.sleep(nanoseconds: 3_000_000_000)
+//                            try? await Task.sleep(nanoseconds: 3_000_000_000)
                             await store.dispatch(action: .loadMore)
                         }
                     }
@@ -94,6 +94,10 @@ struct HomeList: View {
             if #available(iOS 15.0, *) {
                 listRow(app: app)
                     .listRowSeparator(.hidden)
+                    .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 90)
+                    .listRowInsets(EdgeInsets(top: -1, leading: 0, bottom: 0, trailing: 0))
+                    .background(Color(tableBackgroundColor))
             }else if #available(iOS 14.0, *) {
                 listRow(app: app)
                     .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
@@ -103,6 +107,10 @@ struct HomeList: View {
                     
             } else {
                 listRow(app: app)
+                    .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 90)
+                    .listRowInsets(EdgeInsets(top: -1, leading: 0, bottom: 0, trailing: 0))
+                    .background(Color(tableBackgroundColor))
             }
         }
         return rows
