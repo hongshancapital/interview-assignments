@@ -10,20 +10,24 @@ import SwiftUI
 struct HomeRow: View {
     
     var model: AppModel
-    @State
-    var isFavorite: Bool = false
+    
+    @EnvironmentObject
+    var store:MainStore<AppState, AppReduce>
     
     var favoriteButton : some View {
-        Image(
+        let isFav = store.state.favList.contains(self.model.bundleId)
+        return Image(
             uiImage: UIImage(
-                systemName: isFavorite ? "heart.fill" : "heart"
+                systemName: isFav ? "heart.fill" : "heart"
             ) ?? UIImage()
         )
         .renderingMode(.template)
-        .foregroundColor(isFavorite ? .red : .gray)
+        .foregroundColor(isFav ? .red : .gray)
         .frame(width: 50, height: 50)
         .onTapGesture {
-            self.isFavorite.toggle()
+            Task {
+                await store.dispatch(action: .toggleFav(self.model.bundleId))
+            }
         }
     }
     
@@ -78,5 +82,6 @@ struct HomeRow_Previews: PreviewProvider {
     
     static var previews: some View {
         HomeRow(model: model)
+            .environmentObject(MainStore<AppState, AppReduce>())
     }
 }
