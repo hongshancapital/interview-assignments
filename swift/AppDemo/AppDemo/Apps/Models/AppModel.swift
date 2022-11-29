@@ -8,7 +8,10 @@
 import Foundation
 
 
-struct AppModel: Codable {
+struct AppModel: Codable, Identifiable {
+    var id: String {
+        return bundleId
+    }
     var bundleId: String
     var trackCensoredName: String?
     var artworkUrl60: String?

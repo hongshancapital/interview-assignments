@@ -45,9 +45,9 @@ struct HomeRow: View {
                     .lineLimit(2)
             }
             favoriteButton
-
         }
-        .padding()
+        .padding(.leading, 8)
+        .padding(.trailing, 8)
     }
 }
 
