@@ -32,7 +32,7 @@ struct HomeList: View {
             .onAppear {
                 Task {
                     // 模拟慢网速
-//                    try? await Task.sleep(nanoseconds: 3_000_000_000)
+                    try? await Task.sleep(nanoseconds: 3_000_000_000)
                     await store.dispatch(action: .refresh)
                 }
             }
@@ -62,7 +62,7 @@ struct HomeList: View {
         }
         .pullDownToRefresh {
             // 模拟慢网速
-//            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
             await store.dispatch(action: .refresh)
         }
     }
@@ -78,7 +78,7 @@ struct HomeList: View {
                     .onAppear {
                         Task {
                             // 模拟慢网速
-//                            try? await Task.sleep(nanoseconds: 3_000_000_000)
+                            try? await Task.sleep(nanoseconds: 3_000_000_000)
                             await store.dispatch(action: .loadMore)
                         }
                     }

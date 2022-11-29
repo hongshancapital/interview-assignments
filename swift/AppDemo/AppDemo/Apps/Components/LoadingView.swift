@@ -10,18 +10,18 @@ import SwiftUI
 struct LoadingView: UIViewRepresentable {
     typealias UIViewType = UIActivityIndicatorView
     
-    var loading: Bool
     var style: UIActivityIndicatorView.Style
-    init(loading: Bool = true, style: UIActivityIndicatorView.Style = .medium ) {
-        self.loading = loading
+    init(style: UIActivityIndicatorView.Style = .medium ) {
         self.style = style
     }
     func makeUIView(context: Context) -> UIActivityIndicatorView {
-        UIActivityIndicatorView(style: style)
+        let view = UIActivityIndicatorView(style: style)
+        view.startAnimating()
+        return view
     }
     
     func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
-        loading ? uiView.startAnimating() : uiView.stopAnimating()
+        
     }
 }
 
