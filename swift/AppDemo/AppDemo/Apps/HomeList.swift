@@ -31,23 +31,43 @@ struct HomeList: View {
         UITableView.appearance().separatorColor = .clear
         UITableView.appearance().backgroundColor = tableBackgroundColor
         UITableViewCell.appearance().backgroundColor = tableBackgroundColor
+//        UITableViewCell.appearance().selectedBackgroundView = UIView()
     }
 
     var body: some View {
         ZStack {
             Color(tableBackgroundColor).edgesIgnoringSafeArea(.all)
-            List {
-                ForEach(apps) { app in
-                    if #available(iOS 15.0, *) {
-                        listRow(app: app)
-                            .listRowSeparator(.hidden)
-                    } else {
-                        listRow(app: app)
+            if #available(iOS 15.0, *) {
+                List{
+                    rows(apps: apps)
+                }
+                .listStyle(.plain)
+            } else if #available(iOS 14.0, *) {
+                ScrollView {
+                    LazyVStack {
+                        rows(apps: apps)
                     }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                }
+            } else {
+                List{
+                    rows(apps: apps)
                 }
             }
-            .listStyle(.plain)
         }
+    }
+    
+    func rows(apps: [AppModel]) -> some View {
+        let rows = ForEach(apps) { app in
+            if #available(iOS 15.0, *) {
+                listRow(app: app)
+                    .listRowSeparator(.hidden)
+            } else {
+                listRow(app: app)
+            }
+        }
+        return rows
     }
     
     func listRow(app: AppModel) -> some View {

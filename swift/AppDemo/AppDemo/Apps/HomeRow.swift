@@ -30,8 +30,7 @@ struct HomeRow: View {
     var body: some View {
         HStack {
             ZStack {
-                Color.red
-                Image("")
+                networkImage(url: model.artworkUrl60 ?? "")
             }
             .frame(width: 60, height:60)
             VStack(alignment: .leading) {
@@ -48,6 +47,23 @@ struct HomeRow: View {
         }
         .padding(.leading, 8)
         .padding(.trailing, 8)
+    }
+    
+    func networkImage(url: String) -> some View {
+        if #available(iOS 15.0, *) {
+            return AsyncImage(url: URL(string: url)) { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            }
+        } else {
+            return NetImage(url: URL(string: url)) { image in
+                image.resizable()
+            } placeholder: {
+                LoadingView()
+            }
+
+        }
     }
 }
 
