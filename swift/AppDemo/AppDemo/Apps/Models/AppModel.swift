@@ -17,3 +17,8 @@ struct AppModel: Codable, Identifiable {
     var artworkUrl60: String?
     var description: String?
 }
+
+struct ListModel<Model: Codable>: Codable {
+    var resultCount: Int?
+    var results: [Model]?
+}

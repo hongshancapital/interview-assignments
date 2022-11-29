@@ -37,12 +37,14 @@ struct HomeRow: View {
                 Text(model.trackCensoredName ?? "")
                     .font(.headline)
                     .lineLimit(1)
+                    .frame(minWidth: 60, maxWidth: .infinity, alignment: .leading)
                 Spacer()
                     .frame(height: 5)
                 Text(model.description ?? "")
                     .font(.subheadline)
                     .lineLimit(2)
             }
+            
             favoriteButton
         }
         .padding(.leading, 8)
