@@ -66,7 +66,7 @@ struct HomeRow: View {
             return NetImage(url: URL(string: url)) { image in
                 image.resizable()
             } placeholder: {
-                LoadingView()
+                LoadingView(isAnimating: .constant(true))
             }
 
         }

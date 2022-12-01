@@ -27,7 +27,7 @@ struct HomeList: View {
             list(apps: apps)
         } else {
             VStack {
-                LoadingView()
+                LoadingView(isAnimating: .constant(true))
             }
             .onAppear {
                 Task {
@@ -74,7 +74,7 @@ struct HomeList: View {
                 Text("No more data")
                     .foregroundColor(.gray)
             } else {
-                LoadingView()
+                LoadingView(isAnimating: .constant(true))
                     .onAppear {
                         Task {
                             // 模拟慢网速
