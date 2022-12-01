@@ -35,5 +35,24 @@ final class AppDemoTests: XCTestCase {
         let limit = store.state.limit
         XCTAssertTrue(total > limit)
     }
+    
+    func testFavorite() async {
+        let store = MainStore<AppState, AppReduce>()
+        await store.dispatch(action: .refresh)
+        let total = store.state.apps?.count ?? 0
+        XCTAssertTrue(total > 0)
+        guard let app = store.state.apps?[0] else {
+            XCTAssert(false, "Apps is empty")
+            return
+        }
+        // 关注
+        await store.dispatch(action: .toggleFav(app.bundleId))
+        var isFav = store.state.favList.contains(app.bundleId)
+        XCTAssertTrue(isFav)
+        // 取消关注
+        await store.dispatch(action: .toggleFav(app.bundleId))
+        isFav = store.state.favList.contains(app.bundleId)
+        XCTAssertFalse(isFav)
+    }
 
 }
