@@ -24,7 +24,12 @@ struct HomeList: View {
     
     var body: some View {
         if let apps = store.state.apps {
-            list(apps: apps)
+            if #available(iOS 16.0, *) {
+                list(apps: apps)
+                    .scrollContentBackground(.hidden)
+            } else {
+                list(apps: apps)
+            }
         } else {
             VStack {
                 LoadingView(isAnimating: .constant(true))
