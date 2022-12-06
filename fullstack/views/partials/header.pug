@@ -1,0 +1,16 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
+  .container
+    a.navbar-brand(href='/')
+      i.fa.fa-cube
+      | 域名服务
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+      span.navbar-toggler-icon
+
+    .collapse.navbar-collapse
+      .dropdown-divider
+      ul.nav.navbar-nav
+          li.nav-item(class=(title === 'Login') ? 'active' : undefined)
+            a.nav-link(href='/login') 登录
+          li.nav-item(class=(title === 'Domain Service') ? 'active' : undefined)
+            a.nav-link(href='/domain') 域名服务
+

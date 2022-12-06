@@ -1,0 +1,29 @@
+extends ./layout
+
+block content
+  .page-header
+    h3 #{title} 
+    hr
+
+  form.form-horizontal(method='POST',action='/domain/tiny')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row.justify-content-md-center
+      label.col-sm-3.col-form-label.text-right.font-weight-bold(for='url') 长域名
+      .col-sm-7
+        input.form-control(type='url', name='longurl', id='longurlid', placeholder='长域名', autofocus, required)
+    .form-group.row.justify-content-md-center
+      .offset-sm-3.col-sm-7
+        button.col-sm-3.btn.btn-primary(type='submit')
+          i.fa.fa-user 获取短域名
+        label.col-sm-3.col-form-label.text-right(for='longurlid') #{shortresult} 
+  form.form-horizontal(method='POST',action='/domain/huge')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row.justify-content-md-center
+      label.col-sm-3.col-form-label.text-right.font-weight-bold(for='url') 短域名
+      .col-sm-7
+        input.form-control(type='url', name='shorturl', id='shorturlid', placeholder='短域名', required)
+    .form-group.row.justify-content-md-center
+      .offset-sm-3.col-sm-7
+        button.col-sm-3.btn.btn-primary(type='submit')
+          i.fa.fa-user           获取长域名
+        label.col-sm-3.col-form-label.text-right(for='shorturlid') #{longresult} 

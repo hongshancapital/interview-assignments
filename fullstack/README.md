@@ -1,4 +1,4 @@
-# TypeScript Fullstack Engineer Assignment
+## TypeScript Fullstack Engineer Assignment
 
 ### Typescript 实现短域名服务（细节可以百度/谷歌）
 
@@ -11,35 +11,29 @@
 
 - 短域名长度最大为 8 个字符（不含域名）
 
-递交作业内容
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+## 项目
 
-其他
+项目启动步骤 
 
-- 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
+1. 点击docker_install.cmd,启动docker容器
+2. 安装项目依赖，运行项目，npm run build & npm run serve
+3. 访问localhost:3000 点击登陆，输入任意符合要求账号，密码登陆
+4. 点击域名服务
+5. 输入长域名获取短域名
+6. 输入短域名获取长域名信息
 
-## 岗位职责
+项目通过siphash24算法生成短域名，并存入redis，通过对redis操作获取短域名
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+![长域名-短域名](D:\johnproblem\interview-assignments\fullstack\image\长域名-短域名.png)
 
-## 要求
+![短域名-长域名](D:\johnproblem\interview-assignments\fullstack\image\短域名-长域名.png)
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+![数据流向](D:\johnproblem\interview-assignments\fullstack\image\数据流向.png)
+
+---------------------------------------------------------------------------------------
+项目
+ 功能点
+ 1.基础用户校验。
+ 2.对域名进行siphash24加密，生成8位字符串
+ 3.将字符串与长域名进行映射，存入redis数据库
