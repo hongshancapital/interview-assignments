@@ -115,28 +115,16 @@ struct Cell: View {
                 } label: {
                     Image("r_heart")
                 }.padding(.trailing,10)
+                    .buttonStyle(.plain)
             } else {
                 Button {
                     self.respect = true
                 } label: {
                     Image("heart")
                 }.padding(.trailing,10)
+                    .buttonStyle(.plain)
             }
         }
-    }
-}
-
-
-struct Item: Identifiable {
-    let id = UUID().uuidString
-    let title: String
-    let desc: String
-    var image: String
-}
-
-@resultBuilder struct TestBuilder {
-    static func buildBlock(_ items: Int...) -> [Int] {
-        items
     }
 }
 
