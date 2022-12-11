@@ -142,27 +142,28 @@ struct ContentView: View {
                 }
                 if self.cellVMs.count > 0 {
                     if !noMoreData {
-                    
                         HStack(alignment: .center, spacing: 5, content: {
-                            Spacer().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground)).padding(.all,-15)
-                            ProgressView().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground)).padding(.all,-15)
+                            Spacer().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center)
+                            ProgressView().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground))
                                 .onAppear {
                                 //模拟网络请求延时
                                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                                     self.loadMoreData()
                                 }
                             }
-                            Text("Loading...").frame( maxWidth:150,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground)).foregroundColor(Color.gray).padding(.leading,-40)
-                                .padding(.top,-15)
-                                .padding(.bottom,-15)
-                                .padding(.trailing,-15)
+                            Text("Loading...").frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.leading)
+                                .foregroundColor(Color.gray)
+                                .padding(.leading,-15)
                             
-                            Spacer().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground)).padding(.all,-15)
+                            Spacer().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground))
                             
-                        })
+                        }).listRowBackground(Color.init(UIColor.systemGroupedBackground))
+                            .listRowSeparator(.hidden)
 
                     } else {
-                        Text("No more data").foregroundColor(Color.gray.opacity(0.5)).frame(maxWidth: .infinity, maxHeight: .infinity,alignment: Alignment.center).background(Color.init(UIColor.systemGroupedBackground)).padding(.all,-10)
+                        Text("No more data").foregroundColor(Color.gray.opacity(0.5)).frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
+                            .listRowBackground(Color.init(UIColor.systemGroupedBackground))
+                                .listRowSeparator(.hidden)
                     }
 
                 }else {
