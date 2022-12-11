@@ -128,50 +128,64 @@ struct Cell: View {
     }
 }
 
+class LoadMoreViewModel: ObservableObject {
+    @Published var noMoreData: Bool = false;
+}
+
+struct LoadMoreView: View {
+    @EnvironmentObject var lodaMoreViewModel: LoadMoreViewModel
+    let  viewOnAppear: ()->Void
+    init(_ viewOnAppear: @escaping ()->Void) {
+        self.viewOnAppear = viewOnAppear
+    }
+    var body: some View {
+        if !lodaMoreViewModel.noMoreData{
+            HStack(alignment: .center, spacing: 5, content: {
+                Spacer().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center)
+                ProgressView().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground))
+                    .onAppear {
+                    //模拟网络请求延时
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                            self.viewOnAppear()
+                    }
+                }
+                Text("Loading...").frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.leading)
+                    .foregroundColor(Color.gray)
+                    .padding(.leading,-15)
+                
+                Spacer().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground))
+            })
+
+        } else {
+            Text("No more data").foregroundColor(Color.gray.opacity(0.5)).frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
+        }
+
+    }
+}
+
 struct ContentView: View {
     var viewModel: LHViewModel = LHViewModel.init()
+    @StateObject var loadMoreViewModel: LoadMoreViewModel = LoadMoreViewModel()
     @State var cellVMs: [CellViewModel] = []
     @State var noMoreData = false
     var body: some View {
         NavigationView() {
-        
             List{
                 ForEach(cellVMs){item in
                         Cell.init(item).background(Color.white).cornerRadius(10)
                         .frame(maxWidth: .infinity, maxHeight: 90, alignment: Alignment.center).listRowBackground(Color.init(UIColor.systemGroupedBackground)).padding(.all,0).listRowSeparator(.hidden)
                 }
                 if self.cellVMs.count > 0 {
-                    if !noMoreData {
-                        HStack(alignment: .center, spacing: 5, content: {
-                            Spacer().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center)
-                            ProgressView().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground))
-                                .onAppear {
-                                //模拟网络请求延时
-                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                                    self.loadMoreData()
-                                }
-                            }
-                            Text("Loading...").frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.leading)
-                                .foregroundColor(Color.gray)
-                                .padding(.leading,-15)
-                            
-                            Spacer().frame( maxWidth:.infinity,  maxHeight: .infinity, alignment:.center).background(Color.init(UIColor.systemGroupedBackground))
-                            
-                        }).listRowBackground(Color.init(UIColor.systemGroupedBackground))
-                            .listRowSeparator(.hidden)
 
-                    } else {
-                        Text("No more data").foregroundColor(Color.gray.opacity(0.5)).frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
-                            .listRowBackground(Color.init(UIColor.systemGroupedBackground))
-                                .listRowSeparator(.hidden)
-                    }
+                    LoadMoreView.init {
+                        loadMoreData()
+                    }.listRowBackground(Color.init(UIColor.systemGroupedBackground)).listRowSeparator(.hidden)
 
                 }else {
                     EmptyView()
                 }
             }
                 .listStyle(.plain)
-                .listStyle(.sidebar)
                 .background(Color.init(UIColor.systemGroupedBackground))
                 .onAppear {
                     self.refreshData()
@@ -181,6 +195,7 @@ struct ContentView: View {
                 .navigationBarTitle("App")
             
         }.navigationViewStyle(.stack)
+            .environmentObject(loadMoreViewModel)
     }
     
     func refreshData() {
@@ -189,13 +204,13 @@ struct ContentView: View {
         for e in viewModel.cellVMs{
             self.cellVMs.append(e)
         }
-        self.noMoreData = self.viewModel.noMoreData
+        self.loadMoreViewModel.noMoreData = self.viewModel.noMoreData
     }
     
-    func loadMoreData( ) {
+    func loadMoreData() {
         let p = self.cellVMs.count / 10
         self.viewModel.loadMoreData(p)
-        self.noMoreData = self.viewModel.noMoreData
+        self.loadMoreViewModel.noMoreData = self.viewModel.noMoreData
         for e in viewModel.cellVMs{
             self.cellVMs.append(e)
         }
