@@ -164,7 +164,9 @@ struct LoadMoreView: View {
 }
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var currentMode
     var viewModel: LHViewModel = LHViewModel.init()
+    var darkCellBgColor = Color.init(red: 28 / 255.0, green: 28 / 255.0, blue: 30 / 255.0)
     @StateObject var loadMoreViewModel: LoadMoreViewModel = LoadMoreViewModel()
     @State var cellVMs: [CellViewModel] = []
     @State var noMoreData = false
@@ -172,7 +174,7 @@ struct ContentView: View {
         NavigationView() {
             List{
                 ForEach(cellVMs){item in
-                        Cell.init(item).background(Color.white).cornerRadius(10)
+                    Cell.init(item).background(currentMode == .dark ? darkCellBgColor : Color.white).cornerRadius(10)
                         .frame(maxWidth: .infinity, maxHeight: 90, alignment: Alignment.center).listRowBackground(Color.init(UIColor.systemGroupedBackground)).padding(.all,0).listRowSeparator(.hidden)
                 }
                 if self.cellVMs.count > 0 {

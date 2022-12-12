@@ -9,13 +9,15 @@ import XCTest
 @testable import TestSwiftUI
 
 class TestSwiftUITests: XCTestCase {
-
+    var lhvm: LHViewModel!
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        lhvm = LHViewModel()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        lhvm = nil
     }
 
     func testExample() throws {
