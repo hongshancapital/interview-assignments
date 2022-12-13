@@ -72,18 +72,5 @@ struct NetApi{
             .eraseToAnyPublisher()
     }
     
-    
-    func loadjsonarray() -> [AppInfomation]{
-        let file = Bundle.main.url(forResource: "AppInfos", withExtension: "json")
-        let data = try? Data(contentsOf: file!)
-        var array:[AppInfomation] = []
-        do{
-            array = try JSONDecoder().decode([AppInfomation].self, from:data!)
-        }
-        catch{
-            print(error)
-        }
-        return array
-    }
 }
 

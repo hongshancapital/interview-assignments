@@ -77,16 +77,16 @@ struct AppCardView: View {
 extension Text {
     func cardTitleStyle() -> some View {
         lineLimit(1)
-        .font(.headline)
-        .frame(maxWidth:.infinity, alignment: .leading)
+            .font(.headline)
+            .frame(maxWidth:.infinity, alignment: .leading)
     }
     
     func cardSubtitleStyle() -> some View {
         font(.footnote)
-        .lineSpacing(-10)
-        .lineLimit(2)
-        .allowsTightening(true)
-        .truncationMode(.tail)
+            .lineSpacing(-10)
+            .lineLimit(2)
+            .allowsTightening(true)
+            .truncationMode(.tail)
     }
 }
 

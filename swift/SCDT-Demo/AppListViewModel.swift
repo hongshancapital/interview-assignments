@@ -15,7 +15,7 @@ class AppListViewModel: ObservableObject{
     @Published public var error: NetApiError?
     
     var cancellables = Set<AnyCancellable>()
-
+    
     public var currentPage = 0
     
     func reload() {
@@ -67,7 +67,7 @@ struct AppInfomation: Codable, Hashable, Identifiable{
     let subtitle: String
     let thumbnail: String
     var favorited: Bool = false
-
+    
     enum CodingKeys: String, CodingKey{
         case id = "trackId"
         case title = "trackName"
@@ -82,7 +82,6 @@ class FavoriteAppManager {
     static let shared = FavoriteAppManager()
     
     func hasFavorited(_ appId: Int) -> Bool{
-        print("has faved ? \(appId) \(favoritedAppIds)")
         return favoritedAppIds.contains(appId)
     }
     
@@ -94,5 +93,5 @@ class FavoriteAppManager {
             favoritedAppIds.remove(appId)
         }
     }
-
+    
 }
