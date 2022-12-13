@@ -9,9 +9,9 @@ import SwiftUI
 import UIKit
 
 class FeedModel: Codable {
-    var artworkUrl60: String
-    var description: String
-    var trackCensoredName: String
+    var artworkUrl60: String?
+    var description: String?
+    var trackCensoredName: String?
 }
 
 class ApiModel: Codable {
@@ -56,7 +56,7 @@ class LHViewModel {
         
         for i in page * 10...page * 10 + 9 {
             let e:FeedModel = data!.results[i]
-            cellVMs.append(CellViewModel.init(e.artworkUrl60, e.description, e.trackCensoredName))
+            cellVMs.append(CellViewModel.init(e.artworkUrl60 ?? "", e.description ?? "", e.trackCensoredName ?? ""))
         }
     }
     
