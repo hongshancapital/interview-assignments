@@ -2,9 +2,26 @@
   "name": "react-assignment",
   "version": "0.1.0",
   "private": true,
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "git add .",
+      "eslint --fix --cache",
+      "eslint --cache"
+    ],
+    "src/**/*.{css,scss}": [
+      "stylelint --fix --cache",
+      "stylelint --cache"
+    ]
+  },
   "dependencies": {
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sass": "^1.56.2",
+    "stylelint": "^14.16.0",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-recommended-scss": "^8.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -21,10 +38,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eject": "react-scripts eject",
+    "prepare": "cd .. && husky install frontend/.husky",
+    "precommit": "lint-staged"
   },
   "browserslist": {
     "production": [
