@@ -1,0 +1,54 @@
+@import './styles/mixins';
+.App {
+  position: relative;
+  text-align: center;
+}
+
+#root, .App {
+  height: 100%
+}
+
+.title {
+  font-size: 56px;
+  font-weight: 600;
+}
+
+.text {
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.billboard {
+  position: relative;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 100% auto;
+  .billboard-main {
+    @include absolute-center(30%);
+    width: 100%;
+    .title-area {
+      width: 100%;
+      font-size: 60px;
+      font-weight: 500;
+    }
+    .desc-area {
+      margin-top: 10px;
+      font-size: 32px;
+    }
+  }
+  &.xPhone {
+    background-color: #111111;
+    background-position: 50% 0;
+    background-size: 70% auto;
+  }
+  &.Tablet {
+    background-color: #fafafa;
+    background-size: 120% auto;
+  }
+  &.airPods {
+    background-color: #f1f1f3;
+    background-position: 50% 70%;
+    background-size: 120% auto;
+  }
+}
