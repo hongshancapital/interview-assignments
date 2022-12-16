@@ -1,3 +1,50 @@
+## 实现说明
+
+> By: 魏潇—13237157312—前端开发
+
+### Carousel组件实现思路
+
+若将Carousel组件下方进度条视作类似播放器的进度条，进度条播放完毕时，会自动播放下一项，进而循环播放。按照这个思路，大致按照如下目录实现：
+
+````txt
+├── Carousel
+|   ├── AutoProgress // 进度条组件，可自动播放，播放完触发onEnd事件
+|   └── index.tsx // Carousel布局组件，进度条onEnd事件触发后跳转下一项
+````
+
+若只实现该功能，进度条播放效果直接用css `transition`属性，播放完毕的事件由绑定的`onTransitionEnd`触发即可，但考虑到后续拓展，姑且希望进度条包含**暂停**、**停止**功能，因此用`requestAnimationFrame`实现进度条计时功能，`AutoProgress`暴露`stoped`、`paused`属性，用于播放条的停止和暂停。
+
+更进一步，Carousel组件可能会拓展许多手势操作，如：hover时暂停播放、拖动翻页等。为了保证拓展性，需要提供一个插件机制，可由用户实现各种定制化的手势操作。
+
+目前组件内置了hover时暂停播放、拖动翻页插件，[App.tsx](https://github.com/goblin-pitcher/interview-assignments-dev-weixiao/blob/master/frontend/src/App.tsx#L32)中，解除相关注释，可启用这些手势操作的内置插件
+
+````tsx
+......
+// 解除插件相关注释，可获取hover暂停、手动翻页功能
+// const { createHoverPausePlugin, createDraggablePlugin } = Carousel.plugins;
+
+function App() {
+  const plugins = useMemo(()=>[
+    // createHoverPausePlugin(), createDraggablePlugin()
+  ], []);
+  ......
+}
+````
+
+### 提交内容说明
+
+提交内容分为一下三部分：
+
+1. chore(frontend): 添加项目基础配置, 提交流程相关内容
+   + 项目添加scss支持
+   + 为保证文件格式统一，配置了基本的eslint、stylelint和pre-commit时的lint-staged检测
+2. feat(frontend): 实现Carousel组件, 完成展示页面
+   + Carousel组件的具体实现
+3. test(frontend): 添加Carousel组件相关测试用例
+   + 相关测试用例文档
+
+<hr />
+
 # TypeScript Frontend Engineer Assignment
 
 ## 要求
