@@ -44,9 +44,14 @@ const parseClassName = (classDesc: (string|ClassObj|undefined)[]|ClassObj) => {
   };
   return parseClassDesc(classDesc);
 };
+
+const sleep = (time: number) => new Promise((resolve)=>{
+  setTimeout(resolve, time);
+});
 export {
   watcher,
   isDef,
   getTimestamp,
-  parseClassName
+  parseClassName,
+  sleep
 };

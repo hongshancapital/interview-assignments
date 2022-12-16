@@ -28,8 +28,8 @@ const Progress = (props: ProgressProps)=> {
     return parseClassName(classNameArr);
   }, [className]);
   return (
-        <div className={wrapperClassName} style={{ width, height: eleHeight, backgroundColor }}>
-            <div className="carousel-progress-bg" style={{ backgroundColor: strokeColor, width: `${percent}%`, height: '100%' }}></div>
+        <div data-testid="carousel-progress" className={wrapperClassName} style={{ width, height: eleHeight, backgroundColor }}>
+            <div data-testid="carousel-progress-bg" className="carousel-progress-bg" style={{ backgroundColor: strokeColor, width: `${percent}%`, height: '100%' }}></div>
         </div>
   );
 };

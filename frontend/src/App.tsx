@@ -28,10 +28,13 @@ const renderInfo = [
   }
 ];
 
-const { createHoverPausePlugin, createDraggablePlugin } = Carousel.plugins;
+// 解除插件相关注释，可获取hover暂停、手动翻页功能
+// const { createHoverPausePlugin, createDraggablePlugin } = Carousel.plugins;
 
 function App() {
-  const plugins = useMemo(()=>[createHoverPausePlugin(), createDraggablePlugin()], []);
+  const plugins = useMemo(()=>[
+    // createHoverPausePlugin(), createDraggablePlugin()
+  ], []);
   return <div className='App'>
     <Carousel plugins={plugins}>
       {

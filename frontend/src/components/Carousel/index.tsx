@@ -64,6 +64,7 @@ const Carousel = (props: CarouselProps)=>{
   }, [children.length]);
   return (
         <article
+            data-testid="carousel"
             className={wrapperClassName}
             {...attrsAndEvents}
             style={style}>

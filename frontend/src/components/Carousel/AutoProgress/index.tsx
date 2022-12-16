@@ -34,4 +34,8 @@ const AutoProgress = (props: AutoProgressProps) => {
   );
 };
 
+
+export type {
+  AutoProgressProps
+};
 export default React.memo(AutoProgress);
