@@ -1,0 +1,46 @@
+.page-carousel{
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel-item{
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-item-title,
+.carousel-item-subtitle{
+  padding-top: 10px;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.carousel-item-desc{
+  margin: 10px 0;
+  font-size: 2rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.carousel-item-img{
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* -- 使用 cover 与 1:2 的宽高尽量还原比例 -- */
+.carousel-item-bg{
+  margin-top: -200px;
+  width: 200px;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
