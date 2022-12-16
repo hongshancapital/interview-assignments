@@ -32,7 +32,7 @@ const Carousel: React.FC<ICarouselProps> = (props: ICarouselProps) => {
         {children}
       </div>
       <div className="carousel-indicator-group">
-        {children.map((item: any, index: number) => {
+        {children.map((item, index: number) => {
           return (
             <div
               className="carousel-indicator"
