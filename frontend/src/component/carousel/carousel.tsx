@@ -9,35 +9,38 @@ type ICarouselProps = {
 };
 
 const Carousel: React.FC<ICarouselProps> = (props: ICarouselProps) => {
-  const { children = [], duration = 3000 } = props
+  const { children = [], duration = 3000 } = props;
   const count = children?.length || 0;
-  const { pageIndex, nextPage } = usePage(0, count);
+  const { pageIndex, nextPage, jumpPage } = usePage(0, count);
 
-  //进度条样式
+  // -- 进度条样式 --
   const progressStyle = {
     animationName: "slide-animation",
     animationDuration: `${duration / 1000}s`,
   };
 
   return (
-    <div className='carousel-wrapper'>
+    <div className='carousel-wrapper' data-testid="carousel-wrapper">
       <div
         className="carousel-container"
+        data-testid="carousel-container"
         style={{
-          position: 'absolute',
-          width: count * 100 + '%',
           transform: `translateX(${-pageIndex * 100}%)`,
+          transitionDuration: `${0.7}s`,
         }}
       >
         {children}
       </div>
-      <div className="carousel-indicators">
+      <div className="carousel-indicator-group">
         {children.map((item: any, index: number) => {
           return (
             <div
               className="carousel-indicator"
-              key={index}
               data-testid="carousel-indicator"
+              key={index}
+              onClick={() => {
+                jumpPage(index);
+              }}
             >
               <div
                 className="carousel-indicator-inside"

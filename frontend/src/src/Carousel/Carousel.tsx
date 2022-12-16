@@ -1,5 +1,4 @@
 import Carousel from '../../component/carousel/carousel';
-import { sliderList } from './data';
 import './index.css';
 
 export type SlideItem = {
@@ -12,6 +11,10 @@ export type SlideItem = {
   color?: string;
 };
 
+interface ICarouselPageProps {
+  sliderList: Array<SlideItem>;
+}
+
 // -- 渲染 Carousel-item-info --
 function CarouselItemInfo(slide: SlideItem) {
   const {
@@ -22,10 +25,10 @@ function CarouselItemInfo(slide: SlideItem) {
     bgColor = "#fff",
     color = "#000",
   } = slide;
-
   return (
     <div
       className="carousel-item"
+      data-testid="carousel-item"
       style={{ backgroundColor: bgColor, color: color }}
     >
       {/* --- header --- */}
@@ -37,7 +40,7 @@ function CarouselItemInfo(slide: SlideItem) {
 
       {/* --- image ---- */}
       {image && (
-        <div className="carousel-item-bottomImg">
+        <div className="carousel-item-img">
           <div
             className="carousel-item-bg"
             style={{ backgroundImage: `url(${image})` }}
@@ -48,11 +51,13 @@ function CarouselItemInfo(slide: SlideItem) {
   );
 };
 
-function CarouselPage() {
+function CarouselPage(props: ICarouselPageProps) {
+  const { sliderList = [] } = props;
+
   return (
-    <div className='page-carousel'>
+    <div className='page-carousel' data-testid="page-carousel">
       <Carousel duration={3000}>
-        {sliderList.map((slide) => {
+        {sliderList.map((slide: SlideItem) => {
           return (
             <CarouselItemInfo key={slide.id} {...slide}></CarouselItemInfo>
           )

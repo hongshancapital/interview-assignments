@@ -1,67 +1,46 @@
-import React from "react";
-import { renderHook, render, screen, act } from "@testing-library/react";
-import Carousel from "./carousel";
-// import { useCarousel } from "./useCarousel";
+import { render, renderHook, act, screen } from "@testing-library/react";
+import Carousel from './carousel';
+import { usePage } from '../../hooks';
 
-describe("render carousel", () => {
-  test("carousel item should not be rendered with zero child", () => {
-    render(<Carousel></Carousel>);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
-    expect(screen.queryAllByTestId("carousel-item")).toHaveLength(0);
-    expect(screen.queryAllByTestId("carousel-indicator")).toHaveLength(0);
-  });
+describe("Carousel-component usePage test", () => {
+  test("usePage test", () => {
+    const { result } = renderHook(() => usePage(1, 3));
+    expect(result.current.pageIndex).toBe(1);
+    expect(result.current.length).toBe(2);
 
-  test("carousel item should be rendered with children", () => {
-    render(
-      <Carousel
-      ></Carousel>
-    );
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
-    expect(screen.queryAllByTestId("carousel-item")).toHaveLength(2);
-    expect(screen.queryAllByTestId("carousel-indicator")).toHaveLength(2);
-    expect(screen.getByText("test1")).toBeInTheDocument();
-    expect(screen.getByText("test2")).toBeInTheDocument();
+    const prevPage = result.current.prevPage;
+    const nextPage = result.current.nextPage;
+    const jumpPage = result.current.jumpPage;
+
+    act(() => {
+      prevPage();
+    });
+    expect(result.current.pageIndex).toBe(0);
+
+    act(() => {
+      nextPage();
+    });
+    expect(result.current.pageIndex).toBe(2);
+
+    act(() => {
+      jumpPage(0);
+    });
+    expect(result.current.pageIndex).toBe(0);
+
+    act(() => {
+      jumpPage(1);
+    });
+    expect(result.current.pageIndex).toBe(1);
+
+    act(() => {
+      jumpPage(999);
+    });
+    expect(result.current.pageIndex).toBe(0);
+  })
+
+  test("find carousel-wrapper", () => {
+    render(<Carousel />);
+    const app = screen.getByTestId("carousel-wrapper");
+    expect(app).toBeInTheDocument();
   });
 });
-
-// describe("useCarousel", () => {
-//   test("stepToNext function should set curIndex to next number if not out of bound", () => {
-//     const { result } = renderHook(() => useCarousel(3, 3000, 1000));
-//     const stepToNext = result.current.stepToNext;
-//     expect(result.current.curIndex).toBe(0);
-//     act(() => {
-//       stepToNext();
-//     });
-//     expect(result.current.curIndex).toBe(1);
-//     act(() => {
-//       stepToNext();
-//     });
-//     expect(result.current.curIndex).toBe(2);
-//   });
-//   test("stepToNext function should set curIndex to zero if  out of bound", () => {
-//     const { result } = renderHook(() => useCarousel(2, 3000, 1000));
-//     const stepToNext = result.current.stepToNext;
-//     expect(result.current.curIndex).toBe(0);
-//     act(() => {
-//       stepToNext();
-//     });
-//     expect(result.current.curIndex).toBe(1);
-//     act(() => {
-//       stepToNext();
-//     });
-//     expect(result.current.curIndex).toBe(0);
-//   });
-
-//   test.each([
-//     [3, 1, 1],
-//     [1, 3, 1],
-//   ])(
-//     "minTransitionTime is equal to the minimum of [duration,transitionTime]",
-//     (duration, transitionTime, expected) => {
-//       const { result } = renderHook(() =>
-//         useCarousel(2, duration, transitionTime)
-//       );
-//       expect(result.current.minTransitionTime).toBe(expected);
-//     }
-//   );
-// });
