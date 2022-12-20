@@ -1,0 +1,46 @@
+.carousel {
+  width: 100vw;
+  max-width: 1000px;
+  height: 100vh;
+  max-height: 650px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  cursor: pointer;
+
+  .ca {
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    // overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .item {
+      width: 100vw;
+      flex-shrink: 0;
+      max-width: 1000px;
+    }
+  }
+
+  :global {
+    .indicator {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .indicator-bar {
+        padding: 8px;
+        cursor: pointer;
+      }
+    }
+  }
+}
