@@ -88,9 +88,9 @@ export default function Carousel({
   function _render() {
     if (list.length) {
       return (
-        <ul className={style.ca}>
+        <ul className={style['carousel-list']}>
           {list.map((item, index) => (
-            <li key={index} className={style.item} ref={liDom}>
+            <li key={index} className={style['carousel-item']} ref={liDom}>
               <Card
                 title={item.title}
                 dark={item.dark}

@@ -8,7 +8,7 @@
   overflow: hidden;
   cursor: pointer;
 
-  .ca {
+  &-list {
     width: 100%;
     height: 100%;
     overflow-y: hidden;
@@ -20,12 +20,12 @@
     &::-webkit-scrollbar {
       display: none;
     }
+  }
 
-    .item {
-      width: 100vw;
-      flex-shrink: 0;
-      max-width: 1000px;
-    }
+  &-item {
+    width: 100vw;
+    flex-shrink: 0;
+    max-width: 1000px;
   }
 
   :global {
