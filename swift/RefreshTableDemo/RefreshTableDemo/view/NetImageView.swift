@@ -37,7 +37,4 @@ struct NetImageView: View {
             
         }
     }
-    
-   
-    
 }
