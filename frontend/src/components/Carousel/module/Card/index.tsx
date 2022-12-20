@@ -4,7 +4,13 @@ import iphone from '@/assets/iphone.png'
 
 import { getImgColor } from '@/utils'
 
-export default function Card({ title, description, img }: any) {
+interface CardProps {
+  title: string
+  description: string
+  img: string
+}
+
+export default function Card({ title, description, img }: CardProps) {
   const [dark, setDark] = useState<boolean>(true)
   return (
     <div className={style.card}>

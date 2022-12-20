@@ -1,21 +1,19 @@
 export function scrollVelocity(
-  velocity: number,
   target: HTMLElement,
-  distance: number
+  distance: number,
+  velocity: number = 10
 ) {
   let timeId: unknown = null
   let value = velocity || 10
   const direction = target.scrollLeft < distance
-  let index = direction
+  const num = direction
     ? (distance - target.scrollLeft) / velocity
     : target.scrollLeft / velocity
   timeId = setInterval(() => {
     value--
-    if (direction) {
-      target.scrollLeft += index
-    } else {
-      target.scrollLeft -= index
-    }
+    target.scrollLeft = direction
+      ? target.scrollLeft + num
+      : target.scrollLeft - num
     if (value <= 0) {
       target.scrollLeft = direction ? distance : 0
       clearInterval(timeId as number)

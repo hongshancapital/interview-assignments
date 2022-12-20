@@ -7,14 +7,14 @@ import Card from './module/Card'
 import { scrollVelocity } from '@/utils'
 
 let timeID: unknown
-let i: number = 0
-let j = 0
+let progressNum: number = 0
+let activeIndicator = 0
 
 export default function Carousel({
   list,
   showIndicatorBar
 }: {
-  list: { [k: string]: unknown }[]
+  list: { [k: string]: string }[]
   showIndicatorBar: boolean
 }) {
   const liDom = useRef<HTMLLIElement>(null)
@@ -32,23 +32,23 @@ export default function Carousel({
     const distance = liDom.current?.offsetWidth
 
     timeID = setInterval(() => {
-      i++
-      setProgressValue(i)
-      if (i === max) {
-        i = 0
-        j++
+      progressNum++
+      setProgressValue(progressNum)
+      if (progressNum === max) {
+        progressNum = 0
         setProgressValue(0)
-        if (j == list.length) {
-          j = 0
+        activeIndicator++
+        if (activeIndicator == list.length) {
+          activeIndicator = 0
         }
-        setActive(j)
+        setActive(activeIndicator)
         scrollBox(parentElement, distance!)
       }
     }, 20)
   }
 
   function scrollBox(target: HTMLElement, distance: number) {
-    scrollVelocity(10, target, distance * j)
+    scrollVelocity(target, distance * activeIndicator)
     // let timeId: unknown = null
     // let value = 10
     // if (target.scrollLeft == distance * (list.length - 1)) {
@@ -75,9 +75,9 @@ export default function Carousel({
   }
 
   function clickIndicator(index: number) {
-    i = 0
-    j = index
-    setActive(j)
+    progressNum = 0
+    activeIndicator = index
+    setActive(activeIndicator)
     setProgressValue(0)
     clearInterval(timeID as number)
     const parentElement = liDom.current?.parentElement as HTMLElement
@@ -93,7 +93,7 @@ export default function Carousel({
             <li key={index} className={style['carousel-item']} ref={liDom}>
               <Card
                 title={item.title}
-                dark={item.dark}
+                // dark={item.dark}
                 description={item.description}
                 img={item.img}
               />

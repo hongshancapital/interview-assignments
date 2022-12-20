@@ -5,11 +5,11 @@ import airpods from '@/assets/airpods.png'
 import Carousel from './components/Carousel'
 
 function App() {
-  const list: { [k: string]: unknown }[] = [
+  const carouselList: { [k: string]: string }[] = [
     {
       title: 'xPhone',
       description: 'Lots to love.less to spend.\nStarting at $399.',
-      dark: true,
+      // dark: true,
       img: iphone
     },
     {
@@ -25,7 +25,7 @@ function App() {
   ]
   return (
     <div className="App">
-      <Carousel list={list} showIndicatorBar />
+      <Carousel list={carouselList} showIndicatorBar />
     </div>
   )
 }
