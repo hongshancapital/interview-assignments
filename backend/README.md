@@ -1,4 +1,4 @@
-# TypeScript Fullstack Engineer Assignment
+# TypeScript Backend Engineer Assignment
 
 ### Typescript 实现短域名服务（细节可以百度/谷歌）
 
