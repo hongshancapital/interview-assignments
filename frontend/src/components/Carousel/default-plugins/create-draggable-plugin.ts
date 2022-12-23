@@ -1,5 +1,6 @@
 import { PluginContext } from '../types';
 import { EventPlugin } from '../event-plugin-handler';
+import React from 'react';
 
 const createDraggablePlugin = (): EventPlugin<PluginContext> => {
   let oriPausedState = false;
@@ -16,13 +17,13 @@ const createDraggablePlugin = (): EventPlugin<PluginContext> => {
         oriStyle = oldStyle;
         return oldStyle;
       });
-      oriX = (e as MouseEvent).clientX;
+      oriX = (e as React.MouseEvent).clientX;
     },
     onMouseUp: (e, context) => {
       const { setActiveIndex,setPaused, setStyle, getLength } = context;
       setPaused(oriPausedState);
       setStyle(oriStyle);
-      let offset = (e as MouseEvent).clientX - oriX;
+      let offset = (e as React.MouseEvent).clientX - oriX;
       if(!offset) return;
       setActiveIndex(activeIdx=>{
         let idx = activeIdx - offset/Math.abs(offset);
