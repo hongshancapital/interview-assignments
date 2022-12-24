@@ -40,7 +40,9 @@ export const Dots = (props: DotsProps) => {
             }`}
             style={{
               width: fillWidthMap[key],
-              transitionDuration: `${duration && duration / 1000}s`,
+              transitionDuration: `${
+                duration && duration / 1000
+              }s`,
             }}
           ></div>
         </div>

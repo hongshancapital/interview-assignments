@@ -12,7 +12,7 @@ interface CarouselItemProps {
   key: number | string
 }
 
-const CarouselItem = (props: CarouselItemProps) => {
+export const CarouselItem = (props: CarouselItemProps) => {
   const { className, titles, descriptions, src , key} = props
    return <div className={className} key={key}>
      {titles.map((t,index) =><p className={`title title-${index}`} key={index}>{t}</p>)}

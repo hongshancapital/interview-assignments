@@ -12,6 +12,9 @@ const Carousel = (props: CarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const childCount = useMemo(() => React.Children.count(children), [children])
   const contentRef = useRef<HTMLDivElement | null>(null)
+  const isDisabledAutoPlay = useMemo(() => {
+    return childCount <= 1
+  }, [childCount])
 
   const handleChild = (item: any, index: number) => {
     return (
@@ -37,56 +40,32 @@ const Carousel = (props: CarouselProps) => {
   }
 
   const toIndex = useCallback(
-    (newIndex: number, leftToRight: boolean) => {
+    (newIndex: number) => {
       if (newIndex === activeIndex) {
         return
       }
       if (contentRef.current) {
-        if (newIndex === 0 && leftToRight) {
-          contentRef.current.style.transform = `translateX(${movePercent(
-            childCount
-          )})`
-        } else if (activeIndex === 0 && leftToRight) {
-          setTimeout(() => {
-            if (contentRef.current) {
-              contentRef.current.style.transition = null as any
-              contentRef.current.style.transform = `translateX(${movePercent(
-                newIndex
-              )})`
-            }
-          }, 0)
-        } else if (activeIndex === 0 && !leftToRight) {
-          setTimeout(() => {
-            if (contentRef.current) {
-              contentRef.current.style.transition = null as any
-              contentRef.current.style.transform = `translateX(${movePercent(
-                newIndex
-              )})`
-            }
-          }, 0)
-        } else {
-          contentRef.current.style.transform = `translateX(${movePercent(
-            newIndex
-          )})`
-        }
+        contentRef.current.style.transform = `translateX(${movePercent(
+          newIndex
+        )})`
         setActiveIndex(newIndex)
       }
     },
-    [activeIndex, childCount]
+    [activeIndex]
   )
 
   useEffect(() => {
     let timer: NodeJS.Timer | null = null
-    if (duration) {
+    if (duration && !isDisabledAutoPlay) {
       timer = setInterval(() => {
-        toIndex(activeIndex === childCount - 1 ? 0 : activeIndex + 1, true)
+        toIndex(activeIndex === childCount - 1 ? 0 : activeIndex + 1)
       }, duration)
       return () => clearInterval(Number(timer))
     }
-  }, [activeIndex, childCount, duration, toIndex])
+  }, [activeIndex, childCount, duration, isDisabledAutoPlay, toIndex])
 
   const dotsOnClick = (target: number) => {
-    toIndex(target, target > activeIndex)
+    toIndex(target)
   }
 
   return (
