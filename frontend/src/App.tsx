@@ -13,27 +13,60 @@ interface CarouselItemProps {
 }
 
 export const CarouselItem = (props: CarouselItemProps) => {
-  const { className, titles, descriptions, src , key} = props
-   return <div className={className} key={key}>
-     {titles.map((t,index) =><p className={`title title-${index}`} key={index}>{t}</p>)}
-     {descriptions.map((d,index) =><p className={`desc desc-${index}`} key={index}>{d}</p>)}
-     <div className='img-wrap'>
-      <img src={src} alt=''/>
-     </div>
-   </div>
+  const { className, titles, descriptions, src, key } = props
+  return (
+    <div className={className} key={key}>
+      {titles.map((t, index) => (
+        <p className={`title title-${index}`} key={index}>
+          {t}
+        </p>
+      ))}
+      {descriptions.map((d, index) => (
+        <p className={`desc desc-${index}`} key={index}>
+          {d}
+        </p>
+      ))}
+      <div className="img-wrap">
+        <img src={src} alt="" />
+      </div>
+    </div>
+  )
 }
+const DATA = [
+  {
+    src: iphone,
+    className: 'iphone',
+    titles: ['xPhone'],
+    descriptions: ['Lots to love.Less to Spend.', 'Starting at $399.'],
+  },
+  {
+    src: airPods,
+    className: 'airPods',
+    titles: ['Buy a Tablet or Xphone for college.', 'Get arPods.'],
+    descriptions: [],
+  },
+  {
+    src: tablet,
+    className: 'tablet',
+    titles: ['Tablet'],
+    descriptions: ['Just the right amount of everything.'],
+  },
+]
 
 function App() {
-  const renderItems = () => {
-    return [
-     <CarouselItem src={iphone} className='iphone' key={1} titles={['xPhone']} descriptions={['Lots to love.Less to Spend.', 'Starting at $399.']}/>,
-     <CarouselItem src={airPods} className='airPods' key={2} titles={['Buy a Tablet or Xphone for college.', 'Get arPods.']} descriptions={[]}/>,
-     <CarouselItem src={tablet} className='tablet' key={3} titles={['Tablet']} descriptions={['Just the right amount of everything.']} />,
-    ]
-  }
   return (
     <div className="App">
-      <Carousel duration={5000}>{renderItems()}</Carousel>
+      <Carousel duration={5000}>
+        {DATA.map((item, index) => (
+          <CarouselItem
+            src={item.src}
+            className={item.className}
+            key={index}
+            titles={item.titles}
+            descriptions={item.descriptions}
+          />
+        ))}
+      </Carousel>
     </div>
   )
 }
