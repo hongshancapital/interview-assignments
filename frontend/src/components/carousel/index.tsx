@@ -16,7 +16,15 @@ const Carousel = (props: CarouselProps) => {
     return childCount <= 1
   }, [childCount])
 
-  const handleChild = (item: any, index: number) => {
+  const handleChild = (
+    item:
+      | string
+      | number
+      | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+      | React.ReactFragment
+      | React.ReactPortal,
+    index: number
+  ) => {
     return (
       <div key={index} className="carousel__item-wrapper">
         {item}
