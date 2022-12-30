@@ -17,6 +17,7 @@ export const Dots = (props: DotsProps) => {
     setFillWidthMap(
       fillWidthMap.map((item, index) => (index === activeIndex ? '100%' : '0'))
     )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex, duration])
 
   const renderItems = useMemo(() => {
