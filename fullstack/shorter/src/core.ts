@@ -10,8 +10,7 @@ const app: Express = express();
 const port = process.env.PORT;
 
 app.get("/shorter", (req: Request, res: Response) => {
-  if (null === req.query.url)
-  {
+  if (null === req.query.url) {
     res.send(`?url=https://url.com/to/ is not provide`);
     return false;
   }
@@ -19,20 +18,21 @@ app.get("/shorter", (req: Request, res: Response) => {
   let path = `${req.query.url}`;
 
   insertUrlAndGetId(path).then(
-    (url_map: { id: number; url: string }|null) => {
-      if (null !== url_map){
-        res.send(`${req.query.url} \n will be redirect to:  \n <a href="${url_map.id}">${url_map.id}</a>`);        
+    (url_map: { id: number; url: string } | null) => {
+      if (null !== url_map) {
+        res.send(
+          `${req.query.url} \n will be redirect to:  \n <a href="${url_map.id}">${url_map.id}</a>`
+        );
         return false;
-      }
-      else {
-        res.send(`${req.query.url} \n get shorter url error!`);                
+      } else {
+        res.send(`${req.query.url} \n get shorter url error!`);
       }
       return false;
     },
-    ()=> {
+    () => {
       res.send(`${req.query.url} \n get shorter url error!`);
-    });
-
+    }
+  );
 });
 
 app.get("/testurl/:id", async (req: Request, res: Response) => {
@@ -53,24 +53,29 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/:id", async (req: Request, res: Response) => {
-  if ((null === req.params.id) || (req.params.id !== `${parseInt(req.params.id)}`))
-  {
-    res.send(`we get invalid shorter url: /${req.params.id}`); 
+  if (
+    null === req.params.id ||
+    req.params.id !== `${parseInt(req.params.id)}`
+  ) {
+    res.send(`we get invalid shorter url: /${req.params.id}`);
     return false;
   }
 
   if (req.params.id.length <= 8) {
     findUrlById(req.params.id).then(
       (url: { url: string; id: number } | null) => {
-        if (!(null === url))
-         res.redirect(`${url.url}`);
-         else
-         res.send(`url: /${req.params.id} not found`); 
+        if ((null !== url)) //这里需要check 是否循环 redirect
+          res.redirect(`${url.url}`);
+        else
+          res.send(`url: /${req.params.id} not found`);
       },
-      ()=>{        
-        res.redirect(`/`);}
+      () => {
+        res.redirect(`/`);
+      }
     );
-  } else res.redirect(`/`);
+  }
+   else
+     res.redirect(`/`);
 });
 
 export function server(): void {
