@@ -1,0 +1,14 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Urls {
+  id  Int    @id @default(autoincrement())
+  url String @unique(map: "url") @db.VarChar(1024)
+}
+
+
+generator client {
+  provider = "prisma-client-js"
+}
