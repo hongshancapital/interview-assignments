@@ -1,0 +1,56 @@
+.carousel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel .carousel-container {
+  overflow: scroll;
+  transition: transform 0.3s ease;
+}
+
+.carousel .carousel-container .list-item {
+  display: inline-block;
+  height: 100vh;
+  min-height: 789px;
+  color: #fff;
+  font-size: 80px;
+  vertical-align: top;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  padding: 10px;
+  transform: translateX(-50%);
+}
+
+.dots-item {
+  position: relative;
+  border-radius: 3px;
+  width: 60px;
+  height: 3px;
+  background: #bbb;
+}
+
+.dots-bg {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #fff;
+  border-radius: 3px;
+}
+
+@keyframes bg-animation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
