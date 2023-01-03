@@ -1,9 +1,15 @@
-import { useEffect, useState, ReactElement } from 'react';
-import { CarouselItem } from './item';
+import React, { useEffect, useState, ReactElement, useImperativeHandle } from 'react';
+import { CarouselItems } from './items';
 import './index.css'
 
-export const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
-  const { children, interval = 3 } = props
+export const Carousel = React.forwardRef<any, CarouselProps>((props, ref) => {
+  const { children = [], interval = 3 } = props
+
+  useImperativeHandle(ref, () => ({
+    ...ref,
+    slider: slider
+  }))
+
 
   const useInterval = (callback: (time: number) => void, interval: number) => {
     useEffect(() => {
@@ -27,10 +33,10 @@ export const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
     return slider
   }
 
-  const slider: number = useSlider(children.length, interval || 3);
+  const slider: number = useSlider(children?.length, interval || 3);
 
   return (
-    <div className="carousel">
+    <div className="carousel" data-testid="carousel" ref={ref}>
 
       {/* 轮播图展示区域 */}
       <div className="carousel-container"
@@ -38,7 +44,7 @@ export const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
           width: `${children.length * 100}%`,
           transform: `translateX(-${100 * slider / children.length}%)`
         }}>
-        <CarouselItem {...props}></CarouselItem>
+        <CarouselItems {...props}></CarouselItems>
       </div>
 
       {/* 轮播图进度条 */}
@@ -46,17 +52,21 @@ export const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
         {
           children && children.length > 0 && children.map((_, i: number) => (
             <i className="dots-item" key={`carousel-dots-${i}`}>
-              <i className="dots-bg" style={{ animation: i === slider ? `bg-animation ${interval}s linear` : 'none' }}></i>
+              <i
+                className="dots-bg"
+                data-testid="dots-bg"
+                style={{ animation: i === slider ? `bg-animation ${interval}s linear` : 'none' }}
+              ></i>
             </i>
           ))
         }
       </div>
     </div>
   );
-};
+});
 
 
 export interface CarouselProps {
-  children: ReactElement[];
+  children?: ReactElement[];
   interval?: number;
 }

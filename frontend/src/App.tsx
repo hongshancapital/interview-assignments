@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import './App.css';
 import { Carousel } from './components/carousel';
 import { CustomItem } from './components/custom-item';
@@ -55,8 +56,9 @@ const data: Item[] = [
 ]
 
 function App() {
+  const ref = useRef<HTMLDivElement>(null);
   return <div className='App'>
-    <Carousel>
+    <Carousel ref={ref}>
       {
         data.map(item => <CustomItem item={item} key={item.img_url}></CustomItem>)
       }

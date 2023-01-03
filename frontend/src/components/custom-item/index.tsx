@@ -2,7 +2,12 @@ import React from 'react';
 import './index.css';
 
 export const CustomItem: React.FC<CustomItemProps> = (props) => {
-  const { item } = props
+  const { item = {
+    titles: [],
+    descs: [],
+    img_url: '',
+    style: {}
+  } } = props
 
   return (
     <div className="custom-item" style={{ ...item.style }}>

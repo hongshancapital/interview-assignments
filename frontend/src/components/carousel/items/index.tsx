@@ -4,11 +4,11 @@ import React, {
 } from 'react';
 import '../index.css';
 
-export const CarouselItem: React.FC<ItemProps> = (props: ItemProps) => {
+export const CarouselItems: React.FC<ItemsProps> = (props: ItemsProps) => {
   const { children } = props;
   return (
     <Fragment>
-      {children.map((item, i) => (
+      {children && children.map((item, i) => (
         <div
           key={i}
           className={`list-item list-item-${i + 1}`}
@@ -23,6 +23,6 @@ export const CarouselItem: React.FC<ItemProps> = (props: ItemProps) => {
   );
 };
 
-export interface ItemProps {
-  children: ReactElement[]
+export interface ItemsProps {
+  children?: ReactElement[]
 }
