@@ -1,0 +1,76 @@
+.container {
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+}
+
+.inner {
+  transition: transform 0.5s;
+  white-space: nowrap;
+  height: 100vh;
+}
+
+.carousel_item {
+  display: inline-block;
+  width: 100%;
+  height: 100vh;
+}
+
+.info_container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.info_text {
+  position: relative;
+  z-index: 2;
+}
+
+.info_img {
+  position: absolute;
+  left: 0;
+  bottom: 100px;
+  width: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.dots_container {
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dots_outer {
+  width: 80px;
+  height: 5px;
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #39382f;
+}
+
+.dots_inner:hover {
+  animation-play-state: paused;
+}
+
+.dots_inner {
+  height: 100%;
+  border-radius: 10px;
+  animation-name: dot_progress;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+@keyframes dot_progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
