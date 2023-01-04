@@ -1,0 +1,77 @@
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.card-wrapper {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	height: 100%;
+	width: 100%;
+}
+.card-wrapper .card {
+	display: flex;
+	flex: 0 0 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.card-wrapper .card .title {
+	margin: 180px auto 40px;
+	font-size: 40px;
+	font-weight: bold;
+}
+.card-wrapper .card .des {
+	margin: auto;
+	font-size: 24px;
+}
+.card-wrapper .card .card-img {
+	width: 144px;
+	height: 144px;
+	background-size: auto 280%;
+  background-repeat: no-repeat;
+  background-position: center 100%;
+	margin-top: 200px;
+}
+
+.dot-wrapper{
+	position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 2px;
+  bottom: 80px;
+}
+.dot-wrapper .dot-content {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  flex: auto;
+  width: 40px;
+  border-radius: 1px;
+  margin: 0 4px;
+  background: #bbb;
+}
+.dot-wrapper .dot-content .dot {
+	display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+	width: 0%;
+  background: #fff;
+}
+.dot-wrapper .dot-content .dot.active {
+  animation: widthAnimation 3.2s linear;
+}
+@keyframes widthAnimation {
+  form {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
