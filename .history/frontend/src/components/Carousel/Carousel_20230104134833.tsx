@@ -95,13 +95,14 @@ const Carousel: FC<IProps> = (props) => {
     if (index !== currentIndex) return;
     const animations: Animation[] = document.getAnimations();
     const currentAnimation = animations[currentIndex];
+    const restAnimations = animations.filter((_, idx) => idx !== currentIndex);
     const usedTime =
       ((e.currentTarget as HTMLElement).offsetWidth / DOT_WIDTH) * timeout;
     currentAnimation.play();
     timer.current && clearTimeout(timer.current);
     timer.current = setTimeout(() => {
       updateIndex(currentIndex + 1);
-      animations.forEach((animation) => {
+      restAnimations.forEach((animation) => {
         animation.cancel();
         animation.play();
       });
