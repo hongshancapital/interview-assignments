@@ -4,6 +4,7 @@ import React, {
   useState,
   ReactElement,
   CSSProperties,
+  useRef,
 } from "react";
 import styles from "./index.module.css";
 
@@ -29,6 +30,8 @@ export interface InfoProps {
   color: string;
   backgroundColor: string;
 }
+
+const DOT_WIDTH = 80;
 
 export const Item: FC<ItemProps> = (props) => {
   const { children, style } = props;
@@ -61,7 +64,7 @@ export const Info: FC<InfoProps> = (props) => {
 const Carousel: FC<IProps> = (props) => {
   const { children, timeout = 3 } = props;
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
+  const timer = useRef<NodeJS.Timeout>();
   const updateIndex = (nextIndex: number) => {
     if (nextIndex >= React.Children.count(children)) {
       nextIndex = 0;
@@ -77,12 +80,42 @@ const Carousel: FC<IProps> = (props) => {
     });
   };
 
+  const onMouseOver = (index: number) => (e: React.MouseEvent) => {
+    if (index !== currentIndex) return;
+    document.getAnimations().forEach((animation, idx) => {
+      if (idx === currentIndex) {
+        // 当前暂停
+        animation.pause();
+        timer.current && clearTimeout(timer.current);
+      }
+    });
+  };
+
+  const onMouseleave = (index: number) => (e: React.MouseEvent) => {
+    if (index !== currentIndex) return;
+    const animations: Animation[] = document.getAnimations();
+    const currentAnimation = animations[currentIndex];
+    const restAnimations = animations.filter((_, idx) => idx !== currentIndex);
+    const usedTime =
+      ((e.currentTarget as HTMLElement).offsetWidth / DOT_WIDTH) * timeout;
+    currentAnimation.play();
+    timer.current && clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      updateIndex(currentIndex + 1);
+      restAnimations.forEach((animation) => {
+        animation.cancel();
+        animation.play();
+      });
+    }, (timeout - usedTime) * 1000);
+  };
+
   useEffect(() => {
-    const timerId = setTimeout(() => {
+    timer.current && clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
       updateIndex(currentIndex + 1);
     }, timeout * 1000);
     return () => {
-      clearTimeout(timerId);
+      timer.current && clearTimeout(timer.current);
     };
   }, [timeout, currentIndex]);
 
@@ -106,6 +139,8 @@ const Carousel: FC<IProps> = (props) => {
             >
               <div
                 className={styles.dots_inner}
+                onMouseOver={onMouseOver(index)}
+                onMouseLeave={onMouseleave(index)}
                 style={{
                   backgroundColor: index === currentIndex ? "#fff" : "",
                   animationDuration:
