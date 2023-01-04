@@ -5,7 +5,7 @@ import iphone from './assets/iphone.png';
 import tablet from './assets/tablet.png';
 import airpods from './assets/airpods.png';
 
-const testData: CarouselProps = {
+export const testData: CarouselProps = {
   data: [
     {
       titles: ['xPhone'],
