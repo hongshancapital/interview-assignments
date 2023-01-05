@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import prisma from '@/prisma/client';
 import { createServer } from '@/utils/server';
 import { Context } from '@/utils/context';
+import { shortUrlsRouter } from '@/short-urls/short-urls.router';
 
 dotenv.config();
 
@@ -13,8 +14,10 @@ const context: Context = {
 
 createServer(context)
   .then((server) => {
+    server.use('/api/short-urls', shortUrlsRouter);
+
     server.listen(port, () => {
-      console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+      console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     });
   })
   .catch((err) => {
