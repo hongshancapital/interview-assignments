@@ -4,9 +4,9 @@
   "description": "### Typescript 实现短域名服务",
   "main": "index.js",
   "scripts": {
-    "start": "tsx watch app.ts",
+    "start": "tsx watch src/app.ts",
     "test": "jest -i",
-    "test:coverage": "jest -i --coverage",
+    "test:coverage": "tsc && jest --coverage",
     "prod": "NODE_ENV=PRODUCTION node dist/index.js",
     "build": "rm -rf dist && tsc"
   },
@@ -14,15 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
-    "chalk": "^5.2.0",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "lodash": "^4.17.21",
-    "logger": "^0.0.1",
     "mongoose": "^6.6.1",
-    "morgan": "^1.10.0"
+    "nanoid": "^3.0.0"
   },
   "devDependencies": {
+    "@prisma/client": "^4.8.1",
     "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.14",
     "@types/jest": "^29.0.3",
@@ -36,8 +35,9 @@
     "jest": "^29.0.3",
     "node-fetch": "2",
     "prettier": "^2.7.1",
-    "supertest": "^6.2.4",
+    "supertest": "^6.3.3",
     "ts-jest": "^29.0.1",
+    "ts-node": "^10.9.1",
     "tsx": "^3.9.0",
     "typescript": "^4.8.3"
   }
