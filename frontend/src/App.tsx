@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Carousel from './component/carousel';
 import { CarouselProps } from './component/carousel';

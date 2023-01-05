@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Card, CardData } from './Card';
 import { Dot } from './Dot';
 import { useLatest } from '../../utils';
-import './index.css';
+import './index.scss';
 
 export interface CarouselProps {
 	data: CardData[]
