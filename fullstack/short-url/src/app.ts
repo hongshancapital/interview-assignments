@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 
-import prisma from '@/prisma/client';
+import { PrismaClient } from '@prisma/client';
+
 import { createServer } from '@/utils/server';
 import { Context } from '@/utils/context';
 import { shortUrlsRouter } from '@/short-urls/short-urls.router';
@@ -9,7 +10,7 @@ dotenv.config();
 
 const port = process.env.PORT || 3000;
 const context: Context = {
-  prisma: prisma,
+  prisma: new PrismaClient(),
 };
 
 createServer(context)
