@@ -1,11 +1,17 @@
 import dotenv from 'dotenv';
-import { createServer } from './utils/server';
+
+import prisma from '@/prisma/client';
+import { createServer } from '@/utils/server';
+import { Context } from '@/utils/context';
 
 dotenv.config();
 
 const port = process.env.PORT || 3000;
+const context: Context = {
+  prisma: prisma,
+};
 
-createServer()
+createServer(context)
   .then((server) => {
     server.listen(port, () => {
       console.log(`⚡️[server]: Server is running at https://localhost:${port}`);

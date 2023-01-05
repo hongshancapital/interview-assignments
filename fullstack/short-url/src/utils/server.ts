@@ -3,9 +3,8 @@ import { Express, Response } from 'express-serve-static-core';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { Context, setContext } from './context';
-import prisma from '../prisma/client';
 
-export async function createServer(): Promise<Express> {
+export async function createServer(ctx: Context): Promise<Express> {
   dotenv.config();
 
   const server: Express = express();
@@ -14,12 +13,9 @@ export async function createServer(): Promise<Express> {
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
   server.use((_, res, next) => {
-    const context : Context = {
-      prisma: prisma
-    }
-    setContext(res, context)
-    next()
-  })
+    setContext(res, ctx);
+    next();
+  });
 
   server.get('/', (_, res: Response) => {
     res.status(200).json({

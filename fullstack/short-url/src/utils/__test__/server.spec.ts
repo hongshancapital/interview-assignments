@@ -2,11 +2,14 @@ import request from 'supertest';
 import { Express } from 'express-serve-static-core';
 
 import { createServer } from '../server';
+import { Context, createMockContext } from '@/utils/context';
 
 describe('createServer', () => {
   let server: Express;
   beforeAll(async () => {
-    server = await createServer();
+    const mockCtx = createMockContext();
+    const ctx = mockCtx as unknown as Context;
+    server = await createServer(ctx);
   });
 
   it('should have default health api', async () => {
