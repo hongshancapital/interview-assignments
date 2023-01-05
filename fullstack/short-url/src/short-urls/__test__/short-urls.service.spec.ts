@@ -1,6 +1,6 @@
-import { Context, createMockContext, MockContext } from '../../utils/context';
+import { Context, createMockContext, MockContext } from '@/utils/context';
+import { decode, encode } from '@/utils/short-id-converter';
 import * as shortUrlsService from '../short-urls.service';
-import { decode, encode } from '../../utils/short-id-converter';
 
 describe('short urls service', () => {
   let mockCtx: MockContext;

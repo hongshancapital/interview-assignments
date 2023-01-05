@@ -16,6 +16,7 @@ const context: Context = {
 createServer(context)
   .then((server) => {
     server.use('/api/short-urls', shortUrlsRouter);
+    server.use('/', shortUrlsRouter);
 
     server.listen(port, () => {
       console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

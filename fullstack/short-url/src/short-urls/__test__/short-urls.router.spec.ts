@@ -35,7 +35,11 @@ describe('short urls router', () => {
       })
     );
 
-    const response = await request(server).get(`/api/short-urls/${shortId}`).expect('Content-Type', /json/).expect(200);
+    const response = await request(server)
+      .get(`/api/short-urls/${shortId}`)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200);
 
     expect(shortUrlsService.find).toHaveBeenCalledWith(shortId, ctx);
     expect(response.body).toEqual({
@@ -67,5 +71,24 @@ describe('short urls router', () => {
       shortId,
       url: 'https://google.com',
     });
+  });
+
+  it('should redirect to url when access shortId via browser', async () => {
+    const shortId = encode(3);
+
+    mockedShortUrlsService.find.mockReturnValue(
+      Promise.resolve<ShortUrl>({
+        id: 3,
+        shortId,
+        url: 'https://google.com',
+      })
+    );
+
+    await request(server)
+      .get(`/api/short-urls/${shortId}`)
+      .set('Accept', 'text/html')
+      .expect('Content-Type', /html/)
+      .expect(302)
+      .expect('Location', 'https://google.com');
   });
 });

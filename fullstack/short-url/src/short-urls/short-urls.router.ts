@@ -10,7 +10,22 @@ shortUrlsRouter.get('/:shortId', async (req, res) => {
   const shortId = req.params.shortId;
   const ctx = getContext(res);
   const shortUrl = await shortUrlsService.find(shortId, ctx);
-  res.json(shortUrl);
+  res.format({
+    html: () => {
+      if (shortUrl) {
+        res.redirect(shortUrl?.url);
+      } else {
+        res.status(404).send('<p>not found</p>');
+      }
+    },
+    default: () => {
+      if (shortUrl) {
+        res.json(shortUrl);
+      } else {
+        res.status(404).send('not found');
+      }
+    },
+  });
 });
 
 shortUrlsRouter.post('/', async (req, res) => {
