@@ -2,22 +2,24 @@
  * Module dependencies.
  */
 import express from "express";
-import compression from "compression";
+import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import logger from "morgan";
 import chalk from "chalk";
-import errorHandler from "errorhandler";
 import dotenv from "dotenv";
+import path from "path";
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-dotenv.load({ path: '.env' });
+dotenv.config({
+  path: path.resolve(process.cwd(), ".env"),
+});
 
 /**
  * Controllers (route handlers).
  */
-const userController = require('./controllers/mysql');
+const shortLinkController = require('./controllers/shortlink');
 
 /**
  * Create Express server.
@@ -25,10 +27,20 @@ const userController = require('./controllers/mysql');
 const app = express();
 
 /**
+ * Connect to MongoDB.
+ */
+mongoose.connect(process.env.MONGODB_URI || '');
+mongoose.connection.on('error', (err) => {
+  console.error(err);
+  console.log('%s MongoDB connection error. Please make sure MongoDB is running.');
+  process.exit();
+});
+
+/**
  * Express configuration.
  */
-app.set('port', process.env.PORT || 3030);
-app.use(compression());
+app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
+app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,20 +48,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /**
  * Primary app routes.
  */
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
+app.get('/:shortLink', shortLinkController.getShortLink);
+app.post('/shortlink', shortLinkController.postShortLink);
 
-/**
- * Error Handler.
- */
-if (process.env.NODE_ENV === 'development') {
-  // only use in development
-  app.use(errorHandler());
-} else {
-  app.use((req, res, next) => {
-    res.status(500).send('Server Error');
-  });
-}
 
 /**
  * Start Express server.
