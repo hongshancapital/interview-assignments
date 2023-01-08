@@ -1,0 +1,63 @@
+.CarouselBox {
+    // width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    .imgboxs {
+        height: 100%;
+        display: flex;
+        transform: translatex(0%);
+        transition:transform .4s ease-in-out;
+        .imgbox {
+            .img {
+                position: relative;
+                width: 100vw;
+                height: 70%;
+                top: 15%;
+                background-position: bottom;
+                background-size: auto 100%;
+                background-repeat: no-repeat;
+                &.iphone {
+                    background-image: url(../../assets/iphone.png);
+                    section {
+                        color: #FFFFFF;
+                    }
+                }
+                &.airpods {
+                    background-image: url(../../assets/airpods.png);
+                }
+                &.tablet {
+                    background-image: url(../../assets/tablet.png);
+                }
+            }
+            section {
+                height: 30%;
+                h2 {
+                    font-size: 5rem;
+                }
+                p {
+                    font-size: 2rem;
+                }
+                span {
+                    display: block;
+                    font-size: 5rem;
+                    font-weight: bold;
+                }
+            }
+            &.iphone {
+                background-color: #111111;
+            }
+            &.airpods {
+                background-color: #F1F1F3;
+            }
+            &.tablet {
+                background-color: #FAFAFA;
+            }
+        }
+    }
+    .tb {
+        position: fixed;
+        z-index: 50;
+        left: calc(50vw - 100px);
+        bottom: 10%;
+    }
+}
