@@ -9,7 +9,7 @@ describe('createServer', () => {
   beforeAll(async () => {
     const mockCtx = createMockContext();
     const ctx = mockCtx as unknown as Context;
-    server = await createServer(ctx);
+    server = await createServer(ctx, () => {});
   });
 
   it('should have default health api', async () => {

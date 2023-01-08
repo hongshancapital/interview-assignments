@@ -20,8 +20,9 @@ describe('short urls router', () => {
   beforeAll(async () => {
     mockCtx = createMockContext();
     ctx = mockCtx as unknown as Context;
-    server = await createServer(ctx);
-    server.use('/api/short-urls', shortUrlsRouter);
+    server = await createServer(ctx, (app) => {
+      app.use('/api/short-urls', shortUrlsRouter);
+    });
   });
 
   it('should get correct url when query by exists shortId', async () => {

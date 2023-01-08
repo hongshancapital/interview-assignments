@@ -25,7 +25,7 @@ describe('short urls service', () => {
     const shortUrl = await shortUrlsService.create(newUrl, ctx);
 
     expect(mockCtx.prisma.url.create).toBeCalled();
-    expect(mockCtx.prisma.url.create).toHaveBeenCalledWith({ data: { url: 'https://google.com' } });
+    expect(mockCtx.prisma.url.create).toHaveBeenCalledWith({ data: { url: 'https://google.com/' } });
     expect(shortUrl.url).toEqual(newUrl.url);
     expect(shortUrl.id).toEqual(urlItem.id);
     expect(decode(shortUrl.shortId)).toEqual(shortUrl.id);

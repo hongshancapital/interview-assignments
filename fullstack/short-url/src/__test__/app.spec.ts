@@ -28,7 +28,7 @@ describe('/api', () => {
 
   describe('GET /short-url/:short-id', () => {
     test('When asked for an existing shortId and accept json, Then should retrieve it and receive 200 response', async () => {
-      const urlToAdd = 'https://example.com';
+      const urlToAdd = 'https://example.com/';
       const {
         data: { shortId },
       } = await axiosAPIClient.post(`/api/short-urls`, { url: urlToAdd });
@@ -40,13 +40,13 @@ describe('/api', () => {
       expect(getResponse).toMatchObject({
         status: 200,
         data: {
-          url: 'https://example.com',
+          url: 'https://example.com/',
         },
       });
     });
 
     test('When asked for an existing shortId and accept htm;, Then should receive a 302 redirect to that url', async () => {
-      const urlToAdd = 'https://example.com';
+      const urlToAdd = 'https://example.com/';
       const {
         data: { shortId },
       } = await axiosAPIClient.post(`/api/short-urls`, { url: urlToAdd });
@@ -64,7 +64,7 @@ describe('/api', () => {
       });
     });
 
-    test('When asked for an non-existing order, Then should receive 404 response', async () => {
+    test('When asked for an non-existing url, Then should receive 404 response', async () => {
       const nonExistingUrlShortId = encode(9999999);
 
       const httpResponse = await axiosAPIClient.get(`/api/short-urls/${nonExistingUrlShortId}`, {
@@ -79,11 +79,27 @@ describe('/api', () => {
       });
       expect(jsonResponse.status).toBe(404);
     });
+
+    test('When asked for an invalid url shortId, Then should receive 400 response', async () => {
+      const invalidUrlShortId = 12345678;
+
+      const httpResponse = await axiosAPIClient.get(`/api/short-urls/${invalidUrlShortId}`, {
+        maxRedirects: 0,
+        headers: { Accept: 'text/html' },
+      });
+      expect(httpResponse.status).toBe(400);
+
+      const jsonResponse = await axiosAPIClient.get(`/api/short-urls/${invalidUrlShortId}`, {
+        maxRedirects: 0,
+        headers: { Accept: 'application/json' },
+      });
+      expect(jsonResponse.status).toBe(400);
+    });
   });
 
   describe('POST /api/short-urls', () => {
     test('When adding a new valid url, Then should get back approval with 200 response', async () => {
-      const urlToAdd = 'https://example.com';
+      const urlToAdd = 'https://example.com/';
 
       const response = await axiosAPIClient.post('/api/short-urls', { url: urlToAdd });
 
@@ -98,8 +114,17 @@ describe('/api', () => {
       expect(response.data.shortId).toHaveLength(8);
     });
 
-    test.todo('When adding an invalid url, stop and return 400');
+    test('When adding an invalid url, stop and return 400', async () => {
+      const invalidUrl = 'example.com';
 
-    test.todo('When a new url, failed, an invalid-url error was handled');
+      const response = await axiosAPIClient.post('/api/short-urls', { url: invalidUrl });
+
+      expect(response).toMatchObject({
+        status: 400,
+        data: {
+          message: 'Invalid URL',
+        },
+      });
+    });
   });
 });
