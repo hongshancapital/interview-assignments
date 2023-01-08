@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-
 import { PrismaClient } from '@prisma/client';
 
 import { createServer } from '@/utils/server';
@@ -18,9 +17,10 @@ const context: Context = {
 let connection: Server;
 
 export const startApp = async (): Promise<AddressInfo> => {
-  const server = await createServer(context);
-  server.use('/api/short-urls', shortUrlsRouter);
-  server.use('/', shortUrlsRouter);
+  const server = await createServer(context, (app) => {
+    app.use('/api/short-urls', shortUrlsRouter);
+    app.use('/', shortUrlsRouter);
+  });
 
   return await new Promise((resolve) => {
     connection = server.listen(port, () => {
