@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 import { createServer } from '@/utils/server';
 import { Context } from '@/utils/context';
-import { shortUrlsRouter } from '@/short-urls/short-urls.router';
+import { queryShortUrlOnlyRouter, shortUrlsRouter } from '@/short-urls/short-urls.router';
 import type { Server } from 'http';
 import { AddressInfo } from 'net';
 
@@ -19,7 +19,7 @@ let connection: Server;
 export const startApp = async (): Promise<AddressInfo> => {
   const server = await createServer(context, (app) => {
     app.use('/api/short-urls', shortUrlsRouter);
-    app.use('/', shortUrlsRouter);
+    app.use('/', queryShortUrlOnlyRouter);
   });
 
   return await new Promise((resolve) => {

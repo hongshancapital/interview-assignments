@@ -6,7 +6,7 @@ import { Context, createMockContext, MockContext } from '@/utils/context';
 import { createServer } from '@/utils/server';
 import { encode } from '@/utils/short-id-converter';
 import { ShortUrl } from '../short-url.interface';
-import { shortUrlsRouter } from '../short-urls.router';
+import { queryShortUrlOnlyRouter, shortUrlsRouter } from '../short-urls.router';
 import * as shortUrlsService from '../short-urls.service';
 
 jest.mock('../short-urls.service');
@@ -22,6 +22,7 @@ describe('short urls router', () => {
     ctx = mockCtx as unknown as Context;
     server = await createServer(ctx, (app) => {
       app.use('/api/short-urls', shortUrlsRouter);
+      app.use('/', queryShortUrlOnlyRouter);
     });
   });
 
@@ -36,11 +37,7 @@ describe('short urls router', () => {
       })
     );
 
-    const response = await request(server)
-      .get(`/api/short-urls/${shortId}`)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200);
+    const response = await request(server).get(`/api/short-urls/${shortId}`).expect('Content-Type', /json/).expect(200);
 
     expect(shortUrlsService.find).toHaveBeenCalledWith(shortId, ctx);
     expect(response.body).toEqual({
@@ -74,7 +71,7 @@ describe('short urls router', () => {
     });
   });
 
-  it('should redirect to url when access shortId via browser', async () => {
+  it('GET /:shortId should redirect to url when access shortId', async () => {
     const shortId = encode(3);
 
     mockedShortUrlsService.find.mockReturnValue(
@@ -85,11 +82,6 @@ describe('short urls router', () => {
       })
     );
 
-    await request(server)
-      .get(`/api/short-urls/${shortId}`)
-      .set('Accept', 'text/html')
-      .expect('Content-Type', /html/)
-      .expect(302)
-      .expect('Location', 'https://google.com');
+    await request(server).get(`/${shortId}`).expect(302).expect('Location', 'https://google.com');
   });
 });

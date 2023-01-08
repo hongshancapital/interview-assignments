@@ -26,6 +26,27 @@ describe('/api', () => {
     await prisma.url.deleteMany();
   });
 
+  describe('GET /:short-id', () => {
+    test('When asked for an existing shortId and accept htm;, Then should receive a 302 redirect to that url', async () => {
+      const urlToAdd = 'https://example.com/';
+      const {
+        data: { shortId },
+      } = await axiosAPIClient.post(`/api/short-urls`, { url: urlToAdd });
+
+      const response = await axiosAPIClient.get(`/${shortId}`, {
+        maxRedirects: 0,
+        headers: { Accept: 'text/html' },
+      });
+
+      expect(response).toMatchObject({
+        status: 302,
+        headers: {
+          location: urlToAdd,
+        },
+      });
+    });
+  });
+
   describe('GET /short-url/:short-id', () => {
     test('When asked for an existing shortId and accept json, Then should retrieve it and receive 200 response', async () => {
       const urlToAdd = 'https://example.com/';
@@ -41,25 +62,6 @@ describe('/api', () => {
         status: 200,
         data: {
           url: 'https://example.com/',
-        },
-      });
-    });
-
-    test('When asked for an existing shortId and accept htm;, Then should receive a 302 redirect to that url', async () => {
-      const urlToAdd = 'https://example.com/';
-      const {
-        data: { shortId },
-      } = await axiosAPIClient.post(`/api/short-urls`, { url: urlToAdd });
-
-      const response = await axiosAPIClient.get(`/api/short-urls/${shortId}`, {
-        maxRedirects: 0,
-        headers: { Accept: 'text/html' },
-      });
-
-      expect(response).toMatchObject({
-        status: 302,
-        headers: {
-          location: urlToAdd,
         },
       });
     });
