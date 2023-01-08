@@ -1,0 +1,38 @@
+{
+  "name": "fullstack",
+  "version": "1.0.0",
+  "description": "### Typescript 实现短域名服务（细节可以百度/谷歌）",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "start": "concurrently \"npm run build\" \"node dist/index.js\"",
+    "dev": "ts-node src/index.ts",
+    "test": "jest"
+  },
+  "author": "pengzhen",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "ioredis": "^5.0.4",
+    "mysql2": "^2.3.3",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/express": "^4.17.13",
+    "@types/ioredis": "^4.28.10",
+    "@types/jest": "^27.5.1",
+    "@types/mysql": "^2.15.21",
+    "@types/node": "^17.0.33",
+    "@types/supertest": "^2.0.12",
+    "@types/valid-url": "^1.0.3",
+    "concurrently": "^7.1.0",
+    "jest": "^28.1.0",
+    "rimraf": "^3.0.2",
+    "supertest": "^6.2.3",
+    "ts-jest": "^28.0.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  }
+}
