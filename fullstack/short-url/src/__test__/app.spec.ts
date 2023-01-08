@@ -67,13 +67,21 @@ describe('/api', () => {
     test('When asked for an non-existing order, Then should receive 404 response', async () => {
       const nonExistingUrlShortId = encode(9999999);
 
-      const getResponse = await axiosAPIClient.get(`/api/short-urls/${nonExistingUrlShortId}`);
+      const httpResponse = await axiosAPIClient.get(`/api/short-urls/${nonExistingUrlShortId}`, {
+        maxRedirects: 0,
+        headers: { Accept: 'text/html' },
+      });
+      expect(httpResponse.status).toBe(404);
 
-      expect(getResponse.status).toBe(404);
+      const jsonResponse = await axiosAPIClient.get(`/api/short-urls/${nonExistingUrlShortId}`, {
+        maxRedirects: 0,
+        headers: { Accept: 'application/json' },
+      });
+      expect(jsonResponse.status).toBe(404);
     });
   });
 
-  describe('POST /orders', () => {
+  describe('POST /api/short-urls', () => {
     test('When adding a new valid url, Then should get back approval with 200 response', async () => {
       const urlToAdd = 'https://example.com';
 

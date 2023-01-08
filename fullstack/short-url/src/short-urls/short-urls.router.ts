@@ -13,7 +13,7 @@ shortUrlsRouter.get('/:shortId', async (req, res) => {
   res.format({
     html: () => {
       if (shortUrl) {
-        res.redirect(shortUrl?.url);
+        res.redirect(shortUrl.url);
       } else {
         res.status(404).send('<p>not found</p>');
       }

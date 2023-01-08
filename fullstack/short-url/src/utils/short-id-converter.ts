@@ -10,13 +10,8 @@ const hashids = new Hashids('short-url', 8, base58alphabet);
 export const encode = (id: NumberId): HashId => hashids.encode(id);
 export const decode = (hashId: HashId): NumberId => {
   const result = hashids.decode(hashId);
-  if (result.length !== 1) {
-    throw new Error('No Result');
+  if (result.length !== 1 || typeof result[0] !== 'number') {
+    throw new Error('Invalid');
   }
-  const numberId = result[0];
-  if (typeof numberId !== 'number') {
-    throw new Error('Result Not Number');
-  }
-
-  return numberId;
+  return result[0];
 };

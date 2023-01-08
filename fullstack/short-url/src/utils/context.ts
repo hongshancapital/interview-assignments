@@ -11,11 +11,7 @@ export const setContext = (res: Response, context: Context) => {
 };
 
 export const getContext = (res: Response): Context => {
-  if (res.locals.context instanceof Object && res.locals.context?.prisma instanceof Object) {
-    return res.locals.context as Context;
-  }
-
-  throw 'Context Not Set';
+  return res.locals.context as Context;
 };
 
 export type MockContext = {
