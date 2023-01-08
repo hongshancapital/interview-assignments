@@ -6,6 +6,7 @@ import { createServer } from '@/utils/server';
 import { Context } from '@/utils/context';
 import { shortUrlsRouter } from '@/short-urls/short-urls.router';
 import type { Server } from 'http';
+import { AddressInfo } from 'net';
 
 dotenv.config();
 
@@ -16,19 +17,18 @@ const context: Context = {
 
 let connection: Server;
 
-export const startApp = () =>
-  createServer(context)
-    .then((server) => {
-      server.use('/api/short-urls', shortUrlsRouter);
-      server.use('/', shortUrlsRouter);
+export const startApp = async (): Promise<AddressInfo> => {
+  const server = await createServer(context);
+  server.use('/api/short-urls', shortUrlsRouter);
+  server.use('/', shortUrlsRouter);
 
-      connection = server.listen(port, () => {
-        console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-      });
-    })
-    .catch((err) => {
-      console.error(`Error: ${err}`);
+  return await new Promise((resolve) => {
+    connection = server.listen(port, () => {
+      console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+      resolve(connection.address() as AddressInfo);
     });
+  });
+};
 
 export const stopApp = () => {
   return new Promise<void>((resolve) => {
