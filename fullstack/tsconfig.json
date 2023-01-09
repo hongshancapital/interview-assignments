@@ -1,0 +1,20 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
+  },
+  "typeRoots": [
+    "./typings"
+  ],
+  "include": [
+    "src",
+    "src/typings",
+    "test"  
+],
+  "exclude": [
+    "node_modules"
+  ]
+}
