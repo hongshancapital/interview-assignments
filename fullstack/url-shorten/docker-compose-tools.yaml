@@ -1,0 +1,38 @@
+version: "3"
+services:
+    # redis:
+    #     image: redis
+    #     container_name: redis
+    #     restart: always
+    #     network_mode: bridge
+    #     # expose:
+    #     #     - 6379
+    #     ports:
+    #         - 6379:6379
+    #     volumes:
+    #         - /usr/local/redis/data:/data
+    #         - ./conf/redis.conf:/etc/redis/redis.conf
+    #     command: redis-server /etc/redis/redis.conf
+
+    # mysql8:
+    #     platform: linux/amd64
+    #     container_name: mysql8
+    #     image: mysql:8.0
+    #     ports:
+    #         - "3306:3306"
+    #     restart: always
+    #     volumes:
+    #         - /usr/local/mysql/data:/var/lib/mysql
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: levataohaha
+
+    api:
+        image: urlShorten
+        container_name: urlShorten
+        restart: always
+        network_mode: bridge
+        ports:
+            - 3001:3001
+        # depends_on:
+        #     - redis
+        # - mysql8
