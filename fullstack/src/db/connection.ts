@@ -3,11 +3,11 @@ import { DataSource } from 'typeorm'
 // 后续设置为环境变量，根据部署环境从config中取值
 const myDataSource = new DataSource({
   type: 'mysql',
-  host: 'prod.rds-proxy-forwardbiz.rjft.net',
+  host: 'test',
   port: 3306,
-  username: 'frontend_rw',
-  password: 'AzLJsvFQmF4wgIs',
-  database: 'forward_biz',
+  username: 'test',
+  password: 'test',
+  database: 'test',
   entities: [ __dirname + '/../entity/*.{js,ts}' ],
   logging: true,
   synchronize: true,
