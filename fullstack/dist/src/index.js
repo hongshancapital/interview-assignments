@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const morgan_1 = __importDefault(require("morgan"));
+const connection_1 = require("./db/connection");
+const shortUrlController_1 = require("./controller/shortUrlController");
+const port = 3000;
+const app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use((0, morgan_1.default)('combined'));
+app.post('/generate', shortUrlController_1.generateShortUrl);
+app.get('/geturl', shortUrlController_1.responseShortUrl);
+app.use(function (err, req, res, next) {
+    // 业务逻辑
+});
+(0, connection_1.initDatabase)().then(() => {
+    console.log('数据库初始化成功。');
+    app.listen(port, () => {
+        console.log(`服务已启动，监听端口为 ${port}`);
+    });
+}).catch(err => {
+    console.error('服务启动失败。数据库初始化失败:', err);
+});
