@@ -1,0 +1,78 @@
+.carousel-wrap {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+.carousel {
+  position: absolute;
+  display: flex;
+  left: 0px;
+  transition: left 0.5s;
+}
+
+/* 
+17 17 17
+250 250 250
+241 241 241
+*/
+.carousel-item {
+  background-image: url('../../assets/tablet.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: rgb(250, 250, 250);
+  background-position: 0 75%;
+  width: 100vw;
+  height: 100vh;
+}
+.carousel-item:first-child {
+  background-image: url('../../assets/iphone.png');
+  background-color: rgb(17, 17, 17);
+  color: white;
+}
+.carousel-item:last-child {
+  background-image: url('../../assets/airpods.png');
+  background-color: rgb(241, 241, 241);
+}
+.carousel-title {
+  font-size: 100px;
+  margin-top: 10%;
+  font-weight: bold;
+}
+.carousel-describe {
+  font-size: 50px;
+}
+
+.progress-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 2;
+  height: 95%;
+}
+.progress-item {
+  width: 50px;
+  height: 4px;
+  margin-right: 10px;
+  display: flex;
+}
+
+.progress-begin {
+  width: 100%;
+  background-color: gray;
+}
+.progress-end {
+  width: 0;
+  background-color: white;
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
