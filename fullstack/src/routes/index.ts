@@ -37,7 +37,7 @@ router.get('/shortUrl', async (req, res) => {
   const urlModel = await UrlModel.findOne({ shortUrl });
   if (urlModel) {
     return res.json({
-      shortUrl: urlModel.longUrl,
+      longUrl: urlModel.longUrl,
     });
   }
   return res.status(404).json('该短连接无对应长连接');
