@@ -3,10 +3,13 @@ const { execSync } = require('child_process');
 const dockerCompose = require('docker-compose');
 const isReachable = require('is-reachable');
 const dotenv = require('dotenv');
+const { setupEnv } = require('./env');
 
 module.exports = async () => {
   console.time('global-setup');
   console.log();
+
+  setupEnv();
 
   if (!process.env.SKIP_SETUP_DOCKER_COMPOSE) {
     const dbIsReachable = await isReachable('localhost:5433');
