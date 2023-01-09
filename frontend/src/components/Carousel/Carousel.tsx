@@ -1,6 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import './styles.scss';
-import Dots from './Dots';
 
 export type CarouselContents = {
   poster: string;
@@ -17,30 +16,16 @@ export type CarouselContents = {
 };
 
 type CarouselProps = {
-  /**
-   * Time (s) interval of switching
-   */
-  interval?: number;
-  /**
-   * Time (s) duration of transition
-   */
-  duration?: number;
   contents: CarouselContents[];
 };
 
-const Carousel: FC<CarouselProps> = ({
-  contents,
-  interval = 3,
-  duration = 1,
-}) => {
+const Carousel: FC<CarouselProps> = ({ contents }) => {
   const [activedIndex, setActivedIndex] = useState<number>(0);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setActivedIndex((activedIndex + 1) % contents.length);
-    }, interval * 1000);
-    return () => clearInterval(intervalId);
-  }, [activedIndex, contents.length, interval]);
+  const handleAnimationEnd = useCallback(() => {
+    // Calculate the index for the next rotating slide. If the current index is the last one then jump to the 0 position.
+    setActivedIndex((activedIndex + 1) % contents.length);
+  }, [activedIndex, contents.length]);
 
   return (
     <div className='carousel'>
@@ -48,7 +33,6 @@ const Carousel: FC<CarouselProps> = ({
         className='slider'
         style={{
           transform: `translateX(-${activedIndex * 100}%)`,
-          transition: `${duration}s`,
         }}>
         {contents?.map(
           ({ heading, subHeading, poster, color, backgroundColor }) => {
@@ -67,11 +51,20 @@ const Carousel: FC<CarouselProps> = ({
           }
         )}
       </div>
-      <Dots
-        dotNumber={contents.length}
-        activedIndex={activedIndex}
-        animationDuration={interval}
-      />
+      <div className='dot-container'>
+        {contents.map(({ poster }, index) => {
+          return (
+            <div className='dot-box' key={poster}>
+              <div
+                data-testid={`animation-dot-${index}`}
+                onAnimationEnd={handleAnimationEnd}
+                className={`dot ${
+                  activedIndex === index ? 'actived' : ''
+                }`}></div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
