@@ -1,17 +1,13 @@
-@mixin full-screen {
+.carousel {
   width: 100vw;
   height: 100vh;
-}
-
-.carousel {
-  @include full-screen;
   display: flex;
   justify-content: center;
   overflow: hidden;
 
   .slider {
     display: flex;
-    @include full-screen;
+    width: 100%;
 
     .slide {
       display: flex;
@@ -19,7 +15,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      @include full-screen;
 
       .poster {
         width: 150px;
