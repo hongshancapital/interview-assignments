@@ -1,0 +1,36 @@
+{
+  "name": "short-url-service",
+  "version": "1.0.0",
+  "description": "短域名服务",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "nodemon ./build/src/app.js",
+    "test": "jest --coverage"
+  },
+  "keywords": [
+    "short",
+    "url"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3",
+    "nanoid": "^3.1.29",
+    "nodemon": "^2.0.20",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.15",
+    "@types/jest": "^29.2.5",
+    "@types/node": "^18.11.18",
+    "@types/valid-url": "^1.0.3",
+    "supertest": "^6.3.3",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
