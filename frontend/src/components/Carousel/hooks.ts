@@ -1,40 +1,43 @@
-import { useEffect, useState } from "react"
+import * as React from "react"
 
-class Step {
-    value: string;
-    next: Step;
-    pre: Step;
+export const useMotion: (childrenRef: React.MutableRefObject<any>, delay: number) => 
+    [React.CSSProperties | undefined, number | undefined, React.Dispatch<React.SetStateAction<number | undefined>>] = (childrenRef, delay) => {
+    const [activeIndex, setActiveIndex] = React.useState<number>();
+    const [tranStyle, setTranStyle] = React.useState<React.CSSProperties>();
 
-    constructor(value: string) {
-        this.value = value;
-        this.next = this;
-        this.pre = this;
-    }
-}
+    React.useEffect(()=> {
+        setActiveIndex(0);
+      }, [setActiveIndex])
 
-const start = new Step('start');
-const center = new Step('center');
-const end = new Step('end');
-start.next = center;
-center.next = end;
-end.next = start;
-// start.pre = end;
-// center.pre = start;
-// end.pre = center;
+    React.useEffect(() => {
+        const children = childrenRef.current;
+        if (activeIndex === undefined) {
+            return;
+        }
 
-export const useStep = (delay: number) => {
-    const [current, setCurrent] = useState(start);
-    useEffect(()=>{
-        const timer = setTimeout(()=>{
-            console.log('current.next', current.next.value)
-            setCurrent(current.next);
-            
+        const timer = setTimeout(() => {
+            const newActiveIndex = (activeIndex + 1) % children.length;
+
+            if (children[newActiveIndex]) {
+                const activeEle = children[newActiveIndex];
+                const first = activeEle.getBoundingClientRect();
+                activeEle.style.position = "absolute";
+                activeEle.style.left = "0";
+                const last = activeEle.getBoundingClientRect();
+                const deltaX = last.left - first.left;
+
+                activeEle.style.position = "";
+                activeEle.style.left = "";
+                setTranStyle({ transform: `translateX(${deltaX}px)` });
+            }
+
+            setActiveIndex(newActiveIndex);
         }, delay);
 
         return () => {
             clearTimeout(timer);
         };
-    }, [current]);
+    }, [activeIndex, setActiveIndex, setTranStyle, delay, childrenRef]);
 
-    return [current];
+    return [tranStyle, activeIndex, setActiveIndex];
 }

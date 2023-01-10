@@ -2,6 +2,7 @@ import * as React from "react";
 import clsx from "clsx";
 import styles from "./Carousel.module.scss";
 import { Pagination } from "./Pagination";
+import { useMotion } from "./hooks";
 
 interface ICarouselProps {
   children: Array<any>;
@@ -11,43 +12,9 @@ interface ICarouselProps {
 }
 
 export const Carousel: React.FC<ICarouselProps> = ({ children, className, speed = 500, delay = 3000 }) => {
-  const [activeIndex, setActiveIndex] = React.useState<number>();
-  const [tranStyle, setTranStyle] = React.useState<React.CSSProperties>();
   const childrenRef = React.useRef<any>([]);
   const count = React.Children.count(children);
-
-  React.useEffect(()=> {
-    setActiveIndex(0);
-  }, [children, setActiveIndex])
-
-  React.useEffect(() => {
-    if(activeIndex === undefined) {
-        return;
-    }
-    
-    const timer = setTimeout(() => {
-      const newActiveIndex = (activeIndex + 1) % children.length;
-
-      if (childrenRef.current[newActiveIndex]) {
-        const activeEle = childrenRef.current[newActiveIndex];
-        const first = activeEle.getBoundingClientRect();
-        activeEle.style.position = "absolute";
-        activeEle.style.left = "0";
-        const last = activeEle.getBoundingClientRect();
-        const deltaX = last.left - first.left;
-
-        activeEle.style.position = "";
-        activeEle.style.left = "";
-        setTranStyle({ transform: `translateX(${deltaX}px)` });
-      }
-     
-      setActiveIndex(newActiveIndex);
-    }, delay);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [activeIndex, setActiveIndex, children]);
+  const [tranStyle, activeIndex] = useMotion(childrenRef, delay)
 
   return (
     <div className={clsx(styles.root, className)}>
