@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "paths": {
+      "@bootstrap/*": ["bootstrap/*"],
+      "@base/*": ["base/*"],
+      "@error/*": ["error/*"],
+      "@repositories/*": ["repositories/*"],
+      "@schemas/*": ["schemas/*"],
+      "@modules/*": ["modules/*"]
+    },
+    "strict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src", "src/__tests__"],
+  "exclude": ["node_mosules", "src/__tests__", "dist"]
+}
