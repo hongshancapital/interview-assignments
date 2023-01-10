@@ -61,8 +61,9 @@ Docker 部署模式
 
 1. GET 请求：通过短链接查询对应长链接 /v1/api/fetchLongByShort/{shortUrl}
 
+正常返回
+
 ```json
-// 正常返回
 {
     "Code": 1000,
     "Data": {
@@ -71,14 +72,20 @@ Docker 部署模式
     },
     "Text": "The original long URL has been retrieved."
 }
+```
 
-// 输入的短链为空或不合法 不在[0-9, a-z, A-Z] 范围
+输入的短链为空或不合法 不在[0-9, a-z, A-Z] 范围
+
+```json
 {
     "Code": 1001,
     "Text": "The input short URL is not a valid URL."
 }
+```
 
-// 查询的短链不存在对应的长链
+查询的短链不存在对应的长链
+
+```json
 {
     "Code": 1101,
     "Text": "The system was unable to retrieve the original long URL for this short URL. Please confirm that you have correctly shortened this URL before attempting to retrieve the original long URL."
@@ -91,8 +98,9 @@ Docker 部署模式
 | ------- | ---------- | ------ | -------- |
 | longUrl | 长链接地址 | string | 是       |
 
+正常返回
+
 ```json
-// 正常返回
 {
     "Code": 1000,
     "Data": {
@@ -101,20 +109,29 @@ Docker 部署模式
     },
     "Text": "The long URL has been successfully shortened."
 }
+```
 
-// 输入长链地址不合法
+输入长链地址不合法
+
+```json
 {
     "Code": 1002,
     "Text": "The input long URL is not a valid URL."
 }
+```
 
-// 发号器初始化异常
+发号器初始化异常
+
+```json
 {
     "Code": 1102,
     "Text": "An error has occurred. Please contact the system administrator for assistance."
 }
+```
 
-// 发号器初始化数值异常
+发号器初始化数值异常
+
+```json
 {
     "Code": 1103,
     "Text": "An error has occurred. Please contact the system administrator for assistance."
