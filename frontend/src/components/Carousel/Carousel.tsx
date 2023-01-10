@@ -12,7 +12,6 @@ interface ICarouselProps {
 
 export const Carousel: React.FC<ICarouselProps> = ({ children, className, speed = 500, delay = 3000 }) => {
   const [activeIndex, setActiveIndex] = React.useState<number>();
-  const eleRef = React.useRef<HTMLDivElement>(null);
   const [tranStyle, setTranStyle] = React.useState<React.CSSProperties>();
   const childrenRef = React.useRef<any>([]);
   const count = React.Children.count(children);
@@ -26,13 +25,11 @@ export const Carousel: React.FC<ICarouselProps> = ({ children, className, speed 
         return;
     }
     
-    const elm = eleRef.current!;
-
     const timer = setTimeout(() => {
       const newActiveIndex = (activeIndex + 1) % children.length;
 
-      if (elm.children[newActiveIndex]) {
-        const activeEle = elm.children[newActiveIndex] as HTMLElement;
+      if (childrenRef.current[newActiveIndex]) {
+        const activeEle = childrenRef.current[newActiveIndex];
         const first = activeEle.getBoundingClientRect();
         activeEle.style.position = "absolute";
         activeEle.style.left = "0";
@@ -54,7 +51,7 @@ export const Carousel: React.FC<ICarouselProps> = ({ children, className, speed 
 
   return (
     <div className={clsx(styles.root, className)}>
-      <div ref={eleRef} className={styles.content} style={{...tranStyle, transition: `transform ${speed}ms`}}>
+      <div className={styles.content} style={{...tranStyle, transition: `transform ${speed}ms`}}>
         {React.Children.map(children, (child, index) =>
           React.cloneElement(child, {
             ref: (ref: any) => (childrenRef.current[index] = ref),
