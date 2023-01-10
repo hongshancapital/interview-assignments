@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {TimerBar} from '../TimerBar'
+import {TimerBar as TimerBarV2} from '../TimerBarV2'
 import './index.scss'
 
 interface IdataItem {
@@ -22,14 +22,14 @@ const Carousel = (props: ICarousel) => {
   return (<div className='CarouselBox' >
     <div className='imgboxs' style={{transform: `translatex(${translatex})`}}>
         {items.map(item => {
-            return  <div className={`imgbox ${item.img}`}>
+            return  <div className={`imgbox ${item.img}`} key={item.img}>
                 <div className={`img ${item.img}`}>
                     {item.desc}
                 </div>
             </div>
         })}
     </div>
-    <TimerBar className='tb' num={items.length} onTime={nextImage}/>
+    <TimerBarV2 className='tb' num={items.length} onTime={nextImage}/>
   </div>)
 }
 
