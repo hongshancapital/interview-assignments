@@ -1,0 +1,49 @@
+.carousel {
+  &_container {
+    /* 由轮播图最外层容器定制高度，轮播图组件内部不限制高度 */
+    height: 100%;
+  }
+
+  &_item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+
+    &_dark {
+      color: #fff;
+    }
+
+    &_title {
+      margin: 120px 0 0;
+      font-size: 56px;
+      font-weight: 600;
+      white-space: pre;
+    }
+
+    &_desc {
+      margin-top: 30px;
+      font-size: 30px;
+      white-space: pre;
+    }
+
+    &_background {
+      position: absolute;
+      left: 50%;
+      bottom: 50px;
+      transform: translateX(-50%);
+      background-position: center;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      
+      &_1 {
+        bottom: 30px;
+      }
+
+      &_2 {
+        bottom: 20px;
+      }
+    }
+  }
+}
