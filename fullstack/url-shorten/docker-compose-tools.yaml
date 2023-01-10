@@ -1,0 +1,9 @@
+version: "3"
+services:
+    api:
+        image: urlShorten
+        container_name: urlShorten
+        restart: always
+        network_mode: bridge
+        ports:
+            - 3001:3001
