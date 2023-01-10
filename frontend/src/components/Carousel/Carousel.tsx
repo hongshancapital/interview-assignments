@@ -5,14 +5,14 @@ import { Pagination } from "./Pagination";
 import { useMotion } from "./hooks";
 
 interface ICarouselProps {
-  children: Array<any>;
+  children: React.ReactElement[];
   className?: string;
   speed?: number;
   delay?: number;
 }
 
 export const Carousel: React.FC<ICarouselProps> = ({ children, className, speed = 500, delay = 3000 }) => {
-  const childrenRef = React.useRef<any>([]);
+  const childrenRef = React.useRef<HTMLElement[]>([]);
   const count = React.Children.count(children);
   const [tranStyle, activeIndex] = useMotion(childrenRef, delay)
 
@@ -21,7 +21,7 @@ export const Carousel: React.FC<ICarouselProps> = ({ children, className, speed 
       <div className={styles.content} style={{...tranStyle, transition: `transform ${speed}ms`}}>
         {React.Children.map(children, (child, index) =>
           React.cloneElement(child, {
-            ref: (ref: any) => (childrenRef.current[index] = ref),
+            ref: (ele: HTMLElement) => (childrenRef.current[index] = ele),
           })
         )}
       </div>

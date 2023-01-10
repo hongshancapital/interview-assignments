@@ -1,6 +1,6 @@
 import * as React from "react"
 
-export const useMotion: (childrenRef: React.MutableRefObject<any>, delay: number) => 
+export const useMotion: (childrenRef: React.MutableRefObject<HTMLElement[]>, delay: number) => 
     [React.CSSProperties | undefined, number | undefined, React.Dispatch<React.SetStateAction<number | undefined>>] = (childrenRef, delay) => {
     const [activeIndex, setActiveIndex] = React.useState<number>();
     const [tranStyle, setTranStyle] = React.useState<React.CSSProperties>();
