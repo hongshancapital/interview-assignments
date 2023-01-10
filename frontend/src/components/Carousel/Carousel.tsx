@@ -47,7 +47,7 @@ const Carousel: FC<CarouselProps> = ({
           transform: `translateX(-${activedIndex * 100}%)`,
           transition: `${duration}s`,
         }}>
-        {contents?.map(
+        {contents.map(
           ({ heading, subHeading, poster, color, backgroundColor }) => {
             return (
               <div

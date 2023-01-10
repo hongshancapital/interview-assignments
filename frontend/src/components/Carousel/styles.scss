@@ -4,56 +4,56 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
+}
 
-  .slider {
+.slider {
+  display: flex;
+  width: 100%;
+
+  .slide {
     display: flex;
-    width: 100%;
+    flex: 0 0 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    .slide {
-      display: flex;
-      flex: 0 0 100%;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      .poster {
-        width: 150px;
-        height: 150px;
-        margin-top: 100px;
-        background-position: center bottom;
-        background-repeat: no-repeat;
-        background-size: auto 300%;
-      }
+    .poster {
+      width: 150px;
+      height: 150px;
+      margin-top: 100px;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      background-size: auto 300%;
     }
   }
+}
 
-  .dot-container {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    bottom: 100px;
+.dot-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  bottom: 100px;
 
-    .dot-box {
-      width: 50px;
-      height: 2px;
-      border-radius: 1px;
-      position: relative;
-      background-color:#acacac;
+  .dot-box {
+    width: 50px;
+    height: 2px;
+    border-radius: 1px;
+    position: relative;
+    background-color:#acacac;
 
-      .dot {
-        background-color: #ffffff;
-        width: 0;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top:0;
+    .dot {
+      background-color: #ffffff;
+      width: 0;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top:0;
 
-        &.actived {
-          animation-name: process;
-          animation-timing-function: linear;
-          animation-fill-mode: forwards;
-        }
+      &.actived {
+        animation-name: process;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
       }
     }
   }
