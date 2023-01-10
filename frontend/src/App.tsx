@@ -4,7 +4,7 @@ import { Carousel, Slide } from './components';
 
 function App() {
   return <div className={styles.App}>
-      <Carousel speed={500} delay={3000}>
+      <Carousel speed={50} delay={1000}>
         <Slide>
           <div className={clsx(styles.slideRoot, styles.iphone)}>
             <h2>xPhone</h2>

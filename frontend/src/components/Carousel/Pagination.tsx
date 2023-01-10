@@ -18,14 +18,12 @@ export const Pagination: React.FC<IPaginationProps> = ({ total, activeIndex = -1
           const isActive = index === activeIndex;
           const activeStyle = {
             transition: `transform ${delay}ms`,
-            transformOrigin: 'top right',
-            transform: 'scaleX(0)',
           };
 
           return (
             <div key={index} className={styles.page}>
               <div
-                className={styles.progress}
+                className={clsx(styles.progress, isActive && styles.active)}
                 style={isActive ? activeStyle : undefined}
               ></div>
             </div>

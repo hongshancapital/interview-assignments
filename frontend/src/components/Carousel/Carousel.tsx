@@ -45,7 +45,7 @@ export const Carousel: React.FC<ICarouselProps> = ({ children, className, speed 
       }
      
       setActiveIndex(newActiveIndex);
-    }, 3000);
+    }, delay);
 
     return () => {
       clearTimeout(timer);
@@ -54,7 +54,7 @@ export const Carousel: React.FC<ICarouselProps> = ({ children, className, speed 
 
   return (
     <div className={clsx(styles.root, className)}>
-      <div ref={eleRef} className={styles.content} style={tranStyle}>
+      <div ref={eleRef} className={styles.content} style={{...tranStyle, transition: `transform ${speed}ms`}}>
         {React.Children.map(children, (child, index) =>
           React.cloneElement(child, {
             ref: (ref: any) => (childrenRef.current[index] = ref),
