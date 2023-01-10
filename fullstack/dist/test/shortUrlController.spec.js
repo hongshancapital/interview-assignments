@@ -15,7 +15,7 @@ describe('短码服务测试', () => {
             .send();
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10001);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('POST /generate originalUrl为空字符串', async () => {
         const response = await (0, supertest_1.default)(localServer)
@@ -26,7 +26,7 @@ describe('短码服务测试', () => {
         });
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10001);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('POST /generate originalUrl为null', async () => {
         const response = await (0, supertest_1.default)(localServer)
@@ -37,7 +37,7 @@ describe('短码服务测试', () => {
         });
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10001);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('POST /generate originalUrl为undefined', async () => {
         const response = await (0, supertest_1.default)(`${localServer}`)
@@ -48,7 +48,7 @@ describe('短码服务测试', () => {
         });
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10001);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('POST /generate 非法url', async () => {
         const response = await (0, supertest_1.default)(`${localServer}`)
@@ -59,7 +59,7 @@ describe('短码服务测试', () => {
         });
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10001);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('POST /generate http常规url', async () => {
         const response = await (0, supertest_1.default)(`${localServer}`)
@@ -116,7 +116,7 @@ describe('短码服务测试', () => {
             .set('accept', 'application/json');
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10003);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('GET /geturl 不存在的8位短码', async () => {
         const response = await (0, supertest_1.default)(`${localServer}`)
@@ -124,7 +124,7 @@ describe('短码服务测试', () => {
             .set('accept', 'application/json');
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10002);
+        (0, chai_1.expect)(response.body.code).to.equal(505);
     });
     it('GET /geturl 短码长度大于8', async () => {
         const response = await (0, supertest_1.default)(`${localServer}`)
@@ -132,7 +132,7 @@ describe('短码服务测试', () => {
             .set('accept', 'application/json');
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10003);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('GET /geturl 短码参数不传递', async () => {
         const response = await (0, supertest_1.default)(`${localServer}`)
@@ -140,7 +140,7 @@ describe('短码服务测试', () => {
             .set('accept', 'application/json');
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10003);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('GET /geturl 短码参数为空串', async () => {
         const response = await (0, supertest_1.default)(`${localServer}`)
@@ -148,7 +148,7 @@ describe('短码服务测试', () => {
             .set('accept', 'application/json');
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10003);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     it('GET /geturl 短码参数非法', async () => {
         const response = await (0, supertest_1.default)(`${localServer}`)
@@ -156,7 +156,7 @@ describe('短码服务测试', () => {
             .set('accept', 'application/json');
         (0, chai_1.expect)(response.headers['content-type']).to.match(/json/);
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.body.code).to.equal(10003);
+        (0, chai_1.expect)(response.body.code).to.equal(501);
     });
     // generate接口创建短码，可通过返回的短码通过geturl接口查询到正确的原始url
     it('GET /geturl 创建合法短码并查询', async () => {

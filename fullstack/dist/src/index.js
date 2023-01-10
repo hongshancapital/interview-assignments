@@ -8,10 +8,14 @@ const morgan_1 = __importDefault(require("morgan"));
 const connection_1 = require("./db/connection");
 const shortUrlController_1 = require("./controller/shortUrlController");
 require("express-async-errors");
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
+const logger_1 = __importDefault(require("./utils/logger"));
 const port = 3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use((0, morgan_1.default)('combined'));
+const logStream = fs_1.default.createWriteStream(path_1.default.join(__dirname, '../logs', 'access.log'));
+app.use((0, morgan_1.default)('combined', { stream: logStream }));
 app.post('/generate', shortUrlController_1.generateShortUrl);
 app.get('/geturl', shortUrlController_1.responseShortUrl);
 app.use(function (err, req, res, next) {
@@ -20,10 +24,10 @@ app.use(function (err, req, res, next) {
     next(err);
 });
 (0, connection_1.initDatabase)().then(() => {
-    console.log('数据库初始化成功。');
+    logger_1.default.info('数据库初始化成功。');
     app.listen(port, () => {
-        console.log(`服务已启动，监听端口为 ${port}`);
+        logger_1.default.info(`服务已启动，监听端口为 ${port}`);
     });
 }).catch(err => {
-    console.error('服务启动失败。数据库初始化失败:', err);
+    logger_1.default.error('服务启动失败。数据库初始化失败:', err);
 });

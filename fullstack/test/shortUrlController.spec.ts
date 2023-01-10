@@ -11,7 +11,7 @@ describe('短码服务测试', () => {
       .send()
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10001)
+    expect(response.body.code).to.equal(501)
   })
   it('POST /generate originalUrl为空字符串', async () => {
     const response = await request(localServer)
@@ -22,7 +22,7 @@ describe('短码服务测试', () => {
       })
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10001)
+    expect(response.body.code).to.equal(501)
   })
   it('POST /generate originalUrl为null', async () => {
     const response = await request(localServer)
@@ -33,7 +33,7 @@ describe('短码服务测试', () => {
       })
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10001)
+    expect(response.body.code).to.equal(501)
   })
   it('POST /generate originalUrl为undefined', async () => {
     const response = await request(`${localServer}`)
@@ -44,7 +44,7 @@ describe('短码服务测试', () => {
       })
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10001)
+    expect(response.body.code).to.equal(501)
   })
   it('POST /generate 非法url', async () => {
     const response = await request(`${localServer}`)
@@ -55,7 +55,7 @@ describe('短码服务测试', () => {
       })
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10001)
+    expect(response.body.code).to.equal(501)
   })
   it('POST /generate http常规url', async () => {
     const response = await request(`${localServer}`)
@@ -113,7 +113,7 @@ describe('短码服务测试', () => {
       
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10003)
+    expect(response.body.code).to.equal(501)
   })
   it('GET /geturl 不存在的8位短码', async () => {
     const response = await request(`${localServer}`)
@@ -122,7 +122,7 @@ describe('短码服务测试', () => {
       
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10002)
+    expect(response.body.code).to.equal(505)
   })
   it('GET /geturl 短码长度大于8', async () => {
     const response = await request(`${localServer}`)
@@ -131,7 +131,7 @@ describe('短码服务测试', () => {
       
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10003)
+    expect(response.body.code).to.equal(501)
   })
   it('GET /geturl 短码参数不传递', async () => {
     const response = await request(`${localServer}`)
@@ -140,7 +140,7 @@ describe('短码服务测试', () => {
       
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10003)
+    expect(response.body.code).to.equal(501)
   })
   it('GET /geturl 短码参数为空串', async () => {
     const response = await request(`${localServer}`)
@@ -149,7 +149,7 @@ describe('短码服务测试', () => {
       
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10003)
+    expect(response.body.code).to.equal(501)
   })
   it('GET /geturl 短码参数非法', async () => {
     const response = await request(`${localServer}`)
@@ -158,7 +158,7 @@ describe('短码服务测试', () => {
       
     expect(response.headers['content-type']).to.match(/json/)
     expect(response.status).to.equal(200)
-    expect(response.body.code).to.equal(10003)
+    expect(response.body.code).to.equal(501)
   })
   // generate接口创建短码，可通过返回的短码通过geturl接口查询到正确的原始url
   it('GET /geturl 创建合法短码并查询', async () => {
