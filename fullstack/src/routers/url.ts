@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { generate as shortenCodeGen } from 'shortid';
+import { nanoid } from 'nanoid';
 import { isUri } from 'valid-url';
 import { baseUrl } from '../config/default';
 import { IUrl, UrlModel } from '../models/url';
@@ -31,10 +31,11 @@ router.post('/shorten', async (req, res) => {
       if (data) {
         shortenCode = data.shortenCode;
       } else {
-        shortenCode = shortenCodeGen();
+        shortenCode = nanoid(8);
         await new UrlModel({ initUrl: url, shortenCode }).save();
       }
       res.json(responseCode('success', {
+        shortenCode,
         shortUrl: `${baseUrl}/${shortenCode}`
       }));
     } catch (err) {

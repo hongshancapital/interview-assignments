@@ -29,4 +29,11 @@ describe('url module tests', () => {
     });
     expect(response.data.data.url).toEqual('https://www.baidu.com/s?ie=UTF-8&wd=hello%20world');
   });
+
+  it('短链长度校验', async () => {
+    const response = await axios.post('http://localhost:50501/url/shorten', {
+      url: 'https://www.baidu.com/s?ie=UTF-8&wd=hello%20world123',
+    });
+    expect(response.data.data.shortenCode.length).toEqual(8);
+  });
 })
