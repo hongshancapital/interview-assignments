@@ -1,0 +1,80 @@
+.carousel {
+  height: 100vh;
+  width: 100%;
+}
+
+@keyframes fill {
+  from { width: 0; background-color: hsl(240deg 8% 97%); }
+  to { width: 100%; background-color: hsl(240deg 8% 97%);}
+}
+
+.carousel-indicators {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
+  z-index: 999;
+}
+
+.carousel-indicator {
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  margin-right: 5px;
+  background-color: hsl(0deg 0% 66%);
+}
+
+.carousel-indicator-active {
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  margin-right: 5px;
+  background-color: hsl(0deg 0% 66%);
+}
+
+.carousel-indicator-active::before {
+  content: '';
+  height: inherit;
+  display: block;
+  animation: fill 3s ease-out;
+}
+
+.carousel-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: all 250ms linear;
+}
+
+.carousel-item {
+  width: 100%;
+  padding-top: 10%;
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+.item-title {
+  white-space: pre-line;
+  font-size: 56px;
+  font-weight: 600;
+  position: relative;
+  z-index: 9;
+}
+
+.item-text {
+  white-space: pre-line;
+  font-size: 28px;
+  font-weight: 400;
+  position: relative;
+  z-index: 9;
+}
+
+.item-img {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  object-fit: contain;
+  transform: scale(1.5);
+  z-index: 1;
+}
