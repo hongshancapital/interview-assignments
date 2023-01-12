@@ -1,19 +1,30 @@
 import './styles.css';
 import React, { useState, useEffect } from 'react';
 
+/**
+ * author: 郑文盛 Vince
+ * mobile/WeChat 18602756091
+ */
+
 type SlideType = {
-  bgColor: string,
-  textColor?: string,
-  title: string,
-  text: string,
-  img: string
-}
+  bgColor: string;
+  textColor?: string;
+  title: string;
+  text: string;
+  img: string;
+};
 
 interface CarouselProps {
   slides: SlideType[];
   interval?: number;
 }
 
+/**
+ * 一个自动切换的简易轮播图组件
+ * props
+ * @param {array} props.slides 轮播图内容数组，可动态配置轮播图每页的内容，包含标题文字、内容文字、背景色、文字颜色、图片文件名等字段
+ * @param {number} props.interval (可选)配置每页停留时间
+ */
 const Carousel: React.FC<CarouselProps> = (props) => {
   const { slides, interval = 3000 } = props;
   const [currentIndex, setCurrentIndex] = useState<number>(0);
