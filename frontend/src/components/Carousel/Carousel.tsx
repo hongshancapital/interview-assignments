@@ -29,11 +29,11 @@ export const useMotion: (
 
       if (children[newActiveIndex]) {
         const activeEle = children[newActiveIndex];
-        const first = activeEle.getBoundingClientRect();
+        const firstLeft = activeEle.offsetLeft;
         activeEle.style.position = "absolute";
         activeEle.style.left = "0";
-        const last = activeEle.getBoundingClientRect();
-        const deltaX = last.left - first.left;
+        const lastLeft = activeEle.offsetLeft;
+        const deltaX = lastLeft - firstLeft;
 
         activeEle.style.position = "";
         activeEle.style.left = "";
