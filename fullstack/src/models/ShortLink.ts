@@ -6,6 +6,8 @@ const shortLinkSchema = new mongoose.Schema(
     urlId: {
       type: String,
       required: true,
+      unique: true,
+      index: true,
     },
     origUrl: {
       type: String,
@@ -14,11 +16,6 @@ const shortLinkSchema = new mongoose.Schema(
     shortUrl: {
       type: String,
       required: true,
-    },
-    clicks: {
-      type: Number,
-      required: true,
-      default: 0,
     },
   },
   { timestamps: true }

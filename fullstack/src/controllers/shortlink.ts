@@ -12,8 +12,7 @@ export async function getShortLink(req, res) {
       await ShortLink.updateOne(
         {
           urlId: req.params.urlId,
-        },
-        { $inc: { clicks: 1 } }
+        }
       );
       return res.redirect(shortLink.origUrl);
     } else res.status(404).json({ msg: "Not found" });
@@ -30,14 +29,14 @@ export async function getShortLink(req, res) {
 export async function postShortLink(req, res) {
   const { origUrl } = req.body;
   const base = process.env.BASE || "";
-  const urlId = nanoid(8);
-
+  
   if (origUrl) {
     try {
       let url = await ShortLink.findOne({ origUrl });
       if (url) {
         res.json(url);
       } else {
+        const urlId = nanoid(8);
         const shortUrl = `${base}/${urlId}`;
 
         url = new ShortLink({
