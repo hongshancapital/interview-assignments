@@ -1,4 +1,4 @@
-import { shortId } from "../utils/shortid";
+import { shortStableId } from "../utils/shortid";
 import ShortLink from "../models/ShortLink";
 
 /**
@@ -36,7 +36,7 @@ export async function postShortLink(req, res) {
       if (url) {
         res.json(url);
       } else {
-        const urlId = shortId();
+        const urlId = shortStableId(origUrl);
         const shortUrl = `${base}/${urlId}`;
 
         url = new ShortLink({
