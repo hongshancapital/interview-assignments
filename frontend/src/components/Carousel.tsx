@@ -1,23 +1,12 @@
 import './styles.css';
 import React, { useState, useEffect } from 'react';
+import { IMG_SIZE_MAP } from '../constants/carousel';
+import { CarouselProps } from './carousel.types';
 
 /**
  * author: 郑文盛 Vince
  * mobile/WeChat 18602756091
  */
-
-type SlideType = {
-  bgColor: string;
-  textColor?: string;
-  title: string;
-  text: string;
-  img: string;
-};
-
-interface CarouselProps {
-  slides: SlideType[];
-  interval?: number;
-}
 
 /**
  * 一个自动切换的简易轮播图组件
@@ -27,7 +16,7 @@ interface CarouselProps {
  */
 const Carousel: React.FC<CarouselProps> = (props) => {
   const { slides, interval = 3000 } = props;
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -43,6 +32,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     return () => {
       clearInterval(timerId);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -84,7 +74,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             <img
               src={require(`../assets/${slide.img}`)}
               alt=""
-              className="item-img"
+              className={IMG_SIZE_MAP[slide.imgSize]}
             />
           </div>
         ))}

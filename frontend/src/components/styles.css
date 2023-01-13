@@ -1,18 +1,30 @@
+:root {
+  --carousel-interval: 3s;
+}
+
 .carousel {
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 @keyframes fill {
-  from { width: 0; background-color: hsl(240deg 8% 97%); }
-  to { width: 100%; background-color: hsl(240deg 8% 97%);}
+  from {
+    width: 0;
+    background-color: hsl(240deg 8% 97%);
+  }
+  to {
+    width: 100%;
+    background-color: hsl(240deg 8% 97%);
+  }
 }
 
 .carousel-indicators {
   display: flex;
   position: absolute;
   left: 50%;
-  bottom: 100px;
+  bottom: 80px;
   transform: translateX(-50%);
   z-index: 999;
 }
@@ -37,7 +49,7 @@
   content: '';
   height: inherit;
   display: block;
-  animation: fill 3s ease-out;
+  animation: fill var(--carousel-interval) ease-out;
 }
 
 .carousel-content {
@@ -49,13 +61,17 @@
 
 .carousel-item {
   width: 100%;
-  padding-top: 10%;
+  height: 100vh;
+  /* padding-top: 15%; */
   flex-shrink: 0;
   flex-grow: 1;
+  position: relative;
+  overflow: hidden;
 }
 
 .item-title {
   white-space: pre-line;
+  margin-top: 150px;
   font-size: 56px;
   font-weight: 600;
   position: relative;
@@ -70,11 +86,28 @@
   z-index: 9;
 }
 
-.item-img {
+.item-img-l {
   width: 100%;
-  height: 200px;
-  position: relative;
-  object-fit: contain;
-  transform: scale(1.5);
-  z-index: 1;
+  height: fit-content;
+  position: absolute;
+  bottom: -80px;
+  left: 0px;
+  transform: scale(0.5);
+}
+
+.item-img-m {
+  width: 100%;
+  height: fit-content;
+  position: absolute;
+  bottom: 150px;
+  left: 0px;
+}
+
+.item-img-s {
+  width: 100%;
+  height: fit-content;
+  position: absolute;
+  left: 0px;
+  bottom: 180px;
+  transform: scale(1.3);
 }
