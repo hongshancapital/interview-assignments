@@ -1,0 +1,10 @@
+CREATE TABLE `short_url_map` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `original_url` varchar(10) DEFAULT NULL COMMENT '长链',
+  `short_url` char(10) DEFAULT NULL COMMENT '短链',
+  `url_hash` char(32) DEFAULT NULL COMMENT '长链md5',
+  `created_at` int(11) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE INDEX short_url ON short_url_map；
+CREATE INDEX url_hash ON short_url_map；
