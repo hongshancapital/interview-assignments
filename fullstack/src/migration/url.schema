@@ -6,5 +6,5 @@ CREATE TABLE `short_url_map` (
   `created_at` int(11) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE INDEX short_url ON short_url_map；
-CREATE INDEX url_hash ON short_url_map；
+CREATE INDEX short_url_index ON short_url_map(short_url(10));
+CREATE INDEX url_hash_index ON short_url_map(url_hash(32));

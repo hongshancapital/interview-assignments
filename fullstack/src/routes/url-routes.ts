@@ -40,7 +40,7 @@ async function getOriginalUrl(req: IReq<{shortUrl: string}>, res: IRes) {
   const url = await urlService.getOriginalUrlInfo(shortUrl);
   if (!url) {
     // 此处直接404简单处理，实际业务可能为200，利用返回体code码区分
-    res.status(HttpStatusCodes.NOT_FOUND).json({error: urlNotFoundErr});
+    return res.status(HttpStatusCodes.NOT_FOUND).json({error: urlNotFoundErr});
   }
   return res.status(HttpStatusCodes.OK).json({originalUrl: url?.originalUrl});
 }
