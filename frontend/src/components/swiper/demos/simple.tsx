@@ -1,15 +1,15 @@
-import React from "react";
-import Swiper from "../index";
-import "./simple.css";
+import React from 'react';
+import Swiper from '../index';
+import './simple.css';
 
-import airpods from "./../../../assets/airpods.png"
-import iphone from "./../../../assets/iphone.png"
-import tablet from "./../../../assets/tablet.png"
+import airpods from './../../../assets/airpods.png';
+import iphone from './../../../assets/iphone.png';
+import tablet from './../../../assets/tablet.png';
 
 const Simple: React.FC = () => {
   return (
     <div>
-      <Swiper autoplay={true}  className="simple-swiper">
+      <Swiper autoplay={true} className="simple-swiper">
         <div className="simple-swiper__item simple-swiper__item-iphone">
           <div className="simple-swiper-item__header">
             <p className="simple-swiper__title">xPhone</p>
