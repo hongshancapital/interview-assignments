@@ -1,0 +1,55 @@
+
+.swipe {
+    overflow: hidden;
+    position: relative;
+}
+
+.swipe .swipe__container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.swipe .swipe__item {
+    width: 100vw;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.swipe .swipe__dots {
+    display: flex;
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.swipe .swipe__dot {
+    width: 20px;
+    height: 6px;
+    margin-right: 10px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, .5);
+    cursor: pointer;
+    position: relative;
+}
+
+.swipe .swipe__dot:last-child {
+    margin-right: 0;
+}
+
+.swipe .swipe__dot .progress {
+    content: "";
+    width: 0;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.swipe .swipe__dot--active .progress {
+    width: 100%;
+    transition: all 3s;
+}
