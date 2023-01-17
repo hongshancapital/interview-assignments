@@ -33,13 +33,13 @@ const Swiper: React.FC<ISwiper> = (props: ISwiper) => {
   }, [className]);
 
   useEffect(() => {
-    const swiperWidth: number = swiperRef.current!.getBoundingClientRect().width;
     const indicatorList = swiperRef.current!.querySelectorAll<HTMLDivElement>(
       '.swiper-widget__indicator-item'
     );
     if (autoplay) {
       indicatorList[currentIndex.current].classList.add('swiper-widget__indicator-item-active');
       const timer = setInterval(() => {
+        const swiperWidth: number = swiperRef.current!.getBoundingClientRect().width;
         if (currentIndex.current === children.length - 1) {
           currentIndex.current = 0;
         } else {
