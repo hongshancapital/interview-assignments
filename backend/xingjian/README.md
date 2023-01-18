@@ -73,6 +73,11 @@ clone代码到本机之后可以按照以下步骤体验：
 - 手动执行curl命令来体验；
 - 或者运行**bash test.sh**来通过脚本测试；
 ```bash
+// migrate database
+npm install -g typeorm
+npm install -g ts-node
+npx typeorm-ts-node-commonjs -d datasource.ts migration:run
+
 // start a server
 bash start.sh
 
