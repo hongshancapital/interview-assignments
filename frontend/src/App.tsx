@@ -4,7 +4,7 @@ import {Carousel} from './components';
 const Item = Carousel.Item;
 
 function App() {
-    return <div className='App'>
+    return <div className='App' title='彭程的前端面试'>
         <Carousel showIndicators>
             <Item key='1'>
                 <div className="block red">1</div>
