@@ -34,13 +34,15 @@ export class migration1674020275522 implements MigrationInterface {
                         name: "short_url",
                         type: "varchar",
                         length: "8",
-                        isNullable: false
+                        isNullable: false,
+                        collation: "utf8mb4_0900_as_cs"
                     },
                     {
                         name: "long_url",
                         type: "varchar",
                         length: "256",
-                        isNullable: false
+                        isNullable: false,
+                        collation: "utf8mb4_0900_as_cs"
                     }
                 ]
             }),

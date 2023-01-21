@@ -15,7 +15,8 @@ export class ShortUrlInfo {
     @Column({
         type: "varchar",
         nullable: false,
-        length: 256
+        length: 256,
+        collation: "utf8mb4_0900_as_cs"
     })
     long_url: string;   // origin long url string
 
@@ -23,7 +24,8 @@ export class ShortUrlInfo {
     @Column({
         type: "varchar",
         nullable: false,
-        length: 8
+        length: 8,
+        collation: "utf8mb4_0900_as_cs"
     })
     short_url: string; //  url string
 }

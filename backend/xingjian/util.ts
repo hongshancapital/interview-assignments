@@ -5,8 +5,7 @@ var char_arr:string[] = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "
 export function ConvertToBase62String(id: number): string {
     var base62_str:string = ""
 
-    while (id > 0)
-    {
+    while (id > 0) {
         var index:number = id % 62;
         base62_str = char_arr[index] + base62_str
         id = Math.floor(id / 62)
