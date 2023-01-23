@@ -1,0 +1,63 @@
+server:
+  port: 8081
+  use-forward-headers: true
+  tomcat:
+    max-threads: 500
+    accesslog:
+      enabled: true
+      pattern: '%t %a "%r" %s (%D ms)'
+      directory: @log_path@
+      prefix: access
+    basedir: @log_path@
+  servlet:
+    session:
+      timeout: P1D  #1天过期
+      cookie:
+        path: /
+    context-path: /api
+
+spring:
+  application:
+    name: domain-service
+  profiles:
+    active: @profileActive@
+  jackson:
+    default-property-inclusion: non_null
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8
+#    username: test
+#    password: test
+#    hikari:
+#      connection-timeout: 20000
+#      maximum-pool-size: 200
+#      minimum-idle: 10
+#      idle-timeout: 60000
+#      connection-init-sql: set names utf8mb4;
+#  redis:
+#    password:
+#    host: 127.0.0.1
+#    port: 6379
+  session:
+    store-type: none
+#    redis:
+#      flush-mode: on_save
+#      namespace: spring:session
+  servlet:
+    # 多文件上传文件最大限制设置
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 100MB
+  aop:
+    proxy-target-class: true
+reissue-batch-size: 100
+
+logging:
+  level:
+    root: INFO
+    org.zxl: @log4j_level@
+  file: @log_path@/${spring.application.name}.log
+
+domain:
+  cacheSeconds: 3600
+  step: 100000
