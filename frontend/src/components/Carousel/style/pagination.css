@@ -1,0 +1,52 @@
+@keyframes loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.pagination {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-item {
+    overflow: hidden;
+    position: relative;
+    margin: 5px;
+}
+
+.pagination-item .pagination-item-back {
+    height: 2px;
+    width: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.pagination-item .pagination-item-front{
+    height: 2px;
+    width: 50px;
+    transform-origin: left;
+}
+
+.pagination-item-loading {
+    animation: loading var(--duration) linear infinite;
+}
+
+.pagination-item .pagination-item-back{
+    background-color: gray;
+}
+.pagination-item .pagination-item-front{
+    background-color: white;
+}
