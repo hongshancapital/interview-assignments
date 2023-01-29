@@ -1,0 +1,28 @@
+{
+   "name": "typeorm-sample",
+   "version": "0.0.1",
+   "description": "Awesome project developed with TypeORM.",
+   "type": "commonjs",
+   "devDependencies": {
+      "ts-node": "10.7.0",
+      "@types/node": "^16.11.10",
+      "typescript": "4.5.2",
+      "chai": "^4.3.6",
+      "chai-http": "^4.3.0",
+      "mocha": "^9.2.2"
+   },
+   "dependencies": {
+      "typeorm": "0.3.6",
+      "reflect-metadata": "^0.1.13",
+      "sqlite3": "^4.0.3",
+      "express": "^4.17.2",
+      "body-parser": "^1.19.1",
+      "valid-url": "^1.0.9",
+      "shortid": "^2.2.16"
+   },
+   "scripts": {
+      "start": "ts-node src/index.ts",
+      "typeorm": "typeorm-ts-node-commonjs",
+      "test": "mocha -r ts-node/register tests/*.test.ts"
+   }
+}
