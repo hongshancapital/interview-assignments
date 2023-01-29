@@ -1,6 +1,9 @@
 .App {
+  width: 100%;
+  height: 100%;
   text-align: center;
   position: relative;
+  overflow: hidden;
 }
 
 .title {
@@ -11,4 +14,149 @@
 .text {
   font-size: 28px;
   font-weight: 400;
+}
+
+.contentItem {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+}
+
+.contentText {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.iphone {
+  /* left: 0; */
+  transform: translateX(100%);
+  background-color: #111111;
+}
+.iphone .contentText {
+  height: 40%;
+  color: white;
+}
+
+.iphone .contentIcon {
+  height: 50%;
+  background: url(./assets/iphone.png) no-repeat center;
+  background-size: contain;
+}
+
+.tablet {
+  /* left: 100%; */
+  transform: translateX(100%);
+  background-color: #fafafa;
+}
+
+.tablet .contentText {
+  height: 40%;
+}
+
+.tablet .contentIcon {
+  height: 55%;
+  background: url(./assets/tablet.png) no-repeat center;
+  background-size: contain;
+}
+
+.airpods {
+  /* left: 200%; */
+  transform: translateX(200%);
+  background-color: #f1f1f3;
+}
+.airpods .contentText {
+  height: 50%;
+}
+.airpods .contentIcon {
+  height: 50%;
+  background: url(./assets/airpods.png) no-repeat center;
+  background-size: 100%;
+}
+
+.footer {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressWrap, .progress {
+  height: 2px;
+  border-radius: 1px;
+}
+.progressWrap {
+  width: 50px;
+  background-color: grey;
+  position: relative;
+}
+.progressWrap:not(:last-child) {
+  margin-right: 5px;
+}
+
+.progress{
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: width;
+  animation: progressAnimation 3s 1;
+  -webkit-animation: progressAnimation 3s 1;
+  background-color: white;
+}
+
+@keyframes progressAnimation {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes progressAnimation {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.contentAni {
+  animation: contentAnimation 1.5s 1;
+  animation-fill-mode: forwards;
+  -webkit-animation: contentAnimation 1.5s 1;
+  -webkit-animation-fill-mode: forwards;
+}
+@keyframes contentAnimation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes progressAnimation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.contentLeave {
+  animation: leaveAnimation 1.5s 1;
+  -webkit-animation: leaveAnimation 1.5s 1;
+}
+@keyframes leaveAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
