@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel/index1';
 
 import airpods from './assets/airpods.png';
 import iphone from './assets/iphone.png';
@@ -24,7 +24,7 @@ const renderCarouselItem = (dataItem: {
       <div className="title" style={{ color: dataItem.color }}>
         {dataItem.title}
       </div>
-      <img src={dataItem.imgSrc} alt="" style={{ width: '100%' }} />
+      <img src={dataItem.imgSrc} draggable={false} alt="" style={{ width: '100%' }} />
     </div>
   );
 };
@@ -33,10 +33,15 @@ function App() {
   return (
     <div className="App">
       <Carousel
+        width="100vw"
+        height="100vh"
         dataSource={dataSource}
-        renderItemFunction={renderCarouselItem}
-        currentIndex={index}
-        onChange={setIndex}
+        renderItem={renderCarouselItem}
+        activeIndex={index}
+        onChange={(i) => {
+          // console.log('iiiii:', i);
+          setIndex(i);
+        }}
       />
     </div>
   );
