@@ -11,7 +11,7 @@ import Foundation
 let searchUrl = "https://itunes.apple.com/search"
 
 class AppListViewModel: ObservableObject {
-    let pageSize = 20 // 每页100条，page增加时，改变接口的limit = （page+1）* pageSize
+    let pageSize = 20 // 每页20条，page增加时，改变接口的limit = （page+1）* pageSize
     var page = 0 // 当前page,因接口限制，无法直接使用，每次加载的数据为（page+1）*pageSize条（即为limit），若resultData.resultCount < limit,则表示加载完毕。为了简单起见，默认请求时前面每一页的数据都相同，loadmore的时候，直接替换全部内容，而不是遍历去重然后增加剩下的
     @Published var resultData: Optional<ResponseModel> = nil // 所有数据
 
@@ -46,9 +46,7 @@ class AppListViewModel: ObservableObject {
             return
         }
         page = 0
-        DispatchQueue.main.async {
-            self.loadAll = false
-        }
+        loadAll = false
         fetchSearchData(page: page, refresh: true)
     }
 
@@ -60,9 +58,7 @@ class AppListViewModel: ObservableObject {
             return
         }
         page += 1
-        DispatchQueue.main.async {
-            self.isLoading = true
-        }
+        isLoading = true
         fetchSearchData(page: page, refresh: false)
     }
 

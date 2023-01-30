@@ -1,7 +1,6 @@
 运行环境：
     iOS 15.0及以上 
     Xcode 14.0及以上
-    cocoapods 1.11.3 
     swift版本 5.4
 
 说明：
