@@ -12,3 +12,13 @@ test('正确展示轮播卡片', () => {
   const element = getByTestId(id)
   expect(element).toBeInTheDocument();
 });
+
+test('只有一页轮播时，不显示进度条', ()=>{
+  const { queryByTestId } = render(<Cmp list={[
+    {
+      content: <>test</>
+    },
+  ]} />);
+  const element = queryByTestId('progress-bar')
+  expect(element).toBeNull()
+})

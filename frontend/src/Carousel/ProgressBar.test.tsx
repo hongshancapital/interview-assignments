@@ -21,3 +21,9 @@ test('正确展示进度条', ()=>{
   const element = getByTestId('progress')
   expect(items[index]).toContainElement(element)
 })
+
+test('size为0时不展示', () => {
+  const { queryByTestId } = render(<Cmp size={0} index={index} duration={3000} />);
+  const element = queryByTestId('progress-bar')
+  expect(element).toBeNull()
+})
