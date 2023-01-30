@@ -6,7 +6,7 @@ import tablet from "./assets/tablet.png";
 function App() {
   return (
     <div className="App">
-      <Carousel durning={3000} paginationColor="red">
+      <Carousel>
         <div className="common iphone">
           <div>
             <h1>xPhone</h1>

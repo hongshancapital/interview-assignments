@@ -8,7 +8,7 @@ type CarouselProp = {
   paginationColor?: string;
 };
 let i: number = 0;
-function Carousel({ children, durning = 3000, paginationBackColor = "#e4e4e4", paginationColor = "white" }: CarouselProp) {
+function Carousel({ children, paginationBackColor = "#e4e4e4", paginationColor = "white" }: CarouselProp) {
   const childLen = Array.isArray(children) ? children?.length : 1;
   const er: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const nav: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
@@ -39,16 +39,16 @@ function Carousel({ children, durning = 3000, paginationBackColor = "#e4e4e4", p
           nav.current.children[t].classList.add('active')
         }
         
-      }, durning);
+      }, 3000);
     }
 
     return function() {
       handleInterval()
     }
-  }, [er, nav, childLen, children, durning, curIdx]);
-  
+  }, [er, nav, childLen, children, curIdx]);
+
   return (
-    <div className="carousel-wrap" style={{"--durning": `${durning/1000}s`}}>
+    <div className="carousel-wrap">
       <div className="absolute" ref={nav}>
         {
           Array.isArray(children) && children?.map((item: React.ReactNode) => {
