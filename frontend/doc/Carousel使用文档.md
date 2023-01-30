@@ -43,4 +43,4 @@
 | children            | Array<React.ReactNode> | 轮播图页面             |          |
 | paginationBackColor | string                 | 轮播图分页器的背景颜色 | \#e4e4e4 |
 | paginationColor     | string                 | 轮播图分页器进度条颜色 | white    |
-
+17335802344@163.com
