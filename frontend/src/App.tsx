@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import useCarouselContent from './customHook/carouselContentHook';
-import useProgress from './customHook/progressHook';
+import useCarouselContent from './customHook/useCarouselContent';
+import useProgress from './customHook/useProgress';
 
 function App() {
   // 当前激活下标
