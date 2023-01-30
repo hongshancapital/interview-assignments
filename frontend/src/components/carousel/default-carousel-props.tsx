@@ -13,7 +13,7 @@ const defaultProps: InternalCarouselProps = {
   },
   animation: 'zoom',
   loop: false,
-  autoplay: true,
+  autoplay: false,
   autoplayInterval: 3000,
   autoplayReverse: false,
   beforeSlide: () => {

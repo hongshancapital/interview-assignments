@@ -5,7 +5,7 @@ import { CarouselProps, InternalCarouselProps, SlideHeight } from './types';
 import renderControls from './controls';
 import defaultProps from './default-carousel-props';
 import { getIndexes, getNextMoveIndex, getPrevMoveIndex } from './utils';
-import useMount from '../../utils/useMount';
+import useMount from '../../hooks/useMount';
 import { Pagination } from './pagination';
 
 export const Carousel = (rawProps: CarouselProps): React.ReactElement => {
@@ -141,7 +141,6 @@ export const Carousel = (rawProps: CarouselProps): React.ReactElement => {
   // Makes the carousel infinity when autoplay are enabled
   useEffect(() => {
     if (autoplay && !animationEnabled) {
-      console.log(currentSlide, count);
       if (currentSlide > count) {
         setCurrentSlide(currentSlide - count);
         if (timer?.current) {
@@ -159,7 +158,6 @@ export const Carousel = (rawProps: CarouselProps): React.ReactElement => {
   useEffect(() => {
     if (autoplay) {
       timer.current = setTimeout(() => {
-        console.log('currentSlide->', currentSlide);
         if (autoplayReverse) {
           if (currentSlide > 0) {
             prevSlide();

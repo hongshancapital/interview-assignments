@@ -44,7 +44,8 @@ function App() {
 
   return (
     <div className="App">
-      <Carousel style={{ height: '100vh' }} autoplay>
+      <div>learn react</div>
+      <Carousel style={{ height: '100vh' }}>
         {items.map((item) => (
           <div key={item.name} className={item.name} style={defaultStyles}>
             {item.dom}
