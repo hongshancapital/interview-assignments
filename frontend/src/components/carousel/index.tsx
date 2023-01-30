@@ -3,42 +3,7 @@ import React, { useRef, useLayoutEffect, useState, ReactNode, MutableRefObject }
 import type { CarouselProps, CarouselBaseState, CarouselMemoElsResponse, MemoState, CarouselRecordStatus,MarksProps } from './types'
 const joinClass = (...rest: string[]) => rest.join(' ')
 
-// 缓存轮播时的列表元素以及获取最外层容器宽度
-const useMemoEls = (parentRef: MutableRefObject<HTMLDivElement | null>, children: CarouselProps['children']): CarouselMemoElsResponse => {
-  const [res, setRes] = useState<MemoState>({ items: [], containerWidth: 0 })
 
-  useLayoutEffect(() => {
-    const {current} = parentRef as MutableRefObject<HTMLDivElement>
-    // 监听最外层容器尺寸变更
-    let parentObserver = new ResizeObserver((entries) => {
-      entries.forEach(calcElementAndwidth);
-    })
-    parentObserver.observe(current)
-
-    // 收集列表元素集和外层容器宽度
-    const calcElementAndwidth = () => {
-      const { width } = getComputedStyle(current)
-
-      // // 外层容器高度或宽度为0时，无需缓存列表元素
-      // if (parseInt(height) === 0 || parseInt(width) === 0) return
-      setRes(
-        {
-          items: children.map((el, i) => {
-            return <div key={'mp-carousel-item' + i} className='mp-carousel-item-container-item' >
-              {el}
-            </div>
-          }),
-          containerWidth: parseFloat(width)
-        }
-      )
-    }
-    calcElementAndwidth()
-
-    return () => parentObserver.unobserve(current)
-
-  }, [children,])
-  return res
-}
 const defaultProps: CarouselProps = {
   children: [],
   interval: 2000,
@@ -134,6 +99,42 @@ const Carousel = (props: CarouselProps) => {
     </div>
     <Marks curIndex={state.curIndex} listLen={state.listLen} />
   </div>
+}
+// 缓存轮播时的列表元素以及获取最外层容器宽度
+const useMemoEls = (parentRef: MutableRefObject<HTMLDivElement | null>, children: CarouselProps['children']): CarouselMemoElsResponse => {
+  const [res, setRes] = useState<MemoState>({ items: [], containerWidth: 0 })
+
+  useLayoutEffect(() => {
+    const {current} = parentRef as MutableRefObject<HTMLDivElement>
+    // 监听最外层容器尺寸变更
+    let parentObserver = new ResizeObserver((entries) => {
+      entries.forEach(calcElementAndwidth);
+    })
+    parentObserver.observe(current)
+
+    // 收集列表元素集和外层容器宽度
+    const calcElementAndwidth = () => {
+      const { width } = getComputedStyle(current)
+
+      // // 外层容器高度或宽度为0时，无需缓存列表元素
+      // if (parseInt(height) === 0 || parseInt(width) === 0) return
+      setRes(
+        {
+          items: children.map((el, i) => {
+            return <div key={'mp-carousel-item' + i} className='mp-carousel-item-container-item' >
+              {el}
+            </div>
+          }),
+          containerWidth: parseFloat(width)
+        }
+      )
+    }
+    calcElementAndwidth()
+
+    return () => parentObserver.unobserve(current)
+
+  }, [children,])
+  return res
 }
 // ------Marks Component
 const createMarkClass = (isEq: boolean) => {
