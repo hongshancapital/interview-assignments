@@ -1,5 +1,6 @@
 
 import Carousel from '../carousel';
+import '../carousel/index.scss'
 
 function Demo() {
   return  <Carousel interval={3000}>

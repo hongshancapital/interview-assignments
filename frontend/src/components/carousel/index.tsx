@@ -1,7 +1,6 @@
 // namespace: mp-carousel
 import React, { useRef, useLayoutEffect, useState, ReactNode, MutableRefObject } from 'react';
 import type { CarouselProps, CarouselBaseState, CarouselMemoElsResponse, MemoState, CarouselRecordStatus,MarksProps } from './types'
-import './index.scss'
 const joinClass = (...rest: string[]) => rest.join(' ')
 
 // 缓存轮播时的列表元素以及获取最外层容器宽度
