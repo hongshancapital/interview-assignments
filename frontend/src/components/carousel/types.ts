@@ -91,45 +91,6 @@ interface DefaultControlsConfig {
   prevButtonText?: string;
 }
 
-export interface KeyCodeConfig {
-  firstSlide?: number[];
-  lastSlide?: number[];
-  nextSlide?: number[];
-  pause?: number[];
-  previousSlide?: number[];
-}
-
-export type KeyCodeFunction =
-  | 'nextSlide'
-  | 'previousSlide'
-  | 'firstSlide'
-  | 'lastSlide'
-  | 'pause'
-  | null;
-
-export interface KeyCodeMap {
-  [key: number]: keyof KeyCodeConfig;
-}
-
-export interface CarouselState {
-  cellAlign: Alignment;
-  /**
-   * current index
-   */
-  currentSlide: number;
-  dragging: boolean;
-  easing: (normalizedTime: number) => number;
-  hasFocus: boolean;
-  hasInteraction: boolean;
-  resetWrapAroundPosition: boolean;
-  count: number;
-  slidesToScroll: number;
-  slidesToShow: number;
-  left: number;
-  top: number;
-  wrapToIndex: number | null;
-}
-
 export interface ControlProps {
   /**
    * When displaying more than one slide, sets which position to anchor the current slide to.
@@ -235,7 +196,13 @@ export interface InternalCarouselProps {
   autoplayInterval: number;
 
   /**
-   * 是否支持反复循环播放
+   * animation loop
+   * @default false
+   */
+  loop: boolean;
+
+  /**
+   * 是否支持Reverse
    * @default false
    */
   autoplayReverse: boolean;
@@ -387,11 +354,6 @@ export interface InternalCarouselProps {
    * style object
    */
   style: CSSProperties;
-
-  /**
-   * Enable touch swipe/dragging
-   */
-  swiping: boolean;
 
   /**
    * Enable the slides to transition vertically

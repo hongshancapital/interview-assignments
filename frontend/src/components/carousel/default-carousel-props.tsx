@@ -11,6 +11,8 @@ const defaultProps: InternalCarouselProps = {
   afterSlide: () => {
     // do nothing
   },
+  animation: 'zoom',
+  loop: false,
   autoplay: true,
   autoplayInterval: 3000,
   autoplayReverse: false,
@@ -34,7 +36,6 @@ const defaultProps: InternalCarouselProps = {
   slidesToShow: 1,
   speed: 500,
   style: {},
-  swiping: true,
   vertical: false,
   withoutControls: false,
   children: <></>,

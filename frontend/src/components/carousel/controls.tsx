@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { Fragment } from 'react';
 import { getDecoratorStyles } from './control-styles';
 import {

@@ -18,6 +18,7 @@ export const Carousel = (rawProps: CarouselProps): React.ReactElement => {
     autoplay,
     autoplayInterval,
     autoplayReverse,
+    loop,
     beforeSlide,
     cellAlign,
     cellSpacing,
@@ -158,6 +159,7 @@ export const Carousel = (rawProps: CarouselProps): React.ReactElement => {
   useEffect(() => {
     if (autoplay) {
       timer.current = setTimeout(() => {
+        console.log('currentSlide->', currentSlide);
         if (autoplayReverse) {
           if (currentSlide > 0) {
             prevSlide();
@@ -166,6 +168,8 @@ export const Carousel = (rawProps: CarouselProps): React.ReactElement => {
           }
         } else if (currentSlide < count - slidesToShow) {
           nextSlide();
+        } else if (loop && currentSlide >= count - slidesToShow) {
+          setCurrentSlide(0);
         } else {
           nextSlide();
         }
@@ -174,9 +178,12 @@ export const Carousel = (rawProps: CarouselProps): React.ReactElement => {
 
     // Clear the timeout if user hover on carousel
     if (autoplay) {
-      if (timer?.current && currentSlide >= count - slidesToShow) {
-        clearTimeout(timer.current);
+      if (!loop) {
+        if (timer?.current && currentSlide >= count - slidesToShow) {
+          clearTimeout(timer.current);
+        }
       }
+
       if (autoplayReverse && timer?.current && currentSlide <= 0) {
         clearTimeout(timer.current);
       }
@@ -196,6 +203,7 @@ export const Carousel = (rawProps: CarouselProps): React.ReactElement => {
     autoplayReverse,
     prevSlide,
     nextSlide,
+    loop,
   ]);
 
   // 启用 wrapAround 时使轮播无限，但禁用自动播放
