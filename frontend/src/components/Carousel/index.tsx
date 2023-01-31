@@ -9,10 +9,10 @@ export type CarouselOnChange = (index: number) => void
 export type CarouselPorps = {
 
     /**current index */
-    value: number,
+    value?: number,
 
     /**change callback funciton*/
-    onChange: CarouselOnChange,
+    onChange?: CarouselOnChange,
     
     /**autoplay*/
     autoplay?: boolean,
@@ -29,10 +29,18 @@ export type CarouselPorps = {
 
 const Carousel: ReactFCStyle<CarouselPorps> = (props) => {
     const across = pick(['style'])(props)
+    const [privateValue,privateValueSet]=useState(0)
     /** ani lock */
     const [isInTransition, isInTransitionSet]=useState(false)
 
-    const { onChange, value, autoplay, children, disableDots, duration } = props
+    const {  autoplay, children, disableDots, duration } = props
+
+    const value = props.value??privateValue
+
+    const onChange = useCallback((value:number)=>{
+        props.onChange?.(value);
+        privateValueSet(value);
+    }, [props])
    
     const onTransitionEnd: React.DOMAttributes<HTMLDivElement>['onTransitionEnd'] =(event)=>{
         isInTransitionSet(false)

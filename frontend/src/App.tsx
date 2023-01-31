@@ -22,17 +22,12 @@ const CarouselItemView: ReactFCStyle<CarouselItemViewProps>=(props)=>{
 }
 
 function App() {
-  const [currentIndex, currentIndexSet] = useState(2)
+
   const [autoplay, autoplaySet] = useState(true)
   const [duration, durationSet] = useState(2000)
-  const onCarouselChange: CarouselOnChange = (index) => {
-    currentIndexSet(index)
-    return
-  }
+
   return <div className='App'>
-    <Carousel 
-        value={currentIndex} 
-        onChange={onCarouselChange} 
+    <Carousel
         autoplay={autoplay} 
         disableDots={false} 
         duration={duration}
@@ -60,7 +55,7 @@ function App() {
     </Carousel>
 
     <ConsolePanel
-      currentIndex={currentIndex}
+
       autoplay={autoplay}
       autoplaySet={autoplaySet}
       duration={duration}

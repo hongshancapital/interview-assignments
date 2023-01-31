@@ -6,7 +6,7 @@ const ConsolePanel: ReactFC<{
     autoplaySet: (autoplay: boolean) => void;
     duration: number;
     durationSet: (duration: number) => void;
-    currentIndex: number;
+    currentIndex?: number;
 }> = (props) => {
     const { autoplay, autoplaySet, duration, durationSet, currentIndex } = props
     useControlled(autoplay, autoplaySet)
@@ -26,10 +26,10 @@ const ConsolePanel: ReactFC<{
                     <input type="text" value={duration} onChange={value => durationSet(parseInt(value.target.value || '0'))} />
                 </td>
             </tr>
-            <tr>
+                {currentIndex &&<tr>
                 <td>当前位置</td> 
                 <td>{currentIndex}</td>
-            </tr>
+            </tr>}
             </tbody>
         </table>
     </div>
