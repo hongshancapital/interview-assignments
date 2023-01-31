@@ -44,3 +44,44 @@
   background-repeat: no-repeat;
   background-position: center 100%;
 }
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.carousel-dot {
+  background: #a9a9a9;
+  height: 4px;
+  width: 30px;
+  margin: 0 4px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.carousel-progress {
+  background: #fafafa;
+  height: 4px;
+  width: 0%;
+  border-radius: 2px;
+}
+
+.carousel-progress.active {
+  animation-name: progress;
+  animation-timing-function: linear;
+}
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}

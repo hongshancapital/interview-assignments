@@ -9,18 +9,18 @@ export interface IUseCarouselProps {
   /**
    * 持续时间(ms)
    */
-  duration?: number;
+  duration: number;
 
   /**
    * 默认展示的index值
    */
-  defaultActiveIndex?: number;
+  defaultActiveIndex: number;
 }
 
 const useCarousel = ({
   length,
-  duration = 3000,
-  defaultActiveIndex = 0,
+  duration,
+  defaultActiveIndex,
 }: IUseCarouselProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(defaultActiveIndex);
   const timer = useRef<NodeJS.Timer>();
