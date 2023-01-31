@@ -7,7 +7,7 @@ type UseObserveHook = (props: {
 }) => void;
 
 /** 检测 active 的变化，依据 active 的变化驱动视图更新 */
-export const useObserve: UseObserveHook = ({ active, length, onChange }) => {
+export const useObserve: UseObserveHook = ({ active, onChange }) => {
   useEffect(() => {
     onChange?.(active);
     const el = document.getElementById(`carouse_item_${active}`);
@@ -16,5 +16,5 @@ export const useObserve: UseObserveHook = ({ active, length, onChange }) => {
       block: 'end',
       inline: 'nearest',
     });
-  }, [active]);
+  }, [active, onChange]);
 };

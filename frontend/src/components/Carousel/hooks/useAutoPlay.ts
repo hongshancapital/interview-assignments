@@ -25,5 +25,5 @@ export const useAutoPlay: UseAutoPlayHook = ({
     return () => {
       timer && clearInterval(timer);
     };
-  }, []);
+  }, [auto, duration, moveToNext]);
 };

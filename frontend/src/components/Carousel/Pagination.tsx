@@ -9,7 +9,7 @@ export const Pagination: React.FC<{
 }> = ({ active, count, duration }) => {
   useEffect(() => {
     document.body.style.setProperty('--duration', `${duration / 1000}s`);
-  }, []);
+  }, [duration]);
 
   return (
     <div className="pagination">
