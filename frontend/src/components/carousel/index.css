@@ -1,0 +1,88 @@
+@keyframes carousel-tab-animation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.carousel-wrapper {
+  width: 100%;
+  height: 100vh;
+}
+
+.carousel-list {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  transition-property: transform;
+  transition-timing-function: ease-in;
+}
+
+.carousel-item {
+  flex: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* justify-content: center; */
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-item-info {
+  margin-top: 20vh;
+  height: 40vh;
+}
+
+.carousel-item-title {
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.carousel-item-desc {
+  margin-top: 10px;
+  font-size: 30px;
+}
+
+.carousel-item-desc p {
+  margin: 0 auto;
+}
+
+.carousel-item-img {
+  width: 300px;
+  height: 600px;
+  background-size: cover;
+  background-position: center -150px;
+  background-repeat: no-repeat;
+}
+
+.carousel-tab-list {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.carousel-tab-item {
+  position: relative;
+  width: 50px;
+  height: 3px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: #a9a9a9;
+  cursor: pointer;
+}
+
+.carousel-tab-hotspot {
+  position: absolute;
+  inset: -10px 0;
+}
+
+.carousel-tab-inner {
+  width: 0;
+  height: 100%;
+  background-color: #fafafa;
+}
