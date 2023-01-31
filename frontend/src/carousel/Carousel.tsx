@@ -61,6 +61,18 @@ const Swipe: React.FC<Props> = (props) => {
     initSwipeSize()
     initTimer()
   }, [])
+  
+
+  // 监听页面resize
+  const onResize = () => {
+    initSwipeSize()
+  }
+  useEffect(() => {
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  })
 
   // 轮播切换
   useEffect(() => {
