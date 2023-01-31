@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import './Swipe.css'
+import './Carousel.css'
 
 interface Config {
   num: number // 轮播页数

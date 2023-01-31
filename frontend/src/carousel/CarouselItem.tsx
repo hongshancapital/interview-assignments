@@ -1,5 +1,5 @@
 import React from 'react';
-import './SwipeItem.css'
+import './CarouselItem.css'
 
 // 轮播 item
 const SwipeItem: React.FC = () => (

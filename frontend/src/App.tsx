@@ -1,6 +1,6 @@
 import './App.css';
-import Swipe from './carousel/Swipe'
-import SwipeItem from './carousel/SwipeItem'
+import Carousel from './carousel/Carousel'
+import CarouselItem from './carousel/CarouselItem'
 
 function App() {
 
@@ -11,9 +11,9 @@ function App() {
 
   return (
     <div className='App'>
-      <Swipe config={config}>
-        <SwipeItem></SwipeItem>
-      </Swipe>
+      <Carousel config={config}>
+        <CarouselItem />
+      </Carousel>
     </div>
   );
 }
