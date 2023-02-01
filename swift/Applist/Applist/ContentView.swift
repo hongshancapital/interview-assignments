@@ -14,8 +14,20 @@ struct ContentView: View {
         NavigationView {
             Group {
                 if viewModel.firstLoad {
-                    ProgressView().offset(y: -60)
-                        .background(Color.clear)
+                    if viewModel.loadError != nil && viewModel.resultData?.results.count ?? 0 <= 0 {
+                        Button {
+                            Task {
+                                await viewModel.refresh()
+                            }
+
+                        } label: {
+                            Text("重试")
+                                .background(Color.white)
+                        }
+                    } else {
+                        ProgressView().offset(y: -60)
+                            .background(Color.white)
+                    }
                 } else {
                     List {
                         ForEach(viewModel.resultData?.results ?? [], id: \.trackId) { (appModel: AppModel) in
@@ -33,7 +45,7 @@ struct ContentView: View {
                     }
                     .listStyle(.plain)
                     .refreshable {
-                        viewModel.refresh()
+                        await viewModel.refresh()
                     }
                 }
             }
@@ -41,8 +53,8 @@ struct ContentView: View {
             .navigationViewStyle(.stack)
             .background(Color("gray_bg"))
         }
-        .onAppear {
-            viewModel.refresh()
+        .task {
+            await viewModel.refresh()
         }
         .alert(viewModel.loadError?.localizedDescription ?? "Network failed，please try later.", isPresented: .constant(viewModel.loadError != nil), actions: {})
     }

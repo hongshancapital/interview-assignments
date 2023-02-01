@@ -2,7 +2,7 @@
 //  LoadingMoreView.swift
 //  Applist
 //
-//  Created by wulei7 on 2023/1/29.
+//  Created by santcool on 2023/1/29.
 //
 
 import Foundation
@@ -24,11 +24,11 @@ struct LoadingMoreView: View {
             Spacer()
         }
         .foregroundColor(Color.gray)
-        .frame(height: 50)
+        .frame(height: (viewModel.loadAll || viewModel.isLoading) ? 50 : 0)
         .onAppear {
             Task {
                 if !viewModel.loadAll {
-                    viewModel.loadMore()
+                    await viewModel.loadMore()
                 }
             }
         }

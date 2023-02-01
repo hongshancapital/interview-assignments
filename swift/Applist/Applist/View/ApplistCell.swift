@@ -2,7 +2,7 @@
 //  ApplistCell.swift
 //  Applist
 //
-//  Created by wulei7 on 2023/1/30.
+//  Created by santcool on 2023/1/30.
 //
 
 import Foundation
