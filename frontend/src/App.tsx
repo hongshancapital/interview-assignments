@@ -1,8 +1,9 @@
 import './App.css';
-import Carousel from './components/carousel';
+import CarouselModule from './modules/carousel';
+import { mockData } from './mock/data'
 
 function App() {
-  return <div className='App'><Carousel duration={3000} /></div>;
+  return <div className='App' data-testid="app"><CarouselModule carouselData={mockData} /></div>;
 }
 
 export default App;

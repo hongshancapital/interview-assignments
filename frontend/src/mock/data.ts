@@ -3,14 +3,11 @@ import Tablet from "../assets/tablet.png";
 import Airpods from "../assets/airpods.png";
 import { ICarouselItem } from "../types/carousel";
 
-export const MockData: ICarouselItem[] = [
+export const mockData: ICarouselItem[] = [
   {
     id: 0,
     title: "xPhone",
-    desc: [
-      "Lots to love.Less to spend.",
-      "Starting at $399."
-    ],
+    desc: "Lots to love.Less to spend. \n Starting at $399.",
     fontColor: "rgb(255, 255, 255)",
     bgColor: "rgb(17, 17, 17)",
     bgImg: Iphone,
@@ -18,7 +15,7 @@ export const MockData: ICarouselItem[] = [
   {
     id: 1,
     title: "Tablet",
-    desc: ["Just the right amount of everything."],
+    desc: "Just the right amount of everything.",
     fontColor: "rgb(3, 3, 3)",
     bgColor: "rgb(250, 250, 250)",
     bgImg: Tablet,
