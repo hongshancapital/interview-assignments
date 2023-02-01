@@ -1,8 +1,16 @@
 
-.carouselContainer {
+.carousel {
   position: relative;
-  overflow: auto;
+  overflow: hidden;
+}
+
+.carouselContainer {
   display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  transition: all 0.5s ease-in-out;
 }
 
 .carouselItem {
@@ -21,21 +29,21 @@
   bottom: 8px;
   left: 0;
   right: 0;
-  height: 30px;
+  height: 4px;
   transform: translate(0, -100%);
 }
 
 .carouselDotItem {
   cursor: pointer;
-  width: 80px;
+  width: 60px;
   margin: 0 8px;
-  background: gray;
+  background: #aaa;
 }
 
 .carouselDotItem.active {
   background: linear-gradient(
     to right,
-    skyblue var(--timePassedPercent),
-    gray var(--timePassedPercent) 100%,
+    white var(--timePassedPercent, 0%),
+    #aaa var(--timePassedPercent, 0%) 100%,
   );
 }

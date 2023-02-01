@@ -39,46 +39,51 @@ export type UseAutoPlayOptions = Required<Pick<CarouselProps, 'duration' | 'auto
 const useAutoPlay = (options: UseAutoPlayOptions) => {
   const { duration, autoPlay, pauseDuringFocus, dotLength, container } = options;
   const [initialLastRunTime] = useState(_.now);
-  const focusStatusRef = useRef(false);
+
+  const focusTimestampRef = useRef<number|null>(null);
+  const totalPauseTimeRef = useRef<number|null>(null);
+
   const lastRunTime = useRef<number>(initialLastRunTime);
   const [currentFrameIndex, setCurrentFrameNumber] = useState(START_FRAME_NUMBER);
 
   const containerFocus = useMemoizedFn(() => {
-    focusStatusRef.current = true;
-    if (pauseDuringFocus) {
-      lastRunTime.current = _.now();
+    if (pauseDuringFocus && !focusTimestampRef.current) {
+      focusTimestampRef.current = _.now();
     }
   });
   const containerFocusLeave = useMemoizedFn(() => {
-    focusStatusRef.current = false;
+    const focusTimestamp = focusTimestampRef.current;
+    if (_.isNumber(focusTimestamp)) {
+      totalPauseTimeRef.current = (totalPauseTimeRef.current ?? 0) + _.now() - focusTimestamp;
+    }
+    focusTimestampRef.current = null;
   });
+  // useMemoizedFn is used to avoid callback traps
   const moveNext = useMemoizedFn(() => {
     const nextNumber = currentFrameIndex >= dotLength - 1 ? START_FRAME_NUMBER : (currentFrameIndex + 1);
     lastRunTime.current = _.now();
+    totalPauseTimeRef.current = null;
     setCurrentFrameNumber(nextNumber);
-    console.log(`move next: ${nextNumber}`);
   });
   const onSelectFrame = useMemoizedFn((frameIndex: number) => {
     lastRunTime.current = _.now();
+    if (container.current) {
+      container.current.style.setProperty('--timePassedPercent', `${0}%`);
+    }
     setCurrentFrameNumber(frameIndex);
   });
 
   useEffect(() => {
     if (autoPlay && _.isNumber(duration)) {
       return registerTimeLoop(() => {
-        if (focusStatusRef.current) {
-          containerFocus();
+        if (focusTimestampRef.current) {
+          return;
         }
-        const currentTimestamp = Day().valueOf();
+        const pauseDuration = totalPauseTimeRef.current ?? 0;
+        const currentTimestamp = _.now();
         const lastTimestamp = lastRunTime.current;
-        const timePassed = currentTimestamp - lastTimestamp;
+        const timePassed = currentTimestamp - lastTimestamp - pauseDuration;
         const timePassedPercent = getPercent(timePassed, duration);
-        // console.log(`
-        //   currentTimestamp: ${currentTimestamp};
-        //   lastTimestamp: ${lastTimestamp};
-        //   timePassed: ${timePassed};
-        //   timePassedPercent: ${timePassedPercent};
-        // `)
         if (container.current) {
           container.current.style.setProperty('--timePassedPercent', `${timePassedPercent}%`);
         }
