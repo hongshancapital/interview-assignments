@@ -51,8 +51,8 @@ function Carousel({ children, paginationBackColor = "#e4e4e4", paginationColor =
     <div className="carousel-wrap">
       <div className="absolute" ref={nav}>
         {
-          Array.isArray(children) && children?.map((item: React.ReactNode) => {
-            return <nav key={Math.random()} style={{ backgroundColor: paginationBackColor }}>
+          Array.isArray(children) && children?.map((item: React.ReactElement) => {
+            return <nav key={item.key} style={{ backgroundColor: paginationBackColor }}>
               <div style={{ backgroundColor: paginationColor }}></div>
             </nav>
           })

@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Carousel>
-        <div className="common iphone">
+        <div className="common iphone" key="1">
           <div>
             <h1>xPhone</h1>
             <p>Lots to love. Less to spend.</p>
@@ -15,14 +15,14 @@ function App() {
           </div>
           <img src={iphone} alt="iphone"></img>
         </div>
-        <div className="common airpods">
+        <div className="common airpods" key="2">
           <div>
             <h1>Table</h1>
             <p>Just the right amount of everything.</p>
           </div>
           <img src={airpods} alt="airpods"></img>
         </div>
-        <div className="common tablet">
+        <div className="common tablet" key="3">
           <div>
             <h1>Buy a Tablet or xPhone for college.</h1>
             <h1>Get arPods.</h1>
