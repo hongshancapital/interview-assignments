@@ -1,7 +1,7 @@
 import Carousel, { ICarouselProps} from "./Carousel";
 import CarouselItem from "./CarouselItem";
 
-export type { ICarouselProps } from "./Carousel";
+export type { ICarouselProps };
 export type { ICarouselItemProps } from "./CarouselItem";
 
 interface CarouselInterface

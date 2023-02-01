@@ -39,15 +39,15 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
   const CarouselLength = React.Children.count(children);
 
 
-  if(CarouselLength === 0){
-    console.warn('没有任何面板')
-  }
   useEffect(()=>{
+    if(CarouselLength === 0){
+      console.warn('没有任何面板')
+    }
     //避免越界
     if(current > CarouselLength-1){
       setCurrentIndex(CarouselLength-1)
     }
-  },[current])
+  },[])
 
   React.useImperativeHandle(
     ref,
@@ -58,24 +58,24 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
           return
         }
         handleClickDot(index)();
-        onChange && onChange(index);
+        onChange?.(index);
       },
       prev: () => {
         if (currentIndex > 0) {
           setCurrentIndex((currentIndex) => currentIndex - 1);
-          onChange && onChange(currentIndex - 1);
+          onChange?.(currentIndex - 1);
         } else {
           setCurrentIndex(CarouselLength - 1);
-          onChange && onChange(CarouselLength - 1);
+          onChange?.(CarouselLength - 1);
         }
       },
       next: () => {
         if (currentIndex < CarouselLength - 1) {
           setCurrentIndex((currentIndex) => currentIndex + 1);
-          onChange && onChange(currentIndex + 1);
+          onChange?.(currentIndex + 1);
         } else {
           setCurrentIndex(0);
-          onChange && onChange(0);
+          onChange?.(0);
         }
       },
     }),
@@ -91,10 +91,10 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
       timerRef.current = setInterval(() => {
         if (currentIndex >= CarouselLength - 1) {
           setCurrentIndex(0);
-          onChange && onChange(0);
+          onChange?.(0);
         } else {
           setCurrentIndex((currentIndex) => currentIndex + 1);
-          onChange && onChange(currentIndex + 1);
+          onChange?.(currentIndex + 1);
         }
       }, interval);
 
@@ -116,16 +116,13 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
   const handleClickDot = useCallback(
     (index: number) => () => {
       setCurrentIndex(index);
-      onChange && onChange(index);
+      onChange?.(index);
     },
     [onChange]
   );
 
-  function renderChildren(childrenRen: React.ReactNode) {
-    if (!childrenRen) {
-      return null;
-    }
-    return React.Children.map(childrenRen, (child, index) => (
+  function renderChildren() {
+    return React.Children.map(new Array(CarouselLength), (child:React.ReactNode, index:number) => (
       <Dot
         key={index}
         active={index === currentIndex}
@@ -145,7 +142,7 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
         {children}
       </ul>
       {dots ? (
-        <ul className="carousel-dot">{renderChildren(children)}</ul>
+        <ul className="carousel-dot">{renderChildren()}</ul>
       ) : null}
     </div>
   );

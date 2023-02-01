@@ -33,5 +33,7 @@
 | description | 描述 | string \| React.ReactNode | - |
 | title | 标题 | string \| React.ReactNode | - |
 | style | 样式 | React.CSSProperties| - | 
+| className | 容器类名	 | string| - | 
+
 
 
