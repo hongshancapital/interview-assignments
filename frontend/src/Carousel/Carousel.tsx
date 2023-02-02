@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { APP_CAROUSEL_ITEMS, DEFAULT_CAROUSEL_DURATION } from './constants';
-import { CarouselItem, CarouselItemProps } from './CarouselItem';
 import { Indicators } from './Indicators';
 import styles from './Carousel.module.scss';
 import { useIndex } from './hooks';
+import { CarouselItem } from './CarouselItem';
 
 type CarouselProps = {
   /**
@@ -11,21 +11,32 @@ type CarouselProps = {
    * @default 3000ms
    */
   duration?: number;
-  carouselItems?: CarouselItemProps[];
+  /**
+   * Carousel items to display
+   * @default defaultCarouselItems
+   */
+  children?: ReactNode[];
 };
 
+const defaultCarouselItems: ReactNode[] = APP_CAROUSEL_ITEMS.map(
+  (carouselItemProps) => (
+    <CarouselItem {...carouselItemProps} key={carouselItemProps.title} />
+  )
+);
+
 /**
- * Carousel can display items for given duration(default to 3000ms)
- * only support fullscreen slide for now
+ * Carousel can display items for given duration(default to 3000ms).
+ * Will fit the container's with and height and hidden the overflow.
  */
 export const Carousel: FC<CarouselProps> = ({
   duration = DEFAULT_CAROUSEL_DURATION,
-  carouselItems = APP_CAROUSEL_ITEMS,
+  children = defaultCarouselItems,
 }) => {
-  const carouselItemsLength = carouselItems.length;
+  const childrenLength = children.length;
+
   const { currIndex } = useIndex({
     duration,
-    childrenLength: carouselItemsLength,
+    childrenLength,
   });
 
   return (
@@ -33,24 +44,23 @@ export const Carousel: FC<CarouselProps> = ({
       <ul
         className={styles.carouselItems}
         style={{
-          width: `${carouselItemsLength * 100}vw`,
-          transform: `translateX(-${currIndex * 100}vw)`,
+          width: `${childrenLength * 100}%`,
+          transform: `translateX(calc(-1 * 100% / ${childrenLength} * ${currIndex}))`,
         }}
         aria-label="carousel items"
       >
-        {carouselItems.map((carouselItemProps) => {
+        {children.map((child, index) => {
           return (
-            <li
-              className={styles.carouselItemWrapper}
-              key={carouselItemProps.title}
-            >
-              <CarouselItem {...carouselItemProps} />
+            // Note: There is no insert/delete/resort case for children
+            // so use index as key is fine.
+            <li className={styles.carouselItemWrapper} key={index}>
+              {child}
             </li>
           );
         })}
       </ul>
       <Indicators
-        length={carouselItemsLength}
+        length={childrenLength}
         currentActiveIndex={currIndex}
         duration={duration}
       />

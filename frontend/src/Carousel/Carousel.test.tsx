@@ -16,8 +16,8 @@ describe('Carousel', () => {
       jest.advanceTimersByTime(DEFAULT_CAROUSEL_DURATION);
     });
     expect(screen.getByLabelText('carousel items')).toHaveStyle({
-      width: '300vw',
-      transform: 'translateX(-100vw)',
+      width: '300%',
+      transform: `translateX(calc(-1 * 100% / 3 * 1))`,
     });
   });
 });

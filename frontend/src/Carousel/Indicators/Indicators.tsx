@@ -23,7 +23,7 @@ export const Indicators: FC<IndicatorsProps> = ({
             aria-label="indicator"
             role="progressbar"
             // There is no insert/delete/resort case for indicators
-            // so use index as key if fine.
+            // so use index as key is fine.
             key={index}
           >
             <span
