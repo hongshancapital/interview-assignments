@@ -24,7 +24,12 @@ const renderCarouselItem = (dataItem: {
       <div className="title" style={{ color: dataItem.color }}>
         {dataItem.title}
       </div>
-      <img src={dataItem.imgSrc} draggable={false} alt="" style={{ width: '100%' }} />
+      <img
+        src={dataItem.imgSrc}
+        draggable={false}
+        alt=""
+        style={{  height: '200px' }}
+      />
     </div>
   );
 };
