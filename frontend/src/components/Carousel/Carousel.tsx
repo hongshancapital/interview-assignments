@@ -47,7 +47,16 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
     if(current > CarouselLength-1){
       setCurrentIndex(CarouselLength-1)
     }
-  },[])
+  },[current,CarouselLength])
+
+
+  const handleClickDot = useCallback(
+    (index: number) => () => {
+      setCurrentIndex(index);
+      onChange?.(index);
+    },
+    [onChange]
+  );
 
   React.useImperativeHandle(
     ref,
@@ -79,7 +88,7 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
         }
       },
     }),
-    [currentIndex]
+    [currentIndex,CarouselLength,onChange,handleClickDot]
   );
 
 
@@ -104,7 +113,7 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
         }
       };
     }
-  }, [autoplay, interval, currentIndex, onChange]);
+  }, [autoplay, interval, currentIndex, onChange,CarouselLength]);
 
   // console.log("当前展示面板:", currentIndex, ",总面板数:",CarouselLength);
 
@@ -113,13 +122,6 @@ const InternalCarousel : React.ForwardRefRenderFunction<ICarouselRef, ICarouselP
     [currentIndex]
   );
 
-  const handleClickDot = useCallback(
-    (index: number) => () => {
-      setCurrentIndex(index);
-      onChange?.(index);
-    },
-    [onChange]
-  );
 
   function renderChildren() {
     return React.Children.map(new Array(CarouselLength), (child:React.ReactNode, index:number) => (
