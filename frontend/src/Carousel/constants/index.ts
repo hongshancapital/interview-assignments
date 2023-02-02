@@ -8,7 +8,7 @@ export const APP_CAROUSEL_ITEMS: CarouselItemProps[] = [
   {
     imgSrc: iphoneImg,
     title: 'xPhone',
-    subTitle: `Lots to love.less to spend.\nStarting as $399.`,
+    subTitle: `Lots to love.Less to spend.\nStarting at $399.`,
     className: styles.carouselItemIphone,
   },
   {
