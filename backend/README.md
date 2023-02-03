@@ -125,4 +125,6 @@
 
 ## 单元测试
 
-[![codecov](https://codecov.io/github/Gausons/short-url/branch/master/graph/badge.svg?token=7TL9OF9X7Z)](https://codecov.io/github/Gausons/short-url)
+[![codecov](https://codecov.io/github/Gausons/short-url/branch/master/graph/badge.svg?token=7TL9OF9X7Z)]
+
+报告地址：https://codecov.io/github/Gausons/short-url
