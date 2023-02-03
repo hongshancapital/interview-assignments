@@ -49,7 +49,7 @@ function App(): JSX.Element {
   const onChange = (currentSlide: number) => {
     console.log("当前值:", currentSlide);
   };
-  console.log('refCarousel:',refCarousel)
+  // console.log('refCarousel:',refCarousel)
 /* 
   refCarousel.current.goTo(2) 指定面板
   refCarousel.current.prev()  上一个

@@ -2,8 +2,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('Renders App', () => {
+  const { container } = render(<App />);
+
+  const AppContainer = container.querySelector('.App')
+  const CarouselContainer = container.querySelector('.carousel-container')
+
+  expect(AppContainer).toBeInTheDocument();
+  expect(CarouselContainer).toBeInTheDocument();
 });
