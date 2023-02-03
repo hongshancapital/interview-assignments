@@ -32,7 +32,7 @@ export class shortUrl1675419592230 implements MigrationInterface {
               {
                 name: 'updated_at',
                 type: 'bigint',
-                comment: '创建时间',
+                comment: '更新时间',
                 default: Date.now(),
               },
             ]
