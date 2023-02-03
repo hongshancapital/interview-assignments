@@ -125,4 +125,4 @@
 
 ## 单元测试
 
-![单元测试](https://s2.loli.net/2023/02/02/u5XA8xKESjLVkyw.png)
+[![codecov](https://codecov.io/github/Gausons/short-url/branch/master/graph/badge.svg?token=7TL9OF9X7Z)](https://codecov.io/github/Gausons/short-url)
