@@ -39,5 +39,5 @@
 * 分页请求，采用 offset 控制，单页 limit 为 30
 * 项目中当前 term 为 Chat ，该条目 App 返回较多，多次分页请求比较难触发 No More Data 场景
 
-* 当使用 term 为  "wuchan"，测试该条目最大返回 100 +，可以出发 loadMore 后 No More Data 场景，已录屏 Search_wuhan.mov 附在文件中
+* 当使用 term 为  "wuchan"，测试该条目最大返回 100 +，可以触发 loadMore 后 No More Data 场景，已录屏 Search_wuhan.mov 附在文件中
 
