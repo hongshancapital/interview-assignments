@@ -73,7 +73,7 @@ class SearchListViewModelTest: XCTestCase {
         let sut = viewModel
         
         // When
-        sut!.toggleFav(appItem)
+        sut!.toggleCollect(appItem)
         
         // Then
         let result = sut!.contains(appItem)
