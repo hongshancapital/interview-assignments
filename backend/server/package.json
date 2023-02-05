@@ -1,0 +1,68 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "egg": {
+    "typescript": true,
+    "declarations": true
+  },
+  "scripts": {
+    "dev": "egg-bin dev --port 8080",
+    "debug": "egg-bin debug",
+    "test-local": "egg-bin test",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "cov": "egg-bin cov",
+    "tsc": "ets && tsc -p tsconfig.json",
+    "autod": "autod",
+    "lint": "eslint . --ext .ts",
+    "clean": "ets clean"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "crypto": "^1.0.1",
+    "egg": "^2.6.1",
+    "egg-joi": "^2.0.1",
+    "egg-redis": "^2.4.0",
+    "egg-router-plus": "^2.0.0",
+    "egg-scripts": "^2.6.0",
+    "egg-sequelize": "^6.0.0",
+    "egg-view-ejs": "^2.0.1",
+    "mysql2": "^2.3.3",
+    "node-cache": "^5.1.2",
+    "puppeteer": "^10.4.0",
+    "tslib": "^1.14.1"
+  },
+  "devDependencies": {
+    "@types/sequelize": "^4.28.14",
+    "@types/mocha": "^2.2.40",
+    "@types/node": "^7.0.12",
+    "@types/supertest": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.19.0",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.16.0",
+    "egg-ts-helper": "^1.30.2",
+    "eslint": "^7.32.0",
+    "mysql": "^2.18.1",
+    "typescript": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "eslintIgnore": [
+    "coverage"
+  ],
+  "author": "micklewen",
+  "license": "MIT"
+}

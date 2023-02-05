@@ -15,10 +15,31 @@
 
 1. 源代码
 2. 单元测试代码以及单元测试覆盖率
-3. API 集成测试案例以及测试结果
+=============================== Coverage summary ===============================
+Statements   : 81.19% ( 82/101 )
+Branches     : 26.09% ( 6/23 )
+Functions    : 88% ( 22/25 )
+Lines        : 81.19% ( 82/101 )
+================================================================================
+3. API 集成测试案例以及测试结果 
 4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
-
+![alt 设计图](design.png)
+5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有
+```sql
+CREATE TABLE `url` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `short_id` varchar(32) NOT NULL DEFAULT '',
+  `url` varchar(2000) NOT NULL DEFAULT '',
+  `ip` varchar(15) NOT NULL DEFAULT '',
+  `na` varchar(128) NOT NULL DEFAULT '',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_short_id` (`short_id`),
+  KEY `idx_url` (`idx_url`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4
+```
 其他
 
 - 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
