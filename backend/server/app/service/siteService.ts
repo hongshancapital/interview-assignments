@@ -1,7 +1,7 @@
 import { Service } from 'egg';
 import * as crypto from 'crypto';
 
-export default class ApplicationService extends Service{
+export default class SiteService extends Service{
     public async encodeUrl(url: string): Promise<string> {
         let id = await this.getId(url);
         if (!id) {
