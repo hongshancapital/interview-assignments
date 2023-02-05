@@ -41,7 +41,7 @@ class SearchListViewModel: ObservableObject {
     @Published var items: [DataModel.AppItem] = []
     @Published var listFull = false
     
-    @Published var savedItems: Set<Int> = []
+    @Published private(set) var savedItems: Set<Int> = []
     
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -55,11 +55,12 @@ class SearchListViewModel: ObservableObject {
     }
     
     func searchAppItems(_ loadMore: Bool) {
-        networking.searchApp(quary: "wuhan", limit: limit, offset: loadMore ? items.count: 0)
+        networking.searchApp(quary: "chat", limit: limit, offset: loadMore ? items.count: 0)
             .sink {[weak self] completion in
                 guard let self = self else { return }
                 switch completion {
                 case .failure(let error):
+                    Logger.network.debug("searchApp error: \(error.localizedDescription)")
                     if let code = error.responseCode {
                         self.state = .failed(.backend(code))
                     }else if error.isSessionTaskError {
@@ -100,7 +101,7 @@ class SearchListViewModel: ObservableObject {
     }
     
     // Toggle saved items
-    func toggleFav(_ item: DataModel.AppItem) {
+    func toggleCollect(_ item: DataModel.AppItem) {
         if savedItems.contains(item.trackId) {
             savedItems.remove(item.trackId)
         } else {

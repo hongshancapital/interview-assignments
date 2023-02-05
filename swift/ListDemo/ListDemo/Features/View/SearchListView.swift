@@ -9,10 +9,10 @@ import SwiftUI
 import os.log
 
 struct SearchListView: View {
-    @ObservedObject var viewModel: SearchListViewModel
+    @StateObject private var viewModel = SearchListViewModel(networking: SearchAppAPI())
     @State private var selection: Int?
     @State private var noMore: Bool = false
-    @State var refreshID = false
+    @State private var refreshID = false
     
     var body: some View {
         NavigationView {
@@ -41,6 +41,7 @@ struct SearchListView: View {
                             refreshID.toggle()
                         }
                         if !viewModel.items.isEmpty && !viewModel.listFull {
+                            Logger.ui.debug("loadMoreAppItems")
                             viewModel.loadMoreAppItems()
                         }
                     }
@@ -70,6 +71,7 @@ struct SearchListView: View {
                 viewModel.refreshAppItems()
             }
             .refreshable {
+                Logger.ui.debug("refreshAppItems")
                 viewModel.refreshAppItems()
             }
             .navigationTitle("App")

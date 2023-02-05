@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let viewModelFactory = ViewModelFactory()
-
     var body: some View {
-        SearchListView(viewModel: viewModelFactory.makeMovieListViewModel())
+        SearchListView()
     }
 }
 

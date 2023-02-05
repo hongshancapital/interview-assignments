@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import os.log
 struct AppItemCell: View {
     private let imageHeight = 120.0
     private let verticalPadding = 8.0
@@ -61,14 +61,17 @@ struct AppItemCell: View {
     
     @ViewBuilder
     private func collectHeart() -> some View {
-        Image(systemName: viewModel.contains(item) ? "heart.fill" : "heart")
-            .foregroundColor(viewModel.contains(item) ? .red : .gray)
-            .scaleEffect(viewModel.contains(item) ? 1.4 : 1)
-            .animation(.easeInOut, value: viewModel.contains(item))
+        let isCollected = viewModel.contains(item)
+        Image(systemName: isCollected ? "heart.fill" : "heart")
+            .foregroundColor(isCollected ? .red : .gray)
+            .scaleEffect(isCollected ? 1.4 : 1)
+            .animation(.easeInOut, value: isCollected)
             .onTapGesture {
-                viewModel.toggleFav(item)
+                viewModel.toggleCollect(item)
+                Logger.ui.debug("tap item: \(item.title), isCollected: \(!isCollected)")
             }
             .frame(width: 20, height: 20)
     }
 }
+
 
