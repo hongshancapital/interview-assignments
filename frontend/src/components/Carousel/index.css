@@ -1,0 +1,47 @@
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-items {
+  height: 100%;
+  white-space: nowrap;
+  position: relative;
+}
+
+.carousel-item-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.indicator {
+  position: absolute;
+  bottom: 4.4%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.indicator-item {
+  width: 80px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgb(159, 159, 159);
+  display: inline-block;
+}
+
+.indicator-item + .indicator-item {
+  margin-left: 16px;
+}
+
+.indicator-item-percent {
+  width: 0%;
+  height: 100%;
+  border-radius: 3px;
+  background: white;
+}
+
+.indicator-item-active {
+  width: 100%;
+}
