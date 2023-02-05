@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner, Table, TableIndex } from "typeorm";
 
 
-// "CREATE TABLE `shorturls` (`id` int NOT NULL, `short_url` varchar(8) NOT NULL, `long_url` varchar(4096) NOT NULL,`created_at` timestamp(32) NOT NULL,`updated_at` timestamp(32) NOT NULL, UNIQUE INDEX `IDX_short_url_long_url` (`short_url,long_url`), PRIMARY KEY (`id`)) ENGINE=InnoDB",
+// "CREATE TABLE `shorturls` (`id` integer NOT NULL, `short_url` character varying(8) NOT NULL, `long_url` character varying(4096) NOT NULL,`created_at` timestamp(32) NOT NULL,`updated_at` timestamp(32) NOT NULL, PRIMARY KEY (`id`))"
+// CREATE UNIQUE INDEX "IDX_short_url_long_url" ON "shorturls" (`short_url,long_url`) `
 
 const TABLE_NAME = 'shorturls';
 const ShortUrlIndex = 'IDX_short_url_long_url';
