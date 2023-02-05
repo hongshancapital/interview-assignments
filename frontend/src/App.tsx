@@ -19,11 +19,9 @@ function Carousel() {
 function CarouselContent(props: { len: number }) {
   const ele = useRef<HTMLDivElement>(null);
   const slideFunc = (i = 0) => {
-    console.log({ i })
     const slider = ele.current;
     if (slider) {
       const left = i > 0 ? (0 - i) * 100 + '%' : 0;
-      console.log({ left })
       slider.setAttribute("style", `left:${left}`)
     }
   }
