@@ -3,21 +3,20 @@ import airpods from './assets/airpods.png';
 import tablet from './assets/tablet.png';
 import iphone from './assets/iphone.png';
 import { useEffect, useRef } from 'react';
-import { clearInterval } from 'timers';
 
 function App() {
-  return <div className='App'><Banner /></div>;
+  return <div className='App'><Carousel /></div>;
 }
-function Banner() {
+function Carousel() {
   return (
-    <div className='banner '>
-      <BannerContent len={3} />
-      <BannerSlider len={3} />
+    <div className='carousel '>
+      <CarouselContent len={3} />
+      <CarouselSlider len={3} />
     </div>
   )
 }
 
-function BannerContent(props: { len: number }) {
+function CarouselContent(props: { len: number }) {
   const ele = useRef<HTMLDivElement>(null);
   const slideFunc = (i = 0) => {
     console.log({ i })
@@ -40,32 +39,32 @@ function BannerContent(props: { len: number }) {
     }, 3000)
   })
   return (
-    <div className='banner__innerwrap' ref={ele}>
-      <div className='banner__box  bg--black'>
-        <div className='banner__text color--white'>
+    <div className='carousel__innerwrap' ref={ele}>
+      <div className='carousel__box  bg--black'>
+        <div className='carousel__text color--white'>
           <h1 className='title'>xPhone</h1>
           <p className='text'>Lots to love.Less to spend.<br />Starting at $399</p>
         </div>
-        <img className='banner__img' src={iphone} alt="" />
+        <img className='carousel__img' src={iphone} alt="" />
       </div>
-      <div className='banner__box'>
-        <div className='banner__text'>
+      <div className='carousel__box'>
+        <div className='carousel__text'>
           <h3 className='title'>Tablet</h3>
           <p className='text'>Just the right amount of everything.</p>
         </div>
-        <img className='banner__img banner__img--or2' src={tablet} alt="" />
+        <img className='carousel__img carousel__img--or2' src={tablet} alt="" />
       </div>
-      <div className='banner__box bg--gray'>
-        <div className='banner__text'>
+      <div className='carousel__box bg--gray'>
+        <div className='carousel__text'>
           <h3 className='title'>Buy  a Tablet or xPhone for college. <br /> Get airPods</h3>
         </div>
-        <img className='banner__img banner__img--or3' src={airpods} alt="" />
+        <img className='carousel__img carousel__img--or3' src={airpods} alt="" />
       </div>
     </div>
   )
 }
 
-function BannerSlider(props: { len: number }) {
+function CarouselSlider(props: { len: number }) {
   const arr = new Array(props.len).fill(0);
   const ele = useRef<HTMLDivElement>(null)
   const slideFunc = (i = 0) => {
@@ -99,7 +98,7 @@ function BannerSlider(props: { len: number }) {
     };
   })
   return (
-    <div className='banner__slider' ref={ele}>
+    <div className='carousel__slider' ref={ele}>
       {
         arr.map((v, index) => {
           return (
