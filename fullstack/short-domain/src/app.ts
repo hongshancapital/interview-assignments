@@ -1,24 +1,20 @@
 import express, { Express , Request, Response } from "express";
-import infoRouter from './router/info';
-
+import {Snowflake} from "./utils/snowflake/snowflake";
+import * as dotenv from 'dotenv';
+// 加载环境变量
+dotenv.config();
 const app: Express = express();
-
+const snowflakeGenerator = new Snowflake({
+    workerId: process.env.WORKER_ID ? Number(process.env.WORKER_ID) : 1
+});
 /**
- * 加载info router
- */
-app.use('/info', infoRouter);
-
-/**
- * 短域名服务
+ * 通过短域名获取
  */
 app.get("/:shortId", (req: Request, res: Response) => {
-    console.log(req.params.shortId);
-    console.log(req.body);
-    res.send("Hello World");
 });
 
 app.put("/add", (req: Request, res: Response) => {
-    console.log(req.body);
+    res.send(snowflakeGenerator.nextId());
 })
 
 app.listen(3000, () => {
