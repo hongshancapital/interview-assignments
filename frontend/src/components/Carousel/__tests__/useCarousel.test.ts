@@ -1,7 +1,12 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { renderHook } from '@testing-library/react';
 import { useCarousel, UseCarouselProps } from '../hooks/useCarousel';
 import { waitFakeTimer } from '../../../tests/utils';
 import { act } from 'react-dom/test-utils';
+import '@testing-library/jest-dom/extend-expect';
 
 const setupHook = (initialProps: UseCarouselProps) =>
   renderHook(props => useCarousel(props), {

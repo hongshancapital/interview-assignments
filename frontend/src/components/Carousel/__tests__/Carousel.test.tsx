@@ -1,8 +1,13 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { render } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import Carousel, { CarouselRef } from '../Carousel';
 import { waitFakeTimer, windowResize } from '../../../tests/utils';
+import '@testing-library/jest-dom/extend-expect';
 
 describe('Carousel', () => {
   beforeEach(() => {
