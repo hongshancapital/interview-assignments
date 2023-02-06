@@ -1,0 +1,55 @@
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel .carousel-slides {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+
+  transition: left 0.5s ease-in-out;
+}
+
+.indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 5px;
+}
+
+.indicator,
+.indicator::after {
+  height: 2px;
+  width: 40px;
+  content: "";
+}
+
+.indicator {
+  position: relative;
+  background-color: gray;
+  overflow: hidden;
+}
+
+.indicator::after {
+  position: absolute;
+  background-color: white;
+  left: -100%;
+}
+
+.indicator.active::after {
+  animation: slideIn 3s;
+}
+
+@keyframes slideIn {
+  from {
+    left: -100%;
+  }
+
+  to {
+    left: 0;
+  }
+}
