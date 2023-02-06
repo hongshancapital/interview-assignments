@@ -9,10 +9,17 @@
     background-color: rgba(200, 200, 200, 70%);
 }
 
+
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
 ._progress-bar ._item ._progress {
     background-color: rgba(255, 255, 255, 90%);
     height: 100%;
-    width: 0;
-    transition-property: width;
-    transition-timing-function: linear;
+    animation: progress 3s linear forwards;
 }
