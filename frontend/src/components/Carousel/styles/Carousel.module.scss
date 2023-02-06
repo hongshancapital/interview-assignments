@@ -1,0 +1,84 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.track {
+  flex: 1;
+  position: relative;
+  top: 0;
+  inset-inline-start: 0;
+  display: block;
+  display: flex;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.slider {
+  height: 100%;
+  min-height: 1px;
+  pointer-events: none;
+
+  &.slider-active {
+    pointer-events: auto;
+  }
+}
+
+.indicators {
+  z-index: 15;
+  width: 100%;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 30px;
+}
+
+.indicator {
+  z-index: 20;
+  width: 50px;
+  height: 3px;
+  padding: 12px 0;
+  margin: 0 6px;
+  background-clip: content-box;
+  background-color: #b0b0b0;
+  cursor: pointer;
+  overflow: hidden;
+
+  &:hover {
+    background-color: #fff;
+  }
+
+  &::after {
+    content: '';
+    width: 50px;
+    height: 3px;
+    display: block;
+    background-color: #fff;
+    transform: translateX(-50px);
+  }
+
+  &.is-active {
+    background-color: #fff;
+  }
+
+  &.is-active-anim::after {
+    animation: var(--indicator-anim-duration) linear indicatorAnim forwards;
+  }
+}
+
+@keyframes indicatorAnim {
+  from {
+    transform: translateX(-50px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
