@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 import "./index.css";
 type CarouselProp = {
@@ -7,36 +7,32 @@ type CarouselProp = {
   paginationBackColor?: string;
   paginationColor?: string;
 };
-let i: number = 0;
+
 function Carousel({ children, paginationBackColor = "#e4e4e4", paginationColor = "white" }: CarouselProp) {
   const childLen = Array.isArray(children) ? children?.length : 1;
   const er: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const nav: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
-  const [curIdx, setCurIdx] = useState<number>(0);
+  // const [curIdx, setCurIdx] = useState<number>(0);
+  const curIdx = useRef<number>(0);
   const timer = useRef<number | null>(null);
   const handleInterval = () => {
-    timer.current && window.clearTimeout(timer.current)
+    timer.current && window.clearInterval(timer.current)
   }
 
   useEffect(() => {
     if (childLen > 1 && er.current !== null && nav.current !== null) {
-      nav.current.children[curIdx].classList.add('active')
-      timer.current = window.setTimeout(() => {
+      nav.current.children[curIdx.current].classList.add('active')
+      timer.current = window.setInterval(() => {
         if(nav.current) {
-          nav.current.children[curIdx].classList.remove('active')
+          nav.current.children[curIdx.current].classList.remove('active')
         }
-        
-        let t = curIdx + 1;
-        if (t >= childLen) {
-          t = 0;
-        }
-        setCurIdx(t);
+        curIdx.current = (curIdx.current + 1) % childLen;
         if(er.current) {
-          er.current.style.transform = `translateX(-${t * 100}%)`;
+          er.current.style.transform = `translateX(-${curIdx.current * 100}%)`;
         }
         
         if(nav.current) {
-          nav.current.children[t].classList.add('active')
+          nav.current.children[curIdx.current].classList.add('active')
         }
         
       }, 3000);
@@ -45,7 +41,7 @@ function Carousel({ children, paginationBackColor = "#e4e4e4", paginationColor =
     return function() {
       handleInterval()
     }
-  }, [er, nav, childLen, children, curIdx]);
+  }, [er, nav, childLen, children]);
 
   return (
     <div className="carousel-wrap">
