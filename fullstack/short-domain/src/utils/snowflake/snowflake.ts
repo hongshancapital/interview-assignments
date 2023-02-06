@@ -343,4 +343,20 @@ export class Snowflake {
             return this.NextNormalId()
         }
     }
+
+    /**
+     * 10 进制 数据转62 进制数据
+     */
+    public next62Id(): string {
+        var chars='0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ'.split('');
+        var radix=chars.length;
+        var qutient= this.nextNumber();
+        var arr= [];
+        while (qutient) {
+            let mod = qutient % radix;
+            qutient=(qutient - mod) / radix;
+            arr.unshift(chars[mod]);
+        }
+        return arr.join('');
+    }
 }

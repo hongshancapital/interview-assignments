@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": ""
+    "server": "pm2 start dist/app.js",
+    "dev": "tsc --watch && pm2 start dist/app.js --watch",
+    "watch": "tsc --watch"
   },
   "keywords": [],
   "author": "",

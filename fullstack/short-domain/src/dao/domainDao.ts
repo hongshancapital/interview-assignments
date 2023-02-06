@@ -10,7 +10,7 @@ export async function addShortDomain(domain: ShortDomainItem) {
 
 }
 
-export async function getShortDomain(domain: string) {
+export async function getShortDomain(domain: string): Promise<ShortDomainItem> {
     return new Promise((resolve, reject) => {
         pool.query(
             'SELECT * FROM t_domain WHERE short_domain = $1',
