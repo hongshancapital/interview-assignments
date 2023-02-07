@@ -1,0 +1,75 @@
+.carousel-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel-list {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 5000vw;
+  height: 100%;
+  transition: left 0.5s ease;
+}
+
+.carousel-item {
+  display: flex;
+  width: 100vw;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-list li {
+  width: 100vw;
+  height: 100%;
+}
+
+.carousel-list li div {
+  height: 50%;
+}
+
+.carousel-list li div p {
+  /* color: #fff; */
+}
+
+.carousel-dot {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+
+.carousel-dot li {
+  width: 30px;
+  height: 2px;
+  background-color: #aaa;
+  margin: 0 6px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.carousel-dot li.active::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 100%;
+  background-color: #fff;
+  animation-name: carousel-dot;
+  animation-duration: 1000ms;
+}
+
+@keyframes carousel-dot {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
