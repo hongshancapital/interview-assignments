@@ -7,13 +7,13 @@
 ## 开放岗位
 
 武汉：
-- [TypeScript Backend](backend/)
-- [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
+- [UI 设计师](design/)
 
 北京/武汉:
-- [UI 设计师](design/)
+- [TypeScript Backend](backend/)
+- [TypeScript Fullstack](fullstack/)
 
 链接中有更为具体的 JD。
 
