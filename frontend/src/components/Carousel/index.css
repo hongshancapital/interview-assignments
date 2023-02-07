@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  z-index: 1;
+}
+.absolute nav {
+  display: inline-block;
+  width: 40px;
+  height: 3px;
+  background-color: #e4e4e4;
+  margin-left: 15px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.absolute nav div {
+  width: 40px;
+  height: 100%;
+  border-radius: 3px;
+  transform: translate(-100%);
+  background-color: white;
+}
+
+.absolute nav.active div {
+  animation: active 3s linear;
+}
+
+@keyframes active {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.carousel-transform > * {
+  min-width: 100vw;
+}
+
+.carousel-transform {
+  display: flex;
+  flex-wrap: nowrap;
+  transition: all 0.8s;
+}
