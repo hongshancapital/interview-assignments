@@ -1,7 +1,9 @@
 import { snowflakeOptions } from "./snowflakeOptions"
 
 /**
- *
+ * 该算法摘抄于github，此处减少workerId和随机Id的位数为3
+ * 去除时间回拨，序列超出限制，雪花漂移算法等操作。
+ * 只保留雪花id的基本生成思路
  */
 export class Snowflake {
 
@@ -19,6 +21,7 @@ export class Snowflake {
      * 机器码，必须由外部设定，最大值 2^WorkerIdBitLength-1
      */
     private WorkerId
+
 
     /**
      * 机器码位长，默认值 6，取值范围 [1, 15](要求：序列数位长+机器码位长不超过 22)
@@ -155,87 +158,19 @@ export class Snowflake {
         this._OverCostCountInOneTerm = 0
     }
 
-
-    /**
-     * 雪花漂移算法
-     * @returns
-     */
-    private NextOverCostId(): bigint {
-        const currentTimeTick = this.GetCurrentTimeTick()
-        if (currentTimeTick > this._LastTimeTick) {
-            //当前时间大于上次时间，说明是时间是递增的，这是正常情况
-            this._LastTimeTick = currentTimeTick
-            this._CurrentSeqNumber = this.MinSeqNumber
-            this._IsOverCost = false
-            this._OverCostCountInOneTerm = 0
-            // this._GenCountInOneTerm = 0
-            return this.CalcId(this._LastTimeTick)
-        }
-        if (this._OverCostCountInOneTerm >= this.TopOverCostCount) {
-            //当前漂移次数超过最大限制
-
-            // TODO: 在漂移终止，等待时间对齐时，如果发生时间回拨较长，则此处可能等待较长时间。可优化为：在漂移终止时增加时间回拨应对逻辑。（该情况发生概率很低）
-
-            this._LastTimeTick = this.GetNextTimeTick()
-            this._CurrentSeqNumber = this.MinSeqNumber
-            this._IsOverCost = false
-            this._OverCostCountInOneTerm = 0
-            // this._GenCountInOneTerm = 0
-            return this.CalcId(this._LastTimeTick)
-        }
-        if (this._CurrentSeqNumber > this.MaxSeqNumber) {
-            //当前序列数超过最大限制，则要提前透支
-            this._LastTimeTick++
-            this._CurrentSeqNumber = this.MinSeqNumber
-            this._IsOverCost = true
-            this._OverCostCountInOneTerm++
-            // this._GenCountInOneTerm++
-
-            return this.CalcId(this._LastTimeTick)
-        }
-
-        // this._GenCountInOneTerm++
-        return this.CalcId(this._LastTimeTick)
-    }
-
     /**
      * 常规雪花算法
      * @returns
      */
     private NextNormalId() {
         const currentTimeTick = this.GetCurrentTimeTick()
-        if (currentTimeTick < this._LastTimeTick) {
-            if (this._TurnBackTimeTick < 1) {
-                this._TurnBackTimeTick = this._LastTimeTick - BigInt(1)
-                this._TurnBackIndex++
-                // 每毫秒序列数的前 5 位是预留位，0 用于手工新值，1-4 是时间回拨次序
-                // 支持 4 次回拨次序（避免回拨重叠导致 ID 重复），可无限次回拨（次序循环使用）。
-                if (this._TurnBackIndex > 4)
-                    this._TurnBackIndex = 1
-            }
-
-            return this.CalcTurnBackId(this._TurnBackTimeTick)
-        }
-
         // 时间追平时，_TurnBackTimeTick 清零
         if (this._TurnBackTimeTick > 0) {
             this._TurnBackTimeTick = BigInt(0)
         }
-
         if (currentTimeTick > this._LastTimeTick) {
             this._LastTimeTick = currentTimeTick
             this._CurrentSeqNumber = this.MinSeqNumber
-            return this.CalcId(this._LastTimeTick)
-        }
-
-        if (this._CurrentSeqNumber > this.MaxSeqNumber) {
-            // this._TermIndex++
-            this._LastTimeTick++
-            this._CurrentSeqNumber = this.MinSeqNumber
-            this._IsOverCost = true
-            this._OverCostCountInOneTerm = 1
-            // this._GenCountInOneTerm = 1
-
             return this.CalcId(this._LastTimeTick)
         }
 
@@ -256,16 +191,6 @@ export class Snowflake {
     }
 
     /**
-     * 生成时间回拨ID
-     * @returns
-     */
-    private CalcTurnBackId(useTimeTick: any) {
-        const result = BigInt(useTimeTick << this._TimestampShift) + BigInt(this.WorkerId << this.SeqBitLength) + BigInt(this._TurnBackIndex)
-        this._TurnBackTimeTick--
-        return result
-    }
-
-    /**
      *
      * @returns
      */
@@ -274,38 +199,17 @@ export class Snowflake {
         return millis - this.BaseTime
     }
 
-    /**
-     *
-     * @returns
-     */
-    private GetNextTimeTick() {
-        let tempTimeTicker = this.GetCurrentTimeTick()
-        while (tempTimeTicker <= this._LastTimeTick) {
-            tempTimeTicker = this.GetCurrentTimeTick()
-        }
-        return tempTimeTicker
-    }
 
     /**
      * 生成ID
      * @returns 始终输出number类型，超过时throw error
      */
     public nextNumber(): number {
-        if (this._IsOverCost) {
-            //
-            let id = this.NextOverCostId()
-            if (id >= 9007199254740992n)
-                throw Error(`${id.toString()} over max of Number 9007199254740992`)
+        let id = this.NextNormalId()
+        if (id >= 9007199254740992n)
+            throw Error(`${id.toString()} over max of Number 9007199254740992`)
 
-            return parseInt(id.toString())
-        } else {
-            //
-            let id = this.NextNormalId()
-            if (id >= 9007199254740992n)
-                throw Error(`${id.toString()} over max of Number 9007199254740992`)
-
-            return parseInt(id.toString())
-        }
+        return parseInt(id.toString())
     }
 
     /**
@@ -313,21 +217,11 @@ export class Snowflake {
      * @returns 根据输出数值判断，小于number最大值时输出number类型，大于时输出bigint
      */
     public nextId(): number | bigint {
-        if (this._IsOverCost) {
-            //
-            let id = this.NextOverCostId()
-            if (id >= 9007199254740992n)
-                return id
-            else
-                return parseInt(id.toString())
-        } else {
-            //
-            let id = this.NextNormalId()
-            if (id >= 9007199254740992n)
-                return id
-            else
-                return parseInt(id.toString())
-        }
+        let id = this.NextNormalId()
+        if (id >= 9007199254740992n)
+            return id
+        else
+            return parseInt(id.toString())
     }
 
     /**
@@ -335,23 +229,17 @@ export class Snowflake {
      * @returns 始终输出bigint类型
      */
     public nextBigId(): bigint {
-        if (this._IsOverCost) {
-            //
-            return this.NextOverCostId()
-        } else {
-            //
-            return this.NextNormalId()
-        }
+        return this.NextNormalId()
     }
 
     /**
      * 10 进制 数据转62 进制数据
      */
     public next62Id(): string {
-        var chars='0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ'.split('');
-        var radix=chars.length;
-        var qutient= this.nextNumber();
-        var arr= [];
+        let chars='0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ'.split('');
+        let radix=chars.length;
+        let qutient= this.nextNumber();
+        let arr= [];
         while (qutient) {
             let mod = qutient % radix;
             qutient=(qutient - mod) / radix;
