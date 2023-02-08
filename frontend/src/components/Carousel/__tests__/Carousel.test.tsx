@@ -6,7 +6,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import Carousel, { CarouselRef } from '../Carousel';
-import { waitFakeTimer, windowResize } from '../../../tests/utils';
+import { waitFakeTimer } from '../../../tests/utils';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('Carousel', () => {
@@ -121,29 +121,6 @@ describe('Carousel', () => {
     await waitFakeTimer();
     await waitFakeTimer();
     expect(ref.current?.activeIndex).toBe(2);
-  });
-
-  it('should trigger onWindowResized after window resize', async () => {
-    const ref = React.createRef<CarouselRef>();
-    render(
-      <Carousel ref={ref}>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-      </Carousel>
-    );
-    const spy = jest.spyOn(ref.current?.inner, 'onWindowResized');
-    expect(spy).not.toHaveBeenCalled();
-    windowResize(1000, window.innerHeight);
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('should cancel resize listener when unmount', () => {
-    const windowSpy = jest.spyOn(window, 'removeEventListener');
-    const { unmount } = render(<Carousel />);
-
-    unmount();
-    expect(windowSpy).toHaveBeenCalled();
   });
 
   it('should active corresponding slider and indicator when the active index changes', async () => {

@@ -1,61 +1,65 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { CarouselProps } from '../Carousel';
-import { calcTrackStyle } from '../utils';
+import { calcTrackStyle, TrackStyle } from '../utils';
 
 export interface UseCarouselProps extends CarouselProps {
   slidersCount: number;
-  sliderWidth: number;
 }
 
 export const useCarousel = ({
   slidersCount,
-  sliderWidth,
   duration = 3000,
   autoplay = true,
   speed = 1000,
   beforeChange,
   afterChange
 }: UseCarouselProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
-  const [isAnimating, setIsAnimating] = useState(false);
+  const isAnimating = useRef(false);
 
   const autoplayTimer = useRef<NodeJS.Timer | null>(null);
   const animatingTimer = useRef<NodeJS.Timer | null>(null);
 
-  const trackStyle = useMemo(
-    () =>
-      calcTrackStyle({
-        activeIndex,
-        sliderWidth,
-        slidersCount,
-        isAnimating,
-        speed
-      }),
-    [activeIndex, isAnimating, sliderWidth, slidersCount, speed]
+  const [trackStyle, setTrackStyle] = useState<TrackStyle>();
+
+  const updateTrackStyle = useCallback(
+    (index: number) => {
+      setTrackStyle(
+        calcTrackStyle({
+          activeIndex: index,
+          slidersCount,
+          isAnimating: isAnimating.current,
+          speed
+        })
+      );
+    },
+    [slidersCount, speed]
   );
 
   const translateItem = useCallback(
     (index: number) => {
-      setActiveIndex(index >= slidersCount ? 0 : index);
+      const nextIndex = index >= slidersCount ? 0 : index;
+      setActiveIndex(nextIndex);
+      updateTrackStyle(nextIndex);
     },
-    [slidersCount, setActiveIndex]
+    [slidersCount, updateTrackStyle]
   );
 
   const translateHandler = useCallback(
     (index: number) => {
-      translateItem(index);
-
       /**
        * When the animation is playing, set the value of isAnimating to true,
        * and set it to false after playing.
        */
-      setIsAnimating(true);
+      isAnimating.current = true;
+      translateItem(index);
       beforeChange && beforeChange(activeIndex, index);
 
       animatingTimer.current = setTimeout(() => {
-        setIsAnimating(false);
-        afterChange && afterChange(activeIndex);
+        isAnimating.current = false;
+        translateItem(index);
+        afterChange && afterChange(index);
         animatingTimer.current = null;
       }, speed);
     },
@@ -83,24 +87,25 @@ export const useCarousel = ({
 
   const slideTo = useCallback(
     (index: number) => {
-      if (index === activeIndex || isAnimating) return;
+      if (index === activeIndex || isAnimating.current) return;
 
       // restart autoplay of translate animation
       startPlay();
 
       translateHandler(index);
     },
-    [activeIndex, isAnimating, startPlay, translateHandler]
+    [activeIndex, startPlay, translateHandler]
   );
 
   // initialize Carousel
   useEffect(() => {
     startPlay();
-  }, [startPlay]);
+    if (activeIndex === -1) translateItem(0);
+  }, [activeIndex, startPlay, translateItem]);
 
   return {
     activeIndex,
-    isAnimating,
+    isAnimating: isAnimating.current,
     trackStyle,
     slideTo,
     pausePlay,
