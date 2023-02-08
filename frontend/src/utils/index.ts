@@ -2,7 +2,7 @@ export const createIncArray = (
   length: number,
   start: number = 0
 ): Array<number> => {
-  return Array.from(Array(length), (v, k) => k + start);
+  return Array.from({ length }, (v, k) => k + start);
 };
 
 export const classnames = (
