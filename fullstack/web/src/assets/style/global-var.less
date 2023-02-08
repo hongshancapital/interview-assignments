@@ -1,0 +1,41 @@
+/**
+ * 这里引入全局的变量及变量样式块，
+ * 全局的不含变量的样式不建议在这引入，直接在全局引入更好
+ * 该文件在webpack的配置文件做了全局的引入，只为引入全局定义的less变量和变量样式块
+ */
+
+/*通用样式*/
+@theme_color: #409EFF;
+/*界面布局*/
+@layout_head_height: 50px;
+@layout_menu_width_big: 220px;
+@layout_menu_width_small: 64px;
+/*动画时间(非常重要:修改请注意，必须确保echarts的resize时间比这个时间长)*/
+@transition_time: 0.35s;
+@menu_background_color: #16181D;
+
+.ml0() {
+    margin-left: 0;
+}
+
+.mr0() {
+    margin-right: 0;
+}
+
+.cp() {
+    cursor: pointer;
+}
+
+.cb() {
+    clear: both;
+}
+
+.no_br() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.no_trans() {
+    transition: all 0s;
+}

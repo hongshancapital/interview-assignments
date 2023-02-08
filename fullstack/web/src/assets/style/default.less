@@ -1,0 +1,61 @@
+/*
+* 当前文件的样式为项目默认使用的字体和默认设置的样式
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, 'PingFang SC', Tahoma, Arial, sans-serif;
+    /*'Simsun','Arial Narrow', sans-serif*/
+    font-size: 14px;
+    outline: none;
+    border: none;
+    list-style: none;
+    transition: all @transition_time;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+    border: none;
+    text-decoration: none;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    font-size: 4vw;
+}
+
+body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 8px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 8px;
+    scrollbar-arrow-color: red;
+}
+
+::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+    scrollbar-arrow-color: red;
+}
+
+::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
