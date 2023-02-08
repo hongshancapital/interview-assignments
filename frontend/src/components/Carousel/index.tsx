@@ -37,9 +37,7 @@ const Carousel = ({
 
   const goTo = useCallback(async (nextIndex: number, {
     skipSpeed = false,
-  }: goToConfig = {
-    skipSpeed: false
-  }) => {
+  }: goToConfig = {}) => {
     setCurrentIndex(nextIndex);
 
     if (!skipSpeed) {
@@ -81,8 +79,8 @@ const Carousel = ({
   }));
 
   return <div className="carousel" style={{
-    width: typeof width === 'number' ? `${width}px` : width,
-    height: typeof height === 'number' ? `${height}px` : height,
+    width,
+    height,
   }}>
 
     <div className="carousel-items" style={{

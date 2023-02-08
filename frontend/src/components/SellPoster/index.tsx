@@ -34,8 +34,8 @@ const SellPoster = ({
 
   return <div className={`sell-poster ${mode}`} style={{
     background: `${ bgColor } url('${imgSrc}') center center / auto 100% no-repeat`,
-    width: typeof width === 'number' ? `${width}px` : width,
-    height: typeof height === 'number' ? `${height}px` : height,
+    width,
+    height,
   }}>
     <div className='sell-poster-content'>
       <ul className="sell-poster-title">
