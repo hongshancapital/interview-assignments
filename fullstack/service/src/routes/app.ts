@@ -43,7 +43,7 @@ app.use(successResponseHandle);
 
 import v1 from './v1';
 
-app.use('/api/v1', v1);
+app.use('/api/domainmanager/v1', v1);
 
 
 app.use('*', (req) => {

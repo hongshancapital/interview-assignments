@@ -13,7 +13,7 @@ describe('Unit Domain', () => {
     describe('#接收长域名信息，返回短域名信息', () => {
         it('缺少长域名', done => {
             service
-                .post('/api/v1/domain')
+                .post('/api/domainmanager/v1/domain')
                 .send({})
                 .expect('Content-Type', /json/)
                 .expect(400, done)
@@ -24,7 +24,7 @@ describe('Unit Domain', () => {
 
         it('长域名格式错误', done => {
             service
-                .post('/api/v1/domain')
+                .post('/api/domainmanager/v1/domain')
                 .send({ url: '6de89414-ae3e-4570-a6a8-958cc3bce434' })
                 .expect('Content-Type', /json/)
                 .expect(400, done)
@@ -37,7 +37,7 @@ describe('Unit Domain', () => {
 
         it('长域名参数正常', done => {
             service
-                .post('/api/v1/domain')
+                .post('/api/domainmanager/v1/domain')
                 .send({ url })
                 .expect('Content-Type', /json/)
                 .expect(200, done)
@@ -54,7 +54,7 @@ describe('Unit Domain', () => {
     describe('#接收短域名信息，返回长域名信息', () => {
         it('缺少短域名参数', done => {
             service
-                .get('/api/v1/domain/original')
+                .get('/api/domainmanager/v1/domain/original')
                 .query({})
                 .expect('Content-Type', /json/)
                 .expect(400, done)
@@ -64,7 +64,7 @@ describe('Unit Domain', () => {
         });
         it('短域名格式不正确', done => {
             service
-                .get('/api/v1/domain/original')
+                .get('/api/domainmanager/v1/domain/original')
                 .query({ shortUrl: 'xxxxx123' })
                 .expect('Content-Type', /json/)
                 .expect(400, done)
@@ -74,7 +74,7 @@ describe('Unit Domain', () => {
         });
         it('短域名参数不合法', done => {
             service
-                .get('/api/v1/domain/original')
+                .get('/api/domainmanager/v1/domain/original')
                 .query({ shortUrl: 'https://github.com/2PSwE7a5ds' })
                 .expect('Content-Type', /json/)
                 .expect(403, done)
@@ -84,7 +84,7 @@ describe('Unit Domain', () => {
         });
         it('正常短域名', done => {
             service
-                .get('/api/v1/domain/original')
+                .get('/api/domainmanager/v1/domain/original')
                 .query({ shortUrl: 'https://github.com/2PSwE7' })
                 .expect('Content-Type', /json/)
                 .expect(200, done)

@@ -8,7 +8,7 @@ import { Domains } from '@/dal';
 const router = express.Router();
 
 /**
- * @api {get} /api/v1/domain/original 根据短域名获取原始域名
+ * @api {get} /api/domainmanager/v1/domain/original 根据短域名获取原始域名
  * @apiGroup 域名映射
  * @apiVersion 1.0.0
  * @apiParam (query) {string} shortUrl 短域名

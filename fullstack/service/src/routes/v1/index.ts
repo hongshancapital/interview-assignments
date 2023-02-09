@@ -3,7 +3,7 @@ import domain from './domain';
 
 const router = express.Router();
 
-/** /api/v1/domain */
+/** /api/domainmanager/v1/domain */
 router.use('/domain', domain);
 
 export default router;

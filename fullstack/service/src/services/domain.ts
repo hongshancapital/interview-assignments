@@ -12,6 +12,7 @@ export default new class {
 
         if (prefix) {
             pre = new URL(prefix).origin;
+            // 如果是自定义的域名前准，还要检查是否为支持的域名
         } else {
             pre = new URL(url).origin;
         }

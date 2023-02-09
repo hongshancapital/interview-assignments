@@ -11,8 +11,7 @@
         "doc": "./node_modules/.bin/apidoc -i ./src -o ./public/doc",
         "eslint": "./node_modules/.bin/eslint ./ --fix",
         "test": "./node_modules/.bin/cross-env TS_NODE_PROJECT='test/tsconfig.test.json' ./node_modules/.bin/mocha test/index.ts",
-        "cover-test": "./node_modules/.bin/nyc npm run test",
-        "husky-init": "husky install"
+        "cover-test": "./node_modules/.bin/nyc npm run test"
     },
     "author": "",
     "license": "ISC",
@@ -21,7 +20,7 @@
         "@types/jsonwebtoken": "^9.0.1",
         "@types/mocha": "^10.0.1",
         "@types/module-alias": "^2.0.1",
-        "@types/node": "^14.6.0",
+        "@types/node": "^10.9.1",
         "@types/supertest": "^2.0.12",
         "@typescript-eslint/eslint-plugin": "^5.41.0",
         "@typescript-eslint/parser": "^5.41.0",
@@ -29,7 +28,6 @@
         "cross-env": "^7.0.3",
         "eslint": "^8.31.0",
         "mocha": "^10.2.0",
-        "npm-check": "^6.0.1",
         "nyc": "^15.1.0",
         "supertest": "^6.3.3",
         "ts-node-dev": "^2.0.0",

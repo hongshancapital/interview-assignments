@@ -8,7 +8,8 @@ export default new class Domain extends BaseDb<DomainModel> {
      * @memberof Domain
      */
     constructor() {
-        const _model: SchemaDefinition<DomainModel> = {
+        const _model: SchemaDefinition<DomainModel> =
+        {
             _id: { type: String, required: true, trim: true },
             name: { type: String, trim: true },
             url: { type: String, required: true, trim: true },

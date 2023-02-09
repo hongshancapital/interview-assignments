@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route('/')
     /**
-     * @api {post} /api/v1/domain 新增
+     * @api {post} /api/domainmanager/v1/domain 新增
      * @apiGroup 域名映射
      * @apiVersion 1.0.0
      * @apiParam (body) {string} [name] 名称
@@ -51,7 +51,7 @@ router.route('/')
         res.success(await Domains.insert({ name, url, compressed: shortDomain, type: prefix ? 'custom' : 'default' }));
     }))
     /**
-     * @api {get} /api/v1/domain 分页查询
+     * @api {get} /api/domainmanager/v1/domain 分页查询
      * @apiGroup 域名映射
      * @apiVersion 1.0.0
      * @apiParam (query) {string} [name] 名称
@@ -90,7 +90,7 @@ router.route('/:id').all((req, _res, next) => {
     next();
 })
     /**
-     * @api {get} /api/v1/domain/:id 单条数据查询
+     * @api {get} /api/domainmanager/v1/domain/:id 单条数据查询
      * @apiGroup 域名映射
      * @apiVersion 1.0.0
      * @apiParam (params) {string} id 数据id
