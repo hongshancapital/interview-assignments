@@ -1,0 +1,47 @@
+.Carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.Carousel .wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.Carousel .progress {
+  position: absolute;
+  width: 100%;
+  bottom: 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.Carousel .progress .bar-box {
+  width: 90px;
+  height: 4px;
+  border-radius: 8px;
+  margin-left: 15px;
+  background-color: #999;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.Carousel .progress .bar {
+  height: 100%;
+  animation-name: progress-bar;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+@keyframes progress-bar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
