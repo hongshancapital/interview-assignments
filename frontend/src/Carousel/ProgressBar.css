@@ -1,0 +1,25 @@
+
+._progress-bar ._item {
+    display: inline-block;
+    height: 2px;
+    width: 37px;
+    margin: 0 3px;
+    overflow: hidden;
+    border-radius: 1px;
+    background-color: rgba(200, 200, 200, 70%);
+}
+
+
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+._progress-bar ._item ._progress {
+    background-color: rgba(255, 255, 255, 90%);
+    height: 100%;
+    animation: progress 3s linear forwards;
+}
