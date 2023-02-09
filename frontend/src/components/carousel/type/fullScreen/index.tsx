@@ -27,12 +27,11 @@ function CarouselItem(data: CarouselItemFace) {
   return (
     <div
       className="carousel-item-box"
-      style={{color: fontColor, backgroundColor: bgColor}}>
+      style={{color: fontColor, backgroundColor: bgColor, backgroundImage: `url(${bgImg})`}}>
       <div className="carousel-item-info">
         <p className="carousel-item-title">{ title }</p>
         <p className="carousel-item-desc">{ desc }</p>
       </div>
-      <img src={bgImg} className="carousel-item-icon" />
     </div>
   )
 }
