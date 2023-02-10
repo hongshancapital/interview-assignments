@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  service:
+    build: .
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "3000:3000"
+    restart: always
+    environment:
+      PORT: 3000
+      DB_URL: "mongodb://db:27017"
+    depends_on:
+      - db
+  db:
+    image: mongo:4
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
