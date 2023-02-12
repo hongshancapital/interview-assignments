@@ -44,7 +44,7 @@ interface IProps {
   carouselData?: ICarouselItem[]
 }
 
-const DURATION = 3000;
+const DURATION = 3000
 
 /**
  * 轮播图业务模块

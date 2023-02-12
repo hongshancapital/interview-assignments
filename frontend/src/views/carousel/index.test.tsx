@@ -2,14 +2,14 @@ import Carousel from "./index";
 import { render, screen } from "@testing-library/react";
 import { CAROUSEL_MOCK_DATA } from '../../mock/data'
 
-describe("test carouselView", () => {
-  test("test carousel-wrapper", () => {
+describe("Test carouselView", () => {
+  test("Test carousel-wrapper", () => {
     render(<Carousel carouselData={[]} />)
     const app = screen.getByTestId("carousel-wrapper")
     expect(app).toBeInTheDocument()
   });
 
-  test("test the carousel-item", () => {
+  test("Test the carousel-item", () => {
     render(<Carousel carouselData={CAROUSEL_MOCK_DATA} />)
 
     expect(screen.getByTestId("carousel-wrapper")).toBeInTheDocument()
@@ -20,7 +20,7 @@ describe("test carouselView", () => {
 
   });
 
-  test("test the spliced item in the carousel-wrapper", () => {
+  test("Test the spliced item in the carousel-wrapper", () => {
     render(<Carousel carouselData={CAROUSEL_MOCK_DATA} />)
 
     const items = screen.queryAllByTestId("carousel-item")

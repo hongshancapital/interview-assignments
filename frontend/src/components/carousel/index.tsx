@@ -1,4 +1,5 @@
 import { FC, ReactNode, useCallback, useMemo, useState } from 'react'
+import { usePage } from './hooks/page';
 import './index.css'
 
 export interface ICarouselProps {
@@ -7,7 +8,7 @@ export interface ICarouselProps {
   carouselIds?: number[]; // 渲染indicator列表时添加key
 }
 
-const BANNER_REDUTION = 300; // banner每次运动的时长
+const BANNER_REDUTION = 300 // banner每次运动的时长
 
 /**
  * 轮播图交互特效组件，不涉及业务数据
@@ -15,32 +16,37 @@ const BANNER_REDUTION = 300; // banner每次运动的时长
  */
 const Carousel: FC<ICarouselProps> = (props) => {
   const { duration = 3000, children: carouselList = [], carouselIds = [] } = props
-  const [activeIndex, setActiveIndex] = useState<number>(0)
-  const [moduleDuration, setModuleDuration] = useState<number>(BANNER_REDUTION / 1000)
+  const { currentPage, setCurrentPage, nextPage, toPage, isActive } = usePage(carouselList.length)
+  const [moduleDuration, setModuleDuration] = useState(BANNER_REDUTION / 1000)
+
+  // 限制animationDuration必须大于transitionDuration
+  const verifiedDuration = useMemo(() => (
+    duration > BANNER_REDUTION ? duration : BANNER_REDUTION + 1
+  ), [duration])
 
   // banner 的动画样式
   const bannerAnimationClass = useMemo(() => ({
-    transform: `translateX(-${activeIndex}00%)`,
+    transform: `translateX(-${currentPage}00%)`,
     transitionDuration: `${moduleDuration}s`
-  }), [activeIndex, moduleDuration])
+  }), [currentPage, moduleDuration])
 
   // tab 的动画样式
   const tabAnimationClass = useMemo(() => ({
     animationName: "carousel-tab-animation",
-    animationDuration: `${duration / 1000}s`,
-  }), [duration])
+    animationDuration: `${verifiedDuration / 1000}s`,
+  }), [verifiedDuration])
 
   const bannerTransitionEnd = useCallback(() => {
-    if (activeIndex === carouselList.length) {
+    if (currentPage === carouselList.length) {
       /**
        * 实现最后一张继续向右轮播的辅助方法
        * 最后一张轮播完成后，关闭运动效果，将第 carouselData.length +1张的位置替换为第1张的位置
        */
       setModuleDuration(0);
-      setActiveIndex(0)
+      setCurrentPage(0)
       setTimeout(() => setModuleDuration(moduleDuration), BANNER_REDUTION)
     }
-  }, [activeIndex, carouselList, moduleDuration])
+  }, [currentPage, carouselList, moduleDuration])
 
   return (
     <div className="carousel-wrapper" data-testid="carousel-wrapper">
@@ -62,32 +68,26 @@ const Carousel: FC<ICarouselProps> = (props) => {
       <div className="carousel-tab-list" data-testid="carousel-tab-list">
         {
           carouselIds?.length > 1 && carouselIds.map((id, index) => {
-            /**
-             * 实现最后一张继续向右轮播的辅助方法
-             * 当前在第 carouselData.length + 1张时，tab第一个按钮为激活状态
-             */
-            const splicedActive = activeIndex === carouselIds.length && index === 0;
-            // indicator是否为选中
-            const actived = index === activeIndex || splicedActive;
-            const activeClass = actived ? tabAnimationClass : {}
+            // 判断当前indicator是否为激活状态
+            const activeClass = isActive(index) ? tabAnimationClass : {}
 
             return <div
               className="carousel-tab-item"
               data-testid="carousel-tab-item"
               key={id}
-              onClick={() => setActiveIndex(index)}>
+              onClick={() => toPage(index)}>
               <div
                 className="carousel-tab-inner"
                 style={activeClass}
                 // indicator动画结束后切换到下一页
-                onAnimationEnd={() => setActiveIndex(activeIndex + 1)}
+                onAnimationEnd={() => nextPage()}
               ></div>
               <div className="carousel-tab-hotspot"></div>
             </div>
           })
         }
       </div>
-    </div >
+    </div>
   )
 }
 
