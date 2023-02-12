@@ -1,0 +1,34 @@
+@startuml
+actor User as user
+participant KOA as koa
+participant controller as ctl
+participant shortUrlService as service
+database Redis as redis
+== 获取短域名 ==
+user -> koa++: /api/short
+    koa -> ctl++
+        ctl -> service++
+            service -> service: 计算URL摘要
+            service -> redis:GET:short_url_hash_md5_key_<UrlDigest>
+            alt Redis中未获取到
+                service -> redis:INCR:short_url_serial_number
+                service -> service++: 压缩序列号
+                    alt 超过8位的长度限制
+                        service -> service: 抛出异常
+                    end
+                deactivate
+                service -> redis:SET:short_url_hash_md5_key_<UrlDigest>
+                service -> redis:SET:short_url_hash_key_<ShortUrl>
+            end
+        return
+    return
+return
+== 获取原始域名 ==
+user -> koa++: /api/origin
+    koa -> ctl++
+        ctl -> service++
+            service -> redis:GET:short_url_hash_key_<ShortUrl>
+        return
+    return
+return
+@enduml
