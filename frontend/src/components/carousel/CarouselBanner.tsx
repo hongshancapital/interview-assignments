@@ -22,12 +22,20 @@ const CarouselBanner: React.FC<CarouselBannerProps> = (props) => {
     <div className="carousel-banner" style={{ color: textColor }}>
       <div className="carousel-banner__placeholder-top"></div>
       {mergedTitle &&
-        title.map((titleItem) => {
-          return <h1 className="carousel-banner__title">{titleItem}</h1>
+        title.map((titleItem, index) => {
+          return (
+            <h1 key={index} className="carousel-banner__title">
+              {titleItem}
+            </h1>
+          )
         })}
       {mergedSubTitle &&
-        subTitle.map((subTitleItem) => {
-          return <h2 className="carousel-banner__subtitle">{subTitleItem}</h2>
+        subTitle.map((subTitleItem, index) => {
+          return (
+            <h2 key={index} className="carousel-banner__subtitle">
+              {subTitleItem}
+            </h2>
+          )
         })}
       {productImageSrc && (
         <img
