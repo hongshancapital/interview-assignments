@@ -80,7 +80,7 @@ const Carousel: FC<ICarouselProps> = (props) => {
                 className="carousel-tab-inner"
                 style={activeClass}
                 // indicator动画结束后切换到下一页
-                onAnimationEnd={() => nextPage()}
+                onAnimationEnd={nextPage}
               ></div>
               <div className="carousel-tab-hotspot"></div>
             </div>
