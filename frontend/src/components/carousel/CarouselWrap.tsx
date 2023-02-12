@@ -15,7 +15,7 @@ interface CarouselWrapProps {
 const DefaultConfigs = {
   carouselStep: 1,
   autoplaySpeed: 3000,
-  transitionDuration: 300,
+  transitionDuration: 800,
 }
 
 const CarouselWrap: React.FC<CarouselWrapProps> = (props) => {
