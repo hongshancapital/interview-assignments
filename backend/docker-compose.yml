@@ -1,0 +1,63 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: short_link
+      MYSQL_TCP_PORT: 23306
+    expose:
+      - 23306
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-p123456"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: always
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    command: redis-server --port 26379 --requirepass 123456 --appendonly yes
+    expose:
+      - 26379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "-a", "123456", "-p", "26379", "--raw", "incr", "ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    restart: always
+
+  app_test_server:
+    container_name: app_test_server
+    environment:
+      NODE_ENV: test
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: app_test_server
+    expose: 
+      - 8000
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: nc 127.0.0.1 8000 -z
+      interval: 1s
+      retries: 30
+    restart: always
+
+  app_test_client:
+    container_name: app_test_client
+    environment:
+      NODE_ENV: test
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: app_test_client
+    depends_on:
+      app_test_server:
+        condition: service_healthy
