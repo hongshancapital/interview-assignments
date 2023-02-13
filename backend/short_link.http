@@ -1,0 +1,41 @@
+@hostname = localhost
+@port = 3000
+@host={{hostname}}:{{port}}
+@contentType=application/json
+
+
+# @name addSample1
+POST http://{{host}}/add HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "originLink": "http://www.baidu.com"
+}
+
+###
+GET http://{{host}}/{{addSample1.response.body.$.key}} HTTP/1.1
+
+
+### 
+
+# @name addSample2
+POST http://{{host}}/add HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "originLink": "http://www.google.com"
+}
+
+### 
+
+POST http://{{host}}/add HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "originLink": "http://www.baidu.com",
+    "key": "{{addSample2.response.body.$.key}}"
+}
+
+###
+GET http://{{host}}/{{addSample2.response.body.$.key}} HTTP/1.1
+

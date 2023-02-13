@@ -1,0 +1,44 @@
+{
+  "name": "short_link",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/app/index.js",
+    "dev": "nodemon --watch src/ -e ts --exec ts-node src/app/index.ts",
+    "test": "dotenv -e .env.test -- npx prisma migrate dev --name init && dotenv -e .env.test -- ts-node src/app/index.ts",
+    "unittest": "jest --coverage --detectOpenHandles src/app/tests/unit.test.ts",
+    "integration": "dotenv -e .env.test -- jest src/app/tests/integration.test.ts",
+    "migrate": "dotenv -e .env.test -- npx prisma migrate dev --name init"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^4.8.1",
+    "express": "^4.18.2",
+    "ioredis": "^5.3.0",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.9"
+  },
+  "keywords": [],
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^4.17.15",
+    "@types/jest": "^29.2.5",
+    "@types/node": "^18.11.18",
+    "@types/node-fetch": "^2.6.2",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "eslint": "^8.31.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "ioredis-mock": "^8.2.6",
+    "jest": "^29.3.1",
+    "jest-mock-extended": "^3.0.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.2",
+    "prisma": "^4.8.1",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
