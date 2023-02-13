@@ -1,10 +1,10 @@
 export default {
     driver: 'mysql',
     connection: {
-        host: 'db.main.wcc.cn',
+        host: 'localhost',
         port: 3306,
-        user: 'weicheche',
-        password: 'weicheche123',
+        user: '',
+        password: '',
         database: 'test'
     }
 }
