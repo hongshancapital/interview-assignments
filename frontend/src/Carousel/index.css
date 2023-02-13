@@ -1,0 +1,101 @@
+:root {
+  --theme-color: #007aff
+}
+.syq-slider {
+  position: relative;
+}
+
+.syq-slider-list {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.syq-slider-list-wrap {
+  width: 100%;
+  display: flex;
+}
+
+.syq-dots {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.syq-dot-vertical {
+  flex-direction: column;
+  width: 5px;
+  height: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.syq-dots li {
+  width: 20px;
+  height: 3px;
+  background-color: white;
+  margin: 5px;
+  display: block;
+  cursor: pointer;
+}
+
+.syq-dots-bottom {
+  bottom: 12px;
+}
+.syq-dots-top {
+  top: 12px;
+}
+.syq-dots-left {
+  left: 12px;
+}
+.syq-dots-right {
+  right: 12px;
+}
+
+
+.syq-arrows {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.syq-arrows::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--theme-color) var(--theme-color) transparent transparent;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.syq-arrows-prev {
+  left: 20px;
+  right: auto;
+}
+.syq-arrows-prev::after {
+  transform: rotate(-135deg);
+}
+
+.syq-arrows-next {
+  right: 20px;
+  left: auto;
+}
+
+.syq-arrows-next::after {
+  transform: rotate(45deg);
+}
+
+img {
+  width: 100%;
+}
