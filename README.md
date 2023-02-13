@@ -99,20 +99,28 @@ flag 最长 8 位，我们用其中高 7 位表示整数值，低 1 位作为标
 另外前面提到的校验和和布隆过滤器也加强了系统安全性。
 
 ### 架构图（概要）
+<img width="605" alt="image" src="https://user-images.githubusercontent.com/122010339/218490327-9b9a9015-dcb1-44e8-85b3-296c6069f2cc.png">
 
 ### 流程图：创建短链接
+<img width="486" alt="image" src="https://user-images.githubusercontent.com/122010339/218490461-58800217-181c-4fc4-a263-859f5327d635.png">
 
 ### 流程图：根据短链接查询对应的长链接
+<img width="509" alt="image" src="https://user-images.githubusercontent.com/122010339/218490520-6d9d81ae-5b29-4312-b504-9908415ae8dc.png">
 
 ### 单元测试
 所在目录：test/unit。
+
+<img width="723" alt="image" src="https://user-images.githubusercontent.com/122010339/218490642-9a4d036a-8355-4a6d-b1fe-03f086443e7d.png">
 
 ### 集成测试
 所在目录：test/integration。
 
 包括三种集成测试：数据库操作（models 下面的代码）、Redis 操作（libs/cache.ts 的代码）和 API 接口。
 
+<img width="831" alt="image" src="https://user-images.githubusercontent.com/122010339/218490728-b0a76d01-0864-4e08-a239-7ec19eb15217.png">
+
 ### 测试覆盖率
+<img width="783" alt="image" src="https://user-images.githubusercontent.com/122010339/218490785-eea4c7a8-1315-4484-8e56-2062915b78d0.png">
 
 
 
