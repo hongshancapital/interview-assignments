@@ -1,0 +1,62 @@
+
+.dots_box {
+    position: fixed;
+    display: flex;
+    z-index: 9;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dot_item {
+    position: relative;
+    width: 100px;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.dot_item:nth-child(2) {
+    margin: 0 10px;
+}
+
+.dot_bg,
+.dot_cover,
+.dot_frame {
+    width: 100px;
+    height: 4px;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    width: 100px;
+    height: 4px;
+}
+
+.dot_bg {
+    z-index: 1;
+    background: rgb(168, 168, 168);
+}
+
+.dot_cover {
+    z-index: 2;
+    background: #fff;
+    left: -100px;
+}
+
+.dot_frame {
+    z-index: 3;
+}
+
+.animationPlay {
+    animation: dotScroll 3s linear 0s infinite;
+}
+
+@keyframes dotScroll {
+    from {
+        left: -100px;
+    }
+    to {
+        left: 0;
+    }
+}
