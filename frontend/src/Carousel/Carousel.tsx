@@ -1,110 +1,37 @@
-import { useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './Carousel.css';
-import airpods from '../assets/airpods.png';
-import tablet from '../assets/tablet.png';
-import iphone from '../assets/iphone.png';
-
-function Carousel() {
+interface CarouselProps {
+    children: React.ReactNode
+}
+function Carousel({ children }: CarouselProps) {
+    const [current, setCurrent] = useState<number>(0);
+    const newChildren = React.Children.toArray(children);
+    const handleAnimationEnd = () => {
+        setCurrent(current === newChildren.length - 1 ? 0 : current + 1);
+    }
+    const wrapperStyle = { transform: `translateX(-${current * 100}%)` }
     return (
         <div className='carousel '>
-            <CarouselContent len={3} />
-            <CarouselSlider len={3} />
-        </div>
-    )
-}
-
-function CarouselContent(props: { len: number }) {
-    const ele = useRef<HTMLDivElement>(null);
-    const slideFunc = (i = 0) => {
-        const slider = ele.current;
-        if (slider) {
-            const left = i > 0 ? (0 - i) * 100 + '%' : 0;
-            slider.setAttribute("style", `left:${left}`)
-        }
-    }
-    useEffect(() => {
-        let i = 0;
-        slideFunc(i);
-        const timer = setInterval(() => {
-            i++;
-            if (i == props.len) {
-                i = 0;
-            }
-            slideFunc(i)
-        }, 3000)
-    })
-    return (
-        <div className='carousel__innerwrap' ref={ele}>
-            <div className='carousel__box  bg--black'>
-                <div className='carousel__text color--white'>
-                    <h1 className='title'>xPhone</h1>
-                    <p className='text'>Lots to love.Less to spend.<br />Starting at $399</p>
-                </div>
-                <img className='carousel__img' src={iphone} alt="" />
-            </div>
-            <div className='carousel__box'>
-                <div className='carousel__text'>
-                    <h3 className='title'>Tablet</h3>
-                    <p className='text'>Just the right amount of everything.</p>
-                </div>
-                <img className='carousel__img carousel__img--or2' src={tablet} alt="" />
-            </div>
-            <div className='carousel__box bg--gray'>
-                <div className='carousel__text'>
-                    <h3 className='title'>Buy  a Tablet or xPhone for college. <br /> Get airPods</h3>
-                </div>
-                <img className='carousel__img carousel__img--or3' src={airpods} alt="" />
-            </div>
-        </div>
-    )
-}
-
-function CarouselSlider(props: { len: number }) {
-    const arr = new Array(props.len).fill(0);
-    const ele = useRef<HTMLDivElement>(null)
-    const slideFunc = (i = 0) => {
-        if (ele && ele.current) {
-            // 激活当前滑块样式
-            const sliders = ele.current.children;
-            const activeEle = sliders[i].children[0];
-            activeEle.setAttribute("style", "display:block;width:100%");
-            // 清除上一个滑块的激活状态
-            const lastIndex = i > 0 ? i - 1 : props.len - 1;
-            setTimeout(() => {
-                const lastSlider = sliders[lastIndex].children[0];
-                lastSlider.setAttribute("style", "display:none");
-                setTimeout(() => {
-                    lastSlider.setAttribute("style", "width:0");
-                }, 500)
-            }, 500)
-        }
-    }
-    useEffect(() => {
-        if (ele && ele.current) {
-            let i = 0;
-            slideFunc(i);
-            const timer = setInterval(() => {
-                i++;
-                if (i == props.len) {
-                    i = 0;
+            <div className='carousel__innerwrap' style={wrapperStyle}>
+                {
+                    newChildren.map((child, index) => <div className='carousel__box' key={index}>{child}</div>)
                 }
-                slideFunc(i)
-            }, 3000)
-        };
-    })
-    return (
-        <div className='carousel__slider' ref={ele}>
+            </div>
             {
-                arr.map((v, index) => {
-                    return (
-                        <div key={`s_${index}`} className='sliderbar'>
-                            <div className='slider--active'></div>
-                        </div>
-                    )
-                })
+                newChildren.length > 1 &&
+                <div className='carousel__slider'>
+                    {
+                            newChildren.map((_, index) => {
+                                return (
+                                    <div key={`s_${index}`} className='sliderbar'>
+                                        <div className={index === current ? 'active' : ''} onAnimationEnd={handleAnimationEnd}></div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
             }
         </div>
     )
 }
-
 export default Carousel;

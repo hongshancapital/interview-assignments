@@ -1,67 +1,13 @@
 .carousel{
     position: relative;
-    height: 100%;
-    width: 100%;
     overflow: hidden;
   }
   .carousel__innerwrap{
-    width: 300%;
-    /* height: 100%; */
-    overflow-x: scroll;
     display:flex; 
-    position:absolute;
-    top:0;
-    bottom: 0;
-    left:0;
-    overflow: hidden;
-    transition-property: left;
-    transition-duration: .5s;
-    transition-timing-function:ease-in;
-    transition-delay:.5s;
+    transition: ease .5s;
   }
   .carousel__box{
-    position: relative;
-    width: 50%;
-    height: 100%;
-    background-color: #FAFAFA;
-    overflow: hidden;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .carousel__img{
-    width: 1440px;
-    line-height: 0;
-    scale: 0.5;
-    transform: translateY(-50%);
-  }
-  .carousel__img--or2{
-    scale: 1;
-    transform: translateY(0);
-  }
-  .carousel__img--or3{
-    scale: 1.5;
-    transform: translateY(15%);
-  }
-  .carousel__text{
-    width: 100%;
-    background: transparent;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-    padding: 100px 0 72px 0;
-    color: #111111;
-  }
-  .bg--black{
-    background-color: #111111;
-  }
-  .bg--gray{
-    background-color: #F1F1F3;
-  }
-  
-  .color--white{
-    color: #fff;
+    min-width: 100%;
   }
   .carousel__slider{
     position: absolute;
@@ -81,17 +27,16 @@
     overflow: hidden;
     background-color: #A9A9A9;
   }
-  
-  
-  .slider--active{
-    width: 0;
+  .sliderbar>.active{
     height: 100%;
-    top:10px;
-    left: -100%;
     background-color: #fff;
-    z-index:1 ;
-    transition-property: width;
-    transition-duration: 3s;
-    transition-timing-function:ease-in;
-    transition-delay:.5s;
+    animation: progress-bar 3s linear;
+  }
+  @keyframes progress-bar {
+    from{
+      width: 0;
+    }
+    to{
+      width:100%;
+    }
   }
