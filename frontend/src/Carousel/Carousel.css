@@ -1,0 +1,42 @@
+.carousel{
+    position: relative;
+    overflow: hidden;
+  }
+  .carousel__innerwrap{
+    display:flex; 
+    transition: ease .5s;
+  }
+  .carousel__box{
+    min-width: 100%;
+  }
+  .carousel__slider{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    bottom: 50px;
+  }
+  .sliderbar{
+    width: 50px;
+    height: 2px;
+    border-radius: 2px;
+    border: 1px solid #979797;
+    position: relative;
+    margin-left: 5px;
+    overflow: hidden;
+    background-color: #A9A9A9;
+  }
+  .sliderbar>.active{
+    height: 100%;
+    background-color: #fff;
+    animation: progress-bar 3s linear;
+  }
+  @keyframes progress-bar {
+    from{
+      width: 0;
+    }
+    to{
+      width:100%;
+    }
+  }
