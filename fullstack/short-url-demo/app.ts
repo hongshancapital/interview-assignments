@@ -5,6 +5,7 @@ import koaStatic from 'koa-static';
 import koaLogger from 'koa-logger';
 import router from './route';
 import redis from './infrastructure/redis'
+import './infrastructure/mysql'
 import path from 'path';
 
 const app = new Koa();

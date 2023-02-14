@@ -4,7 +4,7 @@ import shortUrlService from '../../service/shortUrlService';
 export default {
     async getShortUrl(ctx: Context): Promise<void> {
         try {
-            const shortUrl = await shortUrlService.getShortUrl(ctx.request.query.originUrl as string);
+            const shortUrl:string = await shortUrlService.getShortUrl(ctx.request.query.originUrl as string);
             ctx.body = {
                 shortUrl
             }
@@ -17,7 +17,7 @@ export default {
 
     async getOriginUrl(ctx: Context): Promise<void> {
         try {
-            const originUrl = await shortUrlService.getOriginUrl(ctx.request.query.shortUrl as string);
+            const originUrl:string = await shortUrlService.getOriginUrl(ctx.request.query.shortUrl as string);
             ctx.body = {
                 originUrl
             }

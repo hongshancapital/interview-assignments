@@ -32,6 +32,7 @@ http://localhost:300/api/origin?originUrl=xxxxx
 ### Redis键值定义
 |Key|Value|
 | ----------- | ----------- |
-|short_url_hash_md5_key_\<UrlDigest\>	|<短域名地址>|
-|short_url_hash_key_\<ShortUrl\>|	<原始域名地址>|
 |short_url_serial_number|	自增序列号|
+
+### 数据库设计
+/doc/SQL/DDL.sql

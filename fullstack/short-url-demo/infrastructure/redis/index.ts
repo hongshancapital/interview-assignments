@@ -13,14 +13,6 @@ async function disConnect(): Promise<void> {
     console.log("redis disConnnected")
 }
 
-async function set(key: string, value: string) {
-    await client.set(key, value);
-}
-
-async function get(key: string) {
-    return await client.get(key);
-}
-
 async function incrBy(key: string, increment: number) {
     return client.incrBy(key, increment);
 }
@@ -28,8 +20,6 @@ async function incrBy(key: string, increment: number) {
 export default {
     connect,
     disConnect,
-    set,
-    get,
     incrBy
 };
 
