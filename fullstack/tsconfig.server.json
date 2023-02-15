@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "esnext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "serverbuild",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "types": [
+      "@types/express",
+      "@types/express-serve-static-core",
+      "@types/node"
+    ]
+  },
+  "compileOnSave": true,
+  "exclude": ["./src/client"],
+  "include": ["./src/server", "./src/server/tests"]
+}
