@@ -10,7 +10,6 @@ const {
 } = MongoDbConnection;
 
 const UrlSchema: Schema<IUrl> = new Schema<IUrl>({
-  _id: {type: String},
   rawUrl: { type: String, required: true },
   shortenUrl: { type: String },
   urlCode: { type: String },
