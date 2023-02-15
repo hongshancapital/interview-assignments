@@ -6,6 +6,5 @@ CREATE TABLE `shortdomain` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态：1-正常;0-禁用',
   `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`),
-  KEY `crc32` (`crc32`),
-  KEY `userid` (`userid`)
+  KEY `crc32` (`crc32`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
