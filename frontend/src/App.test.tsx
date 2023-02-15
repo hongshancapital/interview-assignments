@@ -1,9 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders carousel', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const carouselCardElement = getByText(/Just the right amount of everything./i);
+  expect(carouselCardElement).toBeInTheDocument();
 });
