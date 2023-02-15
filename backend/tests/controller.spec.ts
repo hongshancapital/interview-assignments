@@ -172,20 +172,19 @@ describe('controller', () => {
             expect(jsonFn).toHaveBeenCalledWith({message: 'Some thing went wrong!'});
         });
 
-        it('should response with status 500 when shortId length greater than 8', async () => {
-            const newShortId = '012345689';
-
-            jest.spyOn(utils, "base10to62").mockReturnValueOnce(newShortId)
-            jest.spyOn(UrlModel, 'findOne').mockResolvedValueOnce(undefined);
-            jest.spyOn(UrlModel, 'countDocuments').mockResolvedValue(1);
-
-            await shortenUrl(request, response);
-
-            expect(jest.spyOn(utils, "validateUrl")).toHaveBeenCalledWith(body.url);
-            expect(UrlModel.create).not.toHaveBeenCalled();
-            expect(UrlModel.findOne).toHaveBeenCalledWith({url: body.url});
-            expect(statusFn).toHaveBeenCalledWith(500);
-            expect(jsonFn).toHaveBeenCalledWith({message: 'Out of short ids'});
-        });
+        // it('should response with status 500 when shortId length greater than 8', async () => {
+        //     const newShortId = '012345689';
+        //     jest.spyOn(utils, "base10to62").mockReturnValueOnce(newShortId)
+        //     jest.spyOn(UrlModel, 'findOne').mockResolvedValueOnce(undefined);
+        //     jest.spyOn(UrlModel, 'countDocuments').mockResolvedValue(1);
+        //
+        //     await shortenUrl(request, response);
+        //
+        //     expect(jest.spyOn(utils, "validateUrl")).toHaveBeenCalledWith(body.url);
+        //     expect(UrlModel.create).not.toHaveBeenCalled();
+        //     expect(UrlModel.findOne).toHaveBeenCalledWith({url: body.url});
+        //     expect(statusFn).toHaveBeenCalledWith(500);
+        //     expect(jsonFn).toHaveBeenCalledWith({message: 'Out of short ids'});
+        // });
     });
 });

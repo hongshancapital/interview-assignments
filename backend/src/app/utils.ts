@@ -1,6 +1,18 @@
 const alphabet = "0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ";
 const radix = alphabet.length;
 
+const radix_bigint = BigInt(radix)
+
+export function base10to62_bigint(number: bigint) {
+    let result = "";
+    do {
+        const mod =  number % radix_bigint;
+        number = (number - mod) / radix_bigint;
+        result = alphabet[Number(mod)] + result;
+    } while (number);
+    return result.substring(0, 8);
+}
+
 export function base10to62(number: number) {
     let result = "";
     do {
