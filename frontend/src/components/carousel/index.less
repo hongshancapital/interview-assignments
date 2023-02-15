@@ -1,0 +1,64 @@
+@namespace:mp;
+
+.@{namespace}-carousel-{
+    &container{
+        position: relative;
+        overflow: hidden;
+        &:hover .@{namespace}-carousel-mark-container-item-mask{
+            animation-play-state: paused;
+        }
+    }
+    &item-container{
+        white-space: nowrap;
+        will-change: transform;
+        transition: transform .3s ease-in-out;
+        
+        &-item{
+            display: inline-block;
+            width: 100%;
+            color: snow;
+            background-size: cover;
+            background-color: aqua;
+        
+        }
+    }
+
+    &mark-container{
+       position: absolute;
+       left: 0;
+       right: 0;
+       bottom: 30px;
+       display: flex;
+       flex-flow: row wrap;
+       justify-content: center;
+       width: 50%;
+       margin: auto;
+       text-align: center;
+        &-item {
+            display: inline-block;
+            width: 30px;
+            height: 3px;
+            margin: 0 5px;
+            background-color: #ccc;
+            &:hover{
+                 background-color: rgb(248, 246, 246);
+            }
+            &--active  &-mask{
+                height: 100%;
+                width: 0;
+                background-color: white;
+                animation: bglinear 3s infinite;
+            }
+            @keyframes  bglinear{
+                0%{
+                    width: 0%;
+                }
+                100%{
+                    width: 100%;
+                }
+            }
+        }
+        
+
+    }
+}
