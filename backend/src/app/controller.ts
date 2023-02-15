@@ -32,7 +32,7 @@ export async function shortenUrl(req: Request, res: Response) {
             return res.status(200).json({url: record.url, shortened: record.shortened});
         }
 
-        const seq = await ShortUrl.countDocuments();
+        const seq = Date.now()
         const shortId = base10to62(seq);
         if (shortId.length > 8) {
             return res.status(500).json({message: 'Out of short ids'});
