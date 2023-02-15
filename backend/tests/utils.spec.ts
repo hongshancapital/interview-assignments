@@ -1,4 +1,4 @@
-import {validateUrl, generateId} from '../src/app/utils'
+import {validateUrl, base10to62} from '../src/app/utils'
 import {describe, expect, test} from '@jest/globals';
 
 describe('utils', () => {
@@ -33,18 +33,18 @@ describe('utils', () => {
     describe('decimalTo62', () => {
         it('should return 00000000 for first convert', () => {
             let num  = 0;
-            let ret = generateId(num);
+            let ret = base10to62(num);
             expect(ret).toBe('00000000');
         });
         it('should return 0000000a for 11th convert', () => {
             let num = 10;
-            let ret = generateId(num);
+            let ret = base10to62(num);
             expect(ret).toBe('0000000a');
         });
 
         it('should return 2g5pYsGV for number 8127398171231 convert', () => {
             let num = 8127398171231;
-            let ret = generateId(num);
+            let ret = base10to62(num);
             expect(ret).toBe('2g5pYsGV');
         });
     });

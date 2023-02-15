@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import ShortUrl, {IUrl} from '../app/model';
-import {validateUrl, generateId} from './utils'
+import {validateUrl, base10to62} from './utils'
 
 export async function queryUrlById(req: Request, res: Response) {
     const {shortId} = req.params;
@@ -33,7 +33,7 @@ export async function shortenUrl(req: Request, res: Response) {
         }
 
         const seq = await ShortUrl.countDocuments();
-        const shortId = generateId(seq);
+        const shortId = base10to62(seq);
         if (shortId.length > 8) {
             return res.status(500).json({message: 'Out of short ids'});
         }

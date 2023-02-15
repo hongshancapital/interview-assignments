@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 import * as bodyParser from "body-parser"
 import * as dotenv from 'dotenv'
 import morgan from "morgan"
-import helmet from "helmet"
+// import helmet from "helmet"
 
 import {shortenUrl, queryUrlById,} from "./app/controller"
 
@@ -19,7 +19,7 @@ mongoose.connect(db_url).then(() => {
 })
 
 const app = express()
-app.use(helmet())
+// app.use(helmet())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use('/api/*', bodyParser.json())
 app.use(morgan('combined'))

@@ -1,7 +1,7 @@
 const alphabet = "0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ";
 const radix = alphabet.length;
 
-export function generateId(number: number) {
+export function base10to62(number: number) {
     let result = "";
     do {
         const mod = number % radix;
