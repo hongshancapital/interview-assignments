@@ -1,0 +1,39 @@
+env: development
+
+# 端口号
+port: &port 3000
+
+# 返回短链接有用到
+domain:
+  - 'http://localhost'
+  - *port
+
+# 数据库配置
+database:
+  # 数据库类型
+  type: 'mysql'
+  # 数据库 url
+  url: 'mysql://root:my-secret-pw@127.0.0.1:3306/scc'
+  # 是否 entity 自动同步到数据库 ， 正式环境 false
+  synchronize: true
+
+redis:
+  host: '127.0.0.1'
+  port: 6379
+  db: 2
+
+# 短码配置
+short:
+  # 字符集 base58
+  alphabet: '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+  # 碰撞之后的重试次数
+  retry: 3
+  # 短码长度 , 最长的长度不能超过 8
+  len: 8
+  cache:
+    lru:
+      # lru 的容量
+      capacity: 1000
+    redis:
+      # redis过期时间 单位 秒
+      expire: 3600
