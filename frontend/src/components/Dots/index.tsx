@@ -26,26 +26,21 @@ const defaultProps = {
 const Dots: React.FC<DotslProps> = (_props) => {
     const props = {...defaultProps, ..._props};
 
-    const clickHandle = (e: any, index: number) => {
+    const clickHandle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
         props.scrollHanlder!(index);
     }
 
     return (
         <div className='dots_box'>
             {
-                Array(props.dotNumber).fill('').map((item, index) => index).map((item: any, index: number) => {
+                Array(props.dotNumber).fill('').map((item, index) => index).map((item: number, index: number) => {
                     return (
                         <div 
                             className='dot_item' 
                             key={item} 
-                            style={{width: props.dotWidth, height: props.dotHeight}}
+                            style={{width: props.dotWidth, height: props.dotHeight, background: props.dotColor}}
                             onClick={(e) => clickHandle(e, index)}
                         >
-                            <div
-                                className='dot_bg'
-                                style={{width: props.dotWidth, height: props.dotHeight, background: props.dotColor}}
-                            >
-                            </div>
                             <div
                                 className={`dot_cover ${(props.autoplay && props.scrollIndex === index) && 'animationPlay'}`}  
                                 style={{

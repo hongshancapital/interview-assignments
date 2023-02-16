@@ -19,7 +19,7 @@ const defaultProps = {
 }
 
 const Carousel: React.FC<CarouselProps> = (_props)=> {
-    const ref: any = useRef();
+    const ref = useRef<number | null>(null);
     const [scrollIndex, setScrollIndex] = useState<number>(0);
 
     const props = {...defaultProps, ..._props};
@@ -27,7 +27,7 @@ const Carousel: React.FC<CarouselProps> = (_props)=> {
     useEffect(() => {
         if (props.autoplay && props.children.length !== 1) {
             if (ref.current) clearInterval(ref.current);
-            ref.current = setInterval(() => {
+            ref.current = window.setInterval(() => {
                 if (scrollIndex === props.children.length - 1) {
                     setScrollIndex(0);
                 } else {
@@ -35,7 +35,7 @@ const Carousel: React.FC<CarouselProps> = (_props)=> {
                 }
             }, props.delay);
             return () => {
-                clearInterval(ref.current);
+                if (ref.current) clearInterval(ref.current);
             }
         }
     }, [scrollIndex]);
@@ -56,11 +56,12 @@ const Carousel: React.FC<CarouselProps> = (_props)=> {
                 }}
             >
                 {
-                    props.children.map((item: any, index: number) => {
+                    props.children.map((item: JSX.Element, index: number) => {
                         return (
                             <div
                                 className='scroll_item'
                                 style={{ left: `${index * 100}%` }}
+                                key={item.key}
                             >
                                 {item}
                             </div>
