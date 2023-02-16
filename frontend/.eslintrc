@@ -1,0 +1,111 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "standard",
+    "plugin:react/jsx-runtime"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true
+    }
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "off"
+    ],
+    "linebreak-style": 0,
+    "no-new": 1,
+    "no-case-declarations": 1,
+    "multiline-ternary": [
+      1,
+      "always-multiline"
+    ],
+    "react/jsx-key": 1,
+    "no-return-assign": 1,
+    "import/no-duplicates": 1,
+    "no-prototype-builtins": 1,
+    "no-useless-escape": 1,
+    "n/no-callback-literal": 1,
+    "no-async-promise-executor": 1,
+    "new-cap": 1,
+    "indent": [
+      1,
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "quotes": [
+      1,
+      "single"
+    ],
+    "semi": [
+      1,
+      "always"
+    ],
+    "space-before-function-paren": [
+      1,
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "prefer-template": 1,
+    "no-unused-vars": 1,
+    "camelcase": 1,
+    "no-new-func": 0,
+    "prefer-promise-reject-errors": 0,
+    "react/prop-types": 0,
+    "eqeqeq": 1,
+    "object-curly-spacing": 1,
+    "array-bracket-spacing": 1,
+    "no-debugger": 0,
+    "no-unused-expressions": 0,
+    "no-undef": 0,
+    "spaced-comment": 0,
+    "quote-props": 0,
+    "comma-dangle": 0,
+    "padded-blocks": 0,
+    "key-spacing": [
+      1,
+      {
+        "beforeColon": false,
+        "afterColon": true
+      }
+    ], // 对象字面量中冒号的前后空格
+    "no-spaced-func": 1, // 函数调用时 函数名与()之间不能有空格
+    "no-multiple-empty-lines": [
+      1,
+      {
+        "max": 2
+      }
+    ], // 空行最多不能超过2行
+    "no-nested-ternary": 1, // 禁止使用嵌套的三元表达式
+    "no-trailing-spaces": 1, //一行结束后面有空格就发出警告
+    "react/no-unknown-property": [
+      1
+    ]
+  },
+  "globals": {
+    "NodeJS": "writable",
+    "NodeListOf": "writable"
+  }
+}
