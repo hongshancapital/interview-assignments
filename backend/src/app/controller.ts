@@ -19,6 +19,9 @@ export async function queryUrlById(req: Request, res: Response) {
     }
 }
 
+const MULTIPLIER = 10000
+let count = 0;
+
 export async function shortenUrl(req: Request, res: Response) {
     const {url} = req.body;
     if (!url) {
@@ -37,7 +40,7 @@ export async function shortenUrl(req: Request, res: Response) {
         // const shortId = base10to62(seq);
         const current_sec = Math.floor(Date.now() / 1000);
         const ns_part = hrtime()[1]
-        const seq = BigInt(current_sec * 10**9 + ns_part)
+        const seq = BigInt(current_sec * 10**9 + ns_part) * BigInt(MULTIPLIER) + BigInt((count++ % MULTIPLIER))
         const shortId = base10to62_bigint(seq);
         // if (shortId.length > 8) {
         //     return res.status(500).json({message: 'Out of short ids'});
