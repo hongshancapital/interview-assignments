@@ -3,7 +3,6 @@ import Carousel from './carousel';
 import { ReactNode } from 'react';
 
 function App() {
-
   let CarouselList: Array<ReactNode> = Array(3).fill(null);
   // 自定义轮播图结构
   CarouselList[0] = (
@@ -38,7 +37,12 @@ function App() {
   
   return (
     <div className='App'>
-      <Carousel children={ CarouselList } width="100%" height="100%"></Carousel>
+      <Carousel width="100%" height="50%">
+        { CarouselList }
+      </Carousel>
+      <Carousel width="100%" height="50%">
+        { CarouselList }
+      </Carousel>
     </div>
   );
 }
