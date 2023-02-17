@@ -1,0 +1,101 @@
+package com.zhangliang.suril.controller;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zhangliang.suril.controller.params.PostUrlParams;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+@ActiveProfiles("dev")
+class ShortUrlControllerTest {
+
+    @Value("${config.short-url-length}")
+    private Integer shortUrlLength;
+
+    @Value("${config.short-url-prefix}")
+    private String prefix;
+
+    @Autowired
+    private MockMvc mvc;
+
+    @Test
+    @DisplayName("测试存储后，再用返回键取回")
+    public void postUrlTest_returl_get() throws Exception {
+        PostUrlParams postUrl = new PostUrlParams();
+        postUrl.setOriginalUrl("http://www.123.com");
+        ObjectMapper mapper = new ObjectMapper();
+        String content = mapper.writeValueAsString(postUrl);
+
+        MvcResult result = mvc.perform(post("/api/url").contentType(MediaType.APPLICATION_JSON).content(content))
+                .andReturn();
+
+        String response = result.getResponse().getContentAsString();
+
+        ObjectMapper mapper1 = new ObjectMapper();
+        String url = mapper1.readTree(response).get("playLoad").asText();
+
+        mvc.perform(get("/api/url?shortUrl=" + url))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.playLoad").value("http://www.123.com"));
+    }
+
+    @Test
+    @DisplayName("测试存储")
+    public void postUrlTest() throws Exception {
+        PostUrlParams postUrl = new PostUrlParams();
+        postUrl.setOriginalUrl("http://www.123.com");
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String content = mapper.writeValueAsString(postUrl);
+
+        mvc.perform(post("/api/url").contentType(MediaType.APPLICATION_JSON).content(content))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("200"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.playLoad").value(Matchers.startsWith(prefix)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.playLoad")
+                        .value(Matchers.hasLength(prefix.length() + shortUrlLength))).andDo((result) -> {
+
+                });
+    }
+
+    @Test
+    @DisplayName("测试空取回再用返回键取回")
+    public void getUrlTest() throws Exception {
+        mvc.perform(get("/api/url?shortUrl=http://123.com"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("200"));
+    }
+
+
+    @Test
+    @DisplayName("测试空取回再用返回键取回")
+    public void getUrlTest_exception_all() throws Exception {
+        mvc.perform(get("/api/url?shortUrl="))
+                .andDo(print())
+                .andExpect(status().is5xxServerError())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("50000"));
+    }
+
+}

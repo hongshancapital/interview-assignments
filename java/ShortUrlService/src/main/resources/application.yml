@@ -1,0 +1,15 @@
+#主配置文件
+
+spring:
+  # 激活环境配置
+  profiles:
+    active: dev
+
+config:
+  init-capacity: 1000
+  max-capacity: 100000
+  short-url-length: 8
+  short-url-prefix: "https://url.com/"
+
+logging:
+  config: classpath:logback-spring.xml
