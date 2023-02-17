@@ -1,4 +1,4 @@
-import { render, renderHook } from '@testing-library/react';
+import { act, render, renderHook } from '@testing-library/react';
 import { roller } from '../utils';
 import { Carousel, useCarousel } from './Carousel';
 import Page1 from './pages/Page1';
@@ -14,10 +14,20 @@ describe('Carousel tests', () => {
 
   it('hooks逻辑测试', () => {
     jest.useFakeTimers();
-    jest.spyOn(global, 'setTimeout');
     const { result } = renderHook(() => useCarousel(5, 1000));
-    expect(setTimeout).toHaveBeenCalledTimes(1);
     expect(result.current).toEqual({ total: 5, activeIndex: 0 });
+    act(() => jest.advanceTimersToNextTimer());
+    expect(result.current).toEqual({ total: 5, activeIndex: 1 });
+    act(() => jest.advanceTimersToNextTimer());
+    expect(result.current).toEqual({ total: 5, activeIndex: 2 });
+    act(() => jest.advanceTimersToNextTimer());
+    expect(result.current).toEqual({ total: 5, activeIndex: 3 });
+    act(() => jest.advanceTimersToNextTimer());
+    expect(result.current).toEqual({ total: 5, activeIndex: 4 });
+    act(() => jest.advanceTimersToNextTimer());
+    expect(result.current).toEqual({ total: 5, activeIndex: 0 });
+    act(() => jest.advanceTimersToNextTimer());
+    expect(result.current).toEqual({ total: 5, activeIndex: 1 });
   });
 
   it('page-1', () => {
