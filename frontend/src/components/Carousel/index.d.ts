@@ -36,4 +36,31 @@ export interface PropsType {
   timingFunction?: string;
 
   children?: React.ReactNode;
+
+  /**
+   * customize indicator
+   * @param currentIndex current active item index
+   * @param itemCount item total count
+   * @returns ReactNode
+   * @default () => void
+   */
+  indicatorRender?: (currentIndex: number, itemCount: number) => React.ReactNode
+}
+
+export interface RefType {
+  /**
+   * slide to next item
+   * @returns void
+   */
+  next: () => void;
+  /**
+   * slide to prev item
+   * @returns void
+   */
+  prev: () => void;
+  /**
+   * slide to item given by index
+   * @returns void
+   */
+  goTo: (index: number) => void
 }
