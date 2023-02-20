@@ -36,21 +36,20 @@ const Carousel = forwardRef<RefType, PropsType>(({
 
   // trigger autoplay
   useEffect(() => {
-    if (!autoplay || !childrenArr.length) {
-      return;
+    if (autoplay && childrenArr.length > 1) {
+      autoPlayTimer.current = window.setTimeout(() => {
+        setCurrentIndex(currentIndex === childrenArr.length - 1 ? 0 : currentIndex + 1);
+      }, duration);
     }
-    autoPlayTimer.current = window.setTimeout(() => {
-      setCurrentIndex(currentIndex === childrenArr.length - 1 ? 0 : currentIndex + 1);
-    }, duration);
     return () => window.clearTimeout(autoPlayTimer.current);
   }, [autoplay, currentIndex, duration, childrenArr]);
 
   // expose methods to reference
   useImperativeHandle(ref, () => ({
-    next: () => setCurrentIndex(currentIndex === childrenArr.length - 1 ? 0 : currentIndex + 1),
-    prev: () => setCurrentIndex(currentIndex === 0 ? childrenArr.length - 1 : currentIndex - 1),
+    next: () => setCurrentIndex(index => index === childrenArr.length - 1 ? 0 : index + 1),
+    prev: () => setCurrentIndex(index => index === 0 ? childrenArr.length - 1 : index - 1),
     goTo: (index: number) => setCurrentIndex(index),
-  }), [childrenArr, currentIndex]);
+  }), [childrenArr]);
 
   return (
     <div
@@ -67,16 +66,18 @@ const Carousel = forwardRef<RefType, PropsType>(({
       >
         {children}
       </div>
-      {showIndicator && (indicatorRender ? indicatorRender(currentIndex, childrenArr.length) : <ul className={styles.indicator}>
+      {showIndicator && (indicatorRender
+        ? indicatorRender(currentIndex, childrenArr.length)
+        : <ul className={styles.indicator}>
         {childrenArr.map((_, i) => (
           <li
             key={i}
-            className={styles.indicator_item}
+            className={`${styles.indicator_item} ${currentIndex === i ? styles.active : ''}`}
             onClick={() => setCurrentIndex(i)}
           >
             <div
-              className={`${styles.indicator_item_inner} ${currentIndex === i ? styles.active : ''}`}
-              style={{ animationDuration: autoplay ? `${duration}ms` : '0' }}
+              className={styles.indicator_item_inner}
+              style={{ animationDuration: autoplay && childrenArr.length > 1 ? `${duration}ms` : '0' }}
             ></div>
           </li>
         ))}

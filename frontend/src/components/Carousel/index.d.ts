@@ -1,7 +1,7 @@
 export interface PropsType {
   className?: React.ClassAttributes;
   style?: React.StyleHTMLAttributes;
-  children?: React.ReactNode;
+  children?: React.ReactElement | Array<React.ReactElement>;
 
   /**
    * @description show default indicator
