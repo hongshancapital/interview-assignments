@@ -1,11 +1,12 @@
-import { useState, useEffect, useMemo, useRef, Children, memo, forwardRef, useImperativeHandle } from 'react';
+import React from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef, Children, cloneElement, memo, forwardRef, useImperativeHandle } from 'react';
 import type { PropsType, RefType } from './index.d';
+import { useUid, classNames } from './utils';
 import Item from './Item';
 import styles from './index.module.css';
 
 const Carousel = forwardRef<RefType, PropsType>(({
   className,
-  style = null,
   showIndicator = true,
   autoplay = false,
   duration = 3000,
@@ -14,9 +15,10 @@ const Carousel = forwardRef<RefType, PropsType>(({
   children,
   onChange,
   indicatorRender,
+  ...restProps
 }, ref) => {
-  // combine classes
-  const classNames = useMemo(() => className ? `${className} ${styles.carousel}` : styles.carousel, [className]);
+  // generate random uid
+  const uid = useUid();
   // current visible item index, default 0
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   // previous visible item index
@@ -24,37 +26,49 @@ const Carousel = forwardRef<RefType, PropsType>(({
   // children array
   const childrenArr = useMemo(() => Children.toArray(children), [children]);
   // autoplay timer handler
-  let autoPlayTimer = useRef<number>()
+  let autoPlayTimer = useRef<number>();
 
-  // witch currentIndex change, trigger onChange callback
+  // change operation method
+  const next = useCallback(() =>
+    setCurrentIndex(index => index === childrenArr.length - 1 ? 0 : index + 1), [childrenArr]);
+  const prev = useCallback(() =>
+    setCurrentIndex(index => index === 0 ? childrenArr.length - 1 : index - 1), [childrenArr]);
+
+  // trigger onChange callback when currentIndex change
   useEffect(() => {
     if (onChange && currentIndex !== prevIndex.current) {
-      onChange.call(null, currentIndex, prevIndex.current)
+      onChange.call(null, currentIndex, prevIndex.current);
     }
-    prevIndex.current = currentIndex
-  }, [currentIndex, onChange])
+    prevIndex.current = currentIndex;
+  }, [currentIndex, onChange]);
 
   // trigger autoplay
   useEffect(() => {
     if (autoplay && childrenArr.length > 1) {
-      autoPlayTimer.current = window.setTimeout(() => {
-        setCurrentIndex(currentIndex === childrenArr.length - 1 ? 0 : currentIndex + 1);
-      }, duration);
+      autoPlayTimer.current = window.setTimeout(next, duration);
     }
     return () => window.clearTimeout(autoPlayTimer.current);
-  }, [autoplay, currentIndex, duration, childrenArr]);
+  }, [autoplay, currentIndex, duration, childrenArr, next]);
 
   // expose methods to reference
   useImperativeHandle(ref, () => ({
-    next: () => setCurrentIndex(index => index === childrenArr.length - 1 ? 0 : index + 1),
-    prev: () => setCurrentIndex(index => index === 0 ? childrenArr.length - 1 : index - 1),
+    next,
+    prev,
     goTo: (index: number) => setCurrentIndex(index),
-  }), [childrenArr]);
+  }), [next, prev]);
+
+  // make accessibility
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLLIElement>) => {
+    e.stopPropagation()
+    if (e.code === 'Enter' || e.code === 'Space') e.currentTarget.click();
+    if (e.code === 'ArrowRight') next();
+    if (e.code === 'ArrowLeft') prev();
+  }, [next, prev]);
 
   return (
     <div
-      className={classNames}
-      style={style}
+      {...restProps}
+      className={classNames(className, styles.carousel)}
     >
       <div
         className={styles.container}
@@ -64,16 +78,34 @@ const Carousel = forwardRef<RefType, PropsType>(({
           transitionTimingFunction: timingFunction,
         }}
       >
-        {children}
+        {Children.map(children, (child, i) => {
+          if (typeof child === 'undefined') return child;
+          return cloneElement(child, {
+            id: `carousel-item-${uid}-${i}`,
+            role: 'tabpanel',
+            'aria-labelledby': `carousel-indicator-${uid}-${i}`,
+            'aria-hidden': currentIndex === i,
+          });
+        })}
       </div>
       {showIndicator && (indicatorRender
         ? indicatorRender(currentIndex, childrenArr.length)
-        : <ul className={styles.indicator}>
+        : <ul
+          className={styles.indicator}
+          role="tablist"
+        >
         {childrenArr.map((_, i) => (
           <li
             key={i}
-            className={`${styles.indicator_item} ${currentIndex === i ? styles.active : ''}`}
+            id={`carousel-indicator-${uid}-${i}`}
+            role="tab"
+            aria-label={`change to page ${i + 1}`}
+            aria-controls={`carousel-item-${uid}-${i}`}
+            aria-selected={currentIndex === i}
+            tabIndex={0}
+            className={classNames(styles.indicator_item, {[styles.active]: currentIndex === i})}
             onClick={() => setCurrentIndex(i)}
+            onKeyDown={handleKeyDown}
           >
             <div
               className={styles.indicator_item_inner}

@@ -1,6 +1,5 @@
-export interface PropsType {
+export interface PropsType extends Omit<JSX.IntrinsicElements['div'], 'className' | 'children'> {
   className?: React.ClassAttributes;
-  style?: React.StyleHTMLAttributes;
   children?: React.ReactElement | Array<React.ReactElement>;
 
   /**

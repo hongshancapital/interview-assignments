@@ -1,16 +1,17 @@
+import React from 'react';
 import { memo } from 'react';
-import type { PropsType } from './Item.d';
+import { classNames } from './utils';
 import styles from './index.module.css';
 
-const Item: React.FC<PropsType> = ({
+const Item: React.FC<JSX.IntrinsicElements['section']> = ({
   className,
-  style = null,
   children,
+  ...restProps
 }) => {
   return (
     <section
-      className={className ? `${className} ${styles.carousel_item}`: styles.carousel_item}
-      style={style}
+      {...restProps}
+      className={classNames(className, styles.carousel_item)}
     >
       {children}
     </section>

@@ -1,14 +1,30 @@
+import { useEffect, useRef } from 'react';
+import type { RefType } from './components/Carousel/index.d';
 import './App.css';
 import Carousel from './components/Carousel';
 import airpods from './assets/airpods.png';
 import iphone from './assets/iphone.png';
 import tablet from './assets/tablet.png';
 
-const CarouselItem = Carousel.Item
+const CarouselItem = Carousel.Item;
 
 function App() {
+  const carouselRef = useRef<RefType>(null);
+
+  // use keyboard arrow key to change slide
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      e.stopPropagation();
+      if (e.code === 'ArrowLeft') carouselRef.current?.prev();
+      if (e.code === 'ArrowRight') carouselRef.current?.next();
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, []);
+
   return <div className='App'>
     <Carousel
+      ref={carouselRef}
       className="carousel"
       autoplay
     >
