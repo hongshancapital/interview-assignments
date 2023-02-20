@@ -1,34 +1,31 @@
-import React, { ReactNode } from "react";
-import { CSSProperties, FC } from "react";
+import React from "react";
+import { FC } from "react";
 import classes from './carousel.module.scss'
+import { CarouselItemData } from "./interface";
 
 export interface CarouselItemProps {
-    url: string;
-    style?: CSSProperties;
-    title: ReactNode;
-    desc: ReactNode;
-    alt: string;
+    data: CarouselItemData;
+    width: string;
 }
 
 
 const CarouselItem: FC<CarouselItemProps> = (props) => {
     const {
-        url,
-        alt,
-        style,
-        title,
-        desc,
+        data,
+        width,
         children,
     } = props;
 
+    const { url, alt, title, desc, backgroundColor} = data
+
     return (
-        <div className={classes.carousel_item} style={style}>
+        <div className={classes.carousel_item} style={{ width, backgroundColor }}>
+            <img src={url} alt={alt} style={{ backgroundColor }} />
             <div className={classes.content}>
                 {title && <>{ title }</>}
                 {desc && <>{ desc }</>}
             </div>
-            { children }
-            <img src={url} style={style} alt={ alt }/>
+            {children}
         </div>
     )
 }
