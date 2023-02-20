@@ -1,0 +1,26 @@
+{
+  "name": "shorturl",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/index.js",
+    "watch": "tsc -w",
+    "build": "tsc",
+    "test": "jest --coverage",
+    "postinstall": "yarn build"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.0.0",
+    "express": "^4.18.1",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.2",
+    "jest": "^28.1.1",
+    "supertest": "^6.2.3",
+    "ts-jest": "^28.0.5"
+  }
+}
