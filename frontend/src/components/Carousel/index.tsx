@@ -12,16 +12,27 @@ const Carousel = forwardRef<RefType, PropsType>(({
   speed = 500,
   timingFunction = 'ease',
   children,
+  onChange,
   indicatorRender,
 }, ref) => {
   // combine classes
   const classNames = useMemo(() => className ? `${className} ${styles.carousel}` : styles.carousel, [className]);
   // current visible item index, default 0
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  // previous visible item index
+  const prevIndex = useRef<number>(0);
   // children array
   const childrenArr = useMemo(() => Children.toArray(children), [children]);
   // autoplay timer handler
   let autoPlayTimer = useRef<number>()
+
+  // witch currentIndex change, trigger onChange callback
+  useEffect(() => {
+    if (onChange && currentIndex !== prevIndex.current) {
+      onChange.call(null, currentIndex, prevIndex.current)
+    }
+    prevIndex.current = currentIndex
+  }, [currentIndex, onChange])
 
   // trigger autoplay
   useEffect(() => {

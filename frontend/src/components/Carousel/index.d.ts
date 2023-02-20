@@ -1,66 +1,74 @@
 export interface PropsType {
   className?: React.ClassAttributes;
   style?: React.StyleHTMLAttributes;
+  children?: React.ReactNode;
 
   /**
-   * show default indicator
+   * @description show default indicator
    * @default true
    */
-  showIndicator?: boolean
+  showIndicator?: boolean;
   
   /**
-   * auto slide
+   * @description autoplay
    * @default false
    */
   autoplay?: boolean;
   
   /**
-   * auto slide duration
+   * @description autoplay duration
    * @unit ms
    * @default 3000
    */
   duration?: number;
   
   /**
-   * slide transition speed
+   * @description slide transition speed
    * @unit ms
    * @default 500
    */
-  speed?: number
+  speed?: number;
 
   /**
-   * slide transition timing function
+   * @description slide transition timing function
    * @enum 'linear' | 'ease' | 'ease-in'.. reference to css property 'transition-timing-function'
    * @default 'ease'
    */
   timingFunction?: string;
 
-  children?: React.ReactNode;
+  /**
+   * @description active item change handler
+   * @param currentIndex current active item index
+   * @param prevIndex previous active item index
+   * @returns void
+   * @default () => void
+   */
+  onChange?: (currentIndex: number, prevIndex: number) => void;
 
   /**
-   * customize indicator
+   * @description customize indicator render function
    * @param currentIndex current active item index
    * @param itemCount item total count
    * @returns ReactNode
    * @default () => void
    */
-  indicatorRender?: (currentIndex: number, itemCount: number) => React.ReactNode
+  indicatorRender?: (currentIndex: number, itemCount: number) => React.ReactNode;
 }
 
 export interface RefType {
   /**
-   * slide to next item
+   * @description change to next item
    * @returns void
    */
   next: () => void;
   /**
-   * slide to prev item
+   * @description change to previous item
    * @returns void
    */
   prev: () => void;
   /**
-   * slide to item given by index
+   * @description change to item given by index
    * @returns void
    */
-  goTo: (index: number) => void
+  goTo: (index: number) => void;
 }
