@@ -1,0 +1,59 @@
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel .carousel-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: transform .5s ease;
+}
+
+.carousel .carousel-container .carousel-item {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-indicators .carousel-indicator {
+  cursor: pointer;
+  padding: 4px;
+  display: inline-block;
+}
+
+.carousel-indicators .carousel-indicator .carousel-indicator-inner {
+  width: 30px;
+  height: 2px;
+  background-color: #a9a9a9;
+}
+
+.carousel-indicators .carousel-indicator .carousel-indicator-mask {
+  height: 100%;
+  width: 0%;
+  background: #fafafa;
+}
+
+/* 悬浮暂停 */
+.carousel:hover .carousel-indicator-mask {
+  animation-play-state: paused !important;
+}
+
+@keyframes indicator {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
