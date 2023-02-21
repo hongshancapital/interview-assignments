@@ -23,9 +23,11 @@ class SoftwareListRemoteDataSource: SoftwareListRemoteDataSourceProtocol {
     func getSoftware(count: Int) async throws -> [Software] {
         let url = SoftwareAPI.replacing("{limit}", with: "\(count)")
         let result = await self.networkManager.get(url: url)
+        
         if result.1 != nil || result.0 == nil {
             throw ServerException()
         }
+        
         let data = result.0!
         do {
             let object = try JSONSerialization.jsonObject(with: data) as! [String: Any]

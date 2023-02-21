@@ -36,13 +36,6 @@ class SoftwareListViewModel: ObservableObject {
             set: { softwareList in
                 for software in softwareList {
                     if let index = self.softwareList.firstIndex(where: { $0.id == software.id }) {
-                        if software.isLike {
-                            if self.likedIDList.contains(where: { $0 == software.trackId }) == false {
-                                self.likedIDList.append(software.trackId)
-                            }
-                        } else {
-                            self.likedIDList.removeAll(where: { $0 == software.trackId })
-                        }
                         self.softwareList[index] = software
                     }
                 }
@@ -102,6 +95,19 @@ class SoftwareListViewModel: ObservableObject {
         }
     }
         
+    /// 修改某个软件的“喜欢”属性
+    func changeSoftwareIsLike(_ software: Software) {
+        guard let index = self.softwareList.firstIndex(where: { $0.id == software.id }) else { return }
+        var newSoftware = software
+        newSoftware.isLike = !newSoftware.isLike
+        if newSoftware.isLike && self.likedIDList.contains(where: { $0 == newSoftware.trackId}) == false {
+            self.likedIDList.append(newSoftware.trackId)
+        } else {
+            self.likedIDList.removeAll(where: { $0 == newSoftware.trackId })
+        }
+        self.softwareList[index] = newSoftware
+    }
+    
     /// 同步数据的“喜欢”状态
     private func syncIsLike(newList: [Software]) -> [Software] {
         var result: [Software] = []

@@ -23,8 +23,40 @@ struct SoftwareListView: View {
         )
     }()
         
+    var animation: Animation {
+        Animation.linear //设置动画的时间曲线为弹性样式
+             .repeatForever() //设置动画的播放为无限循环模式
+    }
+
     var body: some View {
-        List {
+        contentView()
+        .refreshable {
+            await viewModel.getSoftwareList()
+        }
+        .task {
+            await viewModel.getSoftwareList()
+        }
+        .environmentObject(viewModel)
+        .navigationTitle("App")
+        .navigationBarTitleDisplayMode(.large)
+    }
+    
+    func contentView() -> some View {
+        if self.viewModel.isLoading && self.viewModel.softwareList.isEmpty {
+            return AnyView(loadingView())
+        } else {
+            return AnyView(listView())
+        }
+    }
+    func loadingView() -> some View {
+        return ZStack {
+            Color.init(red: 0.949, green: 0.949, blue: 0.968)
+            CustomProgressView()
+        }.edgesIgnoringSafeArea(.all)
+    }
+    
+    func listView() -> some View {
+        return List {
             Section {
                 ForEach(viewModel.softwares()) { $software in
                     SoftwareRow(software: $software)
@@ -33,39 +65,65 @@ struct SoftwareListView: View {
                                 await viewModel.softwareOnAppear(software: software)
                             }
                         }
-                        .buttonStyle(.plain)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets.init(
+                            top: 8,
+                            leading: 0,
+                            bottom: 8,
+                            trailing: 0))
                 }
             } footer: {
                 HStack(alignment: .center, spacing: 10) {
                     Spacer()
                     if self.viewModel.noMore {
-                        Text("No more")
+                        Text("No more data")
                             .font(.title3)
                     } else {
-                        Text("Loading...")
-                            .font(.title3)
-                        
-                        /// 有问题：只在第一次加载时显示动画
-                        /// https://blog.csdn.net/mydo/article/details/127207968
-//                        ProgressView()
+                        HStack {
+                            /// 有问题：只在第一次加载时显示动画
+                            /// https://blog.csdn.net/mydo/article/details/127207968
+                            //                            ProgressView()
+                            CustomProgressView()
+                            Text("Loading...")
+                                .font(.title3)
+                        }
                     }
                     Spacer()
                 }
-                .padding()
             }
+            .background(.clear)
         }
+        
         .refreshable {
             await viewModel.getSoftwareList()
         }
         .task {
             await viewModel.getSoftwareList()
         }
-        .environmentObject(viewModel)
     }
 }
 
 struct MainListView_Previews: PreviewProvider {
     static var previews: some View {
-        SoftwareListView()
+        NavigationView {
+            SoftwareListView()
+        }
+    }
+}
+
+struct CustomProgressView: View {    
+    var body: some View {
+        TimelineView(.periodic(from: .now, by: 0.1)) { timeline in
+            Image("indicator")
+                .resizable()
+                .frame(width: 20, height: 20)
+                .scaledToFill()
+                .rotationEffect(
+                    .degrees(
+                        Double(Int(timeline.date.timeIntervalSince1970 * 10) % 8) * 45.0
+                    )
+                )
+        }
     }
 }

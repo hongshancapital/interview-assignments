@@ -32,6 +32,6 @@ class CacheManager: CacheManagerProtocol {
     
     func getString(forKey key: String) -> String? {
         let cacheString = userDefaults.string(forKey: key)
-        return cacheString!
+        return cacheString
     }
 }
