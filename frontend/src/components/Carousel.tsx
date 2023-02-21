@@ -29,34 +29,34 @@ const Carousel: FC<CarouselProps> = ({
     height = '100%',
     coustomClassName
 }) => {
-    const [left, setLeft] = useState<number>(0);
-    const indexRef = useRef<number>(0);
+    const [index, setIndex] = useState<number>(0);
     const len = list.length;
     const step = parseFloat(width.replace(/[^\d]/g, ''))
     const suffix = width.replace(/\d/g, '');
     useInterval(() => {
+        let _index = index;
         if (len === 1) {
             return false;
         }
-        indexRef.current++
-        if (indexRef.current === len) {
-            indexRef.current = 0
+        _index++
+        if (_index === len) {
+            _index = 0;
         }
-        setLeft(indexRef.current * step)
+        setIndex(_index);
     }, interval * 1000);
 
     return (
         <div className={classNames(style.container, coustomClassName)} style={{width, height}}>
-            <div className={style.carousel_wrapper} style={{ left: `-${left}${suffix}`}}>
+            <div className={style.carousel_wrapper} style={{ left: `-${step * index}${suffix}`}}>
                 {list.map(item => <CarouselItem key={ item.url } data={item} width={width} />) }
             </div>
             {len > 1 && <div className={style.bar}>
-                {list.map((item, index) => {
+                {list.map((item, idx) => {
                     return (
                         <CarouselBarItem
                             key={item.url}
                             animationDuration={interval}
-                            animationStart={index === indexRef.current}
+                            animationStart={idx === index}
                         />
                     )
                 })}
