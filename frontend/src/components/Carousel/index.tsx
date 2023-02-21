@@ -28,7 +28,7 @@ const Carousel: React.FC<CarouselProps> = ({
   }
 
   const maskStyle: React.CSSProperties = {
-    animation: `indicator ${interval}ms linear`
+    animationDuration: `${interval}ms`
   }
 
   return (
@@ -58,7 +58,7 @@ const Carousel: React.FC<CarouselProps> = ({
             >
               <div className='carousel-indicator-inner'>
                 <div
-                  className='carousel-indicator-mask'
+                  className={`carousel-indicator-mask ${i === activeIndex ? 'active' : ''}`}
                   style={i === activeIndex ? maskStyle : undefined}
                   onAnimationEnd={() => autoplay ? setActiveIndex(i === count - 1 ? 0 : i + 1) : null}
                 />

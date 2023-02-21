@@ -43,9 +43,15 @@
   background: #fafafa;
 }
 
+.carousel-indicators .carousel-indicator .carousel-indicator-mask.active {
+  animation-name: indicator;
+  animation-timing-function: ease;
+  animation-play-state: running;
+}
+
 /* 悬浮暂停 */
-.carousel:hover .carousel-indicator-mask {
-  animation-play-state: paused !important;
+.carousel:hover .carousel-indicators .carousel-indicator .carousel-indicator-mask.active {
+  animation-play-state: paused;
 }
 
 @keyframes indicator {
