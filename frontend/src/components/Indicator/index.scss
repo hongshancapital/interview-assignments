@@ -1,0 +1,66 @@
+.indicator {
+
+  cursor: pointer;
+
+  &.vertical {
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+
+  &.horizontal {
+    margin-right: 20px;
+    flex-direction: row;
+  }
+
+  &.line {
+    width: 40px;
+    height: 2px;
+    background-color: #dddddd;
+    border-radius: 2px;
+
+    &.vertical {
+      width: 2px;
+      height: 40px;
+      background-color: #dddddd;
+      border-radius: 2px;
+    }
+
+
+  }
+
+  &.dot {
+    background: #dddddd;
+    border-radius: 100%;
+    width: 5px;
+    height: 5px;
+
+    &.active {
+      background: white;
+      width: 10px;
+      height: 10px;
+      border: 1px solid #eeeeee;
+    }
+
+    &.vertical {
+
+    }
+
+  }
+
+  .line-active {
+
+    background: rebeccapurple;
+
+    &.vertical {
+      width: 2px;
+    }
+
+    &.horizontal {
+      height: 2px;
+    }
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+}

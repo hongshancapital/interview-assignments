@@ -1,0 +1,30 @@
+.carousel {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  &-container{
+    overflow: hidden;
+  }
+
+  &-indicator-container {
+    position: fixed;
+
+    &.vertical {
+      top: 50%;
+      right: 50px;
+      transform: translateY(-50%);
+    }
+
+    &.horizontal {
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &-item {
+    height: 100%;
+    width: 100%;
+  }
+}
