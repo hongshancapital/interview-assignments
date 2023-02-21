@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
 
 interface CarouselProps {
@@ -7,13 +7,6 @@ interface CarouselProps {
   children?: React.ReactNode
 }
   
-/**
- * tip:
- * 为什么使用动画结束事件做自动播放，而不用定时器？
- * 主要是方便做鼠标悬浮暂停，指示器那里有个宽度变大的动画，
- * 如果使用定时器，那里在暂停和暂停恢复时就不好处理了。
- * 使用动画结束事件则可以利用动画的暂停css处理暂停，展示效果更好。
- */
 const Carousel: React.FC<CarouselProps> = ({
   autoplay = true,
   interval = 3000,
@@ -30,6 +23,14 @@ const Carousel: React.FC<CarouselProps> = ({
   const maskStyle: React.CSSProperties = {
     animationDuration: `${interval}ms`
   }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex(val => val === count - 1 ? 0 : val + 1)
+    }, interval)
+
+    return () => clearInterval(timer)
+  }, [interval, count])
 
   return (
     <div className='carousel'>
@@ -60,7 +61,7 @@ const Carousel: React.FC<CarouselProps> = ({
                 <div
                   className={`carousel-indicator-mask ${i === activeIndex ? 'active' : ''}`}
                   style={i === activeIndex ? maskStyle : undefined}
-                  onAnimationEnd={() => autoplay ? setActiveIndex(i === count - 1 ? 0 : i + 1) : null}
+                  // onAnimationEnd={() => autoplay ? setActiveIndex(i === count - 1 ? 0 : i + 1) : null}
                 />
               </div>
             </div>
