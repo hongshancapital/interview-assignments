@@ -19,12 +19,10 @@ function Indicator(props: SCDT.IIndicatorOption) {
 
     useEffect(() => {
         const animationstartCallback = (e: Event) => {
-            console.log(1234)
             props.onNext(index)
         }
 
         const animationendCallback = (e: Event) => {
-            console.log(456)
             next()
         }
 
@@ -52,7 +50,7 @@ function Indicator(props: SCDT.IIndicatorOption) {
                             className={styles['indicator-item__mask']}
                             style={{
                                 ...(index === i) ? {
-                                    'animation': `moving ${props.duration / 1000}s linear`
+                                    'animationDuration': `${props.duration / 1000}s`
                                 } : {}
                             }}></div>
                     </div>
