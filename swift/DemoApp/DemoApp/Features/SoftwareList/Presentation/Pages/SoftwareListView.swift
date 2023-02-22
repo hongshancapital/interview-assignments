@@ -79,7 +79,7 @@ struct SoftwareListView: View {
                     if self.viewModel.noMore {
                         Text("No more data")
                             .font(.title3)
-                    } else {
+                    } else if self.viewModel.softwareList.isEmpty == false && self.viewModel.isLoading {
                         HStack {
                             /// 有问题：只在第一次加载时显示动画
                             /// https://blog.csdn.net/mydo/article/details/127207968
