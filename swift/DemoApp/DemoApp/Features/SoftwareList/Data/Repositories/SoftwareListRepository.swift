@@ -27,7 +27,7 @@ class SoftwareListRepository: SoftwareListRepositoryProtocol {
             } catch let error as Failure {
                 return .failure(error)
             } catch {
-                return .failure(Failure())
+                return .failure(Failure(error.localizedDescription, type: .other))
             }
         } else {
             do {
@@ -36,7 +36,7 @@ class SoftwareListRepository: SoftwareListRepositoryProtocol {
             } catch let error as Failure {
                 return .failure(error)
             } catch {
-                return .failure(Failure())
+                return .failure(Failure(error.localizedDescription, type: .other))
             }
         }
     }

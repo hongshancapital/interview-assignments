@@ -19,7 +19,7 @@ class MockSoftwareListRepository: SoftwareListRepositoryProtocol {
         if let result = self.getSoftwareResult {
             return result
         } else {
-            return .failure(Failure())
+            return .failure(Failure("", type: .other))
         }
     }
 }

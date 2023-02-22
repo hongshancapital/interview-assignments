@@ -76,7 +76,7 @@ final class SoftwareListRepositoryTests: XCTestCase {
         
         // arrange
         self.mockNetworkManager.isConnectedResult = true
-        self.mockRemoteDataSource.getSoftwareResult = .failure(ServerFailure())
+        self.mockRemoteDataSource.getSoftwareResult = .failure(Failure("", type: .server))
         // act
         let result = await self.repository.getSoftware(count: limit)
         // assert
@@ -87,7 +87,8 @@ final class SoftwareListRepositoryTests: XCTestCase {
             let _ = try result.get()
             XCTAssert(false)
         } catch {
-            XCTAssertTrue(error is ServerFailure)
+            XCTAssertTrue(error is Failure)
+            XCTAssertEqual((error as! Failure).type, FailureType.server)
         }
     }
     
@@ -106,7 +107,7 @@ final class SoftwareListRepositoryTests: XCTestCase {
         let limit = 10
         
         // arrage
-        self.mockLocalDataSource.getSoftwareResult = .failure(CacheFailure())
+        self.mockLocalDataSource.getSoftwareResult = .failure(Failure("", type: .cache))
         // act
         let result = await self.repository.getSoftware(count: limit)
         // assert
@@ -116,7 +117,9 @@ final class SoftwareListRepositoryTests: XCTestCase {
             let _ = try result.get()
             XCTAssert(false)
         } catch {
-            XCTAssertTrue(error is CacheFailure)
+            XCTAssertTrue(error is Failure)
+            XCTAssertEqual((error as! Failure).type, FailureType.cache)
+
         }
     }
 }

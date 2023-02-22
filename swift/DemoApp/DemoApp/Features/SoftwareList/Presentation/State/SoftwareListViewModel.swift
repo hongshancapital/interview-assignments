@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 class SoftwareListViewModel: ObservableObject {
     var softwareCount = 0
-    let perPage = 20
+    let perPage = 50
     
     @Published var isLoading = false
     @Published var noMore = false

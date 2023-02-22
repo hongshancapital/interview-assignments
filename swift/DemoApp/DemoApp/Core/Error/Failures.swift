@@ -7,8 +7,25 @@
 
 import Foundation
 
-class Failure: Error {}
+/// 错误类型枚举
+public enum FailureType {
+    /// 服务端错误
+    case server
+    /// 缓存错误
+    case cache
+    /// 其他错误
+    case other
+}
 
-class ServerFailure: Failure {}
-
-class CacheFailure: Failure {}
+/// 自定义错误
+public struct Failure: Error {
+    /// 错误类型
+    public var type: FailureType?
+    /// 错误信息
+    public var message: String
+    
+    public init(_ message: String, type: FailureType? = nil) {
+        self.message = message
+        self.type = type
+    }
+}

@@ -94,13 +94,6 @@ struct SoftwareListView: View {
             }
             .background(.clear)
         }
-        
-        .refreshable {
-            await viewModel.getSoftwareList()
-        }
-        .task {
-            await viewModel.getSoftwareList()
-        }
     }
 }
 
