@@ -90,7 +90,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
     }
     const handleClick = (index: number) => goTo(index)
     const handleAnimation = () => {
-      if (hasNext) goTo((slider + 1) % childrenCount.current)
+      if (hasNext) goTo(slider + 1)
     }
 
     return (
