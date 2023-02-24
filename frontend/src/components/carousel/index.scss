@@ -1,0 +1,121 @@
+.carousel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  &-container {
+    height: 100%;
+    overflow: hidden;
+    transition: transform ease;
+  }
+
+  &-item {
+    display: inline-block;
+    height: 100%;
+  }
+}
+
+.dots {
+  position: absolute;
+  display: flex;
+
+  &-item {
+    display: inline-block;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    padding: 0;
+    position: relative;
+    cursor: pointer;
+    background: #a19da5;
+
+    &-span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 4px;
+      background-color: #fff;
+    }
+
+  }
+}
+
+.dots-bottom {
+  bottom: 20px;
+}
+
+.dots-top {
+  top: 20px;
+}
+
+.dots-bottom,
+.dots-top {
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .dots-item {
+    width: 40px;
+    height: 4px;
+    margin-right: 12px;
+
+    &-span {
+      width: 0;
+      height: 4px;
+    }
+  }
+}
+
+.dots-left {
+  left: 20px;
+}
+
+.dots-right {
+  right: 20px;
+}
+
+.dots-left,
+.dots-right {
+  flex-direction: column;
+  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+
+  .dots-item {
+    width: 4px;
+    height: 40px;
+    margin-bottom: 12px;
+
+    &-span {
+      width: 100%;
+      height: 0;
+    }
+  }
+}
+
+.carousel:hover .dots .dots-item .dots-item-span {
+  animation-play-state: paused !important;
+}
+
+
+@keyframes progress-width {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes progress-height {
+  from {
+    height: 0%;
+  }
+
+  to {
+    height: 100%;
+  }
+}
