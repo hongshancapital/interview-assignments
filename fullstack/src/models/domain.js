@@ -3,6 +3,7 @@ const co = require('co')
 const BigNumber = require('bignumber.js')
 const assemble = require('../utils/responser.js')
 const widthstr = require('../utils/widthstr.js')
+const $16262 = require('../utils/16262.js')
 
 var _loop = 0
 
@@ -22,13 +23,13 @@ router.post('/l2s', (req, res) => {
 
     // 41位的毫秒时间戳+5位机器码+5位进程id+12位自增计数器 => 63位
     const ll = new BigNumber(
-                        widthstr(Date.now().toString(2), 41)
+                        '0' + widthstr(Date.now().toString(2), 41)
                         + widthstr(Number(Config.machineId).toString(2), 5)
                         + widthstr(Number(process.pid).toString(2), 5)
                         + widthstr(Number(_loop).toString(2), 12)
                       , 2)
 
-    const sstr = ll.toString(36) // 转换为36进制
+    const sstr = $16262(ll) // 转换为62进制
     yield db.redis.set(sstr, lstr) // 入库
     res.json(assemble(0, {
       sstr
