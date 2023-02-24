@@ -1,0 +1,66 @@
+.canvas {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.intro {
+  width: 100%;
+  height: 25rem;
+  margin-top: 10rem;
+}
+
+.icon {
+  width: 100%;
+  height: 10rem;
+}
+
+.progress-area {
+  width: 100%;
+  height: 2rem;
+  position: relative;
+  bottom: 5rem;
+  /* border: 0.2rem solid red; */
+}
+
+.progress-container {
+  width: 32rem;
+  height: 1.2rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 0.2rem solid red; */
+}
+
+.progress-item {
+  width: 5rem;
+  --height: 0.4rem;
+  margin-left: 0.5rem;
+  height: var(--height);
+  border-radius: calc(var(--height) / 2);
+  background-color: rgba(160, 160, 160);
+}
+
+.progress-mask {
+  width: 0%;
+  height: 100%;
+  border-radius: calc(var(--height) / 2);
+  background-color: rgb(249, 249, 249);
+}
