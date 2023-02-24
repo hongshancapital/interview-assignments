@@ -1,4 +1,4 @@
-import { render, act } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
 import React from 'react'
 import Carousel, { CarouselRef } from '..';
 
@@ -52,6 +52,44 @@ describe('Carousel component', () => {
       ref.current?.next();
     })
     expect(container.querySelectorAll('.carousel-item')[2]).toHaveClass('carousel-item-active');
+  });
+
+  it('should execute beforeChange and afterChange callback', async () => {
+    const ref = React.createRef<CarouselRef>();
+    let index = 0
+    const fn1 = jest.fn((from, to) => {
+      if (from === 2 && to === 1) return false
+    })
+    const fn2 = jest.fn((current) => {
+      index = current
+    })
+    render(
+      <Carousel ref={ref} autoplay={false} beforeChange={fn1} afterChange={fn2}>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </Carousel>,
+    );
+    act(() => {
+      ref.current?.goTo(2);
+    })
+    expect(fn1).toBeCalledTimes(1);
+    expect(fn2).toBeCalledTimes(1);
+    expect(index).toBe(2);
+
+    act(() => {
+      ref.current?.prev()
+    })
+    expect(fn1).toBeCalledTimes(2);
+    expect(fn2).toBeCalledTimes(1);
+    expect(index).toBe(2);
+
+    act(() => {
+      ref.current?.next()
+    })
+    expect(fn1).toBeCalledTimes(3);
+    expect(fn2).toBeCalledTimes(2);
+    expect(index).toBe(0);
   });
 
   describe('should active when children change', () => {
@@ -113,6 +151,28 @@ describe('Carousel component', () => {
       expect(container.querySelector('.dots')).toBeInTheDocument();
     });
 
+    it('should handle click', () => {
+      let idx = 0
+      const spy = jest.fn((current: number) => {
+        idx = current
+      })
+      const { getByText } = render(
+        <Carousel afterChange={spy}>
+          <div>a</div>
+          <div>b</div>
+          <div>c</div>
+        </Carousel>,
+      );
+      act(() => {
+        fireEvent.click(getByText(/2/))
+      });
+      expect(idx).toBe(2);
+
+      act(() => {
+        fireEvent.click(getByText(/0/))
+      });
+      expect(idx).toBe(0);
+    });
 
     describe('should works for dotPosition', () => {
       (['left', 'right', 'top', 'bottom'] as const).forEach((dotPosition) => {

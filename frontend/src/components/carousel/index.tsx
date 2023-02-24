@@ -24,20 +24,21 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
     React.useEffect(() => {
       const currentCount = React.Children.count(props.children)
       if (childrenCount.current !== currentCount) {
-        goTo(defaultIndex % currentCount, false);
         childrenCount.current = currentCount;
+        goTo(defaultIndex, false);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.children]);
 
-    const [slider, setSlider] = React.useState(defaultIndex % childrenCount.current)
+    const [slider, setSlider] = React.useState(defaultIndex % childrenCount.current || 0)
     const [useAnimation, setUseAnimation] = React.useState(true)
 
     const goTo = (index: number, animation: boolean = true) => {
       if (index !== slider) {
-        beforeChange && beforeChange(slider, index)
-        setSlider(index)
-        afterChange && afterChange(index)
+        if(beforeChange && beforeChange(slider, index) === false) return
+        const idx = index % childrenCount.current
+        setSlider(idx)
+        afterChange && afterChange(idx)
       }
 
       if (animation !== useAnimation) setUseAnimation(animation)
@@ -125,7 +126,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
                     className='dots-item-span'
                     style={dtsStyle(idx)}
                     onAnimationEnd={() => handleAnimation()}
-                  ></div>
+                  >{idx}</div>
                 </button>
               )))
             }
