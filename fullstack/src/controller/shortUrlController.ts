@@ -3,10 +3,14 @@ import BadRequestError from "../errors/BadRequestError";
 import ShortUrlService from "../service/shorUrlService";
 import { Controller } from "./types";
 
-class ShortUrlController  implements Controller {
-  private sortUrlService: ShortUrlService = new ShortUrlService();
+class ShortUrlController implements Controller {
+  private sortUrlService: ShortUrlService;
 
   public path = '/short_url';
+
+  constructor() {
+    this.sortUrlService = new ShortUrlService();
+  }
 
   post: RequestHandler = (req, _res,  next) => {
     const url = req.body.url;
@@ -31,4 +35,4 @@ class ShortUrlController  implements Controller {
   }
 }
 
-export default new ShortUrlController();
+export default ShortUrlController;
