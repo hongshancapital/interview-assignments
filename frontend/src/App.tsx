@@ -1,4 +1,5 @@
-import './App.css';
+import './App.css'
+import { ReactElement } from 'react'
 
 import Carousel from './components/carousel/carousel'
 
@@ -13,7 +14,7 @@ interface IItemInfo {
   dark?: boolean
 }
 
-function App() {
+function App(): ReactElement {
   const itemList: Array<IItemInfo> = [
     {
       title: 'XPhone',
@@ -32,9 +33,9 @@ function App() {
     }
   ]
 
-  return <div className='App'>
-    <Carousel>
-      <>
+  return (
+    <div className='App'>
+      <Carousel>
         {itemList.map((item, index) =>
           <Carousel.Item key={index}>
             <>
@@ -48,9 +49,9 @@ function App() {
             </>
           </Carousel.Item>
         )}
-      </>
-    </Carousel>
-  </div>;
+      </Carousel>
+    </div>
+  )
 }
 
-export default App;
+export default App
