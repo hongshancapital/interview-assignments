@@ -83,6 +83,34 @@ describe('申请短网址', () => {
     expect(response.body.sUrl.substr(-token.length)).toBe(token);
   });
 
+  it('请求不存在的短网址，发生冲突，为其扩展为其他的token后，再次请求', async () => {
+    const url = 'https://www.baidu.com';
+    const token = genSUrlToken('https://www.baidu.com');
+    await redis.hset(token, { u: 'www.test.com', p: 1 });
+    await redis.hset(token + '1', { u: 'www.test.com', p: 1 });
+    await redis.set('c:' + token, 10);
+
+    const response = await request(app).post('/').send({ url });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      sUrl: expect.any(String),
+      expireIn: expect.any(Number),
+    });
+    expect(response.body.sUrl).not.toBe(token);
+    expect(response.body.sUrl.substr(-token.length)).toBe(token);
+
+    const response2 = await request(app).post('/').send({ url });
+
+    expect(response2.status).toBe(200);
+    expect(response2.body).toEqual({
+      sUrl: expect.any(String),
+      expireIn: expect.any(Number),
+    });
+    expect(response2.body.sUrl).toBe(response.body.sUrl);
+
+  });
+
   it('请求不存在的短网址，已发生10次冲突，为其扩展为其他的token', async () => {
     const url = 'https://www.baidu.com';
     const token = genSUrlToken('https://www.baidu.com');

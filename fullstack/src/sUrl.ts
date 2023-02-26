@@ -63,6 +63,13 @@ router.post('/', async (req, res, next) => {
               break;
             }
 
+            // 检查是否已经有映射，如果有，直接使用
+            const mapped = await req.redis.get(`m:${protocol}:${u}`);
+            if (mapped) {
+              token = mapped;
+              break;
+            }
+
             // 碰撞了，考虑扩展token长度
             const count = await req.redis.incr(`c:${token}`);
             const prefix = toBase62(count);
@@ -73,6 +80,10 @@ router.post('/', async (req, res, next) => {
               token = genSUrlToken(original + '|' + warning + '|' + url);
             }
           } else {
+            if (warning < 10) {
+              // 重新生成过token，但是没有碰撞，可以考虑用其他非内存数据库存储一个映射以防止重复生成
+              await req.redis.set(`m:${protocol}:${u}`, token);
+            }
             break;
           }
         }
@@ -85,6 +96,8 @@ router.post('/', async (req, res, next) => {
         } else if (warning === 10) {
           // 没有碰撞，保存
           await req.redis.hmset(token, { p: protocol, u });
+        } else {
+          // 碰撞了，但是是同一个url，不需要保存
         }
 
         // 续命
