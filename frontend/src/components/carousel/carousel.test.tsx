@@ -66,17 +66,4 @@ it('测试Carousel组件:轮播图滚动', async () => {
     })
     expect(carouselItemCon.style.left).toBe(`-${100*(i%total)}%`)
   }
-  
-
-  // await act(async () => {
-  //   await sleep(duration)
-  // })
-  // expect(carouselItemCon.style.left).toBe('-200%')
-
-  
-  // await act(async () => {
-  //   await sleep(duration)
-  // })
-  // expect(carouselItemCon.style.left).toBe('-0%')
 })
-
