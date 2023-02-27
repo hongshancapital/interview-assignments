@@ -51,9 +51,7 @@ struct ContentView: View {
             .refreshable {
                 dataSource.reset()
                 if USING_CONCURRENCY {
-                    Task {
-                        await dataSource.loadNextUsingConcurrency(currentItem: nil)
-                    }
+                    await dataSource.loadNextUsingConcurrency(currentItem: nil)
                 } else {
                     dataSource.loadNextUsingCombine(currentItem: nil)
                 }

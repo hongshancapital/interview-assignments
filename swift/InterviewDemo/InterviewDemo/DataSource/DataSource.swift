@@ -13,7 +13,7 @@ let apiURL = URL(string: "https://itunes.apple.com/search?entity=software&limit=
 
 class DataSource: ObservableObject {
     @Published var items = [Item]()
-    var pageRemain = 3 // 模拟3次load next
+    private var pageRemain = 3 // 模拟3次load next
     
     @Published var isLoadingPage = false
     
@@ -89,7 +89,7 @@ class DataSource: ObservableObject {
             
             await MainActor.run {
                 isLoadingPage = false
-                    
+                
                 items.append(contentsOf: itemWrapper.results)
                 pageRemain -= 1
             }

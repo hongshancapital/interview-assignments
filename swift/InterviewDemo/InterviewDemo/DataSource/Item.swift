@@ -17,10 +17,10 @@ struct Item: Codable, Identifiable, Equatable {
     var trackName: String
     var description: String
     
-    var uuid: String
+    var uuid: UUID
     var isLiked: Bool
     
-    var id: String {
+    var id: UUID {
         uuid
     }
 
@@ -35,7 +35,7 @@ struct Item: Codable, Identifiable, Equatable {
         trackName = try container.decode(String.self, forKey: .trackName)
         description = try container.decode(String.self, forKey: .description)
         
-        uuid = UUID().uuidString
+        uuid = UUID()
         isLiked = false
     }
 }
