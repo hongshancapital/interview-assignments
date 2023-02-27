@@ -60,20 +60,23 @@ it('测试Carousel组件:轮播图滚动', async () => {
   const carouselItemCon = container.querySelector('.j-carousel>div') as HTMLDivElement
   expect(carouselItemCon.style.left).toBe('-0%')
   
-  await act(async () => {
-    await sleep(duration)
-  })
-  expect(carouselItemCon.style.left).toBe('-100%')
+  for(let i=1; i<=total; i++) {
+    await act(async () => {
+      await sleep(duration)
+    })
+    expect(carouselItemCon.style.left).toBe(`-${100*(i%total)}%`)
+  }
+  
 
-  await act(async () => {
-    await sleep(duration)
-  })
-  expect(carouselItemCon.style.left).toBe('-200%')
+  // await act(async () => {
+  //   await sleep(duration)
+  // })
+  // expect(carouselItemCon.style.left).toBe('-200%')
 
   
-  await act(async () => {
-    await sleep(duration)
-  })
-  expect(carouselItemCon.style.left).toBe('-0%')
+  // await act(async () => {
+  //   await sleep(duration)
+  // })
+  // expect(carouselItemCon.style.left).toBe('-0%')
 })
 
