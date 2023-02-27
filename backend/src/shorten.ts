@@ -1,11 +1,12 @@
 import Redis from "ioredis";
 
-const shortenkey = 'shorten:url';
-const longkey = 'long:url';
+const shortenkey = 'shorten:url'; // 短域名hash
+const longkey = 'long:url'; // 长域名hash
 
 export class Shorten {
 
 	public static async shorten(url: string, redis: Redis): Promise<string> {
+		// 长短url都通过hash结构对应存储，避免重复创建，方便查找
 		let code = await redis.hget(longkey, url);
 		if (code) return code;
 		code = Math.random().toString(36).slice(-8)
