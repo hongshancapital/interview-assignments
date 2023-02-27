@@ -20,7 +20,7 @@ const sleep = (duration: number) => {
   })
 }
 
-let container: HTMLDivElement, root: any
+let container: HTMLDivElement
 beforeEach(() => {
   container = document.createElement('div')
   document.body.appendChild(container)
