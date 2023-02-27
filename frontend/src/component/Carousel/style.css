@@ -1,0 +1,82 @@
+/** 轮播图 */
+.carousel {
+  height: 100%;
+  position: relative;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  list-style: none;
+  transition: left ease 500ms;
+}
+
+.carousel-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.carousel-item {
+  position: relative;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: contain;
+}
+
+.carousel-item-title {
+  text-align: center;
+  margin-top: 10%;
+  font-size: 3rem;
+}
+
+.carousel-item-desc {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 2rem;
+}
+
+/** 等待进度条 */
+.carousel-progress {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 50px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  width: min-content;
+  gap: 0 12px;
+}
+
+.carousel-progress-item {
+  width: 40px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: #A9A9A9;
+  overflow: hidden;
+}
+
+.carousel-progress-inner {
+  background-color: #FFF;
+  height: 100%;
+  width: 0;
+}
+
+.carousel-progress-active .carousel-progress-inner {
+  animation: progress linear 3000ms;
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
