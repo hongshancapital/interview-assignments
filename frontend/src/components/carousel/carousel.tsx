@@ -8,19 +8,7 @@ interface ICarouselProps {
 
 function Carousel({duration=3, children}: ICarouselProps): ReactElement {
   const [current, setCurrent] = useState<number>(-1)
-  const total = children?.length || null
-
-  useEffect(() => {
-    if(!total) return
-    if(current < 0) setCurrent(0)
-
-    const timer = setTimeout(() => {
-      let newcurrent = (current+1) % total
-      setCurrent(newcurrent)
-    }, duration * 1000)
-
-    return () => timer && clearTimeout(timer)
-  }, [current])
+  const total = children?.length || 0
 
   const Dots: ReactNode = (
     <ul>
@@ -33,10 +21,21 @@ function Carousel({duration=3, children}: ICarouselProps): ReactElement {
     </ul>
   )
 
+  useEffect(() => {
+    if(!total) return
+    setCurrent(0)
+
+    const timer = setInterval(() => {
+      setCurrent(current => (current+1) % total)
+    }, duration * 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <div className='j-carousel'>
       <div style={{left: `-${current * 100}%`}}>
-        { total && children }
+        { total>0 && children }
       </div>
       { total && Dots }
     </div>
