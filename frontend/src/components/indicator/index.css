@@ -1,0 +1,32 @@
+.indicators{
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    height: 40px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
+.indicators_label {
+    display: block;
+    width: 40px;
+    height: 6px;
+    border-radius: 4px;
+    margin: auto 10px;
+    background-color: #bbbbbb;
+}
+
+.indicators_span {
+    display: block;
+    width: 0px;
+    height: 6px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+@keyframes move {
+    0% {width: 0px;}
+    50% {width: 20px;}
+    100% {width: 40px;}
+}
+
