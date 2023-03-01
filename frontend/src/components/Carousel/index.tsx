@@ -36,7 +36,7 @@ const Carousel = (props: CarouselProps) => {
 
     const fireTimer = () => {
       timer = setTimeout(() => {
-        setActiveIndex((i) => i + 1);
+        setActiveIndex((i) => (i + 1) % childLen);
         fireTimer();
       }, duration);
     };
@@ -46,7 +46,7 @@ const Carousel = (props: CarouselProps) => {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [duration]);
+  }, [duration, childLen]);
 
   useLayoutEffect(() => {
     const containerWidth = containerRef.current?.getBoundingClientRect().width;
@@ -60,7 +60,7 @@ const Carousel = (props: CarouselProps) => {
         if (activeIndex === INIT_INDEX) {
           return 0;
         }
-        return -(activeIndex % childLen) * unitWidth;
+        return -activeIndex * unitWidth;
       })(),
     }),
     [activeIndex, childLen, unitWidth]
@@ -84,11 +84,7 @@ const Carousel = (props: CarouselProps) => {
       </div>
       <div className={classes["carousel-indicator"]}>
         {children.map((_, i) => (
-          <Indicator
-            key={i}
-            duration={duration}
-            active={i === activeIndex % childLen}
-          />
+          <Indicator key={i} duration={duration} active={i === activeIndex} />
         ))}
       </div>
     </div>
