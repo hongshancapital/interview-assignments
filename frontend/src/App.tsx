@@ -2,12 +2,11 @@ import Carousel from './components/carousel'
 import { getBannerList } from './mock/banner';
 
 import './App.css';
+import classNames from 'classnames';
+
+const bannerList = getBannerList()
 
 function App() {
-  // return <div className='App'>{/* write your component here */}</div>;
-  const bannerList = getBannerList()
-  const color = (val: boolean) => val ? '#fff' : '#333'
-
   return (
     <div className='App'>
       <Carousel>
@@ -15,9 +14,8 @@ function App() {
           bannerList.map(item => {
             return (
               <div
-                className='banner'
+                className={classNames('banner', { 'text-dark': item.isDark })}
                 key={item.title}
-                style={{ color: color(item.light) }}
               >
                 <div className="banner-header">
                   <div className="banner-header__title">

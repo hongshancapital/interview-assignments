@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames'
-import { CarouselProps, CarouselRef } from './interface';
+import { CarouselProps, CarouselRef, AnimationState } from './interface';
 import './index.scss'
 
 const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
@@ -21,52 +21,42 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
     // 逻辑部分
     const children = React.Children.toArray(props.children)
     const childrenCount = React.useRef(children.length)
-    React.useEffect(() => {
-      const currentCount = React.Children.count(props.children)
-      if (childrenCount.current !== currentCount) {
-        childrenCount.current = currentCount;
-        goTo(defaultIndex, false);
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.children]);
+    const getSafeIndex = (idx: number) => (idx % childrenCount.current) || 0
 
-    const [slider, setSlider] = React.useState(defaultIndex % childrenCount.current || 0)
-    const [useAnimation, setUseAnimation] = React.useState(true)
+    const [currentIndex, setCurrentIndex] = React.useState(getSafeIndex(defaultIndex))
+    const [playAnimation, setPlayAnimation] = React.useState(true)
+    const [playState, setPlayState] = React.useState<AnimationState>('running')
 
     const goTo = (index: number, animation: boolean = true) => {
-      if (index !== slider) {
-        if(beforeChange && beforeChange(slider, index) === false) return
-        const idx = index % childrenCount.current
-        setSlider(idx)
-        afterChange && afterChange(idx)
-      }
+      if (index === currentIndex) return
 
-      if (animation !== useAnimation) setUseAnimation(animation)
+      if (beforeChange && beforeChange(currentIndex, index) === false) return
+      const idx = getSafeIndex(index)
+      setCurrentIndex(idx)
+      afterChange && afterChange(idx)
+
+      if (animation !== playAnimation) setPlayAnimation(animation)
     }
-    const next = () => goTo(slider + 1)
-    const prev = () => goTo(slider - 1)
-    const carouselRef = React.useRef<any>()
+    const next = () => goTo(currentIndex + 1)
+    const prev = () => goTo(currentIndex - 1)
+
     React.useImperativeHandle(ref, () => ({
-      el: carouselRef.current,
       goTo,
       next,
       prev,
     }))
     React.useEffect(() => {
-      if (useAnimation === false) {
-        setUseAnimation(true)
+      if (playAnimation === false) {
+        setPlayAnimation(true)
       }
-    }, [useAnimation])
-
+    }, [playAnimation])
 
     // Dom 部分
-    const rootClasses = classNames('carousel', className)
     const rootContainerStyle = {
       width: `${childrenCount.current * 100}%`,
-      transitionDuration: useAnimation ? '0.5s' : '0s',
-      transform: `translate3D(-${(100 * slider) / childrenCount.current}%, 0, 0)`,
+      transitionDuration: playAnimation ? '0.5s' : '0s',
+      transform: `translate3D(-${(100 * currentIndex) / childrenCount.current}%, 0, 0)`,
     }
-    const childrenClass = (idx: number) => classNames('carousel-item', { 'carousel-item-active': slider === idx })
 
     const hasNext = autoplay && duration !== 0
     const enableDots = !!dots
@@ -75,34 +65,39 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
       `dots-${dotPosition}`,
       typeof dots === 'boolean' ? '' : dots?.className
     ])
-    const dtsChildClass = (idx: number) => classNames('dots-item', { 'dots-item-active': slider === idx })
     const dtsStyle = (idx: number): React.CSSProperties => {
-      if (slider === idx) {
+      if (currentIndex === idx) {
         const isX = ['top', 'bottom'].includes(dotPosition)
         const direction = isX ? 'width' : 'height'
         const animationName = isX ? 'progress-width' : 'progress-height'
         return {
           [direction]: hasNext ? 'auto' : '100%',
-          animation: `${animationName} ${hasNext ? duration : 0}ms linear`
+          animation: `${animationName} ${hasNext ? duration : 0}ms linear`,
+          animationPlayState: playState
         }
       }
       return {}
     }
     const handleClick = (index: number) => goTo(index)
     const handleAnimation = () => {
-      if (hasNext) goTo(slider + 1)
+      if (hasNext) goTo(currentIndex + 1)
     }
 
     return (
-      <div ref={carouselRef} className={rootClasses}>
+      <div
+        className={classNames('carousel', className)}
+        onMouseEnter={() => setPlayState('paused')}
+        onMouseLeave={() => setPlayState('running')}
+      >
         {/* 轮播区域 */}
         <div
           className="carousel-container"
-          style={rootContainerStyle}>
+          style={rootContainerStyle}
+        >
           {
             children?.map((item, idx) => (
               <div
-                className={childrenClass(idx)}
+                className={classNames('carousel-item', { 'carousel-item-active': currentIndex === idx })}
                 key={'carousel-item' + idx}
                 style={{ width: `${100 / childrenCount.current}%`, }}>
                 {item}
@@ -118,7 +113,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
             {
               children.map(((_, idx) => (
                 <button
-                  className={dtsChildClass(idx)}
+                  className={classNames('dots-item', { 'dots-item-active': currentIndex === idx })}
                   key={idx}
                   onClick={() => handleClick(idx)}
                 >
@@ -136,6 +131,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
     )
   }
 )
+
 
 export * from './interface'
 export default Carousel;

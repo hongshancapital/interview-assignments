@@ -63,5 +63,9 @@ export interface CarouselRef {
    * 上一页
    */
   prev: () => void;
-  el: any;
 }
+
+/**
+ * 当前执行动画状态
+ */
+export type AnimationState = 'paused' | 'running'

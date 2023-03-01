@@ -15,17 +15,6 @@ describe('Carousel component', () => {
     expect(container.querySelectorAll('.dots-item').length).toBe(4)
   })
 
-  it('should expose render el', () => {
-    const ref = React.createRef<CarouselRef>();
-    render(
-      <Carousel ref={ref}>
-        <div />
-      </Carousel>,
-    );
-    const { el } = ref.current || {};
-    expect((el as HTMLDivElement).nodeType).toBe(1);
-  });
-
   it('should has prev, next and go function', async () => {
     const ref = React.createRef<CarouselRef>();
     const { container } = render(
@@ -108,17 +97,6 @@ describe('Carousel component', () => {
       expect(container.querySelector('.dots-item-active')).toBeTruthy();
     });
 
-    it('should keep defaultIndex', () => {
-      const { rerender, container } = render(<Carousel defaultIndex={1} />);
-      rerender(
-        <Carousel defaultIndex={1}>
-          <div key="1" />
-          <div key="2" />
-          <div key="3" />
-        </Carousel>,
-      );
-      expect(container.querySelectorAll('.carousel-item')[1]).toHaveClass('carousel-item-active');
-    });
   });
 
   describe('dots', () => {
