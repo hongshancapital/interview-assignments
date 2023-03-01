@@ -115,7 +115,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>((props, ref) =>
     const items = list.map((a, index) => {
       const itemCls = classnames(
         'anchors-item',
-        index === Math.ceil(currentIndex) ? 'animated' : '',
+        index === Math.floor(currentIndex) ? 'animated' : '',
       );
 
       const onClickItem = () => {

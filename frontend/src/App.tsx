@@ -26,7 +26,11 @@ const list = [
 function App() {
   return (
     <div className='App'>
-      <Carousel list={list} />
+      <Carousel
+        switchDuration={0.5}
+        previewDuration={2}
+        list={list}
+      />
     </div>
   );
 }
