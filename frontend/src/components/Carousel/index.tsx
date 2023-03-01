@@ -28,11 +28,11 @@ const Carousel = (props: CarouselProps) => {
 
   // 加载第一次「指示器」的动画
   useEffect(() => {
-    setActiveIndex(0)
-  }, [])
+    setActiveIndex(0);
+  }, []);
 
   useEffect(() => {
-    let timer: any = null;
+    let timer: NodeJS.Timeout | null = null;
 
     const fireTimer = () => {
       timer = setTimeout(() => {
