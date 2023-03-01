@@ -85,6 +85,8 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>((props, ref) =>
       ? 0
       : Math.ceil(currentIndex);
 
+    const testId = `carousel-imgs-${count}`;
+
     const imgsStyle = {
       transform: `translateX(${-100 * count}%)`,
     };
@@ -92,10 +94,11 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>((props, ref) =>
     const items = list.map((item, index) => {
       const { img, title = '', text = '' } = item;
 
+      const itemTestId = `carousel-imgs-${img}`;
       const imgStyle = { backgroundImage: `url(${img})` };
 
       return (
-        <div className="imgs-item" key={index} style={imgStyle}>
+        <div className="imgs-item" key={index} style={imgStyle} data-testid={itemTestId}>
           <div className="info">
             <div className="title">{ title }</div>
             <div className="text">{ text }</div>
@@ -105,7 +108,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>((props, ref) =>
     });
 
     return (
-      <div className="carousel-imgs" onTransitionEnd={onTransitionEnd} style={imgsStyle}>
+      <div className="carousel-imgs" onTransitionEnd={onTransitionEnd} style={imgsStyle} data-testid={testId}>
         { items }
       </div>
     );
@@ -113,6 +116,8 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>((props, ref) =>
 
   const renderAnchors = () => {
     const items = list.map((a, index) => {
+      const itemTestId = `carousel-anchors-${index}`;
+
       const itemCls = classnames(
         'anchors-item',
         index === Math.floor(currentIndex) ? 'animated' : '',
@@ -126,6 +131,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>((props, ref) =>
         <div
           key={index}
           className={itemCls}
+          data-testid={itemTestId}
           onClick={onClickItem}
           onAnimationEnd={onAnimationEnd}
         />
