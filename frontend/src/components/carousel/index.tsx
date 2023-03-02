@@ -24,7 +24,6 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
     const getSafeIndex = (idx: number) => (idx % childrenCount.current) || 0
 
     const [currentIndex, setCurrentIndex] = React.useState(getSafeIndex(defaultIndex))
-    const [playAnimation, setPlayAnimation] = React.useState(true)
     const [playState, setPlayState] = React.useState<AnimationState>('running')
 
     const goTo = (index: number, animation: boolean = true) => {
@@ -34,8 +33,6 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
       const idx = getSafeIndex(index)
       setCurrentIndex(idx)
       afterChange && afterChange(idx)
-
-      if (animation !== playAnimation) setPlayAnimation(animation)
     }
     const next = () => goTo(currentIndex + 1)
     const prev = () => goTo(currentIndex - 1)
@@ -45,16 +42,10 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
       next,
       prev,
     }))
-    React.useEffect(() => {
-      if (playAnimation === false) {
-        setPlayAnimation(true)
-      }
-    }, [playAnimation])
 
     // Dom 部分
     const rootContainerStyle = {
       width: `${childrenCount.current * 100}%`,
-      transitionDuration: playAnimation ? '0.5s' : '0s',
       transform: `translate3D(-${(100 * currentIndex) / childrenCount.current}%, 0, 0)`,
     }
 
