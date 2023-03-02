@@ -1,0 +1,45 @@
+.container {
+    overflow: hidden;
+  }
+  
+.inner {
+    white-space: nowrap;
+    transition: transform 0.3s;
+  }
+   
+.loading {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+.indicator_outer {
+    width: 90px;
+    height: 3px;
+    background-color: gray;
+    margin-left: 20px;
+    border-radius: 3px;
+  }
+  
+.indicator_inside {
+    height: 100%;
+    border-radius: 3px;
+    animation-fill-mode: forwards;
+    animation-name: progressBar;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes progressBar {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
