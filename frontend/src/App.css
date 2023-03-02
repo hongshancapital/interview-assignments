@@ -1,14 +1,74 @@
 .App {
-  text-align: center;
-  position: relative;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .title {
-  font-size: 56px;
-  font-weight: 600;
+    font-size: 56px;
+    font-weight: 600;
 }
 
 .text {
-  font-size: 28px;
-  font-weight: 400;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.carousel-view-container {
+    height: 100%;
+}
+
+.carousel-view-container > div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
+.iphone-view {
+    background-color: #111;
+    color: #ffffff;
+}
+
+.tablet-view {
+    background-color: #fafafa;
+}
+
+.airpods-view {
+    background-color: #f1f1f1;
+}
+
+.iphone-img, .tablet-img, .airpods-img {
+    width: 100%;
+    position: absolute;
+    bottom: 200px;
+    left: 0;
+}
+
+.carousel-container-content {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 200px;
+    left: 0;
+    z-index: 1;
+}
+
+.carousel-container-content .title {
+    font-weight: 700;
+    font-size: 4em;
+}
+.carousel-container-content .title p{
+    margin: 0;
+}
+
+.carousel-container-content .text {
+    margin-top: 10px;
+}
+
+.carousel-container-content .text p {
+    font-size: 1.5em;
+    margin: 0;
 }
