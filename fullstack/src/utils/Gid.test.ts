@@ -60,6 +60,17 @@ describe("Gid works as expected", () => {
     expect(Array.from(new Set(ids)).length).toEqual(11000);
   });
 
+  it("should counter max work", () => {
+    const GeneratorD = new Gid();
+    const ids: string[] = [];
+    while (ids.length < 16) {
+      ids.push(GeneratorD.generate());
+    }
+    // 1bit 2bit 41bit 4bit
+    expect(ids[14].slice(3, 44)).toEqual(ids[13].slice(3, 44));
+    expect(ids[14].slice(3, 44)).not.toEqual(ids[15].slice(3, 44));
+  });
+
   it("fixLen should work", () => {
     expect(GeneratorA.fixLen("AA", 4)).toEqual("00AA");
     expect(GeneratorA.fixLen("AAAA", 4)).toEqual("AAAA");
