@@ -23,7 +23,9 @@ if (
 }
 
 // establish database connection
-const connection = connect(connectUrl);
+export const connection = connect(connectUrl);
+if (!process.env.DB_NAME) throw Error("Invalid database name");
+const db = connection.then((connection) => connection.db(process.env.DB_NAME));
 
 const gidGenerator = new Gid({
   machineId,
@@ -35,7 +37,7 @@ app.use(express.json());
 
 // get long link
 app.get("/:short_url", async function (req, res) {
-  const links = await connection.then((db) =>
+  const links = await db.then((db) =>
     db.collection("links").findOne({
       short_url: req.params.short_url,
     })
@@ -50,7 +52,7 @@ app.post("/shortlink", async function (req, res) {
   const { url } = req.body;
   if (url.match(/^http[s]?:\/\/[^/]+/g)) {
     const short_url = gidGenerator.bitToBase64(gidGenerator.generate());
-    const { insertedId } = await connection.then((db) =>
+    const { insertedId } = await db.then((db) =>
       db.collection("links").insertOne({
         url,
         short_url,
