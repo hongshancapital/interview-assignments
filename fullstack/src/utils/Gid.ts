@@ -1,8 +1,8 @@
 export class Gid {
-  constructor(config: { instanceId?: number; machineId?: 0 | 1 } = {}) {
+  constructor(config: { instanceId?: 0 | 1 | 2 | 3; machineId?: 0 | 1 } = {}) {
     const { instanceId = 0, machineId = 0 } = config;
-    if (instanceId >= 4) throw Error("instanceId must >= 0 & < 4");
-    if (machineId >= 4) throw Error("instanceId must be 0 or 1");
+    if (instanceId >= 4 || instanceId < 0) throw Error("instanceId must >= 0 & < 4");
+    if (machineId >= 4 || machineId < 0) throw Error("instanceId must be 0 or 1");
     this.instanceId = instanceId;
     this.machineId = machineId;
   }
