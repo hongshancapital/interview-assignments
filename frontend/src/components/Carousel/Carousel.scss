@@ -60,6 +60,7 @@
       &.animated {
         &:before {
           animation: carousel-anchor-switching var(--preview-duration) linear forwards;
+          animation-play-state:  var(--carousel-animation-play-state, none);
         }
       }
 
@@ -95,9 +96,7 @@
   overflow: hidden;
 
   &:hover {
-    .anchors-item:before {
-      animation-play-state: paused !important;
-    }
+    --carousel-animation-play-state: paused;
   }
 
   @include carouselImgs;

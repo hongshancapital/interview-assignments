@@ -43,6 +43,14 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>((props, ref) =>
     'components-carousel-render'
   );
 
+  /**
+   * currentIndex 为整数，比如为 1
+   * 显示索引为 1 / Math.ceil(currentIndex) 的图片
+   * 下标索引为 1 / Math.floor(currentIndex) 的锚点正在显示过渡动画。动画结束 currentIndex += 0.5，执行到小数的处理逻辑 
+   * 
+   * currentIndex 为小数，比如为 1.5
+   * 图片正在执行过渡动画，从索引为 1 的图片过渡到索引为 2 / Math.ceil(currentIndex) 的图片。动画结束 currentIndex += 0.5，执行到整数的逻辑
+   */
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const list = useMemo(() => {
