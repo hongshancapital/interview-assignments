@@ -24,11 +24,11 @@ POST /url/originUrl
 
 2. 单元测试代码以及单元测试覆盖率(覆盖率请勿提交整个目录，一张图片或一个 text table 即可)
 
-![test-cov.png]
+![](./short-url/test-cov.png)
 
 3. API 集成测试案例以及测试结果
    
-![test-cov.png]
+![](./short-url/test-cov.png)
 或者运行: `npm run test:cov`
 
 4. 简单的框架设计图，以及所有做的假设
