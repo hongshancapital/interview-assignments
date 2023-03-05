@@ -1,5 +1,5 @@
-import './index.scss';
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import './index.scss';
 
 interface Props {
     duration: number;
@@ -9,7 +9,7 @@ interface Props {
 export default function Carousel(props: Props) {
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const wrapperEl = useRef<HTMLDivElement>(null);
-    const sliderEl = useRef<HTMLDivElement>(null);
+    const sliderEl = useRef<HTMLUListElement>(null);
     const timer = useRef<number>();
 
     useEffect(() => {
@@ -47,17 +47,17 @@ export default function Carousel(props: Props) {
 
     return (
         <div className="carousel-container" ref={wrapperEl}>
-            <div className="slider" ref={sliderEl} style={{ left: -(activeIndex * getSliderWidth()) + 'px' }}>
+            <ul className="slider" ref={sliderEl} style={{ left: -(activeIndex * getSliderWidth()) + 'px' }}>
                 {
-                    props.children.map((child, index) => (<div className="item" key={`slider-${index}`}>
+                    props.children.map((child, index) => (<li className="item" key={`slider-${index}`}>
                         {child}
-                    </div>))
+                    </li>))
                 }
-            </div>
+            </ul>
             <div className="time-bar">
                 {
                     props.children.map((_, index) =>
-                        <div className="bar-outer" key={`bar-${index}`}>
+                        <div className="bar-outer" key={`bar-${index}`} onClick={() => setActiveIndex(index)}>
                             <div className={'bar-inner ' + (activeIndex === index ? 'active' : '')}
                                  style={{ animationDuration: props.duration + 's' }}/>
                         </div>
