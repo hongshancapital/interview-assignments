@@ -5,7 +5,12 @@
 撰写两个 API 接口
 
 - 短域名存储接口：接受长域名信息，返回短域名信息
+
+POST /url/shortUrl
+
 - 短域名读取接口：接受短域名信息，返回长域名信息。
+
+POST /url/originUrl
 
 限制
 
@@ -14,12 +19,30 @@
 递交作业内容
 
 1. 源代码
+
+见./short-url
+
 2. 单元测试代码以及单元测试覆盖率(覆盖率请勿提交整个目录，一张图片或一个 text table 即可)
+
+![test-cov.png]
+
 3. API 集成测试案例以及测试结果
+   
+![test-cov.png]
+或者运行: `npm run test:cov`
+
 4. 简单的框架设计图，以及所有做的假设
+   
+- 设计思路
+  - 在mysql中新建一个表, id自增, 其他字段包括originUrl(长链接),shortUrl(短链接)
+  - 将originUrl插入数据, 获得一个id
+  - 将id进行62进制转化获得一个字符串, 该字符串定义为shortName, 这个shortName加上域名即为链接
+- 假设
+  - 原始的originUrl不超过200个字符, 如果超过200也能实现但是本demo为实现, 需要了解可以微信沟通
+
 5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
 
-其他
+请查看`backend/short-url/src/url/url.entity.ts`文件查看表设计, 其中originUrl设置唯一索引为了去重, shortUrl设置索引为了可以更快通过shortUrl获取originUrl.
 
 - 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
 
