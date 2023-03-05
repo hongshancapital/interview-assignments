@@ -57,6 +57,7 @@ module.exports = {
     ],
     devServer: {
         hot: true,
+        port: 3000
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json']
