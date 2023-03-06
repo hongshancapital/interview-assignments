@@ -11,4 +11,4 @@ export const query = async function (sql: string): Promise<any[]> {
   }
 }
 
-export default {query}
+export default { query }

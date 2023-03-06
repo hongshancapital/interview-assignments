@@ -5,7 +5,6 @@ import express, {
   Request,
   Response
 } from 'express';
-import { CreateShortLinkBody } from './interface'
 import { query,getShortLink,insertLongLink } from '../db'
 const app = express()
 const port = 3000
@@ -17,9 +16,7 @@ app.use(middleware?.checkParameter)
 
 // 输入长链，获取短链
 app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
-  const body: CreateShortLinkBody = req.body;
-  const {shortLink, longLink} = parseShortLinkFromBody(body)
-
+  const {shortLink, longLink} = parseShortLinkFromBody(req.body)
   try {
     const [queryError, response] = await query(getShortLink(shortLink));
     if (queryError) {
