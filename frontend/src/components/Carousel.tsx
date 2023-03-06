@@ -2,10 +2,11 @@
  * @Description: 轮播图 容器视图
  * @Author: cmh
  * @Date: 2023-03-02 14:15:05
- * @LastEditTime: 2023-03-02 14:44:58
+ * @LastEditTime: 2023-03-06 19:56:36
  * @LastEditors: cmh
  */
 import React, { useState, useEffect } from "react";
+import { replayAnimations } from "../util/tool";
 import style from "./Carousel.module.css";
 /**
  * @param {children} children ReactNode
@@ -16,7 +17,7 @@ const Carousel = ({
   children = React.createElement("div"),
   switchingTime = 3000,
 }) => {
-  const time = ((switchingTime % 60000) / 1000).toFixed(0); // 将毫秒转换为秒
+  // const time = (switchingTime  / 1000).toFixed(0); // 将毫秒转换为秒
   const [activeIndex, setActiveIndex] = useState(0); // 对应索引
 
   /**
@@ -33,15 +34,6 @@ const Carousel = ({
     replayAnimations();
   };
 
-  /**
-   * 重置动画
-   */
-  const replayAnimations = () => {
-    document.getAnimations().forEach((anim) => {
-      anim.cancel();
-      anim.play();
-    });
-  };
 
 
   useEffect(() => {
@@ -62,9 +54,9 @@ const Carousel = ({
         className={style.inner}
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}
       >
-        {React.Children.map(children, (child) => {
-          return React.cloneElement(child, { width: "100%", height: "100vh" } as any);
-        })}
+        {React.Children.map(children, (child, props: any) => {
+          return React.cloneElement(child, {...props, width: "100%", height: "100%" } );
+        })} 
       </div>
       <div className={style.loading}>
         {React.Children.map(children, (child, index) => {
@@ -73,12 +65,7 @@ const Carousel = ({
               className={style.indicator_outer}
             >
               <div
-                className={style.indicator_inside}
-                style={{
-                  animationDuration: index === activeIndex ? `${time}s` : "0s",
-                  backgroundColor: index === activeIndex ? "rgba(255,255,255,0.5)" : undefined,
-                }}
-              />
+                className={`${style.indicator_inside} ${index === activeIndex ? style.indicator_inside_active : style.indicator_inside_noactive}`} />
             </div>
           );
         })}

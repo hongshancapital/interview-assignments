@@ -31,8 +31,17 @@
     border-radius: 3px;
     animation-fill-mode: forwards;
     animation-name: progressBar;
-    animation-iteration-count: infinite;
+    animation-iteration-count: infinite; 
+}
+
+.indicator_inside_active {
+    animation-duration: 3s;
+    background-color: rgba(255,255,255,0.5);
   }
+  
+.indicator_inside_noactive {
+    animation-duration: 0s;
+}
   
   @keyframes progressBar {
     0% {
