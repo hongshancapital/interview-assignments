@@ -5,7 +5,7 @@ import  {
 import { CreateShortLinkBody } from '../../src/interface';
 import Joi from 'joi'
 
-// 校验sql注入，待填坑
+// 校验参数是否合法
 const checkParameter = function (req: Request, res: Response, next: () => void) {
   const body: CreateShortLinkBody = req.body;
   const schema = Joi.object({
@@ -17,7 +17,7 @@ const checkParameter = function (req: Request, res: Response, next: () => void) 
   if (!error) { 
     next()
   } else {
-    res.send('longUrl 校验失败')
+    res.send(error)
   }
 }
 

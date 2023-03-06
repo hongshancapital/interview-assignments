@@ -2,3 +2,7 @@
 export interface CreateShortLinkBody {
   longUrl: string;
 }
+
+export interface ShortLinkToLongLink {
+  shortUrl: string;
+}

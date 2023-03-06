@@ -1,7 +1,21 @@
-import { query } from './mysql'
+import { query as mysqlQuery } from './mysql'
 
-const query = async function <T>(shortId: T): Promise<Boolean> {
-  
-
-  return true;
+export const query = async function (sql: string): Promise<any[]> {
+  try {
+    const res = await mysqlQuery(sql, {})
+    return [null, res]
+  } catch (err) {
+    return [err, null]
+  }
 }
+
+export const inject = async function (sql: string): Promise<any[]> {
+  try {
+    const res = await mysqlQuery(sql, {})
+    return [null, res]
+  } catch (err) {
+    return [err, null]
+  }
+}
+
+export default {query}
