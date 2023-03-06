@@ -1,7 +1,6 @@
 import middleware from '../middleware';
 import bodyParser from 'body-parser';
-import url from 'url';
-import fnv from 'fnv-plus'
+import parseShortLinkFromBody from '../utils/getShortLink'
 import express, {
   Request,
   Response
@@ -19,13 +18,7 @@ app.use(middleware?.checkParameter)
 // 输入长链，获取短链
 app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
   const body: CreateShortLinkBody = req.body;
-  const { longLink } = body;
-  const parsedUrl = url.parse(longLink);
-  const baseUrl = `${parsedUrl?.protocol}//${parsedUrl?.host}`
-  // 生成唯一id
-  const id: String = fnv.fast1a32hex(longLink);
-  // 生成短链
-  const shortLink = `${baseUrl}/${id}`
+  const {shortLink, longLink} = parseShortLinkFromBody(body)
 
   try {
     const [queryError, response] = await query(getShortLink(shortLink));
