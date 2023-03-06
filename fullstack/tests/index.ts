@@ -1,14 +1,16 @@
 import request from "supertest";
-import app from "../src";
+import app from "../src/app";
 let conn!: any;
 describe("router testing", () => {
   it("long url converts to short url", async () => {
     let server = request(app);
+    // await new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve(true);
+    //   }, 1000);
+    // });
     let response = server.get(
-      `/long2short?url=${encodeURIComponent("https://www.baidu.com/")}`,
-      () => {
-        console.log("in callback");
-      }
+      `/long2short?url=${encodeURIComponent("https://www.baidu.com/")}`
     );
     console.log(response);
     return response
