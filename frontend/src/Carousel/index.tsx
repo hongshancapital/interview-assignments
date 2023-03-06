@@ -1,55 +1,69 @@
-import React, { useEffect, useState, useRef } from "react";
-import "./index.css";
+import React, { useEffect, useState } from "react"
+import './index.css'
+
 import banner1 from "../assets/airpods.png";
 import banner2 from "../assets/iphone.png";
 import banner3 from "../assets/tablet.png";
 
+interface Img {
+    url: String | any;
+    bgColor: String | any;
+    color: String | any;
+}
+
+const imgs: Img[] = [{url:banner1, bgColor: '#F1F1F3', color: 'black'}, 
+{url:banner2, bgColor: '#111111', color: 'white'}, 
+{url:banner3, bgColor: '#FAFAFA', color: 'black'}]
+
+function useInterval(callback: Function, interval: number) {
+    useEffect(() => {
+        const start = new Date().getTime()
+        const I = setInterval(() => {
+            callback(new Date().getTime() - start)
+        }, interval)
+        return () => clearInterval(I)
+    },  [])
+}
+
+function useSlider(N: number, speed = 3000){
+    const [slider, setSlider] = useState(0)
+    useInterval((diff: any) => {
+        setSlider(_ => Math.floor(diff / speed) % N)
+    }, 300)
+    return slider
+}
+
 const Carousel = () => {
-  const clsRef = useRef(["one", "two", "three", ]);
-  const dotsRef = useRef(["change", "", ""]);
-
-  const [dots, setDots] = useState([""]);
-  const [cls, setCls] = useState([""]);
-
-  useEffect(() => {
-    setCls([...clsRef.current]);
-    setDots([...dotsRef.current]);
-    const time = setInterval(() => {
-      const clsTmp = [...clsRef.current];
-      const dotsTmp = [...dotsRef.current];
-      let tmp = String(clsTmp.pop());
-      clsTmp.unshift(tmp);
-      let dotTmp = String(dotsTmp.pop());
-      dotsTmp.unshift(dotTmp);
-      setCls(clsTmp);
-      setDots(dotsTmp);
-      clsRef.current = clsTmp;
-      dotsRef.current = dotsTmp;
-    }, 3000);
-    return () => clearInterval(time);
-  }, []);
-
-  return (
-    <div className="box">
-      <ul className="imgs">
-        <li className={cls[0]}>
-          <img src={banner1} />
-        </li>
-        <li className={cls[1]}>
-          <img src={banner2} />
-        </li>
-        <li className={cls[2]}>
-          <img src={banner3} />
-        </li>
-      </ul>
-
-      <ul className="list">
-        <li className={dots[0]}></li>
-        <li className={dots[1]}></li>
-        <li className={dots[2]}></li>
-      </ul>
-    </div>
-  );
-};
+    const slider = useSlider(imgs.length)
+    return (
+        <div className="scroller">
+            <div className="inner"
+                style={{
+                    width: `${imgs.length * 100}%`,
+                    transform: `translateX(-${100 * slider/imgs.length}%)`
+                }}>
+                {imgs.map((img, index) => {
+                    return (
+                    <div className="img" key={index} style={{
+                        width: `${100 / imgs.length}%`,
+                        backgroundColor: img.bgColor,
+                        color: img.color
+                    }}>
+                        <div className='title'>Buy a Tablet or xPhone for college.</div>
+                        <div className='text'>Get airpods</div>
+                        <img src={img.url} alt='' />
+                    </div>)
+                })}
+            </div>
+            <div className="slider">
+                {imgs.map((img, index) => {
+                    return <div style={{
+                        animation: index === slider ? 'LeftToRight 3s infinite' : 'none'
+                    }}></div>
+                })}
+            </div>
+        </div>
+    )
+}
 
 export default Carousel;
