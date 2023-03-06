@@ -25,10 +25,10 @@ function useInterval(
       passTime.current = Date.now() - startDate.current + passTime.current;
       return;
     }
-
     const timer = setInterval(() => {
       fnRef.current();
       passTime.current = 0;
+      startDate.current = Date.now();
     }, delay - passTime.current);
     startDate.current = Date.now();
 

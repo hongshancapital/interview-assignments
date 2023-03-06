@@ -26,7 +26,6 @@ function App() {
       imgUrl: airpodsImg,
     },
   ];
-  console.log(data);
   return (
     <div>
       <div className="carousel-header">
