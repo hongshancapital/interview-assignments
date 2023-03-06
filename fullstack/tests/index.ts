@@ -1,28 +1,28 @@
 import request from "supertest";
-import app from "../src/index";
+import app from "../src";
+let conn!: any;
 describe("router testing", () => {
-  it("long url converts to short url", (done) => {
-    let response = request(app).get(
-      `/long2short?url=${encodeURIComponent("https://www.baidu.com/")}`
+  it("long url converts to short url", async () => {
+    let server = request(app);
+    let response = server.get(
+      `/long2short?url=${encodeURIComponent("https://www.baidu.com/")}`,
+      () => {
+        console.log("in callback");
+      }
     );
-    response
-      .expect("Content-Type", "application/json")
-      .expect(200)
-      .end((err, res) => {
-        if (err) throw err;
-        console.log(res.text);
-        done();
-      });
+    console.log(response);
+    return response
+      .expect("Content-Type", "application/json; charset=utf-8")
+      .expect(200);
   });
-  it("short url converts to long url", (done) => {
-    request(app)
-      .get(`short2long?url=${encodeURIComponent("https://s.cn/2")}`)
-      .expect("Content-Type", "application/json")
-      .expect(200)
-      .end((err, res) => {
-        if (err) throw err;
-        console.log(res);
-        done();
-      });
+  it("short url converts to long url", async () => {
+    let server = request("http://localhost:3500");
+    let response = server.get(
+      `/short2long?url=${encodeURIComponent("https://s.cn/2")}`
+    );
+
+    return response
+      .expect("Content-Type", "application/json; charset=utf-8")
+      .expect(200);
   });
 });
