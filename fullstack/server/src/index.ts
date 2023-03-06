@@ -7,7 +7,7 @@ import express, {
   Response
 } from 'express';
 import { CreateShortLinkBody } from './interface'
-import { query, inject } from '../db'
+import { query,getShortLink,insertLongLink } from '../db'
 const app = express()
 const port = 3000
 
@@ -19,16 +19,16 @@ app.use(middleware?.checkParameter)
 // 输入长链，获取短链
 app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
   const body: CreateShortLinkBody = req.body;
-  const { longUrl } = body;
-  const parsedUrl = url.parse(longUrl);
+  const { longLink } = body;
+  const parsedUrl = url.parse(longLink);
   const baseUrl = `${parsedUrl?.protocol}//${parsedUrl?.host}`
   // 生成唯一id
-  const id: String = fnv.fast1a32hex(longUrl);
+  const id: String = fnv.fast1a32hex(longLink);
   // 生成短链
   const shortLink = `${baseUrl}/${id}`
 
   try {
-    const [queryError, response] = await query(`SELECT * FROM link_map_table WHERE short_link = '${shortLink}'`);
+    const [queryError, response] = await query(getShortLink(shortLink));
     if (queryError) {
       throw new Error(queryError)
     }
@@ -37,9 +37,8 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
         short_link: response[0]?.short_link
       })
     }
-    console.log(longUrl, 'longUrl')
     if (!response.length) {
-      const [err, data] = await inject(`INSERT INTO link_map_table (short_link,long_link) VALUES ('${shortLink}', '${longUrl}' ) `)
+      const [err, data] = await query(insertLongLink(shortLink, longLink))
       if (err) {
         throw new Error(err)
       }
@@ -60,7 +59,7 @@ app.get('/shortLinkToLongLink', async (req: Request, res: Response,next) => {
   const params: any = req.query;
   const shortLink = decodeURIComponent(params?.shortUrl)
   try {
-    const [queryError, response] = await query(`SELECT * FROM link_map_table WHERE short_link = '${shortLink}'`);
+    const [queryError, response] = await query(getShortLink(shortLink));
     if (queryError) {
       throw new Error(queryError)
     }
