@@ -1,0 +1,53 @@
+.scdt-carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.scdt-carousel__track {
+  position: absolute;
+  top: 0;
+  display: flex;
+  transition: left .5s ease-in-out;
+  height: 100%;
+}
+.scdt-carousel__item-container {
+  height: 100%;
+}
+
+.scdt-carousel__indicators-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 60px;
+  display: flex;
+}
+.scdt-carousel__indicator {
+  width: 40px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: rgba(192, 192, 192, 0.3);
+  overflow: hidden;
+}
+.scdt-carousel__indicator + .scdt-carousel__indicator {
+  margin-left: 10px;
+}
+.scdt-carousel__indicator-animation {
+  width: 0;
+  height: 100%;
+  background-color: #fff;
+  will-change: width;
+}
+.scdt-carousel__indicator.active .scdt-carousel__indicator-animation {
+  animation-name: width-change;
+  animation-timing-function: linear;
+}
+@keyframes width-change {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
