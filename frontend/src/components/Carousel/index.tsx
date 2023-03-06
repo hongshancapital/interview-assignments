@@ -42,7 +42,6 @@ const Carousel: React.FC<CarouselProps> = ({ items, duration, speed }) => {
         items?.map((item, index) => (
           <CarouselItem
             key={index}
-            active={index === currentIndex}
             item={item}
           />
         ))

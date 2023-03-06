@@ -9,13 +9,12 @@ export interface ICarouselItem {
 
 // 每一页中的内容的结构体如下
 interface CarouselItemProps {
-  active: boolean; // 是否为选中状态
   item: ICarouselItem;
 }
 
-const CarouselItem: React.FC<CarouselItemProps> = ({ active, item }) => {
+const CarouselItem: React.FC<CarouselItemProps> = ({ item }) => {
   const { title, describe, className } = item;
-  return <div className={`carousel-item ${active ? "active" : ""}`}>
+  return <div className={`carousel-item`}>
     <div className={`carousel-item-content ${className}`}>
       <h2 className='title'>{title}</h2>
       {
