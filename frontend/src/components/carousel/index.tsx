@@ -19,7 +19,7 @@ const Index: FunctionComponent<CarouselProps> = (props) => {
     /* setInterval**/
     const timerRef = useRef<number | null>(null);
     const sliderRef = useRef<HTMLUListElement>(null)
-    const [positions, setPositions] = useState(0)
+    const [index, setIndex] = useState(0)
 
     /**
      * count , children size
@@ -31,27 +31,27 @@ const Index: FunctionComponent<CarouselProps> = (props) => {
     * next children
     */
     const next = useCallback(() => {
-        setPositions(prv => (prv + 1) % count)
+        setIndex(prv => (prv + 1) % count)
     }, [count]);
 
     /** view change */
     useEffect(() => {
-        if (children?.[positions]) {
-            onChange && onChange(positions,children[positions])
+        if (children?.[index]) {
+            onChange && onChange(index,children[index])
         }
-    }, [children, onChange, positions])
+    }, [children, onChange, index])
 
     useLayoutEffect(() => {
         if (sliderRef.current?.style) {
-            if (positions === 0) {
+            if (index === 0) {
                 sliderRef.current.style.transition = smooth1;
                 sliderRef.current.style.transform = 'translateX(0)'
             } else {
                 sliderRef.current.style.transition = smooth;
-                sliderRef.current.style.transform = `translateX(${-positions / count * 100}%)`;
+                sliderRef.current.style.transform = `translateX(${-index / count * 100}%)`;
             }
         }
-    }, [count, positions])
+    }, [count, index])
 
     const startTimer = useCallback(() => {
         if (timerRef.current !== null) return;
@@ -78,11 +78,11 @@ const Index: FunctionComponent<CarouselProps> = (props) => {
 
     const renderIndicators = useCallback(() => {
         if (showIndicators) {
-            return <Indicator size={count} currentIndex={positions} speed={interval} />
+            return <Indicator size={count} currentIndex={index} speed={interval} />
         } else {
             return null
         }
-    }, [count, interval, positions, showIndicators])
+    }, [count, interval, index, showIndicators])
 
     const renderItem = (item: React.ReactNode) => {
         return item;

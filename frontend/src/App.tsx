@@ -1,12 +1,11 @@
 import './App.css';
-import { FunctionComponent } from 'react';
 import Carousel from './components/carousel'
 import imgIphone from "./assets/iphone.png";
 import imgTablet from "./assets/tablet.png";
 import imgAirpods from "./assets/airpods.png";
 
 
-const IphoneView: FunctionComponent<{}> = () => {
+const IphoneView = () => {
   return (
     <div className="page-container page-iphone">
       <h1 className="page-text-content page-iphone-text page-title">xPhone</h1>
@@ -21,7 +20,7 @@ const IphoneView: FunctionComponent<{}> = () => {
   );
 }
 
-const TabletView: FunctionComponent<{}> = () => {
+const TabletView = () => {
   return (
     <div className="page-container page-tablet">
       <h1 className="page-text-content page-tablet-text page-title">Tablet</h1>
@@ -33,7 +32,7 @@ const TabletView: FunctionComponent<{}> = () => {
   );
 }
 
-const AirpodsView: FunctionComponent<{}> = () => {
+const AirpodsView = () => {
   return (
     <div className="page-container page-airpods">
       <h1 className="page-text-content page-title page-airpods-text ">
