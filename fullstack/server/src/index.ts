@@ -24,6 +24,7 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
   const baseUrl = `${parsedUrl?.protocol}//${parsedUrl?.host}`
   // 生成唯一id
   const id: String = fnv.fast1a32hex(longUrl);
+  // 生成短链
   const shortLink = `${baseUrl}/${id}`
 
   try {
@@ -32,15 +33,20 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
       throw new Error(queryError)
     }
     if (response?.length) {
-      res.send(response)
+      res.json({
+        short_link: response[0]?.short_link
+      })
     }
+    console.log(longUrl, 'longUrl')
     if (!response.length) {
       const [err, data] = await inject(`INSERT INTO link_map_table (short_link,long_link) VALUES ('${shortLink}', '${longUrl}' ) `)
       if (err) {
         throw new Error(err)
       }
       if (data) {
-        res.send(shortLink)
+        res.json({
+          shortLink
+        })
       }
     }
   } catch (err) {
@@ -59,7 +65,9 @@ app.get('/shortLinkToLongLink', async (req: Request, res: Response,next) => {
       throw new Error(queryError)
     }
     if (response) {
-     res.send(response[0]?.short_link)
+      res.json({
+        long_link: response[0]?.long_link
+      })
    }
   } catch (err) {
     console.error(err)
