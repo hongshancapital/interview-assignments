@@ -49,7 +49,9 @@ app.get('/shortLinkToLongLink', async (req: Request, res: Response, next: NextFu
       res.json({
         long_link: decodeURIComponent(response[0]?.long_link)
       })
-   }
+    } else {
+      res.send('记录不存在')
+    }
   } catch (err) {
     console.error(err)
     next(err)
