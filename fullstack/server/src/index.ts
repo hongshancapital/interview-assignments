@@ -3,7 +3,8 @@ import bodyParser from 'body-parser';
 import parseShortLinkFromBody from '../utils/getShortLink'
 import express, {
   Request,
-  Response
+  Response,
+  NextFunction
 } from 'express';
 import { query,getShortLink,insertLongLink } from '../db'
 const app = express()
@@ -15,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(middleware?.checkParameter)
 
 // 输入长链，获取短链
-app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
-  const {shortLink, longLink} = parseShortLinkFromBody(req.body)
+app.post('/longLinkToShortLink', async (req: Request, res: Response, next: NextFunction) => {
+  const { shortLink, longLink } = parseShortLinkFromBody(req.body)
   try {
     const [queryError, response] = await query(getShortLink(shortLink));
     if (queryError) {
@@ -45,7 +46,7 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
 })
 
 // 输入短链，查询对应长链
-app.get('/shortLinkToLongLink', async (req: Request, res: Response,next) => {
+app.get('/shortLinkToLongLink', async (req: Request, res: Response, next: NextFunction) => {
   const params: any = req.query;
   const shortLink = encodeURIComponent(params?.shortUrl)
   try {

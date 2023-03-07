@@ -1,6 +1,6 @@
 import { describe, expect, test, jest } from '@jest/globals';
 import {Request, Response} from 'express'
-import checkParameter from './check'
+import checkParameter from '../../middleware/Controller/check'
 
 
 describe('controller check', () => {

@@ -11,12 +11,15 @@ const checkParameter = function (req: Request, res: Response, next: () => void) 
   const schema = Joi.object({
     longLink: Joi.string().uri()
   })
-
-  const { error } = schema.validate(body, { allowUnknown: false, abortEarly: true }); 
-  if (!error) { 
+  try {
+    const { error } = schema.validate(body, { allowUnknown: false, abortEarly: true }); 
+    if (error) {
+      throw new Error('longLink校验失败')
+    }
     next()
-  } else {
-    res.send(error)
+  } catch (err) {
+    console.log(err, 'err')
+    res.send(err)
   }
 }
 
