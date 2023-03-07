@@ -1,5 +1,5 @@
 import {describe, expect, test, jest} from '@jest/globals';
-import parseShortLinkFromBody from '../../utils/getShortLink'
+import parseShortLinkFromBody from '../../utils/parseShortLinkFromBody'
 import { body } from '../store'
 
 describe('utils', () => {

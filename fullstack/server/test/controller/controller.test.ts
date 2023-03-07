@@ -6,7 +6,7 @@ import checkParameter from '../../middleware/Controller/check'
 describe('controller check', () => {
   const mockCallback = jest.fn()
   const mockErrorCallback = jest.fn()
-  test('check pass has run callback', () => {
+  test('check pass and run callback', () => {
     const body = {
       longLink: 'https://www.baidu.com/abcde?aaa=bbb&ccc=dddeeecccsss',
     }
@@ -18,7 +18,6 @@ describe('controller check', () => {
     const body = {
       longLink: 'abcdefg',
     }
-    
 
     checkParameter({ body } as Request, {} as any, mockCallback)
     expect(mockCallback.mock.calls).toHaveLength(1);

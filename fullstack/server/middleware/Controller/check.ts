@@ -18,8 +18,8 @@ enum Methods {
    * @param {NextFunction} next
    * @return {*}
 */
-const checkParameter = function (req: Request, res: Response, next: NextFunction) {
-  const schemaPost = Joi.object({
+const checkParameter: (req: Request, res: Response, next: NextFunction) => void = function (req: Request, res: Response, next: NextFunction) {
+  const schemaPost  = Joi.object({
     longLink: Joi.string().required()
   })
 

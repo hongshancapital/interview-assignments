@@ -1,12 +1,13 @@
 import middleware from '../middleware';
 import bodyParser from 'body-parser';
-import parseShortLinkFromBody from '../utils/getShortLink'
+import parseShortLinkFromBody from '../utils/parseShortLinkFromBody'
 import express, {
   Request,
   Response,
   NextFunction,
 } from 'express';
-import { query,getShortLink,insertLongLink } from '../db'
+import { query, getShortLink, insertLongLink } from '../db'
+
 const app = express()
 const port = 3000
 
@@ -41,11 +42,11 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next: NextF
 
 // 输入短链，查询对应长链
 app.get('/shortLinkToLongLink', async (req: Request, res: Response, next: NextFunction) => {
-  const params: any = req.query;
-  const shortLink = encodeURIComponent(params?.shortLink)
+  const params: Params = req.query;
+  const shortLink = encodeURIComponent(typeof params.shortLink === 'undefined'? '': params.shortLink)
   try {
     const [queryError, response] = await query(getShortLink(shortLink), next);
-    if (response) {
+    if (response.length) {
       res.json({
         long_link: decodeURIComponent(response[0]?.long_link)
       })

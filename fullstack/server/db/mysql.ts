@@ -1,11 +1,15 @@
-import mysql, {Pool, PoolConnection} from 'mysql'
+import mysql, {Pool, PoolConnection, QueryOptions} from 'mysql'
+import process from 'process'
+import dotenv from 'dotenv'
+dotenv.config(); 
 
+const env = process.env
 const pool: Pool = mysql.createPool({
-  host: 'localhost',
-  port: 3306,
-  user: "admin",
-  password: 'password',
-  database: 'INTERVIEW',
+  host: env.MYSQL_HOST,
+  port: Number(env.MYSQL_PORT),
+  user: env.MYSQL_USER,
+  password: env.MYSQL_PASSWORD,
+  database: env.MYSQL_DATABASE,
 })
 
 /**
@@ -14,7 +18,7 @@ const pool: Pool = mysql.createPool({
    * @param {Object} options
    * @return {Promise}
 */
-export const query = (sql: string, options: any) => {
+export const query = (sql: string, options?: QueryOptions): Promise<any> => {
   return new Promise((resolve, reject) => {
     pool.getConnection(function (err, conn: PoolConnection) {
       if (err) {
