@@ -1,12 +1,11 @@
 import { CreateShortLinkBody } from '../src/interface'
 import url from 'url';
 import fnv from 'fnv-plus'
-import {NextFunction} from 'express'
-interface parseShortLinkResult extends CreateShortLinkBody {
+interface ParseShortLinkResult extends CreateShortLinkBody {
   shortLink: string;
 }
 
-const parseShortLinkFromBody: (body: CreateShortLinkBody) => parseShortLinkResult  = (body: CreateShortLinkBody) =>  {
+const parseShortLinkFromBody: (body: CreateShortLinkBody) => ParseShortLinkResult  = (body: CreateShortLinkBody) =>  {
   const { longLink } = body;
   let shortLink: string = '';
 

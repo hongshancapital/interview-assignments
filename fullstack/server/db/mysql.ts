@@ -1,4 +1,4 @@
-import mysql, {Pool} from 'mysql'
+import mysql, {Pool, PoolConnection} from 'mysql'
 
 const pool: Pool = mysql.createPool({
   host: 'localhost',
@@ -10,11 +10,11 @@ const pool: Pool = mysql.createPool({
 
 export const query = (sql: string, options: any) => {
   return new Promise((resolve, reject) => {
-    pool.getConnection(function (err, conn) {
+    pool.getConnection(function (err, conn: PoolConnection) {
       if (err) {
         reject(err)
       } else {
-        conn.query(sql, options, function (err, result, fields) {
+        conn.query(sql, options, function (err, result) {
           if (err) {
             reject(err)
           }

@@ -3,7 +3,7 @@ import  {
   Response,
   NextFunction
 } from 'express';
-import { CreateShortLinkBody } from '../../src/interface';
+
 import Joi from 'joi'
 
 // 校验参数是否合法
