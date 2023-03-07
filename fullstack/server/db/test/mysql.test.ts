@@ -19,12 +19,5 @@ describe('mysql', () => {
     expect(data).toHaveLength(1)
     expect(data[0].long_link).toBe(storedData.long_link)
   })
-
-
-  afterAll(() => {
-
-  })
-  
-
   
 })

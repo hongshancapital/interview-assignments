@@ -9,11 +9,10 @@ import Joi from 'joi'
 const checkParameter = function (req: Request, res: Response, next: () => void) {
   const body: CreateShortLinkBody = req.body;
   const schema = Joi.object({
-    longUrl: Joi.string().uri()
+    longLink: Joi.string().uri()
   })
 
-  const { error } = schema.validate(body, { allowUnknown: true, abortEarly: true }); 
-  
+  const { error } = schema.validate(body, { allowUnknown: false, abortEarly: true }); 
   if (!error) { 
     next()
   } else {
