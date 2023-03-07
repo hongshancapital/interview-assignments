@@ -8,14 +8,18 @@ class Interval {
   callback: Cb
   timer: Timer = 0
   delay: number = 0
+  autoplay: boolean
 
-  constructor(callback: Cb, delay: number) {
+  constructor(callback: Cb, delay: number, autoplay: boolean = true) {
     this.callback = callback
     this.delay = delay
+    this.autoplay = autoplay
+    this.play()
   }
 
   // 播放
   play() {
+    if (!this.autoplay) return
     if (this.timer) this.paused()
     let startTime = performance.now()
     this.timer = requestAnimationFrame((timestamp) => {

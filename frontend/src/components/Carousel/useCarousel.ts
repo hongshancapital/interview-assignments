@@ -18,9 +18,7 @@ export const useCarousel = ({ delay, count, autoplay }: UseCarouselParams) => {
       if (_progress === 100) {
         setActiveIndex(val => val === count - 1 ? 0 : val + 1)
       }
-    }, delay)
-
-    if (autoplay) intervalRef.current.play()
+    }, delay, autoplay)
 
     return () => intervalRef.current!.paused()
   }, [delay, count, autoplay])
