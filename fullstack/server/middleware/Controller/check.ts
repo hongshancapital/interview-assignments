@@ -6,7 +6,13 @@ import  {
 
 import Joi from 'joi'
 
-// 校验参数是否合法
+/**
+   * @description: 中间件，查看输入的参数是否合法
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @return {*}
+*/
 const checkParameter = function (req: Request, res: Response, next: NextFunction) {
   const body: CreateShortLinkBody = req.body;
   const schema = Joi.object({

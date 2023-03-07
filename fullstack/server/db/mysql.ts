@@ -8,6 +8,12 @@ const pool: Pool = mysql.createPool({
   database: 'INTERVIEW',
 })
 
+/**
+   * @description: 创建连接池，并返回query
+   * @param {string} sql
+   * @param {Object} options
+   * @return {Promise}
+*/
 export const query = (sql: string, options: any) => {
   return new Promise((resolve, reject) => {
     pool.getConnection(function (err, conn: PoolConnection) {

@@ -12,7 +12,7 @@ describe('mysql', () => {
     expect(data[0].long_link).toBe(encodeURIComponent(storedData.long_link))
   })
 
-  test('excute error sql', async () => {
+  test('execute error sql', async () => {
     const [err, data] = await query('error sql', fn)
     expect(data).toBeNull()
     expect(fn.mock.calls).toHaveLength(1)

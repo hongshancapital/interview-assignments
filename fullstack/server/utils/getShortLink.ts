@@ -5,6 +5,11 @@ interface ParseShortLinkResult extends CreateShortLinkBody {
   shortLink: string;
 }
 
+/**
+   * @description: 解析body，拿到长链接，并生成短链接
+   * @param {CreateShortLinkBody} body
+   * @return {ParseShortLinkResult}
+*/
 const parseShortLinkFromBody: (body: CreateShortLinkBody) => ParseShortLinkResult  = (body: CreateShortLinkBody) =>  {
   const { longLink } = body;
   let shortLink: string = '';
