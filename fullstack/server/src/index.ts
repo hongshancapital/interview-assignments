@@ -42,7 +42,7 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next: NextF
 // 输入短链，查询对应长链
 app.get('/shortLinkToLongLink', async (req: Request, res: Response, next: NextFunction) => {
   const params: any = req.query;
-  const shortLink = encodeURIComponent(params?.shortUrl)
+  const shortLink = encodeURIComponent(params?.shortLink)
   try {
     const [queryError, response] = await query(getShortLink(shortLink), next);
     if (response) {
