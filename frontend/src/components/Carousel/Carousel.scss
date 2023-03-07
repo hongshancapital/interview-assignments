@@ -1,0 +1,104 @@
+@mixin carouselImgs {
+  .carousel-imgs {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transform: translateX(0);
+    transition: all var(--switch-duration);
+
+    .imgs-item {
+      flex-shrink: 0;
+      width: 100%;
+      text-align: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+
+      .info {
+        position: relative;
+        top: 25%;
+        filter: invert(1);
+        mix-blend-mode: difference;
+        white-space: pre-wrap;
+
+        > * {
+          & + * {
+            margin-top: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin carouselAnchors {
+  .carousel-anchors {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    bottom: 85px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    .anchors-item {
+      position: relative;
+      width: 60px;
+      height: 3px;
+      border-radius: 50px;
+      background: #a8a8a8;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 0 4px rgba(black, .1);
+      transform: translate3d(0, 0, 0);
+
+      &.filled {
+        &:before {
+          transform: translateX(0);
+        }
+      }
+
+      &.animated {
+        &:before {
+          animation: carousel-anchor-switching var(--preview-duration) linear forwards;
+          animation-play-state:  var(--carousel-animation-play-state, none);
+        }
+      }
+
+      &:before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        border-radius: 50px;
+        transform: translateX(-100%);
+      }
+    }
+  }
+}
+
+@keyframes carousel-anchor-switching {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.components-carousel-render {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &:hover {
+    --carousel-animation-play-state: paused;
+  }
+
+  @include carouselImgs;
+  @include carouselAnchors;
+}
