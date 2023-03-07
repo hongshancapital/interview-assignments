@@ -19,7 +19,10 @@ describe('api test', () => {
 
     expect(response.data.short_link).toBe(storedData?.short_link)
   })
+})
 
+
+// describe('自动化测试', () => {
   // test('测试随机生成链接', async () => {
   //   for (let i = 0; i < 100; i++) {
   //     const link = mock.Random.url('http');
@@ -49,4 +52,4 @@ describe('api test', () => {
   //     expect(response?.data?.shortLink).toBe(decodeURIComponent(shortLink))
   //   }
   // })
-})
+// })
