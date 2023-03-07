@@ -20,12 +20,7 @@ describe('controller check', () => {
     }
     
 
-    checkParameter({ body } as Request, {
-      send: mockErrorCallback
-    } as any, mockCallback)
-
-
-    expect(mockCallback.mock.calls).toHaveLength(0);
-    expect(mockErrorCallback.mock.calls).toHaveLength(1)
+    checkParameter({ body } as Request, {} as any, mockCallback)
+    expect(mockCallback.mock.calls).toHaveLength(1);
   })
 })

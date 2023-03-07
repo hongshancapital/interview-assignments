@@ -4,7 +4,7 @@ import parseShortLinkFromBody from '../utils/getShortLink'
 import express, {
   Request,
   Response,
-  NextFunction
+  NextFunction,
 } from 'express';
 import { query,getShortLink,insertLongLink } from '../db'
 const app = express()
@@ -19,20 +19,14 @@ app.use(middleware?.checkParameter)
 app.post('/longLinkToShortLink', async (req: Request, res: Response, next: NextFunction) => {
   const { shortLink, longLink } = parseShortLinkFromBody(req.body)
   try {
-    const [queryError, response] = await query(getShortLink(shortLink));
-    if (queryError) {
-      throw new Error(queryError)
-    }
+    const [queryError, response] = await query(getShortLink(shortLink), next);
     if (response?.length) {
       res.json({
         short_link: decodeURIComponent(response[0]?.short_link)
       })
     }
     if (!response.length) {
-      const [err, data] = await query(insertLongLink(shortLink,  longLink))
-      if (err) {
-        throw new Error(err)
-      }
+      const [err, data] = await query(insertLongLink(shortLink,  longLink), next)
       if (data) {
         res.json({
           shortLink: decodeURIComponent(shortLink)
@@ -50,10 +44,7 @@ app.get('/shortLinkToLongLink', async (req: Request, res: Response, next: NextFu
   const params: any = req.query;
   const shortLink = encodeURIComponent(params?.shortUrl)
   try {
-    const [queryError, response] = await query(getShortLink(shortLink));
-    if (queryError) {
-      throw new Error(queryError)
-    }
+    const [queryError, response] = await query(getShortLink(shortLink), next);
     if (response) {
       res.json({
         long_link: decodeURIComponent(response[0]?.long_link)
@@ -64,6 +55,11 @@ app.get('/shortLinkToLongLink', async (req: Request, res: Response, next: NextFu
     next(err)
   }
 })
+
+app.use(function(err: any, req: Request, res: Response) {
+  console.error(err.stack,'=======');
+  res.status(500).send('Something broke!');
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
