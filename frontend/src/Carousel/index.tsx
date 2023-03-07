@@ -11,10 +11,6 @@ interface Img {
     color: String | any;
 }
 
-interface CarouselProps {
-    children: React.ReactNode
-}
-
 const imgs: Img[] = [{url:banner1, bgColor: '#F1F1F3', color: 'black'}, 
 {url:banner2, bgColor: '#111111', color: 'white'}, 
 {url:banner3, bgColor: '#FAFAFA', color: 'black'}]
@@ -39,7 +35,7 @@ function useSlider(N: number, speed = 3000){
     return slider
 }
 
-const Carousel = ({ children }: CarouselProps) => {
+const Carousel = () => {
     const slider = useSlider(imgs.length)
     return (
         <div className="scroller">
@@ -63,7 +59,7 @@ const Carousel = ({ children }: CarouselProps) => {
             </div>
             <div className="slider">
                 {imgs.map((img, index) => {
-                    return <div style={{
+                    return <div key={index} style={{
                         animation: index === slider ? 'LeftToRight 3s infinite' : 'none'
                     }}></div>
                 })}
