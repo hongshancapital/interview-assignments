@@ -24,17 +24,17 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
     }
     if (response?.length) {
       res.json({
-        short_link: response[0]?.short_link
+        short_link: decodeURIComponent(response[0]?.short_link)
       })
     }
     if (!response.length) {
-      const [err, data] = await query(insertLongLink(shortLink, longLink))
+      const [err, data] = await query(insertLongLink(shortLink,  longLink))
       if (err) {
         throw new Error(err)
       }
       if (data) {
         res.json({
-          shortLink
+          shortLink: decodeURIComponent(shortLink)
         })
       }
     }
@@ -47,7 +47,7 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next) => {
 // 输入短链，查询对应长链
 app.get('/shortLinkToLongLink', async (req: Request, res: Response,next) => {
   const params: any = req.query;
-  const shortLink = decodeURIComponent(params?.shortUrl)
+  const shortLink = encodeURIComponent(params?.shortUrl)
   try {
     const [queryError, response] = await query(getShortLink(shortLink));
     if (queryError) {
@@ -55,7 +55,7 @@ app.get('/shortLinkToLongLink', async (req: Request, res: Response,next) => {
     }
     if (response) {
       res.json({
-        long_link: response[0]?.long_link
+        long_link: decodeURIComponent(response[0]?.long_link)
       })
    }
   } catch (err) {

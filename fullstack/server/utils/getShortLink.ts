@@ -15,8 +15,8 @@ const parseShortLinkFromBody: (body: CreateShortLinkBody) => parseShortLinkResul
   // 生成短链
   const shortLink = `${baseUrl}/${id}`
   return {
-    shortLink,
-    longLink
+    shortLink: encodeURIComponent(shortLink),
+    longLink: encodeURIComponent(longLink)
   }
 }
 
