@@ -5,15 +5,17 @@ export const legalProtocol = "https:";
 
 export default function splitShortToken(rawUrl: string) {
   let url = "";
+  let urlInfo;
   if (typeof rawUrl === "string") {
     try {
       url = decodeURIComponent(rawUrl);
+      urlInfo = new URL(url);
     } catch (e) {
       return {
         isLegal: false,
       };
     }
-    let urlInfo = new URL(url);
+
     if (urlInfo.protocol === legalProtocol && urlInfo.host === legalHost) {
       let path = urlInfo.pathname;
       path = path.slice(1);

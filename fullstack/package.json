@@ -5,9 +5,11 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon",
-    "test": "mocha  --timeout 5000 tests/ --bail",
     "build": "tsc",
-    "test-cov": "nyc npm run test"
+    "test": "npm run build && mocha  --timeout 5000 tests/ --bail",
+    "test:unit": "npm run build && mocha tests/unit --bail",
+    "test-cov": "nyc npm run test",
+    "test-cov:unit": "nyc npm run test:unit"
   },
   "keywords": [
     "nodejs",
