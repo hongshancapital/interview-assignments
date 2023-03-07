@@ -11,6 +11,10 @@ interface Img {
     color: String | any;
 }
 
+interface CarouselProps {
+    children: React.ReactNode
+}
+
 const imgs: Img[] = [{url:banner1, bgColor: '#F1F1F3', color: 'black'}, 
 {url:banner2, bgColor: '#111111', color: 'white'}, 
 {url:banner3, bgColor: '#FAFAFA', color: 'black'}]
@@ -18,6 +22,7 @@ const imgs: Img[] = [{url:banner1, bgColor: '#F1F1F3', color: 'black'},
 function useInterval(callback: Function, interval: number) {
     useEffect(() => {
         const start = new Date().getTime()
+        // 设置定时器
         const I = setInterval(() => {
             callback(new Date().getTime() - start)
         }, interval)
@@ -26,6 +31,7 @@ function useInterval(callback: Function, interval: number) {
 }
 
 function useSlider(N: number, speed = 3000){
+    // 定义索引
     const [slider, setSlider] = useState(0)
     useInterval((diff: any) => {
         setSlider(_ => Math.floor(diff / speed) % N)
@@ -33,7 +39,7 @@ function useSlider(N: number, speed = 3000){
     return slider
 }
 
-const Carousel = () => {
+const Carousel = ({ children }: CarouselProps) => {
     const slider = useSlider(imgs.length)
     return (
         <div className="scroller">
