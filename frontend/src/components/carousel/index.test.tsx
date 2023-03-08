@@ -177,7 +177,7 @@ describe("Carousel测试", () => {
     );
   });
 
-  it("子元素数量变化的时候，进度条重置", () => {
+  it("子元素数量减少导致白屏的时候，进度条重置", () => {
     const { rerender, container } = render(
       <Carousel duration={1000}>
         <div>1</div>
@@ -186,10 +186,10 @@ describe("Carousel测试", () => {
       </Carousel>
     );
     act(() => {
-      jest.advanceTimersByTime(1100);
+      jest.advanceTimersByTime(2100);
     });
     expect(container.querySelector(".list")?.getAttribute("style")).toBe(
-      "transform: translateX(-100%);"
+      "transform: translateX(-200%);"
     );
 
     rerender(

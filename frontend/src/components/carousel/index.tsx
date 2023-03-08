@@ -37,13 +37,14 @@ function Carousel({
   //检测hover状态
   const pause = useHover(carouselRef.current) && hoverPause;
 
-  // 如果子元素数量变化，重置当前指向的元素并刷新计时器
+  // 如果子元素数量减少，重置当前指向的元素并刷新计时器
   useEffect(() => {
-    if (prevCount.current !== count) {
+    if (count < current + 1) {
       setCurrent(0);
       prevCount.current = count;
+      reset();
     }
-  }, [count]);
+  }, [count, current]);
 
   const reset = useInterval(
     () => {
