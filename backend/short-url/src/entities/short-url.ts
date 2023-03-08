@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity } from 'typeorm';
 
 @Entity()
-export class ShortUrl {
+export class ShortUrl extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -20,6 +20,13 @@ export class ShortUrl {
         nullable: false
     })
     longUrl: string;
+
+    @Column({
+        comment: '过期时间',
+        type: 'timestamp',
+        nullable: true
+    })
+    expiredAt: Date | null;
 
     @CreateDateColumn({
         name: 'created_at',

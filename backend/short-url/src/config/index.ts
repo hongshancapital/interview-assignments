@@ -20,4 +20,10 @@ if (appEnv) {
     console.error(`APP_ENV is required!`, '', 'APP');
 }
 
+try {
+    const envConfigs = require(`./config.local`).default;
+
+    Object.assign(config, envConfigs);
+} catch {}
+
 export default config;

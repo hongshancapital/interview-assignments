@@ -1,9 +1,9 @@
-require('dotenv').config();
+import config from './config';
 
 import app from './app';
 import { loadDataSource } from './utils';
 
-const port = process.env.PORT || 3000;
+const port = config.PORT || 3000;
 
 (async () => {
     try {

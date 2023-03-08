@@ -1,4 +1,6 @@
 const config = {
+    PORT: 3000,
+    IS_DEV: true,
     /**
      * MySQL Database
      *
@@ -9,7 +11,7 @@ const config = {
         port: 3306,
         username: 'dev',
         password: 'dev!123',
-        database: 'short_url'
+        database: 'short-url'
     },
     REDIS_URL: 'redis://:redis@localhost:6379'
 };

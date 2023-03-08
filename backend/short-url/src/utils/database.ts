@@ -3,8 +3,9 @@ import config from '../config';
 export const dataSource = new DataSource({
     type: 'mysql',
     ...config.MYSQL_SETTING,
-    entities: ['src/entity/*.ts'],
-    logging: true // TODO: env
+    entities: ['src/entities/*.ts'],
+    synchronize: config.IS_DEV,
+    logging: config.IS_DEV
 });
 
 export async function loadDataSource() {
@@ -16,4 +17,8 @@ export async function loadDataSource() {
         .catch((err) => {
             console.error('Error during Data Source initialization:', err);
         });
+}
+
+export async function closeDataSource() {
+    return dataSource.destroy();
 }

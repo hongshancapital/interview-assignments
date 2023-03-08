@@ -1,23 +1,17 @@
 import { ShortUrl } from 'src/entities/short-url';
-import nanoid from 'utils/nanoid';
-import { dataSource } from 'utils/database';
+import * as ShortUrlService from 'src/services/short-url';
 
-async function create(longUrl: string, length = 8): Promise<ShortUrl> {
-    // FIXME: to vo
-    const doc = await dataSource.getRepository(ShortUrl).findOneBy({ longUrl });
+async function create(longUrl: string, expiredAt?: number): Promise<ShortUrl> {
+    const doc = await ShortUrlService.findByLongUrl(longUrl);
 
     if (doc) {
         return doc;
     }
-
-    // handle collisions
-    let shortUrl = nanoid(length);
-
-    return dataSource.getRepository(ShortUrl).create({ shortUrl, longUrl });
+    return ShortUrlService.createShortUrl(longUrl, expiredAt);
 }
 
 async function findByShortUrl(shortUrl: string): Promise<ShortUrl> {
-    return dataSource.getRepository(ShortUrl).findOneBy({ shortUrl });
+    return ShortUrlService.findByShortUrl(shortUrl);
 }
 
 export default {

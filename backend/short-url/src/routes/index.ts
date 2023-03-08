@@ -3,6 +3,6 @@ import shortUrlRouter from './short-url';
 
 const apiRouter = Router();
 
-apiRouter.use('/shortUrl', shortUrlRouter);
+apiRouter.use('/short-url', shortUrlRouter);
 
 export default apiRouter;

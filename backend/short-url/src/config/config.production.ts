@@ -1,11 +1,12 @@
 const config = {
+    IS_DEV: false,
     /**
      * MySQL Database
      *
      * https://typeorm.io/#/connection-options
      */
     MYSQL_SETTING: {
-        host: '10.7.20.3',
+        host: 'localhost',
         port: 3306,
         username: 'username',
         password: process.env.DB_PWD!,
@@ -13,7 +14,5 @@ const config = {
     },
     REDIS_URL: process.env.REDIS_URL ? `${process.env.REDIS_URL}` : 'redis://127.0.0.1:6379'
 };
-
-export type ConfigScheme = Readonly<Partial<typeof config>>;
 
 export default config;
