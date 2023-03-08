@@ -7,7 +7,22 @@
   align-items: center;
   justify-content: center;
 }
+
 .carousel-dot {
+  position: relative;
+}
+
+.carousel-dot::after {
+  position: absolute;
+  content: ' ';
+  top: -5px;
+  bottom: -5px;
+  right: 0px;
+  left: 0px;
+  cursor: pointer;
+}
+
+.carousel-dot-inner {
   width: 3%;
   min-width: 40px;
   height: 2px;
@@ -15,7 +30,10 @@
   background-color: rgb(162, 162, 162);
   overflow: hidden;
   margin-left: 10px;
+  cursor: pointer;
+  position: relative;
 }
+
 .carousel-dot__process {
   width: 50px;
   height: 2px;

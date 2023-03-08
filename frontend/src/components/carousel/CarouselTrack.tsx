@@ -4,7 +4,7 @@ import { ReactElement } from "react"
 import { getKey } from "../../utils"
 
 interface CarouselTrackProps {
-  children: ReactElement[]
+  children: ValidReactChild[]
   activeIndex: number
 }
 

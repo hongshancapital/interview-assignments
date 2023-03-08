@@ -1,34 +1,42 @@
-import "./CarouselWrap.css"
-import React, { useEffect, useMemo, useRef, useState } from "react"
-import { ReactElement } from "react"
-import CarouselTrack from "./CarouselTrack"
-import { useMemoizedFn } from "../../utils/hooks"
-import CarouselDots from "./CarouselDots"
+import './CarouselWrap.css'
+import React, { useMemo, useState } from 'react'
+import CarouselTrack from './CarouselTrack'
+import { useMemoizedFn } from '../../utils/hooks'
+import CarouselDots from './CarouselDots'
+import { useAtuoPlay } from './hooks'
 
 interface CarouselWrapProps {
-  children: ReactElement | ReactElement[]
+  children: ValidReactChild[]
   autoplaySpeed?: number
   transitionDuration?: number
   carouselStep?: number
+  onClickDot?: (index: number) => void
+  autoplay?: boolean
 }
 
 const DefaultConfigs = {
   carouselStep: 1,
   autoplaySpeed: 3000,
   transitionDuration: 800,
+  autoplay: true,
 }
 
 const CarouselWrap: React.FC<CarouselWrapProps> = (props) => {
   const configs = { ...DefaultConfigs, ...props }
-  const { children, carouselStep, autoplaySpeed } = configs
+  const {
+    children,
+    carouselStep,
+    autoplaySpeed,
+    autoplay,
+    onClickDot,
+  } = configs
 
   const [activeIndex, setActiveIndex] = useState(0)
-  const carouselTimerRef = useRef<null | NodeJS.Timer>(null)
 
   const slides = useMemo(() => {
-    let slides: ReactElement[] = []
-    React.Children.forEach(children, (reactElement, index) => {
-      slides.push(reactElement)
+    let slides: ValidReactChild[] = []
+    React.Children.forEach(children, (child, index) => {
+      slides.push(child)
     })
     return slides
   }, [children])
@@ -41,15 +49,21 @@ const CarouselWrap: React.FC<CarouselWrapProps> = (props) => {
     }
     setActiveIndex(nextActiveIndex)
   })
-  useEffect(() => {
-    carouselTimerRef.current = setInterval(updateActiveIndex, autoplaySpeed)
-    return () => {
-      if (carouselTimerRef.current !== null) {
-        clearInterval(carouselTimerRef.current)
-        carouselTimerRef.current = null
-      }
+
+  const { autoplayFn, stopplayFn } = useAtuoPlay({
+    updateActiveIndex,
+    autoplaySpeed,
+    autoplay,
+  })
+
+  const handleClickDot = useMemoizedFn((newIndex) => {
+    stopplayFn && stopplayFn()
+    setActiveIndex(newIndex)
+    onClickDot && onClickDot(newIndex)
+    if (autoplay) {
+      autoplayFn()
     }
-  }, [autoplaySpeed, updateActiveIndex])
+  })
   const mergedConfigs = {
     ...configs,
     activeIndex: activeIndex,
@@ -58,7 +72,10 @@ const CarouselWrap: React.FC<CarouselWrapProps> = (props) => {
   return (
     <div className="carousel-wrap">
       <CarouselTrack {...mergedConfigs}>{slides}</CarouselTrack>
-      <CarouselDots {...mergedConfigs}></CarouselDots>
+      <CarouselDots
+        {...mergedConfigs}
+        onClickDot={handleClickDot}
+      ></CarouselDots>
     </div>
   )
 }

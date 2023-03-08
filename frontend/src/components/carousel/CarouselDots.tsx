@@ -1,46 +1,54 @@
-import "./CarouselDots.css"
-import React, { ReactElement, useEffect, useState } from "react"
-import { getKey } from "../../utils"
+import './CarouselDots.css'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { getKey } from '../../utils'
 
 interface CarouselDotProps {
   children?: ReactElement
   autoplaySpeed: number
   transitionDuration: number
   activeIndex: number
-  "data-index": number
+  dataIndex: number
   mounted: boolean
+  onClickDot?: (index: number) => void
 }
 
 const getCarouselDotStyle = (props: CarouselDotProps) => {
   const { autoplaySpeed, activeIndex, mounted } = props
-  const dotIndex = props["data-index"]
+  const dotIndex = props.dataIndex
   const dotActive = activeIndex === dotIndex
   if (mounted && dotActive) {
     return {
       transform: `translate3d(${
-        activeIndex === dotIndex ? "0" : "-100%"
+        activeIndex === dotIndex ? '0' : '-100%'
       }, 0, 0)`,
-      transitionDuration: autoplaySpeed + "ms",
-      transitionTimingFunction: "linear",
-      boxShadow: "1px 0px 1px #888888",
+      transitionDuration: autoplaySpeed + 'ms',
+      transitionTimingFunction: 'linear',
+      boxShadow: '1px 0px 1px #888888',
     }
   }
   return {}
 }
 const CarouselDot: React.FC<CarouselDotProps> = (props) => {
   const carouselDotStyle = getCarouselDotStyle(props)
+  const { dataIndex, onClickDot } = props
+  const handleClick = useCallback(() => {
+    onClickDot && onClickDot(dataIndex)
+  }, [dataIndex, onClickDot])
   return (
-    <div className="carousel-dot">
-      <div className="carousel-dot__process" style={carouselDotStyle}></div>
+    <div className="carousel-dot" onClick={handleClick}>
+      <div className="carousel-dot-inner">
+        <div className="carousel-dot__process" style={carouselDotStyle}></div>
+      </div>
     </div>
   )
 }
 
 interface CarouselDotsProps {
-  slides: React.ReactElement[]
+  slides: ValidReactChild[]
   autoplaySpeed: number
   transitionDuration: number
   activeIndex: number
+  onClickDot?: (index: number) => void
 }
 
 const CarouselDots: React.FC<CarouselDotsProps> = (props) => {
@@ -55,9 +63,9 @@ const CarouselDots: React.FC<CarouselDotsProps> = (props) => {
         const carouselDotProps = {
           ...props,
           mounted,
-          key: "dots-item-" + getKey(slide, String(index)),
-          "data-index": index,
-          tabIndex: "-1",
+          key: 'dots-item-' + getKey(slide, String(index)),
+          dataIndex: index,
+          tabIndex: '-1',
           style: {},
         }
         return <CarouselDot {...carouselDotProps}></CarouselDot>

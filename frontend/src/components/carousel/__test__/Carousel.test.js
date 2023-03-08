@@ -13,16 +13,16 @@ describe('Carousel', () => {
     });
 
     it('component could be updated and unmounted without errors', () => {
-        const { unmount, rerender } = render(<Carousel />);
+        const { unmount, rerender } = render(<Carousel><h1>hello</h1><h1>world</h1></Carousel>);
         expect(() => {
-            rerender(<Carousel />);
+            rerender(<Carousel><h1>hello</h1><h1>world</h1></Carousel>);
             unmount();
         }).not.toThrow();
     });
 
     it('snapshot', () => {
         const component = renderer.create(
-            <Carousel></Carousel>,
+            <Carousel><h1>hello</h1><h1>world</h1></Carousel>,
         );
         let tree = component.toJSON();
         expect(tree).toMatchSnapshot();
