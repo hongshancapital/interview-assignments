@@ -26,7 +26,6 @@ describe('数据库', () => {
     
     const fn = jest.fn();
     const data = await setValues(insertLongLink(short_link, long_link), short_link, long_link, fn)
-    console.log(data, 'data')
     expect(data.long_link).toBe(long_link);
     expect(data.short_link).toBe(short_link);
   })
