@@ -1,9 +1,10 @@
-import "./CarouselTrack.css"
-import React from "react"
-import { ReactElement } from "react"
-import { getKey } from "../../utils"
+import './CarouselTrack.css'
+import React from 'react'
+import { ReactElement } from 'react'
+import { getKey } from '../../utils'
+import { CarouselConfigs } from './types'
 
-interface CarouselTrackProps {
+interface CarouselTrackProps extends CarouselConfigs {
   children: ValidReactChild[]
   activeIndex: number
 }
@@ -12,6 +13,7 @@ const getSlideStyle = (props: CarouselTrackProps, index: number) => {
   let style = {}
   return style
 }
+
 const getTrackStyle = (props: CarouselTrackProps) => {
   const { activeIndex } = props
   let style = {
@@ -19,6 +21,7 @@ const getTrackStyle = (props: CarouselTrackProps) => {
   }
   return style
 }
+
 const CarouselTrack: React.FC<CarouselTrackProps> = (props) => {
   const { children } = props
   let slides: ReactElement[] = []
@@ -26,17 +29,18 @@ const CarouselTrack: React.FC<CarouselTrackProps> = (props) => {
     let childStyle = getSlideStyle(props, index)
     slides.push(
       React.cloneElement(<div>{child}</div>, {
-        key: "track-item-" + getKey(child, String(index)),
-        "data-index": index,
-        className: "carousel-slide",
-        tabIndex: "-1",
+        key: 'track-item-' + getKey(child, String(index)),
+        'data-index': index,
+        className: 'carousel-slide',
+        tabIndex: '-1',
         style: {
           ...childStyle,
         },
-      })
+      }),
     )
   })
   const trackStyle = getTrackStyle(props)
+
   return (
     <div className="carousel-track" style={trackStyle}>
       {slides}

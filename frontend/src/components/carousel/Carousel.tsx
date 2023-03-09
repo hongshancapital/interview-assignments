@@ -1,10 +1,11 @@
 import CarouselWrap from './CarouselWrap'
 import React, { useMemo } from 'react'
-interface CarouselProps {
+import { CarouselConfigs } from './types'
+interface CarouselProps extends CarouselConfigs {
   children: ValidReactChild | ValidReactChild[]
 }
 
-const Carousel: React.FC<CarouselProps> = ({ children }) => {
+const Carousel: React.FC<CarouselProps> = ({ children, ...rest }) => {
   const validChildren = useMemo(() => {
     const childrenOfArray = React.Children.toArray(children)
     return childrenOfArray.filter((child) => {
@@ -17,7 +18,7 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
 
   return (
     <>
-      <CarouselWrap>{validChildren}</CarouselWrap>
+      <CarouselWrap {...rest}>{validChildren}</CarouselWrap>
     </>
   )
 }

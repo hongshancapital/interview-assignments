@@ -1,24 +1,35 @@
 import './CarouselWrap.css'
-import React, { useMemo, useState } from 'react'
+import React, { ReactComponentElement, ReactElement, useMemo, useState } from 'react'
 import CarouselTrack from './CarouselTrack'
 import { useMemoizedFn } from '../../utils/hooks'
 import CarouselDots from './CarouselDots'
 import { useAtuoPlay } from './hooks'
+import { CarouselConfigs } from './types'
 
-interface CarouselWrapProps {
+interface CarouselWrapProps extends CarouselConfigs {
   children: ValidReactChild[]
-  autoplaySpeed?: number
-  transitionDuration?: number
-  carouselStep?: number
-  onClickDot?: (index: number) => void
-  autoplay?: boolean
 }
 
-const DefaultConfigs = {
+const DefaultConfigs: Required<CarouselConfigs> = {
   carouselStep: 1,
   autoplaySpeed: 3000,
   transitionDuration: 800,
   autoplay: true,
+  width: '100%',
+  onClickDot: () => {},
+}
+
+const getSlideWidth = (props: CarouselConfigs) => {
+  const { width } = props
+  let fixedWidth = width
+  if (width === undefined) {
+    fixedWidth = '100%'
+  } else if (typeof width === 'number') {
+    fixedWidth = width + 'px'
+  } else {
+    fixedWidth = String(width)
+  }
+  return fixedWidth
 }
 
 const CarouselWrap: React.FC<CarouselWrapProps> = (props) => {
@@ -66,11 +77,13 @@ const CarouselWrap: React.FC<CarouselWrapProps> = (props) => {
   })
   const mergedConfigs = {
     ...configs,
+    width: getSlideWidth(configs),
     activeIndex: activeIndex,
     slides,
   }
+
   return (
-    <div className="carousel-wrap">
+    <div className="carousel-wrap" style={{ width: mergedConfigs.width }}>
       <CarouselTrack {...mergedConfigs}>{slides}</CarouselTrack>
       <CarouselDots
         {...mergedConfigs}
