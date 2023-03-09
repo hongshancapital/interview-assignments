@@ -29,7 +29,6 @@ const checkParameter: (req: Request, res: Response, next: NextFunction) => void 
   if (req.method === Methods.Post) {
     const { error } = schemaPost.validate(req.body, { allowUnknown: false, abortEarly: true }); 
     if (error) {
-      console.log('show error')
       next(error);
       return null;
     }

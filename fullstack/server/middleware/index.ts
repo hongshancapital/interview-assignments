@@ -1,4 +1,4 @@
-import checkParameter from './Controller/check'
+import checkParameter from './Controller/checkParameter'
 
 export { checkParameter }
 

@@ -6,7 +6,7 @@ import express, {
   Response,
   NextFunction,
 } from 'express';
-import { query, getShortLink, insertLongLink } from '../db'
+import { getShortLink, insertLongLink, getValue, setValues } from '../db'
 
 const app = express()
 const port = 3000
@@ -18,19 +18,19 @@ app.use(middleware?.checkParameter)
 
 // 输入长链，获取短链
 app.post('/longLinkToShortLink', async (req: Request, res: Response, next: NextFunction) => {
-  const { shortLink, longLink } = parseShortLinkFromBody(req.body)
+  const { short_link, long_link } = parseShortLinkFromBody(req.body)
   try {
-    const [queryError, response] = await query(getShortLink(shortLink), next);
-    if (response?.length) {
+    const response: Result = await getValue(getShortLink(short_link), short_link, next);
+    if (response) {
       res.json({
-        short_link: decodeURIComponent(response[0]?.short_link)
+        short_link: decodeURIComponent(response.short_link)
       })
     }
-    if (!response.length) {
-      const [err, data] = await query(insertLongLink(shortLink,  longLink), next)
-      if (data) {
+    if (!response) {
+      const value = await setValues(insertLongLink(short_link, long_link), short_link, long_link, next)
+      if (value) {
         res.json({
-          shortLink: decodeURIComponent(shortLink)
+          short_link: decodeURIComponent(short_link)
         })
       }
     }
@@ -43,12 +43,12 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next: NextF
 // 输入短链，查询对应长链
 app.get('/shortLinkToLongLink', async (req: Request, res: Response, next: NextFunction) => {
   const params: Params = req.query;
-  const shortLink = encodeURIComponent(typeof params.shortLink === 'undefined'? '': params.shortLink)
+  const shortLink = typeof params.shortLink === 'undefined'? '': params.shortLink
   try {
-    const [queryError, response] = await query(getShortLink(shortLink), next);
-    if (response.length) {
+    const response = await getValue(getShortLink(shortLink), shortLink, next);
+    if (response) {
       res.json({
-        long_link: decodeURIComponent(response[0]?.long_link)
+        long_link: decodeURIComponent(response?.long_link)
       })
     } else {
       res.send('记录不存在')
