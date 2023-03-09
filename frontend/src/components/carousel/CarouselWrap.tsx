@@ -1,5 +1,5 @@
 import './CarouselWrap.css'
-import React, { ReactComponentElement, ReactElement, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import CarouselTrack from './CarouselTrack'
 import { useMemoizedFn } from '../../utils/hooks'
 import CarouselDots from './CarouselDots'
