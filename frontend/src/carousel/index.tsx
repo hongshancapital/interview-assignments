@@ -16,7 +16,7 @@ export interface ICarouselProps {
   list: ICarouseItem[];
   // 展示时长, 单位 ms
   duration?: number;
-  // 动画时长，单位 ms
+  // 动画时长，单位 s
   speed?: number;
 }
 
