@@ -37,11 +37,13 @@ app.use(express.json());
 
 // get long link
 app.get("/:short_url", async function (req, res) {
-  const links = await db.then((db) =>
-    db.collection("links").findOne({
-      short_url: req.params.short_url,
-    })
-  );
+  const database = await db;
+  const links =
+    typeof req.params.short_url === "string"
+      ? await database.collection("links").findOne({
+          short_url: req.params.short_url,
+        })
+      : undefined;
   links?.url
     ? res.status(200).send(links?.url)
     : res.status(501).send("Invalid short url");
@@ -50,18 +52,20 @@ app.get("/:short_url", async function (req, res) {
 // create short link
 app.post("/shortlink", async function (req, res) {
   const { url } = req.body;
-  if (url.match(/^http[s]?:\/\/[^/]+/g)) {
+  if (typeof url === "string" && url.match(/^http[s]?:\/\/[^/]+/g)) {
     const short_url = gidGenerator.bitToBase64(gidGenerator.generate());
-    const { insertedId } = await db.then((db) =>
-      db.collection("links").insertOne({
+    const database = await db;
+    try {
+      const { insertedId } = await database.collection("links").insertOne({
         url,
         short_url,
         create_time: Date.now(),
-      })
-    );
-    return insertedId
-      ? res.status(200).send(`/${short_url}`)
-      : res.status(501).send("Generate failed");
+      });
+      if (insertedId) return res.status(200).send(`/${short_url}`);
+    } catch (error) {
+      console.log(error);
+    }
+    res.status(501).send("Generate failed");
   } else {
     res.status(501).send("Invalid url");
   }
