@@ -10,7 +10,7 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ items = [], duration, speed }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const timerRef = useRef<number | null>(null);
+  const timerRef = useRef<NodeJS.Timer | null>(null);
 
   const handleNextTabClick = (): void => {
     const nextIndex = (currentIndex + 1) % items?.length;
