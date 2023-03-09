@@ -2,13 +2,13 @@ import {describe, expect, test} from '@jest/globals';
 import axios from 'axios'
 
 import {storedData} from './store'
-describe('api test', () => {
-  test('shortLinkToLongLink', async () => {
+describe('接口测试（api.test.ts）', () => {
+  test('通过短链获取长链', async () => {
     const response = await axios.get(`http://localhost:3000/shortLinkToLongLink?shortLink=${storedData?.short_link}`);
     expect(response?.data?.long_link).toBe(storedData?.long_link)
   })
 
-  test('longLinkToShortLink', async () => {
+  test('通过长链生成短链', async () => {
     const response = await axios.post(`http://localhost:3000/longLinkToShortLink`, {
       longLink: storedData?.long_link
     }, {

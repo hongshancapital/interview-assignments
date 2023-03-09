@@ -17,5 +17,7 @@ declare global {
     encode: (uri: string) => string,
     decode: (uri: string) => string,
   } 
+
+  
 }
 

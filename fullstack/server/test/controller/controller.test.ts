@@ -1,12 +1,16 @@
 import { describe, expect, test, jest } from '@jest/globals';
-import {Request, Response} from 'express'
+import { Request, Response } from 'express'
 import checkParameter from '../../middleware/Controller/checkParameter'
 
+enum Methods {
+  Post = 'POST',
+  Get = 'GET'
+}
 
-describe('controller check', () => {
+describe('中间件', () => {
   const mockCallback = jest.fn()
   const mockErrorCallback = jest.fn()
-  test('check pass and run callback', () => {
+  test('校验参数通过', () => {
     const body = {
       longLink: 'https://www.baidu.com/abcde?aaa=bbb&ccc=dddeeecccsss',
     }
@@ -14,12 +18,22 @@ describe('controller check', () => {
     expect(mockCallback.mock.calls).toHaveLength(1);
   })
 
-  test('check error', () => {
-    const body = {
-      longLink: 'abcdefg',
-    }
+  describe('校验参数未通过', () => {
+    test('post 请求', () => {
+      const body = {
+        longLink: '',
+      }
+      checkParameter({ body, method: Methods.Post } as Request, {} as any, mockCallback)
+      expect(mockCallback.mock.calls).toHaveLength(1);
+    })
 
-    checkParameter({ body } as Request, {} as any, mockCallback)
-    expect(mockCallback.mock.calls).toHaveLength(1);
+    test('get 请求', () => {
+      const query = {
+        shortLink: '',
+      }
+      checkParameter({ query, method: Methods.Get } as unknown as Request, {} as any, mockCallback)
+      expect(mockCallback.mock.calls).toHaveLength(1);
+    })
+    
   })
 })
