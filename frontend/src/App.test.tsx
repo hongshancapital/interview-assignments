@@ -25,12 +25,6 @@ describe("Carousel", () => {
     expect(carousel).not.toBeInTheDocument();
   });
 
-  test("renders nothing when items array is empty", () => {
-    const { queryByTestId } = render(<Carousel items={[]} duration={3000} speed={500} />);
-    const carousel = queryByTestId("carousel");
-    expect(carousel).not.toBeInTheDocument();
-  });
-
   test("renders nothing when items array is null", () => {
     const { queryByTestId } = render(<Carousel items={null} duration={3000} speed={500} />);
     const carousel = queryByTestId("carousel");

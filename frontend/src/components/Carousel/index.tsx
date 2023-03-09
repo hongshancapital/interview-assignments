@@ -8,9 +8,9 @@ interface CarouselProps {
   speed: number;         // 翻页的滚动速度
 }
 
-const Carousel: React.FC<CarouselProps> = ({ items, duration, speed }) => {
+const Carousel: React.FC<CarouselProps> = ({ items = [], duration, speed }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | number | null>(null);
+  const timerRef = useRef<number | null>(null);
 
   const handleNextTabClick = (): void => {
     const nextIndex = (currentIndex + 1) % items?.length;
@@ -25,7 +25,7 @@ const Carousel: React.FC<CarouselProps> = ({ items, duration, speed }) => {
     timerRef.current = setInterval(handleNextTabClick, duration);
     return () => {
       if (timerRef.current) {
-        clearInterval(timerRef.current as NodeJS.Timeout);
+        clearInterval(timerRef.current);
       }
     }
   }, [currentIndex]);
