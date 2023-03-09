@@ -1,4 +1,3 @@
-import { close } from 'fs';
 import { closeDataSource, closeRedis, loadDataSource } from 'src/utils';
 import ShortUrlController from '../short-url';
 

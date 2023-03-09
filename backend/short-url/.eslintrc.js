@@ -1,21 +1,20 @@
-export default {
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-        project: 'tsconfig.json',
-        sourceType: 'module'
-    },
-    plugins: ['@typescript-eslint/eslint-plugin'],
-    extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
-    root: true,
+module.exports = {
     env: {
         node: true,
         jest: true
     },
-    ignorePatterns: ['.eslintrc.js'],
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+    overrides: [],
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module'
+    },
+    plugins: ['@typescript-eslint'],
     rules: {
-        '@typescript-eslint/interface-name-prefix': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/no-explicit-any': 'off'
+        'linebreak-style': ['error', 'unix'],
+        quotes: ['error', 'single'],
+        semi: ['error', 'always'],
+        '@typescript-eslint/no-non-null-assertion': 'off'
     }
 };

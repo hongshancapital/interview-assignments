@@ -10,20 +10,24 @@ if (appEnv) {
     console.log(`Load ${appEnv} configs...`, 'APP');
 
     try {
-        const envConfigs = require(`./config.${appEnv}.ts`).default;
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const envConfigs = require(__dirname + `./config.${appEnv}.ts`).default;
 
         Object.assign(config, envConfigs);
     } catch (e) {
         console.error(`Load ${appEnv} configs failed!`, e, 'APP');
     }
 } else {
-    console.error(`APP_ENV is required!`, '', 'APP');
+    console.error('APP_ENV is required!', '', 'APP');
 }
 
 try {
-    const envConfigs = require(`./config.local`).default;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const envConfigs = require('./config.local').default;
 
     Object.assign(config, envConfigs);
-} catch {}
+} catch {
+    /* empty */
+}
 
 export default config;

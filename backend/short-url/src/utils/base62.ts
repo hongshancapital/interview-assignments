@@ -1,9 +1,9 @@
 const CHARSET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 const indexCharset = function indexCharset(str) {
-    let byCode: Record<number, string> = {},
-        byChar: Record<string, number> = {},
-        char;
+    const byCode: Record<number, string> = {};
+    const byChar: Record<string, number> = {};
+    let char;
     for (let i = 0; i < str.length; i++) {
         char = str[i];
         byCode[i] = char;
