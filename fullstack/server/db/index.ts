@@ -3,22 +3,11 @@ import { getValue as getValueFromRedis, setValue} from './redis'
 import {NextFunction} from 'express'
 export * from './sql'
 
-/**
-   * @description: 请求数据库接口，请求query接口，先查看redis，未命中，再查看mysql（redis请求未实现）
-   * @param {string} sql
-   * @param {NextFunction} next
-   * @return {Promise<any[]>}
-*/
-// export const query = async function (sql: string, next: NextFunction ): Promise<any[]> {
-//   try {
-//     const res = await mysqlQuery(sql)
-//     return [null, res]
-//   } catch (err) {
-//     next(err)
-//     return [err, null]
-//   }
-// }
-
+// 统一编码处理方式
+export const translateFunc: ITranslateFunc = {
+  encode: encodeURI,
+  decode: decodeURI,
+}
 
 /**
    * @description: 请求数据，先访问redis是否命中
@@ -27,19 +16,23 @@ export * from './sql'
    * @param {string} sql
    * @param {string} val 
    * @param {NextFunction} next
-   * @return {Promise<Result[]>}
+   * @return {Promise<IResult[]>}
 */
-export const getValue = async (sql: string, val: string, next: NextFunction): Promise<Result> => {
-  const enCodeVal = encodeURIComponent(val);
+export const getValue = async (sql: string, val: string, next: NextFunction): Promise<IResult| null> => {
+  const enCodeVal = translateFunc.encode(val);
   let result = await getValueFromRedis(enCodeVal)
   if (!result) {
-    const mysqlResult = await mysqlQuery(sql)
+    const mysqlResult: IResult[] = await mysqlQuery(sql)
     if (mysqlResult?.length) {
       await setValue(enCodeVal, mysqlResult[0].long_link)
+      return {
+        long_link: translateFunc.decode(mysqlResult[0].long_link),
+        short_link: translateFunc.decode(mysqlResult[0].short_link)
+      };
     }
-    return mysqlResult[0];
+    return null;
   }
-  return { long_link: decodeURIComponent(result), short_link: val};
+  return { long_link: translateFunc.decode(result), short_link: val};
 }
 
 /**
@@ -48,12 +41,12 @@ export const getValue = async (sql: string, val: string, next: NextFunction): Pr
    * @param {string} short_link 
    * @param {string} long_link 
    * @param {NextFunction} next
-   * @return {Promise<Result[]>}
+   * @return {Promise<IResult[]>}
 */
-export const setValues = async (sql: string, short_link: string, long_link: string, next: NextFunction): Promise<Result> =>{
-  const res: [Result] = await mysqlQuery(sql);
+export const setValues = async (sql: string, short_link: string, long_link: string, next: NextFunction): Promise<IResult> =>{
+  const res: [IResult] = await mysqlQuery(sql);
   if (res) {
-    await setValue(encodeURIComponent(short_link), encodeURIComponent(long_link))
+    await setValue(translateFunc.encode(short_link), translateFunc.encode(long_link))
   }
   return {short_link, long_link}
 }

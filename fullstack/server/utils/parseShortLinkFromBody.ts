@@ -5,9 +5,9 @@ import fnv from 'fnv-plus'
 /**
    * @description: 解析body，拿到长链接，并生成短链接
    * @param {CreateShortLinkBody} body
-   * @return {Result}
+   * @return {IResult}
 */
-const parseShortLinkFromBody: (body: Request["body"]) => Result  = (body: Request["body"]) =>  {
+const parseShortLinkFromBody: (body: Request["body"]) => IResult  = (body: Request["body"]) =>  {
   const { longLink } = body;
   let shortLink: string = '';
 

@@ -1,20 +1,21 @@
 
-import {Request} from 'express'
+import { Request } from 'express'
 import { ParsedQs } from 'qs';
 export { }
 
 declare global {
-  interface CreateShortLinkBody {
+  interface IResult {
+    short_link: string;
     long_link: string;
   }
 
-  interface Result extends CreateShortLinkBody {
-    short_link: string;
-  }
-
-  interface Params extends Required<Request['query']>, Required<ParsedQs> {
+  interface IParams extends Required<Request['query']>, Required<ParsedQs> {
     shortLink?: string;
   }
 
+  interface ITranslateFunc {
+    encode: (uri: string) => string,
+    decode: (uri: string) => string,
+  } 
 }
 

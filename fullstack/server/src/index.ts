@@ -20,17 +20,19 @@ app.use(middleware?.checkParameter)
 app.post('/longLinkToShortLink', async (req: Request, res: Response, next: NextFunction) => {
   const { short_link, long_link } = parseShortLinkFromBody(req.body)
   try {
-    const response: Result = await getValue(getShortLink(short_link), short_link, next);
+    const response: IResult | null = await getValue(getShortLink(short_link), short_link, next);
+    // 若是已有数据，直接返回结果
     if (response) {
       res.json({
-        short_link: decodeURIComponent(response.short_link)
+        short_link: response.short_link
       })
     }
+    // 新数据时，先执行存储操作，成功后，返回结果
     if (!response) {
       const value = await setValues(insertLongLink(short_link, long_link), short_link, long_link, next)
       if (value) {
         res.json({
-          short_link: decodeURIComponent(short_link)
+          short_link: short_link
         })
       }
     }
@@ -42,13 +44,13 @@ app.post('/longLinkToShortLink', async (req: Request, res: Response, next: NextF
 
 // 输入短链，查询对应长链
 app.get('/shortLinkToLongLink', async (req: Request, res: Response, next: NextFunction) => {
-  const params: Params = req.query;
-  const shortLink = typeof params.shortLink === 'undefined'? '': params.shortLink
+  const params: IParams = req.query;
+  const shortLink = typeof params.shortLink === 'undefined' ? '' : params.shortLink
   try {
     const response = await getValue(getShortLink(shortLink), shortLink, next);
     if (response) {
       res.json({
-        long_link: decodeURIComponent(response?.long_link)
+        long_link: response.long_link
       })
     } else {
       res.send('记录不存在')

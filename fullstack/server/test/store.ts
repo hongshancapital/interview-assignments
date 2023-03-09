@@ -3,8 +3,8 @@ export const body = {
 }
 
 export const storedData = {
-  short_link: 'https://www.baidu.com/b513d487',
-  long_link: 'https://www.baidu.com/aa?aaa=bbb&ccc=dddeeecccsss&bbb=1678161127'
+  short_link: 'https://www.baidu.com/f5d448d1',
+  long_link: 'https://www.baidu.com/aa?aaa=bbb&ccc=jfiodsjfiosjfiosdjfdsiojfiosjfsoidjfsdiojfiosdjfiosdjfiosdjfoidsjf*7897892^&^&*%*&&^*^dddeeecccsss&bbb=1678346027'
 }
 
 export const newData = {
