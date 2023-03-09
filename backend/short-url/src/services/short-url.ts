@@ -4,7 +4,7 @@ import { redis } from 'src/utils/redis';
 
 export async function createShortUrl(longUrl: string, expiredAt?: number) {
     const shortUrl = await getSortUrl();
-    const res = await dataSource.getRepository(ShortUrl).create({ shortUrl, longUrl, expiredAt });
+    const res = await dataSource.getRepository(ShortUrl).save({ shortUrl, longUrl, expiredAt: new Date(expiredAt) });
     return res;
 }
 

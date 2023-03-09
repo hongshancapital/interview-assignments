@@ -1,10 +1,6 @@
 const config = {
     IS_DEV: false,
-    /**
-     * MySQL Database
-     *
-     * https://typeorm.io/#/connection-options
-     */
+
     MYSQL_SETTING: {
         host: 'localhost',
         port: 3306,

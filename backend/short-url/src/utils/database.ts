@@ -20,5 +20,7 @@ export async function loadDataSource() {
 }
 
 export async function closeDataSource() {
-    return dataSource.destroy();
+    return dataSource.destroy().then(() => {
+        console.log('Data Source has been closed!');
+    });
 }

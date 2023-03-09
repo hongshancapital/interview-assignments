@@ -4,7 +4,7 @@ import { ResponseCode, isUrl } from 'src/utils';
 
 const router = Router();
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/api/shortUrl', async (req: Request, res: Response) => {
     try {
         const { longUrl, expiredAt } = req.body;
 

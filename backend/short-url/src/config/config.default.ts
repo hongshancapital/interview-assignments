@@ -1,9 +1,8 @@
 const config = {
-    PORT: 3000,
     IS_DEV: true,
+    PORT: 3000,
     /**
      * MySQL Database
-     *
      * https://typeorm.io/#/connection-options
      */
     MYSQL_SETTING: {
@@ -13,7 +12,7 @@ const config = {
         password: 'dev!123',
         database: 'short-url'
     },
-    REDIS_URL: 'redis://:redis@localhost:6379'
+    REDIS_URL: 'redis://:password@localhost:6379'
 };
 
 export type ConfigScheme = Readonly<Partial<typeof config>>;

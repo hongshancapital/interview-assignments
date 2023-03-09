@@ -9,7 +9,7 @@
         "lint": "eslint . --ext .ts",
         "start": "APP_ENV=production node ./dist",
         "build": "rm -rf dist && tsc --build tsconfig.prod.json ./",
-        "test": "APP_ENV=test jest  --runInBand"
+        "test": "APP_ENV=test jest  --runInBand --detectOpenHandles"
     },
     "dependencies": {
         "body-parser": "^1.20.2",
@@ -24,7 +24,6 @@
         "@types/ioredis": "^5.0.0",
         "@types/jest": "^29.4.0",
         "@types/node": "^18.14.6",
-        "cross-env": "^7.0.3",
         "eslint": "^8.35.0",
         "jest": "^29.5.0",
         "nodemon": "^2.0.21",
