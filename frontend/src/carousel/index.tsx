@@ -65,7 +65,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
   const { nextIndex, setNextIndex } = useActiveIndex({ duration, count: data.length });
 
   /**
-   * 触发回调
+   * 触发before回调
    */
   useEffect(() => {
     if (curIndex !== nextIndex) {
@@ -75,6 +75,9 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     }
   }, [curIndex, nextIndex, beforeChange]);
 
+  /**
+   * 触发after回调
+   */
   useEffect(() => {
     preIndex.current !== -1 && afterChange?.(preIndex.current);
   }, [curIndex, afterChange]);
