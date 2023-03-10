@@ -8,14 +8,18 @@ enum Methods {
 }
 
 describe('中间件', () => {
-  const mockCallback = jest.fn()
+  const mockCallback = jest.fn();
+  const mockGetCallback = jest.fn()
+  const mockPostCallback = jest.fn();
   const mockErrorCallback = jest.fn()
   test('校验参数通过', () => {
     const body = {
       longLink: 'https://www.baidu.com/abcde?aaa=bbb&ccc=dddeeecccsss',
     }
-    checkParameter({ body } as Request, {send: mockErrorCallback} as any, mockCallback)
-    expect(mockCallback.mock.calls).toHaveLength(1);
+    checkParameter({ body, method: Methods.Get } as Request, {send: mockErrorCallback} as any, mockGetCallback)
+    checkParameter({ body, method: Methods.Post } as Request, {send: mockErrorCallback} as any, mockPostCallback)
+    expect(mockPostCallback.mock.calls).toHaveLength(1);
+    expect(mockGetCallback.mock.calls).toHaveLength(1);
   })
 
   describe('校验参数未通过', () => {
