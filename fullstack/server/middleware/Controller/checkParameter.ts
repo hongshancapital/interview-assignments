@@ -11,6 +11,15 @@ enum Methods {
   Get = 'GET'
 }
 
+const schemaMap = {
+  [Methods.Post]: Joi.object({
+    longLink: Joi.string().required()
+  }),
+  [Methods.Get]: Joi.object({
+    shortLink: Joi.string().required()
+  }) 
+}
+
 /**
    * @description: 中间件，查看输入的参数是否合法
    * @param {Request} req
@@ -19,26 +28,17 @@ enum Methods {
    * @return {*}
 */
 const checkParameter: (req: Request, res: Response, next: NextFunction) => void = function (req: Request, res: Response, next: NextFunction) {
-  const schemaPost  = Joi.object({
-    longLink: Joi.string().required()
-  })
+  const method: `${Methods}`  = req.method as any;
+  
+  const reqKey = {
+    [Methods.Post]: req.body,
+    [Methods.Get]: req.query
+  }
 
-  const schemaGet = Joi.object({
-    shortLink: Joi.string().required()
-  }) 
-  if (req.method === Methods.Post) {
-    const { error } = schemaPost.validate(req.body, { allowUnknown: false, abortEarly: true }); 
-    if (error) {
-      next(error);
-      return null;
-    }
-  } else {
-    const { error } = schemaGet.validate(req.query, { allowUnknown: false, abortEarly: true }); 
-    if (error) {
-      console.log('show error')
-      next(error);
-      return null;
-    }
+  const { error } = schemaMap[method].validate(reqKey[method], { allowUnknown: false, abortEarly: true }); 
+  if (error) {
+    next(error);
+    return null;
   }
   
   next()
