@@ -1,8 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
-import { initConnection } from './redis';
 import { createService } from './service';
-import { createMemoryRepository } from './repository';
+import { createMemoryRepository } from './repository/repository_memory';
 
 
 export default async function() {
