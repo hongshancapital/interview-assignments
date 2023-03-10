@@ -15,7 +15,6 @@ function App() {
   async function long2shortClick() {
     setRequesting(true)
     const result = await api.long2short(url)
-    console.log(result)
     setShortOutput(result.success ? result.data!.short! : result.message)
     setRequesting(false)
   }

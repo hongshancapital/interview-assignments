@@ -2,6 +2,8 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
 import { createService } from './service';
 import { createMemoryRepository } from './repository/repository_memory';
+import { initRedisConnnection } from './db/redis';
+import { createRedisRepository } from './repository/repository_redis';
 
 
 export default async function() {
@@ -9,7 +11,8 @@ export default async function() {
 
   app.use(cors())
 
-  const service = createService(createMemoryRepository())
+  const client = await initRedisConnnection(true)
+  const service = createService(createRedisRepository(client))
 
   app.get('/long2short', async (req: Request, res: Response) => {
     const url = req.query.url as string

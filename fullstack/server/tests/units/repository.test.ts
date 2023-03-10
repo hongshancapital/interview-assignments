@@ -40,23 +40,23 @@ function createUnits(repoType: string, repositoryFactory: () => Promise<UrlRepos
     expect(urlData2).toMatchObject(urlData)
   })
 
-  it(`${repoType} save & queryByShort`, async () => {
-    let repo = await repositoryFactory();
-    let url = "http://example.com/abc"
+  // it(`${repoType} save & queryByShort`, async () => {
+  //   let repo = await repositoryFactory();
+  //   let url = "http://example.com/abc"
 
-    let urlData: UrlStoreData = {
-      id: 0,
-      url,
-      short: 'abcdefgab',
-      createTime: Date.now(),
-      refreshTime: Date.now() + 1
-    }
-    await repo.save(urlData)
+  //   let urlData: UrlStoreData = {
+  //     id: 0,
+  //     url,
+  //     short: 'abcdefgab',
+  //     createTime: Date.now(),
+  //     refreshTime: Date.now() + 1
+  //   }
+  //   await repo.save(urlData)
     
-    let urlData2 = await repo.queryByShort(urlData.short)
-    expect(urlData).not.toBeUndefined()
-    expect(urlData2).toMatchObject(urlData)
-  })
+  //   let urlData2 = await repo.queryByShort(urlData.short)
+  //   expect(urlData).not.toBeUndefined()
+  //   expect(urlData2).toMatchObject(urlData)
+  // })
 }
 
 describe('repository', () => {

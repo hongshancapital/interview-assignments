@@ -10,23 +10,22 @@ export function createRedisRepository<M extends RedisModules, F extends RedisFun
   }
 
   async function queryByUrl(url: string): Promise<UrlStoreData | undefined> {
-    client.hmGet('url_data', 'url')
-    return {} as any
+    const short = await client.get(`url_data_url_${url}`)
+    if (!short) return
+    return queryByShort(short)
   }
 
   async function queryByShort(short: string): Promise<UrlStoreData | undefined> {
-    return {
-    } as any
+    const urlData = await client.get(`url_data_short_${short}`)
+    if (!urlData) return undefined
+    return JSON.parse(urlData)
   }
   
   async function save(data: UrlStoreData) {
-    await client.hSet('url_data', [
-      ['id', data.id],
-      ['short', data.short],
-      ['url', data.url],
-      ['createTime', data.createTime],
-      ['refreshTime', data.refreshTime],
-    ])
+    const multi = client.multi()
+    multi.set(`url_data_url_${data.url}`, data.short)
+    multi.set(`url_data_short_${data.short}`, JSON.stringify(data))
+    await multi.exec()
   }
 
   return {
