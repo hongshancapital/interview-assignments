@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Dots from './dots';
 import useActiveIndex from './useActiveIndex';
 import './styles/carousel.scss';
@@ -59,26 +59,28 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     duration,
     beforeChange,
     afterChange,
-    width = window.screen.width,
-    height = window.screen.height,
   } = props;
-  const preIndex = useRef(-1);
-
-  const { curIndex, setCurIndex } = useActiveIndex({ duration, count: data.length });
+  const [curIndex, setCurIndex] = useState(-1);
+  const preIndex = useRef(curIndex);
+  const { nextIndex, setNextIndex } = useActiveIndex({ duration, count: data.length });
 
   /**
    * 触发回调
    */
   useEffect(() => {
-    beforeChange?.(preIndex.current, curIndex);
-    if (preIndex.current !== -1) {
-      afterChange?.(preIndex.current);
+    if (curIndex !== nextIndex) {
+      curIndex !== -1 && beforeChange?.(curIndex, nextIndex);
+      preIndex.current = curIndex;
+      setCurIndex(nextIndex);
     }
-    preIndex.current = curIndex;
-  }, [curIndex, beforeChange, afterChange]);
+  }, [curIndex, nextIndex, beforeChange]);
+
+  useEffect(() => {
+    preIndex.current !== -1 && afterChange?.(preIndex.current);
+  }, [curIndex, afterChange]);
 
   return (
-    <div className="container" style={{ width: width, height: height }}>
+    <div className="container">
       <div className={`carousel active-${curIndex}`} data-testid="carousel">
         {data?.map((d, index) => (
           <div key={index}>
@@ -102,7 +104,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
           </div>
         ))}
       </div>
-      <Dots count={data.length} duration={duration} curIndex={curIndex} setCurIndex={setCurIndex} />
+      <Dots count={data.length} duration={duration} curIndex={curIndex} setCurIndex={setNextIndex} />
     </div>
   );
 };

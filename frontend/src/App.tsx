@@ -14,8 +14,6 @@ function App() {
   return (
     <Carousel
       duration={3000}
-      width={window.document.body.clientWidth}
-      height={window.innerHeight}
       beforeChange={beforeChange}
       afterChange={afterChange}
       data={CarouselData}

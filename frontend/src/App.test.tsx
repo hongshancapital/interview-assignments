@@ -14,22 +14,22 @@ describe('carousel component unit testing', () => {
   });
   test('useActiveIndex hooks', () => {
     const { result } = renderHook(() => useActiveIndex({ count: 3 }));
-    expect(result.current.curIndex).toBe(0);
+    expect(result.current.nextIndex).toBe(0);
 
     act(() => {
       jest.runOnlyPendingTimers();
     });
-    expect(result.current.curIndex).toBe(1);
+    expect(result.current.nextIndex).toBe(1);
 
     act(() => {
       jest.runOnlyPendingTimers();
     });
-    expect(result.current.curIndex).toBe(2);
+    expect(result.current.nextIndex).toBe(2);
 
     act(() => {
       jest.runOnlyPendingTimers();
     });
-    expect(result.current.curIndex).toBe(0);
+    expect(result.current.nextIndex).toBe(0);
 
     jest.clearAllTimers();
   });
@@ -41,7 +41,7 @@ describe('carousel component unit testing', () => {
       count: 3,
       duration: 3000,
       curIndex: 0,
-      setCurIndex: result.current.setCurIndex,
+      setCurIndex: result.current.setNextIndex,
     };
 
     act(() => {

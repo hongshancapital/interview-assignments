@@ -7,17 +7,17 @@ interface useActiveIndexProps {
 
 function useActiveIndex(props: useActiveIndexProps) {
   const { duration = 3000, count } = props;
-  const [curIndex, setCurIndex] = useState(0);
+  const [nextIndex, setNextIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const index = (curIndex + 1) % count;
-      setCurIndex(index);
+      const index = (nextIndex + 1) % count;
+      setNextIndex(index);
     }, duration);
     return () => clearInterval(timer);
-  }, [curIndex, duration, count]);
+  }, [nextIndex, duration, count]);
 
-  return { curIndex, setCurIndex };
+  return { nextIndex, setNextIndex };
 }
 
 export default useActiveIndex;
