@@ -11,7 +11,7 @@ if (appEnv) {
 
     try {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const envConfigs = require(__dirname + `./config.${appEnv}.ts`).default;
+        const envConfigs = require(`./config.${appEnv}.ts`).default;
 
         Object.assign(config, envConfigs);
     } catch (e) {

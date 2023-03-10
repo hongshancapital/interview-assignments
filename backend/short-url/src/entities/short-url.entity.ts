@@ -1,11 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity, Index } from 'typeorm';
 
-@Entity()
-export class ShortUrl extends BaseEntity {
+@Entity({ name: 'short_url' })
+export class ShortUrlEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Index('idx_short_url')
     @Column({
+        name: 'short_url',
         comment: '短链接',
         type: 'varchar',
         length: 50,
@@ -13,7 +15,9 @@ export class ShortUrl extends BaseEntity {
     })
     shortUrl: string;
 
+    @Index('idx_long_url')
     @Column({
+        name: 'long_url',
         comment: '原始长链接',
         type: 'varchar',
         length: 200,
@@ -22,6 +26,7 @@ export class ShortUrl extends BaseEntity {
     longUrl: string;
 
     @Column({
+        name: 'expired_at',
         comment: '过期时间',
         type: 'timestamp',
         nullable: true

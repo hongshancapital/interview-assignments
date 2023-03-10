@@ -1,19 +1,7 @@
-import config from './config';
+import App from './app';
+import IndexRoute from '@routes/index.route';
+import ShortUrlRoute from '@routes/short-url.route';
 
-import app from './app';
-import { loadDataSource } from './utils';
+const app = new App([new IndexRoute(), new ShortUrlRoute()]);
 
-const port = config.PORT || 3000;
-
-(async () => {
-    try {
-        await loadDataSource();
-
-        app.listen(port, () => {
-            console.log(`Express server started on port: ${port}`);
-        });
-    } catch (err) {
-        console.error(err);
-        process.exit();
-    }
-})();
+app.listen();

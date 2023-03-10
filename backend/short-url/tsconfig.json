@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "rootDir": "./",
         "outDir": "dist",
         "target": "ES6",
         "module": "CommonJS",
@@ -8,14 +7,19 @@
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "lib": ["ES6"],
-        "baseUrl": ".",
+        "baseUrl": "src",
         "paths": {
-            "src/*": ["./src/*"],
-            "utils/*": ["src/utils/*"],
-            "routes/*": ["src/routes/*"],
-            "entities/*": ["./src/entity/*"],
-            "services/*": ["src/services/*"],
-            "controllers/*": ["src/controllers/*"]
+            "@config": ["config"],
+            "@utils/*": ["utils/*"],
+            "@routes/*": ["routes/*"],
+            "@controllers/*": ["controllers/*"],
+            "@middlewares/*": ["middlewares/*"],
+            "@interfaces/*": ["interfaces/*"],
+            "@dtos/*": ["dtos/*"],
+            "@entities/*": ["entities/*"],
+            "@services/*": ["services/*"],
+            "@exceptions/*": ["exceptions/*"]
         }
-    }
+    },
+    "exclude": ["node_modules"]
 }

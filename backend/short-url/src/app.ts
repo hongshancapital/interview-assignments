@@ -1,26 +1,59 @@
-import express, { Request, Response } from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
-import apiRouters from './routes/index';
-import { CustomError, HttpStatusCodes } from './utils/error';
+import express from 'express';
+import errorMiddleware from '@middlewares/error.middleware';
+import { logger } from '@utils/logger';
+import { loadDB } from './utils';
+import config from '@config';
+import { Routes } from '@interfaces/routes.interface';
 
-const app = express();
+class App {
+    public app: express.Application;
+    public env: string;
+    public port: string | number;
 
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+    constructor(routes: Routes[]) {
+        this.app = express();
+        this.env = config.APP_ENV || 'development';
+        this.port = config.PORT || 3000;
 
-app.use('/api', apiRouters);
+        this.env !== 'test' && this.connectToDatabase();
+        this.initializeMiddlewares();
+        this.initializeRoutes(routes);
+        this.initializeErrorHandling();
+    }
 
-app.get('*', (_, res) => res.status(HttpStatusCodes.NOT_FOUND).send('Not found 404'));
+    public listen() {
+        this.app.listen(this.port, () => {
+            logger.info('=================================');
+            logger.info(`======= ENV: ${this.env} =======`);
+            logger.info(`🚀 App listening on the port ${this.port}`);
+            logger.info('=================================');
+        });
+    }
 
-// Error handling
-app.use((err: Error | CustomError, _: Request, res: Response) => {
-    const status = err instanceof CustomError ? err.httpStatus : HttpStatusCodes.BAD_REQUEST;
-    return res.status(status).json({
-        error: err.message
-    });
-});
+    public getServer() {
+        return this.app;
+    }
 
-export default app;
+    private async connectToDatabase() {
+        await loadDB();
+    }
+
+    private initializeMiddlewares() {
+        this.app.use(cors({ origin: config.ORIGIN }));
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
+    }
+
+    private initializeRoutes(routes: Routes[]) {
+        routes.forEach((route) => {
+            this.app.use('/', route.router);
+        });
+    }
+
+    private initializeErrorHandling() {
+        this.app.use(errorMiddleware);
+    }
+}
+
+export default App;

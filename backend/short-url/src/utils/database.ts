@@ -8,7 +8,7 @@ export const dataSource = new DataSource({
     logging: config.IS_DEV
 });
 
-export async function loadDataSource() {
+export async function loadDB() {
     return dataSource
         .initialize()
         .then(() => {
@@ -19,7 +19,7 @@ export async function loadDataSource() {
         });
 }
 
-export async function closeDataSource() {
+export async function closeDB() {
     return dataSource.destroy().then(() => {
         console.log('Data Source has been closed!');
     });

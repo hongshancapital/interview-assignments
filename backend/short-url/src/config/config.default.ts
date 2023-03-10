@@ -1,6 +1,10 @@
 const config = {
+    LOG_DIR: '../../logs',
+    APP_ENV: 'development',
     IS_DEV: true,
     PORT: 3000,
+
+    ORIGIN: '*',
     /**
      * MySQL Database
      * https://typeorm.io/#/connection-options

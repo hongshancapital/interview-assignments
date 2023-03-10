@@ -19,6 +19,9 @@ const config: Config = {
         }
     },
     modulePaths: ['.'],
+    moduleNameMapper: {
+        '@config': 'src/config'
+    },
     moduleDirectories: ['node_modules', 'src'],
     modulePathIgnorePatterns: ['src/config'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s'],
