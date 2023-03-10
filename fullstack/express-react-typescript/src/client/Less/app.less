@@ -1,0 +1,36 @@
+@green: green;
+@link-color:        #b94eb4; // sea blue
+@link-color-hover:  lighten(@link-color, 30%);
+@button-after:  darken(@link-color, 10%);
+@button-padding: 5px;
+@button-radius: 15px;
+h1 {
+  color: @green;
+}
+
+body {
+  text-align: center;
+  margin: auto;
+}
+button {
+  margin: 5px;
+  font-weight: 600;
+}
+
+select {
+  width: 200px;
+}
+
+a, .link {
+  color: @link-color;
+}
+a:hover {
+  color: @link-color-hover;
+}
+
+.line{
+  display: flex;
+  flex-direction:row;
+  justify-content: left;
+  align-items: center;
+}
