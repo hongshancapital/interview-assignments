@@ -1,5 +1,5 @@
 import '../../src/types.d'
-import { createMemoryRepository } from '../../src/repository'
+import { createMemoryRepository } from '../../src/repository/repository_memory'
 import { createService } from '../../src/service'
 
 
