@@ -25,6 +25,7 @@ async function main() {
 
     res.send({
       success: true,
+      message: 'ok',
       data: { short: urlData.short }
     })
   });
@@ -33,10 +34,11 @@ async function main() {
     const short = req.query.short as string
     const urlData = await service.queryByShort(short)
     if (!urlData) {
-      return res.send({ success: false })
+      return res.send({ success: false, message: 'not found' })
     }
     res.send({
       success: true,
+      message: 'ok',
       data: { url: urlData.url }
     })
   })

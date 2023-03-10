@@ -16,14 +16,14 @@ function App() {
     setRequesting(true)
     const result = await api.long2short(url)
     console.log(result)
-    setShortOutput(result.success ? result.short! : result.message)
+    setShortOutput(result.success ? result.data!.short! : result.message)
     setRequesting(false)
   }
 
   async function short2longClick() {
     setRequesting(true)
     const result = await api.short2long(short)
-    setLongOutput(result.success ? result.url! : result.message)
+    setLongOutput(result.success ? result.data!.url : result.message)
     setRequesting(false)
   }
   
@@ -35,19 +35,19 @@ function App() {
       <div className="App-content">
         <h1>短链服务</h1>
         <div>
-          <div>
+          <div className="input">
             <input value={url} onChange={e => setUrl(e.target.value)} /> 
             <button disabled={requesting} onClick={long2shortClick}>转为短链</button>
           </div>
-          <div id="short-output">{shortOutput}</div>
+          <div className="output">{shortOutput && "http://st.com/" + shortOutput}</div>
         </div>
         <br/><br/>
         <div>
-          <div>
+          <div className="input">
             <input value={short} onChange={e => setShort(e.target.value)} /> 
             <button disabled={requesting} onClick={short2longClick}>还原长链</button>
           </div>
-          <div id="long-output">{longOutput}</div>
+          <div className="output">{longOutput}</div>
         </div>
       </div>
     </div>
