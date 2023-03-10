@@ -34,21 +34,8 @@ export class UrlRepository {
     item.id = this.db.data.urls.nextId++;
     this.records[item.id] = item;
     this.originalUrl.set(item.originalUrl, item);
-    if (item.code) {
-      this.codeMap.set(item.code, item);
-    }
+    this.codeMap.set(item.code, item);
     entity.id = item.id;
-
-    return entity;
-  }
-
-  update(entity: Url): Url {
-    const item = this.clone(entity);
-    this.records[entity.id] = item;
-    this.originalUrl.set(item.originalUrl, item);
-    if (item.code) {
-      this.codeMap.set(item.code, item);
-    }
 
     return entity;
   }

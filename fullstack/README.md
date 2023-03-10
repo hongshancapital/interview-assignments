@@ -62,13 +62,13 @@ AppController (e2e)
 - 架构：nginx -> web server -> in-memory cache/db -> json file
 - 设计：
   - 单部署，内存cache/db（固定间隔自动保存），json文件持久化
-  - 从长链接sha1结果的前面四个字节计算出短链前两位字符，后接6位[0-9a-zA-Z]随机字符，兼顾长-短，短-长查找时的负载均衡和分表分库
+  - 从长链接sha1结果的前面四个字节计算出短链前两位固定字符，后接6位[0-9a-zA-Z]随机字符，兼顾长-短，短-长查找时的负载均衡和分表分库
   - 存储长链接的hash做索引优化查找
 - 更高并发（未实现）：
-  - 改用redis缓存+按短链接起始字符串分库分表
-  - 按短链接起始字符串做负载均衡，使每个部署只连接单一分库
+  - 改用redis缓存+按短链接前两位字符分库分表
+  - 按短链接前两位字符做负载均衡，使每个部署只连接单一分库
   - 创建和查询api分开部署
-- 性能：i7-9750H@2.60GHz上单container QPS 11k（读写未见明显区别）左右
+- 性能：在i7-9750H@2.60GHz上，单container QPS 11k（读写未见明显区别）左右
 5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
 
 详见`/src/db/url.entity.ts`，`/src/db.json`

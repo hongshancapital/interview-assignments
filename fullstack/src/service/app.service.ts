@@ -37,7 +37,6 @@ export class AppService {
     item.originalUrl = originalUrl;
     item.originalUrlHash = sha1Str;
     item = this.urlRepository.add(item);
-    this.urlRepository.update(item);
 
     return item.code;
   }
