@@ -3,9 +3,22 @@ import { RedisDefaultModules, RedisFunctions, RedisModules, RedisScripts } from 
 
 
 export function createMemoryRepository() : UrlRepository {
-  let idSeed = 0
-  const cacheByUrl: { [key:string]: UrlStoreData } = {}
-  const cacheByShort: { [key:string]: UrlStoreData } = {}
+  let idSeed = 1
+
+  const initialUrlData = {
+    id: 0,
+    url: 'http://example.com/abc',
+    short: '0t7lfuZ8',
+    createTime: Date.now(),
+    refreshTime: Date.now(),
+  }
+
+  const cacheByUrl: { [key:string]: UrlStoreData } = {
+    [initialUrlData.url]: initialUrlData
+  }
+  const cacheByShort: { [key:string]: UrlStoreData } = {
+    [initialUrlData.short]: initialUrlData
+  }
 
   async function createId(): Promise<number> {
     return idSeed++;

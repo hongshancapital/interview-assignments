@@ -1,35 +1,19 @@
 import '../../src/types.d'
 import { createMemoryRepository } from '../../src/repository'
 
-
-// async function testRepository(repo: UrlRepository) {
-
-
-//   console.log(urlData)
-//   expect(urlData.id).toBeInstanceOf(Number)
-//   expect(urlData.url).toEqual(url)
-//   expect(urlData.short).not.toBeUndefined()
-//   expect(urlData.id).toBeInstanceOf(Number)
-//   expect(urlData.id).toBeInstanceOf(Number)
-
-//   let urlDataAgain = repo.queryByUrl(url)
-//   expect(JSON.stringify(urlDataAgain)).toEqual(JSON.stringify(urlData));
-// }
-
 function createUnits(repoType: string, repositoryFactory: () => UrlRepository) {
   it(`${repoType} createId`, async () => {
     let repo = repositoryFactory();
     let id = await repo.createId()
     let id2 = await repo.createId()
     let id3 = await repo.createId()
-    expect(id).toBe(0)
-    expect(id2).toBe(1)
-    expect(id3).toBe(2)
+    expect(id2).toEqual(id + 1)
+    expect(id3).toEqual(id + 2)
   })
 
   it(`${repoType}queryByUrl`, async () => {
     let repo = repositoryFactory();
-    let url = "http://example.com/abc"
+    let url = "http://example.com/xxxx"
     let urlData = await repo.queryByUrl(url)
     expect(urlData).toBeUndefined()
   })
