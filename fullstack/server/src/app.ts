@@ -4,15 +4,22 @@ import { createService } from './service';
 import { createMemoryRepository } from './repository/repository_memory';
 import { initRedisConnnection } from './db/redis';
 import { createRedisRepository } from './repository/repository_redis';
+import { createSqlRepository } from './repository/repository_sql';
+import { initSqlConnection } from './db/sqlite';
 
-
-export default async function() {
+export default async function(dbType: 'memory' | 'sqlite' | 'redis' = 'memory') {
   const app: Express = express()
 
   app.use(cors())
 
-  const client = await initRedisConnnection(true)
-  const service = createService(createRedisRepository(client))
+  let repoFactoryMap: { [key:string]: () => Promise<UrlRepository> }  = {
+    'memory': createMemoryRepository,
+    'sqlite': async () => createSqlRepository(await initSqlConnection()),
+    'redis': async () => createRedisRepository(await initRedisConnnection(true))
+  }
+  
+  const repo = await repoFactoryMap[dbType]()
+  const service = createService(repo)
 
   app.get('/long2short', async (req: Request, res: Response) => {
     const url = req.query.url as string

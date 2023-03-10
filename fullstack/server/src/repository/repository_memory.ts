@@ -2,7 +2,7 @@
  * 这是一个内存的 repo ，主要用于方便测试
  * 同时对于前后端开发时，非常利于先部署一个仅内存的逻辑，而不用等数据库开发完
  */
-export function createMemoryRepository() : UrlRepository {
+export async function createMemoryRepository() : Promise<UrlRepository> {
   let idSeed = 1
 
   const initialUrlData = {
