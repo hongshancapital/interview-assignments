@@ -1,8 +1,11 @@
-import {Ipath, IPathRoute} from "../domain/IPath";
+import { Ipath, IPathRoute } from "../domain/IPath";
 
 function path(url: string): IPathRoute {
     const allRoutes: Ipath = {
-        "/link": {
+        "/getShortLink": {
+            methods: ["POST", "GET", "PUT", "DELETE"]
+        },
+        "/getLongLink": {
             methods: ["POST", "GET", "PUT", "DELETE"]
         }
     }

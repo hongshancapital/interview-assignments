@@ -13,6 +13,7 @@ export default class App extends React.Component<AppProps, AppStates> {
         shortLinkText: ''
     };
 
+    // 根据短链接获取长链接
     getLongLink = async (): Promise<void> => {
         const {
             shortLink
@@ -21,7 +22,7 @@ export default class App extends React.Component<AppProps, AppStates> {
         if (shortLink.trim()) {
             try {
                 const res: ILink = await Post(
-                    apiRoute.getRoute('link'),
+                    apiRoute.getRoute('getLongLink'),
                     { shortLink }
                 );
                 this.setState({
@@ -34,6 +35,7 @@ export default class App extends React.Component<AppProps, AppStates> {
         }
     };
 
+    // 根据长链接获取短链接
     getShortLink = async (): Promise<void> => {
         const {
             longLink
@@ -42,7 +44,7 @@ export default class App extends React.Component<AppProps, AppStates> {
         if (longLink.trim()) {
             try {
                 const res: ILink = await Post(
-                    apiRoute.getRoute('link'),
+                    apiRoute.getRoute('getShortLink'),
                     { longLink: longLink }
                 );
                 this.setState({
