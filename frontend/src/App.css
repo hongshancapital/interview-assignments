@@ -12,3 +12,69 @@
   font-size: 28px;
   font-weight: 400;
 }
+.carousel {
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.carouselItemWrapper {
+  display: flex;
+  flex-direction: row;
+  min-height: 400px;
+  transition: transform;
+  transition-duration: 0.5s;
+  transform: translateX(0%);
+}
+
+.carouselItem {
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+}
+
+.carouselItemInternalWrapper {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  height: 100%;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.carouselPagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 10px;
+}
+
+.carouselPaginationItem {
+  width: 50px;
+  border-radius: 3px;
+  height: 3px;
+  margin: 0 4px;
+  background-color: rgb(112, 111, 111);
+  position: relative;
+}
+.carouselPaginationItemTitle {
+  font-size: x-large;
+  font-weight: 500;
+  padding: 70px 0 10px 0;
+}
+.carouselPaginationItemAnimation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgb(229, 224, 224);
+
+  transition: linear;
+  transition-property: width;
+}
+.carouselPaginationItemAnimation.running {
+  width: 100%;
+  transition-duration: 5s;
+}
