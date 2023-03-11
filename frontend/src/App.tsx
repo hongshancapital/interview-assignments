@@ -65,6 +65,7 @@ export function CarouselPagination(props: CarouselPaginationType) {
       {new Array(total).fill(1).map((v, index) => {
         return (
           <CarouselPaginationItem
+            key={index}
             show={currentIndex === index}
             onFinished={onFinished}
           />
@@ -76,7 +77,6 @@ export function CarouselPagination(props: CarouselPaginationType) {
 
 type CarouselType = {
   children: React.ReactNode;
-  // data: { title: string; desc?: string; image: string; color?: string }[];
 };
 
 export function Carousel({ children }: CarouselType) {
@@ -85,10 +85,6 @@ export function Carousel({ children }: CarouselType) {
   const onFinished = () => {
     setIndex(index === total - 1 ? 0 : index + 1);
   };
-
-  if (!children) {
-    return null;
-  }
 
   return (
     <div className="carousel">
