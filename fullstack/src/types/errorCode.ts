@@ -1,7 +1,7 @@
 /*
  * @Author: zhangyan
  * @Date: 2023-03-09 02:56:10
- * @LastEditTime: 2023-03-12 17:37:10
+ * @LastEditTime: 2023-03-12 18:37:10
  * @LastEditors: zhangyan
  * @FilePath: /fullstack/src/types/errorCode.ts
  * @Description: 全局统一错误信息
@@ -12,6 +12,7 @@ interface ErrorInfo {
   code: number;
 }
 
+// #cycode_secret_ignore_here
 export enum ErrorType {
   succ = 0,
   server_error = 500,
@@ -21,6 +22,7 @@ export enum ErrorType {
   incorrect_url = 10003,
   add_url_faild = 10004,
 }
+// #cycode_secret_ignore_here
 
 export const errorCode: { [key: number]: ErrorInfo } = {
   [ErrorType.succ]: { msg: "Success", code: ErrorType.succ },
