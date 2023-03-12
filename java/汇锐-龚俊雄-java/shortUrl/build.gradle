@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-cache:2.4.3'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.4.0'
+    implementation 'org.apache.commons:commons-pool2:2.6.2'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'org.apache.commons:commons-collections4:4.2'
+
+    //swagger
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+test {
+    useJUnitPlatform()
+}
