@@ -94,7 +94,8 @@ GET /shorts/:short
 
 ## 安装
 
-您首先需要连接 mongoose 数据库并创建“short-url-api”数据库。我们推荐使用 yarn 来管理依赖项和运行我们的命令。
+1. 您首先需要连接 mysql 数据库并创建“short-url”数据库，设置 redis 连接地址(生产环境推荐通过环境变量配置数据库及 redis 连接信息)。
+2. 使用 yarn 或 npm 来安装依赖项和运行我们的命令。
 
 ```bash
 $ yarn
@@ -113,7 +114,7 @@ $ yarn start
 
 ## 运行测试用例
 
-查看测试用例请访问文件夹命名为**test**下的文件, 比如：src/routes/shortUrlRouter/**test** 该目录包含所有关于短链接的测试用例。
+查看单元测试请访问文件夹命名为**__test__**下的文件, 集成测试请访问 **src/tests** 目录下的文件。
 
 ```bash
 $ yarn test
