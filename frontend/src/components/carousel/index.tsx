@@ -66,6 +66,7 @@ const Index: FunctionComponent<CarouselProps> = (props) => {
     const clearTimer = () => {
         if(timerRef.current) {
             clearInterval(timerRef.current)
+            timerRef.current =  null
         }
     }
 
