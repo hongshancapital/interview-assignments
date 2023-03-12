@@ -5,7 +5,7 @@ export class ShortUrlEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Index('idx_short_url')
+    @Index({ unique: true })
     @Column({
         name: 'short_url',
         comment: '短链接',
@@ -15,7 +15,6 @@ export class ShortUrlEntity extends BaseEntity {
     })
     shortUrl: string;
 
-    @Index('idx_long_url')
     @Column({
         name: 'long_url',
         comment: '原始长链接',

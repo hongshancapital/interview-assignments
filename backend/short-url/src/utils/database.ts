@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import config from '../config';
+import config from '@config';
 export const dataSource = new DataSource({
     type: 'mysql',
     ...config.MYSQL_SETTING,
@@ -9,18 +9,12 @@ export const dataSource = new DataSource({
 });
 
 export async function loadDB() {
-    return dataSource
-        .initialize()
-        .then(() => {
-            console.log('Data Source has been initialized!');
-        })
-        .catch((err) => {
-            console.error('Error during Data Source initialization:', err);
-        });
+    if (dataSource.isInitialized) return dataSource;
+    return dataSource.initialize().catch((err) => {
+        console.error('Error during Data Source initialization:', err);
+    });
 }
 
 export async function closeDB() {
-    return dataSource.destroy().then(() => {
-        console.log('Data Source has been closed!');
-    });
+    return dataSource.destroy();
 }

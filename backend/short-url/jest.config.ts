@@ -20,7 +20,17 @@ const config: Config = {
     },
     modulePaths: ['.'],
     moduleNameMapper: {
-        '@config': 'src/config'
+        '@config': 'src/config',
+        '@utils/(.*)$': '<rootDir>/src/utils/$1',
+        '@controllers/(.*)$': 'src/controllers/$1',
+        '@routes/(.*)$': 'routes/$1',
+        '@controllers/*': 'controllers/$1',
+        '@middlewares/(.*)$': 'middlewares/$1',
+        '@interfaces/(.*)$': 'interfaces/$1',
+        '@dtos/(.*)$': 'dtos/$1',
+        '@entities/(.*)$': 'entities/$1',
+        '@services/(.*)$': 'services/$1',
+        '@exceptions/(.*)$': 'exceptions/$1'
     },
     moduleDirectories: ['node_modules', 'src'],
     modulePathIgnorePatterns: ['src/config'],

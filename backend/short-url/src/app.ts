@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger } from '@utils/logger';
-import { loadDB } from './utils';
+import { loadDB } from '@utils/database';
 import config from '@config';
 import { Routes } from '@interfaces/routes.interface';
 

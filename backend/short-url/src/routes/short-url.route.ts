@@ -5,7 +5,7 @@ import ShortUrlController from '@controllers/short-url.controller';
 import { Routes } from '@interfaces/routes.interface';
 
 class ShortUrlRoute implements Routes {
-    public path = '/short';
+    public path = '/shorts';
     public router = Router();
     public shortUrlController = new ShortUrlController();
 

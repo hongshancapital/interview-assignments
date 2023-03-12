@@ -6,5 +6,5 @@ export class CreateShortUrlDto {
 
     @IsOptional()
     @IsInt()
-    public expiredAt: number;
+    public expiredAt?: number;
 }

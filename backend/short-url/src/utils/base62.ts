@@ -1,38 +1,29 @@
-const CHARSET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+class Base62 {
+    private chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    private length = 8;
 
-const indexCharset = function indexCharset(str) {
-    const byCode: Record<number, string> = {};
-    const byChar: Record<string, number> = {};
-    let char;
-    for (let i = 0; i < str.length; i++) {
-        char = str[i];
-        byCode[i] = char;
-        byChar[char] = i;
-    }
-    return { byCode: byCode, byChar: byChar, length: str.length };
-};
-
-const { byCode, byChar, length } = indexCharset(CHARSET);
-
-export const encode = (int: number) => {
-    if (int === 0) {
-        return byCode[0];
+    constructor(chars?: string, length?: number) {
+        this.chars = chars || this.chars;
+        this.length = length || this.length;
     }
 
-    let res = '';
-    while (int > 0) {
-        res = byCode[int % length] + res;
-        int = Math.floor(int / length);
+    public encode(num: number) {
+        let result = '';
+        while (num > 0) {
+            result = this.chars.charAt(num % 62) + result;
+            num = Math.floor(num / 62);
+        }
+        return result.padStart(this.length, this.chars[0]);
     }
-    return res;
-};
 
-export const decode = (str: string) => {
-    let res = 0,
-        char;
-    for (let i = 0; i < str.length; i++) {
-        char = str[i];
-        res += byChar[char] * Math.pow(length, str.length - i - 1);
+    public decode(code: string): number {
+        let data = 0;
+        for (const c of code) {
+            const i = this.chars.indexOf(c);
+            data = data * this.chars.length + i;
+        }
+        return data;
     }
-    return res;
-};
+}
+
+export default Base62;
