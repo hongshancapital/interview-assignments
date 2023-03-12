@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../src/App";
+import app from "../src/app";
 
 before((done) => {
   app.on("initialized", () => {
@@ -28,7 +28,7 @@ describe("router testing", () => {
   it("short url converts to long url: found", async () => {
     let server = request(app);
     let response = server.get(
-      `/short2long?url=${encodeURIComponent("https://s.cn/2")}`
+      `/short2long?url=${encodeURIComponent("https://s.cn/1")}`
     );
 
     return response
