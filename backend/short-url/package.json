@@ -9,7 +9,8 @@
         "lint": "eslint . --ext .ts",
         "start": "APP_ENV=production node ./dist",
         "build": "rm -rf dist && tsc --build tsconfig.prod.json ./",
-        "test": "APP_ENV=test jest  --runInBand --detectOpenHandles"
+        "test": "APP_ENV=test jest  --runInBand --detectOpenHandles",
+        "test:coverage": "APP_ENV=test jest --runInBand --coverage --verbose"
     },
     "husky": {
         "hooks": {

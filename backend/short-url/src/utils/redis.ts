@@ -7,7 +7,7 @@ export async function closeRedis() {
     return redis.quit();
 }
 
-export function getRedisKey(...args: Array<string | number>) {
+export function getRedisKey(...args: Array<string | number | Array<string>>) {
     if (args.length === 1 && Array.isArray(args[0])) {
         return args[0].join(':');
     }

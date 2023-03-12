@@ -55,5 +55,38 @@ describe('Testing Shorts', () => {
             const app = new App([shortsRoute]);
             return request(app.getServer()).post(`${shortsRoute.path}`).send(shortData).expect(201);
         });
+
+        it('response 400 for invalid url', async () => {
+            const mockLongUrl = 'google@dsd';
+            const shortData: CreateShortUrlDto = {
+                longUrl: mockLongUrl // 非合法url
+            };
+
+            const shortsRoute = new ShortsRoute();
+
+            try {
+                const app = new App([shortsRoute]);
+                await request(app.getServer()).post(`${shortsRoute.path}`).send(shortData);
+            } catch (error) {
+                expect(error.status).toEqual(400);
+            }
+        });
+
+        it('response 400 for url expired', async () => {
+            const mockLongUrl = 'https://www.google.com';
+            const shortData: CreateShortUrlDto = {
+                longUrl: mockLongUrl,
+                expiredAt: 2322323 // 过期时间
+            };
+
+            const shortsRoute = new ShortsRoute();
+
+            try {
+                const app = new App([shortsRoute]);
+                await request(app.getServer()).post(`${shortsRoute.path}`).send(shortData);
+            } catch (error) {
+                expect(error.message).toEqual('Invalid expireAt time');
+            }
+        });
     });
 });

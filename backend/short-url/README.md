@@ -120,7 +120,7 @@ $ yarn test
 
 ```
 
-![](./docs/test.png)
+![unit-test](./docs/test.png)
 
 ## 代码覆盖率
 
@@ -130,4 +130,4 @@ $ yarn test:coverage
 
 用浏览器打开项目目录：./coverage/lcov-report/index.html 以查看代码测试结果. 一般工程不会将代码测试率提交到 git 进行管理，所以我们做了以下截图：
 
-!["design"](./assets/codes-coverage.png)
+!["design"](./docs/coverage.png)
