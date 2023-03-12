@@ -1,0 +1,39 @@
+// 颜色变量
+$dotsBgColor: rgba(162, 162, 162, 1);
+$dotsBgHoverColor: rgba(255, 255, 255, 1);
+
+.dots {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 50%;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  span {
+    position: relative;
+    max-width: 80px;
+    height: 0.2rem;
+    margin-right: 0.6rem;
+    background-color: $dotsBgColor;
+    border-radius: 0.1rem;
+    cursor: pointer;
+    i {
+      display: inline-block;
+      position: absolute;
+      width: 0;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-color: $dotsBgHoverColor;
+    }
+    // 静态测试采用
+    //   &.active {
+    //     i {
+    //       width: 100%;
+    //         transition: all 3s;
+    //     }
+    //   }
+  }
+}

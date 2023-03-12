@@ -33,26 +33,25 @@
   - 对审美有一定追求
   - 能力突出者可适当放宽年限
 
-
 ## `<Carousel>` 组件 API
 
-| 参数 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| autoplay | 是否自动切换 | boolean | false |  |
-| dotPosition | 面板指示点位置，可选 `top` `bottom` `left` `right` | string | `bottom` |  |
-| dots | 是否显示面板指示点，如果为 `object` 则同时可以指定 `dotsClass` 或者 | boolean \| { className?: string } | true |  |
-| easing | 动画效果 | string | `linear` |  |
-| effect | 动画效果函数 | `scrollx` \| `fade` | `scrollx` |  |
-| afterChange | 切换面板的回调 | function(current) | - |  |
-| beforeChange | 切换面板的回调 | function(from, to) | - |  |
+| 参数            | 说明                                 | 类型             | 默认值 | 版本 |
+| --------------- | ------------------------------------ | ---------------- | ------ | ---- |
+| autoplay        | 是否自动切换                         | boolean          | false  |      |
+| width           | 宽度设置                             | number \| string | 100%   |      |
+| height          | 高度设置                             | number \| string | 100%   |      |
+| interval        | 轮播时间                             | number           | 3000   |      |
+| transitionTime  | 动画过渡时间                         | number           | 1000   |      |
+| mouseEnterEvent | 走马灯鼠标经过事件(非全屏场景下使用) | boolen           | false  |      |
+| mouseLeaveEvent | 走马灯鼠标离开事件(非全屏场景下使用) | boolen           | false  |      |
 
 ## 方法
 
-| 名称                           | 描述                                              |
-| ------------------------------ | ------------------------------------------------- |
-| goTo(slideNumber, dontAnimate) | 切换到指定面板, dontAnimate = true 时，不使用动画 |
-| next()                         | 切换到下一面板                                    |
-| prev()                         | 切换到上一面板                                    |
+| 名称        | 描述           |
+| ----------- | -------------- |
+| goTo(index) | 切换到指定面板 |
+| next()      | 切换到下一面板 |
+| prev()      | 切换到上一面板 |
 
 ## Create React App 信息
 
