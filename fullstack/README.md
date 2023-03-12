@@ -1,45 +1,71 @@
-# TypeScript Fullstack Engineer Assignment
+<!--
+ * @Author: zhangyan
+ * @Date: 2023-03-10 20:55:33
+ * @LastEditTime: 2023-03-12 03:33:06
+ * @LastEditors: zhangyan
+ * @FilePath: /fullstack/readme.md
+ * @Description: readme
+-->
+# 基于 nodejs + express的短网址系统Demo演示
+## 说明
+### 本系统实现了一个最基本功能的短网址系统演示，提供两个接口，分别来获取短链接和生成短链接，加入了redis缓存来提高接口性能
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+---
+## 系统架构
+![系统架构](/系统架构.png)
 
-撰写两个 API 接口
+ 1. 提供2个接口，分别是获取短链接 get_url，和生成短链接 set_url
+ 2. 使用redis缓存，这里简单起见对整个response进行数据缓存
+ 3. 业务层提供2个基本流程，获取短链接和生成短链接（已实现），常见短网址系统还有后台管理，黑名单管理，数据统计，日志等其他功能（未实现）
+ 4. 数据层提供对数据库的操作(已实现)，根据访问流量和并发还会有事务处理，缓存处理等（未实现）
+ 5. 数据库这里简单使用mongoDb
+ 6. 运行环境简单使用PM2常驻运行
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+ ---
+ ## 表设计
+![表设计](/表设计.png)
 
-限制
+nodejs里用以下Schema生成表
+```javascript
+new Schema({
+   id:{ type: ObjectId, required: true, unique: true }
+   full_url: { type: String, required: true },
+   create_time: { type: String, required: true },
+   token: { type: String, required: true }
+})
+```
+因为是demo演示，简单设计4个字段，主键id自增且唯一(本demo因为不会利用自增id来生成token，简单起见采用默认的objectId类型)，其余三个字段分别存储网址，创建时间和对应的token
+(常见还有最后访问时间，过期时间，访问次数等未添加)
 
-- 短域名长度最大为 8 个字符（不含域名）
+---
+## 单元测试
+![单元测试](/单元测试.png)
 
-递交作业内容
+单测使用jest + supertest，分别对逻辑，数据库读写和接口访问进行测试
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率(覆盖率请勿提交整个目录，一张图片或一个 text table 即可)
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
 
-其他
+---
+## API
 
-- 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
+- GET http://{url}/get_url?token=xxxxx
+  - @param：{ token } 生成短链接的token码
+  - @return：![接口示例](/接口示例.png)
 
-## 岗位职责
+- POST http://{url}/set_url
+  - @param： { url } 需要生成短链接的网址
+  - @return：![接口示例](/接口示例.png)
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+---
+## 运行
 
-## 要求
+- 安装 MongoDb
+- 安装 redis
+- yarn install
+- yarn start
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+---
+## 其他
+
+- http://{url}/token/xxxx
+  - 通过url直接访问，如果token存在会直接跳转到目标网站
+
