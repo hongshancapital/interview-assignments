@@ -10,10 +10,12 @@
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
 - [UI 设计师](design/)
-
-北京/武汉:
 - [TypeScript Backend](backend/)
 - [TypeScript Fullstack](fullstack/)
+
+北京:
+- [TypeScript Backend](backend/)
+- [TypeScript Fullstack(偏 Backend)](fullstack/)
 
 链接中有更为具体的 JD。
 
