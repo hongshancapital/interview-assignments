@@ -1,6 +1,8 @@
 {
   "name": "react-assignment",
   "version": "0.1.0",
+  "author": "FE: dengpei",
+  "email": "809830016@qq.com",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
@@ -15,13 +17,19 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
     "react-scripts": "^5.0.1",
+    "sass": "^1.58.3",
+    "sass-loader": "^7.0.1",
+    "stylelint": "^15.2.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-scss": "^4.4.0",
     "typescript": "^4.8.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:style":"stylelint src\"/**/*.+(css|scss|less|stylus|sass|postcss)\" --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
