@@ -7,12 +7,15 @@
 ## 开放岗位
 
 武汉：
-- [TypeScript Fullstack](fullstack/)
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
-
-北京/武汉:
 - [UI 设计师](design/)
+- [TypeScript Backend](backend/)
+- [TypeScript Fullstack](fullstack/)
+
+北京:
+- [TypeScript Backend](backend/)
+- [TypeScript Fullstack(偏 Backend)](fullstack/)
 
 链接中有更为具体的 JD。
 
@@ -124,6 +127,6 @@ Fork 当前仓库并在相关文件夹下找到你的作业。完成作业后提
 
 ## 还有其他要补充的吗？
 
-1. 面试时我们会考察编程语言的掌握能力（Java/TS/Swift）。
+1. 面试时我们会考察编程语言的掌握能力（TS/Swift）。
 2. 我们看重解决问题的能力，以及发散思维的能力。
 3. 所有办公地点在市区，交通便利。

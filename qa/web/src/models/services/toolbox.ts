@@ -1,11 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 import { Config } from '@/config';
-import { ToolboxForm } from "@/types";
-
+import { ToolboxForm } from '@/types';
 
 export const getToolboxList = async () => {
   try {
-    const resp = await axios.get<{data: ToolboxForm[]}>(`${Config.apiUrl}toolbox`);
+    const resp = await axios.get<{ data: ToolboxForm[] }>(`${Config.apiUrl}toolbox`);
     return resp.data.data;
   } catch (err) {
     console.error(err);
@@ -21,7 +20,6 @@ export const createToolboxPreference = async (data: ToolboxForm) => {
     return err;
   }
 };
-
 
 export const getToolboxOptions = async () => {
   try {

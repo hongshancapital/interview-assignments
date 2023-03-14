@@ -1,8 +1,7 @@
-import classNames from 'classnames';
-import React, { ReactNode, useEffect, useState } from 'react';
+import clsx from 'clsx';
+import { ReactNode, useEffect, useState } from 'react';
 
-
-import styles from './index.scss';
+import styles from './index.module.scss';
 
 export type Props<T> = {
   getKey?: (element: T) => string | number;
@@ -38,7 +37,7 @@ const FlatSection = <T extends unknown>({
     <div className={styles.flatSelectionContainer}>
       {options.map((option) => (
         <div
-          className={classNames(
+          className={clsx(
             styles.option,
             option === selected && styles.selected,
             disabled && styles.disabled,
@@ -52,11 +51,7 @@ const FlatSection = <T extends unknown>({
           {optionRender?.(option) ?? String(option)}
         </div>
       ))}
-      {!options.length && (
-        <div className={classNames(styles.option)}>
-          Loading...
-        </div>
-      )}
+      {!options.length && <div className={clsx(styles.option)}>Loading...</div>}
     </div>
   );
 };
