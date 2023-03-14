@@ -1,0 +1,28 @@
+.indicator-container {
+  display: flex;
+  position: absolute;
+  float: left;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+
+.indicator-item-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #A9A9A9;
+  border-radius: 2px;
+}
+
+.indicator-item-foreground {
+  position: absolute;
+  height: 100%;
+  background-color: #FAFAFA;
+  border-radius: 2px;
+}
+
+@keyframes indicatorItemAnim {
+  from { width: 0; }
+  to { width: 100%; }
+}
