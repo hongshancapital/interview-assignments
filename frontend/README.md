@@ -33,6 +33,26 @@
   - 对审美有一定追求
   - 能力突出者可适当放宽年限
 
+## `<Carousel>` 组件 API
+
+| 参数            | 说明                                 | 类型             | 默认值 | 版本 |
+| --------------- | ------------------------------------ | ---------------- | ------ | ---- |
+| autoplay        | 是否自动切换                         | boolean          | false  |      |
+| width           | 宽度设置                             | number \| string | 100%   |      |
+| height          | 高度设置                             | number \| string | 100%   |      |
+| interval        | 轮播时间                             | number           | 3000   |      |
+| transitionTime  | 动画过渡时间                         | number           | 1000   |      |
+| mouseEnterEvent | 走马灯鼠标经过事件(非全屏场景下使用) | boolen           | false  |      |
+| mouseLeaveEvent | 走马灯鼠标离开事件(非全屏场景下使用) | boolen           | false  |      |
+
+## 方法
+
+| 名称        | 描述           |
+| ----------- | -------------- |
+| goTo(index) | 切换到指定面板 |
+| next()      | 切换到下一面板 |
+| prev()      | 切换到上一面板 |
+
 ## Create React App 信息
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
