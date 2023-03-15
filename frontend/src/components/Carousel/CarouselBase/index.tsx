@@ -1,4 +1,4 @@
-import React, { FC, useLayoutEffect, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import classNames from "classnames"
 
 import { createPropsGetter } from "../../../utils/createPropsGetter"
@@ -24,7 +24,7 @@ const CarouselBase: FC<Props> = (props) => {
 
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       const nextIndex = (currentIndex + 1) % itemsLength
 
