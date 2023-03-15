@@ -1,0 +1,26 @@
+.carousel {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+
+  /* layout */
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  /* animation */
+  transition: transform 300ms;
+}
+
+.carousel-panel {
+  width: 100%;
+  height: 100%;
+  flex: 0 0 auto;
+}

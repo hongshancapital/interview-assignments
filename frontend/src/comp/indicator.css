@@ -1,0 +1,37 @@
+:root {
+  --indicator-height: 4px;
+  --indicator-radius: 2px;
+}
+
+.indicator {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  top: 95%;
+  left: 0;
+  width: 100%;
+  height: var(--indicator-height);
+}
+
+.indicator-block {
+  margin: 0 5px;
+  width: 40px;
+  height: 4px;
+  border: none;
+  border-radius: var(--indicator-radius);
+  overflow: hidden;
+  background: darkgray;
+  transition-duration: inherit;
+}
+
+.indicator-block-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--indicator-radius);
+  background: #fff;
+  transform: translateX(-100%);
+  transition: transform 10s;
+  transition-duration: inherit;
+}
