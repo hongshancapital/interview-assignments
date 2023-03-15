@@ -1,0 +1,43 @@
+.carousel-base {
+  position: relative;
+
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  &__content {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100%;
+
+    transition: transform 1s ease-in-out;
+
+    transform: translateX(0%);
+
+    &__item {
+      flex-shrink: 1;
+    }
+  }
+
+  &__dots {
+    position: absolute;
+    z-index: 1;
+    bottom: 8%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    &--hidden {
+      opacity: 0;
+    }
+  }
+
+  &__empty {
+    width: 100%;
+    height: 100%;
+
+    padding: 40px;
+  }
+}

@@ -1,0 +1,40 @@
+@keyframes lineWidth {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.carousel-dots {
+  --duration: 0s;
+
+  display: flex;
+
+  &__item {
+    width: 64px;
+    height: 4px;
+    border-radius: 4px;
+    margin-left: 8px;
+
+    background-color: #a09f9f;
+
+    &__line {
+      width: 0%;
+      height: 100%;
+      border-radius: 4px;
+
+      background-color: white;
+
+      &--active {
+        animation: lineWidth var(--duration) ease;
+      }
+    }
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+}
