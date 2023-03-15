@@ -29,6 +29,7 @@ export default function CarouselBox(props: CarouselProps) {
     [current]
   );
 
+  // start the loop
   useEffect(
     () => {
       const timer = setTimeout(
@@ -48,7 +49,7 @@ export default function CarouselBox(props: CarouselProps) {
     if (step === 0) {
       setTimeout(
         () => setCurrent(step),
-        33,
+        33, // delay two frame, to ensure all is done
       );
       setCurrent(-1); // reset when index is overflowed
     } else {
