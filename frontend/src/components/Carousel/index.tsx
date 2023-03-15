@@ -1,6 +1,8 @@
 import { type FC, type ReactNode, type CSSProperties, useEffect, useState } from 'react'
 import './index.css'
 
+const randomStr = Math.random().toString(36).slice(2)
+
 const classnames = (...arr: string[]) => {
   return arr.filter(Boolean).join(' ')
 }
@@ -21,11 +23,11 @@ const Carousel: FC<CarouselProps> = ({ items, delay = 3500 }) => {
     // Try to fix the `activeIndex` if `items` changes
     if (activeIndex >= items.length) {
       setActiveIndex(0)
+      return
     }
     const timer = window.setTimeout(() => setActiveIndex((activeIndex + 1) % items.length), delay)
-    return () => {
-      window.clearTimeout(timer)
-    }
+
+    return () => window.clearTimeout(timer)
   }, [items, delay, activeIndex])
 
   return (
@@ -54,7 +56,7 @@ const Carousel: FC<CarouselProps> = ({ items, delay = 3500 }) => {
           >
             <span className="indicator__track">
               {/* Restart animation when `delay` changes */}
-              <span key={`${item.key}$$${delay}`} className="indicator__bar" />
+              <span key={`${item.key}${randomStr}${delay}`} className="indicator__bar" />
             </span>
           </li>
         ))}
