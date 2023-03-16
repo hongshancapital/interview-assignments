@@ -28,29 +28,26 @@ const Carousel = ({
   const [containerRect, setContainerRect] = useState<DOMRect>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const previousIndex = useRef<number>(0);
-  const timeoutIdRef = useRef<number>(-1);
+  const timeoutIdRef = useRef<number | null>(null);
   const childrenArray = useMemo(() => Children.toArray(children), [children]);
+  const clearTimeoutIfNeeded = useCallback(() => {
+    if (timeoutIdRef.current) {
+      window.clearTimeout(timeoutIdRef.current);
+      timeoutIdRef.current = null;
+    }
+  }, []);
+  const next = useCallback(() => {
+    clearTimeoutIfNeeded();
+    setCurrentIndex((i) => {
+      return i === childrenArray.length - 1 ? 0 : i + 1;
+    });
+  }, [childrenArray, clearTimeoutIfNeeded]);
   const goTo = useCallback(
-    (index?: number) => {
-      if (timeoutIdRef.current) {
-        clearTimeout(timeoutIdRef.current);
-        timeoutIdRef.current = -1;
-      }
-      if (
-        typeof index === "number" &&
-        index >= 0 &&
-        index < childrenArray.length
-      ) {
-        setCurrentIndex(index);
-      } else {
-        setCurrentIndex((currentIndex) => {
-          return currentIndex === childrenArray.length - 1
-            ? 0
-            : currentIndex + 1;
-        });
-      }
+    (index: number) => {
+      clearTimeoutIfNeeded();
+      setCurrentIndex(index);
     },
-    [childrenArray]
+    [clearTimeoutIfNeeded]
   );
   useEffect(() => {
     if (onPageSelected && previousIndex.current !== currentIndex) {
@@ -61,16 +58,16 @@ const Carousel = ({
   useEffect(() => {
     if (autoplay) {
       timeoutIdRef.current = window.setTimeout(() => {
-        goTo();
+        next();
       }, previewDuration * 1000);
     }
     return () => {
-      if (timeoutIdRef.current !== -1) {
+      if (timeoutIdRef.current) {
         clearTimeout(timeoutIdRef.current);
-        timeoutIdRef.current = -1;
+        timeoutIdRef.current = null;
       }
     };
-  }, [autoplay, currentIndex, previewDuration, goTo]);
+  }, [autoplay, currentIndex, previewDuration, next]);
   useEffect(() => {
     const getContainerRect = () => {
       if (containerRef.current) {
