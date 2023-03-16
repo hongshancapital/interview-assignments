@@ -14,10 +14,19 @@ private struct MockDataModel: Codable {
 actor MockDataService {
     static let shared = MockDataService()
     
-    private var mockData: MockDataModel = load("appList.json")
     private var favouritedIds: Set<String> = []
-    
-    private static func load<T: Decodable>(_ filename: String) -> T {
+    private var mockDataCache: MockDataModel? = nil
+        
+    private func fetchMockData() async -> MockDataModel {
+        if let dataCache = mockDataCache {
+            return dataCache
+        }
+        let mockData: MockDataModel = await load("appList.json")
+        mockDataCache = mockData
+        return mockData
+    }
+
+    private func load<T: Decodable>(_ filename: String) async -> T {
         let data: Data
         
         guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
@@ -45,6 +54,8 @@ extension MockDataService: RequestDataService {
     func fetchAppList(atPage page: Int, pageCount: Int) async throws -> AppListResponseModel {
         // mocking network delay
         try await Task.sleep(for: Duration.seconds(0.5))
+        
+        let mockData = await fetchMockData()
                 
         let startIndex = max(0, page * pageCount)
         let endIndex = min(mockData.results.count - 1, (page + 1) * pageCount - 1)
