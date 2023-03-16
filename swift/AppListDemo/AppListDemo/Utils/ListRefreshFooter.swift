@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListRefreshFooter: View {
     var hasMoreData: Bool
-    var isLoadingFaild: Bool
+    var isLoadingFailed: Bool
     
     //fix ProgressView show only once
     @State private var progressId: Int = 0
@@ -18,7 +18,7 @@ struct ListRefreshFooter: View {
         HStack(alignment: .center) {
             Spacer()
             
-            if isLoadingFaild {
+            if isLoadingFailed {
                 Text("Load failed.").foregroundColor(.secondary)
             } else {
                 if hasMoreData {
@@ -45,11 +45,11 @@ struct ListRefreshFooter_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             Divider()
-            ListRefreshFooter(hasMoreData: true ,isLoadingFaild: false)
+            ListRefreshFooter(hasMoreData: true, isLoadingFailed: false)
             Divider()
-            ListRefreshFooter(hasMoreData: false,isLoadingFaild: false)
+            ListRefreshFooter(hasMoreData: false, isLoadingFailed: false)
             Divider()
-            ListRefreshFooter(hasMoreData: true,isLoadingFaild: true)
+            ListRefreshFooter(hasMoreData: true, isLoadingFailed: true)
             Divider()
         }
     }

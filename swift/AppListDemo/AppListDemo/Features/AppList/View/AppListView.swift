@@ -50,8 +50,8 @@ private struct AppList: View {
             }
 
             if !viewModel.isFirstLoading {
-                let isLoadingFaild = (viewModel.loadingMoreStatus == .fail)
-                ListRefreshFooter(hasMoreData: viewModel.hasMoreData, isLoadingFaild: isLoadingFaild)
+                let isLoadingFailed = (viewModel.loadingMoreStatus == .fail)
+                ListRefreshFooter(hasMoreData: viewModel.hasMoreData, isLoadingFailed: isLoadingFailed)
                     .frame(height: 30)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
