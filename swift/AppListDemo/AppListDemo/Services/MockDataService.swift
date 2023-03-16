@@ -43,49 +43,38 @@ actor MockDataService {
 // MARK: - RequestDataService
 extension MockDataService: RequestDataService {
     func fetchAppList(atPage page: Int, pageCount: Int) async throws -> AppListResponseModel {
-        do {
-            // mocking network delay
-            try await Task.sleep(for: Duration.seconds(0.5))
-            
-            let startIndex = max(0, page * pageCount)
-            let endIndex = min(mockData.results.count - 1, (page + 1) * pageCount - 1)
-            
-            var appModels: [AppModel] = []
-            if startIndex < endIndex {
-                appModels = Array(mockData.results[startIndex...endIndex])
-            }
-            
-            // query is favourited
-            for i in appModels.indices {
-                appModels[i].isFavourite = favouritedIds.contains(appModels[i].id)
-            }
-            
-            return AppListResponseModel (
-                code: .success,
-                appModels: appModels
-            )
-        } catch {
-            return  AppListResponseModel (
-                code: .fail,
-                appModels: []
-            )
+        // mocking network delay
+        try await Task.sleep(for: Duration.seconds(0.5))
+                
+        let startIndex = max(0, page * pageCount)
+        let endIndex = min(mockData.results.count - 1, (page + 1) * pageCount - 1)
+        
+        var appModels: [AppModel] = []
+        if startIndex < endIndex {
+            appModels = Array(mockData.results[startIndex...endIndex])
         }
+        
+        // query is favourited
+        for i in appModels.indices {
+            appModels[i].isFavourite = favouritedIds.contains(appModels[i].id)
+        }
+        
+        return AppListResponseModel (
+            code: .success,
+            appModels: appModels
+        )
     }
     
     func toggleFavouriteApp(_ appModel: AppModel) async throws -> FavouriteResponseModel {
-        do {
-            // mocking network delay
-            try await Task.sleep(for: Duration.seconds(0.5))
-            
-            if favouritedIds.contains(appModel.id) {
-                favouritedIds.remove(appModel.id)
-            } else {
-                favouritedIds.insert(appModel.id)
-            }
-            
-            return FavouriteResponseModel(code: .success)
-        } catch {
-            return FavouriteResponseModel(code: .fail)
+        // mocking network delay
+        try await Task.sleep(for: Duration.seconds(0.5))
+        
+        if favouritedIds.contains(appModel.id) {
+            favouritedIds.remove(appModel.id)
+        } else {
+            favouritedIds.insert(appModel.id)
         }
+        
+        return FavouriteResponseModel(code: .success)
     }
 }

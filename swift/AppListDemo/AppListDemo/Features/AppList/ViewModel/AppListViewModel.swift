@@ -37,8 +37,6 @@ final class AppListViewModel: ObservableObject {
                 hasMoreData = (response.appModels.count == pageCount)
                 appModels.removeAll()
                 appModels.append(contentsOf: response.appModels)
-            } else {
-                await showToast("Request failed")
             }
         } catch {
             await showToast("Request failed")
@@ -54,9 +52,6 @@ final class AppListViewModel: ObservableObject {
                 hasMoreData = (response.appModels.count == pageCount)
                 appModels.append(contentsOf: response.appModels)
                 loadingMoreStatus = .success
-            } else {
-                loadingMoreStatus = .fail
-                await showToast("Request failed")
             }
         } catch {
             loadingMoreStatus = .fail
@@ -124,13 +119,9 @@ extension AppListViewModel {
         do {
             toggleFavouriteAppInCache(appModel)
             let response = try await requestDataService.toggleFavouriteApp(appModel)
-            if response.code == .fail {
-                toggleFavouriteAppInCache(appModel)
-                await showToast("Request failed")
-            }
         } catch {
+            toggleFavouriteAppInCache(appModel)
             await showToast("Request failed")
-            print(error)
         }
     }
 }

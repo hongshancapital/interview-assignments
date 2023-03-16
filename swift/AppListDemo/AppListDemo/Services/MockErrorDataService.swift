@@ -17,16 +17,13 @@ extension MockErrorDataService: RequestDataService {
         // mocking network delay
         try await Task.sleep(for: Duration.seconds(0.5))
         
-        return  AppListResponseModel (
-            code: .fail,
-            appModels: []
-        )
+        throw RequestError.requestFail
     }
     
     func toggleFavouriteApp(_ appModel: AppModel) async throws -> FavouriteResponseModel {
         // mocking network delay
         try await Task.sleep(for: Duration.seconds(0.5))
         
-        return FavouriteResponseModel(code: .fail)
+        throw RequestError.requestFail
     }
 }
