@@ -13,7 +13,6 @@ const indexMap = map.reduce(
   {} as {[k: string]: number},
 )
 
-
 export function encode(hex: number): string {
   let ret = '';
   let current = hex;

@@ -21,7 +21,10 @@ export function toShort(link: string) {
       return short;
     }
   }
+  return _fallback2UniqueId(link);
+}
 
+export function _fallback2UniqueId(link: string) {
   while (true) {
     const hex = uniqueId ++;
     const short = encode(hex);
