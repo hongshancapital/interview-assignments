@@ -85,6 +85,9 @@ extension DemoImageView {
                 let image = try await service.load(imageURL: imageURL)
                 /// 动画太快消失，延迟0.5秒
                 try await Task.sleep(nanoseconds: 500_000_000)
+                /// 缓存到内存
+                DemoCache.shared.set(key: self.imageURL, image: image)
+                /// 刷新
                 self.image = .loaded(image)
             } catch let error {
                 self.image = .failed(error)
