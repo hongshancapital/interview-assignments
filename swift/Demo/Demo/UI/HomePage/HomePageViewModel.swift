@@ -34,17 +34,17 @@ extension HomePageView {
         /// 当前页
         private var currentPage = 0
         
-        
         /// 是否是最后一页
         var isLastPage: Bool {
             currentPage >= maxPage
         }
         
+        /// 初始化ViewModel实例
+        /// - Parameter service: 服务，测试此ViewModel用Mock替换
         init(service: DemoRestfulService = DemoRealRestfulService()) {
             self.service = service
             queryList()
         }
-        
         
         /// 查询列表数据
         func queryList() {
@@ -58,10 +58,9 @@ extension HomePageView {
                 self.applications = .loaded(results)
                 self.currentPage += 1
             }.store(in: &subscribers)
-            
         }
         
-        
+        /// 加载下一页
         func loadMore() {
             service.homePageList(limit: (currentPage + 1) * pageSize).weakSinkOn(self) {
                 if case let .failure(error) = $1 {

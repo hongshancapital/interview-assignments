@@ -13,7 +13,6 @@ protocol DemoImageRepository: RestfulWebRepository {
 }
 
 struct DemoRealImageRepository: DemoImageRepository {
-    
     let session: URLSession
     let baseURL: String
     let bgQueue = DispatchQueue(label: "bg_image_download_queue")

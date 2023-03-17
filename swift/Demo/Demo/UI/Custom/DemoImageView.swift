@@ -57,9 +57,7 @@ extension DemoImageView {
         
         /// 图片下载服务
         let service: DemoImageService
-        
-        var anyCancellable: AnyCancellable?
-        
+                
         init(imageURL: String = "", image: Loadable<UIImage> = .notRequested, service: DemoImageService = DemoRealImageService()) {
             self.imageURL = imageURL
             self.image = image
@@ -69,7 +67,6 @@ extension DemoImageView {
         /// 加载图片
         @MainActor
         func load() async {
-            
             /// 先从缓存取，当前从内存取
             if let image = DemoCache.shared.image(key: imageURL) {
                 self.image = .loaded(image)

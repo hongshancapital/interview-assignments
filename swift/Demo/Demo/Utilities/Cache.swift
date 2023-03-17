@@ -7,7 +7,7 @@
 
 import UIKit
 
-/// 简单图片内存缓存，不做任何过期处理
+/// 简单图片内存缓存示例，不做任何过期处理
 class DemoCache {
     static let shared = DemoCache()
     
