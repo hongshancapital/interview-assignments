@@ -1,6 +1,7 @@
 import * as uuid from 'uuid';
 import ShortUrl from '../entry/shortUrl.entry';
 import shortUrlModel from '../model/shortUrl.model';
+import moment from "moment";
 
 const SHORT_DOMAIN = 'http://localhost:3000/short/';
 
@@ -45,7 +46,8 @@ async function generate(appId: string, originUrl: string): Promise<string> {
   await shortUrlModel.save({
     short_code: shortCode,
     app_id: appId,
-    origin_url: originUrl
+    origin_url: originUrl,
+    accessed_at: new Date()
   });
   // 如果要用到布隆过滤器，则需要将新的短码更新到bloomFilter中
   return SHORT_DOMAIN + shortCode;
@@ -59,6 +61,10 @@ async function getOriginUrl(shortCode: string): Promise<string> {
   const row: ShortUrl = await getInfoByShortCode(shortCode);
   if (!row) {
     throw Error('短链不存在');
+  }
+  // 更新访问时间
+  if (!row.accessed_at || moment(row.accessed_at).isBefore(moment(), 'day')) {
+    await shortUrlModel.refreshAccessedAt(row.id);
   }
   return row.origin_url;
 }

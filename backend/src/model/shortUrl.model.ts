@@ -20,7 +20,16 @@ async function save(shortInfo: object): Promise<void> {
   await db.insert(shortInfo).into('short_url');
 }
 
+/**
+ * 刷新访问时间，以便定时任务的清理
+ * @param id
+ */
+async function refreshAccessedAt(id: number): Promise<void> {
+  await db.update('accessed_at', new Date()).from('short_url').where('id', id);
+}
+
 export default {
   listByShortCode,
-  save
+  save,
+  refreshAccessedAt
 };

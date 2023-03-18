@@ -1,4 +1,5 @@
 /**
+ * 短链表
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
@@ -10,7 +11,7 @@ exports.up = async function (knex) {
     table.string('short_code', 8)
       .notNullable()
       .unique()
-      .comment('短码');
+      .comment('短码，唯一');
     table.string('origin_url', 200)
       .notNullable()
       .comment('对应的原始的长链接');
@@ -21,6 +22,10 @@ exports.up = async function (knex) {
       .default(knex.fn.now())
       .notNullable()
       .comment('创建时间');
+    table.datetime('accessed_at')
+        .notNullable()
+        .comment('访问日期，每天更新一次');
+    table.comment('短链表');
   });
 };
 

@@ -12,7 +12,8 @@ exports.seed = async (db: Knex): Promise<any> => {
             id: 1,
             app_id: 'testId',
             short_code: '4af638d4',
-            origin_url: 'http://www.baidu.com/1'
+            origin_url: 'http://www.baidu.com/1',
+            accessed_at: '2023-03-09'
           }
         ];
         return db.batchInsert('short_url', seedData, seedData.length);

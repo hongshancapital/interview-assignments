@@ -2,6 +2,7 @@ import request from "supertest";
 
 import app from "../../src/app";
 import db from '../../src/db/db';
+import moment from "moment";
 
 const req = request(app);
 
@@ -15,7 +16,8 @@ describe('shortUrl', () => {
           id: 2,
           app_id: 'testId3',
           short_code: 'fef61c6c', // 伪造一个同参数一样的短码
-          origin_url: 'http://www.baidu.com/2'
+          origin_url: 'http://www.baidu.com/2',
+          accessed_at: '2023-03-09'
         }
       );
   });
@@ -94,6 +96,8 @@ describe('shortUrl', () => {
         .get(`/shortUrl/getOriginUrl?shortCode=${seed.short_code}`);
       expect(res.status).toBe(200);
       expect(JSON.parse(res.text).originUrl).toEqual(seed.origin_url);
+      const [seedNew] = await db.select('*').from('short_url').where('id', 1);
+      expect(moment(seedNew.accessed_at).isSame(moment(), 'day')).toBeTruthy();
     });
 
     it('短链不存在', async () => {
