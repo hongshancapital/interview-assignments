@@ -10,7 +10,7 @@ export const Indicator = memo(function Indicator({
   onClick,
 }: IndicatorProps) {
   const handleClick = useCallback(() => {
-    onClick(id);
+    onClick && onClick(id);
   }, [id, onClick]);
   return (
     <li

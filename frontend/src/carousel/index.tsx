@@ -28,15 +28,6 @@ export const Carousel: FC<CarouselProps> = ({
   }
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [forceRefreshToken, setForceRefreshToken] = useState(0);
-
-  const handleClick = useCallback(
-    (id: Key) => {
-      setActiveIndex(slideIdToIndex[id]);
-      setForceRefreshToken(forceRefreshToken + 1);
-    },
-    [slideIdToIndex, forceRefreshToken]
-  );
 
   const changeActiveIndex = useCallback(() => {
     if (activeIndex === data.length - 1) {
@@ -44,15 +35,19 @@ export const Carousel: FC<CarouselProps> = ({
     } else {
       setActiveIndex(activeIndex + 1);
     }
-    if (forceRefreshToken > 0) {
-      setForceRefreshToken(0);
-    }
-  }, [activeIndex, data.length, forceRefreshToken]);
+  }, [activeIndex, data.length]);
 
-  useInterval(
+  const [reset] = useInterval(
     changeActiveIndex,
-    autoplay && data.length > 1 ? delay : null,
-    forceRefreshToken
+    autoplay && data.length > 1 ? delay : null
+  );
+
+  const handleClick = useCallback(
+    (id: Key) => {
+      setActiveIndex(slideIdToIndex[id]);
+      reset();
+    },
+    [slideIdToIndex, reset]
   );
 
   return (

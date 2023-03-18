@@ -20,9 +20,9 @@ export interface IndicatorsProps
   // 数据
   data: SlideProps[];
   // 当前所在的轮播图ID
-  activeSlideId: Key;
+  activeSlideId?: Key;
   // 点击事件
-  onClick: (id: Key) => void;
+  onClick?: (id: Key) => void;
 }
 
 export interface IndicatorProps
@@ -30,9 +30,9 @@ export interface IndicatorProps
   // 单个指示器的ID
   id: Key;
   // 指示器是否处于活跃状态
-  isActive: boolean;
+  isActive?: boolean;
   // 点击事件
-  onClick: (id: Key) => void;
+  onClick?: (id: Key) => void;
 }
 
 export interface CarouselConfig {
