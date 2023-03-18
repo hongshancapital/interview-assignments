@@ -11,7 +11,7 @@ exports.up = async function (knex) {
       .notNullable()
       .unique()
       .comment('短码');
-    table.string('origin_url', 2000)
+    table.string('origin_url', 200)
       .notNullable()
       .comment('对应的原始的长链接');
     table.string('app_id', 20)
