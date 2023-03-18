@@ -3,6 +3,14 @@
 #### 2、缓存LRU
 #### 3、定时任务清理
 
+##### 覆盖率截图
+![Image text]
+(https://github.com/caiseyunchuang/interview-assignments/blob/master/backend/test/coverage.png)
+
+#### 流程图
+![Image text]
+(https://github.com/caiseyunchuang/interview-assignments/blob/master/backend/test/design.png)
+
 # TypeScript Backend Engineer Assignment
 
 ### Typescript 实现短域名服务（细节可以百度/谷歌）
