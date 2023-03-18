@@ -5,11 +5,11 @@
 
 ##### 覆盖率截图
 ![Image text]
-(https://github.com/caiseyunchuang/interview-assignments/blob/master/backend/test/coverage.png)
+(https://raw.githubusercontent.com/caiseyunchuang/interview-assignments/master/backend/test/coverage.png)
 
 #### 流程图
 ![Image text]
-(https://github.com/caiseyunchuang/interview-assignments/blob/master/backend/test/design.png)
+(https://raw.githubusercontent.com/caiseyunchuang/interview-assignments/master/backend/test/design.png)
 
 # TypeScript Backend Engineer Assignment
 
