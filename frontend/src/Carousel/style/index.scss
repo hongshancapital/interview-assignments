@@ -1,0 +1,61 @@
+.carousel {
+  overflow: hidden;
+  position: relative;
+  min-height: 60px;
+  &-item-list {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    transition: margin-left 0.5s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  }
+  &-item {
+    height: 100%;
+    min-height: 30px;
+  }
+  &-dot {
+    cursor: pointer;
+    width: 30px;
+    height: 3px;
+    background-color: gray;
+    border-radius: 4px;
+    // 增加一个容器做居中控制
+    &-wrapper {
+      width: 100%;
+      position: absolute;
+      bottom: 60px;
+      display: flex;
+      justify-content: space-around;
+    }
+    // 实际的 dot 容器
+    &-list {
+      display: flex;
+      gap: 8px;
+    }
+    // dot 内渐变的色块
+    &>div {
+      height: 3px;
+      width: 0px;
+      border-radius: 4px;
+    }
+    // 选中状态
+    &-selected {
+      background-color: white;
+      width: 100%;
+    }
+    &-active > div {
+      animation-name: dot-animation;
+      animation-duration: 3s;
+      animation-timing-function: linear;
+      background-color: white;
+    }
+  }
+}
+@keyframes dot-animation {
+  0% {
+      width: 0%;
+  }
+  100% {
+      width: 100%;
+  }
+}
