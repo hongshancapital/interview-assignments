@@ -40,6 +40,14 @@ final class AppListViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.appModels.count, pageCount)
     }
     
+    func testAppListViewModelLoadSingleApp() async {
+        let pageCount = 1
+        let viewModel = AppListViewModel(pageCount: pageCount)
+        await viewModel.firstLoad()
+        
+        XCTAssertEqual(viewModel.appModels.count, pageCount)
+    }
+    
     func testAppListViewModelFirstLoadError() async {
         let pageCount = 10
         let viewModel = AppListViewModel(pageCount: pageCount)

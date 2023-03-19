@@ -61,7 +61,7 @@ extension MockDataService: RequestDataService {
         let endIndex = min(mockData.results.count - 1, (page + 1) * pageCount - 1)
         
         var appModels: [AppModel] = []
-        if startIndex < endIndex {
+        if startIndex <= endIndex {
             appModels = Array(mockData.results[startIndex...endIndex])
         }
         
