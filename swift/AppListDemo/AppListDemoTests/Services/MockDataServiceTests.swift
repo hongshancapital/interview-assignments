@@ -31,14 +31,17 @@ final class MockDataServiceTests: XCTestCase {
     }
     
     func testFetchAppListError() async {
+        var thrownRequestFail = false
+        
         do {
-            let response = try await MockErrorDataService.shared.fetchAppList(atPage: 0, pageCount: 10)
-            
-            XCTAssertEqual(response.code, .fail)
-            XCTAssert(response.appModels.isEmpty)
+            let _ = try await MockErrorDataService.shared.fetchAppList(atPage: 0, pageCount: 10)
+        } catch RequestError.requestFail {
+            thrownRequestFail = true
         } catch {
             print(error)
         }
+        
+        XCTAssert(thrownRequestFail)
     }
     
     func testToggleFavouriteApp() async {
@@ -53,13 +56,17 @@ final class MockDataServiceTests: XCTestCase {
     }
     
     func testToggleFavouriteAppError() async {
+        var thrownRequestFail = false
+        
         do {
             let appModel = AppModel(id: "id", appName: "name", appDescription: "desc", appIconUrlString: "url")
-            let response = try await MockErrorDataService.shared.toggleFavouriteApp(appModel)
-            
-            XCTAssertEqual(response.code, .fail)
+            let _ = try await MockErrorDataService.shared.toggleFavouriteApp(appModel)
+        } catch RequestError.requestFail {
+            thrownRequestFail = true
         } catch {
             print(error)
         }
+        
+        XCTAssert(thrownRequestFail)
     }
 }
