@@ -118,7 +118,7 @@ extension AppListViewModel {
     func toggleFavouriteApp(_ appModel: AppModel) async {
         do {
             toggleFavouriteAppInCache(appModel)
-            let response = try await requestDataService.toggleFavouriteApp(appModel)
+            let _ = try await requestDataService.toggleFavouriteApp(appModel)
         } catch {
             toggleFavouriteAppInCache(appModel)
             await showToast("Request failed")
