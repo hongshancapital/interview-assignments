@@ -8,85 +8,6 @@
   }
 }
 
-.carousel-slide-container {
-  flex: none;
-  height: 100%;
-  width: 100%;
-  text-align: center;
-  position: relative;
-  .carousel-slide-title {
-    padding-top: 12.5%;
-    h2 {
-      margin: 0;
-      line-height: 1.25;
-      font-weight: 500;
-      font-size: 4em;
-    }
-  }
-  .carousel-slide-desc {
-    margin-top: 20px;
-    p {
-      margin: 0;
-      font-size: 1.75em;
-      font-weight: 400;
-    }
-  }
-  .carousel-slide-icon {
-    position: absolute;
-    height: 88px;
-    bottom: 18%;
-    width: 100%;
-    img {
-      margin: auto;
-      height: 100%;
-    }
-  }
-}
-
-.carousel-indicator-container {
-  position: absolute;
-  width: 100%;
-  bottom: 6%;
-  display: flex;
-  justify-content: center;
-  ul {
-    list-style-type: none;
-    display: flex;
-    padding: 0;
-    .carousel-indicator {
-      height: 2px;
-      width: 44px;
-      margin: 0 4px;
-      background: linear-gradient(to left, #9a9a9a 50%, #f0f0f0 50%) right;
-      background-size: 200% 100%;
-      border-radius: 1px;
-      cursor: pointer;
-      position: relative;
-      z-index: 1;
-      animation-timing-function: linear;
-      // 利用伪元素提高cursor的响应区域，提升用户体验
-      &::after {
-        content: "";
-        position: absolute;
-        left: -5px;
-        top: -5px;
-        right: -5px;
-        bottom: -5px;
-      }
-      &:active {
-        animation: none;
-      }
-    }
-
-    .carousel-indicator-progress {
-      animation-name: toNextSlide;
-    }
-    .carousel-indicator-active {
-      background-position: left;
-    }
-  }
-}
-
 .carousel-container {
   overflow: hidden;
   .carousel-transform-container {
@@ -95,10 +16,82 @@
     display: flex;
     justify-content: flex-start;
     transition-duration: 500ms;
+    .carousel-slide-container {
+      flex: none;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      .carousel-slide-title {
+        margin-top: 12.5%;
+        h2 {
+          margin: 0;
+          line-height: 1.25;
+          font-weight: 500;
+          font-size: 2em;
+        }
+      }
+      .carousel-slide-desc {
+        margin-top: 20px;
+        p {
+          margin: 0;
+          font-size: 1em;
+          font-weight: 400;
+        }
+      }
+      .carousel-slide-icon {
+        position: absolute;
+        height: 88px;
+        bottom: 18%;
+        width: 100%;
+        img {
+          margin: auto;
+          height: 100%;
+        }
+      }
+    }
   }
-  //position: relative;
+  .carousel-indicator-container {
+    position: absolute;
+    width: 100%;
+    bottom: 6%;
+    display: flex;
+    justify-content: center;
+    ul {
+      list-style-type: none;
+      display: flex;
+      padding: 0;
+      .carousel-indicator {
+        height: 2px;
+        width: 44px;
+        margin: 0 4px;
+        background: linear-gradient(to left, #9a9a9a 50%, #f0f0f0 50%) right;
+        background-size: 200% 100%;
+        border-radius: 1px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        animation-timing-function: linear;
+        // 利用伪元素提高cursor的响应区域，提升用户体验
+        &::after {
+          content: "";
+          position: absolute;
+          left: -5px;
+          top: -5px;
+          right: -5px;
+          bottom: -5px;
+        }
+        &:active {
+          animation: none;
+        }
+      }
 
-  //flex-basis: 100%;
-  //
-  //position: relative;
+      .carousel-indicator-progress {
+        animation-name: toNextSlide;
+      }
+      .carousel-indicator-active {
+        background-position: left;
+      }
+    }
+  }
 }

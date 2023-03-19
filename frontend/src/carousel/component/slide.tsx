@@ -8,7 +8,7 @@ export const Slide = memo(function Slide({
   description,
   backgroundColor,
   textColor,
-}: SlideProps) {
+}: Omit<SlideProps, "id">) {
   return (
     <div
       className={styles["carousel-slide-container"]}
@@ -33,7 +33,7 @@ export const Slide = memo(function Slide({
       </div>
 
       <div className={styles["carousel-slide-icon"]}>
-        <img src={icon} alt="icon" />
+        {icon && <img src={icon} alt="icon" />}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const tabletData = {
   title: ["Tablet"],
   description: ["Just the right amount of everything."],
   icon: tabletIcon,
-  backgroundColor: "#FAFAFA",
+  backgroundColor: "#fafafa",
 };
 
 const airPodsData = {
@@ -36,7 +36,13 @@ const testData = [xPhoneData, tabletData, airPodsData];
 function App() {
   return (
     <div className="App">
-      <Carousel delay={3000} data={testData} width={"100vw"} height={"100vh"} />
+      <Carousel
+        delay={3000}
+        autoplay={true}
+        data={testData}
+        width={"100vw"}
+        height={"100vh"}
+      />
     </div>
   );
 }

@@ -1,15 +1,15 @@
 import { IndicatorsProps } from "../type";
-import { FC } from "react";
+import { memo } from "react";
 import { Indicator } from "./indicator";
 import styles from "../style.module.scss";
 
-export const Indicators: FC<IndicatorsProps> = ({
+export const Indicators = memo(function Indicators({
   activeSlideId,
   data,
   autoplay,
   delay,
   onClick,
-}) => {
+}: IndicatorsProps) {
   return (
     <div className={styles["carousel-indicator-container"]}>
       <ul>
@@ -29,4 +29,4 @@ export const Indicators: FC<IndicatorsProps> = ({
       </ul>
     </div>
   );
-};
+});

@@ -3,7 +3,7 @@ import { isNumber } from "../utlis/isNumber";
 
 export function useInterval(callback: Function, delay: number | null = null) {
   const savedCallback = useRef<Function>();
-  const intervalRef = useRef<NodeJS.Timer | null>(null);
+  const intervalRef = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     savedCallback.current = callback;
@@ -21,9 +21,9 @@ export function useInterval(callback: Function, delay: number | null = null) {
 
     if (delay !== null) {
       intervalRef.current = setInterval(tick, delay);
-      const id = intervalRef.current;
+
       return () => {
-        return clearInterval(id);
+        return clearInterval(intervalRef.current);
       };
     }
   }, [delay]);
@@ -35,7 +35,7 @@ export function useInterval(callback: Function, delay: number | null = null) {
         savedCallback.current();
       }
     };
-    if (intervalRef.current !== null && delay !== null) {
+    if (intervalRef.current !== undefined && delay !== null) {
       clearInterval(intervalRef.current);
 
       intervalRef.current = setInterval(tick, delay);

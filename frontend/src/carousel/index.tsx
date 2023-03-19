@@ -4,7 +4,7 @@ import { CarouselProps } from "./type";
 import { Indicators } from "./component/indicators";
 import styles from "./style.module.scss";
 import { useInterval } from "./hooks/useInterval";
-import { checkIdUniq } from "./utlis/checkIdUniq";
+import { isIdUniq } from "./utlis/isIdUniq";
 
 export const Carousel: FC<CarouselProps> = ({
   data,
@@ -23,8 +23,8 @@ export const Carousel: FC<CarouselProps> = ({
     [data]
   );
 
-  if (checkIdUniq(data)) {
-    console.error("警告：id有重复字段，请检查！");
+  if (!isIdUniq(data)) {
+    console.error("警告：id字段有重复数据，请检查！");
   }
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -54,10 +54,12 @@ export const Carousel: FC<CarouselProps> = ({
     <div style={{ width, height }} className={styles["carousel-container"]}>
       <div
         className={styles["carousel-transform-container"]}
-        style={{ transform: `translateX(${-activeIndex * 100}%)` }}
+        style={{
+          transform: `translateX(${-activeIndex * 100}%)`,
+        }}
       >
-        {data.map((item) => (
-          <Slide {...item} key={item.id} />
+        {data.map(({ id, ...rest }) => (
+          <Slide {...rest} key={id} />
         ))}
       </div>
 
