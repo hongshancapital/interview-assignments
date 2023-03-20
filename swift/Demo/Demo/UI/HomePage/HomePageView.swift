@@ -14,11 +14,12 @@ struct HomePageView: View {
         static let failed = "请求失败"
         static let loading = "加载列表中..."
         static let isLoadingMore = "Loading..."
-        static let noMoreDate = "No more data."
+        static let noMoreData = "No more data."
     }
     
     @ObservedObject private(set) var viewModel: ViewModel
-    
+    @State private var progressViewId: Int = 0
+
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
@@ -51,13 +52,9 @@ struct HomePageView: View {
 // MARK: - Displaying Content
 private extension HomePageView {
     func loadedView(_ applications: [Application]) -> some View {
-        ScrollView {
+        List {
             ForEach(0..<applications.count, id: \.self) { index in
                 let application = applications[index]
-                
-                /// 顶部偏移
-                let topOffset: CGFloat = index == 0 ? 10 : 0
-                
                 LazyVStack {
                     HStack {
                         DemoImageView(viewModel: .init(imageURL: application.artworkUrl60))
@@ -88,37 +85,39 @@ private extension HomePageView {
                     .cornerRadius(10)
                     
                 }
-                .padding(EdgeInsets(top: topOffset, leading: 20, bottom: 0, trailing: 20))
-            }
-            
-            /// 开源组件 https://github.com/wxxsw/Refresh
-            Footer(refreshing: $viewModel.isMoreDataLoading, action: viewModel.loadMore) {
-                if self.viewModel.isLastPage {
-                    Text(Constant.noMoreDate)
-                        .foregroundColor(.secondary)
-                } else {
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+                .listRowBackground(Color.clear)
+                
+                if index == applications.count - 1 {
+                    let footerText = !viewModel.isLastPage ? Constant.isLoadingMore : Constant.noMoreData
                     HStack {
                         Spacer()
                         
-                        ProgressView()
+                        if !viewModel.isLastPage {
+                            /// 不加id iOS 16只显示一次
+                            ProgressView()
+                                .id("\(progressViewId)")
+                                .onAppear {
+                                    progressViewId = progressViewId + 1
+                                    viewModel.loadMore()
+                                }
+                        }
                         
-                        Text(Constant.isLoadingMore)
+                        Text(footerText)
+                            .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
                             .foregroundColor(Color.gray)
                             .font(Font.system(size: 20))
-                            .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
                         
                         Spacer()
                     }
+                    .listRowBackground(Color.clear)
                 }
             }
-            .noMore(viewModel.isLastPage)
-            .preload(offset: 50)
         }
-        .background(Color(red: 243 / 255, green: 242 / 255, blue: 247 / 255))
         .refreshable {
             await viewModel.refreshList()
         }
-        .modifier(FooterModifier(enable: true))
     }
 }
 

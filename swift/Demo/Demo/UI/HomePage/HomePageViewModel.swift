@@ -29,7 +29,7 @@ extension HomePageView {
         private let pageSize = 10
         
         /// 总页数
-        private let maxPage = 2
+        private let maxPage = 3
         
         /// 当前页
         private var currentPage = 0

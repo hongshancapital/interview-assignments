@@ -103,7 +103,6 @@ final class HomePageViewModelTest: XCTestCase {
         mockService.response = testData()
         sut = HomePageView.ViewModel(service: mockService)
 
-                
         await sut.refreshList()
         
         for try await applications in sut.$applications
@@ -111,7 +110,6 @@ final class HomePageViewModelTest: XCTestCase {
             XCTAssertTrue((applications.value?.count ?? 0) == 10)
             break
         }
-        
         
         mockService.verify()
     }
