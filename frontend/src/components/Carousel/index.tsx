@@ -12,7 +12,9 @@ export interface CarouselProps {
     key: string
     render: () => ReactNode
   }>
-  // autoplay delay
+  /**
+   * Autoplay delay
+   */
   delay?: number
 }
 
@@ -26,7 +28,6 @@ const Carousel: FC<CarouselProps> = ({ items, delay = 3500 }) => {
       return
     }
     const timer = window.setTimeout(() => setActiveIndex((activeIndex + 1) % items.length), delay)
-
     return () => window.clearTimeout(timer)
   }, [items, delay, activeIndex])
 
