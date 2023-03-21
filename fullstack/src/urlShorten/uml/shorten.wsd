@@ -1,0 +1,102 @@
+@startuml
+
+left to right direction
+
+skinparam PackageStyle rectangle
+
+package "Client Application" as ClientApp {}
+
+note as NBloomFilter
+    <color:purple>减少重复率</color> 
+    - 布隆过滤器
+end note
+
+note as NRandom
+    <color:purple>可能有生成重复数据，查库后重新生成</color> 
+    - crypto.randomBytes(8).readUInt32BE(0)生成8位随机path，
+    或者md5、hash取前8个
+    - 判断系统是否存在path，不存在则自增加入path
+    - 若存在重新生成path
+end note
+
+
+note as NBijective
+    <color:purple>没有重复，先生成记录，后插入数据</color> 
+    - '[a-z][A-Z][0-9]'
+    - 以'baaaaaaa'为最小8位数，最大为'99999999', 数据库id从10000000开始自增
+    - 3521614606208=base62Converter.decode('baaaaaaa')
+        <=id
+        <=base62Converter.decode('99999999')=218340105584895 约200兆
+    - 为避免url可被猜测，可对8位中几位或全部进行62位循环移位加密，
+        例：'baaaaaaa'，
+        算法：第一位+8，第二位-7，第三位+6，第四位-5，第五位+4，第六位-3，第七位+2，第八位-1
+        得：'j3h5f7d9'.
+    - base62的初始charset，可以打乱顺序。
+end note
+
+class URLService {
+    + {static} getShortenURL()
+}
+
+ClientApp o-left-> URLService
+
+package "URL shorten factory" as URLAdapter {
+    interface IURL {
+        protocol: string;
+        port: string;
+        domain: string;
+        path: string;
+        length: string;
+        shorten(url);
+        ?getOriginalURL();
+    }
+    class URL {
+        protocol: string;
+        port: string;
+        domain: string;
+        path: string;
+        length: string;
+        shorten();
+    }
+
+    class BijectiveURL {
+        protocol: string;
+        port: string;
+        domain: string;
+        path: string;
+        length: string;
+        shorten();
+    }
+
+    class BloomURL {
+        protocol: string;
+        port: string;
+        domain: string;
+        path: string;
+        length: string;
+        shorten();
+    }
+
+     class Random {
+        protocol: string;
+        port: string;
+        domain: string;
+        path: string;
+        length: string;
+        shorten();
+    }
+
+    IURL <|.left. URL : \r
+
+    URL <|-- BijectiveURL
+    URL <|-- BloomURL
+    URL <|-- Random
+
+    BijectiveURL o.. NBijective
+    BloomURL o.. NBloomFilter
+    Random o.. NRandom
+}
+
+URLService o--> IURL
+
+@enduml
