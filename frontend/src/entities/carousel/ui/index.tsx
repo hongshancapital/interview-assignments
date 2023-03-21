@@ -9,7 +9,7 @@ export type CarouselProps = {
 export type CarouselDotProps = {
     delay: number,
     active: boolean,
-    dotClick: () => void
+    onDotClick: () => void
 }
 
 export interface CarouselItem {
@@ -30,13 +30,13 @@ const Item = ({ singleWidth, title, img, description, color, backgroundColor }: 
     </div>
 }
 
-const ItemDot = ({ delay, active, dotClick }: CarouselDotProps) => {
+const ItemDot = ({ delay, active, onDotClick }: CarouselDotProps) => {
     let className = 'carousel-dot'
     if (active) {
         className += ' dot-active'
     }
     const handleDotClick = () => {
-        dotClick();
+        onDotClick();
     }
 
     return <div className={className} onClick={handleDotClick}><button style={{animationDuration: `${delay}s`}} /></div>
@@ -81,7 +81,7 @@ export const Carousel = ({ list }: CarouselProps) => {
             </div>
         </div>
         <div className='carousel-dots'>
-            {list.map((item, dotIndex) => <ItemDot key={item.id} delay={delay} active={index === dotIndex} dotClick={() => onDotClick(dotIndex)}></ItemDot>)}
+            {list.map((item, dotIndex) => <ItemDot key={item.id} delay={delay} active={index === dotIndex} onDotClick={() => onDotClick(dotIndex)}></ItemDot>)}
         </div>
     </div>;
 };
