@@ -42,43 +42,6 @@ struct AppListView: View {
     }
 }
 
-struct AppListView2: View {
-    @StateObject private var viewModel = AppListViewModel()
-    var body: some View {
-        Group {
-            if viewModel.appList.resultCount == 0 {
-                ProgressView()
-                    .task {
-                        await viewModel.refreshData()
-                    }
-            } else {
-                ScrollView {
-                    LazyVStack(spacing: 12) {
-                        ForEach(viewModel.appList.results) { item in
-                            AppListRow(item: item)
-                                .padding(12)
-                                .frame(height: 80)
-                                .background(.white)
-                                .cornerRadius(15)
-                        }
-                        
-                        AppListBottomView(isLoading: viewModel.isMore) {
-                            viewModel.loadMore()
-                        }
-                    }
-                    .padding()
-                }
-                .refreshable {
-                    await viewModel.refreshData()
-                }
-            }
-        }
-        .background(Color(white: 0.92))
-        .environmentObject(viewModel)
-    }
-}
-
-
 struct AppListView_Previews: PreviewProvider {
     static var previews: some View {
         AppListView()

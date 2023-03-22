@@ -18,8 +18,6 @@ struct AppItem: Codable, Identifiable {
     var thumbnailURL: URL
     var description: String
     
-    var isFavorite: Bool = false
-    
     enum CodingKeys: String, CodingKey {
         case id = "trackId"
         case name = "trackName"
@@ -49,10 +47,4 @@ func loadJSON<T: Decodable>(_ filename: String) throws -> T {
 func loadJSON<T: Decodable>(_ data: Data) throws -> T {
     let decoder = JSONDecoder()
     return try decoder.decode(T.self, from: data)
-//    do {
-//        let decoder = JSONDecoder()
-//        return try decoder.decode(T.self, from: data)
-//    } catch {
-//        fatalError("Couldn't parse data as \(T.self):\n\(error)")
-//    }
 }

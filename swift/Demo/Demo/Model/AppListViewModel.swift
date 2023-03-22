@@ -21,7 +21,6 @@ final class AppListViewModel: ObservableObject {
     @Published private(set) var favoriteApps: Set<Int> = []
     
     @Published private(set) var isLoading = false
-    private var currentTask: Task<(), Never>?
     
     init() {
         self.favoriteApps = UserDefaults.standard.mutableSetValue(forKey: "favoriteAppIDs") as! Set<Int>
@@ -40,7 +39,18 @@ final class AppListViewModel: ObservableObject {
         return favoriteApps.contains(id)
     }
     
+    private let increment = 10
+    private var queryCount = 10
+    private var queryLimit = 50
+    private var queryUrl: URL {
+        return URL(string: "https://itunes.apple.com/search?entity=software&limit=\(queryCount)&term=chat")!
+    }
     
+    var isMore: Bool {
+        queryCount < queryLimit
+    }
+    
+    //MARK: - Error Handling
     private(set) var customErr: CustomError?
     func handleError(_ err: Error) {
 
@@ -65,17 +75,6 @@ final class AppListViewModel: ObservableObject {
         print(err.localizedDescription)
     }
     
-    private let increment = 10
-    private var queryCount = 10
-    private var queryLimit = 50
-    private var queryUrl: URL {
-        return URL(string: "https://itunes.apple.com/search?entity=software&limit=\(queryCount)&term=chat")!
-    }
-    
-    var isMore: Bool {
-        queryCount < queryLimit
-    }
-    
     //MARK: - Request
     @MainActor
     private func requestData() async {
@@ -83,8 +82,7 @@ final class AppListViewModel: ObservableObject {
         defer {
             isLoading = false
         }
-        var request = URLRequest(url: queryUrl)
-        request.timeoutInterval = 3
+        let request = URLRequest(url: queryUrl)
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -102,69 +100,14 @@ final class AppListViewModel: ObservableObject {
     func loadMore() {
         if isMore && !isLoading {
             queryCount = min(queryLimit, increment + queryCount)
-            currentTask = Task {
+            Task {
                 await requestData()
-                currentTask = nil
             }
         }
     }
-    
     
     func refreshData() async {
         queryCount = 10
         await requestData()
     }
-    
-    
-    //MARK: - Combine Deprecated
-//    private var cancellable: AnyCancellable?
-//    private var subject: PassthroughSubject<URL, Never> = PassthroughSubject()
-//    func requestCombine() {
-//        let request = URLRequest(url: queryUrl)
-//        self.cancellable = URLSession.shared.dataTaskPublisher(for: request)
-//            .map { data, response in
-//                data
-//            }
-//            .decode(type: AppItemList.self, decoder: JSONDecoder())
-//            .receive(on: RunLoop.main)
-//            .sink {
-//                switch $0 {
-//                case .finished:
-//                    print("Upstream finished.")
-//                case .failure(let err):
-//                    self.handleError(err)
-//                }
-//            } receiveValue: { list in
-//                self.appList = list
-//            }
-//    }
-//    
-//    func request(for url: URL) {
-//        self.subject.send(url)
-//    }
-//    
-//    
-//    private func configureObservation() {
-//        self.cancellable = subject.flatMap { url in
-//            URLSession.shared.dataTaskPublisher(for: url)
-//        }.map { data, response in
-//            data
-//        }
-//        .decode(type: AppItemList.self, decoder: JSONDecoder())
-//        .receive(on: RunLoop.main)
-//        .sink {
-//            switch $0 {
-//            case .finished:
-//                print("Upstream finished.")
-//            case .failure(let err):
-//                self.handleError(err)
-//            }
-//        } receiveValue: { list in
-//            self.appList = list
-//        }
-//    }
-    
 }
-
-
-
