@@ -14,7 +14,7 @@ interface CarouselDataItem {
   bg: string
 }
 
-const data: CarouselDataItem[] = [
+export const data: CarouselDataItem[] = [
   {
     id: '1',
     color: '#fff',
