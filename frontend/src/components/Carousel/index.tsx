@@ -21,15 +21,15 @@ export interface CarouselProps {
 const Carousel: FC<CarouselProps> = ({ items, delay = 3500 }) => {
   const [activeIndex, setActiveIndex] = useState(0)
 
+  // Try to fix the `activeIndex` if `items.length` changes
+  if (activeIndex >= items.length) {
+    setActiveIndex(0)
+  }
+
   useEffect(() => {
-    // Try to fix the `activeIndex` if `items` changes
-    if (activeIndex >= items.length) {
-      setActiveIndex(0)
-      return
-    }
     const timer = window.setTimeout(() => setActiveIndex((activeIndex + 1) % items.length), delay)
     return () => window.clearTimeout(timer)
-  }, [items, delay, activeIndex])
+  }, [items.length, delay, activeIndex])
 
   return (
     <div
