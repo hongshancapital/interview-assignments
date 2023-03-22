@@ -1,0 +1,57 @@
+div, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.box {
+  width: 375px;
+  height: 284px;
+  overflow: hidden;
+  position: relative;
+}
+
+.imgs {
+  height: 284px;
+  display: flex;
+  transition: all 1s;
+  position: relative;
+
+}
+
+.item {
+  width: 375px;
+  height: 284px;
+  box-sizing: border-box;
+
+}
+.lines{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform:translateX(-50%);
+  display: flex;
+
+}
+.line{
+  height: 10px;
+  background: red;
+  transition: width 2s;
+  width: 0;
+  border-radius: 5px;
+}
+.line-container{
+  width: 30px;
+  background: #ccc;
+  height: 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+img {
+  width: 375px;
+  height: 284px;
+}
