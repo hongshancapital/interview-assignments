@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "name": "fullstack",
+  "private": true,
+  "scripts": {
+    "delete": "pm2 delete fullstack",
+    "start": "pm2 start run.json --env production"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.1.1",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.20.1",
+    "change-case": "^4.1.2",
+    "co": "^4.6.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "del": "^4.1.1",
+    "express": "^4.17.2",
+    "ioredis": "^4.14.1",
+    "jsonfile": "^6.1.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "node-fetch": "^2.6.9",
+    "serve-favicon": "^2.5.0"
+  },
+  "bin": "startup.js"
+}
