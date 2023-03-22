@@ -40,36 +40,36 @@ const formatText = (text: DefaultProps["description"]) => {
   return []
 }
 
-const renderDescriptionItem = curry(
-  (type: TextTypeEnum, text: string): ReactNode => {
-    if (type === TextTypeEnum.Description)
-      return (
-        <p className="board__description" key={text}>
-          {text}
-        </p>
-      )
+const renderDescriptionItem = curry<
+  (type: TextTypeEnum, text: string) => ReactNode
+>((type, text) => {
+  if (type === TextTypeEnum.Description)
+    return (
+      <p className="board__description" key={text}>
+        {text}
+      </p>
+    )
 
-    if (type === TextTypeEnum.Title)
-      return (
-        <p className="board__title" key={text}>
-          {text}
-        </p>
-      )
+  if (type === TextTypeEnum.Title)
+    return (
+      <p className="board__title" key={text}>
+        {text}
+      </p>
+    )
 
-    return ""
-  }
-) as (p1: TextTypeEnum) => (p2: string) => ReactNode
+  return ""
+})
 
 const Board: FC<Props> = (props) => {
   const { title, description, style, backgroundImage } = getProps(props)
 
   const renderTitles = compose(
-    map(renderDescriptionItem(TextTypeEnum.Title)),
+    map<string, ReactNode>(renderDescriptionItem(TextTypeEnum.Title)),
     formatText
   )
 
   const renderDescriptions = compose(
-    map(renderDescriptionItem(TextTypeEnum.Description)),
+    map<string, ReactNode>(renderDescriptionItem(TextTypeEnum.Description)),
     formatText
   )
 
