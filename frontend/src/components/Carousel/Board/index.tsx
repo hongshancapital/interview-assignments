@@ -1,7 +1,6 @@
 import React, { CSSProperties, FC, ReactNode } from "react"
 import { compose, curry, map } from "ramda"
 
-import { createPropsGetter } from "../../../utils/createPropsGetter"
 import "./index.scss"
 
 enum TextTypeEnum {
@@ -16,23 +15,14 @@ interface IStyle {
   "--image-size": string
 }
 
-interface IProps {
+export interface Props {
   title: string | string[]
+  description?: string | string[]
+  style?: Partial<IStyle>
+  backgroundImage?: string
 }
 
-const defaultProps = {
-  description: "" as string | string[],
-  style: {} as Partial<IStyle>,
-  backgroundImage: "",
-}
-
-type DefaultProps = Readonly<typeof defaultProps>
-
-export type Props = IProps & Partial<DefaultProps>
-
-const getProps = createPropsGetter<DefaultProps>()
-
-const formatText = (text: DefaultProps["description"]) => {
+const formatText = (text: string | string[]) => {
   if (typeof text === "string") return [text]
 
   if (Array.isArray(text)) return text
@@ -61,7 +51,7 @@ const renderDescriptionItem = curry<
 })
 
 const Board: FC<Props> = (props) => {
-  const { title, description, style, backgroundImage } = getProps(props)
+  const { title, description = "", style = {}, backgroundImage = "" } = props
 
   const renderTitles = compose(
     map<string, ReactNode>(renderDescriptionItem(TextTypeEnum.Title)),
@@ -81,7 +71,5 @@ const Board: FC<Props> = (props) => {
     </div>
   )
 }
-
-Board.defaultProps = defaultProps
 
 export default Board

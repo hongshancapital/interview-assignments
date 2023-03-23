@@ -1,25 +1,16 @@
 import React, { FC, useEffect, useState } from "react"
 import classNames from "classnames"
 
-import { createPropsGetter } from "../../../utils/createPropsGetter"
 import CarouselDots from "../CarouselDots"
 import "./index.scss"
 
-interface IProps {}
-
-const defaultProps = {
-  children: "" as React.ReactNode,
-  duration: 3,
+export interface Props {
+  children?: React.ReactNode
+  duration?: number
 }
 
-type DefaultProps = Readonly<typeof defaultProps>
-
-export type Props = IProps & Partial<DefaultProps>
-
-const getProps = createPropsGetter<DefaultProps>()
-
 const CarouselBase: FC<Props> = (props) => {
-  const { children, duration } = getProps(props)
+  const { children, duration = 3 } = props
   const itemsLength = React.Children.count(children)
 
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -69,7 +60,5 @@ const CarouselBase: FC<Props> = (props) => {
     </div>
   )
 }
-
-CarouselBase.defaultProps = defaultProps
 
 export default CarouselBase

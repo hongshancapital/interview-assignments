@@ -1,26 +1,16 @@
 import React, { FC } from "react"
 import classNames from "classnames"
 
-import { createPropsGetter } from "../../../utils/createPropsGetter"
 import "./index.scss"
 
-interface IProps {
+export interface Props {
   length: number
   currentIndex: number
+  duration?: number
 }
-
-const defaultProps = {
-  duration: 5,
-}
-
-type DefaultProps = Readonly<typeof defaultProps>
-
-export type Props = IProps & Partial<DefaultProps>
-
-const getProps = createPropsGetter<DefaultProps>()
 
 const CarouselDots: FC<Props> = (props) => {
-  const { length, currentIndex, duration } = getProps(props)
+  const { length, currentIndex, duration = 3 } = props
   const style = {
     "--duration": `${duration}s`,
   } as React.CSSProperties
@@ -43,7 +33,5 @@ const CarouselDots: FC<Props> = (props) => {
     </div>
   )
 }
-
-CarouselDots.defaultProps = defaultProps
 
 export default CarouselDots
