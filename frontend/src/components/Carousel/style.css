@@ -1,0 +1,59 @@
+.carousel {
+    position: relative;
+    /* overflow: hidden; */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+}
+
+.carousel-scroller {
+    width: 100vw;
+    height: 100vh;
+    transition: transform 0.5s ease-in-out;
+    position: absolute;
+    top: 0;
+}
+
+.indicator {
+    width: 30px;
+    height: 2px;
+    background-color: gray;
+}
+
+.indicator-container {
+    min-width: 110px;
+    height: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.indicator-counter {
+    background-color: #fff;
+    height: 2px;
+    width: 30px;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+}
+
+.indicator-counter-anime {
+    animation: indicatorCounterFill 2s ease-in-out 0s 1 backwards;
+}
+
+@keyframes indicatorCounterFill {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
