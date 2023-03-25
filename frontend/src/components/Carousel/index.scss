@@ -1,0 +1,82 @@
+.carousel-content {
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+}
+
+.carousel-items {
+  position: relative;
+  display: flex;
+  height: 100%;
+  transition: all 0.5s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.carousel-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 200px;
+  padding-bottom: 150px;
+  overflow: hidden;
+  box-sizing: border-box;
+  .carousel-title {
+    font-size: 48px;
+  }
+  .carousel-desc {
+    font-size: 36px;
+    margin: 20px;
+  }
+  .carousel-banner {
+    flex: 1;
+    height: 0;
+    object-fit: contain;
+  }
+  h1,
+  p {
+    margin: 0;
+    white-space: pre-wrap;
+  }
+}
+
+@keyframes progress-animation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.carousel-sliders {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  .carousel-slider {
+    padding: 10px 4px;
+    cursor: pointer;
+    .carousel-progress {
+      position: relative;
+      width: 40px;
+      height: 2px;
+      background-color: #555;
+      border-radius: 2px;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background-color: #fff;
+      }
+    }
+    &.active .carousel-progress::after {
+      animation-name: progress-animation;
+      animation-duration: inherit;
+      animation-timing-function: linear;
+    }
+  }
+}
