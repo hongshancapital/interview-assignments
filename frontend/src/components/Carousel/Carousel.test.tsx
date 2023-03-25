@@ -1,8 +1,8 @@
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import Carousel from "./Carousel";
 
 const carousels = ["1", "2", "3", "4", "5"];
-let currentIndex = -1;
+let currentIndex = 2;
 const setCurrentIndex = (index: number) => {
   currentIndex = index;
 };
@@ -13,7 +13,8 @@ const transitionOptions = {
   delay: 0,
 };
 test("renders Carousel Component", () => {
-  expect(currentIndex).toBe(-1);
+  jest.useFakeTimers();
+  expect(currentIndex).toBe(2);
   const { container } = render(
     <Carousel
       carousels={carousels}
@@ -23,11 +24,18 @@ test("renders Carousel Component", () => {
       transitionOptions={transitionOptions}
     />
   );
-  expect(currentIndex).toBe(0);
   expect(container.querySelectorAll(".carousel__wrapper__item").length).toBe(
     carousels.length
   );
   expect(container.querySelectorAll(".carousel__pagination__item").length).toBe(
     carousels.length
   );
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
+  expect(
+    container.querySelectorAll(".carousel__pagination__item__bar--moving")
+      .length
+  ).toBe(1);
+  expect(currentIndex).not.toBe(2);
 });

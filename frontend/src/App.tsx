@@ -64,7 +64,7 @@ function App() {
       {/* img */}
     </section>,
   ]);
-  const [currentIndex, setCurrentIndex] = useState(-1);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [autoplay] = useState(3000);
   const [transitionOptions] = useState({
     duration: 1000,

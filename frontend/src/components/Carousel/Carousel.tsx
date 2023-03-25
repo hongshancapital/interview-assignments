@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Carousel.css";
 function Carousel({
   carousels,
-  currentIndex = -1,
+  currentIndex,
   autoplay,
   transitionOptions,
   setCurrentIndex,
@@ -17,16 +17,18 @@ function Carousel({
   };
   setCurrentIndex: Function;
 }) {
+  const [initStatus, setInitStatus] = useState(false);
   useEffect(() => {
-    if (currentIndex === -1) {
-      setCurrentIndex(0);
-    }
     const timer = setInterval(() => {
       setCurrentIndex(
         currentIndex + 1 < carousels.length ? currentIndex + 1 : 0
       );
     }, autoplay);
+    setTimeout(() => {
+      setInitStatus(true);
+    }, 4);
     return () => {
+      setInitStatus(false);
       clearInterval(timer);
     };
   }, [currentIndex, autoplay, carousels.length, setCurrentIndex]);
@@ -69,7 +71,7 @@ function Carousel({
                 }}
                 className={[
                   "carousel__pagination__item__bar",
-                  index === currentIndex
+                  initStatus && index === currentIndex
                     ? "carousel__pagination__item__bar--moving"
                     : "",
                 ].join(" ")}
