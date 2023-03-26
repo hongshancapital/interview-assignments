@@ -24,8 +24,8 @@ struct TableViewCell: View {
     
     var body: some View {
         HStack() {
-            KFImage.url(URL.init(string: item.iconUrl), cacheKey: nil)
-                .placeholder { ProgressView()}
+            KFImage.url(URL(string: item.iconUrl), cacheKey: nil)
+                .placeholder { ProgressView().offset(x: 15, y: 15).frame(width: 30, height: 30) }
                 .frame(width: 60, height: 60, alignment: .topLeading)
                 .scaledToFit()
                 .cornerRadius(8)

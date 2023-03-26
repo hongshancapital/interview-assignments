@@ -11,18 +11,17 @@ import SwiftUI
 
 struct AppModel: Decodable,Identifiable,Hashable {
 
-    var id: String
-    
-    public var iconUrl: String = ""
-    public var title: String = ""
-    public var description: String = ""
+    public var id: String
+    public var iconUrl: String
+    public var title: String
+    public var description: String
     public var isFavorite: Bool = false
     
-    public static func parseJSON(_ json: JSON) -> AppModel {
-        var model = AppModel(id: json["artistId"].stringValue);
-        model.iconUrl = json["artworkUrl60"].stringValue;
-        model.title = json["trackName"].stringValue;
-        model.description = json["description"].stringValue;
-        return model;
+    init(_ json: JSON) {
+        self.id = json["artistId"].stringValue
+        self.iconUrl = json["artworkUrl60"].stringValue
+        self.title = json["trackName"].stringValue
+        self.description = json["description"].stringValue
     }
+
 }

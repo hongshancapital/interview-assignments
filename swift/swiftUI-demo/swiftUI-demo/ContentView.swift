@@ -59,22 +59,19 @@ struct ContentView: View {
             return
         }
         self.loading = true
-        Network.getData(self.pageIndex, pageSize) { result, error in
+        Network.getAppModelList(self.pageIndex, pageSize) { data, error in
             self.loading = false
-            if error != nil {
-                if (error?.code == ApiCode.NoMoreData.rawValue) {
-                    self.hasMore = false
-                }
+            if (error != nil) {
                 print("加载失败：", error!)
-                return
+                return;
             }
-            guard let result = result, result.count > 0 else {
+            guard let models = data, models.count > 0 else {
                 print("加载失败，result 为空")
                 self.hasMore = false
-                return
+                return;
             }
             self.pageIndex = self.pageIndex + 1
-            self.datas = self.datas + result
+            self.datas = (self.datas + models).filterDuplicates { $0.id }
         }
     }
 }
