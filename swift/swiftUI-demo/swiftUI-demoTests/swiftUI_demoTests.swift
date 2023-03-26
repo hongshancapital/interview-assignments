@@ -32,5 +32,41 @@ class swiftUI_demoTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testRequestSuccessExample() throws {
+        Network.getAppModelList(0, 15) { data, error in
+            if error != nil {
+                XCTFail(error.debugDescription)
+                return
+            }
+            XCTAssertNotNil(data)
+            XCTAssertTrue(data!.count > 0)
+            XCTAssertTrue(!data![0].title.isEmpty)
+        }
+    }
+    
+    func testRequestLoadMoreExample() throws {
+        Network.getAppModelList(1, 15) { data, error in
+            if error != nil {
+                XCTFail(error.debugDescription)
+                return
+            }
+            XCTAssertNotNil(data)
+            XCTAssertTrue(data!.count > 0)
+            XCTAssertTrue(!data![0].title.isEmpty)
+        }
+    }
+    
+    func testRequestFailExample() throws {
+        Network.getAppModelList(-100, 15) { data, error in
+            if error != nil {
+                XCTFail(error.debugDescription)
+                return
+            }
+            XCTAssertNotNil(data)
+            XCTAssertTrue(data!.count > 0)
+            XCTAssertTrue(!data![0].title.isEmpty)
+        }
+    }
 
 }
