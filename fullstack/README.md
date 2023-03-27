@@ -1,45 +1,88 @@
-# TypeScript Fullstack Engineer Assignment
+# url-shortener
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+## Get started
 
-撰写两个 API 接口
+- npm install
+- npm run build
+- node dist/server.js
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+## API /shorten
 
-限制
+Method: POST
 
-- 短域名长度最大为 8 个字符（不含域名）
+Path: /shorten
 
-递交作业内容
+Content-Type:application/json
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率(覆盖率请勿提交整个目录，一张图片或一个 text table 即可)
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+Request body：
 
-其他
+| Param | Type   | Required |
+| ----- | ------ | -------- |
+| url   | string | yes      |
 
-- 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
+Response body：
 
-## 岗位职责
+| Param   | Type   |
+| ------- | ------ |
+| success | number |
+| msg     | string |
+| url     | string |
 
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
+## API /unshorten
 
-## 要求
+Method: POST
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+Path : /unshorten
+
+Content-Type:application/json
+
+Request body：
+
+| Param | Type   | Required |
+| ----- | ------ | -------- |
+| url   | string | yes      |
+
+Response body：
+
+| Param   | Type   |
+| ------- | ------ |
+| success | number |
+| msg     | string |
+| url     | string |
+
+## Architecture diagram
+
+![Architecture diagram](./doc_image/design.png)
+
+## Assumption
+
+- Internal use, so we do not need to design the API authentication (ex: api-token) and flow control
+- Shortened URLs generated : 10/s, shortened URLs generated in 100 years : about 3.16 \* 10^10
+- Shortened link should be as small as possible, 8 letter maximum (not include the host name and protocol)
+- Database and api running on the same server
+- Singleton instance
+
+## Test env
+
+- MySQL 5.7, image from docker hub
+
+## SQL schema
+
+Database: MySQL
+
+```
+TABLE TinyURL (
+  ID BIGINT NOT NULL AUTO_INCREMENT,
+  ShortenedURL VARCHAR(40) NOT NULL,
+  OriginalURL VARCHAR(400) NOT NULL,
+  INDEX(ShortenedUrl, OriginalUrl)
+);
+```
+
+## Unit test coverage
+
+![Unit test coverage](./doc_image/coverage/Unit%20test.png)
+
+## Integration test coverage
+
+![Integration test coverage](./doc_image/coverage/Integration%20test.png)
