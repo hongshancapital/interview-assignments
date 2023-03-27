@@ -15,8 +15,8 @@ const Pagination = (props: PaginationPropsType) => {
         ...resetProps
     } = props
 
-    let data = new Array(size).fill(0);
-    data.forEach((item, index) => item = index);
+    // let data = new Array(size).fill(0);
+    // data.forEach((item, index) => item = index);
 
     const chooseIndex = (index: number) => {
         if (onClickFn) onClickFn(index);
@@ -29,13 +29,13 @@ const Pagination = (props: PaginationPropsType) => {
 
     return <>
         <div className={`${prefixCls}-pagination`} {...resetProps}>
-            {data.map((itemP, indexP) => {
+            {[...Array(size)].map((itemP, indexP) => {
                 let isActiveStyle = indexP === activeIndex ? { ...itemActivityStyle, ...amnimationStyle } : {};
                 return (
                     <div
                         className={`${prefixCls}-pagination-bullet`}
                         style={{ ...pageItemStyle }}
-                        key={`${itemP.imgUrl}-${indexP}`}
+                        key={`${itemP}-${indexP}`}
                         onClick={() => chooseIndex(indexP)}
                     >
                         <div className={`${prefixCls}-pagination-bullet_active`} style={{ ...isActiveStyle }}></div>
