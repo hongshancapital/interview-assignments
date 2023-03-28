@@ -43,7 +43,7 @@ app.get('/generateShortUrl', async (req: Request, res: Response) => {
   res.send(shortUrl);
 });
 
-app.get('/tranferToLongUrl', async (req: Request, res: Response) => {
+app.get('/transferToLongUrl', async (req: Request, res: Response) => {
   const shortUrl = req.query.shortUrl as string;
   if (!shortUrl) {
     res.status(400).send('Bad Request');
@@ -62,13 +62,8 @@ app.get('/tranferToLongUrl', async (req: Request, res: Response) => {
     redisClient.set(shortUrl, result.longUrl, { EX: 3600 * 24 });
     res.send(result.longUrl);
   } else {
-    res.status(404).send('Not Found');
+    res.send('Not Found');
   }
-});
-
-app.get('/redis', async (req: Request, res: Response) => {
-  redisClient.set('test', '1234');
-  res.send('redis');
 });
 
 app.listen(port, () => {
