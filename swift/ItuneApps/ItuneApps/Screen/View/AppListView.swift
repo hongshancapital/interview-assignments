@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct AppListView: View {
-    @EnvironmentObject var vm: AppViewModel
+    @StateObject var vm: AppViewModel = AppViewModel()
     var body: some View {
-        
         if vm.apps == nil {
             if vm.error == nil {
                 ProgressView()
@@ -22,8 +21,8 @@ struct AppListView: View {
             }
         } else {
             List {
-                ForEach(Array(vm.apps!.results.enumerated()), id: \.1.id) { (index, model) in
-                    AppRowView(model: model, isLike: vm.favoriteIds.contains(model.trackId))
+                ForEach(Array(vm.results.enumerated()), id: \.1.id) { _, model in
+                    AppRowView(model: model, isLike: vm.likeAppIds.contains(model.trackId))
                         .frame(height: 70)
                         .listRowSeparator(.hidden)
                         .listRowBackground(
@@ -31,16 +30,17 @@ struct AppListView: View {
                                 .foregroundColor(.white)
                                 .padding(6))
                 }
-                
+
                 bottomLoadView
                     .listRowBackground(Color.clear)
             }
             .refreshable {
                 vm.loadApps()
             }
+            .environmentObject(vm)
         }
     }
-    
+
     var bottomLoadView: some View {
         HStack {
             Spacer()
@@ -50,7 +50,7 @@ struct AppListView: View {
                         vm.loadMore()
                     }
                 }
-                
+
                 Text(vm.isNoMore ? "No More Data" : "Loading...").foregroundColor(.secondary)
             }
             Spacer()

@@ -13,7 +13,7 @@ extension Set: RawRepresentable where Element: Codable {
               let string = String(data: data, encoding: .utf8) else { return "" }
         return string
     }
-    
+
     public init?(rawValue: String) {
         guard let data = rawValue.data(using: .utf8),
               let set = try? JSONDecoder().decode(Self.self, from: data) else {
@@ -22,4 +22,3 @@ extension Set: RawRepresentable where Element: Codable {
         self = set
     }
 }
-

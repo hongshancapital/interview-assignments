@@ -5,10 +5,9 @@
 //  Created by daicanglan on 2023/3/27.
 //
 
+import Combine
 import Foundation
 import SwiftUI
-import Combine
-
 
 let appDecoder: JSONDecoder = {
     let decoder = JSONDecoder()
@@ -16,15 +15,13 @@ let appDecoder: JSONDecoder = {
     return decoder
 }()
 
-
 struct LoadAppListRequest {
-    
     var queryLimit: Int = 10
     var baseUrl: String = "https://itunes.apple.com/search?entity=software&term=chat&limit="
     var queryUrlStr: String {
         return baseUrl + "\(queryLimit)"
     }
-    
+
     var publisher: AnyPublisher<AppModel, Error> {
         let url = URL(string: queryUrlStr)!
         return URLSession.shared
@@ -34,5 +31,4 @@ struct LoadAppListRequest {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
 }

@@ -11,25 +11,23 @@ struct AppRowView: View {
     @EnvironmentObject var vm: AppViewModel
     var model: AppItem
     var isLike: Bool = false
-    
+
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            buildAvatorView(model.artworkUrl512)
+            buildAppIconView(model.artworkUrl512)
             buildAppInfoView(name: model.trackName, desc: model.description)
-            
+
             Spacer()
-            
+
             buildLikeView()
         }
-
     }
 }
 
-
 // MARK: subviews
-private extension AppRowView {
-    func buildAvatorView(_ urlStr: String) -> some View {
 
+private extension AppRowView {
+    func buildAppIconView(_ urlStr: String) -> some View {
         AsyncImage(url: URL(string: urlStr)) { image in
             image
                 .resizable()
@@ -44,8 +42,7 @@ private extension AppRowView {
         .frame(width: 60, height: 60)
         .padding(.trailing, 10)
     }
-    
-    
+
     func buildAppInfoView(name: String, desc: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(name)
@@ -56,7 +53,7 @@ private extension AppRowView {
                 .lineLimit(2)
         }
     }
-    
+
     func buildLikeView() -> some View {
         Image(systemName: isLike ? "heart.fill" : "heart")
             .font(.title2)
@@ -71,7 +68,11 @@ private extension AppRowView {
 
 struct AppRowView_Previews: PreviewProvider {
     static var previews: some View {
-        AppRowView(model: AppItem.examples[0], isLike: true)
-            .environmentObject(AppViewModel())
+        VStack {
+            AppRowView(model: AppItem.examples[0], isLike: true)
+                .environmentObject(AppViewModel())
+            AppRowView(model: AppItem.examples[0], isLike: false)
+                .environmentObject(AppViewModel())
+        }
     }
 }

@@ -8,7 +8,6 @@
 import XCTest
 
 final class UITests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -25,7 +24,7 @@ final class UITests: XCTestCase {
     func testScrollMore() throws {
         let app = XCUIApplication()
         app.launch()
-        
+
         let collectionViewsQuery = XCUIApplication().collectionViews
         var cell = collectionViewsQuery.children(matching: .cell).element(boundBy: 2)
         cell.swipeUp()
@@ -33,36 +32,30 @@ final class UITests: XCTestCase {
         cell.swipeUp()
         cell = collectionViewsQuery.children(matching: .cell).element(boundBy: 4)
         cell.swipeDown()
-        
     }
-    
+
     func testClickLike() throws {
-        
         let app = XCUIApplication()
         app.launch()
-        
+
         let collectionViewsQuery = XCUIApplication().collectionViews
         let cell = collectionViewsQuery.children(matching: .cell).element(boundBy: 1)
         cell.images["Love"].tap()
         collectionViewsQuery.children(matching: .cell).element(boundBy: 4).images["Love"].tap()
         collectionViewsQuery.children(matching: .cell).element(boundBy: 3).images["Love"].tap()
         collectionViewsQuery.children(matching: .cell).element(boundBy: 2).images["Love"].tap()
-        
+
         let element = cell.children(matching: .other).element(boundBy: 1).children(matching: .other).element
         element.swipeDown()
         element.swipeDown()
-        
-        
-        
-                                
     }
 
-//    func testLaunchPerformance() throws {
-//        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-//            // This measures how long it takes to launch your application.
-//            measure(metrics: [XCTApplicationLaunchMetric()]) {
-//                XCUIApplication().launch()
-//            }
-//        }
-//    }
+    func testLaunchPerformance() throws {
+        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
+            // This measures how long it takes to launch your application.
+            measure(metrics: [XCTApplicationLaunchMetric()]) {
+                XCUIApplication().launch()
+            }
+        }
+    }
 }

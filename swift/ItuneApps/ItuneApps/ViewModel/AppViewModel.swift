@@ -12,17 +12,21 @@ import SwiftUI
 class AppViewModel: ObservableObject {
     @Published var error: AppError?
     @Published var apps: AppModel?
-    @AppStorage("favoriteIds") var favoriteIds: Set<Int> = []
+    @AppStorage("favoriteIds") var likeAppIds: Set<Int> = []
+
+    var results: [AppItem] {
+        apps?.results ?? []
+    }
 
     var isLoadingApps = false
     var isNoMore = false // false 有更多的数据 true 没有更多的数据
 
-    var start: Int = 50 // 初始值
-    var increnment: Int = 50 // 每次加载更多limit增加数
-    var limitCount: Int = 200
+    var start: Int = 10 // 初始值
+    var increment: Int = 10 // 每次加载更多limit增加数
+    var limitCount: Int = 100
 }
 
-// MARK: public funcs
+// MARK: public functions
 
 extension AppViewModel {
     /// 第一次加载数据和下拉刷新
@@ -34,23 +38,23 @@ extension AppViewModel {
     /// 加载更多, [loadRequest(queryLimit: start + increment)](x-source-tag://请求数据)
     func loadMore() {
         if isNoMore { return }
-        loadRequest(queryLimit: start + increnment) { [weak self] in
+        loadRequest(queryLimit: start + increment) { [weak self] in
             guard let self = self else { return }
-            self.start = self.start + self.increnment
+            self.start = self.start + self.increment
         }
     }
 
     /// 添加/删除喜欢App
     func toggleLike(trackId: Int) {
-        if favoriteIds.contains(trackId) {
-            favoriteIds.remove(trackId)
+        if likeAppIds.contains(trackId) {
+            likeAppIds.remove(trackId)
         } else {
-            favoriteIds.insert(trackId)
+            likeAppIds.insert(trackId)
         }
     }
 }
 
-// MARK: private funcs
+// MARK: private functions
 
 extension AppViewModel {
     private func handlerError(_ error: AppError) {

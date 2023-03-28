@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40EB3BBD29CED89F00BB16CF /* ItuneAppsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3BBC29CED89F00BB16CF /* ItuneAppsApp.swift */; };
+		40EB3BBD29CED89F00BB16CF /* AppEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3BBC29CED89F00BB16CF /* AppEntry.swift */; };
 		40EB3BBF29CED89F00BB16CF /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3BBE29CED89F00BB16CF /* HomeScreen.swift */; };
 		40EB3BC129CED8A000BB16CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40EB3BC029CED8A000BB16CF /* Assets.xcassets */; };
 		40EB3BC429CED8A000BB16CF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40EB3BC329CED8A000BB16CF /* Preview Assets.xcassets */; };
@@ -15,7 +15,7 @@
 		40EB3BD229CEE9B300BB16CF /* AppRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3BD129CEE9B300BB16CF /* AppRowView.swift */; };
 		40EB3BDF29CF129E00BB16CF /* LoadAppListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3BDE29CF129E00BB16CF /* LoadAppListRequest.swift */; };
 		40EB3CE229CFF17C00BB16CF /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3CE129CFF17C00BB16CF /* AppViewModel.swift */; };
-		40EB3CE429CFF28400BB16CF /* Set+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3CE329CFF28400BB16CF /* Set+.swift */; };
+		40EB3CE429CFF28400BB16CF /* Set+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3CE329CFF28400BB16CF /* Set+Extension.swift */; };
 		40EB3CE629CFF2FE00BB16CF /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3CE529CFF2FE00BB16CF /* AppError.swift */; };
 		40EB3CEA29D011CD00BB16CF /* AppListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3CE929D011CD00BB16CF /* AppListView.swift */; };
 		40EB3CED29D12CE200BB16CF /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB3CEC29D12CE200BB16CF /* SubscriptionToken.swift */; };
@@ -43,7 +43,7 @@
 
 /* Begin PBXFileReference section */
 		40EB3BB929CED89F00BB16CF /* ItuneApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ItuneApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		40EB3BBC29CED89F00BB16CF /* ItuneAppsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItuneAppsApp.swift; sourceTree = "<group>"; };
+		40EB3BBC29CED89F00BB16CF /* AppEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntry.swift; sourceTree = "<group>"; };
 		40EB3BBE29CED89F00BB16CF /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		40EB3BC029CED8A000BB16CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40EB3BC329CED8A000BB16CF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		40EB3BD129CEE9B300BB16CF /* AppRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRowView.swift; sourceTree = "<group>"; };
 		40EB3BDE29CF129E00BB16CF /* LoadAppListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAppListRequest.swift; sourceTree = "<group>"; };
 		40EB3CE129CFF17C00BB16CF /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
-		40EB3CE329CFF28400BB16CF /* Set+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+.swift"; sourceTree = "<group>"; };
+		40EB3CE329CFF28400BB16CF /* Set+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+Extension.swift"; sourceTree = "<group>"; };
 		40EB3CE529CFF2FE00BB16CF /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		40EB3CE929D011CD00BB16CF /* AppListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListView.swift; sourceTree = "<group>"; };
 		40EB3CEC29D12CE200BB16CF /* SubscriptionToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionToken.swift; sourceTree = "<group>"; };
@@ -87,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40D4EEC329D2755500847264 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				40EB3CE529CFF2FE00BB16CF /* AppError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		40EB3BB029CED89F00BB16CF = {
 			isa = PBXGroup;
 			children = (
@@ -110,13 +118,14 @@
 		40EB3BBB29CED89F00BB16CF /* ItuneApps */ = {
 			isa = PBXGroup;
 			children = (
-				40EB3CEB29D12CC400BB16CF /* Extension */,
+				40EB3BCB29CED8D900BB16CF /* Model */,
+				40EB3BCA29CED8A800BB16CF /* Screen */,
 				40EB3CE029CFF17100BB16CF /* ViewModel */,
 				40EB3BD329CEFA7000BB16CF /* Networking */,
-				40EB3BCA29CED8A800BB16CF /* Screen */,
-				40EB3BCB29CED8D900BB16CF /* Model */,
 				40EB3BC029CED8A000BB16CF /* Assets.xcassets */,
-				40EB3BBC29CED89F00BB16CF /* ItuneAppsApp.swift */,
+				40EB3BBC29CED89F00BB16CF /* AppEntry.swift */,
+				40D4EEC329D2755500847264 /* Error */,
+				40EB3CEB29D12CC400BB16CF /* Extension */,
 				40EB3BC229CED8A000BB16CF /* Preview Content */,
 			);
 			path = ItuneApps;
@@ -169,7 +178,6 @@
 			children = (
 				40EB3CE129CFF17C00BB16CF /* AppViewModel.swift */,
 				40EB3CEC29D12CE200BB16CF /* SubscriptionToken.swift */,
-				40EB3CE529CFF2FE00BB16CF /* AppError.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -177,7 +185,7 @@
 		40EB3CEB29D12CC400BB16CF /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				40EB3CE329CFF28400BB16CF /* Set+.swift */,
+				40EB3CE329CFF28400BB16CF /* Set+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -333,11 +341,11 @@
 				40EB3BCF29CED90F00BB16CF /* AppModel.swift in Sources */,
 				40EB3CED29D12CE200BB16CF /* SubscriptionToken.swift in Sources */,
 				40EB3CE229CFF17C00BB16CF /* AppViewModel.swift in Sources */,
-				40EB3CE429CFF28400BB16CF /* Set+.swift in Sources */,
+				40EB3CE429CFF28400BB16CF /* Set+Extension.swift in Sources */,
 				40EB3CEA29D011CD00BB16CF /* AppListView.swift in Sources */,
 				40EB3CE629CFF2FE00BB16CF /* AppError.swift in Sources */,
 				40EB3BDF29CF129E00BB16CF /* LoadAppListRequest.swift in Sources */,
-				40EB3BBD29CED89F00BB16CF /* ItuneAppsApp.swift in Sources */,
+				40EB3BBD29CED89F00BB16CF /* AppEntry.swift in Sources */,
 				40EB3BD229CEE9B300BB16CF /* AppRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
