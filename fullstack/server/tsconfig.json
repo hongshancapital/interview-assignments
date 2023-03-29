@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    // "isolatedModules": true,
+    "target": "es5",
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "inlineSources": false,
+    "lib": ["es2015"],
+    "paths": {
+      "express": ["./node_modules/@types/express"]
+    },
+    "allowSyntheticDefaultImports": true,
+  },
+  "include": ["*.d.ts", "src/index.ts", "src/index.d.ts", "typings/global.d.ts", "node_modules/*.d.ts"],
+  "exclude": [
+    "./node_modules",
+    "./dist"
+  ]
+}
