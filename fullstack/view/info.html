@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>天气预报</title>
+    <style>
+      .weather_bg {
+        background-color: #0d68bc; 
+        height: 150px;
+        color: #fff;
+        font-size: 12px;
+        line-height: 1em;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .weather_bg label {
+        line-height: 1.5em;
+        text-align: center;
+        text-shadow: 1px 1px 1px #555;
+        background: #afdb00;
+        width: 100px;
+        display: inline-block;
+        margin-left: 10px;
+      }
+
+      .weather_bg .temp {
+        font-size: 32px;
+        margin-top: 5px;
+        padding-left: 14px;
+      }
+      .weather_bg sup {
+        font-size: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="weather_bg">
+      <div>
+        <p>
+          {{city}}（{{WD}}{{WS}}）
+        </p>
+        <p class="temp">{{temp}}<sup>℃</sup></p>
+        <p>
+          气压<label>{{AP}}</label>
+        </p>
+        <p>
+          湿度<label>{{SD}}</label>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
