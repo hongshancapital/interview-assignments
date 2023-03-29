@@ -1,4 +1,11 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { CarouselProps } from "./interface";
 import "./index.css";
 
@@ -13,11 +20,12 @@ export const Carousel: FC<CarouselProps> = (props) => {
   const timer = useRef<NodeJS.Timeout | undefined>();
   const bgRef = useRef<HTMLDivElement>(null);
 
-  const startIntervalTime = () => {
+  const startIntervalTime = useCallback(() => {
+    timer.current && clearInterval(timer.current)
     timer.current = setInterval(() => {
       setActiveIndex((index) => (index >= data.length - 1 ? 0 : index + 1));
     }, duration);
-  };
+  }, [duration, data.length]);
 
   const { transform, carouselWidth } = useMemo(() => {
     if (typeof width === "string")
@@ -26,7 +34,7 @@ export const Carousel: FC<CarouselProps> = (props) => {
       transform: `translateX(-${width * activeIndex}px)`,
       carouselWidth: width * data.length,
     };
-  }, [width, activeIndex]);
+  }, [width, activeIndex, data.length]);
 
   useEffect(() => {
     startIntervalTime();
@@ -34,7 +42,7 @@ export const Carousel: FC<CarouselProps> = (props) => {
       setWidth(bgRef.current?.clientWidth);
     }
     return () => clearInterval(timer.current);
-  }, []);
+  }, [startIntervalTime]);
 
   return (
     <div className="carousel-bg" ref={bgRef}>
