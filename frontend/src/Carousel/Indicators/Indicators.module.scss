@@ -1,0 +1,32 @@
+.indicators {
+  display: flex;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.indicator {
+  background-color: #a9a9a9;
+  width: 40px;
+  height: 2px;
+  margin: 0 8px;
+}
+
+.indicatorProgress {
+  background-color: #fafafa;
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+}
+
+@keyframes progress {
+  0% {
+    transform: scaleX(0%);
+  }
+  100% {
+    transform: scaleX(100%);
+  }
+}
