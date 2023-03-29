@@ -17,8 +17,6 @@ async function findByShort(short: string) {
             urlCode: short
         }
     }));
-    console.log('err', err)
-    console.log('record', record)
     return [ err, record ];
 }
 

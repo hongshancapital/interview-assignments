@@ -8,7 +8,7 @@ import {
 
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser')
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, param } = require('express-validator');
 
 import {generate} from './lib/shortUrl';
 import {
@@ -31,7 +31,6 @@ app.get('/', (req: any, res: any) => {
 
 app.post('/shorturl', body('url').isURL(), async (req: Request, res: Response) => {
     const errors = validationResult(req)
-    console.log(req.body.url, 'req.body.url')
     if (!errors.isEmpty()) {
         return res.status(200).json(
             errors
@@ -46,7 +45,6 @@ app.post('/shorturl', body('url').isURL(), async (req: Request, res: Response) =
     }
     if (!record) {
         const [newError, newRecord ] = await create(urlCode, url)
-        console.log('newRecord', newError)
         if (newError) {
             return res.status(200).json({
                 // errorMessage: (newError as Error).message
@@ -63,11 +61,19 @@ app.post('/shorturl', body('url').isURL(), async (req: Request, res: Response) =
     }
 })
 
-app.get('/t/:short', async (req: any, res: any) => {
+app.get('/t/:short', param('short').custom((value: string) => {
+    return value !== ''
+}), async (req: any, res: any) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(200).json(
+            errors
+            // { errorCode: '-1', errorMessage: 'expect param: url' }
+        );
+    }
     const {short} = req.params
     const [ err, record ] = await findByShort(short)
     if (err) {
-        console.log('errerrerrerr', err)
         res.status(200).json({
             errorMessage: 'not found'
         })
