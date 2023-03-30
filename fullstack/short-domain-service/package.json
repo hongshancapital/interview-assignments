@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "prettier": "prettier --write ."
   },
   "keywords": [
@@ -27,7 +28,8 @@
     "testEnvironment": "node",
     "clearMocks": true,
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "tests"
     ],
     "setupFilesAfterEnv": [
       "./tests/mock/setup.js"
