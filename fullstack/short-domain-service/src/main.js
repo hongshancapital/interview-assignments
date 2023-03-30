@@ -2,6 +2,8 @@ const express = require("express");
 const registerUriController = require('./uri/controller');
 const app = express();
 
+app.use(express.json()) 
+
 registerUriController(app);
 
 app.get("/", (req, res) => {
