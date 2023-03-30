@@ -9,6 +9,7 @@ describe("Uri Domain Test ｜ ", () => {
         server = await app.listen(port);
     });
     afterEach(async () => {
+        jest.resetAllMocks();
         await server.close();
     });
 
@@ -43,7 +44,6 @@ describe("Uri Domain Test ｜ ", () => {
         const mockShortUriKey = '6LAzd';
         request(server)
             .get(`/uri/${mockShortUriKey}`)
-            // .expect("Content-Type", 'text/html; charset=utf-8')
             .expect(301)
             .expect('Moved Permanently. Redirecting to http://www.yansong.fun', done);
     });
@@ -55,20 +55,22 @@ describe("Uri Domain Test ｜ ", () => {
         const mockShortUriKey = 'anything';
         request(server)
             .get(`/uri/${mockShortUriKey}`)
-            // .expect("Content-Type", 'text/html; charset=utf-8')
             .expect(400, done)
     });
-    test.skip('POST /uri | should create uri and keep in redis database', (done) => {
-        request(server)
+    test('should create uri and keep in redis database', async () => {
+        jest
+            .spyOn(MockRedisClient.prototype, 'sendCommand')
+            .mockImplementation(() => 99999999);
+        // create short uri
+        const response = await request(server)
             .post("/uri")
-            .send({ uri: 'http://www.yansong.fun' })
+            .send({ uri: 'http://www.outdoorlife.cc' })
             .expect("Content-Type", 'text/html; charset=utf-8')
-            .expect(/uri\/4c92/, done);
-        // get uri info
-        request(server)
-            .post("/uri")
-            .send({ uri: 'http://www.yansong.fun' })
-            .expect("Content-Type", 'text/html; charset=utf-8')
-            .expect(/uri\/4c92/, done);
+            .expect(/uri\/6LAzd/);
+        // get origin uri info
+        return await request(server)
+            .get(`/uri/6LAzd`)
+            .expect(301)
+            .expect('Moved Permanently. Redirecting to http://www.outdoorlife.cc');
     });
 });

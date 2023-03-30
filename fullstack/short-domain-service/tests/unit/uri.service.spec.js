@@ -61,10 +61,10 @@ describe("Uri Service Test | ", () => {
         let getUri = uriService.getUri;
         test('should save uri relation in redis', async () => {
             const key = '6LAzd'
-            const longUri = 'www.yansong.fun'
+            const longUri = 'http://www.yansong.fun'
             saveUri(key, longUri);
             const result = await getUri(key);
-            expect(result).toBe('www.yansong.fun');
+            expect(result).toBe('http://www.yansong.fun');
         });
         test('should get undefined when key is not exist', async () => {
             const key = 'Anything'
