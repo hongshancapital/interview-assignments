@@ -1,5 +1,20 @@
-const convert10To62 = base => {
-    return base;
+const convert10To62 = n => {
+    if (!Number.isInteger(n)) {
+        return null;
+    }
+    if (n === 0) {
+        return '0';
+    }
+    var digits = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    while (n > 0) {
+        result = digits[n % digits.length] + result;
+        n = parseInt(n / digits.length, 10);
+    }
+    if (result.length > 8) {
+        return null;
+    }
+    return result;
 }
 
 module.exports = { convert10To62 };
