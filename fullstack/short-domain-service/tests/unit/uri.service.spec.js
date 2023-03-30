@@ -72,5 +72,28 @@ describe("Uri Service Test | ", () => {
             expect(result).toBe(undefined);
         });
     })
+    describe('isValidUri Test | ', () => {
+        let isValidUri = uriService.isValidUri;
+        test('should return true when it is valid', () => {
+            const uri= "http://baidu.com";
+            const result = isValidUri(uri);
+            expect(result).toBe(true);
+        })
+        test('should return true when it is with port number', () => {
+            const uri= "http://baidu.com:80";
+            const result = isValidUri(uri);
+            expect(result).toBe(true);
+        })
+        test('should return false when it is missing protocol', () => {
+            const uri= "yansong.fun";
+            const result = isValidUri(uri);
+            expect(result).toBe(false);
+        })
+        test('should return false when it only domain', () => {
+            const uri= "yansong";
+            const result = isValidUri(uri);
+            expect(result).toBe(false);
+        })
+    })
 })
 

@@ -47,6 +47,10 @@ const getUri = async (key) => {
     return await reidsClient.get(key);
 }
 
+const isValidUri = (uri) => {
+    return /\w+:(\/?\/?)[^\s]+/gm.test(uri);
+}
+
 module.exports = {
     convert10To62,
     connectToRedis,
@@ -54,5 +58,6 @@ module.exports = {
     getDbSize,
     getShortUri,
     saveUri,
-    getUri
+    getUri,
+    isValidUri
 };

@@ -1,4 +1,4 @@
-const { connectToRedis, getDbSize, convert10To62, getShortUri, saveUri, getUri } = require("./service");
+const { connectToRedis, getDbSize, convert10To62, getShortUri, saveUri, getUri, isValidUri } = require("./service");
 
 const registerController = (app) => {
     app.post("/uri", async (req, res) => {
@@ -6,9 +6,9 @@ const registerController = (app) => {
         const base = await getDbSize();
         const shortKey = convert10To62(base);
         const longUri = req.body["uri"];
-        if (!longUri) {
+        if (!longUri || !isValidUri(longUri)) {
             return res.sendStatus(400);
-        }
+        } 
         saveUri(shortKey, longUri);
         res.send(getShortUri(req.headers.host, shortKey));
     });

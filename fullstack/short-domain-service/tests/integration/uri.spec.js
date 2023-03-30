@@ -36,6 +36,12 @@ describe("Uri Domain Test ｜ ", () => {
             .expect("Content-Type", 'text/html; charset=utf-8')
             .expect(/uri\/6LAzd/, done);
     });
+    test('POST /uri | should get 400 when uri is not valid uri', (done) => {
+        request(server)
+            .post("/uri")
+            .send({ uri: 'www.yansong.fun' })
+            .expect(400, done);
+    });
     test('Get /uri/:key | should get long uri with redirect', (done) => {
         // mock origin uri
         jest
@@ -73,4 +79,5 @@ describe("Uri Domain Test ｜ ", () => {
             .expect(301)
             .expect('Moved Permanently. Redirecting to http://www.outdoorlife.cc');
     });
+    
 });
