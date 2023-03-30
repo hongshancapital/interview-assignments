@@ -35,4 +35,8 @@ const convert10To62 = n => {
     return result;
 }
 
-module.exports = { convert10To62, connectToRedis, disconnectRedis, getDbSize };
+const getShortUri = (host, key) => {
+    return `${host}/uri/${key}`;
+}
+
+module.exports = { convert10To62, connectToRedis, disconnectRedis, getDbSize, getShortUri };
