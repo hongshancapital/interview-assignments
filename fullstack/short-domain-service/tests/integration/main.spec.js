@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require("../../src/main");
-let port = 9002;
+let port = 60001;
 
 describe("Main Test", () => {
     let server;

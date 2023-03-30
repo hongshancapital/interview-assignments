@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require("../../src/main");
-let port = 9002;
+let port = 60002;
 
 describe("Uri Domain Test", () => {
     let server;
