@@ -1,3 +1,21 @@
+const { createClient } = require('redis')
+
+let reidsClient;
+
+const connectToRedis = async () => {
+    reidsClient = createClient();
+    await reidsClient.connect();
+    return reidsClient.isReady;
+}
+
+const disconnectRedis = async () => {
+    await reidsClient.disconnect();
+}
+
+const getDbSize = async () => {
+    return await reidsClient.sendCommand(['DBSIZE']);
+}
+
 const convert10To62 = n => {
     if (!Number.isInteger(n)) {
         return null;
@@ -17,4 +35,4 @@ const convert10To62 = n => {
     return result;
 }
 
-module.exports = { convert10To62 };
+module.exports = { convert10To62, connectToRedis, disconnectRedis, getDbSize };
