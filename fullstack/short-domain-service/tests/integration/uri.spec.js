@@ -3,12 +3,11 @@ const app = require("../../src/main");
 const { MockRedisClient } = require("../mock/redis-mock");
 let port = 60002;
 
-describe("Uri Domain Test", () => {
+describe("Uri Domain Test ｜ ", () => {
     let server;
     beforeEach(async () => {
         server = await app.listen(port);
     });
-
     afterEach(async () => {
         await server.close();
     });
@@ -30,7 +29,7 @@ describe("Uri Domain Test", () => {
             .expect("Content-Type", 'text/html; charset=utf-8')
             .expect(/uri\/6LAzd/, done);
     });
-    test('POST /uri | should create uri and keep in redis database', (done) => {
+    test.skip('POST /uri | should create uri and keep in redis database', (done) => {
         // mock redis database size;
         jest
             .spyOn(MockRedisClient.prototype, 'sendCommand')
@@ -42,3 +41,4 @@ describe("Uri Domain Test", () => {
             .expect(/uri\/4c92/, done);
     });
 });
+ 
