@@ -39,4 +39,20 @@ const getShortUri = (host, key) => {
     return `${host}/uri/${key}`;
 }
 
-module.exports = { convert10To62, connectToRedis, disconnectRedis, getDbSize, getShortUri };
+const saveUri = (key, longUri) => {
+    reidsClient.set(key, longUri);
+}
+
+const getUri = async (key) => {
+    return await reidsClient.get(key);
+}
+
+module.exports = {
+    convert10To62,
+    connectToRedis,
+    disconnectRedis,
+    getDbSize,
+    getShortUri,
+    saveUri,
+    getUri
+};

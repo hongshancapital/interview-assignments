@@ -47,10 +47,29 @@ describe("Uri Service Test | ", () => {
     describe('getShortUri Test | ', () => {
         let getShortUri = uriService.getShortUri;
         test('should get short uri with host and key', () => {
-            const host = 'www.yansong.fun';
+            const host = 'localhost';
             const key = '6LAzd'
             const result = getShortUri(host, key);
-            expect(result).toBe('www.yansong.fun/uri/6LAzd');
+            expect(result).toBe('localhost/uri/6LAzd');
+        });
+    })
+    describe('saveUri and getUri Test | ', () => {
+        beforeAll(() => {
+            uriService.connectToRedis();
+        })
+        let saveUri = uriService.saveUri;
+        let getUri = uriService.getUri;
+        test('should save uri relation in redis', async () => {
+            const key = '6LAzd'
+            const longUri = 'www.yansong.fun'
+            saveUri(key, longUri);
+            const result = await getUri(key);
+            expect(result).toBe('www.yansong.fun');
+        });
+        test('should get undefined when key is not exist', async () => {
+            const key = 'Anything'
+            const result = await getUri(key);
+            expect(result).toBe(undefined);
         });
     })
 })

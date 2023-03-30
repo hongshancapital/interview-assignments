@@ -19,7 +19,6 @@ describe("Uri Domain Test", () => {
             .expect("Content-Type", 'text/html; charset=utf-8')
             .expect(200, done);
     });
-
     test('POST /uri | should create uri with long uri as request body and get short uri as response', (done) => {
         // mock redis database size;
         jest
@@ -30,5 +29,16 @@ describe("Uri Domain Test", () => {
             .send({ uri: 'www.yansong.fun' })
             .expect("Content-Type", 'text/html; charset=utf-8')
             .expect(/uri\/6LAzd/, done);
+    });
+    test('POST /uri | should create uri and keep in redis database', (done) => {
+        // mock redis database size;
+        jest
+            .spyOn(MockRedisClient.prototype, 'sendCommand')
+            .mockImplementation(() => 1000000);
+        request(server)
+            .post("/uri")
+            .send({ uri: 'www.yansong.fun' })
+            .expect("Content-Type", 'text/html; charset=utf-8')
+            .expect(/uri\/4c92/, done);
     });
 });
