@@ -1,8 +1,8 @@
-import { createClient } from 'redis';
+import { createClient, RedisClientType } from 'redis';
 
-let reidsClient: any;
+let reidsClient: RedisClientType;
 
-const connectToRedis = async () => {
+const connectToRedis = async (): Promise<boolean>=> {
     if (!reidsClient?.isReady) {
         reidsClient = createClient();
         await reidsClient.connect();
@@ -14,7 +14,7 @@ const disconnectRedis = async () => {
     await reidsClient.disconnect();
 }
 
-const getDbSize = async () => {
+const getDbSize = async (): Promise<number> => {
     return await reidsClient.sendCommand(['DBSIZE']);
 }
 
@@ -45,7 +45,7 @@ const saveUri = (key: string, longUri: string): void => {
     reidsClient.set(key, longUri);
 }
 
-const getUri = async (key: string): Promise<string> => {
+const getUri = async (key: string): Promise<string | null> => {
     return await reidsClient.get(key);
 }
 

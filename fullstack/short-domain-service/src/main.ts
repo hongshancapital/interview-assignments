@@ -1,6 +1,7 @@
-import express from 'express';
+import express, { Application } from 'express';
 import registerUriController from './uri/controller';
-const app = express();
+
+const app: Application = express();
 
 app.use(express.json())
 
