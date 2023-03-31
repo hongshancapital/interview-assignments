@@ -1,0 +1,33 @@
+{
+    "name": "fullstack",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "build": "rimraf ./dist && tsc",
+        "dev": "nodemon",
+        "_dev": "pnpm run build && node dist/index.js",
+        "test": "jest --coverage"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "mysql": "^2.18.1",
+        "redis": "^4.6.5"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.17",
+        "@types/jest": "^29.5.0",
+        "@types/mysql": "^2.15.21",
+        "@types/node": "^18.15.11",
+        "@types/supertest": "^2.0.12",
+        "jest": "^29.5.0",
+        "nodemon": "^2.0.22",
+        "rimraf": "^4.4.1",
+        "supertest": "^6.3.3",
+        "ts-jest": "^29.0.5",
+        "typescript": "^5.0.2"
+    }
+}
