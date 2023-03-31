@@ -62,7 +62,7 @@ const Carousel: React.FC = () => {
             <div className='edit-list'>
                 {tit.map((item: string | undefined, index: number) => <div className='edit-item' key={index} onClick={()=>changeItem(index)}>
                     {
-                        <div className={`edit-item-line ${selectIndex === index ?'edit-item-line-active':selectIndex > index?'edit-item-line-pre':''}`}></div>
+                        <div className={`edit-item-line ${selectIndex === index ?'edit-item-line-active':''}`}></div>
                     }
                 </div>)}
             </div>
