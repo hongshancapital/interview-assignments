@@ -61,9 +61,9 @@ const Carousel: React.FC = () => {
             </div>
             <div className='edit-list'>
                 {tit.map((item: string | undefined, index: number) => <div className='edit-item' key={index} onClick={()=>changeItem(index)}>
-                    {
+                    <div className='edit-item-line-box'>
                         <div className={`edit-item-line ${selectIndex === index ?'edit-item-line-active':''}`}></div>
-                    }
+                    </div>
                 </div>)}
             </div>
         </div>
