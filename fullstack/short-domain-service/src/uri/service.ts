@@ -1,10 +1,12 @@
-const { createClient } = require('redis')
+import { createClient } from 'redis';
 
-let reidsClient;
+let reidsClient: any;
 
 const connectToRedis = async () => {
-    reidsClient = createClient();
-    await reidsClient.connect();
+    if (!reidsClient?.isReady) {
+        reidsClient = createClient();
+        await reidsClient.connect();
+    }
     return reidsClient.isReady;
 }
 
@@ -16,7 +18,7 @@ const getDbSize = async () => {
     return await reidsClient.sendCommand(['DBSIZE']);
 }
 
-const convert10To62 = n => {
+const convert10To62 = (n: number) => {
     if (!Number.isInteger(n)) {
         return null;
     }
@@ -27,7 +29,7 @@ const convert10To62 = n => {
     var result = '';
     while (n > 0) {
         result = digits[n % digits.length] + result;
-        n = parseInt(n / digits.length, 10);
+        n = parseInt(String(n / digits.length), 10);
     }
     if (result.length > 8) {
         return null;
@@ -35,23 +37,23 @@ const convert10To62 = n => {
     return result;
 }
 
-const getShortUri = (host, key) => {
+const getShortUri = (host: string, key: string): string => {
     return `${host}/uri/${key}`;
 }
 
-const saveUri = (key, longUri) => {
+const saveUri = (key: string, longUri: string): void => {
     reidsClient.set(key, longUri);
 }
 
-const getUri = async (key) => {
+const getUri = async (key: string): Promise<string> => {
     return await reidsClient.get(key);
 }
 
-const isValidUri = (uri) => {
+const isValidUri = (uri: string): boolean => {
     return /\w+:(\/?\/?)[^\s]+/gm.test(uri);
 }
 
-module.exports = {
+export {
     convert10To62,
     connectToRedis,
     disconnectRedis,

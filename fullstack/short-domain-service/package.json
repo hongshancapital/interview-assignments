@@ -4,7 +4,7 @@
   "description": "A service that create/convert long uri to a short one",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "ts-node src/index.ts",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "prettier": "prettier --write ."
@@ -20,9 +20,20 @@
     "redis": "^4.6.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.21.0",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "@types/supertest": "^2.0.12",
+    "babel-jest": "^29.5.0",
     "jest": "^29.5.0",
     "prettier": "2.8.7",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2"
   },
   "jest": {
     "testEnvironment": "node",
@@ -32,7 +43,7 @@
       "tests"
     ],
     "setupFilesAfterEnv": [
-      "./tests/mock/setup.js"
+      "./tests/mock/setup.ts"
     ]
   }
 }

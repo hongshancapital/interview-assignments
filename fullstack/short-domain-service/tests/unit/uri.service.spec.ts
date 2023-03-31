@@ -1,4 +1,4 @@
-const uriService = require('../../src/uri/service')
+import * as uriService from "../../src/uri/service";
 
 describe("Uri Service Test | ", () => {
     describe("convert10To62 Test | ", () => {
@@ -15,7 +15,7 @@ describe("Uri Service Test | ", () => {
         });
         test('should get null when input is not a number', () => {
             const base = 'hello';
-            const result = converter(base);
+            const result = converter(base as unknown as number);
             expect(result).toBe(null);
         });
         test('should get a valid string value when input is 1,000', () => {
@@ -75,22 +75,22 @@ describe("Uri Service Test | ", () => {
     describe('isValidUri Test | ', () => {
         let isValidUri = uriService.isValidUri;
         test('should return true when it is valid', () => {
-            const uri= "http://baidu.com";
+            const uri = "http://baidu.com";
             const result = isValidUri(uri);
             expect(result).toBe(true);
         })
         test('should return true when it is with port number', () => {
-            const uri= "http://baidu.com:80";
+            const uri = "http://baidu.com:80";
             const result = isValidUri(uri);
             expect(result).toBe(true);
         })
         test('should return false when it is missing protocol', () => {
-            const uri= "yansong.fun";
+            const uri = "yansong.fun";
             const result = isValidUri(uri);
             expect(result).toBe(false);
         })
         test('should return false when it only domain', () => {
-            const uri= "yansong";
+            const uri = "yansong";
             const result = isValidUri(uri);
             expect(result).toBe(false);
         })

@@ -1,15 +1,17 @@
-const request = require('supertest');
-const app = require("../../src/main");
-const { MockRedisClient } = require("../mock/redis-mock");
+import request from 'supertest';
+import app from "../../src/main";
+import { MockRedisClient } from "../mock/redis-mock";
+
 let port = 60002;
 
 describe("Uri Domain Test ｜ ", () => {
-    let server;
+    let server: any;
     beforeEach(async () => {
         server = await app.listen(port);
     });
     afterEach(async () => {
         jest.resetAllMocks();
+        MockRedisClient.prototype.reset();
         await server.close();
     });
 
@@ -28,7 +30,7 @@ describe("Uri Domain Test ｜ ", () => {
     test('POST /uri | should create uri with long uri as request body and get short uri as response', (done) => {
         // mock redis database size;
         jest
-            .spyOn(MockRedisClient.prototype, 'sendCommand')
+            .spyOn<any, any>(MockRedisClient.prototype, 'sendCommand')
             .mockImplementation(() => 99999999);
         request(server)
             .post("/uri")
@@ -45,7 +47,7 @@ describe("Uri Domain Test ｜ ", () => {
     test('Get /uri/:key | should get long uri with redirect', (done) => {
         // mock origin uri
         jest
-            .spyOn(MockRedisClient.prototype, 'get')
+            .spyOn<any, any>(MockRedisClient.prototype, 'get')
             .mockImplementation(() => 'http://www.yansong.fun');
         const mockShortUriKey = '6LAzd';
         request(server)
@@ -56,7 +58,7 @@ describe("Uri Domain Test ｜ ", () => {
     test('Get /uri/:key | should not 400 when short key not exist', (done) => {
         // mock origin uri
         jest
-            .spyOn(MockRedisClient.prototype, 'get')
+            .spyOn<any, any>(MockRedisClient.prototype, 'get')
             .mockImplementation(() => undefined);
         const mockShortUriKey = 'anything';
         request(server)
@@ -64,20 +66,16 @@ describe("Uri Domain Test ｜ ", () => {
             .expect(400, done)
     });
     test('should create uri and keep in redis database', async () => {
-        jest
-            .spyOn(MockRedisClient.prototype, 'sendCommand')
-            .mockImplementation(() => 99999999);
-        // create short uri
+        // create short uri 
         const response = await request(server)
             .post("/uri")
             .send({ uri: 'http://www.outdoorlife.cc' })
             .expect("Content-Type", 'text/html; charset=utf-8')
-            .expect(/uri\/6LAzd/);
+            .expect(/uri\/0/);
         // get origin uri info
         return await request(server)
-            .get(`/uri/6LAzd`)
+            .get(`/uri/0`)
             .expect(301)
             .expect('Moved Permanently. Redirecting to http://www.outdoorlife.cc');
     });
-    
 });

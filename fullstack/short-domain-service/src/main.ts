@@ -1,8 +1,8 @@
-const express = require("express");
-const registerUriController = require('./uri/controller');
+import express from 'express';
+import registerUriController from './uri/controller';
 const app = express();
 
-app.use(express.json()) 
+app.use(express.json())
 
 registerUriController(app);
 
@@ -10,4 +10,4 @@ app.get("/", (req, res) => {
   res.send("Welcome to Stephen Short Domain Uri Service!");
 });
 
-module.exports = app;
+export default app;

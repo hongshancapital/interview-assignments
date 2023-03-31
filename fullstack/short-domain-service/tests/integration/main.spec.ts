@@ -1,9 +1,10 @@
-const request = require('supertest');
-const app = require("../../src/main");
+import request from 'supertest';
+import app from "../../src/main";
+
 let port = 60001;
 
 describe("Main Test", () => {
-    let server;
+    let server: any;
     beforeEach(async () => {
         server = await app.listen(port);
     });
