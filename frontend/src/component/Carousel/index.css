@@ -1,0 +1,74 @@
+.rotation-Box {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.rotaion-Box-body {
+    width: 300vw;
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.rotaion-Box-body-item {
+    width: 100vw;
+    height: 100vh;
+    font-size: 50px;
+    text-align: center;
+    line-height: 500px;
+    background-color: skyblue;
+}
+
+.rotaion-Box-body-item img {
+    width: 100vw;
+    height: 100vh;
+}
+
+.edit-list{
+    width: 100vw;
+    height: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 30px;
+    left: 0px;
+}
+
+.edit-item{
+    width: 40px;
+    height: 3px;
+    position: relative;
+    margin: 0 3px;
+    background-color: #fff;
+    overflow: hidden;
+}
+.edit-item-line{
+    width: 40px;
+    height: 3px;
+    opacity: 1;
+    position: absolute;
+    background-color: antiquewhite;
+    opacity: 1;
+    left: -40px;
+    cursor: pointer;
+}
+
+@keyframes myfirst
+{
+    from {left: -40px;}
+    to {left: 0;}
+}
+
+.edit-item-line-active{
+    left: 0;
+    animation: myfirst 2s;
+}
+
+.edit-item-line-pre{
+    left: -40px;
+    width: 80px;
+}
+
