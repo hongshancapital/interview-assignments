@@ -1,45 +1,39 @@
-# TypeScript Backend Engineer Assignment
+### 思考
+实现方式有好几种：ID自增，雪花id，摘要算法，随机数等
+前两种比较好，后两种重复概率大
+我只是简单的做了一个ID自增实现，利用id自增方法将链接换成了长字符串和短字符串的之间的转换
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+### 存储
+存储方式很多中，Mysql、Mongodb、Redis、ElasticSearch等，具体情况要根据需求和数据量做分析，数据量很大可以用ElasticSearch，数据量小就无所谓啦
+我只做了一个简单的Mysql存储
 
-撰写两个 API 接口
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+### 框架
+ts + express + mysql（sequelize） + jest
+(如何用nestjs框架效果更好)
 
-限制
+### 数据库
+### 数据库表设计根据场景还可以增加其他字段（全域名、失效日期、点击次数等字段）
+CREATE SCHEMA `hs` ;
+CREATE TABLE `short_links` (
+`id` int NOT NULL AUTO_INCREMENT,
+`short_url` varchar(100) DEFAULT '' COMMENT '短网址',
+`original_url` varchar(100) DEFAULT '',
+`domin` varchar(45) DEFAULT '' COMMENT '地址前缀',
+`expire_time` timestamp NULL DEFAULT NULL COMMENT '失效时间',
+`createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+`updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`deletedAt` timestamp NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-- 短域名长度最大为 8 个字符（不含域名）
+### 项目启动和单元测试
+启动命令： npm run dev
+单元测试： npm test
+接口地址：demo
+长转短：'http://localhost:1234/api/findShortUrl/参数'
+短转长：'http://localhost:1234/api/findLongUrl/参数'
 
-递交作业内容
 
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率(覆盖率请勿提交整个目录，一张图片或一个 text table 即可)
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
 
-其他
 
-- 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
-
-## 岗位职责
-
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
-
-## 要求
-
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
