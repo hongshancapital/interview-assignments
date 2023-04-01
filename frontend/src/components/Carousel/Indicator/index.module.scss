@@ -1,0 +1,40 @@
+.dots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+}
+
+.dot {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: grey;
+  overflow: hidden;
+  cursor: pointer;
+
+  &.cur {
+    &:after {
+      display: block;
+      content: '';
+      height: 100%;
+      background: whitesmoke;
+      animation: 3s linear 0s grow;
+    }
+  }
+}
+
+.dot + .dot {
+  margin-left: 12px;
+}
+
+@keyframes grow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}

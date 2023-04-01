@@ -1,0 +1,23 @@
+.carousel {
+  position: relative;
+  overflow: hidden;
+
+  .items {
+    display: flex;
+    transition: transform 0.5s;
+  }
+
+  .item {
+    flex: 1 1;
+  }
+
+  .indicator {
+    position: absolute;
+    left: 50%;
+    bottom: 8%;
+    transform: translateX(-50%);
+    max-width: 50%;
+    min-width: 10%;
+    width: 120px;
+  }
+}
