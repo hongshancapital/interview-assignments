@@ -1,0 +1,83 @@
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-items {
+  width: auto;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  justify-content: flex-start;
+  position: relative;
+  left: var(--left);
+  top: 0;
+  transition: left var(--animationTime);
+  z-index: 1;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.carousel-indicators {
+  width: 100%;
+  height: 20px;
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  bottom: 4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-indicator {
+  width: 48px;
+  height: 2px;
+  border-radius: 1px;
+  border: 0;
+  background-color: grey;
+  margin: 5px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-indicator::before {
+  content: ' ';
+  display: block;
+  height: 100%;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0%;
+}
+
+.carousel-indicator-active::before {
+  width: 100%;
+  transition: width var(--stayTime) linear;
+}
+
+.carousel-indicator-inactive::before {
+  width: 0%;
+}

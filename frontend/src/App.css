@@ -1,14 +1,85 @@
 .App {
   text-align: center;
   position: relative;
+  width: 100vw;
+  height: 100vh;
 }
 
-.title {
-  font-size: 56px;
-  font-weight: 600;
+.demo {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-.text {
-  font-size: 28px;
-  font-weight: 400;
+.demo  .frame {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 12px;
+  position: relative;
+}
+
+.demo .frame.bg-white {
+  background-color: white;
+}
+
+.demo .frame.bg-black {
+  background-color: black;
+}
+
+.demo .frame.bg-grey {
+  background-color: #f0f0f2;
+}
+
+.demo .frame.text-white {
+  color: white;
+}
+
+.demo .frame.text-black {
+  color: black;
+}
+
+.demo .frame .title {
+  margin-top: 3em;
+  width: auto;
+  height: auto;
+  font-size: 6em;
+  line-height: 1.3em;
+  font-weight: bold;
+}
+
+.demo .frame .desc {
+  font-size: 3em;
+  line-height: 1.5em;
+}
+
+.demo .frame .pic {
+  max-width: 8em;
+  max-height: 8em;
+  position: absolute;
+  left: auto;
+  right: auto;
+  bottom: 14em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.demo .frame .pic img {
+  width: 100%;
+  max-height: 100%;
 }
