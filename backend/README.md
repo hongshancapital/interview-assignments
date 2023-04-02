@@ -1,45 +1,45 @@
-# TypeScript Backend Engineer Assignment
+一：整体设计思路：
+1. 长短链接的参照关系，存入mysql
+2. 为防止刷接口，对短域名进行Base62编码，并加入校验位
+3. 为提升服务端性能，减少mysql qps，引入redis层
 
-### Typescript 实现短域名服务（细节可以百度/谷歌）
+二：框架设计图及假设
+2.1 框架
+* model: 存储一些db相关的内容，包括mysql及redis
+* service: 存储一些算法相关的内容，如编码函数
+* src: 服务入口 app.ts在其中
+* test: 测试脚本
+2.2 假设
+* 判断该服务运行时，场景为读多写少
 
-撰写两个 API 接口
+三：mysql domainName表索引设计
+1. id: 自增，主键
+2. longName: 索引
 
-- 短域名存储接口：接受长域名信息，返回短域名信息
-- 短域名读取接口：接受短域名信息，返回长域名信息。
+四：单元测试及接口集成测试结果
 
-限制
+> short-domain-names-service@1.0.0 test
+> jest --detectOpenHandles --coverage
 
-- 短域名长度最大为 8 个字符（不含域名）
+ts-jest[versions] (WARN) Version 5.0.2 of typescript installed has not been tested with ts-jest. If you're experiencing issues, consider using a supported version (>=4.3.0 <5.0.0-0). Please do not report issues in ts-jest if you are using unsupported versions.
+ PASS  test/api.spec.ts
+ PASS  test/mysql.spec.ts
+ PASS  test/codeUtil.spec.ts
+--------------|---------|----------|---------|---------|-------------------
+File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------|---------|----------|---------|---------|-------------------
+All files     |   98.13 |    92.59 |     100 |   98.07 |                   
+ model        |     100 |      100 |     100 |     100 |                   
+  mysql.ts    |     100 |      100 |     100 |     100 |                   
+  redis.ts    |     100 |      100 |     100 |     100 |                   
+ service      |     100 |      100 |     100 |     100 |                   
+  codeUtil.ts |     100 |      100 |     100 |     100 |                   
+ src          |   96.15 |    83.33 |     100 |      96 |                   
+  app.ts      |   96.15 |    83.33 |     100 |      96 | 30,48             
+--------------|---------|----------|---------|---------|-------------------
 
-递交作业内容
-
-1. 源代码
-2. 单元测试代码以及单元测试覆盖率(覆盖率请勿提交整个目录，一张图片或一个 text table 即可)
-3. API 集成测试案例以及测试结果
-4. 简单的框架设计图，以及所有做的假设
-5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
-
-其他
-
-- 我们期望不要过度设计，每一个依赖以及每一行代码都有足够充分的理由。
-
-## 岗位职责
-
-- 根据产品交互稿构建高质量企业级 Web 应用
-- 技术栈：Express + React
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
-
-## 要求
-
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+Test Suites: 3 passed, 3 total
+Tests:       23 passed, 23 total
+Snapshots:   0 total
+Time:        3.661 s
+Ran all test suites.
