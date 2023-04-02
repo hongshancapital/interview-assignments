@@ -43,3 +43,7 @@ Tests:       23 passed, 23 total
 Snapshots:   0 total
 Time:        3.661 s
 Ran all test suites.
+
+五：候选人信息
+* 姓名：杨士铎
+* 手机：15705427498
