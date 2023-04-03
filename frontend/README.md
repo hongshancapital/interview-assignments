@@ -1,3 +1,38 @@
+# 设计
+src/carousel目录
+
+提供了三个组件
+1. carousel：一个controlled轮播组件，通过切换active值选择当前item，切换动画通过css实现
+2. progressbars：一个uncontrolled进度条组件，配合useTimeout hook提供一个进度条
+3. autoCarouselWithProgressbars：按照需求效果给出的一个实现
+
+这样拆分的目的：
+```
+这个实现不是一个面向广泛需求的通用组件，而是一个易维护易扩展的简单包装
+
+carousel是轮播部分的简单实现，这一个部分主要通过开放实际html元素上的样式属性，允许使用者定制。
+
+progressbars是需求中进度条的简单模拟，作为轮播的控制器，可以和轮播完全独立。
+
+将两者组合，添加一个state即组成autoCarouselWithProgressbars，模拟了需求的要求
+```
+
+随手在progressbar上加了一个onClick效果
+
+# 运行
+样式使用src/carousel/carousel.css的简单配置，未引入预处理工具，推荐chrome浏览器观看
+
+也未对demo.mov进行细致匹配
+
+图片来自demo.mov的截图
+
+```
+yarn install
+
+yarn start
+yarn test
+```
+
 # TypeScript Frontend Engineer Assignment
 
 ## 要求
