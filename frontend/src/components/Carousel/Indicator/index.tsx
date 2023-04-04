@@ -19,7 +19,10 @@ const Indicator: FC<IndicatorProps> = ({
       if (e.target === e.currentTarget) {
         return;
       }
-      const indexStr = (e.target as HTMLElement).dataset.index;
+      if (!(e.target instanceof HTMLElement)) {
+        return;
+      }
+      const indexStr = e.target.dataset.index;
       if (indexStr === undefined) {
         return;
       }
