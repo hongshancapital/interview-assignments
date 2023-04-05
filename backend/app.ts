@@ -2,7 +2,6 @@
  * @file 项目统一入口页面
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
-'use strict';
 import { Application } from 'egg';
 
 export default (app: Application) => {

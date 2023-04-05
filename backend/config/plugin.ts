@@ -2,7 +2,6 @@
  * @file 插件配置
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
-'use strict';
 import { EggPlugin } from 'egg';
 
 const plugin: EggPlugin = {

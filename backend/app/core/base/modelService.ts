@@ -2,7 +2,6 @@
  * @file service 基类
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
-'use strict';
 import { Context, Service } from 'egg';
 import * as sequelize from 'sequelize';
 import superSequelize from '../../../typings/app/core/modelService';

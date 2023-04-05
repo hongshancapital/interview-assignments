@@ -18,9 +18,4 @@ export default class ShortUrlBloomService extends Service {
   public async add(shortId: string) {
     await this.app.redis.sadd(this.urlSetKey, shortId);
   }
-
-  // public async clear() {
-  //   await this.app.redis.del(this.urlSetKey);
-  // }
-
 }
