@@ -1,0 +1,64 @@
+.carousel {
+  &-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+  &-list {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    transition: transform 0.8s ease-in-out;
+    list-style: none;
+    height: 100%;
+  }
+  &-item {
+    flex: 1;
+    flex-shrink: 0;
+  }
+
+  &-indicator {
+    &-list {
+      position: absolute;
+      list-style: none;
+      display: flex;
+      left: 50%;
+      bottom: 56px;
+      transform: translateX(-50%);
+    }
+    &-item {
+      width: 60px;
+      height: 4px;
+      background-color: #aaa;
+      margin: 0 6px;
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+      &-filled {
+        background-color: #fff;
+      }
+      &-active {
+        & > &-inner {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          background-color: #fff;
+          transform: translateX(-100%);
+          animation-name: indicator-anim;
+          animation-timing-function: linear;
+
+          @keyframes indicator-anim {
+            0% {
+              transform: translateX(-100%);
+            }
+            100% {
+              transform: translateX(0%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
