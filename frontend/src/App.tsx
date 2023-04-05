@@ -48,7 +48,6 @@ function App() {
     <div className='App'>
       <Carousel
         className='carousel-full'
-        // autoPlay={false}
         data={listData}
         renderItem={(item) => {
           return (
@@ -59,7 +58,6 @@ function App() {
               }}
             >
               {item.banner}
-              {/* <img className='carousel-img' src={item.img} alt='' /> */}
             </div>
           )
         }}
