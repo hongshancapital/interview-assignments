@@ -1,0 +1,55 @@
+.CarouselWrapper {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.inner {
+  white-space: nowrap;
+  transition: transform 0.3s;
+}
+
+.carousel {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  width: 100%;
+}
+
+button {
+  margin-right: 5px;
+}
+
+button.active {
+  background-color: salmon;
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.active {
+  position: absolute;
+  display: inline-block;
+  height: 2px;
+  left: 0px;
+  animation-name: slidein;
+  animation-duration: 4s;
+}
+
+@keyframes slidein {
+  from {
+    width: 0px;
+    background-color: #fafafa;
+  }
+
+  to {
+    width: 40px;
+    background-color: #fafafa;
+  }
+}
