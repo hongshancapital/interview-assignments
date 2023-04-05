@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import './index.css'
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode,
+  switchTime?: number;
 }
 
 export const CarouselItem:React.FC<Props> = ({ children }) => {
   return <div className="carousel">{children}</div>;
 };
 
-export const Carousel:React.FC<Props> = ({ children }) => {
+export const Carousel:React.FC<Props> = ({ children,switchTime=4000 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const updateIndex = (index:number) => {
@@ -25,7 +26,7 @@ export const Carousel:React.FC<Props> = ({ children }) => {
   useEffect(() => {
     let id = setInterval(() => {
       updateIndex(activeIndex + 1);
-    }, 4000);
+    }, switchTime);
 
     return () => {
       clearInterval(id);
@@ -42,7 +43,7 @@ export const Carousel:React.FC<Props> = ({ children }) => {
       </div>
 
       <div className="footer">
-        {React.Children.toArray(children).map((_: any, index:number) => {
+        {React.Children.map(children,(_: any, index:number) => {
           return (
             <div
               key={index}
