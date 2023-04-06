@@ -1,0 +1,52 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "url shortener service",
+  "main": "./dist/src/index.js",
+  "types": "./dist/types/src/index.d.ts",
+  "files": [
+    "dist/src",
+    "dist/types/src"
+  ],
+  "maintainers": [
+    "lyf"
+  ],
+  "scripts": {
+    "init": "pnpm i",
+    "doc": "typedoc",
+    "test": "jest",
+    "test-with-coverage": "jest --coverage --detectOpenHandles",
+    "build": "tsc",
+    "start": "NODE_ENV=development ts-node src/index.ts",
+    "dev": "nodemon -e ts,tsx --exec ts-node src/index.ts",
+    "clean-build": "rm -rf dist/* && tsc",
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint-fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "npx prettier --write .",
+    "prettier:fix": "prettier --config  prettier.config.js --write '{**/*,*}.{js,ts,jsx,tsx}'"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jest": "^27.5.2",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^28.1.3",
+    "nodemon": "^2.0.22",
+    "prettier": "2.6.2",
+    "ts-jest": "^28.0.8",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "typedoc": "^0.22.18",
+    "typedoc-plugin-markdown": "^3.14.0",
+    "typescript": "^4.9.5"
+  },
+  "author": "李永飞",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
