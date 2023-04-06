@@ -1,0 +1,126 @@
+.scroll {
+    display: flex;
+    justify-content: center;
+    margin: 0px auto;
+    position: relative
+}
+
+.scroll_box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden
+}
+
+.scroll_box_item {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.scroll_box_item_img {
+    width: 100%;
+    height: 100%;
+
+}
+
+.scroll_dots {
+    width: 100%;
+    position: absolute;
+    bottom: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.scroll_dots_item {
+    position: relative;
+    width: 30px;
+    height: 3px;
+    display: inline-block;
+    margin: 0 2px;
+    background: #ccc;
+    border-radius: 3px;
+    /* cursor: pointer; */
+    overflow: hidden;
+}
+
+.scroll_dots_item_active {
+    position: absolute;
+    top: 0;
+    left: -30px;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    transition: left 1s;
+}
+
+@keyframes moveLeft {
+    0% {
+        left: -30px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+.scroll_option>div {
+    position: absolute;
+    width: 35px;
+    height: 56px;
+    top: 50%;
+    transform: translateY(-28px);
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll_option_left {
+    left: 0px;
+}
+
+.scroll_option_right {
+    right: 0px;
+}
+
+.scroll:hover .scroll_option>div {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.scroll_option>div img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 动画部分 */
+.img_active {
+    animation: anim 0.5s;
+}
+
+.img_actives {
+    animation: anims 0.5s;
+}
+
+@keyframes anim {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes anims {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
