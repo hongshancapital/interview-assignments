@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0054528DE048372301ADEAD5 /* Pods_testSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0235D260FD219E015E8FA9E /* Pods_testSwiftUITests.framework */; };
 		1FC0E2ACA2173A67EFE28171 /* Pods_testSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34667E6778A3020628628EF9 /* Pods_testSwiftUI.framework */; };
-		8107E9DA29DC0E2B009AF13B /* appmodel.json in Resources */ = {isa = PBXBuildFile; fileRef = 8107E9D929DC0E2B009AF13B /* appmodel.json */; };
 		8107E9DC29DC139E009AF13B /* PullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107E9DB29DC139E009AF13B /* PullToRefresh.swift */; };
 		8107E9E329DC13D4009AF13B /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107E9DE29DC13D4009AF13B /* ViewExtensions.swift */; };
 		8107E9E429DC13D4009AF13B /* UIKitIntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107E9DF29DC13D4009AF13B /* UIKitIntrospectionViewController.swift */; };
@@ -63,7 +62,6 @@
 /* Begin PBXFileReference section */
 		34667E6778A3020628628EF9 /* Pods_testSwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testSwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A41992DF0D338FF7A9BF73B /* Pods-testSwiftUI-testSwiftUIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testSwiftUI-testSwiftUIUITests.release.xcconfig"; path = "Target Support Files/Pods-testSwiftUI-testSwiftUIUITests/Pods-testSwiftUI-testSwiftUIUITests.release.xcconfig"; sourceTree = "<group>"; };
-		8107E9D929DC0E2B009AF13B /* appmodel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appmodel.json; sourceTree = "<group>"; };
 		8107E9DB29DC139E009AF13B /* PullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PullToRefresh.swift; path = testSwiftUI/comView/PullToRefresh.swift; sourceTree = SOURCE_ROOT; };
 		8107E9DE29DC13D4009AF13B /* ViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		8107E9DF29DC13D4009AF13B /* UIKitIntrospectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitIntrospectionViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +226,8 @@
 		8196233729BCEF96007E267E = {
 			isa = PBXGroup;
 			children = (
+				816A122229DC86D300F69AAA /* GTMRefresh */,
+				8107E9DD29DC13D4009AF13B /* Introspect */,
 				8196234229BCEF96007E267E /* testSwiftUI */,
 				8196235329BCEF98007E267E /* testSwiftUITests */,
 				8196235D29BCEF98007E267E /* testSwiftUIUITests */,
@@ -253,12 +253,9 @@
 				816A124729DD789F00F69AAA /* ViewModel */,
 				816A124629DD789300F69AAA /* Service */,
 				816A124129DC8CDA00F69AAA /* comView */,
-				816A122229DC86D300F69AAA /* GTMRefresh */,
-				8107E9DD29DC13D4009AF13B /* Introspect */,
 				8196234329BCEF96007E267E /* testSwiftUIApp.swift */,
 				8196234529BCEF96007E267E /* AppContentView.swift */,
 				8196234729BCEF98007E267E /* Assets.xcassets */,
-				8107E9D929DC0E2B009AF13B /* appmodel.json */,
 				8196234929BCEF98007E267E /* Preview Content */,
 				81FAC03B29C46139009FA700 /* testOC.m */,
 				81FAC03A29C46138009FA700 /* testSwiftUI-Bridging-Header.h */,
@@ -404,7 +401,6 @@
 				8196234B29BCEF98007E267E /* Preview Assets.xcassets in Resources */,
 				816A123B29DC86D300F69AAA /* arrow_down@3x.png in Resources */,
 				816A123D29DC86D300F69AAA /* success@3x.png in Resources */,
-				8107E9DA29DC0E2B009AF13B /* appmodel.json in Resources */,
 				816A123E29DC86D300F69AAA /* failure@3x.png in Resources */,
 				8196234829BCEF98007E267E /* Assets.xcassets in Resources */,
 			);

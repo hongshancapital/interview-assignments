@@ -50,19 +50,17 @@ struct AppContentView: View {
     func listItemView(appModel: Binding<AppModel>) -> some View {
         
         HStack(alignment: .center, content: {
-            
             AsyncImage(url: URL(string: appModel.artworkUrl60.wrappedValue)) { phase in
                 if let image = phase.image {
                     image.resizable().cornerRadius(8).aspectRatio(contentMode: .fit)
                 } else if phase.error != nil {
-                    //todo
+                    //todo error handle
                 } else {
                     ProgressView()
                 }
             }
             .frame(width: 50, height: 50)
-            
-
+        
             VStack(alignment: .leading, content: {
                 Text(appModel.trackName.wrappedValue).font(.headline).padding(.bottom,1.0).lineLimit(1)
                 
@@ -83,6 +81,7 @@ struct AppContentView: View {
     }
     
     func loadMore() {
+        
         self.listPullState = .isLoadMoreing
         appVM.nextPageAppModels { appmodels, error in
             if (error != nil && appmodels.count == 0) {
@@ -94,7 +93,6 @@ struct AppContentView: View {
     }
     
     func refreshApp() async {
-        print(#function)
         
         do {
             try await appVM.refreshAppModels()

@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 typedef  struct TreeNote
 {
     struct TreeNote *leftNote;
