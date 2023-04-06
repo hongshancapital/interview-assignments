@@ -4,16 +4,6 @@ describe('Unit tests of <core>', () => {
     test('generateHash', async () => {
         expect(generateHash('hello')).toBe('XUFAKrxLKna5cZ2REBfFkg');
     });
-    test('generateHash', async () => {
-        let hash = generateHash('https://world.com');
-        let all = pickAll(hash);
-        let i = 200;
-        let r: string[] = [];
-        for (let s of all) {
-            r.push(`("${s}", "occupied", ${i++}),`);
-        }
-        console.log(r);
-    });
     test('pickFirst', async () => {
         expect(pickFirst('XUFAKrxLKna5cZ2REBfFkg')).toBe('XUFAKrxL');
     });

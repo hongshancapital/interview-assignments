@@ -85,16 +85,20 @@ describe('Unit tests of <api.shorten>', () => {
         });
     });
 
-    describe('test tryPickEldest', () => {
+    describe('test doPickAnother', () => {
+        let spyTryInsertDb: jest.SpyInstance;
         let spyTryUpdateDb: jest.SpyInstance;
         beforeAll(() => {
+            spyTryInsertDb = jest.spyOn(shorten, 'tryInsertDb');
             spyTryUpdateDb = jest.spyOn(shorten, 'tryUpdateDb');
         });
-        beforeEach(() => {
-            spyTryUpdateDb.mockClear();
-        });
         afterAll(() => {
+            spyTryInsertDb.mockRestore();
             spyTryUpdateDb.mockRestore();
+        });
+        beforeEach(() => {
+            spyTryInsertDb.mockClear();
+            spyTryUpdateDb.mockClear();
         });
         const infos = [
             {
@@ -108,107 +112,99 @@ describe('Unit tests of <api.shorten>', () => {
                 'update_time': 121
             },
         ];
-        test('when tryUpdateDb db success.', async () => {
-            spyTryUpdateDb.mockResolvedValue('someKey2');
-            await expect(shorten.tryPickEldest('something', 234, infos)).resolves.toBe('someKey2');
-            expect(spyTryUpdateDb).toBeCalledTimes(1);
-            expect(spyTryUpdateDb).lastCalledWith('someKey2', 'something', 234, 121);
-        });
-        test('when tryUpdateDb failed.', async () => {
-            spyTryUpdateDb.mockResolvedValue(undefined);
-            await expect(shorten.tryPickEldest('something', 234, infos)).resolves.toBe(undefined);
-            expect(spyTryUpdateDb).toBeCalledTimes(2);
-            expect(spyTryUpdateDb).nthCalledWith(1, 'someKey2', 'something', 234, 121);
-            expect(spyTryUpdateDb).nthCalledWith(2, 'someKey1', 'something', 234, 123);
-        });
-        test('when tryUpdateDb failed once.', async () => {
-            spyTryUpdateDb.mockResolvedValueOnce(undefined);
-            spyTryUpdateDb.mockResolvedValueOnce('someKey1');
-            await expect(shorten.tryPickEldest('something', 234, infos)).resolves.toBe('someKey1');
-            expect(spyTryUpdateDb).toBeCalledTimes(2);
-            expect(spyTryUpdateDb).nthCalledWith(1, 'someKey2', 'something', 234, 121);
-            expect(spyTryUpdateDb).nthCalledWith(2, 'someKey1', 'something', 234, 123);
-        });
-        test('when update db occurs an error.', async () => {
-            spyTryUpdateDb.mockRejectedValue({ 'status': 500, 'msg': 'Internal server error.' });
-            await expect(shorten.tryPickEldest('something', 234, infos))
-                .rejects.toStrictEqual({ 'status': 500, 'msg': 'Internal server error.' });
-            expect(spyTryUpdateDb).toBeCalledTimes(1);
-            expect(spyTryUpdateDb).lastCalledWith('someKey2', 'something', 234, 121);
-        });
-    });
-
-    describe('test tryPickUnused', () => {
-        let spyTryInsertDb: jest.SpyInstance;
-        beforeAll(() => {
-            spyTryInsertDb = jest.spyOn(shorten, 'tryInsertDb');
-        });
-        beforeEach(() => {
-            spyTryInsertDb.mockClear();
-        });
-        afterAll(() => {
-            spyTryInsertDb.mockRestore();
-        });
-        const all = ['someKey1', 'someKey2', 'someKey3'];
-        const infos = [
-            {
-                'short_url': 'someKey1',
-                'origin_url': 'old_url1',
-                'update_time': 123
-            },
-        ];
-        test('when tryInsertDb success.', async () => {
-            spyTryInsertDb.mockResolvedValue('someKey2');
-            await expect(shorten.tryPickUnused('something', 234, all, infos)).resolves.toBe('someKey2');
+        test('when unused candidate is available, tryInsertDb success.', async () => {
+            const all = ['someKey1', 'someKey2', 'someKey3'];
+            spyTryInsertDb.mockResolvedValue('someKey3');
+            await expect(shorten.doPickAnother('something', 234, all, infos)).resolves.toBe('someKey3');
             expect(spyTryInsertDb).toBeCalledTimes(1);
-            expect(spyTryInsertDb).lastCalledWith('someKey2', 'something', 234);
+            expect(spyTryInsertDb).lastCalledWith('someKey3', 'something', 234);
+            expect(spyTryUpdateDb).toBeCalledTimes(0);
+        });
+        test('when unused candidate is not available, spyTryUpdateDb success.', async () => {
+            const all = ['someKey1', 'someKey2'];
+            spyTryUpdateDb.mockResolvedValue('someKey2');
+            await expect(shorten.doPickAnother('something', 234, all, infos)).resolves.toBe('someKey2');
+            expect(spyTryUpdateDb).toBeCalledTimes(1);
+            expect(spyTryUpdateDb).lastCalledWith('someKey2', 'something', 234, 121);
+            expect(spyTryInsertDb).toBeCalledTimes(0);
         });
         test('when tryInsertDb failed once.', async () => {
+            const all = ['someKey1', 'someKey2', 'someKey3', 'someKey4'];
             spyTryInsertDb.mockResolvedValueOnce(undefined);
-            spyTryInsertDb.mockResolvedValueOnce('someKey3');
-            await expect(shorten.tryPickUnused('something', 234, all, infos)).resolves.toBe('someKey3');
+            spyTryInsertDb.mockResolvedValueOnce('someKey4');
+            await expect(shorten.doPickAnother('something', 234, all, infos)).resolves.toBe('someKey4');
             expect(spyTryInsertDb).toBeCalledTimes(2);
-            expect(spyTryInsertDb).nthCalledWith(1, 'someKey2', 'something', 234);
-            expect(spyTryInsertDb).nthCalledWith(2, 'someKey3', 'something', 234);
-        });
-        test('when tryInsertDb failed.', async () => {
-            spyTryInsertDb.mockResolvedValue(undefined);
-            await expect(shorten.tryPickUnused('something', 234, all, infos)).resolves.toBe(undefined);
-            expect(spyTryInsertDb).toBeCalledTimes(2);
-            expect(spyTryInsertDb).nthCalledWith(1, 'someKey2', 'something', 234);
-            expect(spyTryInsertDb).nthCalledWith(2, 'someKey3', 'something', 234);
+            expect(spyTryInsertDb).nthCalledWith(1, 'someKey3', 'something', 234);
+            expect(spyTryInsertDb).nthCalledWith(2, 'someKey4', 'something', 234);
+            expect(spyTryUpdateDb).toBeCalledTimes(0);
         });
         test('when tryInsertDb occurs an error.', async () => {
+            const all = ['someKey1', 'someKey2', 'someKey3', 'someKey4'];
             spyTryInsertDb.mockRejectedValue({ 'status': 500, 'msg': 'Internal server error.' });
-            await expect(shorten.tryPickUnused('something', 234, all, infos))
+            await expect(shorten.doPickAnother('something', 234, all, infos))
                 .rejects.toStrictEqual({ 'status': 500, 'msg': 'Internal server error.' });
             expect(spyTryInsertDb).toBeCalledTimes(1);
-            expect(spyTryInsertDb).lastCalledWith('someKey2', 'something', 234);
+            expect(spyTryInsertDb).lastCalledWith('someKey3', 'something', 234);
+            expect(spyTryUpdateDb).toBeCalledTimes(0);
+        });
+        test('when tryUpdateDb failed once.', async () => {
+            const all = ['someKey1', 'someKey2'];
+            spyTryUpdateDb.mockResolvedValueOnce(undefined);
+            spyTryUpdateDb.mockResolvedValueOnce('someKey1');
+            await expect(shorten.doPickAnother('something', 234, all, infos)).resolves.toBe('someKey1');
+            expect(spyTryUpdateDb).toBeCalledTimes(2);
+            expect(spyTryUpdateDb).nthCalledWith(1, 'someKey2', 'something', 234, 121);
+            expect(spyTryUpdateDb).nthCalledWith(2, 'someKey1', 'something', 234, 123);
+            expect(spyTryInsertDb).toBeCalledTimes(0);
+        });
+        test('when tryUpdateDb occurs an error.', async () => {
+            const all = ['someKey1', 'someKey2'];
+            spyTryUpdateDb.mockRejectedValue({ 'status': 500, 'msg': 'Internal server error.' });
+            await expect(shorten.doPickAnother('something', 234, all, infos))
+                .rejects.toStrictEqual({ 'status': 500, 'msg': 'Internal server error.' });
+            expect(spyTryUpdateDb).toBeCalledTimes(1);
+            expect(spyTryUpdateDb).lastCalledWith('someKey2', 'something', 234, 121);
+            expect(spyTryInsertDb).toBeCalledTimes(0);
+        });
+        test('when tryInsertDb failed, tryUpdateDb success.', async () => {
+            const all = ['someKey1', 'someKey2', 'someKey3', 'someKey4'];
+            spyTryInsertDb.mockResolvedValue(undefined);
+            spyTryUpdateDb.mockResolvedValue('someKey2');
+            await expect(shorten.doPickAnother('something', 234, all, infos)).resolves.toBe('someKey2');
+            expect(spyTryInsertDb).toBeCalledTimes(2);
+            expect(spyTryInsertDb).nthCalledWith(1, 'someKey3', 'something', 234);
+            expect(spyTryInsertDb).nthCalledWith(2, 'someKey4', 'something', 234);
+            expect(spyTryUpdateDb).toBeCalledTimes(1);
+            expect(spyTryUpdateDb).lastCalledWith('someKey2', 'something', 234, 121);
+        });
+        test('when tryInsertDb failed, tryUpdateDb also failed.', async () => {
+            const all = ['someKey1', 'someKey2', 'someKey3', 'someKey4'];
+            spyTryInsertDb.mockResolvedValue(undefined);
+            spyTryUpdateDb.mockResolvedValue(undefined);
+            await expect(shorten.doPickAnother('something', 234, all, infos)).resolves.toBe(undefined);
+            expect(spyTryInsertDb).toBeCalledTimes(2);
+            expect(spyTryInsertDb).nthCalledWith(1, 'someKey3', 'something', 234);
+            expect(spyTryInsertDb).nthCalledWith(2, 'someKey4', 'something', 234);
+            expect(spyTryUpdateDb).toBeCalledTimes(2);
+            expect(spyTryUpdateDb).nthCalledWith(1, 'someKey2', 'something', 234, 121);
+            expect(spyTryUpdateDb).nthCalledWith(2, 'someKey1', 'something', 234, 123);
         });
     });
 
     describe('test tryPickAnother', () => {
         let dbGetMultiInfo: jest.SpyInstance;
-        let spyTryPickUnused: jest.SpyInstance;
-        let spyTryPickEldest: jest.SpyInstance;
-        let spyTryUpdateDb: jest.SpyInstance;
+        let spyDoPickAnother: jest.SpyInstance;
         beforeAll(() => {
             dbGetMultiInfo = jest.spyOn(db, 'getMultiInfo');
-            spyTryPickUnused = jest.spyOn(shorten, 'tryPickUnused');
-            spyTryPickEldest = jest.spyOn(shorten, 'tryPickEldest');
-            spyTryUpdateDb = jest.spyOn(shorten, 'tryUpdateDb');
+            spyDoPickAnother = jest.spyOn(shorten, 'doPickAnother');
         });
         afterAll(() => {
             dbGetMultiInfo.mockRestore();
-            spyTryPickUnused.mockRestore();
-            spyTryPickEldest.mockRestore();
-            spyTryUpdateDb.mockRestore();
+            spyDoPickAnother.mockRestore();
         });
         beforeEach(() => {
             dbGetMultiInfo.mockClear();
-            spyTryPickUnused.mockClear();
-            spyTryPickEldest.mockClear();
-            spyTryUpdateDb.mockClear();
+            spyDoPickAnother.mockClear();
         });
         const hash = '0123456789abcdefghijkl';
         const all = [
@@ -232,71 +228,47 @@ describe('Unit tests of <api.shorten>', () => {
             await expect(shorten.tryPickAnother(hash, 'url2', 234)).resolves.toBe('23456789');
             expect(dbGetMultiInfo).toBeCalledTimes(1);
             expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(0);
+            expect(spyDoPickAnother).toBeCalledTimes(0);
         });
 
-        test('when dbGetMultiInfo returns info, tryPickUnused success.', async () => {
+        test('when dbGetMultiInfo returns info, doPickAnother success.', async () => {
             dbGetMultiInfo.mockResolvedValue(infos);
-            spyTryPickUnused.mockResolvedValue('12345678');
+            spyDoPickAnother.mockResolvedValue('12345678');
             await expect(shorten.tryPickAnother(hash, 'url1', 234)).resolves.toBe('12345678');
             expect(dbGetMultiInfo).toBeCalledTimes(1);
             expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(1);
-            expect(spyTryPickUnused).lastCalledWith('url1', 234, all, infos);
+            expect(spyDoPickAnother).toBeCalledTimes(1);
+            expect(spyDoPickAnother).lastCalledWith('url1', 234, all, infos);
         });
 
-        test('when dbGetMultiInfo returns nothing, tryPickUnused success.', async () => {
+        test('when dbGetMultiInfo returns info, doPickAnother failed.', async () => {
+            dbGetMultiInfo.mockResolvedValue(infos);
+            spyDoPickAnother.mockResolvedValue(undefined);
+            await expect(shorten.tryPickAnother(hash, 'url1', 234)).rejects.toStrictEqual({"msg": "Failed to shorten url: url1.", "status": 500});
+            expect(dbGetMultiInfo).toBeCalledTimes(1);
+            expect(dbGetMultiInfo).lastCalledWith(all);
+            expect(spyDoPickAnother).toBeCalledTimes(1);
+            expect(spyDoPickAnother).lastCalledWith('url1', 234, all, infos);
+        });
+
+        test('when dbGetMultiInfo returns nothing, doPickAnother success.', async () => {
             dbGetMultiInfo.mockResolvedValue([]);
-            spyTryPickUnused.mockResolvedValue('12345678');
+            spyDoPickAnother.mockResolvedValue('12345678');
             await expect(shorten.tryPickAnother(hash, 'url1', 234)).resolves.toBe('12345678');
             expect(dbGetMultiInfo).toBeCalledTimes(1);
             expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(1);
-            expect(spyTryPickUnused).lastCalledWith('url1', 234, all, []);
+            expect(spyDoPickAnother).toBeCalledTimes(1);
+            expect(spyDoPickAnother).lastCalledWith('url1', 234, all, []);
         });
 
-        test('when dbGetMultiInfo returns info, tryPickUnused failed, tryPickEldest success.', async () => {
-            dbGetMultiInfo.mockResolvedValue(infos);
-            spyTryPickUnused.mockResolvedValue(undefined);
-            spyTryPickEldest.mockResolvedValue('01234567');
-
-            await expect(shorten.tryPickAnother(hash, 'url1', 234)).resolves.toBe('01234567');
-            expect(dbGetMultiInfo).toBeCalledTimes(1);
-            expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(1);
-            expect(spyTryPickUnused).lastCalledWith('url1', 234, all, infos);
-            expect(spyTryPickEldest).toBeCalledTimes(1);
-            expect(spyTryPickEldest).lastCalledWith('url1', 234, infos);
-        });
-
-        test('when dbGetMultiInfo returns nothing, tryPickUnused failed, tryPickEldest should also failed.', async () => {
+        test('when dbGetMultiInfo returns nothing, doPickAnother failed.', async () => {
             dbGetMultiInfo.mockResolvedValue([]);
-            spyTryPickUnused.mockResolvedValue(undefined);
-            spyTryPickEldest.mockRestore();
-
-            await expect(shorten.tryPickAnother(hash, 'url1', 234)).rejects
-                .toStrictEqual({'status': 500, 'msg': `Failed to shorten url: url1.`});
+            spyDoPickAnother.mockResolvedValue(undefined);
+            await expect(shorten.tryPickAnother(hash, 'url1', 234)).rejects.toStrictEqual({"msg": "Failed to shorten url: url1.", "status": 500});
             expect(dbGetMultiInfo).toBeCalledTimes(1);
             expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(1);
-            expect(spyTryPickUnused).lastCalledWith('url1', 234, all, []);
-        });
-
-        test('when dbGetMultiInfo returns info, tryPickUnused failed, tryPickEldest also failed.', async () => {
-            spyTryPickEldest = jest.spyOn(shorten, 'tryPickEldest');
-            dbGetMultiInfo.mockResolvedValue(infos);
-            spyTryPickUnused.mockResolvedValue(undefined);
-            spyTryPickEldest.mockResolvedValue(undefined);
-
-            await expect(shorten.tryPickAnother(hash, 'url1', 234))
-                .rejects.toStrictEqual({ 'status': 500, 'msg': 'Failed to shorten url: url1.' });
-            expect(dbGetMultiInfo).toBeCalledTimes(1);
-            expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(1);
-            expect(spyTryPickUnused).lastCalledWith('url1', 234, all, infos);
-            expect(spyTryPickEldest).toBeCalledTimes(1);
-            expect(spyTryPickEldest).lastCalledWith('url1', 234, infos);
-            expect(spyTryUpdateDb).toBeCalledTimes(0);
+            expect(spyDoPickAnother).toBeCalledTimes(1);
+            expect(spyDoPickAnother).lastCalledWith('url1', 234, all, []);
         });
 
         test('tryPickAnother when dbGetMultiInfo occurs an error.', async () => {
@@ -305,34 +277,18 @@ describe('Unit tests of <api.shorten>', () => {
                 .rejects.toStrictEqual({ 'status': 500, 'msg': 'Internal server error.' });
             expect(dbGetMultiInfo).toBeCalledTimes(1);
             expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(0);
-            expect(spyTryPickEldest).toBeCalledTimes(0);
+            expect(spyDoPickAnother).toBeCalledTimes(0);
         });
 
-        test('tryPickAnother dbGetMultiInfo returns info, when tryPickUnused occurs an error.', async () => {
+        test('tryPickAnother dbGetMultiInfo returns info, when doPickAnother occurs an error.', async () => {
             dbGetMultiInfo.mockResolvedValue(infos);
-            spyTryPickUnused.mockRejectedValue({ 'status': 500, 'msg': 'Internal server error.' });
+            spyDoPickAnother.mockRejectedValue({ 'status': 500, 'msg': 'Internal server error.' });
             await expect(shorten.tryPickAnother(hash, 'url1', 234))
                 .rejects.toStrictEqual({ 'status': 500, 'msg': 'Internal server error.' });
             expect(dbGetMultiInfo).toBeCalledTimes(1);
             expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(1);
-            expect(spyTryPickUnused).lastCalledWith('url1', 234, all, infos);
-            expect(spyTryPickEldest).toBeCalledTimes(0);
-        });
-
-        test('tryPickAnother dbGetMultiInfo returns info, when tryPickEldest occurs an error.', async () => {
-            dbGetMultiInfo.mockResolvedValue(infos);
-            spyTryPickUnused.mockResolvedValue(undefined);
-            spyTryPickEldest.mockRejectedValue({ 'status': 500, 'msg': 'Internal server error.' });
-            await expect(shorten.tryPickAnother(hash, 'url1', 234))
-                .rejects.toStrictEqual({ 'status': 500, 'msg': 'Internal server error.' });
-            expect(dbGetMultiInfo).toBeCalledTimes(1);
-            expect(dbGetMultiInfo).lastCalledWith(all);
-            expect(spyTryPickUnused).toBeCalledTimes(1);
-            expect(spyTryPickUnused).lastCalledWith('url1', 234, all, infos);
-            expect(spyTryPickEldest).toBeCalledTimes(1);
-            expect(spyTryPickEldest).lastCalledWith('url1', 234, infos);
+            expect(spyDoPickAnother).toBeCalledTimes(1);
+            expect(spyDoPickAnother).lastCalledWith('url1', 234, all, infos);
         });
     });
 
@@ -391,7 +347,7 @@ describe('Unit tests of <api.shorten>', () => {
             expect(spyTryInsertDb).lastCalledWith('Q3uTDbhL', 'something', 1672531200000);
         });
         test('when tryFetchOrigin return empty string, insertDb success.', async () => {
-            spyTryFetchOrigin.mockResolvedValue();
+            spyTryFetchOrigin.mockResolvedValue('');
             spyTryInsertDb.mockResolvedValue('Q3uTDbhL');
             await expect(shorten.shortenUrl('something')).resolves.toBe('Q3uTDbhL');
             expect(spyTryFetchOrigin).toBeCalledTimes(1);

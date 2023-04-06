@@ -95,14 +95,7 @@ async function tryPickAnother(hash: string, url: string, now: number): Promise<s
                         return info['short_url'];
                     }
                 }
-                return tryPickUnused(url, now, all, infos);
-        })
-        .then((code) => {
-            if (code) {
-                return code;
-            } else {
-                return tryPickEldest(url, now, infos);
-            }
+                return doPickAnother(url, now, all, infos);
         })
         .then((code) => {
             if (code) {
@@ -117,34 +110,25 @@ async function tryPickAnother(hash: string, url: string, now: number): Promise<s
     });
 }
 
-async function tryPickUnused(url: string, now: number, all: string[], infos: any[]): Promise<string | undefined> {
+async function doPickAnother(url: string, now: number, all: string[], infos: any[]): Promise<string | undefined> {
     let codes: string[] = infos.map((info) => info['short_url']);
     const set: Set<string> = new Set(codes);
-    const left: string[] = all.filter((code) => !set.has(code));
-    return new Promise<string | undefined>(async (resolve, reject) => {
-        try {
-            for (const code of left) {
-                const result = await tryInsertDb(code, url, now);
-                if (result) {
-                    resolve(result);
-                    return;
-                }
-            }
-            resolve(undefined);
-        } catch (err) {
-            reject(err);
-        }
-    });
-}
-
-async function tryPickEldest(url: string, now: number, infos: any[]): Promise<string | undefined> {
-    infos.sort((a, b) => {
+    const left: any[] = all.filter((code) => !set.has(code)).map((code) => { 
+        return { 'short_url': code, 'update_time': -1 };
+     });
+     infos.sort((a, b) => {
         return a['update_time'] - b['update_time'];
     });
+    let candidates = left.concat(infos);
     return new Promise<string | undefined>(async (resolve, reject) => {
         try {
-            for (const info of infos) {
-                const result = await tryUpdateDb(info['short_url'], url, now, info['update_time']);
+            for (const candidate of candidates) {
+                let result: string|undefined;
+                if (candidate['update_time'] == -1) {
+                    result = await tryInsertDb(candidate['short_url'], url, now);
+                } else {
+                    result = await tryUpdateDb(candidate['short_url'], url, now, candidate['update_time']);
+                }
                 if (result) {
                     resolve(result);
                     return;
@@ -157,5 +141,5 @@ async function tryPickEldest(url: string, now: number, infos: any[]): Promise<st
     });
 }
 
-export { shortenUrl, tryInsertDb, tryUpdateDb, tryPickAnother, tryPickUnused, tryPickEldest };
+export { shortenUrl, tryInsertDb, tryUpdateDb, tryPickAnother, doPickAnother };
 export default shorten;
