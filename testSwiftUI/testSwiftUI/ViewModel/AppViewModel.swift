@@ -55,7 +55,7 @@ public class AppViewModel: ObservableObject {
         
         self.listPullState = .isLoadMoreing
         self.nextPageAppModels { Loadcount, error in
-            if (error != nil && Loadcount == 0) {
+            if (error == nil && Loadcount == 0) {
                 self.listPullState = .noMoreState
             }else {
                 self.listPullState = .none
