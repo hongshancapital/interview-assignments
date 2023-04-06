@@ -24,13 +24,30 @@ final class testSwiftUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testNetworkService() async {
+    
+    func testRefreshAppModels() async {
         do {
             try await vm.refreshAppModels()
             XCTAssertNotEqual(vm.appModels.count, 0)
         }catch {
             XCTAssertNil(nil, error.localizedDescription.description)
+        }
+    }
+    
+    func testRefreshList() async {
+        
+        await vm.refreshApp()
+        XCTAssertEqual(vm.listPullState, .none)
+        XCTAssertTrue((vm.pageState == .contentState || vm.pageState == .emptyState) && vm.pageState != .isInitState)
+    }
+    
+    func testLoadMore() async {
+        vm.nextPageAppModels { count, error in
+            if error == nil && count == 0  {
+                XCTAssertTrue(self.vm.listPullState == .noMoreState)
+            }else {
+                XCTAssert(self.vm.listPullState == .none)
+            }
         }
     }
     
