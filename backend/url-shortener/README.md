@@ -13,3 +13,15 @@
 ### 框架设计
 
 ![框架设计图](./img/shortener.png)
+
+## 数据库表字段信息
+
+* 表名： `shortUrl`
+* 字段： `shortCode` 20 位字符串 主键
+* 字段： `longUrl` 3000 位字符串 唯一约束
+
+```ts
+       // 主键目前8位即可，预留空间
+        table.string('shortCode', 20).primary();
+        table.string('longUrl', 3000).unique();
+```
