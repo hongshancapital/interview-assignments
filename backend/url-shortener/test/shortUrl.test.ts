@@ -5,6 +5,7 @@ import {
     SHORT_CODE_MAX_LENGTH,
     SHORT_URL_PREFIX,
     StatusCode,
+    ShortUrl,
 } from '../src/shortUrl';
 import { nanoid } from 'nanoid';
 import { ShortUrlError } from '../src/ShortUrlError';
@@ -33,6 +34,64 @@ describe('shortUrl', () => {
     beforeEach(async () => {
         // 清除表内容
         await getDb()(SHORT_URL_TABLE).del();
+    });
+    describe('ShortUrl class', () => {
+        it('insert-longUrl exist', async () => {
+            const shortCode = nanoid(8);
+            const shortCode2 = nanoid(8);
+
+            // 先插入一条数据
+            await new ShortUrl({
+                shortCode,
+                longUrl: testLongUrl,
+            }).insert();
+            // 再次插入一条短码不同，长域名相同的数据
+            const result = await new ShortUrl({
+                shortCode: shortCode2,
+                longUrl: testLongUrl,
+            }).insert();
+            expect(result).toBe(shortCode);
+        });
+        it('insert- shortCode exist', async () => {
+            const shortCode = nanoid(8);
+
+            // 先插入一条数据
+            await new ShortUrl({
+                shortCode,
+                longUrl: testLongUrl,
+            }).insert();
+            // 再次插入一条短码相同，长域名不同的数据
+            const result = await new ShortUrl({
+                shortCode: shortCode,
+                longUrl: testLongUrl + 'TEST',
+            }).insert();
+            expect(result !== shortCode).toBeTruthy();
+        });
+        it('insert - error', async () => {
+            const shortCode = nanoid(8);
+
+            // 先插入一条数据
+            const shortUrlObj = new ShortUrl({
+                shortCode,
+                longUrl: testLongUrl,
+            });
+            await shortUrlObj.insert();
+            // 再次插入一条短码相同，长域名不同的数据
+            try {
+                const result = await new ShortUrl(
+                    {
+                        shortCode: shortCode,
+                        longUrl: testLongUrl + 'TEST',
+                    },
+                    0
+                ).insert();
+                expect(result).toBeUndefined();
+            } catch (e) {
+                expect(e).toStrictEqual(
+                    new ShortUrlError('存储短域名信息失败！')
+                );
+            }
+        });
     });
     describe('createShortUrl', () => {
         it('no specify shortCode', async () => {
