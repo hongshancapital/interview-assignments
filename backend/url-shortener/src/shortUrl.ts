@@ -71,6 +71,17 @@ interface IReadShortUrlResult extends IResult {
     longUrl: string;
 }
 
+/**
+ * 根据参数创建短域名
+ * @param param 创建短域名的参数
+ * @returns 创建短域名后的返回值
+ */
+async function createShortUrl(param: IShortUrlParam): Promise<IShortUrlResult> {
+    // 校验-参数较少，直接校验-不再引入校验工具
+    // if(param.longUrl)
+    return {} as IShortUrlResult;
+}
+
 export {
     SHORT_CODE_MAX_LENGTH,
     SHORT_URL_PREFIX,
@@ -78,4 +89,5 @@ export {
     IShortUrlParam,
     IShortUrlResult,
     IReadShortUrlResult,
+    createShortUrl,
 };
