@@ -23,3 +23,11 @@ CREATE TABLE `url` (
 
 - `cd short_url && npm install`
 - `npm run dev`
+
+## API 接口
+
+- `curl --location --request POST 'localhost:3000/getShortUrl' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'url=http://www.baidu.com'`
+
+- `curl --location --request GET 'localhost:3000/getLongUrl/q1utMXvD'`
