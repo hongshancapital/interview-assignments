@@ -18,8 +18,8 @@ app.post('/shortUrl', async (req, res) => {
     try {
         result = await createShortUrl(req.body);
     } catch (e) {
-        if (e instanceof ShortUrlError) {
-            result = createErrorIResult(e.message);
+        if ((e as Error).name === 'ShortUrlError') {
+            result = createErrorIResult((e as Error).message);
         } else {
             console.error(e);
             result = createErrorIResult('服务器处理时发生错误！请稍后重试！');

@@ -92,9 +92,10 @@ class ShortUrl {
     /**
      * 重试次数
      */
-    private retryNum = 3;
-    constructor(data: IShortUrl) {
+    private retryNum: number;
+    constructor(data: IShortUrl, retryNum = 3) {
         this.data = data;
+        this.retryNum = retryNum;
     }
 
     async findByLongUrl(): Promise<IShortUrl | undefined> {
@@ -205,4 +206,6 @@ export {
     createErrorIResult,
     createShortUrl,
     readShortUrl,
+    IShortUrl,
+    ShortUrl,
 };
