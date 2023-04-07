@@ -169,6 +169,14 @@ async function createShortUrl(param: IShortUrlParam): Promise<IShortUrlResult> {
     } as IShortUrlResult;
 }
 
+/**
+ * 通过短码获取对应的长域名
+ * @param shortCode 唯一短码
+ * @returns 包含长链接的数据
+ */
+async function readShortUrl(shortCode: string): Promise<IReadShortUrlResult> {
+    return {} as IReadShortUrlResult;
+}
 export {
     SHORT_CODE_MAX_LENGTH,
     SHORT_URL_PREFIX,
@@ -179,4 +187,5 @@ export {
     IReadShortUrlResult,
     createErrorIResult,
     createShortUrl,
+    readShortUrl,
 };
