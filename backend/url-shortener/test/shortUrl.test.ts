@@ -1,6 +1,7 @@
 import {
     createShortUrl,
     IShortUrlParam,
+    readShortUrl,
     SHORT_CODE_MAX_LENGTH,
     SHORT_URL_PREFIX,
     StatusCode,
@@ -14,26 +15,26 @@ import {
     loadDb,
     SHORT_URL_TABLE,
 } from '../src/db';
+import { getDiffShortCode } from '../src/util';
 
 const testLongUrl =
     'https://github.com/lyf-coder/interview-assignments/tree/url-shortener';
 
 describe('shortUrl', () => {
+    beforeAll(async () => {
+        loadDb({
+            client: 'sqlite3',
+            connection: {
+                filename: './data.db',
+            },
+        });
+        await createShortUrlTable();
+    });
+    beforeEach(async () => {
+        // 清除表内容
+        await getDb()(SHORT_URL_TABLE).del();
+    });
     describe('createShortUrl', () => {
-        beforeAll(async () => {
-            loadDb({
-                client: 'sqlite3',
-                connection: {
-                    filename: './data.db',
-                },
-            });
-            await createShortUrlTable();
-        });
-
-        beforeEach(async () => {
-            // 清除表内容
-            await getDb()(SHORT_URL_TABLE).del();
-        });
         it('no specify shortCode', async () => {
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl,
@@ -89,7 +90,8 @@ describe('shortUrl', () => {
             );
 
             try {
-                await createShortUrl(shortUrlParam);
+                const result = await createShortUrl(shortUrlParam);
+                expect(result).toBeUndefined();
             } catch (e) {
                 expect(e).toStrictEqual(new ShortUrlError('短码已存在！'));
             }
@@ -101,7 +103,8 @@ describe('shortUrl', () => {
                 shortCode: nanoid(SHORT_CODE_MAX_LENGTH + 1),
             };
             try {
-                await createShortUrl(shortUrlParam);
+                const result = await createShortUrl(shortUrlParam);
+                expect(result).toBeUndefined();
             } catch (e) {
                 expect(e).toStrictEqual(new ShortUrlError('短码过长！'));
             }
@@ -113,16 +116,50 @@ describe('shortUrl', () => {
                 shortCode: nanoid(SHORT_CODE_MAX_LENGTH + 1),
             };
             try {
-                await createShortUrl(shortUrlParam);
+                const result = await createShortUrl(shortUrlParam);
+                expect(result).toBeUndefined();
             } catch (e) {
                 expect(e).toStrictEqual(
                     new ShortUrlError('长域名格式不正确！')
                 );
             }
         });
-        afterAll(async () => {
-            await getDb().schema.dropTableIfExists(SHORT_URL_TABLE);
-            await closeDb();
+    });
+
+    describe('readShortUrl', () => {
+        it('exist shortCode', async () => {
+            const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
+            await createShortUrl({ shortCode, longUrl: testLongUrl });
+            const result = await readShortUrl(shortCode);
+            expect(result.code).toBe(StatusCode.Success);
+            expect(result.longUrl).toBe(testLongUrl);
         });
+
+        it('no exist shortCode', async () => {
+            const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
+            await createShortUrl({ shortCode, longUrl: testLongUrl });
+
+            try {
+                const result = await readShortUrl(getDiffShortCode(shortCode));
+                expect(result).toBeUndefined();
+            } catch (e) {
+                expect(e).toStrictEqual(new ShortUrlError('短码不存在！'));
+            }
+        });
+
+        it('incorrect shortCode - overlong', async () => {
+            // overlong shortCode
+            const shortCode = nanoid(SHORT_CODE_MAX_LENGTH + 1);
+            try {
+                const result = await readShortUrl(shortCode);
+                expect(result).toBeUndefined();
+            } catch (e) {
+                expect(e).toStrictEqual(new ShortUrlError('短码过长！'));
+            }
+        });
+    });
+    afterAll(async () => {
+        await getDb().schema.dropTableIfExists(SHORT_URL_TABLE);
+        await closeDb();
     });
 });

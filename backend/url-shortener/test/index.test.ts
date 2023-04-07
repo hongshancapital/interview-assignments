@@ -9,6 +9,7 @@ import {
     SHORT_URL_PREFIX,
     StatusCode,
 } from '../src/shortUrl';
+import { getDiffShortCode } from '../src/util';
 
 const request = supertest(app);
 const testLongUrl =
@@ -34,19 +35,6 @@ async function postShortUrl(
 async function readShortUrl(shortCode: string): Promise<IReadShortUrlResult> {
     const res = await request.get(`/${shortCode}`);
     return res.body as IReadShortUrlResult;
-}
-
-/**
- * 获取一个符合规范且与传入的短码不同的短码
- * @param shortCode 短域名唯一编码
- * @returns 不同于传入参数的另一个短码
- */
-function getDiffShortCode(shortCode: string): string {
-    const diffShortCode = nanoid(SHORT_CODE_MAX_LENGTH);
-    if (diffShortCode != shortCode) {
-        return diffShortCode;
-    }
-    return getDiffShortCode(shortCode);
 }
 
 describe('url shortener api', () => {
