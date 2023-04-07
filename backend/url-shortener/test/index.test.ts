@@ -10,6 +10,13 @@ import {
     StatusCode,
 } from '../src/shortUrl';
 import { getDiffShortCode } from '../src/util';
+import {
+    closeDb,
+    createShortUrlTable,
+    getDb,
+    loadDb,
+    SHORT_URL_TABLE,
+} from '../src/db';
 
 const request = supertest(app);
 const testLongUrl =
@@ -38,6 +45,19 @@ async function readShortUrl(shortCode: string): Promise<IReadShortUrlResult> {
 }
 
 describe('url shortener api', () => {
+    beforeAll(async () => {
+        loadDb({
+            client: 'sqlite3',
+            connection: {
+                filename: './data-api.db',
+            },
+        });
+        await createShortUrlTable();
+    });
+    beforeEach(async () => {
+        // 清除表内容
+        await getDb()(SHORT_URL_TABLE).del();
+    });
     describe('create short url', () => {
         it('no specify shortCode', async () => {
             const shortUrlParam: IShortUrlParam = {
@@ -95,8 +115,8 @@ describe('url shortener api', () => {
 
             const result2 = await postShortUrl(shortUrlParam);
             expect(result2.code).toBe(StatusCode.Error);
-            expect(result.shortUrl).toBeUndefined();
-            expect(result.msg).toBeDefined();
+            expect(result2.shortUrl).toBeUndefined();
+            expect(result2.msg).toBeDefined();
         });
 
         it('specify overlong shortCode', async () => {
@@ -150,5 +170,9 @@ describe('url shortener api', () => {
             expect(result.longUrl).toBeUndefined();
             expect(result.msg).toBeDefined();
         });
+    });
+    afterAll(async () => {
+        await getDb().schema.dropTableIfExists(SHORT_URL_TABLE);
+        await closeDb();
     });
 });

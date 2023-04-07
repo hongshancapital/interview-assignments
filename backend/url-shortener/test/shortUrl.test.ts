@@ -25,7 +25,7 @@ describe('shortUrl', () => {
         loadDb({
             client: 'sqlite3',
             connection: {
-                filename: './data.db',
+                filename: './data-unit.db',
             },
         });
         await createShortUrlTable();
@@ -143,7 +143,9 @@ describe('shortUrl', () => {
                 const result = await readShortUrl(getDiffShortCode(shortCode));
                 expect(result).toBeUndefined();
             } catch (e) {
-                expect(e).toStrictEqual(new ShortUrlError('短码不存在！'));
+                expect(e).toStrictEqual(
+                    new ShortUrlError('未找到对应的长域名！')
+                );
             }
         });
 
@@ -155,6 +157,15 @@ describe('shortUrl', () => {
                 expect(result).toBeUndefined();
             } catch (e) {
                 expect(e).toStrictEqual(new ShortUrlError('短码过长！'));
+            }
+        });
+
+        it('incorrect shortCode - length-0', async () => {
+            try {
+                const result = await readShortUrl('');
+                expect(result).toBeUndefined();
+            } catch (e) {
+                expect(e).toStrictEqual(new ShortUrlError('短码不能为空！'));
             }
         });
     });
