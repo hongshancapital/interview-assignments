@@ -55,7 +55,20 @@ interface IResult {
  * 长域名转换短域名结果
  */
 interface IShortUrlResult extends IResult {
+    /**
+     * 短域名地址
+     */
     shortUrl: string;
+}
+
+/**
+ * 读取短域名对应的长域名信息
+ */
+interface IReadShortUrlResult extends IResult {
+    /**
+     * 长域名地址
+     */
+    longUrl: string;
 }
 
 export {
@@ -64,4 +77,5 @@ export {
     StatusCode,
     IShortUrlParam,
     IShortUrlResult,
+    IReadShortUrlResult,
 };
