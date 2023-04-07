@@ -175,7 +175,24 @@ async function createShortUrl(param: IShortUrlParam): Promise<IShortUrlResult> {
  * @returns 包含长链接的数据
  */
 async function readShortUrl(shortCode: string): Promise<IReadShortUrlResult> {
-    return {} as IReadShortUrlResult;
+    if (!shortCode || shortCode.length === 0) {
+        throw new ShortUrlError('短码不能为空！');
+    }
+    if (shortCode && shortCode.length > SHORT_CODE_MAX_LENGTH) {
+        throw new ShortUrlError('短码过长！');
+    }
+
+    const result = await new ShortUrl({
+        shortCode: shortCode,
+    } as IShortUrl).findByShortCode();
+    if (!result) {
+        throw new ShortUrlError('未找到对应的长域名！');
+    }
+
+    return {
+        code: StatusCode.Success,
+        longUrl: result.longUrl,
+    } as IReadShortUrlResult;
 }
 export {
     SHORT_CODE_MAX_LENGTH,
