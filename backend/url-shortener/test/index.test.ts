@@ -39,6 +39,22 @@ describe('url shortener api', () => {
             );
         });
 
+        it('exist longUrl', async () => {
+            const shortUrlParam: IShortUrlParam = {
+                longUrl: testLongUrl,
+            };
+            const result = await postShortUrl(shortUrlParam);
+            expect(result.code).toBe(StatusCode.Success);
+            expect(result.shortUrl).toBeDefined();
+            expect(result.shortUrl.length).toBe(
+                SHORT_CODE_MAX_LENGTH + SHORT_URL_PREFIX.length
+            );
+
+            const result2 = await postShortUrl(shortUrlParam);
+            expect(result2.code).toBe(StatusCode.Success);
+            expect(result2.shortUrl).toBe(result.shortUrl);
+        });
+
         it('specify shortCode', async () => {
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl,
@@ -50,6 +66,25 @@ describe('url shortener api', () => {
             expect(result.shortUrl).toBe(
                 `${SHORT_URL_PREFIX}${shortUrlParam.shortCode}`
             );
+        });
+
+        it('specify exist shortCode', async () => {
+            const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
+            const shortUrlParam: IShortUrlParam = {
+                longUrl: testLongUrl,
+                shortCode,
+            };
+            const result = await postShortUrl(shortUrlParam);
+            expect(result.code).toBe(StatusCode.Success);
+            expect(result.shortUrl).toBeDefined();
+            expect(result.shortUrl).toBe(
+                `${SHORT_URL_PREFIX}${shortUrlParam.shortCode}`
+            );
+
+            const result2 = await postShortUrl(shortUrlParam);
+            expect(result2.code).toBe(StatusCode.Error);
+            expect(result.shortUrl).toBeUndefined();
+            expect(result.msg).toBeDefined();
         });
 
         it('specify overlong shortCode', async () => {
