@@ -1,3 +1,7 @@
+import { isWebUri } from 'valid-url';
+import { getDb, SHORT_URL_TABLE } from './db';
+import { ShortUrlError } from './ShortUrlError';
+import { nanoid } from 'nanoid';
 /**
  * 短域名长度最大为 8 个字符（不含域名）
  * ⚠️：应该可配置
@@ -71,23 +75,108 @@ interface IReadShortUrlResult extends IResult {
     longUrl: string;
 }
 
+function createErrorIResult(msg: string): IResult {
+    return { code: StatusCode.Error, msg };
+}
+
+/**
+ * shortUrls 表数据体
+ */
+interface IShortUrl {
+    shortCode: string;
+    longUrl: string;
+}
+
+class ShortUrl {
+    private data: IShortUrl;
+    /**
+     * 重试次数
+     */
+    private retryNum = 3;
+    constructor(data: IShortUrl) {
+        this.data = data;
+    }
+
+    async findByLongUrl(): Promise<IShortUrl | undefined> {
+        return getDb()<IShortUrl>(SHORT_URL_TABLE)
+            .where('longUrl', this.data.longUrl)
+            .first();
+    }
+    async findByShortCode(): Promise<IShortUrl | undefined> {
+        return getDb()<IShortUrl>(SHORT_URL_TABLE)
+            .where('shortCode', this.data.shortCode)
+            .first();
+    }
+
+    async insert(): Promise<string> {
+        try {
+            await getDb()(SHORT_URL_TABLE).insert(this.data);
+        } catch (e) {
+            // 在此处通过数据库约束，减少提前查询次数
+            // 判断是否是长域名已存在导致的错误
+            const result1 = await this.findByLongUrl();
+            if (result1) {
+                // 返回已有的短码
+                return result1.shortCode;
+            }
+            // 判断是否是短码已存在导致的错误
+            const result2 = await this.findByShortCode();
+            if (result2 && this.retryNum > 0) {
+                // 重新生成短码进行存储
+                this.data.shortCode = nanoid(SHORT_CODE_MAX_LENGTH);
+                this.retryNum = this.retryNum - 1;
+                return this.insert();
+            }
+
+            console.error(e);
+            throw new ShortUrlError('存储短域名信息失败！');
+        }
+        return this.data.shortCode;
+    }
+}
+
 /**
  * 根据参数创建短域名
  * @param param 创建短域名的参数
  * @returns 创建短域名后的返回值
  */
 async function createShortUrl(param: IShortUrlParam): Promise<IShortUrlResult> {
-    // 校验-参数较少，直接校验-不再引入校验工具
-    // if(param.longUrl)
-    return {} as IShortUrlResult;
+    // 校验-参数较少，直接校验
+    if (!isWebUri(param.longUrl)) {
+        throw new ShortUrlError('长域名格式不正确！');
+    }
+    if (param.shortCode && param.shortCode.length > SHORT_CODE_MAX_LENGTH) {
+        throw new ShortUrlError('短码过长！');
+    }
+    // 指定短码是否存在
+    if (param.shortCode && param.shortCode.length > 0) {
+        const result = await new ShortUrl({
+            shortCode: param.shortCode,
+            longUrl: param.longUrl,
+        }).findByShortCode();
+        if (result) {
+            throw new ShortUrlError('短码已存在！');
+        }
+    }
+    const shortCode = await new ShortUrl({
+        shortCode: param.shortCode ?? nanoid(SHORT_CODE_MAX_LENGTH),
+        longUrl: param.longUrl,
+    } as IShortUrl).insert();
+
+    return {
+        shortUrl: `${SHORT_URL_PREFIX}${shortCode}`,
+        code: StatusCode.Success,
+    } as IShortUrlResult;
 }
 
 export {
     SHORT_CODE_MAX_LENGTH,
     SHORT_URL_PREFIX,
     StatusCode,
+    IResult,
     IShortUrlParam,
     IShortUrlResult,
     IReadShortUrlResult,
+    createErrorIResult,
     createShortUrl,
 };
