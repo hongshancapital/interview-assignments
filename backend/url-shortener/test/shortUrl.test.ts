@@ -6,12 +6,34 @@ import {
     StatusCode,
 } from '../src/shortUrl';
 import { nanoid } from 'nanoid';
+import { ShortUrlError } from '../src/ShortUrlError';
+import {
+    closeDb,
+    createShortUrlTable,
+    getDb,
+    loadDb,
+    SHORT_URL_TABLE,
+} from '../src/db';
 
 const testLongUrl =
     'https://github.com/lyf-coder/interview-assignments/tree/url-shortener';
 
 describe('shortUrl', () => {
     describe('createShortUrl', () => {
+        beforeAll(async () => {
+            loadDb({
+                client: 'sqlite3',
+                connection: {
+                    filename: './data.db',
+                },
+            });
+            await createShortUrlTable();
+        });
+
+        beforeEach(async () => {
+            // 清除表内容
+            await getDb()(SHORT_URL_TABLE).del();
+        });
         it('no specify shortCode', async () => {
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl,
@@ -19,6 +41,7 @@ describe('shortUrl', () => {
             const result = await createShortUrl(shortUrlParam);
             expect(result.code).toBe(StatusCode.Success);
             expect(result.shortUrl).toBeDefined();
+            console.log(result);
             expect(result.shortUrl.length).toBe(
                 SHORT_CODE_MAX_LENGTH + SHORT_URL_PREFIX.length
             );
@@ -65,10 +88,11 @@ describe('shortUrl', () => {
                 `${SHORT_URL_PREFIX}${shortUrlParam.shortCode}`
             );
 
-            const result2 = await createShortUrl(shortUrlParam);
-            expect(result2.code).toBe(StatusCode.Error);
-            expect(result.shortUrl).toBeUndefined();
-            expect(result.msg).toBeDefined();
+            try {
+                await createShortUrl(shortUrlParam);
+            } catch (e) {
+                expect(e).toStrictEqual(new ShortUrlError('短码已存在！'));
+            }
         });
 
         it('specify overlong shortCode', async () => {
@@ -76,10 +100,11 @@ describe('shortUrl', () => {
                 longUrl: testLongUrl,
                 shortCode: nanoid(SHORT_CODE_MAX_LENGTH + 1),
             };
-            const result = await createShortUrl(shortUrlParam);
-            expect(result.code).toBe(StatusCode.Error);
-            expect(result.shortUrl).toBeUndefined();
-            expect(result.msg).toBeDefined();
+            try {
+                await createShortUrl(shortUrlParam);
+            } catch (e) {
+                expect(e).toStrictEqual(new ShortUrlError('短码过长！'));
+            }
         });
 
         it('wrong long url format', async () => {
@@ -87,10 +112,17 @@ describe('shortUrl', () => {
                 longUrl: testLongUrl.substring(8),
                 shortCode: nanoid(SHORT_CODE_MAX_LENGTH + 1),
             };
-            const result = await createShortUrl(shortUrlParam);
-            expect(result.code).toBe(StatusCode.Error);
-            expect(result.shortUrl).toBeUndefined();
-            expect(result.msg).toBeDefined();
+            try {
+                await createShortUrl(shortUrlParam);
+            } catch (e) {
+                expect(e).toStrictEqual(
+                    new ShortUrlError('长域名格式不正确！')
+                );
+            }
+        });
+        afterAll(async () => {
+            await getDb().schema.dropTableIfExists(SHORT_URL_TABLE);
+            await closeDb();
         });
     });
 });
