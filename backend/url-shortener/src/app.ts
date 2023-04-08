@@ -1,12 +1,11 @@
 import express, { Express } from 'express';
 import { closeDb, createShortUrlTable, loadDb } from './db';
-import {
-    createErrorIResult,
-    createShortUrl,
-    IResult,
-    readShortUrl,
-} from './shortUrl';
+import { createShortUrl, IResult, readShortUrl, StatusCode } from './shortUrl';
 import { ShortUrlError } from './ShortUrlError';
+
+function createErrorIResult(msg: string): IResult {
+    return { code: StatusCode.Error, msg };
+}
 
 const app: Express = express();
 

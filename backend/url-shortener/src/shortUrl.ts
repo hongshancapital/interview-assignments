@@ -76,10 +76,6 @@ interface IReadShortUrlResult extends IResult {
     longUrl: string;
 }
 
-function createErrorIResult(msg: string): IResult {
-    return { code: StatusCode.Error, msg };
-}
-
 /**
  * shortUrls 表数据体
  */
@@ -216,7 +212,6 @@ export {
     IShortUrlParam,
     IShortUrlResult,
     IReadShortUrlResult,
-    createErrorIResult,
     createShortUrl,
     readShortUrl,
     IShortUrl,
