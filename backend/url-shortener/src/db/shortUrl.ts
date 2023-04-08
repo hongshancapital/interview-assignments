@@ -11,11 +11,14 @@ const SHORT_URL_TABLE = 'shortUrls';
  * longUrl 长域名 唯一约束
  */
 async function createShortUrlTable() {
-    await getDb().schema.createTableIfNotExists(SHORT_URL_TABLE, (table) => {
-        // 主键目前8位即可，预留空间
-        table.string('shortCode', 20).primary();
-        table.string('longUrl', 3000).unique();
-    });
+    const exist = await getDb().schema.hasTable(SHORT_URL_TABLE);
+    if (!exist) {
+        await getDb().schema.createTable(SHORT_URL_TABLE, (table) => {
+            // 主键目前8位即可，预留空间
+            table.string('shortCode', 20).primary();
+            table.string('longUrl', 3000).unique();
+        });
+    }
 }
 
 export { SHORT_URL_TABLE, createShortUrlTable };

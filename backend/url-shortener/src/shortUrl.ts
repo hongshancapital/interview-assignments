@@ -1,19 +1,18 @@
 import { isWebUri } from 'valid-url';
+import config from 'config';
 import { getDb, SHORT_URL_TABLE } from './db';
 import { ShortUrlError } from './ShortUrlError';
 import { nanoid } from 'nanoid';
 import { cache } from './cache';
 /**
- * 短域名长度最大为 8 个字符（不含域名）
- * ⚠️：应该可配置
+ * 短码长度
  */
-const SHORT_CODE_MAX_LENGTH = 8;
+const SHORT_CODE_MAX_LENGTH = config.get<number>('shortCodeMaxLength');
 
 /**
  * 短域名前缀
- * ⚠️：应该可配置
  */
-const SHORT_URL_PREFIX = 'https://scdt.com/';
+const SHORT_URL_PREFIX = config.get<string>('shortUrlPrefix');
 
 /**
  * 长域名转换短域名参数

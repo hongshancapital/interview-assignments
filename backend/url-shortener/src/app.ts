@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import config from 'config';
 import { closeDb, createShortUrlTable, loadDb } from './db';
 import { createShortUrl, IResult, readShortUrl, StatusCode } from './shortUrl';
 import { ShortUrlError } from './ShortUrlError';
@@ -48,17 +49,7 @@ app.get('/:shortCode', async (req, res) => {
  */
 async function loadResource() {
     // load db
-    // 注意：todo 需要改成配置
-    loadDb({
-        client: 'mysql',
-        connection: {
-            host: '192.168.0.130',
-            port: 3306,
-            user: 'shortUrl',
-            password: 'shortUrl',
-            database: 'shortUrl',
-        },
-    });
+    loadDb(config.get('dbConfig'));
     await createShortUrlTable();
 }
 

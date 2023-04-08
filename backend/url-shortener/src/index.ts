@@ -1,6 +1,7 @@
 import { app, loadResource } from './app';
+import config from 'config';
 
-const PORT = 3000;
+const PORT = config.get<number>('port');
 
 loadResource().then(() => {
     app.listen(PORT, () => {
