@@ -17,6 +17,7 @@ import {
     SHORT_URL_TABLE,
 } from '../src/db';
 import { getDiffShortCode } from '../src/util';
+import { cache } from '../src/cache';
 
 const testLongUrl =
     'https://github.com/lyf-coder/interview-assignments/tree/url-shortener';
@@ -34,6 +35,8 @@ describe('shortUrl', () => {
     beforeEach(async () => {
         // 清除表内容
         await getDb()(SHORT_URL_TABLE).del();
+        // 清除缓存
+        cache.clear();
     });
     describe('ShortUrl class', () => {
         it('insert-longUrl exist', async () => {
@@ -147,6 +150,22 @@ describe('shortUrl', () => {
             expect(result.shortUrl).toBe(
                 `${SHORT_URL_PREFIX}${shortUrlParam.shortCode}`
             );
+
+            try {
+                const result = await createShortUrl(shortUrlParam);
+                expect(result).toBeUndefined();
+            } catch (e) {
+                expect(e).toStrictEqual(new ShortUrlError('短码已存在！'));
+            }
+        });
+
+        it('specify exist shortCode in cache', async () => {
+            const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
+            const shortUrlParam: IShortUrlParam = {
+                longUrl: testLongUrl,
+                shortCode,
+            };
+            cache.set(shortCode, testLongUrl);
 
             try {
                 const result = await createShortUrl(shortUrlParam);

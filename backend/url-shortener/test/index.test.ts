@@ -17,6 +17,7 @@ import {
     loadDb,
     SHORT_URL_TABLE,
 } from '../src/db';
+import { cache } from '../src/cache';
 
 const request = supertest(app);
 const testLongUrl =
@@ -57,6 +58,8 @@ describe('url shortener api', () => {
     beforeEach(async () => {
         // 清除表内容
         await getDb()(SHORT_URL_TABLE).del();
+        // 清除缓存
+        cache.clear();
     });
     describe('create short url', () => {
         it('no specify shortCode', async () => {
