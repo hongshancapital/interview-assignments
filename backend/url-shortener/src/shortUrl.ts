@@ -2,6 +2,7 @@ import { isWebUri } from 'valid-url';
 import { getDb, SHORT_URL_TABLE } from './db';
 import { ShortUrlError } from './ShortUrlError';
 import { nanoid } from 'nanoid';
+import { cache } from './cache';
 /**
  * 短域名长度最大为 8 个字符（不含域名）
  * ⚠️：应该可配置
@@ -151,6 +152,11 @@ async function createShortUrl(param: IShortUrlParam): Promise<IShortUrlResult> {
     }
     // 指定短码是否存在
     if (param.shortCode && param.shortCode.length > 0) {
+        // 缓存中存在直接抛出存在异常
+        if (cache.get(param.shortCode)) {
+            throw new ShortUrlError('短码已存在！');
+        }
+        // 继续去数据库查询判断是否存在
         const result = await new ShortUrl({
             shortCode: param.shortCode,
             longUrl: param.longUrl,
@@ -183,16 +189,23 @@ async function readShortUrl(shortCode: string): Promise<IReadShortUrlResult> {
         throw new ShortUrlError('短码过长！');
     }
 
-    const result = await new ShortUrl({
-        shortCode: shortCode,
-    } as IShortUrl).findByShortCode();
-    if (!result) {
-        throw new ShortUrlError('未找到对应的长域名！');
+    // 先从缓存中获取
+    let longUrl = cache.get(shortCode);
+    if (!longUrl) {
+        const result = await new ShortUrl({
+            shortCode: shortCode,
+        } as IShortUrl).findByShortCode();
+        if (!result) {
+            throw new ShortUrlError('未找到对应的长域名！');
+        }
+        longUrl = result.longUrl;
+        // 设置到缓存
+        cache.set(shortCode, longUrl);
     }
 
     return {
         code: StatusCode.Success,
-        longUrl: result.longUrl,
+        longUrl,
     } as IReadShortUrlResult;
 }
 export {
