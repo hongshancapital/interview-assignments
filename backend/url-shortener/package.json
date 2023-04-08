@@ -14,9 +14,11 @@
   "scripts": {
     "init": "pnpm i",
     "doc": "typedoc",
-    "test": "jest ",
+    "test-all": "jest ",
+    "test-unit": "jest --testPathIgnorePatterns=/test/api.test.ts",
+    "test-api": "jest --testPathPattern=/test/api.test.ts",
     "test:watch": "jest --watch",
-    "test-with-coverage": "jest --coverage --detectOpenHandles",
+    "test-unit-with-coverage": "jest --coverage --testPathIgnorePatterns=/test/api.test.ts ",
     "build": "tsc",
     "start": "NODE_ENV=development ts-node src/index.ts",
     "dev": "nodemon -e ts,tsx --exec ts-node src/index.ts",

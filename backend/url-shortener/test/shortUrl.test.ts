@@ -213,6 +213,14 @@ describe('shortUrl', () => {
             expect(result.longUrl).toBe(testLongUrl);
         });
 
+        it('exist shortCode in cache', async () => {
+            const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
+            cache.set(shortCode, testLongUrl);
+            const result = await readShortUrl(shortCode);
+            expect(result.code).toBe(StatusCode.Success);
+            expect(result.longUrl).toBe(testLongUrl);
+        });
+
         it('no exist shortCode', async () => {
             const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
             await createShortUrl({ shortCode, longUrl: testLongUrl });

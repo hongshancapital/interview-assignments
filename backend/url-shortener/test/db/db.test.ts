@@ -30,6 +30,17 @@ describe('db', () => {
             const db2 = getDb();
             expect(db).toBe(db2);
         });
+        it('have db with config', () => {
+            const conf = {
+                client: 'sqlite3',
+                connection: {
+                    filename: './data.db',
+                },
+            };
+            const db = loadDb(conf);
+            const db2 = getDb(conf);
+            expect(db).toBe(db2);
+        });
         it('no db', () => {
             try {
                 getDb();
