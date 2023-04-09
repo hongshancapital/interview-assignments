@@ -11,7 +11,7 @@ import CoreData
 
 class AppsViewModel: ObservableObject {
     enum Constants {
-        static let pageSize = 15
+        static let pageSize = 50
     }
     
     @Published var viewState: ViewState = .idle
@@ -77,15 +77,15 @@ class AppsViewModel: ObservableObject {
         }
     }
     
-    private func filterFavortedAppIds(appIds: [Int]) -> [Int] {
+    private func filterFavortedAppIds(appIds: [String]) -> [String] {
         let fetch: NSFetchRequest<AppFavoriteEntity> = AppFavoriteEntity.fetchRequest()
         let sortById = NSSortDescriptor(key: #keyPath(AppFavoriteEntity.appId), ascending: false)
         fetch.sortDescriptors = [sortById]
         fetch.predicate = NSPredicate(format: "appId IN %@", appIds)
         
-        var favoritedAppIds: [Int] = []
+        var favoritedAppIds: [String] = []
         do {
-            if let results = try coreDataStack?.managedContext.fetch(fetch).compactMap ({ Int($0.appId ?? "") }) {
+            if let results = try coreDataStack?.managedContext.fetch(fetch).compactMap ({ $0.appId }) {
                 favoritedAppIds.append(contentsOf: results)
             }
         } catch {

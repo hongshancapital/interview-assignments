@@ -13,14 +13,14 @@ struct AppResponseModel: Codable {
 }
 
 class AppModel: Identifiable, Codable {
-    let id: Int
+    let id: String
     let artworkUrl512: String
     let trackName: String
     let description: String
     var favorite: Bool = false
     
     private enum CodingKeys: String, CodingKey {
-        case id = "artistId", artworkUrl512, trackName, description
+        case id = "bundleId", artworkUrl512, trackName, description
     }
     
     func favorite(favorite: Bool) {

@@ -30,7 +30,7 @@ extension AppsEndpoint: Endpoint {
             return [
                 URLQueryItem(name: "entity", value: "software"),
                 URLQueryItem(name: "term", value: "chat"),
-                URLQueryItem(name: "offset", value: "\(pageIndex)"),
+                URLQueryItem(name: "offset", value: "\(pageIndex * pageSize)"),
                 URLQueryItem(name: "limit", value: "\(pageSize)")
             ]
         }

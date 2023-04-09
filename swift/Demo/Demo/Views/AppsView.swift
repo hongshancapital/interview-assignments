@@ -52,8 +52,10 @@ struct AppsView: View {
                             appCell(app: viewModel.apps[index], index: index)
                                 .onAppear {
                                     if index == self.viewModel.apps.count - 1 {
-                                        viewModel.viewState = .loadMore
-                                        viewModel.loadMore()
+                                        DispatchQueue.main.async {
+                                            viewModel.viewState = .loadMore
+                                            viewModel.loadMore()
+                                        }
                                     }
                                 }
                         }
@@ -88,6 +90,7 @@ struct AppsView: View {
         HStack(spacing: Constants.appCellHorizationSpacing) {
             AsyncImage(url: URL(string: app.artworkUrl512)) { image in
                 image.resizable()
+                    .aspectRatio(contentMode: .fill)
                     .scaledToFit()
                     .frame(width: Constants.appIconSize, height: Constants.appIconSize)
                     .cornerRadius(Constants.appIconCornerRadius)
@@ -95,9 +98,11 @@ struct AppsView: View {
                         RoundedRectangle(cornerRadius: Constants.appIconCornerRadius, style: .continuous)
                             .stroke(.gray, lineWidth: Constants.appIconBorderWidth)
                     }
+                    .border(.red)
             } placeholder: {
                 ProgressView()
             }
+            .frame(width: Constants.appIconSize, height: Constants.appIconSize)
             
             VStack(alignment: .leading, spacing: Constants.appTextVerticalSacing) {
                 Text(app.trackName)
