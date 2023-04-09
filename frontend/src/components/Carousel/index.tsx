@@ -39,15 +39,6 @@ export default function Carousel({
     };
   }, [wrapper.current]);
 
-  useEffect(() => {
-    if (wrapper.current) {
-      wrapper.current.style.transition = `transform ${speed}ms linear`;
-      wrapper.current.style.transform = `translate3d(-${
-        100 * activeIndex
-      }vw,0,0)`;
-    }
-  }, [activeIndex]);
-
   function slideTo(index: number) {
     setActiveIndex(index);
     clearInterval(timer.current);
@@ -56,7 +47,14 @@ export default function Carousel({
 
   return (
     <div className="carousel-container">
-      <div className="carousel-wrapper" ref={wrapper}>
+      <div className="carousel-wrapper" ref={wrapper}
+        style={{
+          transition:`transform ${speed}ms linear`,
+          transform:`translate3d(-${
+            100 * activeIndex
+          }vw,0,0)
+        `}}
+      >
         {children}
       </div>
       <Pagination
