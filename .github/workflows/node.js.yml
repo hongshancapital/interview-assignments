@@ -25,7 +25,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
+        cache: 'npm'
     - name: install pnpm
       run: npm i pnpm -g
     - name: change to work dir
