@@ -13,6 +13,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.workspace }}/interview-assignments/backend/url-shortener/
 
     strategy:
       matrix:
@@ -27,8 +31,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: install pnpm
       run: npm i pnpm -g
-    - name: change to work dir
-      run: cd ./backend/url-shortener/
+    - name: dir
+      run: pwd
     - name: install
       run: pnpm i
     - name: lint
