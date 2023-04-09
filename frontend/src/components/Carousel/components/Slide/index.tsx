@@ -10,5 +10,5 @@ export default function CarouselSlide({
   children,
   className,
 }: CarouselSlideProps) {
-  return <div className={`carousel-slide ${className || ''}`}>{children}</div>;
+  return <div className={`carousel__slide ${className || ''}`}>{children}</div>;
 }

@@ -22,8 +22,10 @@ export default function Carousel({
   const timer = useRef<NodeJS.Timer>();
 
   function startTimer() {
-    timer.current = setInterval(() => {
+    timer.current = setTimeout(() => {
       setActiveIndex((index) => (index + 1 > count - 1 ? 0 : index + 1));
+
+      startTimer();
     }, delay);
   }
 
@@ -58,7 +60,7 @@ export default function Carousel({
       </div>
       <Pagination
         slideTo={slideTo}
-        pagination={3}
+        pagination={count}
         active={activeIndex}
         delay={delay}
       />

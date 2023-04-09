@@ -10,7 +10,7 @@ describe('CarouselSlide', () => {
     );
     const root = getAllByTestId('root');
     expect(root[0]).toContainHTML(
-      `<div class="carousel-slide slide">123</div>`,
+      `<div class="carousel__slide slide">123</div>`,
     );
   });
 
