@@ -33,8 +33,9 @@ export default function Carousel({
     if (wrapper.current) {
       startTimer();
     }
+
     return () => {
-      clearInterval(timer.current);
+      clearTimeout(timer.current);
     };
   }, [wrapper.current]);
 
