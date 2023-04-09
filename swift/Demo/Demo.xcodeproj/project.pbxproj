@@ -22,6 +22,8 @@
 		CDD0129D29E26980007251F0 /* LoadingMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD0129C29E26980007251F0 /* LoadingMoreView.swift */; };
 		CDD012A029E2777B007251F0 /* MockKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD0129E29E275CD007251F0 /* MockKit.swift */; };
 		CDD012A529E27D49007251F0 /* apps.json in Resources */ = {isa = PBXBuildFile; fileRef = CDD012A429E27D49007251F0 /* apps.json */; };
+		CDD012A829E2988D007251F0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDD012A629E2988D007251F0 /* Model.xcdatamodeld */; };
+		CDD012AC29E29E4B007251F0 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD012AB29E29E4B007251F0 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		CDD0129C29E26980007251F0 /* LoadingMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingMoreView.swift; sourceTree = "<group>"; };
 		CDD0129E29E275CD007251F0 /* MockKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKit.swift; sourceTree = "<group>"; };
 		CDD012A429E27D49007251F0 /* apps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = apps.json; sourceTree = "<group>"; };
+		CDD012A729E2988D007251F0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		CDD012AB29E29E4B007251F0 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +175,8 @@
 		CDD0128D29E25E15007251F0 /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				CDD012A629E2988D007251F0 /* Model.xcdatamodeld */,
+				CDD012AB29E29E4B007251F0 /* CoreDataStack.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -343,6 +349,8 @@
 				CDD0126429E25D86007251F0 /* AppsView.swift in Sources */,
 				CDD0129329E25F0D007251F0 /* AppsViewModel.swift in Sources */,
 				CDD0129D29E26980007251F0 /* LoadingMoreView.swift in Sources */,
+				CDD012AC29E29E4B007251F0 /* CoreDataStack.swift in Sources */,
+				CDD012A829E2988D007251F0 /* Model.xcdatamodeld in Sources */,
 				CDD0129829E260DA007251F0 /* Endpoint.swift in Sources */,
 				CDD0129A29E26306007251F0 /* AppsService.swift in Sources */,
 				CDD0126229E25D86007251F0 /* DemoApp.swift in Sources */,
@@ -665,6 +673,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CDD012A629E2988D007251F0 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CDD012A729E2988D007251F0 /* Model.xcdatamodel */,
+			);
+			currentVersion = CDD012A729E2988D007251F0 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CDD0125629E25D86007251F0 /* Project object */;
 }

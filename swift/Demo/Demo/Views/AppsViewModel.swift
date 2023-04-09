@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CoreData
 
 class AppsViewModel: ObservableObject {
     enum Constants {
@@ -19,6 +20,9 @@ class AppsViewModel: ObservableObject {
     var bag: Set<AnyCancellable> = Set<AnyCancellable>()
     
     let requestMoreSubject: PassthroughSubject<Void, Never> = .init()
+    
+    //db
+    let coreDataStack: CoreDataStack
     
     var showLoadingMore: Bool {
         get {
@@ -35,8 +39,9 @@ class AppsViewModel: ObservableObject {
     
     private var pageIndex = 0
 
-    init(appService: AppServiceProtocol) {
+    init(appService: AppServiceProtocol, coreDataStack: CoreDataStack) {
         self.appService = appService
+        self.coreDataStack = coreDataStack
         
         requestMoreSubject.receive(on: DispatchQueue.main)
             .throttle(for: .seconds(3), scheduler: RunLoop.main, latest: false)
@@ -48,8 +53,57 @@ class AppsViewModel: ObservableObject {
     
     func favoriteAppToggle(app: AppModel) {
         if let index = apps.firstIndex(where: { $0.id == app.id }) {
+            
+            if app.favorite {
+                // delete
+                let fetchRequest: NSFetchRequest<AppFavoriteEntity> = AppFavoriteEntity.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "appId == %@", "\(app.id)")
+                do {
+                    let objects = try coreDataStack.managedContext.fetch(fetchRequest)
+                    for object in objects {
+                        coreDataStack.managedContext.delete(object)
+                    }
+                } catch {
+                    
+                }
+            } else {
+                // save
+                let entity = AppFavoriteEntity(context: coreDataStack.managedContext)
+                entity.setValue("\(app.id)", forKey: #keyPath(AppFavoriteEntity.appId))
+                entity.setValue(Date(), forKey: #keyPath(AppFavoriteEntity.createDate))
+            }
+            
+            coreDataStack.saveContext()
+            
             apps[index].favorite.toggle()
             objectWillChange.send()
+        }
+    }
+    
+    func filterFavortedAppIds(appIds: [Int]) -> [Int] {
+        let fetch: NSFetchRequest<AppFavoriteEntity> = AppFavoriteEntity.fetchRequest()
+        let sortById = NSSortDescriptor(key: #keyPath(AppFavoriteEntity.appId), ascending: false)
+        fetch.sortDescriptors = [sortById]
+        fetch.predicate = NSPredicate(format: "appId IN %@", appIds)
+        
+        var favoritedAppIds: [Int] = []
+        do {
+            let results = try coreDataStack.managedContext.fetch(fetch).compactMap { Int($0.appId ?? "") }
+            favoritedAppIds.append(contentsOf: results)
+        } catch {
+            
+        }
+        return favoritedAppIds
+    }
+    
+    func checkFavorate(items: [AppModel]) {
+        let appIds = items.map { $0.id }
+        let favoritedAppIds = filterFavortedAppIds(appIds: appIds)
+        
+        items.forEach { item in
+            if favoritedAppIds.contains(item.id) {
+                item.favorite = true
+            }
         }
     }
     
@@ -66,6 +120,7 @@ class AppsViewModel: ObservableObject {
         case .success(let apps):
             DispatchQueue.main.async {
                 self.apps.removeAll()
+                self.checkFavorate(items: apps)
                 self.apps.append(contentsOf: apps)
                 self.objectWillChange.send()
             }
@@ -105,6 +160,7 @@ class AppsViewModel: ObservableObject {
                     if self.viewState == .refreshing {
                         self.apps.removeAll()
                     }
+                    self.checkFavorate(items: values)
                     self.apps.append(contentsOf: values)
                     self.objectWillChange.send()
                 }

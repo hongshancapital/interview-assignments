@@ -125,7 +125,8 @@ struct AppsView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    @ObservedObject static var appsViewModel = AppsViewModel(appService: AppService())
+    
+    @ObservedObject static var appsViewModel = AppsViewModel(appService: AppService(), coreDataStack: CoreDataStack(modelName: "Model"))
     
     static var previews: some View {
         AppsView()

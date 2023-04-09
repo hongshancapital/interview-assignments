@@ -9,11 +9,19 @@ import SwiftUI
 
 @main
 struct DemoApp: App {
-    @ObservedObject var appsViewModel = AppsViewModel(appService: AppService())
+    private var coreDataStack: CoreDataStack
+    @ObservedObject var appsViewModel: AppsViewModel
+    
+    init() {
+        coreDataStack = CoreDataStack(modelName: "Model")
+        appsViewModel = AppsViewModel(appService: AppService(), coreDataStack: coreDataStack)
+    }
+    
     var body: some Scene {
         WindowGroup {
             AppsView()
                 .environmentObject(appsViewModel)
+                .environment(\.managedObjectContext, coreDataStack.managedContext)
         }
     }
 }
