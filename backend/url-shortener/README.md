@@ -1,5 +1,13 @@
 # url-shortener
 
+## 测试结果
+
+### 单元测试
+![单元测试](./img/unit_test.png)
+
+### API 集成测试
+![API集成测试](./img/api_test.png)
+
 ## 假设及框架设计
 
 ### 假设
@@ -11,15 +19,15 @@
 * 不需要统计等功能。（只单纯做短域名转换，不做域名访问数据记录及统计等功能）
 
 ### 框架设计
-注：数据库部分由 `knex` 进行实现，所以 `knex` 支持的数据库均支持，直接在配置文件中配置要使用的数据库即可。
+注：数据库部分由 `knex` 进行实现，所以 `knex` 支持的数据库均支持，直接在配置文件中配置要使用的数据库及安装对应数据库依赖即可。
 
 ![框架设计图](./img/shortener.png)
 
 ## 数据库表字段信息
 
 * 表名： `shortUrl`
-* 字段： `shortCode` 20 位字符串 主键
-* 字段： `longUrl` 3000 位字符串 唯一约束
+* 字段： `shortCode` 20  主键
+* 字段： `longUrl` 3000  唯一约束
 
 ```ts
        // 主键目前8位即可，预留空间
@@ -29,7 +37,7 @@
 
 ## 支持配置
 
-配置文件见 `config/` 目录
+可根据需要进行调整，配置文件见 `config/` 目录
 
 ```yaml
 #  兜底配置-假如未指定 环境变量：NODE_ENV=development/test/production 默认development的生效
@@ -45,7 +53,7 @@ cacheOptions: {
         #  获取时更新存活时间
         updateAgeOnGet: true,
     }
-# 短域名长度最大字符数（不含域名） 
+# 短域名长度最大字符数（不含域名） 注意不要超过数据库的约束
 shortCodeMaxLength: 8
 # 短域名部分
 shortUrlPrefix: https://scdt.com/
