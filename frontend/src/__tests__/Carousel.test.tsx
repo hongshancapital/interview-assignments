@@ -1,6 +1,7 @@
 import { render,act } from '@testing-library/react';
 import Carousel from '../components/Carousel';
 
+const TEST_DATA = [123,456,789];
 describe('Carousel', () => {
   it('should render and autoPlay', () => {
     jest.useFakeTimers();
@@ -8,9 +9,7 @@ describe('Carousel', () => {
       <div data-testid="root">
         <Carousel delay={3000} speed={300} count={3}>
           <div data-testid="slide">
-            <Carousel.Slide>123</Carousel.Slide>
-            <Carousel.Slide>456</Carousel.Slide>
-            <Carousel.Slide>789</Carousel.Slide>
+            {TEST_DATA.map(el => <Carousel.Slide key={el}>{el}</Carousel.Slide>)}
           </div>
         </Carousel>
       </div>,
