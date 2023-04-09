@@ -1,6 +1,5 @@
 import express, { Express } from 'express';
-import config from 'config';
-import { closeDb, createShortUrlTable, loadDb } from './db';
+import { createShortUrlTable, db } from './db';
 import { createShortUrl, IResult, readShortUrl, StatusCode } from './shortUrl';
 import { ShortUrlError } from './ShortUrlError';
 
@@ -48,8 +47,6 @@ app.get('/:shortCode', async (req, res) => {
  * 初始化资源
  */
 async function loadResource() {
-    // load db
-    loadDb(config.get('dbConfig'));
     await createShortUrlTable();
 }
 
@@ -57,7 +54,7 @@ async function loadResource() {
  *  关闭相关资源
  */
 async function closeResource() {
-    await closeDb();
+    await db.destroy();
 }
 
 export { app, loadResource, closeResource };

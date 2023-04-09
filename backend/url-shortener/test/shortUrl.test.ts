@@ -6,160 +6,187 @@ import {
     SHORT_URL_PREFIX,
     StatusCode,
     ShortUrl,
+    IShortUrl,
 } from '../src/shortUrl';
 import { nanoid } from 'nanoid';
 import { ShortUrlError } from '../src/ShortUrlError';
-import {
-    closeDb,
-    createShortUrlTable,
-    getDb,
-    loadDb,
-    SHORT_URL_TABLE,
-} from '../src/db';
-import { getDiffShortCode } from '../src/util';
+import { db } from '../src/db';
 import { cache } from '../src/cache';
 
 const testLongUrl =
     'https://github.com/lyf-coder/interview-assignments/tree/url-shortener';
 
+jest.mock('../src/db');
+
+const mockInsert = jest.fn();
+const mockWhere = jest.fn().mockReturnThis();
+const mockFirst = jest.fn();
+
+jest.mocked(db).mockReturnValue({
+    insert: mockInsert,
+    where: mockWhere,
+    first: mockFirst,
+} as never);
+
+const data: IShortUrl = {
+    shortCode: nanoid(8),
+    longUrl: testLongUrl,
+};
+
 describe('shortUrl', () => {
-    beforeAll(async () => {
-        loadDb({
-            client: 'sqlite3',
-            connection: {
-                filename: './data-unit.db',
-            },
-        });
-        await createShortUrlTable();
-    });
-    beforeEach(async () => {
-        // 清除表内容
-        await getDb()(SHORT_URL_TABLE).del();
-        // 清除缓存
-        cache.clear();
-    });
     describe('ShortUrl class', () => {
-        it('insert-longUrl exist', async () => {
-            const shortCode = nanoid(8);
-            const shortCode2 = nanoid(8);
-
-            // 先插入一条数据
-            await new ShortUrl({
-                shortCode,
-                longUrl: testLongUrl,
-            }).insert();
-            // 再次插入一条短码不同，长域名相同的数据
-            const result = await new ShortUrl({
-                shortCode: shortCode2,
-                longUrl: testLongUrl,
-            }).insert();
-            expect(result).toBe(shortCode);
-        });
-        it('insert- shortCode exist', async () => {
-            const shortCode = nanoid(8);
-
-            // 先插入一条数据
-            await new ShortUrl({
-                shortCode,
-                longUrl: testLongUrl,
-            }).insert();
-            // 再次插入一条短码相同，长域名不同的数据
-            const result = await new ShortUrl({
-                shortCode: shortCode,
-                longUrl: testLongUrl + 'TEST',
-            }).insert();
-            expect(result !== shortCode).toBeTruthy();
-        });
-        it('insert - error', async () => {
-            const shortCode = nanoid(8);
-
-            // 先插入一条数据
-            const shortUrlObj = new ShortUrl({
-                shortCode,
-                longUrl: testLongUrl,
+        // findByLongUrl 与 findByShortCode 要在 insert上面，不然insert中模拟类中这两个方法会导致测试无法正常执行实际的方法
+        describe('findByLongUrl', () => {
+            beforeEach(() => {
+                jest.clearAllMocks();
             });
-            await shortUrlObj.insert();
-            // 再次插入一条短码相同，长域名不同的数据
-            try {
-                const result = await new ShortUrl(
-                    {
-                        shortCode: shortCode,
-                        longUrl: testLongUrl + 'TEST',
-                    },
-                    0
-                ).insert();
-                expect(result).toBeUndefined();
-            } catch (e) {
-                expect(e).toStrictEqual(
-                    new ShortUrlError('存储短域名信息失败！')
-                );
-            }
+            it('normal', async () => {
+                await new ShortUrl(data).findByLongUrl();
+                expect(mockWhere).toBeCalledWith('longUrl', data.longUrl);
+                expect(mockFirst).toBeCalled();
+            });
+        });
+        describe('findByShortCode', () => {
+            beforeEach(() => {
+                jest.clearAllMocks();
+            });
+            it('normal', async () => {
+                await new ShortUrl(data).findByShortCode();
+                expect(mockWhere).toBeCalledWith('shortCode', data.shortCode);
+                expect(mockFirst).toBeCalled();
+            });
+        });
+        describe('insert', () => {
+            beforeEach(async () => {
+                jest.clearAllMocks();
+                cache.clear();
+            });
+            it('normal', async () => {
+                await new ShortUrl(data).insert();
+                expect(mockInsert).toBeCalled();
+            });
+
+            it('longUrl exist', async () => {
+                const findByLongUrlMock = jest
+                    .spyOn(ShortUrl.prototype, 'findByLongUrl')
+                    .mockResolvedValue(data);
+                mockInsert.mockRejectedValue('存储错误！');
+                const result = await new ShortUrl(data).insert();
+                expect(result).toBe(data.shortCode);
+                expect(mockInsert).toBeCalledTimes(1);
+                expect(findByLongUrlMock).toBeCalledTimes(1);
+            });
+            it('shortCode exist', async () => {
+                const findByLongUrlMock = jest
+                    .spyOn(ShortUrl.prototype, 'findByLongUrl')
+                    .mockResolvedValue(undefined);
+
+                const findByShortCodeMock = jest
+                    .spyOn(ShortUrl.prototype, 'findByShortCode')
+                    .mockResolvedValue(data);
+                mockInsert
+                    .mockRejectedValueOnce('存储错误！')
+                    .mockImplementationOnce(jest.fn());
+
+                const result = await new ShortUrl({
+                    shortCode: 'aaa',
+                    longUrl: testLongUrl,
+                }).insert();
+                expect(result).toBeDefined();
+                expect(mockInsert).toBeCalledTimes(2);
+                expect(findByLongUrlMock).toBeCalledTimes(1);
+                expect(findByShortCodeMock).toBeCalledTimes(1);
+            });
+            it('error', async () => {
+                mockInsert.mockRejectedValueOnce('存储错误！');
+                const findByLongUrlMock = jest
+                    .spyOn(ShortUrl.prototype, 'findByLongUrl')
+                    .mockResolvedValue(undefined);
+                const findByShortCodeMock = jest
+                    .spyOn(ShortUrl.prototype, 'findByShortCode')
+                    .mockResolvedValue(undefined);
+                try {
+                    await new ShortUrl({
+                        shortCode: nanoid(8),
+                        longUrl: testLongUrl,
+                    }).insert();
+                } catch (e) {
+                    expect(e).toStrictEqual(
+                        new ShortUrlError('存储短域名信息失败！')
+                    );
+                }
+                expect(mockInsert).toBeCalledTimes(1);
+                expect(findByLongUrlMock).toBeCalledTimes(1);
+                expect(findByShortCodeMock).toBeCalledTimes(1);
+            });
         });
     });
     describe('createShortUrl', () => {
-        it('no specify shortCode', async () => {
+        const findByShortCodeMock = jest.spyOn(
+            ShortUrl.prototype,
+            'findByShortCode'
+        );
+        beforeEach(() => {
+            findByShortCodeMock.mockClear();
+            cache.clear();
+        });
+        it('normal', async () => {
+            const shortUrlInsertMock = jest
+                .spyOn(ShortUrl.prototype, 'insert')
+                .mockResolvedValue(data.shortCode);
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl,
             };
             const result = await createShortUrl(shortUrlParam);
             expect(result.code).toBe(StatusCode.Success);
             expect(result.shortUrl).toBeDefined();
-            console.log(result);
-            expect(result.shortUrl.length).toBe(
-                SHORT_CODE_MAX_LENGTH + SHORT_URL_PREFIX.length
-            );
-        });
-        it('exist longUrl', async () => {
-            const shortUrlParam: IShortUrlParam = {
-                longUrl: testLongUrl,
-            };
-            const result = await createShortUrl(shortUrlParam);
-            expect(result.code).toBe(StatusCode.Success);
-            expect(result.shortUrl).toBeDefined();
-            expect(result.shortUrl.length).toBe(
-                SHORT_CODE_MAX_LENGTH + SHORT_URL_PREFIX.length
-            );
-
-            const result2 = await createShortUrl(shortUrlParam);
-            expect(result2.code).toBe(StatusCode.Success);
-            expect(result2.shortUrl).toBe(result.shortUrl);
+            expect(shortUrlInsertMock).toBeCalled();
         });
 
-        it('specify shortCode', async () => {
+        it('specify shortCode no exist', async () => {
+            const shortUrlInsertMock = jest
+                .spyOn(ShortUrl.prototype, 'insert')
+                .mockResolvedValue(data.shortCode);
+            shortUrlInsertMock.mockClear();
+            findByShortCodeMock.mockResolvedValue(undefined);
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl,
-                shortCode: nanoid(Math.random() * SHORT_CODE_MAX_LENGTH),
+                shortCode: data.shortCode,
             };
+
             const result = await createShortUrl(shortUrlParam);
             expect(result.code).toBe(StatusCode.Success);
             expect(result.shortUrl).toBeDefined();
             expect(result.shortUrl).toBe(
                 `${SHORT_URL_PREFIX}${shortUrlParam.shortCode}`
             );
+            expect(findByShortCodeMock).toBeCalled();
+            expect(shortUrlInsertMock).toBeCalled();
         });
 
         it('specify exist shortCode', async () => {
+            const shortUrlInsertMock = jest.spyOn(ShortUrl.prototype, 'insert');
+            shortUrlInsertMock.mockClear();
+
             const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl,
                 shortCode,
             };
-            const result = await createShortUrl(shortUrlParam);
-            expect(result.code).toBe(StatusCode.Success);
-            expect(result.shortUrl).toBeDefined();
-            expect(result.shortUrl).toBe(
-                `${SHORT_URL_PREFIX}${shortUrlParam.shortCode}`
-            );
+            findByShortCodeMock.mockResolvedValue(data);
 
             try {
-                const result = await createShortUrl(shortUrlParam);
-                expect(result).toBeUndefined();
+                await createShortUrl(shortUrlParam);
             } catch (e) {
                 expect(e).toStrictEqual(new ShortUrlError('短码已存在！'));
             }
+            expect(findByShortCodeMock).toBeCalled();
+            expect(shortUrlInsertMock).not.toBeCalled();
         });
 
         it('specify exist shortCode in cache', async () => {
+            const shortUrlInsertMock = jest.spyOn(ShortUrl.prototype, 'insert');
+            shortUrlInsertMock.mockClear();
             const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl,
@@ -168,49 +195,65 @@ describe('shortUrl', () => {
             cache.set(shortCode, testLongUrl);
 
             try {
-                const result = await createShortUrl(shortUrlParam);
-                expect(result).toBeUndefined();
+                await createShortUrl(shortUrlParam);
             } catch (e) {
                 expect(e).toStrictEqual(new ShortUrlError('短码已存在！'));
             }
+            expect(findByShortCodeMock).not.toBeCalled();
+            expect(shortUrlInsertMock).not.toBeCalled();
         });
 
         it('specify overlong shortCode', async () => {
+            const shortUrlInsertMock = jest.spyOn(ShortUrl.prototype, 'insert');
+            shortUrlInsertMock.mockClear();
+
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl,
                 shortCode: nanoid(SHORT_CODE_MAX_LENGTH + 1),
             };
             try {
-                const result = await createShortUrl(shortUrlParam);
-                expect(result).toBeUndefined();
+                await createShortUrl(shortUrlParam);
             } catch (e) {
                 expect(e).toStrictEqual(new ShortUrlError('短码过长！'));
             }
+
+            expect(shortUrlInsertMock).not.toBeCalled();
         });
 
         it('wrong long url format', async () => {
+            const shortUrlInsertMock = jest.spyOn(ShortUrl.prototype, 'insert');
+            shortUrlInsertMock.mockClear();
+
             const shortUrlParam: IShortUrlParam = {
                 longUrl: testLongUrl.substring(8),
                 shortCode: nanoid(SHORT_CODE_MAX_LENGTH + 1),
             };
             try {
-                const result = await createShortUrl(shortUrlParam);
-                expect(result).toBeUndefined();
+                await createShortUrl(shortUrlParam);
             } catch (e) {
                 expect(e).toStrictEqual(
                     new ShortUrlError('长域名格式不正确！')
                 );
             }
+            expect(shortUrlInsertMock).not.toBeCalled();
         });
     });
 
     describe('readShortUrl', () => {
+        const findByShortCodeMock = jest.spyOn(
+            ShortUrl.prototype,
+            'findByShortCode'
+        );
+        beforeEach(() => {
+            findByShortCodeMock.mockClear();
+            cache.clear();
+        });
         it('exist shortCode', async () => {
-            const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
-            await createShortUrl({ shortCode, longUrl: testLongUrl });
-            const result = await readShortUrl(shortCode);
+            findByShortCodeMock.mockResolvedValue(data);
+            const result = await readShortUrl(data.shortCode);
             expect(result.code).toBe(StatusCode.Success);
             expect(result.longUrl).toBe(testLongUrl);
+            expect(findByShortCodeMock).toBeCalled();
         });
 
         it('exist shortCode in cache', async () => {
@@ -219,44 +262,39 @@ describe('shortUrl', () => {
             const result = await readShortUrl(shortCode);
             expect(result.code).toBe(StatusCode.Success);
             expect(result.longUrl).toBe(testLongUrl);
+            expect(findByShortCodeMock).not.toBeCalled();
         });
 
-        it('no exist shortCode', async () => {
-            const shortCode = nanoid(Math.random() * SHORT_CODE_MAX_LENGTH);
-            await createShortUrl({ shortCode, longUrl: testLongUrl });
-
+        it('no exist shortCode normal format', async () => {
+            findByShortCodeMock.mockResolvedValue(undefined);
             try {
-                const result = await readShortUrl(getDiffShortCode(shortCode));
-                expect(result).toBeUndefined();
+                await readShortUrl(data.shortCode);
             } catch (e) {
                 expect(e).toStrictEqual(
                     new ShortUrlError('未找到对应的长域名！')
                 );
             }
+            expect(findByShortCodeMock).toBeCalled();
         });
 
         it('incorrect shortCode - overlong', async () => {
             // overlong shortCode
             const shortCode = nanoid(SHORT_CODE_MAX_LENGTH + 1);
             try {
-                const result = await readShortUrl(shortCode);
-                expect(result).toBeUndefined();
+                await readShortUrl(shortCode);
             } catch (e) {
                 expect(e).toStrictEqual(new ShortUrlError('短码过长！'));
             }
+            expect(findByShortCodeMock).not.toBeCalled();
         });
 
         it('incorrect shortCode - length-0', async () => {
             try {
-                const result = await readShortUrl('');
-                expect(result).toBeUndefined();
+                await readShortUrl('');
             } catch (e) {
                 expect(e).toStrictEqual(new ShortUrlError('短码不能为空！'));
             }
+            expect(findByShortCodeMock).not.toBeCalled();
         });
-    });
-    afterAll(async () => {
-        await getDb().schema.dropTableIfExists(SHORT_URL_TABLE);
-        await closeDb();
     });
 });

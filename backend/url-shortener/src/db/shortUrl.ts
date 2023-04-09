@@ -1,4 +1,4 @@
-import { getDb } from './db';
+import { db } from './db';
 
 /**
  * 短域名表名
@@ -11,9 +11,9 @@ const SHORT_URL_TABLE = 'shortUrls';
  * longUrl 长域名 唯一约束
  */
 async function createShortUrlTable() {
-    const exist = await getDb().schema.hasTable(SHORT_URL_TABLE);
+    const exist = await db.schema.hasTable(SHORT_URL_TABLE);
     if (!exist) {
-        await getDb().schema.createTable(SHORT_URL_TABLE, (table) => {
+        await db.schema.createTable(SHORT_URL_TABLE, (table) => {
             // 主键目前8位即可，预留空间
             table.string('shortCode', 20).primary();
             table.string('longUrl', 3000).unique();

@@ -1,6 +1,6 @@
 import { isWebUri } from 'valid-url';
 import config from 'config';
-import { getDb, SHORT_URL_TABLE } from './db';
+import { db, SHORT_URL_TABLE } from './db';
 import { ShortUrlError } from './ShortUrlError';
 import { nanoid } from 'nanoid';
 import { cache } from './cache';
@@ -95,19 +95,19 @@ class ShortUrl {
     }
 
     async findByLongUrl(): Promise<IShortUrl | undefined> {
-        return getDb()<IShortUrl>(SHORT_URL_TABLE)
+        return db<IShortUrl>(SHORT_URL_TABLE)
             .where('longUrl', this.data.longUrl)
             .first();
     }
     async findByShortCode(): Promise<IShortUrl | undefined> {
-        return getDb()<IShortUrl>(SHORT_URL_TABLE)
+        return db<IShortUrl>(SHORT_URL_TABLE)
             .where('shortCode', this.data.shortCode)
             .first();
     }
 
     async insert(): Promise<string> {
         try {
-            await getDb()(SHORT_URL_TABLE).insert(this.data);
+            await db(SHORT_URL_TABLE).insert(this.data);
         } catch (e) {
             // 在此处通过数据库约束，减少提前查询次数
             // 判断是否是长域名已存在导致的错误

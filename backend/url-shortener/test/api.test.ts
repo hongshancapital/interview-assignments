@@ -10,13 +10,7 @@ import {
     StatusCode,
 } from '../src/shortUrl';
 import { getDiffShortCode } from '../src/util';
-import {
-    closeDb,
-    createShortUrlTable,
-    getDb,
-    loadDb,
-    SHORT_URL_TABLE,
-} from '../src/db';
+import { createShortUrlTable, db, SHORT_URL_TABLE } from '../src/db';
 import { cache } from '../src/cache';
 
 const request = supertest(app);
@@ -47,17 +41,11 @@ async function readShortUrl(shortCode: string): Promise<IReadShortUrlResult> {
 
 describe('url shortener api', () => {
     beforeAll(async () => {
-        loadDb({
-            client: 'sqlite3',
-            connection: {
-                filename: './data-api.db',
-            },
-        });
         await createShortUrlTable();
     });
     beforeEach(async () => {
         // 清除表内容
-        await getDb()(SHORT_URL_TABLE).del();
+        await db(SHORT_URL_TABLE).del();
         // 清除缓存
         cache.clear();
     });
@@ -175,7 +163,7 @@ describe('url shortener api', () => {
         });
     });
     afterAll(async () => {
-        await getDb().schema.dropTableIfExists(SHORT_URL_TABLE);
-        await closeDb();
+        await db.schema.dropTableIfExists(SHORT_URL_TABLE);
+        await db.destroy();
     });
 });

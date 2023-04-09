@@ -4,6 +4,7 @@ describe('ShortUrlError', () => {
     it('constructor-with-msg', () => {
         const error = new ShortUrlError('测试错误！');
         expect(error.name).toBe('ShortUrlError');
+        expect(error.message).toBe('测试错误！');
     });
     it('constructor-with-no-msg', () => {
         const error = new ShortUrlError();
