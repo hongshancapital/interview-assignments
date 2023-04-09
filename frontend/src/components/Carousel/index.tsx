@@ -6,16 +6,16 @@ import type { PropsWithChildren } from 'react';
 
 interface Props {
   count: number;
-  delay?: number;
-  speed?: number;
+  delay: number;
+  speed: number;
 }
 type CarouselProps = PropsWithChildren<Props>;
 
 export default function Carousel({
   children,
   count,
-  speed = 300,
-  delay = 3000,
+  speed,
+  delay
 }: CarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const wrapper = useRef<HTMLDivElement>(null);

@@ -6,7 +6,7 @@ describe('Carousel', () => {
     jest.useFakeTimers();
     const { getAllByTestId } = render(
       <div data-testid="root">
-        <Carousel count={3}>
+        <Carousel delay={3000} speed={300} count={3}>
           <div data-testid="slide">
             <Carousel.Slide>123</Carousel.Slide>
             <Carousel.Slide>456</Carousel.Slide>

@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="App">
       {/* write your component here */}
-      <Carousel count={COUNT}>
+      <Carousel count={COUNT} speed={300} delay={3000}>
         {SLIDE_DATA.map((el, idx) => (
           <Carousel.Slide
             className={`App__slide ${el.className || ''}`}
