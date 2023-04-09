@@ -50,19 +50,24 @@ struct AppsView: View {
                     List {
                         ForEach(0..<viewModel.apps.count, id: \.self) { index in
                             appCell(app: viewModel.apps[index], index: index)
+                                .onAppear {
+                                    if index == self.viewModel.apps.count - 1 {
+                                        viewModel.viewState = .loadMore
+                                        viewModel.loadMore()
+                                    }
+                                }
                         }
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .listRowInsets(Constants.listCellInsets)
                         
-                        if viewModel.showLoadingMore {
-                            LoadingMoreView(noMoreData: viewModel.noMoreData)
+                        if viewModel.showLoadingMore, viewModel.viewState == .loadMore  {
+                            Color.clear
+                                .overlay {
+                                    LoadingMoreView(noMoreData: viewModel.noMoreData)
+                                }
                                 .listRowBackground(Color.clear)
                                 .listRowSeparator(.hidden)
-                                .onAppear {
-                                    viewModel.loadMore()
-                                }
-                                .id(UUID())
                         }
                     }
                     .listStyle(.plain)
@@ -70,6 +75,8 @@ struct AppsView: View {
                     .refreshable {
                         await viewModel.refresh()
                     }
+                    
+                    
                 }
             }
             .navigationBarTitle(Text(Constants.pageTitle))

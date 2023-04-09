@@ -14,7 +14,8 @@ class AppsViewModel: ObservableObject {
         static let pageSize = 15
     }
     
-    @Published var viewState: ViewState = .refreshing
+    @Published var viewState: ViewState = .idle
+    @Published var noMoreData: Bool = false
     @Published var apps: [AppModel] = []
     let appService: AppServiceProtocol
     var bag: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -22,7 +23,7 @@ class AppsViewModel: ObservableObject {
     let requestMoreSubject: PassthroughSubject<Void, Never> = .init()
     
     //db
-    let coreDataStack: CoreDataStack
+    let coreDataStack: CoreDataStack?
     
     var showLoadingMore: Bool {
         get {
@@ -30,16 +31,9 @@ class AppsViewModel: ObservableObject {
         }
     }
     
-    // WARNING:: 模拟两页后就没有数据了
-    var noMoreData: Bool {
-        get {
-            pageIndex > 2
-        }
-    }
-    
-    private var pageIndex = 0
+    private(set) var pageIndex = 0
 
-    init(appService: AppServiceProtocol, coreDataStack: CoreDataStack) {
+    init(appService: AppServiceProtocol, coreDataStack: CoreDataStack? = nil) {
         self.appService = appService
         self.coreDataStack = coreDataStack
         
@@ -59,28 +53,31 @@ class AppsViewModel: ObservableObject {
                 let fetchRequest: NSFetchRequest<AppFavoriteEntity> = AppFavoriteEntity.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "appId == %@", "\(app.id)")
                 do {
-                    let objects = try coreDataStack.managedContext.fetch(fetchRequest)
-                    for object in objects {
-                        coreDataStack.managedContext.delete(object)
+                    if let objects = try coreDataStack?.managedContext.fetch(fetchRequest) {
+                        for object in objects {
+                            coreDataStack?.managedContext.delete(object)
+                        }
                     }
                 } catch {
                     
                 }
             } else {
                 // save
-                let entity = AppFavoriteEntity(context: coreDataStack.managedContext)
-                entity.setValue("\(app.id)", forKey: #keyPath(AppFavoriteEntity.appId))
-                entity.setValue(Date(), forKey: #keyPath(AppFavoriteEntity.createDate))
+                if let managedContext = coreDataStack?.managedContext {
+                    let entity = AppFavoriteEntity(context: managedContext)
+                    entity.setValue("\(app.id)", forKey: #keyPath(AppFavoriteEntity.appId))
+                    entity.setValue(Date(), forKey: #keyPath(AppFavoriteEntity.createDate))
+                }
             }
             
-            coreDataStack.saveContext()
+            coreDataStack?.saveContext()
             
             apps[index].favorite.toggle()
             objectWillChange.send()
         }
     }
     
-    func filterFavortedAppIds(appIds: [Int]) -> [Int] {
+    private func filterFavortedAppIds(appIds: [Int]) -> [Int] {
         let fetch: NSFetchRequest<AppFavoriteEntity> = AppFavoriteEntity.fetchRequest()
         let sortById = NSSortDescriptor(key: #keyPath(AppFavoriteEntity.appId), ascending: false)
         fetch.sortDescriptors = [sortById]
@@ -88,8 +85,9 @@ class AppsViewModel: ObservableObject {
         
         var favoritedAppIds: [Int] = []
         do {
-            let results = try coreDataStack.managedContext.fetch(fetch).compactMap { Int($0.appId ?? "") }
-            favoritedAppIds.append(contentsOf: results)
+            if let results = try coreDataStack?.managedContext.fetch(fetch).compactMap ({ Int($0.appId ?? "") }) {
+                favoritedAppIds.append(contentsOf: results)
+            }
         } catch {
             
         }
@@ -113,6 +111,7 @@ class AppsViewModel: ObservableObject {
         }
         self.pageIndex = 0
         DispatchQueue.main.async {
+            self.noMoreData = false
             self.viewState = .refreshing
         }
         let result = await appService.getApps(pageIndex: pageIndex, pageSize: Constants.pageSize)
@@ -122,6 +121,11 @@ class AppsViewModel: ObservableObject {
                 self.apps.removeAll()
                 self.checkFavorate(items: apps)
                 self.apps.append(contentsOf: apps)
+                // WARNING:: 模拟两页后就没有数据了
+                if self.viewState == .loadMore, self.pageIndex > 2 {
+                    self.noMoreData = true
+                }
+                self.viewState = .idle
                 self.objectWillChange.send()
             }
         case .failure(_):
@@ -146,11 +150,11 @@ class AppsViewModel: ObservableObject {
         appService.requestApps(pageIndex: pageIndex, pageSize: Constants.pageSize)
             .receive(on: DispatchQueue.main)
             .sink { complection in
-                self.viewState = .idle
                 switch complection {
                 case .finished:
                     break
                 case .failure(_):
+                    self.viewState = .idle
                     break
                 }
             } receiveValue: { values in
@@ -162,6 +166,11 @@ class AppsViewModel: ObservableObject {
                     }
                     self.checkFavorate(items: values)
                     self.apps.append(contentsOf: values)
+                    if self.viewState == .loadMore, self.pageIndex > 1 {
+                        // WARNING:: 模拟两页后就没有数据了
+                        self.noMoreData = true
+                    }
+                    self.viewState = .idle
                     self.objectWillChange.send()
                 }
             }
@@ -169,6 +178,7 @@ class AppsViewModel: ObservableObject {
     }
     
     public func doRefresh() {
+        self.noMoreData = false
         self.pageIndex = 0
         self.viewState = .refreshing
         doRequestApp()

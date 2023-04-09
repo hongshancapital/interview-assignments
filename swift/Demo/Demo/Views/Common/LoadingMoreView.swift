@@ -15,6 +15,11 @@ struct LoadingMoreView: View {
     }
     
     let noMoreData: Bool
+    @State var id: Int = 0
+    
+    init(noMoreData: Bool) {
+        self.noMoreData = noMoreData
+    }
     
     var body: some View {
         HStack(spacing: Constants.horizationSpacing) {
@@ -22,6 +27,10 @@ struct LoadingMoreView: View {
             
             if !noMoreData {
                 ProgressView()
+                    .id(id)
+                    .onAppear {
+                        id += 1
+                    }
                 
                 VStack {
                     Text(Constants.loadingText)

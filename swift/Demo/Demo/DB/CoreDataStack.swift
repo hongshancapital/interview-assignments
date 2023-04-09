@@ -18,7 +18,9 @@ class CoreDataStack {
     private lazy var storeContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: self.modelName)
         container.loadPersistentStores { _, error in
-            print("Core Data error: \(error?.localizedDescription ?? "")")
+            if let error = error {
+                print("Core Data error: \(error.localizedDescription)")
+            }
         }
         
         return container
