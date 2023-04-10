@@ -4,7 +4,8 @@
   "description": "a short url service",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest",
+    "coverage":"jest --coverage"
   },
   "keywords": [
     "short",
@@ -13,11 +14,15 @@
   "author": "ligolas",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "lex62ts": "^1.0.0",
+    "murmurhash": "^2.0.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^18.15.11",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
   }
 }
