@@ -98,7 +98,6 @@ struct AppsView: View {
                         RoundedRectangle(cornerRadius: Constants.appIconCornerRadius, style: .continuous)
                             .stroke(.gray, lineWidth: Constants.appIconBorderWidth)
                     }
-                    .border(.red)
             } placeholder: {
                 ProgressView()
             }
