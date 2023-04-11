@@ -31,6 +31,7 @@ describe("test Carousel component", () => {
   })
 
   it("click dot element", () => {
+    //
     const items = wrapper.container.querySelectorAll(".carousel__item")
     fireEvent.click(items[1])
     expect(items[1]).toHaveClass("carousel__item carousel__item--active")
