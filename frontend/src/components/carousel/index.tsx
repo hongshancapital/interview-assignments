@@ -106,7 +106,7 @@ const Carousel: FC<CarouselProps> & {
           }
 
           return React.cloneElement(item, {
-            style: { width: containerWidth },
+            style: { ...item.props.style, width: containerWidth },
             ref: (ref: CarouselItemRef) =>
               setCarouselListRefByIdx({ idx, value: ref }),
           });

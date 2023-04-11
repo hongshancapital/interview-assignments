@@ -70,22 +70,10 @@ const useCarousel = (params: UseCarouselParams) => {
   };
 
   const scrollNext = () => {
-    setDomOffset({
-      dom: carouseContent,
-      offset: -activeIdx * containerWidth,
-      animate: true,
-      duration,
-    });
     scrollTo({ relativeIdx: 1 });
   };
 
   const scrollPrev = () => {
-    setDomOffset({
-      dom: carouseContent,
-      offset: -activeIdx * containerWidth,
-      animate: true,
-      duration,
-    });
     scrollTo({ relativeIdx: -1 });
   };
 

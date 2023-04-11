@@ -1,50 +1,26 @@
-import { forwardRef, useRef, useImperativeHandle } from "react";
-import type { ReactNode } from "react";
-import { CommonProps, Size } from "../types/common-types";
+import type { ReactNode, FC } from "react";
+import { CommonProps } from "../types/common-types";
 import classnames from "classnames";
 
 export interface CarouselItemContentProps extends CommonProps {
   imgUrl: string;
-  imgSize?: Size;
   title?: ReactNode;
   subTitle?: ReactNode;
+  imgSize?: number | string;
 }
 
-export interface CarouselItemContentRef {
-  getContainerSize: () => Size;
-}
-
-const CarouselItemContent = forwardRef<
-  CarouselItemContentRef,
-  CarouselItemContentProps
->(({ imgUrl, title, subTitle, imgSize, style, className }, ref) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const getContainerSize = () => {
-    if (containerRef.current) {
-      return {
-        width: containerRef.current?.getBoundingClientRect().width,
-        height: containerRef.current?.getBoundingClientRect().height,
-      };
-    }
-
-    return {
-      width: 0,
-      height: 0,
-    };
-  };
-
-  useImperativeHandle(ref, () => {
-    return {
-      getContainerSize,
-    };
-  });
-
+const CarouselItemContent: FC<CarouselItemContentProps> = ({
+  imgUrl,
+  title,
+  subTitle,
+  style,
+  className,
+  imgSize = 300,
+}) => {
   return (
     <div
       className={classnames("carousel-item-wrap", className)}
-      ref={containerRef}
-      style={style}
+      style={{ ...style, height: imgSize }}
     >
       <div className="carousel-item-content">
         <div className="carousel-item-title">{title}</div>
@@ -55,11 +31,11 @@ const CarouselItemContent = forwardRef<
         src={imgUrl}
         alt=""
         className="carousel-item-bg"
-        style={{ ...imgSize }}
+        style={{ width: imgSize, height: imgSize }}
       />
     </div>
   );
-});
+};
 
 CarouselItemContent.displayName = "CarouselItemContent";
 

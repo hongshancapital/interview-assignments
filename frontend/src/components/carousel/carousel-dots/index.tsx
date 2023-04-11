@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useRef } from "react";
 import type { CarouselProps } from "..";
 import type { CommonProps } from "../types/common-types";
@@ -17,7 +17,13 @@ const CarouselDots: FC<CarouselDotsProps> = ({
   style,
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const outerWidth = wrapRef.current?.getBoundingClientRect().width || 0;
+  const [outerWidth, setOuterWidth] = useState<number>(0);
+
+  useEffect(() => {
+    if (wrapRef.current) {
+      setOuterWidth(wrapRef.current?.getBoundingClientRect().width);
+    }
+  }, [count]);
 
   if (count <= 1) {
     return null;
