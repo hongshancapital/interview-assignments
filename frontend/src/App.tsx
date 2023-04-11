@@ -1,7 +1,14 @@
 import './App.css';
 
-function App() {
-  return <div className='App'>{/* write your component here */}</div>;
+import Carousel from "./components/carousel";
+
+const App = () => {
+  return <div className='App'>
+    <Carousel
+      timerData={3000}
+      PhotosSrcData={null}
+    />
+  </div>;
 }
 
 export default App;

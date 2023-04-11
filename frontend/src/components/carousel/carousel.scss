@@ -1,0 +1,91 @@
+@mixin relative101 {
+  position: relative;
+  z-index: 101;
+}
+
+li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.airpods {
+  background-color: #f1f1f3;
+}
+
+.iphone {
+  background-color: #111111;
+}
+
+.tablet {
+  background-color: #fafafa;
+}
+
+.App {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  .carousel {
+    height: 100%;
+    width: 100%;
+
+    .carousel_details {
+      @extend.App;
+      height: 50%;
+      bottom: 30%;
+      right: 0;
+      margin: auto;
+      h4 {
+        font-size: 46px;
+        @include relative101
+      }
+      span {
+        font-size: 32px;
+        @include relative101
+      }
+    }
+  }
+
+  img {
+    max-width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    bottom: 20%;
+    z-index: 100;
+  }
+}
+
+.progress {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 10%;
+  max-width: 50%;
+  height: 3px;
+  display: flex;
+  justify-content: space-between;
+
+  .progress_liBox {
+    border: {
+      radius: 2px;
+      style: solid;
+      width: 0.5px;
+      color: #777;
+    }
+    height: 3px;
+    background-color: #777;
+    cursor: pointer;
+
+    .progress__li {
+      height: 3px;
+      transition: width 0.1s ease;
+      z-index: 99;
+      border-radius: 2px;
+      background-color: #ffffff
+    }
+  }
+}
