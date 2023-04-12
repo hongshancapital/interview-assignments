@@ -19,7 +19,7 @@ const createShortUrl = async (originUrl:string):Promise<string> => {
         })
         await url.save();
     } // 考虑到murmurhash的低碰撞率，需要处理的话考虑用bloomfilter做相关的检查
-    const shortUrl = 'http://short.url/' + sid // TODO: 放到config中
+    const shortUrl = process.env.servrHost + sid // TODO: 放到config中
     return shortUrl
 }
 
