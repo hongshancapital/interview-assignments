@@ -1,0 +1,34 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "id": "9415a87e-ec7c-46b2-9700-fb7b79c3e3eb",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "short_urls": {
+      "name": "short_urls",
+      "columns": {
+        "short": {
+          "name": "short",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "long": {
+          "name": "long",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
