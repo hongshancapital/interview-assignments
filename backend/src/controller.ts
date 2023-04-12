@@ -1,4 +1,3 @@
-import {Request, Response,NextFunction, urlencoded} from 'express';
 import { encode } from 'lex62ts';
 import murmurhash from 'murmurhash';
 import { UrlInfo } from './model';
@@ -7,36 +6,34 @@ import { UrlInfo } from './model';
  /**
  * 通过长id生成短url
  *
- * @param {Request} req
- * @param {Response} res
+ * @param {string} originUrl
  */
- export const createShortUrl = async (req:Request, res:Response) => {
-    const body = req.body || {};
-    const {orginUrl} = body;
-    const mid = murmurhash.v3(orginUrl, 62);
+const createShortUrl = async (originUrl:string):Promise<string> => {
+    const mid = murmurhash.v3(originUrl, 62);
     const sid = encode(mid)
-    const exists = await UrlInfo.findOne({_id:sid}).lean().exec();
-    if(!exists){
+    const existUrlObj = await UrlInfo.findOne({_id:sid}).lean().exec();
+    if(!existUrlObj){
         const url  = new UrlInfo({
             _id: sid,
-            origin: orginUrl
-            
+            origin: originUrl
         })
         await url.save();
-    }
-    const domain:String = 'http://short.url/'
-    res.send(domain+sid)
+    } // 考虑到murmurhash的低碰撞率，暂时先不处理
+    const shortUrl = 'http://short.url/' + sid // TODO: 放到config中
+    return shortUrl
 }
 
 /**
- *  通过短id获取
+ *  通过短url，获取原始url信息
  *
- * @param {Request} req
- * @param {Response} res
+ * @param {string} sid
  */
-export const getOriginUrl = async (req:Request, res:Response) => {
-    const {sid} = req.query;
-    console.log('sid: ', sid);
+const getOriginUrl = async (sid:string): Promise<any>=> {
     const result = await UrlInfo.findOne({_id:sid})
-    res.send(result)
+    return result
+}
+
+export {
+    createShortUrl,
+    getOriginUrl
 }

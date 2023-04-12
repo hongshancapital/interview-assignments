@@ -8,8 +8,9 @@ interface IUrlInfo {
 
 const urlInfoSchema = new Schema<IUrlInfo>({
     _id: { type: String, required: true },
-    // short: { type: String, required: true },
     origin: { type: String, required: true },
+},{
+    versionKey: false
 })
 
 export const UrlInfo = model<IUrlInfo>('UrlInfo', urlInfoSchema);
