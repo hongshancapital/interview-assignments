@@ -1,0 +1,37 @@
+@keyframes progress {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.carousel-pagination {
+    z-index: 1;
+    position: absolute;
+    bottom: 16px;
+    width: 100%;
+    height: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-pagination-item {
+    cursor: pointer;
+    width: 50px;
+    height: 3px;
+    background: #6c6868;
+    margin-right: 6px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.carousel-pagination-progress {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
