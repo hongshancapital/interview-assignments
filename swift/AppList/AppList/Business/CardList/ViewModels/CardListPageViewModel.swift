@@ -46,10 +46,10 @@ class CardListPageViewModel: ObservableObject {
         if isLoadingMore || noMoreData {
             return
         }
-        pageNumber += 1
         isLoadingMore = true
         do {
-            let moreData = try await dataProvider.fetchData(from: pageNumber * stride, stride: stride)
+            let moreData = try await dataProvider.fetchData(from: (pageNumber + 1) * stride, stride: stride)
+            pageNumber += 1
             if moreData.isEmpty {
                 noMoreData = true
             } else {
