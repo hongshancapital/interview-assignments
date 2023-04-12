@@ -10,8 +10,28 @@ class CardViewModel: ObservableObject {
         self.isLiked = false
     }
     
+    func updateLikeState() {
+        let likedData = UserDefaults.CardList.likedData.stringArrayValue
+        isLiked = likedData?.contains(where: { $0 == model.bundleId }) ?? false
+    }
+    
     func likeAction() {
         isLiked.toggle()
+        updateLikedData()
+    }
+    
+    private func updateLikedData() {
+        // update local data
+        if var likedData = UserDefaults.CardList.likedData.stringArrayValue {
+            if isLiked {
+                likedData.append(model.bundleId)
+            } else {
+                likedData.removeAll { $0 == model.bundleId }
+            }
+            UserDefaults.CardList.likedData.set(likedData)
+        } else {
+            UserDefaults.CardList.likedData.set([model.bundleId])
+        }
     }
 }
 
