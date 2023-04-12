@@ -18,7 +18,7 @@ const createShortUrl = async (originUrl:string):Promise<string> => {
             origin: originUrl
         })
         await url.save();
-    } // 考虑到murmurhash的低碰撞率，暂时先不处理
+    } // 考虑到murmurhash的低碰撞率，需要处理的话考虑用bloomfilter做相关的检查
     const shortUrl = 'http://short.url/' + sid // TODO: 放到config中
     return shortUrl
 }
