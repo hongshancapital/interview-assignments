@@ -1,0 +1,1 @@
+export const SHORT_DOMAIN = 'SHORT_DOMAIN'
