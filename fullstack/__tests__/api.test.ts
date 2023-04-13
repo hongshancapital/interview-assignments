@@ -4,6 +4,7 @@ import routes from '../src/server/routes';
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import redis from '../src/server/lib/redis'
 
 const app = express();
 
@@ -41,4 +42,7 @@ describe('Shorten URL API', () => {
     });
 });
 
-afterAll(() => mongoose.disconnect())
+afterAll(() => {
+    mongoose.disconnect();
+    redis.disconnect();
+})

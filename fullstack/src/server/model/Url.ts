@@ -21,6 +21,7 @@ const urlSchema = new mongoose.Schema({
     delete: {type: Boolean, default: false},
 });
 
+// @ts-ignore
 const UrlModel: Model<UrlDocument> = mongoose.models.UrlModel || mongoose.model("UrlModel", urlSchema);
 
 export default UrlModel;

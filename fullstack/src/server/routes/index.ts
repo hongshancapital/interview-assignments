@@ -1,7 +1,7 @@
 import UrlModel, {UrlDocument} from "../model/Url";
 import express, {Request, Response} from "express";
 import {nanoid} from "nanoid";
-import dbConnect from "../lib";
+import dbConnect from "../lib/db";
 import redis from '../lib/redis';
 import {LONG_DOMAIN, SHORT_DOMAIN} from "../constants";
 
@@ -15,8 +15,8 @@ app.post("/api/shortUrls", async (req: Request, res: Response) => {
     // url -> shortURL 通过缓存防止恶意提交
     const url = await redis.get(LONG_DOMAIN + longUrl);
     if (url) {
-        console.info('命中缓存')
-        return res.send({url});
+        console.info('长域名命中缓存')
+        return res.send({shortUrl: url});
     }
 
     const existingUrl: UrlDocument | null = await UrlModel.findOne({longUrl}).exec() as UrlDocument;
@@ -52,12 +52,12 @@ app.get("/:shortUrl", async (req: Request, res: Response) => {
 
     await dbConnect();
     const existingUrl: UrlDocument | null = await UrlModel.findOne({shortUrl}).exec() as UrlDocument;
-    const {
-        longUrl,shortUrl:shortURLValue
-    } = existingUrl;
-    await redis.set(LONG_DOMAIN + shortURLValue, longUrl, 'EX', 6000);
-
     if (existingUrl) {
+        const {
+            longUrl,shortUrl:shortURLValue
+        } = existingUrl;
+        await redis.set(LONG_DOMAIN + shortURLValue, longUrl, 'EX', 6000);
+
         res.redirect(longUrl);
     } else {
         res.status(404).send("Not found");

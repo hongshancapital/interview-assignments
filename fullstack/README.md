@@ -1,5 +1,57 @@
 # TypeScript Fullstack Engineer Assignment
 
+### 框架设计及目的
+
+- 根据考察全栈场景，所以结合SSR + API 两方面功能，设计单体应用。
+- 根据偏后段场景，所以结合数据库存储和缓存存储，设计高可用服务。
+
+<img src="./docs/architecture.png" width="400">
+<img src="./docs/coverage.png" width="400">
+
+### library
+
+- Typescript 类型检查
+- react系列 渲染框架
+- vite 构建工具
+- jest 单元测试
+- express 提供HTTP server
+- dotenv 环境变量管理（可用于环境变量隔离）
+- nanoid 字符串ID 生成器
+- ioredis 连接redis 
+- mongoose 连接mongodb
+- pm2 生产级启动方案
+- axios 网络请求库
+
+### 多级存储逻辑
+
+- 为防止恶意提交，根据长域名地址为KEY作缓存
+- 提高相应速度，根据短域名地址作为KEY作缓存
+
+### 关于302
+
+- 302是临时重定向，满足SEO 搜索曝光及点击转化场景。
+
+### 部分说明
+
+- 由于提到避免过度设计，完整的短网址服务所需要的client sdk（用户端流量采集及监控）忽略
+- 由于提到避免过度设计，短域名生成过程用户信息采集忽略
+- 由于提到避免过度设计，跳转信息采集忽略
+
+### 关于nginx
+
+- 基础服务提供云网关，可使用云网关，增加缓存、流量控制
+- 基础服务提供风控能力，可忽略DDOS攻击
+
+
+### 备注
+
+- 系统设计不能脱离具体业务场景，该应用是DEMO示例，不作为最终方案
+- 涉及分布式系统方案，需要重新确定方案。
+
+------
+
+
+
 ### Typescript 实现短域名服务（细节可以百度/谷歌）
 
 撰写两个 API 接口
