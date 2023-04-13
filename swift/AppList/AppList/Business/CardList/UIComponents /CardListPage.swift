@@ -22,8 +22,10 @@ struct CardListPage: View {
             CardListView(cardList: viewModel.cardList)
             
             RefreshFooterView(isLoadingMore: viewModel.isLoadingMore)
-                .task {
-                    await viewModel.pullToLoadMore()
+                .onAppear {
+                    Task {
+                        await viewModel.pullToLoadMore()
+                    }
                 }
         }
         .background(Color.gray.opacity(0.1))
