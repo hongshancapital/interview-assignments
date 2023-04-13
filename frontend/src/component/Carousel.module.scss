@@ -1,0 +1,96 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carouselSlides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-top: -1.5%;
+  display: flex;
+}
+
+.slide {
+  // position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.carouselSlides .active {
+  opacity: 1;
+  background-size: auto 55%, cover;
+  background-position: center 80%, 150% 200%;
+  background-repeat: no-repeat, repeat;
+  animation: slideIn 0.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideReverse {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.carouselSlides .active.reverse {
+  animation: slideReverse 0.5s ease-in-out forwards;
+}
+
+.carouselSlides .inactive {
+  background-size: cover;
+}
+
+.activeText {
+  height: 103vh;
+  width: 100vw;
+  transform: translateY(10%);
+}
+
+.carouselIndicators {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+}
+
+.indicator {
+  width: 80px;
+  height: 4px;
+  background-color: rgba(154, 150, 150, 0.8);
+  cursor: pointer;
+  position: relative;
+  border-radius: 4px;
+}
+
+.indicator.active {
+  background-color: rgba(154, 150, 150, 0.8);
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 1);
+}
+.slideText{
+  display: flex;
+  flex-direction: column;
+}
