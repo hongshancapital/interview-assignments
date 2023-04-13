@@ -2,38 +2,35 @@ import XCTest
 @testable import AppList
 
 final class CardListDataProviderTest: XCTestCase {
+    
+    var provider: CardListDataProvider!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        provider = CardListDataProvider()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testLoadCardList() async throws {
-        
-        let exp = XCTestExpectation(description: "test CardListDataProvider load card list")
-        
-        let provider = CardListDataProvider()
+    func testLoadCardList() async {
         do {
-            try await provider.loadCardList()
-            exp.fulfill()
+            await provider.loadCardList()
+            let list = try await provider.fetchData(from: 0, stride: 10)
+            XCTAssertFalse(list.isEmpty)
         } catch {
-            XCTFail("load card list failed")
+            XCTFail("load data failed")
         }
         
-        await fulfillment(of: [exp], timeout: 3)
     }
     
-    func testFetchDataWhenParametersAreInvalid() async throws {
+    func testFetchDataWhenParametersAreInvalid() async {
         
         let exp1 = XCTestExpectation(description: "test CardListDataProvider fetch data when from is invalid")
         let exp2 = XCTestExpectation(description: "test CardListDataProvider fetch data when stride is invalid")
         
         let exp3 = XCTestExpectation(description: "test CardListDataProvider fetch data when from and stride are invalid")
         
-        let provider = CardListDataProvider()
         do {
             let _ = try await provider.fetchData(from: -1, stride: 10)
         } catch {
@@ -54,8 +51,7 @@ final class CardListDataProviderTest: XCTestCase {
         await fulfillment(of: [exp1, exp2, exp3], timeout: 3)
     }
     
-    func testFetchDataWhenAllDataIsNil() async throws {
-        let provider = CardListDataProvider()
+    func testFetchDataWhenAllDataIsNil() async {
         do {
             let list = try await provider.fetchData(from: 0, stride: 10)
             XCTAssertEqual(list.count, 0)
@@ -64,11 +60,9 @@ final class CardListDataProviderTest: XCTestCase {
         }
     }
     
-    func testFetchDataWhenSuccess() async throws {
-
-        let provider = CardListDataProvider()
+    func testFetchDataWhenSuccess() async {
         do {
-            try await provider.loadCardList()
+            await provider.loadCardList()
             let list = try await provider.fetchData(from: 0, stride: 10)
             XCTAssertEqual(list.count, 10)
         } catch {

@@ -1,5 +1,7 @@
 import Foundation
+import Combine
 
+@MainActor
 class CardListPageViewModel: ObservableObject {
     @Published
     private(set)var cardList: [CardViewModel] = []
@@ -20,17 +22,12 @@ class CardListPageViewModel: ObservableObject {
     @Injection
     private var dataProvider: DataProvider
     
-    @MainActor
-    func loadData() async {
-        do {
-            self.cardList = try await dataProvider.fetchData(from: 0, stride: stride)
-            self.pageState = .success
-        } catch {
-            pageState = .error
-        }
+    private var anyCancellable = Set<AnyCancellable>()
+    
+    init() {
+        addSubject()
     }
     
-    @MainActor
     func pullToRefresh() async {
         pageNumber = 0
         do {
@@ -41,7 +38,6 @@ class CardListPageViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     func pullToLoadMore() async {
         if isLoadingMore || noMoreData {
             return
@@ -59,5 +55,30 @@ class CardListPageViewModel: ObservableObject {
             loadMoreError = true
         }
         isLoadingMore = false
+    }
+    
+    private func addSubject() {
+        dataProvider.loadDataSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self else { return }
+                switch completion {
+                case .failure(_): self.pageState = .error
+                case .finished: fetchFirstPageData()
+                }
+            } receiveValue: { _ in
+            }
+            .store(in: &anyCancellable)
+    }
+    
+    private func fetchFirstPageData() {
+        Task {
+            do {
+                self.cardList = try await dataProvider.fetchData(from: 0, stride: stride)
+                self.pageState = .success
+            } catch {
+                pageState = .error
+            }
+        }
     }
 }

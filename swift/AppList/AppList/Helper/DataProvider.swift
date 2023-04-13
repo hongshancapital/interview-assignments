@@ -1,31 +1,42 @@
 import Foundation
+import Combine
+
 protocol DataProvider {
-    func loadCardList() async throws
+    func loadCardList() async
     func fetchData(from: Int, stride: Int) async throws -> [CardViewModel]
+    var loadDataSubject: PassthroughSubject<Bool, Error> { get }
 }
 
 class CardListDataProvider: DataProvider {
-
-    private var allData: CardListModel?
-    private let decoder = JSONDecoder()
+    var loadDataSubject = PassthroughSubject<Bool, Error>()
     
-    func loadCardList() async throws {
-        allData = try await loadData(from: CardPageLoaderConfig.cardList)
+    private let decoder = JSONDecoder()
+    private var cardListModel: CardListModel?
+    
+    func loadCardList() async {
+        do {
+            cardListModel = try await loadData(from: CardPageLoaderConfig.cardList)
+            loadDataSubject.send(completion: .finished)
+        } catch {
+            loadDataSubject.send(completion: .failure(GeneralError.loadData))
+        }
     }
     
     func fetchData(from: Int, stride: Int) async throws -> [CardViewModel] {
         try await Task.sleep(nanoseconds: 2 * NSEC_PER_SEC)
         
-        guard from >= 0, stride > 0 else {
+        guard from >= 0,
+              stride > 0 else {
             throw GeneralError(code: 400, message: "Illegal request parameter, from: \(from), stride: \(from)")
         }
         
-        guard let allData, from < allData.resultCount else {
+        guard let cardListModel,
+              from < cardListModel.resultCount else {
             return []
         }
         
-        let slice = allData
-            .results[from..<min(from + stride, allData.resultCount)]
+        let slice = cardListModel
+            .results[from..<min(from + stride, cardListModel.resultCount)]
             .map { CardViewModel(model: $0) }
         return Array(slice)
     }
@@ -41,23 +52,6 @@ class CardListDataProvider: DataProvider {
             }
         }
         return model
-    }
-}
-
-struct GeneralError: Error {
-    let code: Int
-    let message: String
-}
-
-protocol LoaderConfig {
-    var url: URL { get }
-}
-
-enum CardPageLoaderConfig: LoaderConfig {
-    case cardList
-
-    var url: URL {
-        Bundle.main.url(forResource: "mock.json", withExtension: nil)!
     }
 }
 

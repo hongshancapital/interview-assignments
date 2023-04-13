@@ -9,9 +9,9 @@ class AppRunInfo {
     }
     
     func loadData() {
-        let dataProvider = Resolver.shared.resolve(DataProvider.self)
+        @Injection var dataProvider: DataProvider
         Task {
-            try await dataProvider.loadCardList()
+            await dataProvider.loadCardList()
         }
     }
     

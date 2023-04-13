@@ -15,9 +15,6 @@ struct CardListPage: View {
             .navigationTitle("App")
             .navigationBarTitleDisplayMode(.automatic)
         }
-        .task {
-            await viewModel.loadData()
-        }
     }
     
     var contentView: some View {

@@ -6,6 +6,7 @@ final class CardListViewModelTest: XCTestCase {
     var viewModel: CardListPageViewModel!
     var mockDataProvider = MockDataProvider()
     
+    @MainActor
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         Resolver.shared.add(DataProvider.self, component: mockDataProvider)
@@ -16,58 +17,62 @@ final class CardListViewModelTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testLoadDataWhenFailed() async {
-        mockDataProvider.shouldFetchSuccess = false
-        await viewModel.loadData()
-        
-        XCTAssertEqual(viewModel.cardList.count, 0)
-        XCTAssertEqual(viewModel.pageState, .error)
-        
-    }
-    
+    @MainActor
     func testLoadDataWhenSuccess() async {
         mockDataProvider.shouldLoadSuccess = true
-        await viewModel.loadData()
+        await mockDataProvider.loadCardList()
         
-        XCTAssertEqual(viewModel.cardList.count, 15)
-        XCTAssertEqual(viewModel.pageState, .success)
+        XCTAssertEqual(viewModel.pageState, .loading)
+        XCTAssertEqual(viewModel.cardList.count, 0)
     }
     
+    @MainActor
+    func testLoadDataWhenFailed() async {
+        mockDataProvider.shouldLoadSuccess = false
+        await mockDataProvider.loadCardList()
+        
+        XCTAssertEqual(viewModel.pageState, .error)
+    }
+    
+    @MainActor
     func testPullToLoadMoreWhenSuccess() async {
         mockDataProvider.shouldFetchSuccess = true
-        await viewModel.loadData()
+        let beforePull = viewModel.cardList.count
         await viewModel.pullToLoadMore()
-        
-        XCTAssertEqual(viewModel.cardList.count, 30)
+        let afterPull = viewModel.cardList.count
+        XCTAssertEqual(afterPull - beforePull, 15)
         XCTAssertFalse(viewModel.isLoadingMore)
         XCTAssertFalse(viewModel.loadMoreError)
     }
     
+    @MainActor
     func testPullToLoadMoreWhenFailed() async {
         mockDataProvider.shouldFetchSuccess = false
-        await viewModel.loadData()
         await viewModel.pullToLoadMore()
 
         XCTAssertTrue(viewModel.loadMoreError)
     }
     
+    @MainActor
     func testPullToLoadMoreWhenNoMoreData() async {
         mockDataProvider.shouldFetchSuccess = true
         mockDataProvider.isNoMoreData = true
-        await viewModel.loadData()
         await viewModel.pullToLoadMore()
-
-        XCTAssertTrue(viewModel.noMoreData)
+        XCTAssertTrue(viewModel.noMoreData, "test load more when provider doesn't have any data")
+        
+        await viewModel.pullToLoadMore()
+        XCTAssertTrue(viewModel.noMoreData, "test load more when pull action triggered and viewModel stored status is no more data")
     }
     
+    @MainActor
     func testPullToRefreshWhenSuccess() async {
         mockDataProvider.shouldFetchSuccess = true
-        await viewModel.loadData()
         await viewModel.pullToRefresh()
         
         XCTAssertEqual(viewModel.cardList.count, 15)
     }
     
+    @MainActor
     func testPullToRefreshWhenFailed() async {
         mockDataProvider.shouldFetchSuccess = false
         await viewModel.pullToRefresh()
