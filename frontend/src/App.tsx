@@ -1,15 +1,50 @@
-import React, { cloneElement, useEffect, useMemo, useRef, useState } from 'react';
+import React, { cloneElement, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import './App.css';
+
+const swipeData = [{
+  type: 'phone',
+  title: 'xPhone',
+  intro: ['Lots to love. Less to spend.', 'Starting at $399.']
+}, {
+  type: 'tablet',
+  title: 'Tablet',
+  intro: ['Just the right amount of everything']
+}, {
+  type: 'airpods',
+  title: '',
+  intro: ['Buy a Tablet or xPhone for college.', 'Get ariPods.']
+}]
 
 const SwiperItem: React.FC<{ children?: React.ReactNode; }> = ({ children }) => {
   return <div className="swiper_item">{children}</div>;
 }
 
-const Swiper: React.FC<{ children: React.ReactNode[] }> = ({ children }) => {
-  const [idx, setIdx] = useState(0);
-  const idxRef = useRef(0);
+interface ISwiperProps {
+  inititalIndex?: number;
+  autoplay?: boolean;
+  showPagation?: boolean;
+  children?: React.ReactNode[];
+  onChange?: (i: number) => void;
+}
+
+interface ISwiperFn {
+  next: () => void;
+  prev: () => void;
+  swipeTo: (i: number) => void;
+}
+
+const Swiper = forwardRef<ISwiperFn, ISwiperProps>(({
+  inititalIndex,
+  autoplay,
+  showPagation,
+  children,
+  onChange
+}, ref) => {
+  const [idx, setIdx] = useState(inititalIndex || 0);
+  const idxRef = useRef(inititalIndex || 0);
   const swiperItems = useRef<HTMLDivElement>(null)
-  const timer: any = useRef(0);
+
+  const timer: any = useRef(null);
 
   const count = useMemo(() => React.Children.count(children), [children]);
 
@@ -19,8 +54,7 @@ const Swiper: React.FC<{ children: React.ReactNode[] }> = ({ children }) => {
     swiperItems.current!.style.transitionDuration = `${duration}ms`;
   }
 
-  const swipe = (duration: number) => {
-    const i = idxRef.current + 1;
+  const swipe = (i: number, duration: number) => {
     updateIdx(i)
     setStyle(i, duration)
 
@@ -32,24 +66,41 @@ const Swiper: React.FC<{ children: React.ReactNode[] }> = ({ children }) => {
         setStyle(0, 500)
       }, 0);
     }
+
+    if(idxRef.current < 0) {
+      updateIdx(count)
+      setStyle(count, 0)
+      setTimeout(() => {
+        updateIdx(count - 1)
+        setStyle(count - 1, 500)
+      }, 0);
+    }
   }
 
   const updateIdx = (i: number) => {
     idxRef.current = i;
     setIdx(i)
+    onChange?.(i)
   }
 
-  const autoplay = () => {
+  const startAutoplay = () => {
     timer.current = setInterval(() => {
-      swipe(500)
+      const i = idxRef.current + 1;
+      swipe(i, 500)
     }, 2500);
   }
 
+  const clear = () => {
+    clearInterval(timer.current);
+    timer.current = null
+  }
 
   useEffect(() => {
-    setStyle(0, 0)
-    autoplay();
-  }, []);
+    setStyle(inititalIndex!, 0)
+    autoplay && startAutoplay();
+    return clear;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoplay, inititalIndex]);
 
   // 31231
   const renderContent = () => {
@@ -73,7 +124,7 @@ const Swiper: React.FC<{ children: React.ReactNode[] }> = ({ children }) => {
     return (
       <div className="pagination">
         {new Array(count).fill(0).map((item, i) => (
-          <div 
+          <div
             className={['pagination_item', i === idx ? 'active' : ''].join(' ')}
             onClick={() => {
               updateIdx(i)
@@ -86,46 +137,73 @@ const Swiper: React.FC<{ children: React.ReactNode[] }> = ({ children }) => {
     )
   }
 
+  const swipeTo = (i: number) => {
+    clear();
+    swipe(i, 500);
+    setTimeout(() => {
+      startAutoplay()
+    }, 100);
+  }
+
+  const next = () => {
+    const i = idxRef.current + 1;
+    swipeTo(i);
+  }
+
+  const prev = () => {
+    const i = idxRef.current - 1;
+    swipeTo(i);
+  }
+
+  useImperativeHandle(ref, () => ({
+    next,
+    prev,
+    swipeTo
+  }));
+
   return (
     <div className="swiper">
       <div className="swiper_items" ref={swiperItems}>
         {renderContent()}
       </div>
-      {renderPagation()}
+      {showPagation && renderPagation()}
     </div>
   )
-}
+});
 
 function App() {
+  const swiperRef = useRef<ISwiperFn>(null)
+
   return (
     <div className='App'>
-      <Swiper>
-        <SwiperItem>
-          <div className="phone">
-            <div className="phone_title">xPhone</div>
-            <div className="phone_intro">
-              <p>Lots to love. Less to spend.</p>
-              <p>Starting at $399.</p>
+      <div className="btns">
+        <button onClick={() => swiperRef?.current?.prev()}>prev</button>
+        <button onClick={() => swiperRef?.current?.next()}>next</button>
+        <button onClick={() => swiperRef?.current?.swipeTo(2)}>swipe to</button>
+      </div>
+
+      <Swiper
+        inititalIndex={0}
+        autoplay={true}
+        showPagation={true}
+        onChange={(i: number) => {
+          // console.log(i, 'i');
+        }}
+        ref={swiperRef}
+      >
+        {swipeData.map((item, i) => (
+          <SwiperItem key={i}>
+            <div className={`${item.type}`}>
+              {item.title && <div className={`${item.type}_title`}>{item.title}</div>}
+              <div className={`${item.type}_intro`}>
+                {item.intro.map((text, idx) => (
+                  <p key={idx}>{text}</p>
+                ))}
+              </div>
+              <div className={`${item.type}_img`} />
             </div>
-            <div className="phone_img" />
-          </div>
-        </SwiperItem>
-        <SwiperItem>
-          <div className="tablet">
-            <div className="tablet_title">Tablet</div>
-            <div className="tablet_intro">Just the right amount of everything</div>
-            <div className="tablet_img" />
-          </div>
-        </SwiperItem>
-        <SwiperItem>
-          <div className="airpods">
-            <div className="airpods_intro">
-              <p>Buy a Tablet or xPhone for college.</p>
-              <p>Get ariPods.</p>
-            </div>
-            <div className="airpods_img" />
-          </div>
-        </SwiperItem>
+          </SwiperItem>
+        ))}
       </Swiper>
     </div>
   );
