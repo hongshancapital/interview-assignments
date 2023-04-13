@@ -3,7 +3,7 @@ import express, {Request, Response} from "express";
 import {nanoid} from "nanoid";
 import dbConnect from "../lib";
 import redis from '../lib/redis';
-import {SHORT_DOMAIN} from "../constants";
+import {LONG_DOMAIN, SHORT_DOMAIN} from "../constants";
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.post("/api/shortUrls", async (req: Request, res: Response) => {
     await dbConnect();
 
     // url -> shortURL 通过缓存防止恶意提交
-    const url = await redis.get(SHORT_DOMAIN + longUrl);
+    const url = await redis.get(LONG_DOMAIN + longUrl);
     if (url) {
         console.info('命中缓存')
         return res.send({url});
@@ -33,7 +33,7 @@ app.post("/api/shortUrls", async (req: Request, res: Response) => {
         shortUrl,
     });
     await newUrl.save();
-    await redis.set(SHORT_DOMAIN + longUrl, shortUrl, 'EX', 6000);
+    await redis.set(LONG_DOMAIN + longUrl, shortUrl, 'EX', 6000);
 
     res.send({shortUrl});
 });
@@ -41,11 +41,21 @@ app.post("/api/shortUrls", async (req: Request, res: Response) => {
 // 短链接读取接口
 app.get("/:shortUrl", async (req: Request, res: Response) => {
     const {shortUrl} = req.params;
+
+    // shortURL -> longURL
+    const url = await redis.get(LONG_DOMAIN + shortUrl);
+    if (url) {
+        console.info('短域名命中缓存')
+        return res.redirect(url);
+    }
+
+
     await dbConnect();
     const existingUrl: UrlDocument | null = await UrlModel.findOne({shortUrl}).exec() as UrlDocument;
     const {
-        longUrl
+        longUrl,shortUrl:shortURLValue
     } = existingUrl;
+    await redis.set(LONG_DOMAIN + shortURLValue, longUrl, 'EX', 6000);
 
     if (existingUrl) {
         res.redirect(longUrl);
