@@ -24,7 +24,7 @@
   font-size: 15px;
 }
 
-.pagination {
+.dots {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,7 +38,7 @@
   box-sizing: border-box;
 }
 
-.pagination .pagination_item {
+.dots .dots_item {
   position: relative;
   width: 50px;
   height: 2px;
@@ -46,7 +46,7 @@
   border-radius: 30px;
 }
 
-.pagination .pagination_item::after {
+.dots .dots_item .inner_dots_item {
   position: absolute;
   top: 0;
   left: 0;
@@ -56,6 +56,7 @@
   height: 100%;
   background-color: #fff;
   border-radius: 30px;
+  animation: none;
 }
 
 @keyframes widthAni {
@@ -68,7 +69,7 @@
   }
 }
 
-.pagination .pagination_item.active::after {
+.dots .dots_item .inner_dots_item.active {
   animation: widthAni 2.5s 1 linear forwards;
 }
 

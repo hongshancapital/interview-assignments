@@ -8,11 +8,11 @@ const swipeData = [{
 }, {
   type: 'tablet',
   title: 'Tablet',
-  intro: ['Just the right amount of everything']
+  intro: ['Just the right amount of everything.']
 }, {
   type: 'airpods',
   title: '',
-  intro: ['Buy a Tablet or xPhone for college.', 'Get ariPods.']
+  intro: ['Buy a Tablet or xPhone for college.', 'Get AirPods.']
 }]
 
 const SwiperItem: React.FC<{ children?: React.ReactNode; }> = ({ children }) => {
@@ -43,7 +43,7 @@ const Swiper = forwardRef<ISwiperFn, ISwiperProps>(({
   const [idx, setIdx] = useState(inititalIndex || 0);
   const idxRef = useRef(inititalIndex || 0);
   const swiperItems = useRef<HTMLDivElement>(null)
-
+  const dotsRef = useRef<HTMLDivElement>(null)
   const timer: any = useRef(null);
 
   const count = useMemo(() => React.Children.count(children), [children]);
@@ -64,7 +64,7 @@ const Swiper = forwardRef<ISwiperFn, ISwiperProps>(({
       setTimeout(() => {
         updateIdx(0)
         setStyle(0, 500)
-      }, 0);
+      }, 100);
     }
 
     if(idxRef.current < 0) {
@@ -73,7 +73,7 @@ const Swiper = forwardRef<ISwiperFn, ISwiperProps>(({
       setTimeout(() => {
         updateIdx(count - 1)
         setStyle(count - 1, 500)
-      }, 0);
+      }, 100);
     }
   }
 
@@ -120,18 +120,28 @@ const Swiper = forwardRef<ISwiperFn, ISwiperProps>(({
     return newItems;
   }
 
-  const renderPagation = () => {
+  const renderDots = () => {
     return (
-      <div className="pagination">
+      <div className="dots">
         {new Array(count).fill(0).map((item, i) => (
           <div
-            className={['pagination_item', i === idx ? 'active' : ''].join(' ')}
+            className="dots_item"
             onClick={() => {
               updateIdx(i)
               setStyle(i, 500)
             }}
             key={i}
-          />
+          >
+            <div
+              className={['inner_dots_item', i === idx ? 'active' : ''].join(' ')}
+              ref={dotsRef}
+              onAnimationEnd={() => {
+                const i = idxRef.current + 1;
+                swipeTo(i);
+                startAutoplay();
+              }}
+            />
+          </div>
         ))}
       </div>
     )
@@ -140,9 +150,6 @@ const Swiper = forwardRef<ISwiperFn, ISwiperProps>(({
   const swipeTo = (i: number) => {
     clear();
     swipe(i, 500);
-    setTimeout(() => {
-      startAutoplay()
-    }, 100);
   }
 
   const next = () => {
@@ -166,7 +173,7 @@ const Swiper = forwardRef<ISwiperFn, ISwiperProps>(({
       <div className="swiper_items" ref={swiperItems}>
         {renderContent()}
       </div>
-      {showPagation && renderPagation()}
+      {showPagation && renderDots()}
     </div>
   )
 });
