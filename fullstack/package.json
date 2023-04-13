@@ -1,0 +1,57 @@
+{
+  "name": "fullstack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "TS_NODE_PROJECT=\"tsconfig.json\" NODE_ENV='development' npx ts-node src/www.ts",
+    "build": "npx tsc --build tsconfig.server.json && npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client --ssrManifest",
+    "build:server": "vite build --ssr src/client/entry-server.tsx --outDir dist/client/server-bundle",
+    "start": "pm2 start ecosystem.config.js --env production"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^3.1.0",
+    "axios": "^1.3.5",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jest": "^29.5.0",
+    "mongoose": "^7.0.3",
+    "nanoid": "3",
+    "pm2": "^5.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/compression": "^1.7.2",
+    "@types/express": "^4.17.17",
+    "@types/react": "^18.0.34",
+    "@types/react-dom": "^18.0.11",
+    "@types/supertest": "^2.0.12",
+    "chai": "^4.3.7",
+    "nodemon": "^2.0.22",
+    "react-refresh": "^0.14.0",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "test/*",
+      "docs/*"
+    ],
+    "delay": "2500",
+    "execMap": {
+      "ts": "node  --require ts-node/register"
+    },
+    "watch": [
+      "./src"
+    ],
+    "ext": "ts tsx"
+  }
+}
