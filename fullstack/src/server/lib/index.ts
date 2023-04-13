@@ -36,10 +36,11 @@ async function dbConnect () {
             // useCreateIndex: true
         }
 
-        cached.promise = mongoose.connect(MONGODB_URI, opts).then(mongoose => {
-            console.log('db connect success')
-            return mongoose
-        }).catch(e=>console.log('db connect error',e));
+        cached.promise = mongoose.connect(MONGODB_URI, opts)
+            .then((connection:any) => {
+                console.info('db connect success');
+                return connection;
+            }).catch(e=>console.error('db connect error',e));
     }
     cached.conn = await cached.promise
     return cached.conn

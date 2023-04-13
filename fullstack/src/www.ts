@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 
+// .evn 公共环境变量读取，优先执行
 dotenv.config();
 
 import express from 'express';
@@ -8,10 +9,6 @@ import bodyParser from 'body-parser';
 import * as path from "path";
 import * as fs from "fs";
 import compression from "compression";
-import serveStatic from "serve-static";
-
-
-
 
 const app = express();
 const PORT = 3000;
@@ -19,13 +16,17 @@ const HMR_PORT = 3001;
 const isDev = process.env.NODE_ENV === 'development';
 
 
-export async function createServer() {
 
-    app.use('/api', bodyParser.json());
 
+export async function createViteServer() {
+
+    // api route 注册及中间件配置
+    app.use(bodyParser.json());
     app.use(api_router);
 
-    const vite =  await (
+    // SSR service 注册及处理包裹在vite启动逻辑中
+
+    const vite = await (
         await import('vite')
     ).createServer({
         root: process.cwd(),
@@ -38,8 +39,8 @@ export async function createServer() {
         appType: 'custom',
     });
 
-    app.use(vite.middlewares);
-    if(!isDev) {
+    app.use(vite.middlewares); // vite production 静态资源、dev 静态资源 中间价
+    if (!isDev) {
 
         console.log('production')
         app.use(compression());
@@ -47,22 +48,23 @@ export async function createServer() {
             express.static(path.resolve(__dirname, 'client'))
         );
     }
-
     app.get("*", async (req, res, next) => {
         try {
             const url = req.originalUrl;
-            let template = fs.readFileSync(isDev?
-                path.resolve(__dirname, '../index.html'):
+            let template = fs.readFileSync(isDev ?
+                    path.resolve(__dirname, '../index.html') :
                     path.resolve(__dirname, "./client/index.html")
                 , 'utf-8');
             template = await vite.transformIndexHtml(url, template);
-            const { render } = await vite.ssrLoadModule(
-                isDev?
-                path.resolve(__dirname, "./client/entry-server.tsx"):
+            const {render} = await vite.ssrLoadModule(
+                isDev ?
+                    path.resolve(__dirname, "./client/entry-server.tsx") :
                     path.resolve(__dirname, "./client/server-bundle/entry-server.mjs")
             )
             const appHtml = render(url);
             const html = template.replace(`<!--app-html-->`, appHtml)
+
+            // SSR 渲染 html string
             return res.status(200).set({'Content-Type': 'text/html'}).end(html);
         } catch (e) {
             isDev && vite.ssrFixStacktrace(e)
@@ -70,16 +72,11 @@ export async function createServer() {
         }
     });
 
-
     return {app, vite}
 }
 
-createServer().then(({app}: any) =>
-    app.listen(PORT, () => {
-        console.log('http://localhost:' + PORT)
-    }),
-)
+createViteServer().then(({app}: any) =>  app.listen(PORT, () => {
+    console.log('server start http://localhost:' + PORT)
+}))
 
-
-export default app;
 

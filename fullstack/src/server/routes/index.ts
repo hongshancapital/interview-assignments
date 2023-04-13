@@ -7,12 +7,13 @@ const app = express();
 
 // 短链接存储接口
 app.post("/api/shortUrls", async (req: Request, res: Response) => {
-    console.log('api')
     const {longUrl} = req.body;
     await dbConnect();
-    const existingUrl:UrlDocument | null = await UrlModel.findOne({longUrl}).exec();
+    const existingUrl:UrlDocument | null = await UrlModel.findOne({longUrl}).exec() as UrlDocument;
     if (existingUrl) {
-        res.send({shortUrl: existingUrl.shortUrl});
+        res.send({
+            shortUrl: existingUrl.shortUrl
+        });
         return;
     }
     const shortUrl = nanoid(6);
@@ -28,7 +29,7 @@ app.post("/api/shortUrls", async (req: Request, res: Response) => {
 app.get("/:shortUrl", async (req: Request, res: Response) => {
     const {shortUrl} = req.params;
     await dbConnect();
-    const existingUrl: UrlDocument | null = await UrlModel.findOne({shortUrl}).exec();
+    const existingUrl: UrlDocument | null = await UrlModel.findOne({shortUrl}).exec() as UrlDocument;
     if (existingUrl) {
         res.redirect(existingUrl.longUrl);
     } else {
