@@ -7,12 +7,8 @@ class CardViewModel: ObservableObject {
     
     init(model: CardModel) {
         self.model = model
-        self.isLiked = false
-    }
-    
-    func updateLikeState() {
         let likedData = UserDefaults.CardList.likedData.stringArrayValue
-        isLiked = likedData?.contains(where: { $0 == model.bundleId }) ?? false
+        self.isLiked = likedData?.contains(where: { $0 == model.bundleId }) ?? false
     }
     
     func likeAction() {

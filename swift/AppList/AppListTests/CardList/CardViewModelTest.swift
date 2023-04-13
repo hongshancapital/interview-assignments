@@ -11,30 +11,29 @@ final class CardViewModelTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testCheckLikeStateWhenNoDataInUserDefaults() throws {
+    func testInitWhenUnliked() throws {
         let viewModel = CardViewModel.notInUserDefaults
-        viewModel.updateLikeState()
         XCTAssertFalse(viewModel.isLiked)
     }
     
-    func testCheckLikeStateWhenDataInUserDefaults() throws {
+    func testInitWhenLiked() throws {
+        let bundleId = "bundleId"
+        var likedData = UserDefaults.CardList.likedData.stringArrayValue
+        if !(likedData?.contains(bundleId) ?? false) {
+            likedData?.append(bundleId)
+        }
+        UserDefaults.CardList.likedData.set(likedData)
         let viewModel = CardViewModel.mockViewModel
-        viewModel.likeAction()
-        viewModel.updateLikeState()
         XCTAssertTrue(viewModel.isLiked)
     }
     
-    func testCheckLikeStateWithOneLikeAction() throws {
-        let viewModel = CardViewModel.oneClick
+    func testClickLikeAction() throws {
+        let viewModel = CardViewModel.click
+        let isLiked = viewModel.isLiked
         viewModel.likeAction()
-        XCTAssertTrue(viewModel.isLiked)
-    }
-    
-    func testCheckLikeStateWithTwoLikeAction() throws {
-        let viewModel = CardViewModel.twiceClick
+        XCTAssertEqual(isLiked, !viewModel.isLiked)
         viewModel.likeAction()
-        viewModel.likeAction()
-        XCTAssertFalse(viewModel.isLiked)
+        XCTAssertEqual(isLiked, viewModel.isLiked)
     }
 }
 
@@ -53,15 +52,8 @@ extension CardViewModel {
                                        artworkUrl60: URL(string: "https://about:blank")!))
     }
     
-    static var oneClick: CardViewModel {
+    static var click: CardViewModel {
         CardViewModel(model: CardModel(bundleId: "oneClick",
-                                       artistName: "name",
-                                       description: "description",
-                                       artworkUrl60: URL(string: "https://about:blank")!))
-    }
-    
-    static var twiceClick: CardViewModel {
-        CardViewModel(model: CardModel(bundleId: "twiceClick",
                                        artistName: "name",
                                        description: "description",
                                        artworkUrl60: URL(string: "https://about:blank")!))

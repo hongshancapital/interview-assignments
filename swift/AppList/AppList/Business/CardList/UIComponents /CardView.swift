@@ -33,8 +33,5 @@ struct CardView: View {
         .clipShape(
             RoundedRectangle(cornerRadius: .CornerRadius.two, style: .continuous)
         )
-        .onAppear {
-            viewModel.updateLikeState()
-        }
     }
 }
