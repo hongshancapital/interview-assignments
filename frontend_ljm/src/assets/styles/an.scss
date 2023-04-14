@@ -21,3 +21,66 @@
 ));
 @include animation(anMeinv 2s ease-out forwards);
 */
+$browserPrefix: ('-webkit-','-moz-','-ms-','-o-','');
+@mixin transition( $obj ){
+    @each $i in $browserPrefix{
+        #{ $i }transition: $obj;
+    }
+}
+@mixin transform( $obj ){
+    @each $i in $browserPrefix{
+        #{ $i }transform: $obj;
+    }
+}
+@mixin animation( $obj ){
+    @each $i in $browserPrefix{
+        #{ $i }animation: $obj;
+    }
+}
+@mixin keyframes( $name, $obj ){
+    @-webkit-keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $val2 in $val{
+                    #{ $j}: $val2;
+                }
+            }
+        }
+    }
+    @-moz-keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $val2 in $val{
+                    #{ $j }: $val2;
+                }
+            }
+        }
+    }
+    @-ms-keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $val2 in $val{
+                    #{ $j }: $val2;
+                }
+            }
+        }
+    }
+    @-o-keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $val2 in $val{
+                    #{ $j }: $val2;
+                }
+            }
+        }
+    }
+    @keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $v in $val{
+                    #{ $j}: $v;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+@charset "UTF-8";
+@import "./an.scss";
+.swiper-pagination {
+  span.swiper-pagination-bullet {
+    width: 30px;
+    border-radius: 3px;
+  }
+  span.swiper-pagination-bullet-active {
+    background: none;
+    position: relative;
+    &:before{
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0;
+      border-radius: 3px;
+      background: #fff;
+      @include keyframes(anMeinv,(
+          0%:(
+              width: 10%,
+          ),
+          50%:(
+              width: 50%,
+          ),
+          75%:(
+              width: 70%,
+          ),
+          100%:(
+              width: 100%,
+          )
+      ));
+      @include animation(anMeinv .5s ease-out forwards);
+    }
+  }
+}
