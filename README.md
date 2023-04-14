@@ -17,6 +17,9 @@
 - [TypeScript Backend](backend/)
 - [TypeScript Fullstack(偏 Backend)](fullstack/)
 
+深圳/香港:
+- [Support Engineer](it-support-engineer/)
+
 链接中有更为具体的 JD。
 
 ## interview-assignments
