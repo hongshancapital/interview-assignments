@@ -1,6 +1,6 @@
 import { Children, ReactElement, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { isNumber, isUndefined } from "../util";
-import { useResizeObserver } from "../../../hooks/useResizeObserver";
+import useResizeObserver from "../../../hooks/useResizeObserver";
 import useInterval from "../../../hooks/useInterval";
 import { ForwardRefRenderFunction } from "react";
 

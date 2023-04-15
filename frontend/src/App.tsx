@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Carousel height="100vh" ref={carouselRef} autoplay={false}>
+      <Carousel height="100vh" ref={carouselRef}>
         <Carousel.Item>
           <div className='goods-item phone'>
             <h2 className='title'>xPhone</h2>

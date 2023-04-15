@@ -2,7 +2,7 @@ import { RefObject, useEffect, useRef } from "react";
 
 type ResizeHandler = (rect: DOMRectReadOnly) => void;
 
-export function useResizeObserver<T extends Element>(ref: RefObject<T>, onResize: ResizeHandler) {
+export default function useResizeObserver<T extends Element>(ref: RefObject<T>, onResize: ResizeHandler) {
     const onResizeRef = useRef<ResizeHandler | null>(null);
     const resizeObserverRef = useRef<ResizeObserver>();
 
