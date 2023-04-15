@@ -7,7 +7,7 @@
  * @LastEditTime: 2023-04-12 22:27:22
  */
 
-import React, { memo } from "react";
+import React  from "react";
 import "./index.css";
 import { BaseCompProps } from "../types";
 import { useCarouselContext } from "../CarouselContext";
