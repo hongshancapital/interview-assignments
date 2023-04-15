@@ -1,0 +1,43 @@
+@keyframes process-bar-slide {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@-webkit-keyframes process-bar-slide {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.process-bar {
+    display: flex;
+}
+
+.process-bar-item {
+    width: 40px;
+    height: 3px;
+    background-color: rgba(238, 238, 238, 0.8);
+    border-radius: 3px;
+
+}
+
+.process-bar-item:not(:nth-of-type(1)) {
+    margin-left: 5px;
+}
+
+.process-bar-item-inner {
+    height: 100%;
+    border-radius: 3px;
+    animation: process-bar-slide 4s linear;
+    -webkit-animation: process-bar-slide 4s linear;
+    background: #ffffff;
+}
