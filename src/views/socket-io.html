@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Socket.io Client</title>
+</head>
+
+<body>
+  <h2>Socket.io Demo</h2>
+  <p>Click the button to send message to server. You can find the message in the server terminal logs.
+    And then, the answer from the server will show here.</p>
+  <p>PS. You can enter the command <code>ping()</code> at the console to test the WebSocket speed.</p>
+
+  <button type="button" onclick="send()">Click Me to Send a Message</button>
+  <ul id="list"></ul>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    window.socket = io()
+    socket.on('msg', (data) => log('Response: ' + data))
+
+    function log (text) {
+      const li = document.createElement('li')
+      li.innerText = text
+      list.appendChild(li)
+    }
+
+    function send () {
+      const now = Date.now()
+      socket.emit('msg', {message: 'clicked at ' + now})
+      log('Send: ' + now)
+    }
+
+    // just like the cmd `ping`, used for testing the network speed
+    window.ping = (count = 10, timeout = 1.5e4, debug = false, delay = 0) => {
+      const socket = io({transports: ['websocket']})
+      let [min, max, sum, num] = [99999, 0, 0, 0]
+      let lastId, fail = 0, timer, now = Date.now()
+      const convert = (num) => parseFloat(num / 1e3).toFixed(2)
+      const next = () => {
+        if (++num < count) {
+          send()
+        } else {
+          socket.off('PONG', onReceive)
+          socket.close()
+          console.log(`COUNT ${num}  FAIL ${fail}  MIN ${convert(min)}s  MAX ${convert(max)}s  AVG ${convert(sum / (num - fail))}s`)
+        }
+      }
+      const send = (init) => {
+        lastId = Date.now() % 1e5
+        socket.emit('PING', init ? {delay, debug, id: lastId} : lastId)
+        timer = setTimeout(() => {
+          if (timer) {
+            console.log(`PING  ${lastId}  TIMEOUT`)
+            fail++
+            next()
+          }
+        }, timeout)
+      }
+      const onReceive = (id) => {
+        if (id !== lastId) { return }
+        if (timer) { clearTimeout(timer); timer = 0 }
+        const duration = (Date.now() - id) % 1e5
+        if (duration < min) { min = duration }
+        if (duration > max) { max = duration }
+        sum += duration
+        console.log(`PING  ${id}  ${convert(duration)}s`)
+        next()
+      }
+      socket.on('PONG', onReceive)
+      socket.on('connect', () => console.log(`Connected after ${convert(Date.now() - now)}s`))
+      send(true)
+    }
+  </script>
+</body>
+</html>
