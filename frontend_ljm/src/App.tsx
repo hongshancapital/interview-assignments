@@ -1,9 +1,11 @@
-import React from 'react';
-import { RecoilRoot } from "recoil";
-import Router from "@/router/";
-const App = () => (
-    <RecoilRoot>
-      <Router />
-    </RecoilRoot>
-)
+import { useState } from 'react'
+import Carousel from '@com/Carousel/';
+function App() {
+  return (
+    <div className="App">
+      <Carousel/>
+    </div>
+  )
+}
+
 export default App;

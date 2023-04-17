@@ -1,13 +1,12 @@
-import React, { memo, useState, useEffect  } from 'react';
+import React, { memo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper';
 import p1 from '@/assets/img/p2.jpeg';
 import p2 from '@/assets/img/p3.jpeg';
 import p3 from '@/assets/img/p1.webp';
 interface Props {
 }
-const View: React.FC<Props> = (props) => {
-    const [currentImage, setCurrentImage] = useState(0);
+const Com: React.FC<Props> = (props) => {
     const images = [p1, p2, p3];
     return (
       <div className="w-full h-screen flex justify-center items-center">
@@ -16,7 +15,7 @@ const View: React.FC<Props> = (props) => {
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={50}
         slidesPerView={1}
-        navigation={{ clickable: true }}
+        navigation={{ enabled: true }}
         pagination={{ type: 'bullets',clickable: true }}
         loop={true}
         autoplay={{ delay: 3000 }}
@@ -30,4 +29,4 @@ const View: React.FC<Props> = (props) => {
     </div>
     )
 }
-export default memo(View);
+export default memo(Com);
