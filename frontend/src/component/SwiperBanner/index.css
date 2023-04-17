@@ -1,0 +1,109 @@
+/* 外层容器 */
+.banner-container {
+    margin: 200px auto 0;
+    width: 600px;
+    min-height: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.swiper-content {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    min-width: 100%;
+    display: flex;
+    transition: left .5s ease;
+    z-index: 1;
+}
+
+.swiper-item {
+    width: 100%;
+    flex: 0 0 100%;
+    background: rgba(0, 0, 0, .6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #fff;
+}
+
+.swiper-item:nth-of-type(odd) {
+    opacity: .8;
+}
+
+.btn {
+    position: absolute;
+    background: green;
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 0;
+    z-index: 2;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.btn-pre {
+    left: 10px;
+}
+
+.btn-next {
+    right: 10px
+}
+
+.swiper-navigation {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+}
+
+.navgation-bar {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.bar-item {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 4px;
+    background: gray;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.slide-footer {
+    position: absolute;
+    display: none;
+    width: 0px;
+    height: 100%;
+    background: #fff;
+    left: 0;
+
+}
+
+.bar-item.active .slide-footer {
+    display: block;
+    animation: slideAnimate 2s infinite;
+}
+
+@keyframes slideAnimate {
+
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+
+}
