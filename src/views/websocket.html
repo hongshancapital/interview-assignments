@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WebSocket Test</title>
+</head>
+<body>
+  <h2>WebSocket Demo</h2>
+  <p>You can enter the command <code>ping()</code> at the console to test the WebSocket speed.</p>
+  <button type="button" onclick="send()">Click Me to Send a Message</button>
+  <ul id="list"></ul>
+
+  <script>
+    const wsUri = `ws://${location.host}/websocket`
+    // const wsUri = 'wss://echo.websocket.org/'
+    window.socket = new WebSocket(wsUri)
+    socket.onopen = evt => log('CONNECTED')
+    socket.onclose = evt => log('DISCONNECTED')
+    socket.onmessage = evt => log(`<span style="color:blue;">RESPONSE: ${evt.data}</span>`)
+    socket.onerror = evt => log(`<span style="color:red;">ERROR: ${evt.data}</span>`)
+
+    function log (text) {
+      const li = document.createElement('li')
+      li.innerHTML = text
+      list.appendChild(li)
+    }
+  
+    function send() {
+      const message = `{"t": "PING", "d": ${Date.now()}}`
+      log('SENT: ' + message)
+      socket.send(message)
+    }
+
+    window.ping = (count = 10, timeout = 1.5e4, debug = false, delay = 0) => {
+      const socket = new WebSocket(wsUri)
+      const now = Date.now()
+      socket.onopen = evt => {
+        console.log(`Connected after ${convert(Date.now() - now)}s`)
+        send(true)
+      }
+      let [min, max, sum, num] = [99999, 0, 0, 0]
+      let lastId, fail = 0, timer
+      const convert = (num) => parseFloat(num / 1e3).toFixed(2)
+      const next = () => {
+        if (++num < count) {
+          send()
+        } else {
+          socket.removeEventListener('message', onReceive)
+          socket.close()
+          console.log(`COUNT ${num}  FAIL ${fail}  MIN ${convert(min)}s  MAX ${convert(max)}s  AVG ${convert(sum / (num - fail))}s`)
+        }
+      }
+      const send = (init) => {
+        lastId = Date.now() % 1e5
+        socket.send(init ? JSON.stringify({t: 'PING', d: {delay, debug, d: lastId}}) : `{"t": "PING", "d": ${lastId}}`)
+        timer = setTimeout(() => {
+          if (timer) {
+            console.log(`PING  ${lastId}  TIMEOUT`)
+            fail++
+            next()
+          }
+        }, timeout)
+      }
+      const onReceive = (evt) => {
+        let res
+        try { res = JSON.parse(evt.data) } catch (error) { return }
+        const id = res.d.d || res.d
+        if (id !== lastId) { return }
+        if (timer) { clearTimeout(timer); timer = 0 }
+        const duration = (Date.now() - id) % 1e5
+        if (duration < min) { min = duration }
+        if (duration > max) { max = duration }
+        sum += duration
+        console.log(`PING  ${id}  ${convert(duration)}s`)
+        next()
+      }
+      socket.addEventListener('message', onReceive)
+    }
+  </script>
+</body>
+</html>

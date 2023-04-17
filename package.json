@@ -1,0 +1,44 @@
+{
+  "name": "koa-mongo",
+  "version": "v0.1.0",
+  "description": "Koa2 + MongoDB + TypeScript",
+  "main": "index.js",
+  "author": "Gavin Wang",
+  "license": "MIT",
+  "scripts": {
+    "nodemon": "nodemon -e ts -w src --exec 'tsc && node --inspect dist/app.js'",
+    "start": "npm run nodemon",
+    "dev": "npm run nodemon"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "config": "^3.3.3",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-compose": "^4.1.0",
+    "koa-jwt": "^4.0.0",
+    "koa-logger": "^3.2.0",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.11.15",
+    "ws": "^7.4.3"
+  },
+  "devDependencies": {
+    "@types/config": "0.0.38",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-multer": "^1.0.0",
+    "@types/koa-router": "^7.4.1",
+    "@types/node": "^14.14.24",
+    "@types/ws": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "eslint": "^7.19.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-typescript": "^0.14.0",
+    "typescript": "^4.1.3"
+  }
+}
