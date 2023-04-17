@@ -1,14 +1,46 @@
 .App {
-  text-align: center;
   position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
 }
-
-.title {
-  font-size: 56px;
-  font-weight: 600;
+.carousel-item {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
 }
-
-.text {
-  font-size: 28px;
-  font-weight: 400;
+.carousel-item-bg {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 450px;
+  width: 600px;
+  background-position: center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+.carousel-item-title {
+  position: relative;
+  font-size: 30px;
+  margin: 80px 0 0;
+}
+.carousel-item-desc {
+  margin-top: 20px;
+  position: relative;
+  font-size: 20px;
+  line-height: 20px;
+  outline: none;
+}
+.carousel-item-black .carousel-item-title {
+  color: #fff;
+}
+.carousel-item-black .carousel-item-desc {
+  color: #fff;
+}
+.carousel-item-desc.carousel-item-desc-large {
+  font-size: 26px;
+  font-weight: 700;
 }

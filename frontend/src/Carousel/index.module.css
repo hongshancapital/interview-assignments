@@ -1,0 +1,62 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+.carousel .carousel_track_wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.carousel .carousel_track_wrapper .carousel_track {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    flex-direction: row;
+    height: 100%;
+    transition: transform 0.5s linear;
+}
+.carousel .carousel_item {
+    position: relative;
+    height: 100%;
+    flex-shrink: 0;
+}
+.carousel .carousel_indicator_wrapper {
+    position: absolute;
+    height: 20%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    transform: translateY(-100%);
+    z-index: 10;
+}
+.carousel .carousel_indicator_item {
+    position: relative;
+    width: 30px;
+    height: 2px;
+    display: block;
+    background-color: #bcbcbc;
+    border-radius: 2px;
+}
+.carousel .carousel_indicator_item+.carousel_indicator_item {
+    margin-left: 10px;
+}
+.carousel .carousel_indicator_progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    content: "";
+    width: 0;
+    height: 100%;
+    background-color: #fff;
+}
+.carousel .carousel_indicator_progress_active {
+    width: 100%;
+    transition-property: width;
+    transition-timing-function: linear;
+    transition-duration: 3s;
+}
