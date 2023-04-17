@@ -1,0 +1,86 @@
+@charset "UTF-8";
+/**
+使用方法
+@include keyframes(anMeinv,(
+    0%:(
+        background: url(i/meinv.png) no-repeat pxToRem(140) pxToRem(11),
+        background-size: pxToRem(165) pxToRem(157)
+    ),
+    50%:(
+        background: url(i/meinv.png) no-repeat pxToRem(140) pxToRem(11),
+        background-size: pxToRem(265) pxToRem(257)
+    ),
+    75%:(
+        background: url(i/meinv.png) no-repeat pxToRem(140) pxToRem(11),
+        background-size: pxToRem(565) pxToRem(657)
+    ),
+    100%:(
+        background: url(i/meinv.png) no-repeat pxToRem(140) pxToRem(11),
+        background-size: pxToRem(465) pxToRem(557)
+    )
+));
+@include animation(anMeinv 2s ease-out forwards);
+*/
+$browserPrefix: ('-webkit-','-moz-','-ms-','-o-','');
+@mixin transition( $obj ){
+    @each $i in $browserPrefix{
+        #{ $i }transition: $obj;
+    }
+}
+@mixin transform( $obj ){
+    @each $i in $browserPrefix{
+        #{ $i }transform: $obj;
+    }
+}
+@mixin animation( $obj ){
+    @each $i in $browserPrefix{
+        #{ $i }animation: $obj;
+    }
+}
+@mixin keyframes( $name, $obj ){
+    @-webkit-keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $val2 in $val{
+                    #{ $j}: $val2;
+                }
+            }
+        }
+    }
+    @-moz-keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $val2 in $val{
+                    #{ $j }: $val2;
+                }
+            }
+        }
+    }
+    @-ms-keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $val2 in $val{
+                    #{ $j }: $val2;
+                }
+            }
+        }
+    }
+    @-o-keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $val2 in $val{
+                    #{ $j }: $val2;
+                }
+            }
+        }
+    }
+    @keyframes #{ $name }{
+        @each $i, $val in $obj{
+            #{ $i }{
+                @each $j, $v in $val{
+                    #{ $j}: $v;
+                }
+            }
+        }
+    }
+}
