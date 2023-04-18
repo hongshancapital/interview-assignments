@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { useCallback, useEffect, useRef } from 'react';
 
-export type CarouselItemProps = Partial<{
-  header: React.ReactNode;
-  subHeader: React.ReactNode;
-}> &
-  React.LiHTMLAttributes<HTMLLIElement>;
+export type CarouselItemProps = React.LiHTMLAttributes<HTMLLIElement> &
+  Partial<{
+    header: React.ReactNode;
+    subHeader: React.ReactNode;
+  }>;
 
 const CarouselItem: React.FC<CarouselItemProps> = ({
   header,
@@ -28,11 +28,12 @@ const CarouselItem: React.FC<CarouselItemProps> = ({
 export type CarouselProps = {
   data: readonly CarouselItemProps[];
   duration?: number;
-};
+} & React.HTMLAttributes<HTMLLIElement>;
 
 export const Carousel: React.FC<CarouselProps> = ({
   data,
   duration = 3000,
+  className,
 }) => {
   const carouselContainerRef = useRef<HTMLUListElement>(null);
   const slidesElementsRef = useRef<Map<number, HTMLElement | null>>(new Map());
@@ -94,7 +95,7 @@ export const Carousel: React.FC<CarouselProps> = ({
   }, [calculateActive, calculateProcess]);
 
   return (
-    <div className="carousel w-full h-full">
+    <div className={clsx(className, 'carousel w-full h-full')}>
       <div className="w-full h-full overflow-hidden relative">
         <ul
           className="carousel-item-container whitespace-nowrap w-full h-full transition-transform linear duration-[.5s]"
