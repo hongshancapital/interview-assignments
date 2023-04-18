@@ -2,19 +2,17 @@ import React, { useState, useEffect } from 'react';
 import './index.css'
 
 interface CarouselProps {
-  data?: { bgColor?: string, image: string, text: React.ReactNode }[]; // 轮播数据
+  data?: { image: string, text: React.ReactNode }[]; // 轮播数据
   interval?: number; // 轮播间隔，默认3s
 }
 
 const Carousel1: React.FC<CarouselProps> = ({ data = [], interval = 3 }) => {
   // 当前展示的轮播图索引
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
 
   // 改变当前索引及动画效果
   const slideFn = (idx: number) => {
     setCurrentIndex(idx);
-    setTranslateX(-(idx) * 100);
   };
 
   useEffect(() => {
@@ -34,11 +32,11 @@ const Carousel1: React.FC<CarouselProps> = ({ data = [], interval = 3 }) => {
     <div className="carousel-wrapper">
       <div
         className="carousel"
-        style={{ transform: `translateX(${translateX}vw)`, transition: 'transform 0.5s' }}
+        style={{ transform: `translateX(${ -currentIndex * 100}vw)`, transition: 'transform 0.5s' }}
       >
         {
           data.map((item, index) => (
-            <div className="carousel-item" key={index} style={{ backgroundColor: item.bgColor}}>
+            <div className="carousel-item" key={index}>
               <div className='carousel-item-text'>{item.text}</div>
               <img src={item.image} alt={`img-${index}`} />
             </div>

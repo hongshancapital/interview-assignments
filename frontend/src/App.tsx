@@ -8,7 +8,6 @@ function App() {
   // 轮播图传入数据
   const data = [
     {
-      bgColor: '#000',
       image: img1,
       text: (
         <>
@@ -18,7 +17,6 @@ function App() {
       )  
     },
     {
-      bgColor: '#fff',
       image: img2,
       text: (
         <>
@@ -28,7 +26,6 @@ function App() {
       )
     },
     {
-      bgColor: '#666',
       image: img3,
       text: (
         <>
