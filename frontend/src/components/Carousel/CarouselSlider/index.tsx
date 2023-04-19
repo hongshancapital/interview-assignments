@@ -1,7 +1,7 @@
 import { Children, ReactElement, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { isNumber, isUndefined } from "../util";
 import useResizeObserver from "../../../hooks/useResizeObserver";
-import useInterval from "../../../hooks/useInterval";
+import useInterval, { TimerDelayEnum } from "../../../hooks/useInterval";
 import { ForwardRefRenderFunction } from "react";
 
 interface CarouselSliderProps {
@@ -83,9 +83,9 @@ const CarouselSlider: ForwardRefRenderFunction<RefMethods, CarouselSliderProps> 
     }, [lazyIndex])
 
 
-    useInterval(() => {
+    const { createTimer, clearTimer } = useInterval(() => {
         next();
-    }, autoplay ? interval : null);
+    }, autoplay ? interval : TimerDelayEnum.INFINITE);
 
     useResizeObserver(containerRef, () => {
         const width = containerRef.current!.offsetWidth;
@@ -93,9 +93,21 @@ const CarouselSlider: ForwardRefRenderFunction<RefMethods, CarouselSliderProps> 
     });
 
     useImperativeHandle(ref, () => ({
-        next,
-        prev,
-        goTo
+        next(animation?: boolean) {
+            clearTimer();
+            next(animation);
+            createTimer();
+        },
+        prev(animation?: boolean) {
+            clearTimer();
+            prev(animation);
+            createTimer();
+        },
+        goTo(newIndex: number, animation?: boolean) {
+            clearTimer();
+            goTo(newIndex, animation);
+            createTimer();
+        }
     }))
 
     return (

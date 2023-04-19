@@ -1,21 +1,46 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
+import { isNull } from "../components/Carousel/util";
 
-function useInterval(callback: () => void, delay: number | null) {
-    const savedCallback = useRef(callback)
-
-    useEffect(() => {
-        savedCallback.current = callback
-    }, [callback])
-
-    useEffect(() => {
-        if (!delay && delay !== 0) {
-            return
-        }
-
-        const id = setInterval(() => savedCallback.current(), delay)
-
-        return () => clearInterval(id)
-    }, [delay])
+export enum TimerDelayEnum {
+    INFINITE
 }
 
-export default useInterval;
+export default function useInterval(callback: () => void, delay: number | TimerDelayEnum.INFINITE) {
+    const savedCallbackRef = useRef(callback)
+    const timerRef = useRef<null | NodeJS.Timer>(null)
+    const clearTimerRef = useRef<null | (() => void)>(null)
+    const createTimerRef = useRef<null | (() => void)>(null)
+
+    const clearTimer = () => {
+        if (!isNull(timerRef.current)) {
+            clearInterval(timerRef.current)
+            timerRef.current = null
+        }
+    }
+
+    const createTimer = () => {
+        clearTimer();
+        if (delay === TimerDelayEnum.INFINITE) {
+            return
+        }
+        timerRef.current = setInterval(() => {
+            savedCallbackRef.current()
+        }, delay)
+    }
+
+    useEffect(() => {
+        savedCallbackRef.current = callback
+        clearTimerRef.current = clearTimer
+        createTimerRef.current = createTimer
+    })
+
+    useEffect(() => {
+        createTimerRef.current?.()
+
+        return () => {
+            clearTimerRef.current?.()
+        }
+    }, [delay])
+
+    return { clearTimer, createTimer }
+}

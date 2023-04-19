@@ -3,6 +3,24 @@ import { ElementRef, useRef } from 'react';
 import Carousel from './components/Carousel';
 import './App.scss';
 
+const CAROUSEL_DATA = [
+  {
+    title: 'xPhone',
+    desc: ['Lots to love.Less to spend.', 'Starting at $399.'],
+    className: 'phone',
+  },
+  {
+    title: 'Tablet',
+    desc: ['Just the right amount of everything.'],
+    className: 'tablet',
+  },
+  {
+    title: null,
+    desc: ['Buy a Tablet or xPhone for college.', 'Get AirPods.'],
+    className: 'airpods',
+  },
+];
+
 function App() {
   const carouselRef = useRef<ElementRef<typeof Carousel>>(null);
 
@@ -21,23 +39,18 @@ function App() {
   return (
     <div className='App'>
       <Carousel height="100vh" ref={carouselRef}>
-        <Carousel.Item>
-          <div className='goods-item phone'>
-            <h2 className='title'>xPhone</h2>
-            <p className='desc'>Lots to love. Less to spend.<br/> Starting at $399.</p>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className='goods-item tablet'>
-            <h2 className='title'>Tablet</h2>
-            <p className='desc'>Just the right amount of everything.</p>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className='goods-item airpods'>
-            <p className='desc'>Buy a Tablet or xPhone for college.<br /> Get AirPods.</p>
-          </div>
-        </Carousel.Item>
+        {CAROUSEL_DATA.map(({ title, desc, className }, index) => (
+          <Carousel.Item key={index}>
+            <div className={`goods-item ${className}`}>
+              {title && (
+                <h2 className='title'>{title}</h2>
+              )}
+              {desc.map((str, _index) => (
+                <p key={_index} className='desc'>{str}</p>
+              ))}
+            </div>
+          </Carousel.Item>
+        ))}
       </Carousel>
 
       {/* <div className='control-wrapper'>
