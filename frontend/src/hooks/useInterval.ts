@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { isNull } from "../components/Carousel/util";
 
 export enum TimerDelayEnum {
-    INFINITE
+    INFINITE = 'INFINITE'
 }
 
 export default function useInterval(callback: () => void, delay: number | TimerDelayEnum.INFINITE) {
