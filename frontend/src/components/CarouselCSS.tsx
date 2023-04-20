@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export type CarouselItemProps = React.LiHTMLAttributes<HTMLLIElement> &
   Partial<{
@@ -30,69 +30,42 @@ export type CarouselProps = {
   duration?: number;
 } & React.HTMLAttributes<HTMLLIElement>;
 
-export const Carousel: React.FC<CarouselProps> = ({
+export const CarouselCSS: React.FC<CarouselProps> = ({
   data,
   duration = 3000,
   className,
 }) => {
+  const [active, setActive] = useState(0);
   const carouselContainerRef = useRef<HTMLUListElement>(null);
   const slidesElementsRef = useRef<Map<number, HTMLElement | null>>(new Map());
-  const calculateProcess = useCallback(
-    (time: number) => Math.round(((time % duration) / duration) * 100) / 100,
-    [duration]
-  );
-  const calculateActive = useCallback(
-    (time: number) => Math.floor((time / duration) % data.length),
-    [duration, data]
-  );
+  const processTime = useMemo(() => (duration / 1000).toFixed(2), [duration]);
 
   useEffect(() => {
-    let startTime: number;
-    let canceled = false;
+    const timer = setInterval(() => {
+      setActive((ac) => (ac + 1) % data.length);
+    }, duration);
+    return () => clearInterval(timer);
+  }, [duration, data]);
 
-    const domAnimation = (activeKey: number, process: number) => {
-      if (carouselContainerRef.current) {
-        carouselContainerRef.current.style.transform = `translate3d(${
-          -100 * activeKey
-        }%, 0, 0)`;
-      }
+  useEffect(() => {
+    if (carouselContainerRef.current) {
+      carouselContainerRef.current.style.transform = `translate3d(-${
+        active * 100
+      }%, 0, 0)`;
+    }
 
-      slidesElementsRef.current.forEach((el, key) => {
-        if (!el) {
-          return;
-        }
-
-        if (key === activeKey) {
-          el.style.transform = `scale3d(${process}, 1, 1)`;
-        } else {
-          el.style.transform = `scale3d(0, 1, 1)`;
-        }
-      });
-    };
-
-    const animate: FrameRequestCallback = (current) => {
-      if (canceled) {
+    slidesElementsRef.current.forEach((el, key) => {
+      if (!el) {
         return;
       }
 
-      if (!startTime) {
-        startTime = current;
+      if (key === active) {
+        el.style.animation = `${processTime}s scaleX linear`;
+      } else {
+        el.style.animation = 'none';
       }
-      const elapsed = current - startTime;
-      const activeKey = calculateActive(elapsed);
-      const process = calculateProcess(elapsed);
-
-      domAnimation(activeKey, process);
-
-      return window.requestAnimationFrame(animate);
-    };
-
-    window.requestAnimationFrame(animate);
-
-    return () => {
-      canceled = true;
-    };
-  }, [calculateActive, calculateProcess]);
+    });
+  }, [active, processTime]);
 
   return (
     <div className={clsx(className, 'carousel w-full h-full')}>
@@ -109,10 +82,10 @@ export const Carousel: React.FC<CarouselProps> = ({
           {data.map((_, idx) => (
             <li
               key={idx}
-              className={'w-[40px] h-[2px] rounded-[1px] bg-[#A9A9A9]'}
+              className="w-[40px] h-[2px] rounded-[1px] bg-[#A9A9A9]"
             >
               <div
-                className="slide h-[2px] w-full bg-[#FAFAFA] origin-left"
+                className="slide h-[2px] w-full bg-[#FAFAFA] origin-left transform-gpu scale-x-0"
                 ref={(ref) => slidesElementsRef.current.set(idx, ref)}
               />
             </li>

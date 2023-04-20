@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Carousel } from './Carousel';
+import { CarouselRAF } from './CarouselRAF';
 
 beforeAll(() => {
   jest.useFakeTimers();
@@ -22,7 +22,7 @@ test('test carousel data props react element', () => {
       className: 'bg-[#FAFAFA] carousel-bg bg-tablet',
     },
   ];
-  const { container, getByText } = render(<Carousel data={data} />);
+  const { container, getByText } = render(<CarouselRAF data={data} />);
 
   expect(getByText(/xPhone/i)).toBeInTheDocument();
   expect(getByText(/Tablet/i)).toBeInTheDocument();
@@ -49,7 +49,7 @@ test('test carousel slide', () => {
       className: 'bg-[#FAFAFA] carousel-bg bg-tablet',
     },
   ];
-  const { container } = render(<Carousel data={data} duration={1000} />);
+  const { container } = render(<CarouselRAF data={data} duration={1000} />);
   const carouselContainer = container.querySelector<HTMLUListElement>(
     '.carousel-item-container'
   );

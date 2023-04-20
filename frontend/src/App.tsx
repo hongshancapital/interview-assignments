@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import { Carousel } from './components/Carousel';
+import { CarouselRAF } from './components/CarouselRAF';
+import { CarouselCSS } from './components/CarouselCSS';
 
-type CarouselDataProps = typeof Carousel extends React.FC<infer P> ? P : never;
+type CarouselDataProps = typeof CarouselRAF extends React.FC<infer P>
+  ? P
+  : never;
 
 const text2Paragraph = (h: React.ReactNode) =>
   Array.isArray(h) ? h.map((h, idx) => <div key={idx}>{h}</div>) : h;
@@ -30,9 +33,14 @@ function App() {
   const [data] = useState(initData);
 
   return (
-    <div className="w-[1200px] h-[600px] m-auto">
-      <Carousel data={data} />
-    </div>
+    <>
+      <div className="w-[1200px] h-[600px] m-auto mb-6">
+        <CarouselRAF data={data} />
+      </div>
+      <div className="w-[1200px] h-[600px] m-auto">
+        <CarouselCSS data={data} />
+      </div>
+    </>
   );
 }
 
