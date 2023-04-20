@@ -1,0 +1,28 @@
+
+.App {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.title {
+  font-size: 56px;
+  font-weight: 600;
+}
+
+.text {
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.yy-carousel-item {
+
+  &:first-child {
+    background-size: contain;
+
+    @media screen and (max-width: 640px) {
+      background-size: cover;
+    }
+  }
+
+}
