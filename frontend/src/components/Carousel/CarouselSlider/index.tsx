@@ -94,19 +94,32 @@ const CarouselSlider: ForwardRefRenderFunction<RefMethods, CarouselSliderProps> 
 
     useImperativeHandle(ref, () => ({
         next(animation?: boolean) {
-            clearTimer();
-            next(animation);
-            createTimer();
+            if (autoplay) {
+                clearTimer();
+                next(animation);
+                createTimer();
+            } else {
+                next(animation);
+            }
+            
         },
         prev(animation?: boolean) {
-            clearTimer();
-            prev(animation);
-            createTimer();
+            if (autoplay) {
+                clearTimer();
+                prev(animation);
+                createTimer();
+            } else {
+                prev(animation);
+            }
         },
         goTo(newIndex: number, animation?: boolean) {
-            clearTimer();
-            goTo(newIndex, animation);
-            createTimer();
+            if (autoplay) {
+                clearTimer();
+                goTo(newIndex, animation);
+                createTimer();
+            } else {
+                goTo(newIndex, animation);
+            }
         }
     }))
 
