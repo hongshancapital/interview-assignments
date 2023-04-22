@@ -1,0 +1,36 @@
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 32px;
+}
+
+.carousel-dots__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-dots__item {
+  width: 58px;
+  height: 4px;
+  background: #aaa;
+  margin: 0 2px;
+  cursor: pointer;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: row;
+}
+
+.carousel-dots__item--active .carousel-dots__item--fill {
+  background: #fff;
+  height: 100%;
+  width: 100%;
+}
+.carousel-dots__item--move {
+  transition: width 1s linear;
+}
