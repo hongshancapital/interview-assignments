@@ -1,0 +1,83 @@
+.video {
+  width: 100%px;
+  height: 500px;
+  margin: 0 auto;
+
+  video {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.swiper {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  .item {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    position: absolute;
+    transition: left 0.5s;
+    .text {
+      margin-top: 100px;
+    }
+    h1,
+    p {
+      mix-blend-mode: difference;
+      color: white;
+      text-align: center;
+      white-space: pre-wrap;
+      margin-top: 50px;
+    }
+  }
+}
+@keyframes indicatorAnimation {
+  from {
+    right: 100%;
+  }
+
+  to {
+    right: 0;
+  }
+}
+
+.indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  display: flex;
+  justify-content: center;
+  .item {
+    width: 100px;
+    height: 6px;
+    background-color: #c1c1c1;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    & + .item {
+      margin-left: 40px;
+    }
+    span {
+      border-radius: 3px;
+      background-color: #fff;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 100%;
+      animation-iteration-count: infinite;
+      animation-play-state: paused;
+      animation-name: none;
+      &.play {
+        animation-name: indicatorAnimation;
+        animation-play-state: running;
+      }
+    }
+  }
+}
