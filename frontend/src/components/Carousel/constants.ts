@@ -1,0 +1,2 @@
+
+export const DEFAULT_PLAY_DURATION = 3000;

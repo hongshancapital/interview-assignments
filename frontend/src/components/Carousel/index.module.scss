@@ -1,0 +1,49 @@
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carouselContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  transition: all 0.5s ease-in-out;
+}
+
+.carouselItem {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+}
+
+.carouselDotContainer {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transform: translate(0, -100%);
+}
+
+.carouselDotItem {
+  cursor: pointer;
+  width: 60px;
+  margin: 0 8px;
+  background: #aaa;
+}
+
+.carouselDotItem.active {
+  background: linear-gradient(
+    to right,
+    white var(--timePassedPercent, 0%),
+    #aaa var(--timePassedPercent, 0%) 100%,
+  );
+}
