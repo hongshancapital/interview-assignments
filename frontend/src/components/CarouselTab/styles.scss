@@ -1,0 +1,31 @@
+.carousel-tab {
+  position: relative;
+  width: 50px;
+  height: 3px;
+  margin: 0 10px;
+  background-color: #aaa;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  cursor: pointer;
+
+  &-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    animation-name: progress;
+    animation-timing-function: linear;
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
