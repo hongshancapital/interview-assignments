@@ -67,7 +67,7 @@ export default function Carousel({
         }}
       >
         {list.map((el, slideIndex) => (
-          <Carousel.Slide
+          <CarouselSlide
             className={`${
               slideIndex === activeIndex ? 'carousel-slide-active' : ''
             } ${el.className || ''}`}
@@ -75,7 +75,7 @@ export default function Carousel({
           >
             <h2 className="title">{el.title}</h2>
             <p className="text">{el.description}</p>
-          </Carousel.Slide>
+          </CarouselSlide>
         ))}
       </div>
       <Pagination
@@ -87,5 +87,3 @@ export default function Carousel({
     </div>
   );
 }
-
-Carousel.Slide = CarouselSlide;
