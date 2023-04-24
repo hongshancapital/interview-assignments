@@ -64,7 +64,7 @@
     background: rgb(140, 140, 140);
   }
   
-  .carousel .indicators .indicator .indicator__bar__auto {
+  .carousel .indicators .indicator .indicator__bar{
     display: block;
     border-radius: 1px;
     width: 100%;
@@ -74,14 +74,8 @@
     transform-origin: left;
   }
 
-  .carousel .indicators .indicator.active .indicator__bar__auto {
-    animation: progress linear;
-    animation-duration: var(--indicator-animation-duration);
-  }
 
   .carousel .indicators .indicator.active .indicator__bar {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
+    animation: progress linear;
+    animation-duration: var(--indicator-animation-duration);
   }

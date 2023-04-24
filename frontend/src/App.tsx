@@ -9,7 +9,7 @@ export interface CarouselDataItem{
   id: string
   color: string
   backgroundColor: string
-  title: string[]
+  title?: string[]
   contents?: string[]
   bg: string
 }

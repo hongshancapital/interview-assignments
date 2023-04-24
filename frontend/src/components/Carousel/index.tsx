@@ -12,24 +12,14 @@ import { CarouselDataItem } from '../../App'
 export interface CarouselProps {
   items: CarouselDataItem[]
   delay?: number
-  autoPlay?: boolean
 }
 
-const Carousel: FC<CarouselProps> = ({ items, delay = 3000, autoPlay = true}) => {
-  const [active, setActive] = useState<number>(0)
-  const [auto,setAuto] = useState<boolean>(autoPlay)
-
+const Carousel: FC<CarouselProps> = ({ items, delay = 3000}) => {
+  const [active, setActive] = useState(0)
   useEffect(() => {
-    if (active >= items.length) {
-      setActive(0)
-      return
-    }
     const timer = setTimeout(() => setActive((active + 1) % items.length), delay)
-    if(!auto){
-      clearTimeout(timer)
-    }
     return () => clearTimeout(timer)
-  }, [items, delay, active, auto])
+  }, [items, delay, active])
 
   return (
     <div
@@ -50,7 +40,7 @@ const Carousel: FC<CarouselProps> = ({ items, delay = 3000, autoPlay = true}) =>
                 }}
               >
                 <div className="text-content" style={{ color: item.color }}>
-                  <h2 className="title">{item.title?.join('\r\n')}</h2>
+                  {item.title && <h2 className="title">{item.title.join('\r\n')}</h2>}
                   {item.contents && <h4 className="content">{item.contents.join('\r\n')}</h4>}
                 </div>
               </div>
@@ -61,18 +51,14 @@ const Carousel: FC<CarouselProps> = ({ items, delay = 3000, autoPlay = true}) =>
         {items.map((item, idx) => (
           <li
             key={item.id}
-            className={`${idx === active ? 'indicator active' : 'indicator'}`}
+            className={`indicator${idx === active ? ' active' : ''}`}
             onClick={() => {
-              setAuto(false)
               setActive(idx)
              }
             }
-            onMouseLeave={()=>{
-              setAuto(true)
-            }}
           >
             <span className="indicator__track">
-              <span className={auto ? "indicator__bar__auto": "indicator__bar"}/>
+              <span className="indicator__bar"/>
             </span>
           </li>
         ))}
