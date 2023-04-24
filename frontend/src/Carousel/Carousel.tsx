@@ -49,7 +49,7 @@ function Carousel() {
       setCount((count) => (count >= 2 ? 0 : count + 1));
     }, 2000);
     intervalRef.current = timer;
-    console.log("timer", timer);
+
     return () => clearInterval(intervalRef.current);
   }, []);
 
