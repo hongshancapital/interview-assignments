@@ -6,8 +6,8 @@ import classNames from "classnames";
 
 function Carousel() {
   const [count, setCount] = useState<number>(0);
-  const [delay, setDelay] = useState(2000);
-  const [isRunning, setIsRunning] = useState(true);
+  const [delay, setDelay] = useState<number>(2000);
+  const [isRunning, setIsRunning] = useState<boolean>(true);
   const imgList = [
     {
       url: "iphone",
