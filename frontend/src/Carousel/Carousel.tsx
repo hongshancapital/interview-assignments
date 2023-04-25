@@ -1,11 +1,13 @@
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
+import useInterval from "./useInterval";
 import "./Carousel.less";
-import classnames from "classnames";
+
 import classNames from "classnames";
 
 function Carousel() {
-  const intervalRef = useRef<NodeJS.Timeout>();
   const [count, setCount] = useState<number>(0);
+  const [delay, setDelay] = useState(2000);
+  const [isRunning, setIsRunning] = useState(true);
   const imgList = [
     {
       url: "iphone",
@@ -44,14 +46,16 @@ function Carousel() {
   ];
   const screenWidth = window.screen.width;
 
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setInterval(() => {
+  useInterval(
+    () => {
       setCount((count) => (count >= 2 ? 0 : count + 1));
-    }, 2000);
-    intervalRef.current = timer;
+    },
+    isRunning ? delay : null
+  );
 
-    return () => clearInterval(intervalRef.current);
-  }, []);
+  const handleClick = (idx: number) => {
+    setCount(idx);
+  };
 
   return (
     <div className="viewBox">
@@ -70,6 +74,7 @@ function Carousel() {
               "btnItem",
               count === index ? "activeBtn" : null
             )}
+            onClick={() => handleClick(index)}
           >
             <span className="inner"></span>
           </div>
