@@ -1,0 +1,39 @@
+.carousel-wrapper {
+    overflow: hidden;
+    position: relative;
+
+    .carousel-container {
+        transition: 500ms;
+        display: flex;
+
+        .carousel-item {
+            flex-shrink: 0;
+            width: 100%;
+        }
+    }
+
+    .interval {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 10px;
+        display: flex;
+
+        .interval-item {
+            height: 4px;
+            width: 36px;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: gainsboro;
+            margin: 0 6px;
+            cursor: pointer;
+            display: flex;
+
+            .inner {
+                transition-timing-function: linear;
+                background-color: grey;
+                width: 0;
+            }
+        }
+    }
+}
