@@ -1,0 +1,43 @@
+.carousel{
+  position: relative;
+  overflow: hidden;
+  &-content{
+    position: relative;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    transition-property: left;
+  }
+  &-item{
+    flex: 1;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  &-handle{
+    position: absolute;
+    display: flex;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    &-item{
+      background: #b2b2b2;
+      margin: 0 8px;
+      height: 3px;
+      width: 80px;
+      &-lt{
+        width: 0;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: white;
+        transition-property: none;
+        &.active{
+          width: 100%;
+          transition-property: width;
+          transition-timing-function: linear;
+        }
+      }
+    }
+  }
+}
