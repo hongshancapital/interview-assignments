@@ -30,16 +30,11 @@ export default function Pagination({
               }
             }}
           >
-            <div className="carousel-pagination-inner">
-              {isActive && (
-                <span
-                  className="carousel-pagination-progress"
-                  style={{
-                    animation: `progress ${delay}ms linear`,
-                  }}
-                ></span>
-              )}
-            </div>
+             <div
+              className={`carousel-pagination-inner ${isActive ? 'carousel-pagination-active' : ''}`}
+              style={isActive ? {animationDuration:`${delay}ms`}:{}}
+             >
+             </div>
           </div>
         );
       })}
