@@ -1,10 +1,7 @@
 import React, { useState, useEffect, ReactElement } from "react";
+import type { imagesProps } from '../typeing'
 import "./Progress.scss";
 
-interface imagesProps {
-    url: string;
-    renderText: () => ReactElement;
-  }
 
 interface ProgresslProps {
     images: imagesProps[];
@@ -33,8 +30,8 @@ const Progress: React.FC<ProgresslProps> = ({ images, activeIndex, interval }) =
     }, [progress]);
 
     useEffect(() => {
-        setProgress(0)
-    }, [activeIndex])
+        setProgress(0);
+    }, [activeIndex]);
 
 
     return <div className="progress-container">

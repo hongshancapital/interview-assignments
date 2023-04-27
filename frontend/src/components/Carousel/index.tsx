@@ -1,11 +1,7 @@
 import React, { useState, useEffect, ReactElement, useRef, useMemo } from "react";
 import Progress from "./components/Progress";
+import type { imagesProps } from './typeing'
 import "./index.scss";
-
-interface imagesProps {
-  url: string;
-  renderText: () => ReactElement;
-}
 
 interface CarouselProps {
   images: imagesProps[];
@@ -26,9 +22,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, interval = 2000, width, scr
     const timeout = setInterval(() => {
       setActiveIndex((activeIndex + 1) % images.length);
     }, interval);
-    return () => {
-      clearInterval(timeout)
-    };
+    return () => clearInterval(timeout);
   }, [activeIndex, images.length]);
 
   /**
@@ -39,22 +33,29 @@ const Carousel: React.FC<CarouselProps> = ({ images, interval = 2000, width, scr
     if (_width) {
       return activeIndex * -_width + "px";
     }
-  }, [activeIndex, width, scrollerRef])
+  }, [activeIndex, width, scrollerRef]);
 
   /**
    * 计算inner盒子宽度
    */
   const innerWidth = useMemo(() => {
-    return `${images.length * 100}%`
-  }, [images.length])
+    return `${images.length * 100}%`;
+  }, [images.length]);
 
+  /**
+   * 回到第一页速度加快
+   */
+  const transition = useMemo(() => {
+    return activeIndex ===  0 ? '0.5s ease' : '1.5s ease'
+  }, [activeIndex,  images.length])
+  
   
   return (
     <div className={`scroller ${scrollerClassName || ''}`} ref={scrollerRef} style={{width}}>
       <div
         className="inner"
         style={{
-          transition: "1.5s ease",
+          transition,
           transform: `translateX(${diff})`,
           width: innerWidth,
         }}
@@ -63,7 +64,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, interval = 2000, width, scr
           return (
             <div style={{ position: "relative", width: "100%" }} key={item.url}>
               <img src={require(`../../assets/${item.url}`)}  />
-              {images[index].renderText()}
+              {images[index]?.renderText?.()}
             </div>
           );
         })}
