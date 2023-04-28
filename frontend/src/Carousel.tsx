@@ -11,9 +11,9 @@ type CarouselProps = {
   autoPlayDelay?: number;
 };
 
-const Carousel = ({ slides, autoPlay = true, autoPlayDelay = 2000 }: CarouselProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
+const Carousel:React.FC<CarouselProps> = ({ slides, autoPlay = true, autoPlayDelay = 2000 }: CarouselProps) => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
     if (autoPlay) {
