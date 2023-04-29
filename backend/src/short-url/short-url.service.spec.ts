@@ -14,7 +14,7 @@ describe('ShortUrlService', () => {
                 type: 'mysql',
                 host: '127.0.0.1',
                 username: 'root',
-                password: 'taognrt!@#01',
+                password: '#cycode_secret_ignore_everywhere',
                 database: 'sequoia_demo',
                 entities: [ShortUrlRepository],
                 synchronize: true,
