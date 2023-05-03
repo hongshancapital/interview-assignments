@@ -1,5 +1,4 @@
 import React, { FC, useMemo } from "react";
-import { MouseEvent } from '../../index.d';
 import './index.css';
 
 interface DotsProps {
@@ -17,9 +16,8 @@ const Dots: FC<DotsProps> = ({
     //将数字转成数组方便map和记录索引
     const arrForCount: number[] = useMemo(() => Array.from({ length: count }, (__, index) => index) ?? [], [count]);
 
-    const handeleClick = (index: number, e: MouseEvent) => {
+    const handeleClick = (index: number) => {
         onChange?.(index);
-        // e.stopPropagation();
     }
 
     return (
@@ -28,7 +26,7 @@ const Dots: FC<DotsProps> = ({
                 <li
                     key={`dot_item_${item}`}
                     className={`${slideCurrent===item? 'actived-dot': ''} dot-item`}
-                    onClick={(e) => handeleClick(item, e)}
+                    onClick={() => handeleClick(item)}
                 />
             ))}
         </ul>
