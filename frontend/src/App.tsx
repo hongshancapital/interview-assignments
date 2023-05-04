@@ -6,9 +6,10 @@ import tablet from './assets/tablet.png';
 
 function App() {
   const images = [
-		{ url: airpods, description: ["Buy a Tablet or xPhone for college.", "Get airpods."] },
-		{ url: iphone, description: ["xPhone", "Lots to love.Less to spend", "Starting at $399."] },
-		{ url: tablet, description: ["Tablet", "Just the right amount of everything."] },
+		
+		{ url: iphone, title: [<span style={{ color: "white" }}>xPhone</span>], description: [<span style={{ color: "white" }}>"Lots to love.Less to spend", "Starting at $399."</span>] },
+		{ url: tablet, title: ["Tablet"],  description: ["Just the right amount of everything."] },
+		{ url: airpods, title: ["Buy a Tablet or xPhone for college.", "Get airpods."] },
 	];
 	return (
 		<div className="App">

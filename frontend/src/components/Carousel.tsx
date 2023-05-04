@@ -1,8 +1,9 @@
-import React, { useRef, useState, useEffect, FC } from "react";
+import React, { useRef, useState, useEffect, FC } from 'react';
 
 interface ImageObject {
 	url: string;
-	description: string[];
+	title?: string[] | React.ReactNode[];
+	description?: string[] | React.ReactNode[];
 }
 
 interface CarouselProps {
@@ -123,6 +124,7 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 					<div
 						key={index}
 						style={{
+							position: "relative",
 							width: "100vw",
 							height: "100%",
 							backgroundImage: `url(${image.url})`,
@@ -135,14 +137,20 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 					>
 						<div
 							style={{
-								width: "70%",
-								fontSize: " xx-large",
-								color: index === 1 ? "white" : "black",
+								position: "absolute",
+								bottom: "50%",
 							}}
 						>
-							{image.description.map((desc) => (
-								<div key={desc}>{desc}</div>
-							))}
+							<div style={{ fontSize: 40 }}>
+								{image.title?.map(txt => (
+									<p>{txt}</p>
+								))}
+							</div>
+							<div style={{ fontSize: 25 }}>
+								{image.description?.map(txt => (
+									<p>{txt}</p>
+								))}
+							</div>
 						</div>
 					</div>
 				))}
