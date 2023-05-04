@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, FC } from 'react';
+import React, { useRef, useState, useEffect, FC, useCallback } from 'react';
 
 interface ImageObject {
 	url: string;
@@ -17,9 +17,7 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 	const [dragStart, setDragStart] = useState(0);
 	const [dragEnd, setDragEnd] = useState(0);
 	const [transition, setTransition] = useState("0.5s ease-out");
-	const [progress, setProgress] = useState(0);
 	const sliderRef = useRef<HTMLDivElement>(null);
-	const innerRef = useRef<HTMLDivElement>(null);
 	const timerRef = useRef<NodeJS.Timeout>();
 
 	const getNextSlide = (current: number, delta: number) => {
@@ -32,19 +30,11 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 		return next;
 	};
 
-	const handlePrev = () => {
-		const nextSlide = getNextSlide(currentSlide, -1);
-		setCurrentSlide(nextSlide);
-		setTransition("0.5s ease-out");
-		setProgress((nextSlide + 1) * 100);
-	};
-
-	const handleNext = () => {
+	const handleNext = useCallback(() => {
 		const nextSlide = getNextSlide(currentSlide, 1);
 		setCurrentSlide(nextSlide);
 		setTransition("0.5s ease-out");
-		setProgress((nextSlide + 1) * 100);
-	};
+	}, [ currentSlide ]);
 
 	const handleDragStart = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		setDragStart(event.clientX);
@@ -63,7 +53,6 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 			const delta = dragEnd - dragStart;
 			if (Math.abs(delta) > 100) {
 				setCurrentSlide((prev) => getNextSlide(prev, delta > 0 ? -1 : 1));
-				setProgress((currentSlide + 1) * 100);
 			}
 			setIsDragging(false);
 			setDragStart(0);
@@ -73,13 +62,6 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 	};
 
 	useEffect(() => {
-		const inner = innerRef.current;
-		if (inner) {
-			inner.addEventListener("transitionend", () => {
-				setTransition("none");
-			});
-		}
-
 		timerRef.current = setInterval(() => {
 			handleNext();
 		}, duration);
@@ -87,11 +69,6 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 		return () => {
 			if (timerRef.current) {
 				clearInterval(timerRef.current);
-			}
-			if (inner) {
-				inner.removeEventListener("transitionend", () => {
-					setTransition("none");
-				});
 			}
 		};
 	}, [currentSlide, duration, handleNext]);
@@ -156,7 +133,6 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 				))}
 			</div>
 			<div
-				ref={innerRef}
 				style={{
 					position: "absolute",
 					width: "100%",
