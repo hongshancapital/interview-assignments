@@ -97,7 +97,7 @@ const Carousel: FC<CarouselProps> = ({
     }
 
     return (
-        <>
+        <div className="carousel-container">
             <div className="carousel" style={{ width: `${childrenCount * slideWidth}px` }} ref={carouselRef}>
                 {
                     React.Children.map(children, (child, index) => (
@@ -110,7 +110,7 @@ const Carousel: FC<CarouselProps> = ({
             {
                 isNeedDots && <Dots slideCurrent={slideCurrent} count={childrenCount} onChange={handleDotChange} />
             }
-        </>
+        </div>
 
     )
 }
