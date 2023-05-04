@@ -3,7 +3,7 @@ import { useContainerResize } from '../hooks';
 import { SliderWrapperContent } from '../context/sliderWrapper';
 
 export const widthWrapper = (Compoent: ComponentType) => (props:Record<string,any>) => {
-    const { className, ...rest } = props;
+    const { className, ...rest } = props || {};
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { slideWidth } = useContainerResize(wrapperRef);
     
