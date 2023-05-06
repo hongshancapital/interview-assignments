@@ -1,0 +1,26 @@
+platform :ios, '15.0'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'SocialAppList' do
+  use_frameworks!
+  inhibit_all_warnings!
+
+  pod 'Alamofire'
+  pod 'KakaJSON'
+  pod 'Kingfisher'
+  pod 'Moya/Combine', '~> 15.0'
+  pod 'Swinject'
+  pod 'Then'
+  
+  pod 'Introspect'
+  pod 'FDFullscreenPopGesture'
+  
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      end
+    end
+  end
+   
+end
