@@ -1,4 +1,44 @@
 import React, { useRef, useState, useEffect, FC, useCallback } from 'react';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+	outerContainer: {
+		position: "relative",
+		width: "100vw",
+		height: "100vh",
+		overflow: "hidden",
+	},
+	innerContainer: {
+		position: "absolute",
+		display: "flex",
+		height: "100%",
+	},
+	carouselItem: {
+		position: "relative",
+		width: "100vw",
+		height: "100%",
+		backgroundPosition: "center",
+		backgroundSize: "cover",
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	description: {
+		position: "absolute",
+		bottom: "50%",
+	},
+	indicatorWrapper: {
+		position: "absolute",
+		width: "100%",
+		bottom: "20px",
+		display: "flex",
+		justifyContent: "center",
+	},
+	indicatorItem: {
+		width: "60px",
+		height: "3px",
+	}
+})
 
 interface ImageObject {
 	url: string;
@@ -73,14 +113,10 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 		};
 	}, [currentSlide, duration, handleNext]);
 
+	const classNames = useStyles();
 	return (
 		<div
-			style={{
-				position: "relative",
-				width: "100vw",
-				height: "100vh",
-				overflow: "hidden",
-			}}
+			className={classNames.outerContainer}
 			onMouseDown={handleDragStart}
 			onMouseMove={handleDragMove}
 			onMouseUp={handleDragEnd}
@@ -88,11 +124,9 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 		>
 			<div
 				ref={sliderRef}
+				className={classNames.innerContainer}
 				style={{
-					position: "absolute",
-					display: "flex",
 					width: `${images.length * 100}vw`,
-					height: "100%",
 					left: `-${currentSlide * 100}vw`,
 					transition,
 				}}
@@ -101,22 +135,12 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 					<div
 						key={index}
 						style={{
-							position: "relative",
-							width: "100vw",
-							height: "100%",
 							backgroundImage: `url(${image.url})`,
-							backgroundPosition: "center",
-							backgroundSize: "cover",
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
 						}}
+						className={classNames.carouselItem}
 					>
 						<div
-							style={{
-								position: "absolute",
-								bottom: "50%",
-							}}
+							className={classNames.description}
 						>
 							<div style={{ fontSize: 40 }}>
 								{image.title?.map(txt => (
@@ -133,23 +157,16 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 				))}
 			</div>
 			<div
-				style={{
-					position: "absolute",
-					width: "100%",
-					bottom: "20px",
-					display: "flex",
-					justifyContent: "center",
-				}}
+				className={classNames.indicatorWrapper}
 			>
 				{images.map((image, index) => (
 					<div
 						key={index}
 						style={{
-							width: "60px",
-							height: "3px",
 							backgroundColor: currentSlide === index ? "#fff" : "#6b6b6b",
 							marginLeft: index === 0 ? 0 : "10px",
 						}}
+						className={classNames.indicatorItem}
 					/>
 				))}
 			</div>
