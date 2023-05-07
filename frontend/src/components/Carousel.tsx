@@ -53,9 +53,8 @@ interface CarouselProps {
 
 const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
-	const [isDragging, setIsDragging] = useState(false);
-	const [dragStart, setDragStart] = useState(0);
-	const [dragEnd, setDragEnd] = useState(0);
+	const dragStartXRef = useRef(0);
+	const dragEndXRef = useRef(0);
 	const [transition, setTransition] = useState("0.5s ease-out");
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const timerRef = useRef<NodeJS.Timeout>();
@@ -76,29 +75,22 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 		setTransition("0.5s ease-out");
 	}, [ currentSlide ]);
 
-	const handleDragStart = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		setDragStart(event.clientX);
-		setIsDragging(true);
+	const handleDragStart = (event: React.DragEvent) => {
+		dragStartXRef.current = event.clientX;
 		setTransition("none");
 	};
 
-	const handleDragMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		if (isDragging) {
-			setDragEnd(event.clientX);
-		}
-	};
 
-	const handleDragEnd = () => {
-		if (isDragging) {
+	const handleDragEnd = (event: React.DragEvent) => {
+		const dragEnd = dragEndXRef.current = event.clientX;
+		const dragStart = dragStartXRef.current;
 			const delta = dragEnd - dragStart;
 			if (Math.abs(delta) > 100) {
 				setCurrentSlide((prev) => getNextSlide(prev, delta > 0 ? -1 : 1));
 			}
-			setIsDragging(false);
-			setDragStart(0);
-			setDragEnd(0);
+			dragStartXRef.current = 0;
+			dragEndXRef.current = 0;
 			setTransition("0.5s ease-out");
-		}
 	};
 
 	useEffect(() => {
@@ -117,10 +109,6 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 	return (
 		<div
 			className={classNames.outerContainer}
-			onMouseDown={handleDragStart}
-			onMouseMove={handleDragMove}
-			onMouseUp={handleDragEnd}
-			onMouseLeave={handleDragEnd}
 		>
 			<div
 				ref={sliderRef}
@@ -138,6 +126,9 @@ const Carousel: FC<CarouselProps> = ({ images, duration = 3000 }) => {
 							backgroundImage: `url(${image.url})`,
 						}}
 						className={classNames.carouselItem}
+						onDragStart={handleDragStart}
+						onDragEnd={handleDragEnd}
+						draggable
 					>
 						<div
 							className={classNames.description}
