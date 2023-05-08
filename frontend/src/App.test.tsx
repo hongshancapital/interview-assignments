@@ -1,9 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('should have 3 Pannel', () => {
+  const { container } = render(<App />);
+  const pannelElements = container.querySelectorAll('.pannel-wrapper');
+  expect(pannelElements.length).toBe(3);
 });
