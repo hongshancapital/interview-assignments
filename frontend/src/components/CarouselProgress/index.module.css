@@ -1,0 +1,35 @@
+.progressContainer {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.progressItem {
+    height: 2px;
+    border-radius: 2px;
+    margin-right: 4px;
+    width: 40px;
+    background-color: gray;
+    position: relative;
+}
+
+.progressItemFill {
+    height: inherit;
+    background-color: #fff;
+    width: 0;
+    position: absolute;
+}
+
+.progressItemFill.active {
+    animation: progressMove linear;
+}
+
+@keyframes progressMove {
+    from {
+        width: 0
+    } to {
+        width: 100%;
+    }
+}
