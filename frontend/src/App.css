@@ -1,14 +1,96 @@
-.App {
-  text-align: center;
-  position: relative;
+.small-size-carousel{
+    width: 300px;
+    height: 600px;
+}
+.small-size-carousel .text-wrapper{
+    font-size: 12px;
+}
+.small-size-carousel .text-title{
+    font-size: 20px;
+}
+.middle-size-carousel{
+    width: 600px;
+    height: 600px;
+    position: relative;
+}
+.big-size-carousel{
+    width: 100%;
+    height: 100vh;
+}
+.next-btn,.prev-btn{
+    position: absolute;
+    z-index: 10;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid gray;
+    padding: 5px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: cadetblue;
+}
+.middle-size-carousel .prev-btn{
+    position: absolute;
+    left: 20px;
+    z-index: 2;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.middle-size-carousel .next-btn{
+    position: absolute;
+    right: 20px;
+    z-index: 2;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.slider-wrapper{
+    height: 100%;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
-.title {
-  font-size: 56px;
-  font-weight: 600;
+.text-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 28px;
+    font-weight: 400;
+    padding-top: 100px;
+}
+.text-wrapper span{
+    padding: 0 50px;
 }
 
-.text {
-  font-size: 28px;
-  font-weight: 400;
+.text-title{
+    font-size: 56px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.slider-one{
+    background-image: url(./assets/iphone.png);
+}
+
+.text-wrapper-one{
+    color: white;
+}
+
+.slider-two{
+    background-image: url(./assets/tablet.png);
+}
+
+.text-wrapper-two{
+    color: black;
+}
+
+.slider-three{
+    background-image: url(./assets/airpods.png);
+}
+
+.text-wrapper-three{
+    color: black;
 }
