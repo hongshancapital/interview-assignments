@@ -48,7 +48,7 @@
     transform: translate(50%,50%) rotate(90deg);
 }
 .carousel-dot{
-    width: 30px;
+    width: 40px;
     height: 3px;
     background-color: gray;
     margin: 0 5px;
@@ -57,7 +57,7 @@
     border-radius: 10px;
     overflow: hidden;
 }
-.carousel-dot::after{
+.carousel-dot-slider{
     position: absolute;
     content: '';
     height: 3px;
@@ -69,11 +69,11 @@
 .carousel-dot:hover{
     background-color: white;
 }
-.active-carousel-dot::after{
+.active-carousel-dot .carousel-dot-slider{
     transition: width 3s linear;
     width: 100%;
 }
-.active-notauto-carousel-dot::after{
+.active-notauto-carousel-dot .carousel-dot-slider{
     width: 100%;
 }
 .next-btn,.pre-btn{

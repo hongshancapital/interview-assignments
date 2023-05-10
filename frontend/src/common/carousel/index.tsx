@@ -7,6 +7,7 @@ interface Props {
     showDots?: boolean,
     dotPosition?: string,
     showBtn?: boolean,
+    delay?:number,
     onChange?: (index: number) => void
 }
 export interface carouselRef {
@@ -19,14 +20,14 @@ const defaultProps: Props = {
     autoplay: true,
     showDots: true,
     showBtn: false,
+    delay:3,
     dotPosition: 'bottom',
 }
 
 const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
-    const { children = null, showDots, dotPosition, autoplay, onChange, showBtn } = props
+    const { children = null, showDots, dotPosition, autoplay, onChange, showBtn,delay } = props
     const timerRef = useRef<NodeJS.Timeout | null>(null); // 计时器
     const scrollRef = useRef<HTMLDivElement>(null) //slider滚动容器
-    const dotWrapperRef = useRef<HTMLDivElement>(null) //指示器
     const sliderCount = React.Children.count(children) //slider个数
     const [currIndex, setCurrIndex] = useState<number>(-1) //当前活跃slider
     const sliderDots = useMemo(() => {//切换提示按钮个数 - Array
@@ -41,18 +42,24 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
     const dotWrapperCls = useMemo(() => {//提示器位置样式
         if (['left', 'right', 'top', 'bottom'].includes(dotPosition!)) {
             return css[`${dotPosition}-dot-wrapper`]
-        } else {
-            return css['bottom-dot-wrapper']
         }
+        return css['bottom-dot-wrapper']
     }, [dotPosition])
     /**
      * @description: 设置指示器样式
      * @param {number} curr：指示器下标
-     * @return {*} 活跃指示器class
+     * @return {*} 活跃指示器style
      */
-    const dotsCls = (curr: number): string => {
-        if (!autoplay) return `${curr === currIndex ? css['active-notauto-carousel-dot'] : ''}`
-        return `${curr === currIndex ? css['active-carousel-dot'] : ''}`
+    const dotStyle = (curr: number):object => {
+        if (!autoplay) {
+            return  curr === currIndex ? {
+                width:'100%'
+            } : {}
+        }
+        return  curr === currIndex ? {
+            width:'100%',
+            transition:`width ${delay}s linear`
+        } : {}
     }
     /**
      * @description: 滚动slider
@@ -89,7 +96,7 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
         if (!autoplay) return
         timerRef.current = setInterval(() => {
             setCurrentSlider()
-        }, 3000)
+        }, delay!*1000)
     }
     /**
      * @description: 下一个
@@ -161,14 +168,16 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
             </div>
             {
                 showDots ?
-                    <div ref={dotWrapperRef} className={`${css['carousel-dot-wrapper']} ${dotWrapperCls}`}>
+                    <div  className={`${css['carousel-dot-wrapper']} ${dotWrapperCls}`}>
                         {
                             sliderDots?.map((_, i) =>
                                 <div
                                     key={i}
-                                    className={`${css['carousel-dot']} ${dotsCls(i)}`}
+                                    className={css['carousel-dot']}
                                     onClick={() => { directShow(i) }}
-                                ></div>
+                                >
+                                    <div style={dotStyle(i)} className={css['carousel-dot-slider']}></div>
+                                </div>
                             )
                         }
                     </div> : null

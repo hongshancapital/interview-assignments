@@ -63,9 +63,9 @@ function App() {
                 <div className='prev-btn' onClick={()=>{prev()}}>上一个</div>
                 <div className='next-btn' onClick={()=>{next()}}>下一个</div>
             </div>
-            <p>大尺寸+水平自动播放</p>
+            <p>大尺寸+水平自动播放 5s延迟</p>
             <div className='big-size-carousel'>
-                <Carousel  autoplay={true}>
+                <Carousel  autoplay={true} delay={5}>
                     <div className={'slider-wrapper slider-one'}>
                         <div className={'text-wrapper text-wrapper-one'}>
                             <span className={'text-title'}>xPhone</span>
