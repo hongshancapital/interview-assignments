@@ -1,0 +1,43 @@
+.icon {
+  height: 96px;
+  width: auto;
+  object-fit: contain;
+  margin-top: 33%;
+}
+
+.item {
+  @apply h-screen w-screen flex flex-col items-center justify-center gap-3 text-center whitespace-pre overflow-hidden;
+  flex: 0 0 100vw;
+}
+
+.indicators {
+  @apply absolute left-1/2 translate-x-[-50%] bottom-6 flex flex-row gap-2;
+  --carousel-animation-duration: 3s;
+}
+
+.progress-bar {
+  @apply relative overflow-hidden w-10 h-[2px] rounded-full bg-silver;
+}
+
+.progress-bar::after {
+  @apply absolute w-0 h-full bg-white left-0 top-0;
+  content: '';
+}
+
+/**
+  * Use css animation if possible, use js might cause performance issue.
+  * The progress bar is animated by changing the width of the pseudo-element
+  * from 0 to 100%.
+  */
+.progress-bar[aria-selected='true']::after {
+  animation: grow var(--carousel-animation-duration) linear;
+}
+
+@keyframes grow {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
