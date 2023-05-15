@@ -1,74 +1,89 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, {
+  CSSProperties,
+  FC,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
-import airpds from "../../assets/airpods_8.png";
-import iphone from "../../assets/iphone_8.png";
-import tablet from "../../assets/tablet_8.png";
 import "./index.css";
 
-import BannerList, { Banner_Inter } from "./bannerList";
-import IndicatorList from "./indicatorList";
-import { Them_Enum } from "./bannerList/banner";
-import { PERIOD } from "./config";
+import Banner, { BannerProp_Inter } from "./Banner";
+import Indicator from "./Indicator";
 
-/**
- * 轮播图数据
- */
-const bannerList: Banner_Inter[] = [
-  {
-    id: 1,
-    imgUrl: iphone,
-    backgroundColor: "#111111",
-    title: "xPhone",
-    text: ["Lost to love. Less to spend.", "Starting at $399."],
-    them: Them_Enum.dark,
-  },
-  {
-    id: 2,
-    imgUrl: tablet,
-    backgroundColor: "#f9f9f9",
-    title: "Tablet",
-    text: "Just the right amount of everything.",
-  },
-  {
-    id: 3,
-    imgUrl: airpds,
-    backgroundColor: "#f0f0f2",
-    title: ["Buy a Table or xPhone for college.", "Get arPods."],
-  },
-];
+/** 单个轮播图停留时间，单位ms */
+const PERIOD = 3000;
 
-const Carousel: FC = () => {
+export interface Banner_Inter extends BannerProp_Inter {
+  id: number;
+}
+
+export interface BannerListProps_Inter {
+  banners: Banner_Inter[];
+  currentIndex?: number;
+}
+
+export const Context = React.createContext({});
+
+interface CarouselProps {
+  list: Banner_Inter[];
+}
+
+const Carousel: FC<CarouselProps> = ({ list = [] }) => {
   const intervalRef = useRef<number>();
 
   /** 当前播放的轮播图索引 */
   const [currentIndex, setCurrentIndex] = useState<number>();
 
   /** 索引变更 */
-  const next = () => {
-    const newIndex =
-      currentIndex! < bannerList.length - 1 ? currentIndex! + 1 : 0;
+  const next = useCallback(() => {
+    const newIndex = currentIndex! < list.length - 1 ? currentIndex! + 1 : 0;
 
     setCurrentIndex(newIndex);
-  };
+  }, [currentIndex, list.length]);
 
   /** 初始化 */
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, []);
+  useEffect(() => setCurrentIndex(0), []);
 
   /** 开始计时 */
   useEffect(() => {
-    intervalRef.current = Number(setTimeout(() => next(), PERIOD));
+    intervalRef.current = Number(setTimeout(next, PERIOD));
 
-    return () => {
-      clearTimeout(intervalRef.current);
-    };
-  });
+    return () => clearTimeout(intervalRef.current);
+  }, [next]);
+
+  const style: CSSProperties = {
+    left: `-${currentIndex}00%`,
+  };
+
+  const banners = useMemo(
+    () =>
+      list.map(({ id, ...info }, index) => (
+        <Banner {...info} key={id} index={index} />
+      )),
+    [list]
+  );
+  const indicators = useMemo(
+    () =>
+      list.map(({ id }, index) => (
+        <Indicator key={id} active={index === currentIndex} />
+      )),
+    [list, currentIndex]
+  );
 
   return (
     <div className="carousel-control" data-testid="carousel">
-      <BannerList banners={bannerList} currentIndex={currentIndex} />
-      <IndicatorList currentIndex={currentIndex} total={bannerList.length} />
+      <div
+        data-testid="banner-list"
+        className="banner-list-control"
+        style={style}
+      >
+        {banners}
+      </div>
+      <div className="indiacator-list-control">{indicators}</div>
     </div>
   );
 };
