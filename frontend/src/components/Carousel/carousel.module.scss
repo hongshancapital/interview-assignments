@@ -1,0 +1,25 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .slider {
+    display: flex;
+    height: 100%;
+    flex-wrap: nowrap;
+
+    .sliderItem {
+      flex: 0 0 auto;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .pagination {
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    bottom: 40px;
+  }
+}
