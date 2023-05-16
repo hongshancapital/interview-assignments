@@ -1,27 +1,47 @@
 import React from "react";
 import { render, fireEvent, act } from "@testing-library/react";
-import App from "./App";
+import Carousel from "./index";
 
-jest.setTimeout(6000);
+jest.setTimeout(5000);
 /**
- * 初始化是否正确是否正确
+ * 检测初始状态
  */
-test("app renders load", () => {
-  const { getByText, container } = render(<App />);
-  const textElement = getByText("xPhone");
+test("carousel component load", () => {
+  const { container, getByText } = render(
+    <Carousel autoplay={false} width={800} height={400}>
+      <div>page1</div>
+      <div>page2</div>
+      <div>page3</div>
+    </Carousel>
+  );
+  // 检验文字
+  const textElement = getByText("page1");
   expect(textElement).toBeInTheDocument();
-  const dots = container.getElementsByClassName("dot");
-  expect(dots).toHaveLength(3);
+  // 检验按钮
+  const banners = container.getElementsByClassName("dot-banner");
+  expect(banners).toHaveLength(3);
+  // 检验宽高
+  const slide = container.getElementsByClassName("slide-wrapper")[0].firstChild;
+  expect(slide).toBeInTheDocument();
+  if (slide instanceof Element) {
+    const { width } = getComputedStyle(slide);
+    expect(parseInt(width)).toBe(800);
+  } else {
+    // 处理 slide 为 null 的情况，进行相应的断言或错误处理
+    throw new Error("Slide element is null");
+  }
 });
-
 /**
- * 选择slide是否正确
+ * carousel 测试select功能
  */
-test("app select slide", () => {
-  global.window.innerWidth = 800;
-  global.window.innerHeight = 500;
-  const { container } = render(<App />);
-  // 找到slidewrapper组件
+test("carousel component select action", () => {
+  const { container, getByText } = render(
+    <Carousel autoplay={false} width={800} height={400}>
+      <div>page1</div>
+      <div>page2</div>
+      <div>page3</div>
+    </Carousel>
+  );
   const slidewrapper = container.getElementsByClassName("slide-wrapper")[0];
   const computedStyle0 = getComputedStyle(slidewrapper);
   // 查看初始状态是不是0
@@ -30,32 +50,43 @@ test("app select slide", () => {
   const dot1 = dots[0];
   const dot2 = dots[1];
   const dot3 = dots[2];
+  const page1Element1 = getByText("page1");
+  expect(page1Element1).toBeInTheDocument();
   // 点击第二个按钮
   fireEvent.click(dot2);
   expect(slidewrapper).toBeInTheDocument(); // slidewrapper这个元素是存在的
   const computedStyle2 = getComputedStyle(slidewrapper);
   // 判断值是否正确
   expect(computedStyle2.transform).toBe("translateX(-800px)");
+  const page1Element2 = getByText("page2");
+  expect(page1Element2).toBeInTheDocument();
   // 点击第三个按钮
   fireEvent.click(dot3);
   const computedStyle3 = getComputedStyle(slidewrapper);
   // 判断值是否正确
   expect(computedStyle3.transform).toBe("translateX(-1600px)");
+  const page1Element3 = getByText("page3");
+  expect(page1Element3).toBeInTheDocument();
   // 点击第一个按钮
   fireEvent.click(dot1);
   const computedStyle1 = getComputedStyle(slidewrapper);
   // 判断值是否正确
   expect(computedStyle1.transform).toBe("translateX(0px)");
+  const page1Element0 = getByText("page1");
+  expect(page1Element0).toBeInTheDocument();
 });
 
 /**
- * autoplay是否正确
- * 这里可以用 playwright 或者是 puppeteer 这样的无头浏览器来测试
+ * carousel 测试autoplay
  */
-test("app  autoplay", async () => {
-  global.window.innerWidth = 800;
-  global.window.innerHeight = 500;
-  const { container } = render(<App />);
+test("carousel component autoplay", async () => {
+  const { container, getByText } = render(
+    <Carousel autoplay={true} width={800} height={400}>
+      <div>page1</div>
+      <div>page2</div>
+      <div>page3</div>
+    </Carousel>
+  );
   // 找到dot-banner组件
   const banners = container.getElementsByClassName("dot-banner");
   expect(banners).toHaveLength(3);
@@ -72,62 +103,23 @@ test("app  autoplay", async () => {
   const slidewrapper = container.getElementsByClassName("slide-wrapper")[0];
   const computedStyle1 = getComputedStyle(slidewrapper);
   // 查看初始状态是不是0
+  const page1Element1 = getByText("page1");
+  expect(page1Element1).toBeInTheDocument();
   expect(computedStyle1.transform).toBe("translateX(0px)");
   await new Promise((resolve) => setTimeout(resolve, 1100));
+  const page1Element2 = getByText("page2");
+  expect(page1Element2).toBeInTheDocument();
   const computedStyle2 = getComputedStyle(slidewrapper);
   expect(computedStyle2.transform).toBe("translateX(-800px)");
   await new Promise((resolve) => setTimeout(resolve, 1000));
+  const page1Element3 = getByText("page3");
+  expect(page1Element3).toBeInTheDocument();
   const computedStyle3 = getComputedStyle(slidewrapper);
   expect(computedStyle3.transform).toBe("translateX(-1600px)");
   await new Promise((resolve) => setTimeout(resolve, 1000));
+  const page1Element0 = getByText("page1");
+  expect(page1Element0).toBeInTheDocument();
   const computedStyle0 = getComputedStyle(slidewrapper);
   expect(computedStyle0.transform).toBe("translateX(0px)");
   // 循环一轮完成测试
-});
-
-/**
- * 窗口重新resize
- */
-test("app window resize", async () => {
-  global.window.innerWidth = 800;
-  global.window.innerHeight = 500;
-  const { container } = render(<App />);
-  const carousel = container.getElementsByClassName("carousel")[0];
-  expect(carousel).toBeInTheDocument();
-  const { width: width1, height: height1 } = getComputedStyle(carousel);
-  expect(parseInt(width1)).toBe(800);
-  expect(parseInt(height1)).toBe(500);
-  // 改变size
-  act(() => {
-    window.innerWidth = 500;
-    window.innerHeight = 400;
-    const resizeEvent = new window.Event("resize");
-    window.dispatchEvent(resizeEvent);
-  });
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  const { width: width2, height: height2 } = getComputedStyle(carousel);
-  expect(parseInt(width2)).toBe(500);
-  expect(parseInt(height2)).toBe(400);
-  // 改变size
-  act(() => {
-    window.innerWidth = 200;
-    window.innerHeight = 200;
-    const resizeEvent = new window.Event("resize");
-    window.dispatchEvent(resizeEvent);
-  });
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  const { width: width3, height: height3 } = getComputedStyle(carousel);
-  expect(parseInt(width3)).toBe(200);
-  expect(parseInt(height3)).toBe(200);
-  // 改变size
-  act(() => {
-    window.innerWidth = 1000;
-    window.innerHeight = 600;
-    const resizeEvent = new window.Event("resize");
-    window.dispatchEvent(resizeEvent);
-  });
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  const { width: width4, height: height4 } = getComputedStyle(carousel);
-  expect(parseInt(width4)).toBe(1000);
-  expect(parseInt(height4)).toBe(600);
 });
