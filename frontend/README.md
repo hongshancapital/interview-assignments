@@ -1,81 +1,99 @@
-# TypeScript Frontend Engineer Assignment
+# 作业说明
 
-## 要求
+- 原始图片的尺寸巨大,且图片内容存在大量纯色背景。通过ps裁切功能剪切下核心图片内容，并通过css背景色做为替代。
+- 利用CSS3的transition实现可控动画效果。样式像素级还原。
+- 分层结构设计,拓展性好,维护成本低
+- 数据与视图分离.轮播图抽象为数据列表.新增轮播图时,仅维护轮播列表即可,无需改动组件内容.可无缝通过服务端接口来实现动态轮播
+- 通过分析轮播图总结抽象图片内容结构,并采用动态样式实现.修改banner内容及结构,只需要修改对应数据即可,无需二次关注样式实现.
+- 底部计时器分层封装,若计时器样式或效果改变,仅需替换最底层indicator组件即可.无需关注上层逻辑.
 
-- 实现 demo.mov 中的效果
-- 封装为 `<Carousel>` 组件
-- 使用 React Hooks 实现，不能用 Class Component
-- 使用 TypeScript 实现
 
-## 加分项
+# 个人信息
 
-- 单元测试
+姓名: 朱盛文  
+求职岗位: web前端研发  
+Tel: 18627778323  
+Email: zhuiszhu@qq.com
 
-## 岗位职责
+>- 八年以上技术相关工作经验
+>- 精通 html/css3/js，vue2.0/3.0，angular，typescript，es6/7。
+>- 熟练使用 ant/elementUI，react，nodejs，echart，mongodb/mysql，vite/webpack，微信小程序开发等
+>- 具备全栈开发、低代码平台/组件库架构设计经验，4年20人团队管理经验。曾任职UI设计，有一定审美。
 
-- 根据产品交互稿构建⾼质量企业级 Web 应⽤
-- 技术栈: React + SASS
-- 在产品迭代中逐步积累技术框架与组件库
-- 根据业务需求适时地重构
-- 为 Pull Request 提供有效的代码审查建议
-- 设计并撰写固实的单元测试与集成测试
-- 与后端⼯程师协同交付产品
+## 工作经历  
 
-## 要求
+### 统信软件技术有限公司(武汉深之度) `资深web研发(前端) 2020.03-至今`
 
-- 三年以上技术相关工作经验
-- 能高效并高质量交付产品
-- 对业务逻辑有较为深刻的理解
-- 加分项
-  - 持续更新的技术博客
-  - 长期维护的开源项目
-  - 流畅阅读英文技术文档
-  - 对审美有一定追求
-  - 能力突出者可适当放宽年限
+> `技术管理` 建设低代码平台和内部框架提升研发效能。通过深入研究各前端框架及底层原理，结合项目特性决策技术选型。通过工程化接入CI/CD流程,实现研发代码提交到部署上线自动化,降低维护成本。根据企业内部业务特性建立内部各项技术标准，成功减少项目60%的技术文档工作量。 
 
-## Create React App 信息
+> `项目研发` 使用angular或vue3.0等前端框架结合MVC、MVVM等架构从事项目研发工作,并按照计划节点准时或提前交付上线。  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> `项目管理` 应用scrum进行项目管理,带领6个项目如期完成迭代过程,其中4个项目顺利结项(2个迭代中)。  
 
-## Available Scripts
+> `团队管理` 组织技术培训。团队规章制度制定、实施、优化。绩效评定。成员情绪价值管理，backup培养等。
 
-In the project directory, you can run:
 
-### `yarn start`
+### 上海劳勤信息技术有限公司武汉分公司 `前端主管 2019.03-2020.02`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> `项目研发` 使用vue2.0(vuex,vue-router等)结合ant-design-vue等UI框架按照需求及设计稿完成研发工作。包括架构设计，公共组件/函数封装,页面开发等。最终完成了智能排班、灵活用工等项目如期交付上线。 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+> `项目管理` 担任前端组长角色，进行研发任务拆分，进度跟进，质量把控，最终使各项目如期交付上线。  
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 北京千锋互联科技有限公司武汉分公司 `高级前端研发/讲师 2016.07-2019.03`
 
-### `yarn build`
+> `项目研发` 使用vue2.0+elementUI和nodejs+express+mongodb全栈研发教学管理平台项目,并投入使用。为学员提供疑难点反馈渠道的同时帮助讲师汇总发现知识点缺漏,同时也为讲师提供了学员模拟项目进度管理工具,提升了60%的项目进度收集效率.自平台上线,教学满满意度测评平均分有20%左右提升 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> `教学授课` 进行高阶前端教学。内容包括：css3、es6、react/vue全家桶、gulp/webpack、nodejs、mongodb、canvas,HybridApp/微信小程序等  
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 楚游科技/上海银硕 `前端研发 2012.09-2016.03`
 
-### `yarn eject`
+> `项目研发` 分别使用jquery+ajax+bootstrap，angualrjs，ract等进行前端项目研发工作,并确保按时交付。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+> `UI设计` 使用Photoshop、illustrator等软件进行UI、图标设计工作  
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 项目经历
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 筋斗web云平台(低代码平台) `技术负责人、项目负责人 2021.04-2022.03`
+> `项目背景` 该项目致力于降低web项目研发成本，缩短研发周期及提高研发质量。
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+> `担任职责` 本人负责整个项目的技术选型,架构设计,技术验证,项目管理以及参与前后端研发等。
 
-## Learn More
+> `应用技术` 业务前端及平台前端采用Vue3.0+typescript+ElementUI.服务端使用nodejs+Nestjs+mongodb。
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> `架构设计` 在业务架构设计上，为了解决低代码平台普遍存在的底适应性和高使用复杂度的痛点，采用模型分层，业务抽离，接口驱动等设计理念。
+>- `前后端解耦:`对数据结构、前后端api接口进行抽象描述，提供图形化声明界面.同时应用sass架构设计,实现对后端无侵入部署.最终使得无论新旧项目均可低成本应用该低代码方案。
+>- `组件生态化:`自研组件描述方法+自研前端渲染引擎.使平台支持三方组件接入，可持续拓展平台使用范围。
+>- `高效维护:`自研业务描述体系,结合自研渲染引擎.实现业务侧可随时修改功能,无需二次部署，即时更新。
+>- `职责分化:`产品可直接图形化配置项目需求，所见即所得.研发人员仅需关注组件内部逻辑,使研发更聚焦。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Goku内部前端框架 `技术负责人、项目负责人 2020.10-2022.12`
+> `项目背景` 该项目致力于降低前端项目研发过程中的重复性工作,提升前端项目研发效能。
+
+> `担任职责` 
+>- `概要设计：`设计架构，分析内部项目业务特性，分层规划组件体系。设计各组件的功能，接口，数据模型等。
+>- `仓库搭建：`搭建内网npm库，建设企业级包管理生态，提高功能复用度，提升研发效能.
+>- `内容研发：`负责搜索列表组件,集成路由模块,编辑组件等框架内容研发
+
+> `应用技术` 整体框架基于angular9.x+zorro封装.可视化模块使用echart+exceljs.内部npm库使用verdaccio搭建。
+
+> `项目业绩` 提升常用业务场景（搜索分页列表、菜单及路由管理、APImock、人机验证）80%的研发效能提升。
+
+### 数据分析平台 `资深web研发（前端） 2020.03-2021.04`
+> `项目背景` 该项目用于汇总公司内操作系统各维度数据,并基于大数据分析对原始数据进行提炼为关键信息,通过echart转换为可视化图表看板.为平台用户提供趋势分析,决策辅助等功能服务。
+
+> `担任职责` 独立负责项目前端研发工作,包括架构搭建,路由设计,公共服务/组件封装,页面开发等。负责可配置动态看板需求的数据结构提炼设计,满足同一数据源按不同的模式展现需求。
+
+> `应用技术` 前端采用angular8.x+ng-zorro+typescript.图表展示使用echart.本地文件输出exceljs。
+
+### 超大数据量树形结构组件操作性能优化 `技术顾问 2021.04-2021.05`
+> `项目背景` 技术攻坚，超大型树形组件(超10w节点)在浏览器中执行选中,反选等用户操作时存在严重卡顿问题。
+
+> `担任职责` 数据结构重构,采用关键信息记录+后置计算的解决方案.进行技术验证,并指导完成功能代码研发。
+
+> `项目业绩`
+>- `性能优化:`响应时长由分钟级缩减至毫秒级.
+>- `专利产出:`技术方案已获得国家发明专利审批.(公开号:CN115185426A)
+
+### 更多项目经历暂略...
