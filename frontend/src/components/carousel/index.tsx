@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import Dot from "./dot";
 import "./style.scss";
+import { isEqual } from "../../utils";
 
 enum Easing {
   LINEAR = "linear",
@@ -90,14 +91,7 @@ const Carousel: FC<CarouselProps> = ({ children = [], ...props }) => {
       );
     }
     return [dots, slides];
-  }, [
-    autoplay,
-    autoplayWaitTime,
-    currentIndex,
-    currentWidth,
-    onSelect,
-    ...nodes,
-  ]);
+  }, [nodes, autoplay, autoplayWaitTime, currentIndex, currentWidth, onSelect]);
   // 同步当前真实dom的宽度
   useLayoutEffect(() => {
     const width = carouselRef?.current?.offsetWidth;
@@ -135,4 +129,6 @@ const Carousel: FC<CarouselProps> = ({ children = [], ...props }) => {
   );
 };
 
-export default Carousel;
+export default React.memo(Carousel, (prevProps, nextProps) =>
+  isEqual(prevProps, nextProps)
+);

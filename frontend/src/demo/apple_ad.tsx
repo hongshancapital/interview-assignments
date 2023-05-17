@@ -9,6 +9,7 @@ function AppleAd() {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     let lastRunTime = 0;
+    const limitFrameTime = (1000 / 60) | 0;
     const updateSize = () => {
       setWidth(window.innerWidth);
       setHeight(window.innerHeight);
@@ -17,11 +18,11 @@ function AppleAd() {
     const handleResize = () => {
       let now = Date.now();
       clearTimeout(timeoutId);
-      if (now - lastRunTime > 100) {
+      if (now - lastRunTime > limitFrameTime) {
         updateSize();
         return;
       }
-      timeoutId = setTimeout(updateSize, 100);
+      timeoutId = setTimeout(updateSize, limitFrameTime);
     };
     window.addEventListener("resize", handleResize);
     return () => {

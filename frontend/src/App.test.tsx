@@ -67,19 +67,19 @@ test("app  autoplay", async () => {
       banners[next].dispatchEvent(event);
       next = (next + 1) % 3;
     });
-  }, 1000);
+  }, 500);
   // 找到slidewrapper组件
   const slidewrapper = container.getElementsByClassName("slide-wrapper")[0];
   const computedStyle1 = getComputedStyle(slidewrapper);
   // 查看初始状态是不是0
   expect(computedStyle1.transform).toBe("translateX(0px)");
-  await new Promise((resolve) => setTimeout(resolve, 1100));
+  await new Promise((resolve) => setTimeout(resolve, 600));
   const computedStyle2 = getComputedStyle(slidewrapper);
   expect(computedStyle2.transform).toBe("translateX(-800px)");
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
   const computedStyle3 = getComputedStyle(slidewrapper);
   expect(computedStyle3.transform).toBe("translateX(-1600px)");
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
   const computedStyle0 = getComputedStyle(slidewrapper);
   expect(computedStyle0.transform).toBe("translateX(0px)");
   // 循环一轮完成测试
