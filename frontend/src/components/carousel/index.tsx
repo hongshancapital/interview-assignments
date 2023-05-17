@@ -8,8 +8,10 @@ import React, {
 } from "react";
 import Dot from "./dot";
 import "./style.scss";
-import { isEqual } from "../../utils";
 
+/**
+ * 动画类型
+ */
 enum Easing {
   LINEAR = "linear",
   EASE_IN = "ease-in",
@@ -28,8 +30,9 @@ interface CarouselProps {
   height?: number; // 组件的高度
 }
 
-const Carousel: FC<CarouselProps> = ({ children = [], ...props }) => {
+const Carousel: FC<CarouselProps> = (props) => {
   const {
+    children,
     autoplay = true,
     autoplayWaitTime = 3000,
     easing = Easing.LINEAR,
@@ -69,29 +72,28 @@ const Carousel: FC<CarouselProps> = ({ children = [], ...props }) => {
 
   const nodes = React.Children.toArray(children);
   // 计算  dots 和 slides
-  const [dots, slides] = useMemo(() => {
-    const dots: React.ReactNode[] = [];
-    const slides: React.ReactNode[] = [];
-    for (let index = 0; index < nodes.length; index++) {
-      const child = nodes[index];
-      slides.push(
-        <div key={index} style={{ width: `${currentWidth}px` }}>
-          {child}
-        </div>
-      );
-      dots.push(
-        <Dot
-          key={index}
-          index={index}
-          autoplay={autoplay}
-          currentIndex={currentIndex}
-          autoplayWaitTime={autoplayWaitTime}
-          onSelect={onSelect}
-        ></Dot>
-      );
-    }
-    return [dots, slides];
-  }, [nodes, autoplay, autoplayWaitTime, currentIndex, currentWidth, onSelect]);
+
+  const dots: React.ReactNode[] = [];
+  const slides: React.ReactNode[] = [];
+  for (let index = 0; index < nodes.length; index++) {
+    const child = nodes[index];
+    slides.push(
+      <div key={index} style={{ width: `${currentWidth}px` }}>
+        {child}
+      </div>
+    );
+    dots.push(
+      <Dot
+        key={index}
+        index={index}
+        autoplay={autoplay}
+        currentIndex={currentIndex}
+        autoplayWaitTime={autoplayWaitTime}
+        onSelect={onSelect}
+      ></Dot>
+    );
+  }
+
   // 同步当前真实dom的宽度
   useLayoutEffect(() => {
     const width = carouselRef?.current?.offsetWidth;
@@ -100,7 +102,6 @@ const Carousel: FC<CarouselProps> = ({ children = [], ...props }) => {
     }
   }, [carouselRef, width]);
   // 更新当前slide-wrapper的位置
-
   useLayoutEffect(() => {
     const translateX = -currentIndex * currentWidth;
     if (slideWrapper.current) {
@@ -119,7 +120,7 @@ const Carousel: FC<CarouselProps> = ({ children = [], ...props }) => {
         className={`slide-wrapper`}
         style={{
           transition: animationStyle,
-          width: `${currentWidth * nodes.length}px`,
+          width: `${currentWidth * childrenCount}px`,
         }}
       >
         {slides}
@@ -129,6 +130,4 @@ const Carousel: FC<CarouselProps> = ({ children = [], ...props }) => {
   );
 };
 
-export default React.memo(Carousel, (prevProps, nextProps) =>
-  isEqual(prevProps, nextProps)
-);
+export default Carousel;
