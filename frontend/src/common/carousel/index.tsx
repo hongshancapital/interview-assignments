@@ -7,7 +7,7 @@ interface Props {
     showDots?: boolean,
     dotPosition?: string,
     showBtn?: boolean,
-    delay?:number,
+    delay?: number,
     onChange?: (index: number) => void
 }
 export interface carouselRef {
@@ -20,15 +20,17 @@ const defaultProps: Props = {
     autoplay: true,
     showDots: true,
     showBtn: false,
-    delay:3,
+    delay: 3,
     dotPosition: 'bottom',
 }
 
 const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
-    const { children = null, showDots, dotPosition, autoplay, onChange, showBtn,delay } = props
-    const timerRef = useRef<NodeJS.Timeout | null>(null); // 计时器
+    const { children = null, showDots, dotPosition, autoplay, onChange, showBtn, delay = 3 } = props
+    const timerRef = useRef<NodeJS.Timeout | null>(null) // 计时器
     const scrollRef = useRef<HTMLDivElement>(null) //slider滚动容器
-    const sliderCount = React.Children.count(children) //slider个数
+    const animationRef = useRef<number | null>(null) //动画ref
+    const startTimeRef = useRef<number>(0) //开始运动时间戳ref
+    const sliderCount = useMemo(() => React.Children.count(children), [children]) //slider个数
     const [currIndex, setCurrIndex] = useState<number>(-1) //当前活跃slider
     const sliderDots = useMemo(() => {//切换提示按钮个数 - Array
         return new Array(sliderCount)?.fill(0) ?? []
@@ -50,15 +52,15 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
      * @param {number} curr：指示器下标
      * @return {*} 活跃指示器style
      */
-    const dotStyle = (curr: number):object => {
+    const dotStyle = (curr: number): object => {
         if (!autoplay) {
-            return  curr === currIndex ? {
-                width:'100%'
+            return curr === currIndex ? {
+                width: '100%'
             } : {}
         }
-        return  curr === currIndex ? {
-            width:'100%',
-            transition:`width ${delay}s linear`
+        return curr === currIndex ? {
+            width: '100%',
+            transition: `width ${delay}s linear`
         } : {}
     }
     /**
@@ -66,25 +68,17 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
      * @param {string} type 操作类型
      */
     const setCurrentSlider = (type: string = 'next', index: number = 0) => {
-        const { clientWidth, clientHeight } = scrollRef.current!
         setCurrIndex(pre => {
             switch (type) {
                 case 'next':
-                    pre = pre === sliderCount - 1 ? 0 : pre += 1
+                    pre = pre === sliderCount ? 0 : pre + 1
                     break;
                 case 'pre':
-                    pre = pre === 0 ? sliderCount - 1 : pre -= 1
+                    pre = pre === 0 ? sliderCount : pre - 1
                     break;
                 case 'direct':
                     pre = index
                     break;
-            }
-            if (['bottom', 'top'].includes(dotPosition!)) {
-                scrollRef.current!.style.transform = `translateX(-${clientWidth * pre}px)`
-            } else if (['left', 'right'].includes(dotPosition!)) {
-                scrollRef.current!.style.transform = `translateY(-${clientHeight * pre}px)`
-            } else {
-                scrollRef.current!.style.transform = `translateX(-${clientWidth * pre}px)`
             }
             return pre
         })
@@ -94,9 +88,7 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
      */
     const startPlay = () => {
         if (!autoplay) return
-        timerRef.current = setInterval(() => {
-            setCurrentSlider()
-        }, delay!*1000)
+        timerRef.current = setInterval(setCurrentSlider, delay! * 1000)
     }
     /**
      * @description: 下一个
@@ -133,6 +125,42 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
         setCurrentSlider('direct', i)
     }
     /**
+     * @description: 切换slider
+     * @param {number} timestamp : 时间戳
+     * @return {*}
+     */
+    const animate = (timestamp: number) => {
+        if (!startTimeRef.current) {
+            startTimeRef.current = timestamp
+        }
+        const { clientWidth, clientHeight } = scrollRef.current!
+        let progress = timestamp ? (timestamp - startTimeRef.current) / 600 : 0
+        progress = progress > 1 ? 1 : progress
+        let distance = 0,
+            transLen = !['left', 'right'].includes(dotPosition!) ? clientWidth : clientHeight
+        if (currIndex === sliderCount) {
+            distance = transLen * (currIndex - 1) * progress - transLen * (currIndex - 1)
+        } else if (currIndex > 0) {
+            distance = -(transLen * (currIndex - 1) + transLen * progress)
+        }
+        if (['bottom', 'top'].includes(dotPosition!)) {
+            scrollRef.current!.style.transform = `translateX(${distance}px)`
+        } else if (['left', 'right'].includes(dotPosition!)) {
+            scrollRef.current!.style.transform = `translateY(${distance}px)`
+        } else {
+            scrollRef.current!.style.transform = `translateX(${distance}px)`
+        }
+        if (progress < 1) {
+            animationRef.current = requestAnimationFrame(animate)
+        } else {
+            if (currIndex === sliderCount) {
+                setCurrIndex(0)
+            }
+            startTimeRef.current = 0
+            cancelAnimationFrame(animationRef.current as number)
+        }
+    }
+    /**
      * @description: 抛出切换方法
      */
     useImperativeHandle(ref, () => ({
@@ -144,6 +172,16 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
     useEffect(() => {
         onChange && onChange(currIndex)
     }, [currIndex, onChange])
+
+    useEffect(() => {
+        if (currIndex >= 0) {
+            animationRef.current = requestAnimationFrame(animate)
+        }
+        return () => {
+            cancelAnimationFrame(animationRef.current as number)
+        }
+    }, [currIndex])
+
     useEffect(() => {
         setCurrIndex(0)
         startPlay()
@@ -151,6 +189,9 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
             if (timerRef.current) {
                 clearInterval(timerRef.current)
                 timerRef.current = null
+            }
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current as number)
             }
         }
     }, [])
@@ -168,7 +209,7 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
             </div>
             {
                 showDots ?
-                    <div  className={`${css['carousel-dot-wrapper']} ${dotWrapperCls}`}>
+                    <div className={`${css['carousel-dot-wrapper']} ${dotWrapperCls}`}>
                         {
                             sliderDots?.map((_, i) =>
                                 <div
