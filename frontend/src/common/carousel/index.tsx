@@ -143,13 +143,7 @@ const Carousel = forwardRef<carouselRef, Props>((props, ref) => {
         } else if (currIndex > 0) {
             distance = -(transLen * (currIndex - 1) + transLen * progress)
         }
-        if (['bottom', 'top'].includes(dotPosition!)) {
-            scrollRef.current!.style.transform = `translateX(${distance}px)`
-        } else if (['left', 'right'].includes(dotPosition!)) {
-            scrollRef.current!.style.transform = `translateY(${distance}px)`
-        } else {
-            scrollRef.current!.style.transform = `translateX(${distance}px)`
-        }
+        scrollRef.current!.style.transform = `translateX(${distance}px)`
         if (progress < 1) {
             animationRef.current = requestAnimationFrame(animate)
         } else {
