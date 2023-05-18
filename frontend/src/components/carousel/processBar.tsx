@@ -35,7 +35,8 @@ export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, proces
     }, [total])
 
     useEffect(() => {
-        nextAnimation()
+        reset()
+        setTimeout(() => nextAnimation(), 0)
         return () => {
             setCurIdx(0)
             reset()

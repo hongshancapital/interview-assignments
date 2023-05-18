@@ -11,7 +11,7 @@ function App() {
         title: 'xPhone',
         tips: 'Lots to love. Less to spend',
         theme: Theme.BlackTheme,
-        image: <img src={require('./assets/iphone.png')} style={{width: '50%' }}></img>
+        image: <img src={require('./assets/iphone.png')} style={{width: '50%', position: 'absolute', bottom: '150px',left: '25%' }}></img>
       },
       {
         title: 'Tablet',
