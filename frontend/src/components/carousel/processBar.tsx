@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useCallback, useEffect, useMemo, useState } from "react";
+import { CSSProperties, FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import './processBar.css';
 import { getDefaultAnimationStyle } from "../../utils";
 
@@ -10,7 +10,7 @@ interface ProcessBarProps {
 
 export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, processGap }) => {
     const [animationStyle, setAnimationStyle] = useState<Array<CSSProperties | undefined>>(getDefaultAnimationStyle(total))
-    const [curIdx, setCurIdx] = useState<number>(0)
+    const { current } = useRef<{timmer: NodeJS.Timeout | undefined}>({timmer: undefined})
 
     const nextAnimation = useCallback((curIdx = 0) => {
         setAnimationStyle(animationStyle.map((_, idx) => idx === curIdx ? {
@@ -21,27 +21,19 @@ export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, proces
             transition: '0s'
         }
         ))
-    }, [animationStyle])
-
-    const transitionEndHanlder = useCallback(() => {
-        let idx = (curIdx + 1) % total
-        nextAnimation(idx)
-        setCurIdx(idx)
-        nextPageHandler(idx)
-    }, [curIdx, total]) 
-
-    const reset = useCallback(() => {
-        setAnimationStyle(getDefaultAnimationStyle(total))
-    }, [total])
+        current.timmer = setTimeout(() => {
+            let idx = (curIdx + 1) % total
+            nextAnimation(idx)
+            nextPageHandler(idx)
+        }, processGap * 1000)
+    }, [animationStyle, nextPageHandler, current, processGap, total])
 
     useEffect(() => {
-        reset()
-        setTimeout(() => nextAnimation(), 0)
+        nextAnimation()
         return () => {
-            setCurIdx(0)
-            reset()
+            clearTimeout(current.timmer)
         }
-    }, [])
+    }, [current, nextAnimation])
 
     const mLeft = useMemo(() => {
         const gap = 8
@@ -52,7 +44,7 @@ export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, proces
     return <div className="process-bar-container" style={{marginLeft: mLeft}}>
         {
             Array(total).fill('item').map((_, idx) => <div key={idx} className="process-bar-item">
-                <div key={`content_${idx}`} className="process-bar-content" style={animationStyle[idx]} onTransitionEnd={transitionEndHanlder}/>
+                <div key={`content_${idx}`} className="process-bar-content" style={animationStyle[idx]}/>
             </div>)
         }
     </div>

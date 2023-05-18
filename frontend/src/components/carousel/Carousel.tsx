@@ -28,7 +28,7 @@ export const Carousel: FC<React.PropsWithChildren<IProps>> = ({children, cardLis
     return <div className='carousel-container'>
         <div className='carousel-wrapper' style={moveAction}>
             {
-                cardList ? cardList.map(card => card) : Children.map(children, child => child) 
+                cardList ? cardList : children
             }
         </div>
         <ProcessBar total={length} nextPageHandler={nextPage} processGap={processGap}></ProcessBar>
