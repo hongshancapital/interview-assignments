@@ -1,0 +1,69 @@
+.carousel_box{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    .img_box{
+        width:1000000px;
+        height:600px;
+        img{
+            max-height: 100%;
+            float: left;
+        }
+        h1{
+            font-size: 32px;
+            text-align: center;
+            color: #000;
+            position: relative;
+            margin-top: 100px;
+        }
+        h2{
+            font-size: 26px;
+            text-align: center;
+            color: #000;
+        }
+    }
+    .line_box{
+        height: 4px;
+       /* overflow: hidden;*/
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        .view_box{
+            width: 80px;
+            height: 4px;
+            border-radius: 4px;
+            margin: 0 5px;
+            float: left;
+            background-color: #fff;
+            position: relative;
+            .bg_color{
+                position: absolute;
+                background-color: #999;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 4px;
+                border-radius: 4px;
+            }
+            .view_color{
+                position: absolute;
+                background-color: #fff;
+                top: 0;
+                left: 0;
+                width: 0%;
+                z-index: 1;
+                height: 4px;
+                border-radius: 4px;
+            }
+        }
+    }
+}
+.animate{
+    animation:myfirst 2s;
+}
+@keyframes myfirst
+{
+    from {width:0;}
+    to {width:100%;}
+}
