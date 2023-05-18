@@ -1,14 +1,41 @@
 .App {
   text-align: center;
   position: relative;
+  width: 100vw;
+  height: 100vh;
 }
 
 .title {
+  padding-top: 15%;
   font-size: 56px;
   font-weight: 600;
+  color: black;
 }
 
 .text {
   font-size: 28px;
   font-weight: 400;
+  color: black;
+}
+
+.img-iphone, .img-tablet, .img-airpods {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.img-iphone {
+  background-image: url(./assets/iphone.png);
+}
+.img-tablet {
+  background-image: url(./assets/tablet.png);
+}
+.img-airpods {
+  background-image: url(./assets/airpods.png);
+}
+
+.img-iphone .title, .img-iphone .text {
+  color: #fff;
 }
