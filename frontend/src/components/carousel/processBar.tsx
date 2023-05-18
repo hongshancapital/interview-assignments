@@ -1,13 +1,15 @@
-import { CSSProperties, FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { CSSProperties, FC, useCallback, useEffect, useMemo, useState } from "react";
 import './processBar.css';
+import { getDefaultAnimationStyle } from "../../utils";
 
 interface ProcessBarProps {
     total: number
     nextPageHandler: (idx: number) => void
     processGap: number
 }
+
 export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, processGap }) => {
-    const [animationStyle, setAnimationStyle] = useState<Array<CSSProperties | undefined>>(Array(total).fill({width: '0', transition: '0s'}))
+    const [animationStyle, setAnimationStyle] = useState<Array<CSSProperties | undefined>>(getDefaultAnimationStyle(total))
     const [curIdx, setCurIdx] = useState<number>(0)
 
     const nextAnimation = useCallback((curIdx = 0) => {
@@ -28,8 +30,16 @@ export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, proces
         nextPageHandler(idx)
     }, [curIdx, total]) 
 
+    const reset = useCallback(() => {
+        setAnimationStyle(getDefaultAnimationStyle(total))
+    }, [total])
+
     useEffect(() => {
         nextAnimation()
+        return () => {
+            setCurIdx(0)
+            reset()
+        }
     }, [])
 
     const mLeft = useMemo(() => {
