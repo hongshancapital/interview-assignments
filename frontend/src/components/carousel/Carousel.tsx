@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, Children, useMemo, useState, useCallback, useEffect, CSSProperties, useRef } from 'react'
+import React, { FC, ReactNode, Children, useMemo, useState, CSSProperties } from 'react'
 import './carousel.css'
 import { ProcessBar } from './processBar'
 

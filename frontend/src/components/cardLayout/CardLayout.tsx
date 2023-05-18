@@ -1,4 +1,4 @@
-import React, { FC, Children, useMemo } from "react";
+import  { FC, useMemo } from "react";
 import './cardLayout.css';
 import { LayoutProps, Theme } from "./types";
 import { classNames } from "../../utils";
@@ -10,6 +10,7 @@ export const CardLayout:FC<LayoutProps> = ({theme, info, image}) => {
             ['card-layout-container__gray']: theme === Theme.GrayTheme
         })
     , [theme, classNames, Theme])
+
     return <div className={containerClass}>
         <div className='card-layout-title' >{info.title}</div>
         <div className='card-layout-tips'>{info.tips}</div>
