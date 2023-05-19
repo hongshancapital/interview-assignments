@@ -20,7 +20,7 @@ export const Carousel: FC<React.PropsWithChildren<IProps>> = ({children, cardLis
 
     const nextPage = (curIdx: number) => {
         setMoveAction({
-            transform: `translate(${(-curIdx * 100)}vw)`,
+            transform: `translate3D(${(-curIdx * 100)}vw, 0, 0)`,
             transition: `transform ${pageChangeGap}s`
         })
     }
