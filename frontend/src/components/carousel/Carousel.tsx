@@ -6,12 +6,12 @@ interface IProps {
     // support Children and CardList as cardLayout array
     cardList?: ReactNode[]
     // unit second
-    pageChangeGap?: number
+    pageChangeDuration?: number
     // unit second
-    processGap?: number
+    processDuration?: number
 }
 
-export const Carousel: FC<React.PropsWithChildren<IProps>> = ({children, cardList, pageChangeGap = 1.5, processGap = 3}) => {
+export const Carousel: FC<React.PropsWithChildren<IProps>> = ({children, cardList, pageChangeDuration = 0.8, processDuration = 3}) => {
     const [moveAction, setMoveAction] = useState<CSSProperties | undefined>(undefined)
 
     const length = useMemo(() => {
@@ -21,7 +21,7 @@ export const Carousel: FC<React.PropsWithChildren<IProps>> = ({children, cardLis
     const nextPage = (curIdx: number) => {
         setMoveAction({
             transform: `translate3d(${(-curIdx * 100)}vw, 0, 0)`,
-            transition: `transform ${pageChangeGap}s`
+            transition: `transform ${pageChangeDuration}s`
         })
     }
     
@@ -31,6 +31,6 @@ export const Carousel: FC<React.PropsWithChildren<IProps>> = ({children, cardLis
                 cardList ? cardList : children
             }
         </div>
-        <ProcessBar total={length} nextPageHandler={nextPage} processGap={processGap}></ProcessBar>
+        <ProcessBar total={length} nextPageHandler={nextPage} processDuration={processDuration}></ProcessBar>
     </div>
 }
