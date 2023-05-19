@@ -5,9 +5,11 @@ import { classNames } from "../../utils";
 
 export const CardLayout:FC<LayoutProps> = ({theme, info, image}) => {
     const containerClass = useMemo(() => classNames('card-layout-cotainer', {
-            ['card-layout-container__white']: theme === Theme.WhiteTheme,
+            /* eslint-disable */
+            ['card-layout-container__white'] : theme === Theme.WhiteTheme,
             ['card-layout-container__black']: theme === Theme.BlackTheme,
             ['card-layout-container__gray']: theme === Theme.GrayTheme
+            /* eslint-disable */
         })
     , [theme, classNames, Theme])
 

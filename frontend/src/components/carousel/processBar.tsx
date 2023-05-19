@@ -33,6 +33,7 @@ export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, proces
         return () => {
             clearTimeout(current.timmer)
         }
+    // eslint-disable-next-line
     }, [current])
 
     const mLeft = useMemo(() => {

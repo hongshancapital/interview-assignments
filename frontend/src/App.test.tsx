@@ -31,4 +31,3 @@ test('classNames function test: single object false', () => {
 test('classNames function test: mixed complex scene', () => {
   expect(classNames({a: true, b: false}, {c: true, d: false}, 'e')).toBe('a c e')
 })
-
