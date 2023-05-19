@@ -33,7 +33,7 @@ export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, proces
         return () => {
             clearTimeout(current.timmer)
         }
-    }, [current, nextAnimation])
+    }, [current])
 
     const mLeft = useMemo(() => {
         const gap = 8
