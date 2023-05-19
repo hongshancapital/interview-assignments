@@ -17,4 +17,3 @@ export const classNames = (arg: ClassNameType, ...args: Array<ClassNameType>) =>
 
     return (result as string).trim()
 }
-
