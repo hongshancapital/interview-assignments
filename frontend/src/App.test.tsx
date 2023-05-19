@@ -11,7 +11,7 @@ import App from './App';
 //   expect(linkElement).toBeInTheDocument();
 // });
 
-// function test
+// function classNames test
 test('classNames function test: single string class names', () => {
   expect(classNames('a')).toBe('a')
 })
@@ -31,3 +31,4 @@ test('classNames function test: single object false', () => {
 test('classNames function test: mixed complex scene', () => {
   expect(classNames({a: true, b: false}, {c: true, d: false}, 'e')).toBe('a c e')
 })
+
