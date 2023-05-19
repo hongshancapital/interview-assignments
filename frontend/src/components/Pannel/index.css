@@ -1,0 +1,43 @@
+.pannel-wrapper {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.content  {
+  position: absolute;
+  left: 50%;
+  width: 50%;
+  transform: translateX(-50%);
+  top: 20%;
+  z-index: 1000;
+}
+
+.content .title-wrapper {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.content .text-wrapper {
+  text-align: center;
+}
+
+
+.img-wrapper {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  bottom: 10%;
+  height: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+/* 观察到所给到的图片高度统一，但宽度不同，目前的方式为使图片高度撑满，宽度通过上层overflow：hidden带来统一的视觉效果 */
+.img-wrapper .img {
+  position: absolute;
+  display: block;
+  height: 100%;
+  bottom: 0;
+}
