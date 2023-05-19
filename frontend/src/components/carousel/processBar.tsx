@@ -44,7 +44,7 @@ export const ProcessBar: FC<ProcessBarProps> = ({ total, nextPageHandler, proces
 
     return <div className="process-bar-container" style={{marginLeft: mLeft}}>
         {
-            Array(total).fill('item').map((_, idx) => <div key={idx} className="process-bar-item">
+            Array.from({length: total}).map((_, idx) => <div key={idx} className="process-bar-item">
                 <div key={`content_${idx}`} className="process-bar-content" style={animationStyle[idx]}/>
             </div>)
         }
