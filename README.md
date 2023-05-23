@@ -14,6 +14,9 @@
 深圳/香港:
 - [Support Engineer](it-support-engineer/)
 
+北京:
+- [Full Stack Engineer](fullstack/)
+
 链接中有更为具体的 JD。
 
 ## interview-assignments
