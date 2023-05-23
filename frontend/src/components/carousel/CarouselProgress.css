@@ -1,0 +1,30 @@
+.progress {
+  display: flex;
+  gap: 8px;
+}
+
+.progress__item {
+  width: 40px;
+  height: 4px;
+  background-color: #919294;
+  border-radius: 2px;
+}
+
+.progress__item.active:after {
+  content: "";
+  display: block;
+  background-color: #e8e8e8;
+  width: 0%;
+  height: 100%;
+  animation: var(--duration) forwards linear fill;
+}
+
+@keyframes fill {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
