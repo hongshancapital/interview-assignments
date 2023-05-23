@@ -1,0 +1,87 @@
+.slider {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+/* parts */
+.slider .parts {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slider .parts .container {
+  transition: left 0.5s;
+  position: relative;
+  width: 300%;
+  height: 100%;
+}
+
+.slider .parts .part {
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+}
+
+.slider .parts .part:nth-child(1) {
+  background-color: #161616;
+  color: white;
+  left: 0;
+}
+
+.slider .parts .part:nth-child(2) {
+  background-color: #f9f9f9;
+  left: 100vw;
+}
+
+.slider .parts .part:nth-child(3) {
+  background-color: #f1f1f3;
+  left: 200vw;
+}
+
+/* tabs */
+.slider .tabs {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+}
+
+.slider .tabs .tab {
+  background-color: #919294;
+  height: 2px;
+  width: 50px;
+  border-radius: 2px;
+}
+
+.slider .tabs .tab:not(:last-child) {
+  margin-right: 10px;
+}
+
+.slider .tabs .tab::after {
+  content: "";
+  display: block;
+  background-color: white;
+  width: 0%;
+  height: 100%;
+}
+
+.slider .tabs .tab.animate::after {
+  animation-name: tabMove;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+@keyframes tabMove {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}

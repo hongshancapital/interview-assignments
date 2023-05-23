@@ -6,9 +6,39 @@
 .title {
   font-size: 56px;
   font-weight: 600;
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 10px;
 }
 
 .text {
   font-size: 28px;
   font-weight: 400;
+  margin-top: 10%;
+}
+
+.img {
+  width: 200px;
+  height: 150px;
+  position: absolute;
+  bottom: 20%;
+  left: calc(50% - 100px);
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center bottom;
+}
+
+.part:nth-child(1) .img {
+  background-image: url("../src/assets/iphone.png");
+  background-size: 600px;
+}
+.part:nth-child(2) .img {
+  background-image: url("../src/assets/tablet.png");
+  background-size: 1200px;
+}
+.part:nth-child(3) .img {
+  background-image: url("../src/assets/airpods.png");
+  background-size: 2000px;
 }
