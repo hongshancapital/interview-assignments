@@ -1,4 +1,4 @@
-import React, {
+import {
   CSSProperties,
   FC,
   useCallback,
@@ -28,11 +28,11 @@ const Carousel: FC<CarouselProps_Inter> = ({ list = [], period = 3000 }) => {
   const intervalRef = useRef<number>();
 
   /** 当前播放的轮播图索引 */
-  const [currentIndex, setCurrentIndex] = useState<number>();
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
 
   /** 索引变更 */
   const next = useCallback(() => {
-    const newIndex = currentIndex! < list.length - 1 ? currentIndex! + 1 : 0;
+    const newIndex = currentIndex < list.length - 1 ? currentIndex + 1 : 0;
     setCurrentIndex(newIndex);
   }, [currentIndex, list.length]);
 
@@ -41,7 +41,8 @@ const Carousel: FC<CarouselProps_Inter> = ({ list = [], period = 3000 }) => {
 
   /** 开始计时 */
   useEffect(() => {
-    intervalRef.current = Number(setTimeout(next, period));
+    //                       ↓  此处"window."避免编译阶段将setTimeout返回值认定为Nodejs环境的Timeout类型而报错
+    intervalRef.current = window.setTimeout(next, period);
     return () => clearTimeout(intervalRef.current);
   }, [next, period]);
 
@@ -71,9 +72,8 @@ const Carousel: FC<CarouselProps_Inter> = ({ list = [], period = 3000 }) => {
   );
 
   return (
-    <div className="carousel-control" data-testid="carousel">
+    <div className="carousel-control">
       <div
-        data-testid="banner-list"
         className="banner-list-control"
         style={bannerListstyle}
       >

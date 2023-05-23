@@ -1,6 +1,5 @@
-import React from "react";
-
 import "./App.css";
+
 import airpds from "./assets/airpods_8.png";
 import iphone from "./assets/iphone_8.png";
 import tablet from "./assets/tablet_8.png";

@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, useMemo } from "react";
+import { CSSProperties, FC, useMemo } from "react";
 import "./index.css";
 
 export interface IndicatorProps_Inter {
@@ -18,12 +18,8 @@ const Indicator: FC<IndicatorProps_Inter> = ({ active, period = 3000 }) => {
     [active, period]
   );
   return (
-    <div role="listitem" className="indicator-control">
-      <div
-        data-testid="indicator-bar"
-        className="indicator-bar"
-        style={barStyle}
-      ></div>
+    <div className="indicator-control">
+      <div className="indicator-bar" style={barStyle}></div>
     </div>
   );
 };

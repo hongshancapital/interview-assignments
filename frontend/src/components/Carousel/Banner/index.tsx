@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, useMemo } from "react";
+import { CSSProperties, FC, useMemo } from "react";
 import "./index.css";
 
 /** 主题，用于控制文本颜色 */
@@ -7,11 +7,19 @@ export enum Them_Enum {
   light = "light", // 明亮
 }
 
+/**
+ * 轮播内容
+ */
 export interface BannerProp_Inter {
+  /** 主图路径 */
   imgUrl: string;
+  /** 背景色 */ 
   backgroundColor: string;
+  /** 标题列表 */
   title: string[];
+  /** 主色调(影响文本颜色,避免深色文本在深色背景上不易读) */
   them?: Them_Enum;
+  /** 文本内容(小标题) */
   text?: string[];
 }
 
@@ -51,7 +59,7 @@ const Banner: FC<BannerProp> = ({
   const textDOM = useMemo(
     () =>
       text?.map((textContent, index) => (
-        <p role="row" className="text" key={index}>
+        <p className="text" key={index}>
           {textContent}
         </p>
       )),
@@ -60,7 +68,6 @@ const Banner: FC<BannerProp> = ({
 
   return (
     <div
-      role="listitem"
       className={`banner_control ${them === Them_Enum.dark && Them_Enum.dark}`}
       style={bannerStyle}
     >
