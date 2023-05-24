@@ -11,7 +11,7 @@ import SwiftUI
 struct AppHunterApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView().environmentObject(HomeViewModel(apiService: AppInfoListService()))
         }
     }
 }
