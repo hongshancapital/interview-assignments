@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, act } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
 import Carousel, { CarouselRef } from '.';
 
 /**
@@ -51,6 +51,24 @@ describe('Carousel', () => {
     await waitFakeTimer();
     expect(ref.current?.activeIndex).toBe(2);
     ref.current?.goTo(1);
+    await waitFakeTimer();
+    expect(ref.current?.activeIndex).toBe(1);
+  });
+
+  it('dot should can be click', async () => {
+    const ref = React.createRef<CarouselRef>();
+    const { container } = render(
+      <Carousel ref={ref}>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </Carousel>
+    );
+    const dots = container.querySelectorAll('.carousel-dots__item');
+    fireEvent.click(dots[2]);
+    await waitFakeTimer();
+    expect(ref.current?.activeIndex).toBe(2);
+    fireEvent.click(dots[1]);
     await waitFakeTimer();
     expect(ref.current?.activeIndex).toBe(1);
   });
