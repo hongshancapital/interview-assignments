@@ -169,7 +169,7 @@ export default function Carousel<T>(props: Props<T>) {
     }
     scrollTimer.current = setTimeout(() => {
       setScrolling(false)
-    }, 300);
+    }, 200);
   }
 
   function initFirstItem() {
