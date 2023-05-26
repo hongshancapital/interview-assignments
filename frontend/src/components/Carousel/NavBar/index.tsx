@@ -51,7 +51,7 @@ const NavBar = styled.div< {$direction: CarouselDirection} >`
   ${getNavBarStyle};
 `
 
-const NavItem = styled.div<{ $direction: CarouselDirection; $active: boolean; $duration: number }>`
+const NavItem = styled.div<{ $direction: CarouselDirection; $active: boolean; $duration: number; $autoplay: boolean }>`
   position: relative;
   overflow: hidden;
   background-color: #A9A9A9;
@@ -84,8 +84,10 @@ const NavItem = styled.div<{ $direction: CarouselDirection; $active: boolean; $d
     width: 100%;
     height: 100%;
     background-color: #fff;
-    ${props => props.$active && props.$direction === CarouselDirection.Horizontal ? 'animation: activeX ' + props.$duration + 'ms linear' : ''};
-    ${props => props.$active && props.$direction === CarouselDirection.Vertical ? 'animation: activeY ' + props.$duration + 'ms linear' : ''};
+    ${props => props.$active && !props.$autoplay && props.$direction === CarouselDirection.Horizontal ? 'transform: translateX(100%);' : ''};
+    ${props => props.$active && props.$autoplay && props.$direction === CarouselDirection.Vertical ? 'transform: translateY(100%);' : ''};
+    ${props => props.$active && props.$autoplay && props.$direction === CarouselDirection.Horizontal ? 'animation: activeX ' + props.$duration + 'ms linear' : ''};
+    ${props => props.$active && props.$autoplay && props.$direction === CarouselDirection.Vertical ? 'animation: activeY ' + props.$duration + 'ms linear' : ''};
   }
 `;
 
@@ -93,6 +95,7 @@ interface Props<T> {
   direction: CarouselDirection;
   data: ReadonlyArray<T>;
   keyExtractor(item: T, index: number): string | number;
+  autoplay: boolean;
   scrolling: boolean;
   autoplayDelay: number;
   finishAnimation: () => void;
@@ -100,12 +103,13 @@ interface Props<T> {
 }
 
 export default function NavBarComponent<T>(props: Props<T>) {
-  const { direction, data, current, scrolling, autoplayDelay, keyExtractor, finishAnimation } = props;
+  const { direction, data, current, scrolling, autoplay, autoplayDelay, keyExtractor, finishAnimation } = props;
   return <NavBar $direction={direction}>
     {data.map((item, index) => (
       <NavItem
         key={keyExtractor(item, index)}
         $direction={direction}
+        $autoplay={autoplay}
         $active={!scrolling && current === index}
         $duration={autoplayDelay}
         onAnimationEndCapture={finishAnimation}

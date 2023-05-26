@@ -140,6 +140,7 @@ export default function Carousel<T>(props: Props<T>) {
     renderItem,
     firstItem = 1,
     autoplayDelay = 3000,
+    autoPlay = true,
     loop = true,
     inverted,
     hideScrollBar = true
@@ -248,6 +249,7 @@ export default function Carousel<T>(props: Props<T>) {
         finishAnimation={finishAnimation}
         keyExtractor={keyExtractor}
         scrolling={scrolling}
+        autoplay={autoPlay}
         autoplayDelay={autoplayDelay}
         current={current}
         direction={direction}
