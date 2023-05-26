@@ -7,6 +7,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  // 开发环境会导致useEffect调用两次
   <React.StrictMode>
     <App />
   </React.StrictMode>
