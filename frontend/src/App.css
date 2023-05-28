@@ -12,3 +12,88 @@
   font-size: 28px;
   font-weight: 400;
 }
+
+/* 定义Carousel组件的CSS样式 */
+.carousel {
+  width: 600px; /* 设置Carousel组件的宽度 */
+  height: 400px; /* 设置Carousel组件的高度 */
+  margin: 0 auto; /* 设置Carousel组件的居中对齐 */
+  position: relative; /* 设置Carousel组件的相对定位 */
+  overflow: hidden; /* 设置Carousel组件的隐藏溢出内容 */
+}
+
+.carousel img {
+  width: 100%; /* 设置图片的宽度为100% */
+  height: 100%; /* 设置图片的高度为自动 */
+}
+
+.carousel-info {
+  position: absolute; /* 设置信息框的绝对定位 */
+  top: 0; /* 设置信息框的底部对齐 */
+  left: 0; /* 设置信息框的左边对齐 */
+  right: 0; /* 设置信息框的右边对齐 */
+  background-color: rgba(0, 0, 0, 0.5); /* 设置信息框的背景颜色为半透明黑色 */
+  color: white; /* 设置信息框的文字颜色为白色 */
+  padding: 10px; /* 设置信息框的内边距为10px */
+}
+
+.carousel-controls {
+  position: absolute; /* 设置控制按钮的绝对定位 */
+  top: 50%; /* 设置控制按钮的垂直居中对齐 */
+  left: 0; /* 设置控制按钮的左边对齐 */
+  right: 0; /* 设置控制按钮的右边对齐 */
+}
+
+.carousel-controls button {
+  width: 50px; /* 设置按钮的宽度为50px */
+  height: 50px; /* 设置按钮的高度为50px */
+  border-radius: 50%; /* 设置按钮的圆形边框 */
+  border: none; /* 去掉按钮的边框 */
+  background-color: rgba(255, 255, 255, 0.3); /* 设置按钮的背景颜色为半透明白色 */
+  color: white; /* 设置按钮的文字颜色为白色 */
+}
+
+.carousel-controls button:hover {
+  background-color: rgba(255, 255, 255, 0.6); /* 设置按钮在鼠标悬停时的背景颜色为更透明白色 */
+}
+
+.carousel-controls button:first-child {
+  float: left; /* 设置左箭头按钮向左浮动 */
+}
+
+.carousel-controls button:last-child {
+  float: right; /* 设置右箭头按钮向右浮动 */
+}
+
+.actionStyle{
+  width:  100% ;
+  position:  relative ;
+  top:  -50px ;
+  display:  flex ;
+  flex-direction:  row ;
+  justify-content:  center ;
+  align-items:  center ;
+  cursor: pointer;
+}
+.actionItemStyle{
+  width:  90px ;
+  height:  7px ;
+  background-color: #0000001a ;
+  margin-left:  20px ;
+  border-radius:  5px 
+}
+.actionLineStyle{
+  height:  100% ;
+  border-radius:  5px ;
+  animation-fill-mode:  forwards ;
+  animation-name:  progressBar;
+  animation-iteration-count:  infinite ;
+}
+@keyframes progressBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
