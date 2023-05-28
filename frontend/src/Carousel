@@ -1,0 +1,109 @@
+interface Slide {
+    imageSrc: string;
+    title: string;
+    description: string;
+  }
+  
+  interface SlideshowProps {
+    slides: Slide[];
+  }
+  
+  interface SlideshowState {
+    currentSlideIndex: number;
+  }
+  
+  class Slideshow extends React.Component<SlideshowProps, SlideshowState> {
+    constructor(props: SlideshowProps) {
+      super(props);
+  
+      this.state = {
+        currentSlideIndex: 0,
+      };
+  
+      this.goToNextSlide = this.goToNextSlide.bind(this);
+      this.goToPreviousSlide = this.goToPreviousSlide.bind(this);
+    }
+  
+    private goToNextSlide() {
+      const { currentSlideIndex } = this.state;
+      const { slides } = this.props;
+  
+      if (currentSlideIndex === slides.length - 1) {
+        this.setState({
+          currentSlideIndex: 0,
+        });
+      } else {
+        this.setState({
+          currentSlideIndex: currentSlideIndex + 1,
+        });
+      }
+    }
+  
+    private goToPreviousSlide() {
+      const { currentSlideIndex } = this.state;
+      const { slides } = this.props;
+  
+      if (currentSlideIndex === 0) {
+        this.setState({
+          currentSlideIndex: slides.length - 1,
+        });
+      } else {
+        this.setState({
+          currentSlideIndex: currentSlideIndex - 1,
+        });
+      }
+    }
+  
+    render() {
+      const { slides } = this.props;
+      const { currentSlideIndex } = this.state;
+  
+      return (
+        <div className="slideshow">
+          <div className="slideshow__slides">
+            {slides.map((slide, index) => (
+              <div
+                key={index}
+                className={`slideshow__slide ${
+                  index === currentSlideIndex ? "slideshow__slide--active" : ""
+                }`}
+              >
+                <img src={slide.imageSrc} alt={slide.title} />
+                <div className="slideshow__slide-content">
+                  <h2>{slide.title}</h2>
+                  <p>{slide.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button className="slideshow__previous" onClick={this.goToPreviousSlide}>
+            Previous
+          </button>
+          <button className="slideshow__next" onClick={this.goToNextSlide}>
+            Next
+          </button>
+        </div>
+      );
+    }
+  }
+  
+  const slides: Slide[] = [
+    {
+      imageSrc: "https://picsum.photos/id/100/800/400",
+      title: "Slide 1",
+      description: "This is the first slide",
+    },
+    {
+      imageSrc: "https://picsum.photos/id/200/800/400",
+      title: "Slide 2",
+      description: "This is the second slide",
+    },
+    {
+      imageSrc: "https://picsum.photos/id/300/800/400",
+      title: "Slide 3",
+      description: "This is the third slide",
+    },
+  ];
+  
+  ReactDOM.render(<Slideshow slides={slides} />, document.getElementById("root"));
+  
