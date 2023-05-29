@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
-import App from './App';
+import CarouselCard from '../index';
 
-describe('[app]页面渲染', () => {
-  test('[#1 - app]渲染正常', () => {
-    const { container } = render(<App />);
+describe('[CarouselCard]页面模块: 轮播卡片', () => {
+  test('[#1 - CarouselCard]用例名称：正常渲染', () => {
+    const { container } = render(<CarouselCard />);
     expect(container.firstElementChild).toBeTruthy();
     const carouselCardElement = container.querySelector('.carousel-card');
     expect(carouselCardElement).toBeInTheDocument();

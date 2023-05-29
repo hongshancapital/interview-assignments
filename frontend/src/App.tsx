@@ -1,7 +1,12 @@
+import CarouselCard from './carouselCard'
 import './App.css';
 
 function App() {
-  return <div className='App'>{/* write your component here */}</div>;
+  return (
+    <div className='App'>
+      <CarouselCard />
+    </div>
+  );
 }
 
 export default App;
