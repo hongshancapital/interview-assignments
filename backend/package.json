@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "short-url",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && tsc -p ./tsconfig.json --extendedDiagnostics",
+    "start": "ts-node ./src/index.ts",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.14.1",
+    "koa-body": "^6.0.1",
+    "koa-router": "^12.0.0",
+    "mysql2": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/koa": "^2.13.5",
+    "@types/koa-router": "^7.4.4",
+    "@types/supertest": "^2.0.12",
+    "tslint": "^6.1.3",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "typeorm": "^0.3.12",
+    "typescript": "^5.0.2"
+  }
+}
