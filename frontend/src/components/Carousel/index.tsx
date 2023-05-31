@@ -40,9 +40,19 @@ export default forwardRef<CarouselRef, CarouselProps>(function Carousel({
   }));
 
   useEffect(() => {
+    const ro = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        setSlideWidth(entry.contentRect.width);
+      }
+    });
+
     if (containerRef.current?.clientWidth) {
-      setSlideWidth(containerRef.current?.clientWidth);
+      ro.observe(containerRef.current);
     }
+
+    return () => {
+      ro.disconnect();
+    };
   }, []);
 
   if (!Array.isArray(children)) {

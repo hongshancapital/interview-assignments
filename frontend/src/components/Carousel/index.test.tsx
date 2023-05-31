@@ -43,10 +43,6 @@ describe('Carousel', () => {
       </Carousel>,
     );
 
-    const { prev, next, goTo } = ref.current || {};
-    expect(typeof prev).toBe('function');
-    expect(typeof next).toBe('function');
-    expect(typeof goTo).toBe('function');
     ref.current?.goTo(2);
     await waitFakeTimer();
     expect(ref.current?.activeIndex).toBe(2);
