@@ -17,7 +17,7 @@ export const Slide = ({ height, width, title, subTitle, bgPic, bgColor, color }:
         backgroundImage: `url(${bgPic})`,
         backgroundColor: bgColor,
         color: color || 'black',
-    }}>
+    }} role="slide">
         <h1><MultilineText text={title} /></h1>
         <h2><MultilineText text={subTitle} /></h2>
     </div>)
@@ -29,6 +29,6 @@ const MultilineText = ({text}:{text?:string}) => {
     }
     const lines = text.split('\n');
     return (<>
-        {lines.map(line => (<div>{line}</div>))}
+        {lines.map((line, i) => (<div key={i+line}>{line}</div>))}
     </>)
 };

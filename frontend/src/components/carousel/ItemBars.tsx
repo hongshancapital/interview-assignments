@@ -9,11 +9,11 @@ interface ItemBarProps {
 const ItemBar = ({time, active}: ItemBarProps) => {
     if(!active) {
         return (
-            <div className="item-bar"/>
+            <div className="item-bar" role="itembar"/>
         );
     }
     return (
-        <div className="item-bar active">
+        <div className="item-bar active" role="itembar">
             <div className="item-bar progress" style={{
                 animationName: 'progress-move',
                 animationDuration: `${time / 1000}s`
@@ -36,7 +36,7 @@ export const ItemBars = ({itemCount, time, currentIndex}: ItemBarsProps) => {
         }
         return r;
     }, [itemCount]);
-    return (<div className="item-bars">
-        {items.map(i => (<ItemBar time={time} active={i === currentIndex}/>))}
+    return (<div className="item-bars" role="itembars">
+        {items.map(i => (<ItemBar time={time} active={i === currentIndex} key={i}/>))}
     </div>);
 };

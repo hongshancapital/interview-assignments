@@ -3,14 +3,14 @@ import { LastSlide } from "./LastSlide";
 import { CurrentSlide } from "./CurrentSlide";
 import { ItemBars } from "./ItemBars";
 
-interface SlideShowProps {
+interface CarouselProps {
     height?: string;
     width?: string;
     time?: number;
     children: React.ReactNode[];
 }
 
-export const SlideShow = ({ height, width, time, children }: SlideShowProps) => {
+export const Carousel = ({ height, width, time, children }: CarouselProps) => {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [lastIndex, setLastIndex] = useState<number>();
     const initFlag = useRef<boolean>(false);
@@ -32,7 +32,7 @@ export const SlideShow = ({ height, width, time, children }: SlideShowProps) => 
         return null;
     }
 
-    return (<div style={{ height, width }}>
+    return (<div style={{ height, width }} role="carousel">
         {lastIndex !== undefined && (<LastSlide>{children[lastIndex]}</LastSlide>)}
         <CurrentSlide hasLastSlide={lastIndex !== undefined} isFirstSlide={currentIndex === 0} time={time || 3000}>{children[currentIndex]}</CurrentSlide>
         <ItemBars itemCount={children.length} time={time || 3000} currentIndex={currentIndex}/>
