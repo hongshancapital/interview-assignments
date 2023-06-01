@@ -1,0 +1,29 @@
+.item-bars {
+    position: absolute;
+    bottom: -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.item-bar {
+    height: 4px;
+    width: 50px;
+    background-color:darkgray;
+    border-radius: 2px;
+    margin: 0 8px;
+}
+
+.active {
+    background-color: white;
+}
+
+.progress {
+    margin: 0;
+}
+
+@keyframes progress-move {
+    from {width: 0px;}
+    to {width: 50px;}
+}
