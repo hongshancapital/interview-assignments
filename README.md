@@ -10,6 +10,7 @@
 - [TypeScript Frontend](frontend/)
 - [Swift](swift/)
 - [UI 设计师](design/)
+- [Full Stack Engineer](fullstack/)
 
 深圳/香港:
 - [Support Engineer](it-support-engineer/)
