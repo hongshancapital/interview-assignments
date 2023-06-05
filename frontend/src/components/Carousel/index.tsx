@@ -44,7 +44,7 @@ export default function Carousel({
 
   useEffect(() => {
     slick()
-    // 推迟到下一次绘制前触发，防止某些场景首屏加载进度条失效
+    // 推迟到下一次绘制前触发，防止数据在一个渲染帧内完成更新，导致第一页指示器动画效果不生效
     requestAnimationFrame(() => setActive(0))
 
     return () => {
