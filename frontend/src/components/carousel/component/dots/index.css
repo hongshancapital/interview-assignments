@@ -1,0 +1,31 @@
+.dot-container {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.dot-item {
+    width: 40px;
+    height: 2px;
+    background-color: #a9a9a9;
+    border-radius: 2px;
+    margin-right: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+.dot-item::before{
+    content: '';
+    width: 0;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.actived-dot::before{
+    transition: all 0.4s ease-out;
+    width: 100%;
+}
