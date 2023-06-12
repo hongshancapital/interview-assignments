@@ -55,6 +55,7 @@ function Carousel() {
 
   const handleClick = (idx: number) => {
     setCount(idx);
+    console.log("呵呵");
   };
 
   return (
