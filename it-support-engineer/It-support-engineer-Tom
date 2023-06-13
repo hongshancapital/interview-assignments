@@ -1,12 +1,21 @@
 import re
 import json
 import requests
+import gzip
+import os
+
+log_gz = './interview_data_set.gz'
 
 
-log_file = './interview_data_set'
+def un_gz(filename):
+    f_name = filename.replace(".gz","")
+    g_file = gzip.GzipFile(filename)
+    open(f_name,"wb+").write(g_file.read())
+    g_file.close()
+    return f_name
 
 def log_analysis():
-    with open(log_file) as f:
+    with open(un_gz(log_gz)) as f:
         for line in f:
             if 'error:' in line:
                 try:
