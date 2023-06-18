@@ -10,7 +10,7 @@
 - [TypeScript Backend](backend/)
 - [Full Stack Engineer](fullstack/)
 
-深圳/香港:
+北京/上海/深圳/香港:
 - [Support Engineer](it-support-engineer/)
 
 
