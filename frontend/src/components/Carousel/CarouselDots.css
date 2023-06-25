@@ -1,0 +1,43 @@
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.carousel-dots__item {
+  position: relative;
+  list-style: none;
+  flex: none;
+  margin-right: 8px;
+  width: 32px;
+  height: 4px;
+  background-color: #AAAAAA;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.carousel-dots__item:last-of-type {
+  margin-right: 0px;
+}
+
+.carousel-dots__item:hover {
+  cursor: pointer;
+}
+
+@keyframes width-change {
+  from {
+      width: 0;
+  }
+  to {
+      width: 100%;
+  }
+}
+
+.carousel-dots__item-content {
+  display: block;
+  height: 100%;
+  background: #FFFFFF;
+}
+
