@@ -1,5 +1,12 @@
 # IT Support Engineer Assignment
 
+# Staff IT Engineer, Beijing - Owner:Guo Zhen
+# Date July, 5, 2023
+# After running this script, it will post resulte to server in json format
+# meanwhile 2 files 'ascendingfrequenterror.csv'和‘jsondatadump.txt’ will be generated in local path 
+
+
+
 ### 分析系统日志：interview_data_set.gz
 
 分析系统日志得到关键信息，用 Json 的格式 POST 上传至服务器 ( https://foo.com/bar )，key 的名称在括号里
