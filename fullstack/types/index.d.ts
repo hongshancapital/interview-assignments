@@ -2,6 +2,7 @@ declare module 'koa';
 declare module 'koa-router';
 declare module 'nedb';
 declare module 'querystring';
+declare module 'murmurhash3js';
 
 /**
  * 返回值的data类型

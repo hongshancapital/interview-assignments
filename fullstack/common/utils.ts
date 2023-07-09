@@ -1,7 +1,7 @@
-import crypto from 'crypto';
+import { createScale10Number, tranform10to62 } from './cal';
 
 /**
- * 
+ * 将字符串转为hash,采用随机数字格式转换算法
  * @param str  传入的字符串
  * @result hashStr  
  */
@@ -9,9 +9,10 @@ export const stringToHash = (str: string): string => {
     if (typeof str !== 'string') {
         return ''
     }
-    const hash = crypto.createHash('md5');
-    hash.update(str);
-    const result = hash.digest('hex').slice(0, 8) // 取hash前8位
+    // 采用murmurhash算法生成数字
+    const scale10Num = createScale10Number('md5');
+    // 将数字转成62进制
+    const result = tranform10to62(scale10Num);
     return result;
 }
 
