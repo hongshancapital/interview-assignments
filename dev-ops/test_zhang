@@ -9,7 +9,7 @@ regex = re.compile(pattern)
 analysis_results = defaultdict(lambda: defaultdict(int))
 
 # Open the log file
-with open("log.txt", "r") as file:
+with open("data_set.txt", "r") as file:
     # Process each log line
     for line in file:
         match = regex.match(line)
