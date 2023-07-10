@@ -6,11 +6,8 @@ import { createScale10Number, tranform10to62 } from './cal';
  * @result hashStr  
  */
 export const stringToHash = (str: string): string => {
-    if (typeof str !== 'string') {
-        return ''
-    }
     // 采用murmurhash算法生成数字
-    const scale10Num = createScale10Number('md5');
+    const scale10Num = createScale10Number(str);
     // 将数字转成62进制
     const result = tranform10to62(scale10Num);
     return result;

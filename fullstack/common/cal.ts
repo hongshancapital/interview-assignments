@@ -13,7 +13,9 @@ const scale62Arr: Array<string> = ['0', '1', '2', '3', '4', '5', '6', '7', '8', 
  * @returns 10进制数字
  */
 export const createScale10Number = (str: string) => {
-    return murmurhash3js.x86.hash32(str, 10);
+    let res = murmurhash3js.x86.hash32(str, 10);
+    console.log('createScale10Number', str, res);
+    return res;
 }
 
 /**

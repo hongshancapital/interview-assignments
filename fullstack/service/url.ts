@@ -10,19 +10,17 @@ import { URL } from 'url';
  */
 export const generateShortUrl = async (urlParam: string) => {
     try {
-        if (!checkUrl(urlParam)) {
+        if (!checkUrl(urlParam) || !urlParam) {
             throw 'input is not a url'
         }
+        console.log('urlParam', urlParam)
         const key = stringToHash(urlParam);
         // 查询是否数据库已包含该短连接hash值 ，key为8位hash 如78f38590
         const longUrl = await getLongDomain(key);
         // console.log('hasValue', longUrl);
         // 如果没有，则插入该hash到长链接的映射
         if (!longUrl) {
-            // 
-            const isSuccess = await insertShortDomain(key, urlParam);
-            // console.log('key', key);
-            // console.log('insert isSuccess', isSuccess);
+            await insertShortDomain(key, urlParam);
         }
         // 如果库里有重复的，贼直接返回短连接
         return {
@@ -46,8 +44,8 @@ export const generateShortUrl = async (urlParam: string) => {
 export const generateLongUrl = async (urlParam: string) => {
     try {
         // 将url字符串转为URL对象
-        if (!checkUrl(urlParam)) {
-            throw new Error('输入的不是一个链接')
+        if (!checkUrl(urlParam) || !urlParam) {
+            throw 'input is not a url'
         }
         let url = new URL(urlParam);
         // 取path里面不包含?参数的部分，也就是hash 8位标识
@@ -69,6 +67,6 @@ export const generateLongUrl = async (urlParam: string) => {
         };
     } catch (e) {
         // 遇到异常，直接返回code和错误信息
-        return { code: -1, msg: JSON.stringify(e) }
+        return { code: -1, msg: e }
     }
 }   
