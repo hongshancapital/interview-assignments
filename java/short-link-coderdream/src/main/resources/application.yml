@@ -1,0 +1,17 @@
+# 应用名称
+spring:
+  application:
+    name: short-link
+
+  # 应用服务 WEB 访问端口
+server:
+  port: 8088
+
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: Short Link swagger 3.0
+  try-host: http://localhost:${server.port}
+
