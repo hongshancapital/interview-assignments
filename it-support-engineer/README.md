@@ -1,9 +1,9 @@
 # IT Support Engineer Assignment
 
 # Staff IT Engineer, Beijing - Owner:Guo Zhen
-# Date July, 5, 2023
+# Date July, 13, 2023
 # After running this script, it will post resulte to server in json format
-# meanwhile 2 files 'ascendingfrequenterror.csv'和‘jsondatadump.txt’ will be generated in local path 
+# meanwhile 3 files 'interview_data_set_singleline','ascendingfrequenterror.csv'和‘jsondatadump.txt’ will be generated in local path 
 
 
 
