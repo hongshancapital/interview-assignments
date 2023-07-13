@@ -1,7 +1,7 @@
 # Staff IT Engineer, Beijing - Owner:Guo Zhen
-# Date July, 5, 2023
+# Date July, 13, 2023
 # After running this script, it will post resulte to server in json format
-# meanwhile 2 files 'ascendingfrequenterror.csv'和‘jsondatadump.txt’ will be generated in local path 
+# meanwhile 3 files 'interview_data_set_singleline','ascendingfrequenterror.csv'和‘jsondatadump.txt’ will be generated in local path 
 
 import json
 import csv
@@ -9,9 +9,18 @@ from collections import Counter
 import pandas as pd
 from requests.packages import urllib3
 import requests
+import re
+
+with open('./interview_data_set', 'r') as f:
+    a = f.read()
+datetimematch='\b[a-zA-Z]{3}\b\ \d{2}\ \d{2}\:\d{2}\:\d{2}'
+a = re.sub(r'\n(?!\b[a-zA-Z]{3}\b\ \d{2}\ \d{2}\:\d{2}\:\d{2})', '', a)
+
+with open('./interview_data_set_singleline', 'w') as f:
+    f.write(a)
 
 
-file_name = "./interview_data_set"
+file_name = "./interview_data_set_singleline"
 file = open(file_name, "r")
 datachart = []
 
