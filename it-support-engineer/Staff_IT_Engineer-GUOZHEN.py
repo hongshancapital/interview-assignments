@@ -25,23 +25,23 @@ file = open(file_name, "r")
 datachart = []
 
 for line in file.readlines():
-	if line.startswith('\t'):
-		pass
-	else:
+#	if line.startswith('\t'):
+#		pass
+#	else:
 #fetch 4 values in each line and added tuple to list
-		description = line.split(':',3)[-1].strip('\n').strip()
-		details = []
-		pieces=line.split()
-		deviceName=pieces[3]
-		raw_processName=pieces[4]
-		processName=raw_processName[0:raw_processName.rfind('[')]
-		raw_processId=raw_processName[raw_processName.rfind('['):raw_processName.rfind(']')]
-		processId=raw_processId.strip('[')
-		rawtime=pieces[2].split(':')[0]
-		starthour="{}00".format(str(int(rawtime)).zfill(2))
-		nexthour="{}00".format((str(int(rawtime)+1)).zfill(2))
-		timeWindow="{}-{}".format(starthour, nexthour)
-		datachart.append((deviceName, processName, processId, description, timeWindow))
+	description = line.split(':',3)[-1].strip('\n').strip()
+	details = []
+	pieces=line.split()
+	deviceName=pieces[3]
+	raw_processName=pieces[4]
+	processName=raw_processName[0:raw_processName.rfind('[')]
+	raw_processId=raw_processName[raw_processName.rfind('['):raw_processName.rfind(']')]
+	processId=raw_processId.strip('[')
+	rawtime=pieces[2].split(':')[0]
+	starthour="{}00".format(str(int(rawtime)).zfill(2))
+	nexthour="{}00".format((str(int(rawtime)+1)).zfill(2))
+	timeWindow="{}-{}".format(starthour, nexthour)
+	datachart.append((deviceName, processName, processId, description, timeWindow))
 
 
 #counter accumulates amounts, merges 5th value into previous 4 values, zip together to list
