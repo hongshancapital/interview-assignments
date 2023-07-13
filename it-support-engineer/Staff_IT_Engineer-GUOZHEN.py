@@ -13,12 +13,12 @@ import re
 
 with open('./interview_data_set', 'r') as f:
     a = f.read()
-datetimematch='\b[a-zA-Z]{3}\b\ \d{2}\ \d{2}\:\d{2}\:\d{2}'
+# this pattern is to match Month day time format '\b[a-zA-Z]{3}\b\ \d{2}\ \d{2}\:\d{2}\:\d{2}'
 a = re.sub(r'\n(?!\b[a-zA-Z]{3}\b\ \d{2}\ \d{2}\:\d{2}\:\d{2})', '', a)
-
+#if line is not started with \n and this formate, then replace with ' '
 with open('./interview_data_set_singleline', 'w') as f:
     f.write(a)
-
+#this will generate a clean single line version log
 
 file_name = "./interview_data_set_singleline"
 file = open(file_name, "r")
