@@ -7,5 +7,5 @@ cat TMP1 | grep -B 1 'last message repeated 1 time' | grep -v 'last message repe
 cat TMP1 | grep -v 'last message repeated 1 time' > TMP2
 #awk处理新日志文件生成json格式
 cat TMP2 | awk -f process.awk > log.json
-#上传
+#上传json文件到foo.com
 curl -X POST -H "Content-Type: application/json" -d @log.json https://foo.com/bar
