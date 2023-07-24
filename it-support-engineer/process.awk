@@ -69,7 +69,6 @@ END {
             }
         }
     	printf "  {\n    \"deviceName\":\"%s\", \n    \"processId\":%d, \n    \"processName\":\"%s\", \n    \"description\":\"%s\", \n    \"timeWindow\":\"%s\", \n    \"numberOfOccurrence\":%d \n  }", deviceName, processId, processName, description, timeWindow, numberOfOccurrence
-        sum = sum + numberOfOccurrence
-    }
+        sum = sum + numberOfOccurrence}
     print "]"
 }
