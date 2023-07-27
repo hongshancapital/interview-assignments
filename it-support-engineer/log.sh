@@ -1,11 +1,19 @@
 #!/bin/bash
-#处理日志文件中异常格式
+
+#Handling abnormal formats in log files by sed
 gzcat interview_data_set.gz | sed -e '1h;2,$H;$!d;g;s/\n\t/ /g' > TMP1
-#替换日志中repeated字符
+
+#Replace the repeated character in the log "last message repeated 1 time"
 cat TMP1 | grep -B 1 'last message repeated 1 time' | grep -v 'last message repeated 1 time' | grep -v '\-\-' >> TMP1
-#将repeated日志写到日志文件
+
+#Redirect replicated logs to the tmp file
 cat TMP1 | grep -v 'last message repeated 1 time' > TMP2
-#awk处理新日志文件生成json格式
+
+#Using awk to generate JSON format for new log files
 cat TMP2 | awk -f process.awk > log.json
-#上传json文件到foo.com
+
+#Delete Temporary Files
+rm -f TMP1 TMP2
+
+#Upload JSON file to foo.com
 curl -X POST -H "Content-Type: application/json" -d @log.json https://foo.com/bar
