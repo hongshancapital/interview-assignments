@@ -52,17 +52,20 @@ for log in log_list:
         aggregated_data[key] = log
 
 # 转为Json格式
-log_json = json.dumps(list(aggregated_data.values()))
+log_json = json.dumps(list(aggregated_data.values()), indent=True)
 
-# POST the JSON data to the server
-headers = {'Content-Type': 'application/json'}
-response = requests.post("https://foo.com/bar", data=log_json, headers=headers)
+print(log_json)
 
-if response.status_code == 200:
-    print("Log data successfully sent to the server.")
+response = input("是否继续？(输入 'yes' 或 'no'): ")
+
+if response.lower() == 'yes':
+    # POST the JSON data to the server
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post("https://foo.com/bar", data=log_json, headers=headers)
+
+    if response.status_code == 200:
+        print("Log data successfully sent to the server.")
+    else:
+        print(f"Failed to send log data. Status code: {response.status_code}")
 else:
-    print(f"Failed to send log data. Status code: {response.status_code}")
-
-
-if __name__ == '__main__':
-    pass
+    print("exiting...")
