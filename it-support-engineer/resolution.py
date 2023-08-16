@@ -16,10 +16,14 @@ def parse_log():
             else:
                 lines.append(line)
 
-    pattern = r'^(?P<date>[a-zA-Z]{3} [0-9]{1,2}) (?P<time>\d{2}):\d{2}:\d{2} (?P<device>\S+) (?P<pname>[a-zA-Z.]+)\[(?P<pid>\d+).*[\]\)]: (?P<desc>.*)$'
+    DATE = r'^(?P<date>[a-zA-Z]{3} [0-9]{1,2})'
+    TIME = r'(?P<time>\d{2}):\d{2}:\d{2}'
+    DEVICE = r'(?P<device>\S+)'
+    PNAME_PID_DESC = r'(?P<pname>[a-zA-Z.]+)\[(?P<pid>\d+)\][: ](?P<desc>.*)$'
+    pattern = re.compile(' '.join([DATE, TIME, DEVICE, PNAME_PID_DESC]))
     result = {}
     for line in lines:
-        matched_search = re.search(pattern, line)
+        matched_search = pattern.search(line)
         if matched_search is not None:
             result_key = matched_search.groups()
             result[result_key] = result.get(result_key, 0) + 1

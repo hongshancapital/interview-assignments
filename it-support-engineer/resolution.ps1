@@ -1,6 +1,6 @@
 $filePath = "interview_data_set.gz"
 $lines = @()
-$pattern = '^(?<date>[a-zA-Z]{3} [0-9]{1,2}) (?<time>\d{2}):\d{2}:\d{2} (?<device>\S+) (?<pname>[a-zA-Z.]+)\[(?<pid>\d+).*[\]\)]: (?<desc>.*)$'
+$pattern = '^(?<date>[a-zA-Z]{3} [0-9]{1,2}) (?<time>\d{2}):\d{2}:\d{2} (?<device>\S+) (?<pname>[a-zA-Z.]+)\[(?<pid>\d+)\][: ](?<desc>.*)$'
 $result = @{}
 try {
     $fileStream = [System.IO.File]::OpenRead($filePath)
