@@ -1,5 +1,5 @@
 <#
-    将输入的原始日志时间格式转换为timeWindow格式，并返回一个timeWindow的字符串�?
+    将输入的原始日志时间格式转换为timeWindow格式，并返回一个timeWindow的字符串
 #>
 Function ConvertTo-TimeWindow
 {
@@ -20,7 +20,7 @@ Function ConvertTo-TimeWindow
 }
 
 <#
-    将原始日志文件根据条件筛选后进行对应字符串处理，并格式化timeWindow日期，返回一个数组对象�?
+    将原始日志文件根据条件筛选后进行对应字符串处理，并格式化timeWindow日期，返回一个数组对象
 #>
 Function ConvertTo-LogFile
 {
@@ -83,10 +83,10 @@ Function Submit-PostRequest
         [Parameter(Mandatory = $true, Position = 1)]$Url,
         [switch]$LogCsv 
     )
-# 将原始数据按条件进行字符串处理�?
+# 将原始数据按条件进行字符串处理
     $LogFile = ConvertTo-LogFile -LogPath $FilePath
 
-# 将日志按小时级内发生的次数进行处理（去除重复日志信息）�?
+# 将日志按小时级内发生的次数进行处理（去除重复日志信息）
     $JosnReport = @()
     $LogFile | Group-Object -Property  timeWindow, deviceName, processId, processName, description | ForEach-Object{
             $JosnReport += New-Object -TypeName PsObject -Property @{
@@ -98,15 +98,15 @@ Function Submit-PostRequest
             "numberOfOccurrence" = $_.Count
         }
     }
-# 将数组对象转换为Json格式�?
+# 将数组对象转换为Json格式
     $SubmitJson = $JosnReport | Select-Object -Property deviceName,processId,processName,description,timeWindow,numberOfOccurrence | ConvertTo-Json
 
-# 如果有LogCsv开关参数打开，输出CSV格式日志到本�?
+# 如果有LogCsv开关参数打开，输出CSV格式日志到本地
 if ($LogCsv) {
     $JosnReport | Export-Csv -Path .\Interview.csv -NoTypeInformation -Encoding UTF8
 }
 
-# Windows10�?1 默认Powershell版本�?.1，用于不受信任证书的运行环境�?
+# Windows10、11 默认Powershell版本5.1，用于不受信任证书的运行环境
 
 add-type @"
 using System.Net;
