@@ -20,12 +20,21 @@ def parse_log():
     TIME = r'(?P<time>\d{2}):\d{2}:\d{2}'
     DEVICE = r'(?P<device>\S+)'
     PNAME_PID_DESC = r'(?P<pname>[a-zA-Z.]+)\[(?P<pid>\d+)\][: ](?P<desc>.*)$'
+    PNAME_PID = r'(?P<pname>[a-zA-Z.]+)\[(?P<pid>\d+)\]'
+    PPNAME_PPID_DESC = r'\((?P<ppname>[a-zA-Z.]+)[.[](?P<ppid>\d+)[]]{0,}\):(?P<desc>.*)$'
     pattern = re.compile(' '.join([DATE, TIME, DEVICE, PNAME_PID_DESC]))
+    pattern2 = re.compile(' '.join([DATE, TIME, DEVICE, PNAME_PID, PPNAME_PPID_DESC]))
     result = {}
     for line in lines:
         matched_search = pattern.search(line)
         if matched_search is not None:
             result_key = matched_search.groups()
+            *_, processId, _ = result_key
+            if int(processId) == 1:
+                matched_search2 = pattern2.search(line)
+                if matched_search2 is not None:
+                    result_key = matched_search2.groups()
+                    result_key = result_key[:3] + result_key[5:]
             result[result_key] = result.get(result_key, 0) + 1
 
     payload = []
