@@ -60,7 +60,16 @@ while read -r line; do
 		processName=$(echo "$line_error" | cut -d ' ' -f 5 | cut -d'[' -f1)
 
 		# Extract error description
-		description=$(echo "$line_error" | cut -d' ' -f 7-)
+		max_desc_len=60
+		full_description=$(echo "$line_error" | cut -d' ' -f 7-)
+		words=("$full_description")
+		new_desc=""
+		for word in "${words[@]}"; do
+		  new_desc+="$word"
+		  if [[ ${#new_desc} -gt $max_desc_len ]]; then
+		    description=$(echo "$full_description" | fold -sw $max_desc_len)
+		  fi
+		done
 
 		timeWindow=$(echo "$line_error" | cut -c 8-12 )
 		

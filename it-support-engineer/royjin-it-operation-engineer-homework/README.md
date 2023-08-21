@@ -41,40 +41,19 @@ EXAMPLES:
   "deviceName": "BBAOMACBOOKAIR2",
   "processId": "1",
   "processName": "com.apple.xpc.launchd",
-  "description": "Could not find uid associated with service: 0: Undefined error: 0 501",
-  "timeWindow": "17:55",
-  "numberOfOccurrence": "653"
+  "description": "Failed to bootstrap path: path = /usr/sbin/system_profiler, 
+error = 2: No such file or directory",
+  "timeWindow": "22:53",
+  "numberOfOccurrence": "707"
 }
 {
   "deviceName": "BBAOMACBOOKAIR2",
-  "processId": "1",
-  "processName": "com.apple.xpc.launchd",
-  "description": "Service exited with abnormal code: 78",
-  "timeWindow": "17:55",
-  "numberOfOccurrence": "654"
-}
-{
-  "deviceName": "BBAOMACBOOKAIR2",
-  "processId": "976",
-  "processName": "AMPDeviceDiscoveryAgent",
-  "description": "- Can't handle disconnect with invalid ecid",
-  "timeWindow": "17:56",
-  "numberOfOccurrence": "228"
-}
-{
-  "deviceName": "BBAOMACBOOKAIR2",
-  "processId": "55145",
-  "processName": "xpcproxy",
-  "description": "_dirhelper_userdir: 557: bootstrap_look_up returned (ipc/send) invalid destination port",
-  "timeWindow": "17:56",
-  "numberOfOccurrence": "1"
-}
-{
-  "deviceName": "BBAOMACBOOKAIR2",
-  "processId": "55164",
-  "processName": "xpcproxy",
-  "description": "_dirhelper_userdir: 557: bootstrap_look_up returned (ipc/send) invalid destination port",
-  "timeWindow": "17:57",
-  "numberOfOccurrence": "1"
+  "processId": "908",
+  "processName": "Finder",
+  "description": "__create_or_fix_relative_directory: 1002: 
+__dirhelper_create_relative_with_error: error Operation not 
+permitted",
+  "timeWindow": "22:53",
+  "numberOfOccurrence": "2"
 }
   ```
