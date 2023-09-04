@@ -3,7 +3,10 @@ import { render } from '@testing-library/react';
 import App from './App';
 
 test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
+  const screen = render(<App />);
+  
+  const { getByText } = screen;
+  
+  const linkElement = getByText(/Lots to love. Less to spend/i);
   expect(linkElement).toBeInTheDocument();
 });

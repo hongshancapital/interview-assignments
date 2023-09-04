@@ -3,7 +3,15 @@ import { IData } from "./App";
 import style from "./Carousel.module.scss";
 import { CarouselContainer, CarouselWrap, PaginationInner } from "./styles";
 
-function Carousel(props: any) {
+export interface IProps {
+	data: IData[],
+	width: number,
+	height: number,
+	delay: number,
+	speed: number
+}
+
+function Carousel(props: IProps) {
 	const [index, setIndex] = useState(0);
 	const intervalRef = useRef<NodeJS.Timeout>();
 
