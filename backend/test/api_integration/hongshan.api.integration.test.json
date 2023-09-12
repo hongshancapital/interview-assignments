@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "9201f76b-6e95-46fe-87ef-c0eecfe2c2ae",
+		"name": "hongshan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "694020"
+	},
+	"item": [
+		{
+			"name": "短域名存储接口",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"originUrl check\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.originUrl).to.eql(\"https://bing.com\");",
+							"",
+							"    pm.collectionVariables.set(\"shorturl\", jsonData.data.url);",
+							"    console.log(`new url : ${jsonData.data.url}`)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"originUrl\": \"https://bing.com\",\n    \"description\": \"bing search engine\",\n    \"creator\": \"Simon\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/url",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"url"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "短域名存储接口 缺少creator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"bizErrorCode check\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.bizErrorCode).to.eql(\"30012\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"originUrl\": \"https://bing.com\",\n    \"description\": \"bing search engine\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/url",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"url"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "短域名读取接口",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 302\", function () {",
+							"    console.log(`request url: ${pm.collectionVariables.get(\"shorturl\")}`)",
+							"",
+							"    pm.response.to.have.status(302);",
+							"",
+							"});",
+							"",
+							"",
+							"pm.test(\"Location check\", function () {",
+							"    pm.response.to.have.header(\"Location\");",
+							"    pm.expect(pm.response.headers.get(\"Location\")).to.eql(\"https://bing.com\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"followRedirects": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{shorturl}}",
+					"host": [
+						"{{shorturl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "短域名读取接口 不存在",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"",
+							"});",
+							"pm.test(\"message check\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"no such url\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"followRedirects": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/url/0000xxx0009",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"url",
+						"0000xxx0009"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "originUrl",
+			"value": "https://bing.com",
+			"type": "string"
+		},
+		{
+			"key": "shorturl",
+			"value": "http://localhost:5000/url/00000009"
+		},
+		{
+			"value": "",
+			"type": "string"
+		}
+	]
+}
