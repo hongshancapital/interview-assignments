@@ -2,8 +2,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('carousel test', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  let subTitleElement = getByText(/Lots to Love/i);
+  expect(subTitleElement).toBeInTheDocument();
+  subTitleElement = getByText(/Just the right amount/i);
+  expect(subTitleElement).toBeInTheDocument();
+  subTitleElement = getByText(/Buy a Tablet/i);
+  expect(subTitleElement).toBeInTheDocument();
 });
