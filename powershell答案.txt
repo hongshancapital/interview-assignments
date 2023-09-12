@@ -1,0 +1,44 @@
+# 导入所需的模块
+Import-Module -Name PSReadLine
+
+# 指定日志文件路径
+$logFilePath = "C:\path\to\your\log\file.log"
+
+# 解析日志条目并提取关键信息
+$events = Get-Content -Path $logFilePath |
+    ForEach-Object {
+        # 提取时间戳
+        $timestamp = [DateTime]::MinValue
+        if ($_ -match '^(\w{3}\s+\d{2}\s\d{2}:\d{2}:\d{2})') {
+            $timestamp = [DateTime]::ParseExact($matches[1], "MMM dd HH:mm:ss", $null)
+        }
+
+        # 提取关键信息
+        $deviceName = [regex]::Match($_, '设备名称: \((.*?)\)').Groups[1].Value
+        $processId = [regex]::Match($_, '错误的进程号码: \((.*?)\)').Groups[1].Value
+        $processName = [regex]::Match($_, '进程/服务名称: \((.*?)\)').Groups[1].Value
+        $description = [regex]::Match($_, '错误的原因（描述）\((.*?)\)-').Groups[1].Value.Trim()
+        $timeWindow = [regex]::Match($_, '发生的时间（小时级），例如 (\d{4}-\d{4})').Groups[1].Value
+        $numberOfOccurrence = [regex]::Match($_, '在小时级别内发生的次数 \((.*?)\)').Groups[1].Value
+
+        # 创建关键信息的哈希表
+        $eventData = @{
+            "timestamp" = $timestamp
+            "deviceName" = $deviceName
+            "processId" = $processId
+            "processName" = $processName
+            "description" = $description
+            "timeWindow" = $timeWindow
+            "numberOfOccurrence" = $numberOfOccurrence
+        }
+
+        # 将关键信息转换为 JSON 格式
+        $jsonData = $eventData | ConvertTo-Json
+
+        # 发送 POST 请求，将 JSON 数据发送到服务器
+        $serverURL = "http://your-server-url"
+        $response = Invoke-RestMethod -Method Post -Uri $serverURL -ContentType "application/json" -Body $jsonData
+
+        # 可选：输出服务器响应
+        Write-Host $response
+    }
