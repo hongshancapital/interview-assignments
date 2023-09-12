@@ -1,14 +1,175 @@
-.App {
-  text-align: center;
+.swiper {
   position: relative;
+  height: 100vh;
 }
 
-.title {
-  font-size: 56px;
+.btns {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 100px;
+  left: 100px;
+  z-index: 10;
+}
+
+.btns button {
+  width: 100px;
+  height: 50px;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #ccc;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.dots {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 50px;
+  padding: 0 60px;
+  box-sizing: border-box;
+}
+
+.dots .dots_item {
+  position: relative;
+  width: 50px;
+  height: 2px;
+  background-color: #aaa;
+  border-radius: 30px;
+}
+
+.dots .dots_item .inner_dots_item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  content: '';
+  width: 0;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 30px;
+  animation: none;
+}
+
+@keyframes widthAni {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 50px;
+  }
+}
+
+.dots .dots_item .inner_dots_item.active {
+  animation: widthAni 2.5s 1 linear forwards;
+}
+
+p {
+  margin: 0;
+}
+
+.swiper_items {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper_item,
+.swiper_item .phone,
+.swiper_item .tablet,
+.swiper_item .airpods {
+  position: relative;
+  min-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+/* phone */
+.swiper_item .phone_title {
+  padding-top: 150px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 60px;
   font-weight: 600;
+  color: #fff;
 }
 
-.text {
-  font-size: 28px;
-  font-weight: 400;
+.swiper_item .phone_intro p {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.swiper_item .phone_img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/iphone.png') no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+
+/* tablet */
+.swiper_item .tablet_title {
+  padding-top: 150px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 60px;
+  font-weight: 600;
+  color: #000;
+}
+
+.swiper_item .tablet_intro {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+  color: #000;
+}
+
+.swiper_item .tablet_img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/tablet.png') no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+
+/* airpods */
+.swiper_item .airpods_intro {
+  padding-top: 150px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 60px;
+  font-weight: 500;
+  color: #000;
+}
+
+.swiper_item .airpods_img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/airpods.png') no-repeat;
+  background-size: cover;
+  background-position: bottom;
 }
