@@ -1,0 +1,21 @@
+# 基础镜像
+FROM node:16-alpine 
+
+# 工作目录
+WORKDIR /app
+
+# 拷贝package.json到工作目录
+COPY package.json package-lock.json ./
+
+# 安装依赖
+RUN npm install
+
+# 拷贝项目文件到工作目录
+COPY . .
+
+RUN npm run build
+
+ENV NODE_ENV development
+
+# 启动命令
+CMD ["npm", "run", "init"]

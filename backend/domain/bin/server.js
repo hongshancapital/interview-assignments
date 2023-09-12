@@ -1,0 +1,1 @@
+require('../build/server.js').default.listen();
