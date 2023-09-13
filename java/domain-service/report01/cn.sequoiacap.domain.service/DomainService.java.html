@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DomainService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">cn.sequoiacap.domain.service</a> &gt; <span class="el_source">DomainService.java</span></div><h1>DomainService.java</h1><pre class="source lang-java linenums">package cn.sequoiacap.domain.service;
+
+import cn.sequoiacap.domain.common.IdGeneratorUtils;
+import cn.sequoiacap.domain.dao.DomianDao;
+import cn.sequoiacap.domain.entity.DomainEntity;
+import cn.sequoiacap.domain.exception.DomainException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * 鐭煙鍚嶇浉鍏冲鐞嗘湇鍔�
+ *
+ * @author liuhao
+ * @date 2021/12/10
+ */
+@Service
+<span class="fc" id="L20">public class DomainService {</span>
+
+    @Autowired
+    private DomianDao domianDao;
+
+    /**
+     * 鏍规嵁闀垮煙鍚嶄俊鎭繑鍥炲搴旂殑鐭煙鍚�
+     * &lt;br&gt;
+     * 杩欎釜鍦版柟姣旇緝绠�鍗曪紝鎵�浠ュ紓甯稿氨鏆傛椂蹇界暐
+     *
+     * @param request    璇锋眰瀵硅薄锛屼富瑕佹槸鐢ㄦ潵鏋勫缓杩斿洖鐨勭煭杩炴帴
+     * @param longLink 鎺ユ敹鍒扮殑闀胯繛鎺ヤ俊鎭�
+     * @return 杩斿洖鐭繛鎺�
+     */
+    public String transformToShortLink(HttpServletRequest request, String longLink) {
+        // 1 鑾峰彇瀵瑰簲寰楃煭鍩熷悕鏍囪瘑绗�
+<span class="fc" id="L36">        String shortUuid = IdGeneratorUtils.getShortUuid();</span>
+<span class="fc" id="L37">        String urlPrefix = getUrlPrefix(request);</span>
+<span class="fc" id="L38">        String shortLink = urlPrefix + shortUuid;</span>
+        // 杩欎釜鍦版柟澶勭悊ID涓囦竴鍑虹幇閲嶅鐨勯棶棰樺彲浠ラ噸鏂板鐞嗭紝杩欑鏂瑰紡鍙互瀹炵幇涓�涓暱鍩熷悕鍙互瀵瑰簲澶氫釜鐭煙鍚嶏紝姣忔杩涙潵鐨勯暱鍩熷悕閮戒細鐢熸垚涓�涓煭鍩熷悕涓庝箣鍏宠仈
+        do {
+<span class="fc" id="L41">            DomainEntity domainEntityByUuid = domianDao.getDomainEntityByUuid(shortUuid);</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            if (domainEntityByUuid == null) {</span>
+<span class="fc" id="L43">                break;</span>
+            } else {
+<span class="nc" id="L45">                shortUuid = IdGeneratorUtils.getShortUuid();</span>
+            }
+<span class="nc" id="L47">        } while (true);</span>
+        // 鏋勫缓鍩熷悕瀹炰綋
+<span class="fc" id="L49">        DomainEntity domainEntity = new DomainEntity();</span>
+<span class="fc" id="L50">        domainEntity.setUuid(shortUuid);</span>
+<span class="fc" id="L51">        domainEntity.setShortDomain(shortLink);</span>
+<span class="fc" id="L52">        domainEntity.setLongDomain(longLink);</span>
+<span class="fc" id="L53">        domianDao.saveDomainEntity(domainEntity);</span>
+<span class="fc" id="L54">        return shortLink;</span>
+    }
+
+    /**
+     * 鏍规嵁璇锋眰鍙傛暟鑾峰彇瀵瑰簲鐨勮姹傝繛鎺ヤ俊鎭� 杩欎釜鍦版柟鍙互浣跨敤杩囨护鍣ㄦ柟寮忥紝鎻愬墠灏嗚繖涓繛鎺ヨ缃埌璇锋眰澶达紝杩欐槸涓轰簡绠�鍗曪紝灏卞厛杩欎箞澶勭悊
+     * 娉ㄦ剰锛岃繖閲屽湪鏃堕棿寮�鍙戜腑锛屼細鏈変竴涓煭鍩熷悕瑙ｆ瀽鍒版湇鍔″櫒涓婏紝鍩烘湰涓婅繖涓煙鍚嶆槸鍥哄畾鐨勶紝杩欓噷鍋氭嫾鎺ワ紝鍙槸鏈琩emo鐨勯渶瑕�
+     * 鍥犳涓嶈�冭檻https鐨勬儏鍐碉紝鍚︽嫾鎺ョ鍙ｇ瓑闂
+     * @param request 璇锋眰瀵硅薄
+     * @return 杩斿洖鎷兼帴濂界殑杩炴帴鍓嶇紑锛屽锛歨ttp://localhost:8080/
+     */
+    private String getUrlPrefix(HttpServletRequest request) {
+
+<span class="fc" id="L66">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L67">        sb.append(&quot;http://&quot;).append(request.getServerName());</span>
+        // 杩欓噷鏄鐞嗛粯璁ょ鍙ｏ紝濡傛灉鏄�80锛屽垯鍙互涓嶇敤鎷兼帴绔彛
+<span class="fc" id="L69">        int serverPort = request.getServerPort();</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (serverPort != 80) {</span>
+<span class="fc" id="L71">            sb.append(&quot;:&quot;).append(serverPort);</span>
+        }
+<span class="fc" id="L73">        sb.append(&quot;/&quot;);</span>
+<span class="fc" id="L74">        return sb.toString();</span>
+    }
+
+    /**
+     * 鏍规嵁涓�涓煭杩炴帴鍦板潃锛岃繑鍥炲搴旂殑闀胯繛鎺ュ湴鍧�
+     *
+     * @param shortLink 鐭繛鎺ュ湴鍧�
+     * @return 杩斿洖闀胯繛鎺ュ湴鍧�
+     */
+    public String getLongLinkByShortLink(String shortLink) {
+        // 澶勭悊鐭繛鎺ュ湴鍧�涓搴旂殑uuid
+<span class="fc" id="L85">        String uuid = shortLink.substring(shortLink.lastIndexOf(&quot;/&quot;)+1);</span>
+        // 杩欓噷鍋氫釜鍒ゆ柇锛屼紶閫掔殑鍙傛暟鏈夐棶棰樼殑鎯呭喌
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (StringUtils.hasText(uuid)) {</span>
+<span class="fc" id="L88">            DomainEntity domainEntity = domianDao.getDomainEntityByUuid(uuid);</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            if (domainEntity == null) {</span>
+<span class="fc" id="L90">                throw new DomainException(&quot;瀵瑰簲鐨勯暱杩炴帴淇℃伅涓嶅瓨鍦紝璇锋鏌�&quot;);</span>
+            }
+<span class="fc" id="L92">            return domainEntity.getLongDomain();</span>
+        } else {
+<span class="fc" id="L94">            throw new DomainException(&quot;浼犲叆鐨勫弬鏁颁笉瀵癸紝璇锋鏌ワ紒&quot;);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

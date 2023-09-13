@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IdGeneratorUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">cn.sequoiacap.domain.common</a> &gt; <span class="el_source">IdGeneratorUtils.java</span></div><h1>IdGeneratorUtils.java</h1><pre class="source lang-java linenums">package cn.sequoiacap.domain.common;
+
+import java.util.UUID;
+
+/**
+ * 8浣嶇煭ID鐢熸垚鍣�
+ * &lt;br&gt;
+ * 灏哢UID鐨�32浣嶇殑16杩涘埗鏁帮紝姣�4浣嶈浆鎴�62杩涘埗锛岃繖鏍风殑鐭璉D涓嶄粎鏈塙UID涓嶉噸澶嶇殑鐗规�э紝杩樹笉鍗犵敤绌洪棿锛�8浣岻D鍦ㄤ竴浜涙煡璇㈢瓑鎿嶄綔鐨勬�ц兘涓婁篃浼樹簬32浣岻D銆�
+ *
+ * @author liuhao
+ * @date 2021/12/10
+ */
+<span class="nc" id="L13">public class IdGeneratorUtils {</span>
+
+<span class="fc" id="L15">    public static String[] chars = new String[]{&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;,</span>
+            &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;,
+            &quot;t&quot;, &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;,
+            &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;,
+            &quot;J&quot;, &quot;K&quot;, &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, &quot;P&quot;, &quot;Q&quot;, &quot;R&quot;, &quot;S&quot;, &quot;T&quot;, &quot;U&quot;, &quot;V&quot;,
+            &quot;W&quot;, &quot;X&quot;, &quot;Y&quot;, &quot;Z&quot;};
+
+    /**
+     * 鐢熸垚鐭殑UUID
+     *
+     * @return 杩斿洖鐭璉D
+     */
+    public static String getShortUuid() {
+<span class="fc" id="L28">        StringBuffer shortBuffer = new StringBuffer();</span>
+<span class="fc" id="L29">        String uuid = UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        for (int i = 0; i &lt; 8; i++) {</span>
+<span class="fc" id="L31">            String str = uuid.substring(i * 4, i * 4 + 4);</span>
+<span class="fc" id="L32">            int x = Integer.parseInt(str, 16);</span>
+<span class="fc" id="L33">            shortBuffer.append(chars[x % 0x3E]);</span>
+        }
+<span class="fc" id="L35">        return shortBuffer.toString();</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
