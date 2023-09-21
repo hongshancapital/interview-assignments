@@ -1,5 +1,5 @@
 # QA Engineer's test suites
-快速了解[这个网站](https://cloud.jingdata.com/#/home)，结合你的理解绘制用例图。你可以只注册一个免费账号，完成免费账号可见的功能用例图。
+快速了解[这个网站](https://cloud.jingdata.com/#/home)，结合你的理解绘制用例图。你可以只注册一个免费账号，完成免费账号可见的功能用例图。请使用 PDF、 Excel或者 JPG 等常用格式提交 PR。
 
 
 ## Job Description
