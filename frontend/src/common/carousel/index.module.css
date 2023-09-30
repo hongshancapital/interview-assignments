@@ -1,0 +1,92 @@
+.carousel-wrapper{
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.carousel-wrapper::-webkit-scrollbar {
+    display: none;
+}
+.carousel-slider-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    /* transition: transform 0.6s ease-in-out; */
+}
+.vertical-slider-wrapper{
+    flex-direction: column;
+}
+.carousel-slider{
+    flex: 0 0 100%;
+}
+.carousel-dot-wrapper{
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.top-dot-wrapper{
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.bottom-dot-wrapper{
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.left-dot-wrapper{
+    left: 40px;
+    top: 50%;
+    transform: translate(-50%,50%) rotate(90deg);
+}
+.right-dot-wrapper{
+    right: 40px;
+    top: 50%;
+    transform: translate(50%,50%) rotate(90deg);
+}
+.carousel-dot{
+    width: 40px;
+    height: 3px;
+    background-color: gray;
+    margin: 0 5px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.carousel-dot-slider{
+    position: absolute;
+    content: '';
+    height: 3px;
+    width: 0;
+    background-color: white;
+    left: 0;
+    bottom: 0;
+}
+.carousel-dot:hover{
+    background-color: white;
+}
+.next-btn,.pre-btn{
+    position: absolute;
+    z-index: 10;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid gray;
+    padding: 5px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: cadetblue;
+}
+.next-btn{
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.pre-btn{
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%); 
+}
