@@ -1,0 +1,30 @@
+$transtionDuration : var(--duration, 2000ms);
+
+.dot-container {
+  display: flex;
+  justify-content: center
+}
+
+.dot-item {
+  border-radius: 3px;
+  width: 30px;
+  height: 3px;
+  margin-left: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  background-color: rgba(232, 233, 232, 0.42);
+}
+
+.dot-item > .line {
+  width: 0%;
+  transition-property: width;
+  height: 100%;
+  background-color: white;
+}
+
+.dot-item.active >.line {
+  width: 100%;
+  transition-duration: $transtionDuration;
+}
+
+
