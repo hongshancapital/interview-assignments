@@ -1,0 +1,49 @@
+.swiper-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.swiper-wrapper {
+    height: 100vh;
+    display: flex;
+    transition: all linear 0.2s;
+}
+
+.swiper-item {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: bottom;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+.swiper-text  {
+    padding: 10% 20%;
+}
+
+.swiper-action-container  {
+    width: 100%;
+    position: relative;
+    top: -50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-action-item  {
+    background: #8d8787;
+    width: 50px;
+    height: 3px;
+    margin: 3px 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+.swiper-action-process {
+    height: 3px;
+    position: absolute;
+    background: white;
+}
