@@ -1,0 +1,68 @@
+{
+	"variables": [],
+	"info": {
+		"name": "shortlink",
+		"_postman_id": "22acccbe-8433-d69c-719a-ece963bfcb2e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "save",
+			"request": {
+				"url": "http://localhost:3000/api/shortlink/set",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"url\": \"https://www.cnblogs.com/blogsme/p/3398845.html\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/api/shortlink/get?shortUrl=https://xinz.cn/u/qiaaia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"shortlink",
+						"get"
+					],
+					"query": [
+						{
+							"key": "shortUrl",
+							"value": "https://xinz.cn/u/qiaaia"
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"url\": \"https://www.cnblogs.com/blogsme/p/3398845.html\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
