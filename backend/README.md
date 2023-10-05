@@ -1,3 +1,16 @@
+###根据流程图中的功能，代码中未实现的地方：
+#### 1、布隆过滤器
+#### 2、缓存LRU
+#### 3、定时任务清理
+
+##### 覆盖率截图
+![Image text]
+(https://raw.githubusercontent.com/caiseyunchuang/interview-assignments/master/backend/test/coverage.png)
+
+#### 流程图
+![Image text]
+(https://raw.githubusercontent.com/caiseyunchuang/interview-assignments/master/backend/test/design.png)
+
 # TypeScript Backend Engineer Assignment
 
 ### Typescript 实现短域名服务（细节可以百度/谷歌）
