@@ -10,7 +10,7 @@ describe('Util unit test', () => {
         });
     
         test('getPath invalid host', () => {
-            const url = 'https://s2.com/aq1';
+            const url = 'https://s2.com/1';
             const path = Util.getPath(url);
             expect(path).toBe(null);
         });

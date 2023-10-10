@@ -65,7 +65,6 @@ class OriginUrlModel {
 
     async addUrl(url: string): Promise<number> {
         const [result] = await db.query<ResultSetHeader>('insert ignore into origin_url(url) values(?)', [url]);
-        console.log('debugging insert result:', result);
         return result.insertId;
     }
 

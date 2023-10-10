@@ -1,9 +1,9 @@
-import { describe, test, expect, beforeEach, afterEach, } from 'vitest';
+import { describe, test, expect, beforeEach, } from 'vitest';
 import originUrlModel from '../src/originUrlModel.js';
 
 describe('originUrlModel unit test', () => {
     const longUrl = 'https://www.tianyancha.com/';
-    const shortUrlPath = 'aq1';
+    const shortUrlPath = '1';
 
     beforeEach(async () => {
         const keyLong = originUrlModel.getShortToLongKey(shortUrlPath);
@@ -38,7 +38,6 @@ describe('originUrlModel unit test', () => {
             // add data,
             await originUrlModel.addUrl(longUrl);
             resultId = await originUrlModel.getIdByLongUrl(longUrl);
-            console.log('debugging unit test:', { resultId });
             expect(resultId).toEqual(1);
         });
     });

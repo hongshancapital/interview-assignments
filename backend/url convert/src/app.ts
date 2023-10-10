@@ -1,10 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import 'express-async-errors';
 import Util from './util.js';
 import urlService from './urlService.js';
 
 const app = express();
-const port = 8080;
 
 app.use(bodyParser.json({ limit: '65kB' }));
 
@@ -25,7 +25,6 @@ app.post('/shortToLong', async (req, res) => {
         return res.status(Util.HTTP_CODE.INVALID_PARAM).end();
     }
     const path = Util.getPath(url);
-    console.log('short to long parsed path:', path);
     if (!path) {
         return res.status(Util.HTTP_CODE.NOT_FOUND).end();
     }
@@ -39,11 +38,9 @@ app.post('/shortToLong', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    return console.log(`app is listening at http://localhost:${port}`);
-});
-
 app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error('Express catches error:', error);
     return res.status(Util.HTTP_CODE.ERROR).end();
 });
+
+export default app;

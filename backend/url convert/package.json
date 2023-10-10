@@ -3,21 +3,24 @@
   "version": "1.0.0",
   "description": "hongshan backend engineer assignment",
   "type": "module",
-  "main": "dist/app.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "start": "tsc && node dist/index.js",
     "test": "vitest run --coverage"
   },
   "author": "chengkai",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
     "mysql2": "^3.6.1",
     "redis": "^4.6.10"
   },
   "devDependencies": {
     "@types/express": "^4.17.18",
+    "@types/supertest": "^2.0.14",
     "@vitest/coverage-v8": "^0.34.6",
+    "supertest": "^6.3.3",
     "vitest": "^0.34.6"
   }
 }
