@@ -24,7 +24,10 @@ class Util {
     calcPathToId(path: string): number {
         return parseInt(path, CODE_RADIX);
     }
-    calcIdToPath(val: number): string {
+    calcIdToPath(val: number): string | null {
+        if (val <= 0) {
+            return null;
+        }
         return Number(val).toString(CODE_RADIX);
     }
     buildShortUrl(path: string): string {

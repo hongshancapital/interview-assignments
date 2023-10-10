@@ -6,7 +6,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "tsc && node dist/app.js",
-    "test": "nyc ./node_modules/.bin/_mocha 'test/**/*.ts'"
+    "test": "vitest run --coverage"
   },
   "author": "chengkai",
   "license": "ISC",
@@ -16,6 +16,8 @@
     "redis": "^4.6.10"
   },
   "devDependencies": {
-    "@types/express": "^4.17.18"
+    "@types/express": "^4.17.18",
+    "@vitest/coverage-v8": "^0.34.6",
+    "vitest": "^0.34.6"
   }
 }

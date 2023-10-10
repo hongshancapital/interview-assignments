@@ -13,7 +13,7 @@ class UrlService {
         }
         const path = util.calcIdToPath(id);
         const result = util.buildShortUrl(path);
-        originUrlModel.cacheLongToShort(path, longUrl)
+        originUrlModel.cacheLongToShort(longUrl, path);
         return result;
     }
 
@@ -23,7 +23,6 @@ class UrlService {
             return cacheResult;
         }
         const id = util.calcPathToId(path);
-        console.log('path to id calc:', { path, id });
         const dbResult = await originUrlModel.getLongUrlById(id);
         if (dbResult) {
             originUrlModel.cacheShortToLong(path, dbResult)

@@ -12,22 +12,29 @@ class OriginUrlModel {
     private static KEY_SHORT_TO_LONG_PREFIX: string = 'url:shortToLong:';
     private static TTL: number = 300;
 
-    private getLongToShortKey(long: string): string {
+    getLongToShortKey(long: string): string {
         return OriginUrlModel.KEY_LONG_TO_SHORT_PREFIX + long;
     }
 
-    private getShortToLongKey(short: string): string {
+    getShortToLongKey(short: string): string {
         return OriginUrlModel.KEY_SHORT_TO_LONG_PREFIX + short;
     }
 
-    cacheLongToShort(long: string, short: string): void {
+    async cacheLongToShort(long: string, short: string): Promise<void> {
         const key = this.getLongToShortKey(long);
-        cache.set(key, short, { EX: OriginUrlModel.TTL });
+        await cache.set(key, short, { EX: OriginUrlModel.TTL });
     }
 
-    cacheShortToLong(short: string, long: string): void {
+    async cacheShortToLong(short: string, long: string): Promise<void> {
         const key = this.getShortToLongKey(short);
-        cache.set(key, long, { EX: OriginUrlModel.TTL });
+        await cache.set(key, long, { EX: OriginUrlModel.TTL });
+    }
+
+    /**
+     * for unit test
+     */
+    async clearCache(key: string): Promise<void> { 
+        await cache.del(key);
     }
 
     async getLongFromCache(short: string): Promise<string | null> {
@@ -58,7 +65,16 @@ class OriginUrlModel {
 
     async addUrl(url: string): Promise<number> {
         const [result] = await db.query<ResultSetHeader>('insert ignore into origin_url(url) values(?)', [url]);
+        console.log('debugging insert result:', result);
         return result.insertId;
+    }
+
+    /**
+     * for unit test
+     */
+    async clearAllData(): Promise<null> {
+        await db.query('truncate table origin_url');
+        return;
     }
 }
 
