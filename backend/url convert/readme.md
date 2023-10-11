@@ -13,6 +13,9 @@
 
 实现上述功能所需的整体架构如下: 
 
+![architecture](https://github.com/Chitzkoi1/hongshan-ck/assets/34273803/4e35daf5-512e-42df-9ef7-3b6720dd2e6a)
+
+
 # 存储设计
 
 基于以上设计思路, 实现本需求需要进行数据存储及缓存. 
@@ -61,6 +64,9 @@ Redis 需要缓存两种数据, 如下:
 
 流程图如下: 
 
+![longToShort](https://github.com/Chitzkoi1/hongshan-ck/assets/34273803/3c3d37e7-f71d-466c-8b96-ce1d39cb77c5)
+
+
 ## 由短 url 获取长 url
 
 先查询请求中的短 url path 对应的长 url 是否在 Redis 缓存中: `get url:shortToLong:${path}`, 如获取到则直接组装结果返回;
@@ -72,6 +78,8 @@ Redis 需要缓存两种数据, 如下:
 若未能够从 db 获取到对应的长 url, 则表明该短 url 无效. 应返回 HTTP 错误码 404; 此外若上述过程中的任一环节出现了错误, 则应返回 HTTP 错误码 500.
 
 流程图如下:
+
+![shortToLong](https://github.com/Chitzkoi1/hongshan-ck/assets/34273803/fe937aba-4201-4a2a-9063-cc203a4e0bb7)
 
 
 # API 信息
@@ -113,6 +121,11 @@ HTTP Method: POST
 ## 单元测试
 
 单元测试覆盖情况如下:
+
+![coverage](https://github.com/Chitzkoi1/hongshan-ck/assets/34273803/c8f75c6b-7422-4d0d-9ccb-4221be5f3dd8)
+
+
+说明: 对于 app.ts, 其未覆盖到的行包含的逻辑为 error handler.
 
 ## API 集成测试
 
