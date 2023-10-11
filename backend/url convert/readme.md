@@ -4,18 +4,28 @@
 # 整体思路
 
 将用户输入的长 url 保存至 db, 以唯一 id (类型为数字) 区分这些 url.
+
 在获取某个长 url 对应的短 url 时, 将 id 按照一定的计算规则转换为短 url 的 path 字符后整理返回.
+
 在获取某个短 url 对应的长 url 时, 先将短 url path 转换为 id, 再由 id 到 db 中获取对应的长 url, 然后整理返回.
+
 考虑到一些数据可能会被频繁请求, 因此为提高性能, 除了使用 db 存储数据外, 还需要将请求频繁的数据缓存起来.
+
 实现上述功能所需的整体架构如下: 
 
 # 存储设计
 
 基于以上设计思路, 实现本需求需要进行数据存储及缓存. 
+
 选用 MySQL 作为数据存储的 db, 选用 Redis 作为缓存中间件.
+
 MySQL 建表语句:
 ```sql
+drop database if exists `short_url`;
+
 CREATE DATABASE `short_url` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+use `short_url`;
 
 create table origin_url (
   id bigint unsigned auto_increment comment '自增 id',
@@ -40,20 +50,28 @@ Redis 需要缓存两种数据, 如下:
 ## 由长 url 获取短 url
 
 先查询请求中的长 url 对应的短 url 是否在 Redis 缓存中: `get url:longToShort:${url}`, 如获取到则直接组装返回; 
+
 若未获取到则查询长 url 对应的短 url 是否在 db 中有记录: `select id from origin_url where url = ?`;
+
 若在 db 中查询到了 id 则将 id 转换为 path 后返回, 同时将长 url 及对应短 url path 的记录进行缓存: `set url:longToShort:${url} ${value}`;
+
 若在 db 中未查询到长 url 对应的 id, 则将该数据写入 db: `insert ignore into origin_url(url) values(?)`, 该 sql 执行返回结果的 insertId 即为插入数据的 id. 将 id 转换为 path 后返回, 同时将长 url 及对应 path 的记录进行缓存 (Redis 命令同上).
 
 综上, 由长 url 获取短 url 的操作在执行过程未发生错误的情况下应有对应结果返回; 若执行过程中的任一环节出现了错误, 除写 Redis 的操作外均应返回 HTTP 错误码 500.
-流程图: 
+
+流程图如下: 
 
 ## 由短 url 获取长 url
 
 先查询请求中的短 url path 对应的长 url 是否在 Redis 缓存中: `get url:shortToLong:${path}`, 如获取到则直接组装结果返回;
+
 若未获取到则将短 url path 转换为 id, 由 id 从 db 中获取对应的长 url: `select url from origin_url where id = ?`;
+
 若能够从 db 获取到长 url 数据则组装结果返回;
+
 若未能够从 db 获取到对应的长 url, 则表明该短 url 无效. 应返回 HTTP 错误码 404; 此外若上述过程中的任一环节出现了错误, 则应返回 HTTP 错误码 500.
-流程图:
+
+流程图如下:
 
 
 # API 信息
@@ -61,23 +79,32 @@ Redis 需要缓存两种数据, 如下:
 ## 由长 url 获取短 url
 
 path: /longToShort
+
 HTTP Method: POST
+
 请求体格式: json
+
 请求入参: 
 - url: 长 url 地址, 字符串, 如: `https://www.tianyancha.com/`
 
 响应格式: json
+
 响应参数:
 - result: 短 url 完整地址, 字符串, 如: `https://s.com/1`
 
 ## 由短 url 获取长 url
+
 path: /shortToLong
+
 HTTP Method: POST
+
 请求体格式: json
+
 请求参数: 
 - url: 短 url 地址, 字符串, 如: `https://s.com/1`
 
 响应格式: json
+
 响应参数:
 - result: 短 url 完整地址, 字符串, 如: `https://www.tianyancha.com/`
 
