@@ -24,7 +24,6 @@ Please find your assignment in subfolder accordingly.
 
 ## 红杉专属T-shirt
 通过线上测试并顺利进入后续面试的同学，不论我们最终能否有幸与你共事，红杉都为技术出众的你特意准备了印有红杉logo的专属T-shirt（款式随机发放），请在面试时告知我们T-shirt尺码大小（180 vs 170），以及邮寄地址联系方式。希望你能喜欢我们准备的这份小礼物！
-![WechatIMG145](https://user-images.githubusercontent.com/89758/135418812-74b86ed4-b980-4b81-aa00-732daa07957f.jpeg)
 
 ## 这样一家投资公司为什么要招工程师 / 设计师？
 
