@@ -1,14 +1,87 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body,html, #root {
+  height: 100%;
+}
+
 .App {
   text-align: center;
   position: relative;
 }
 
-.title {
-  font-size: 56px;
-  font-weight: 600;
+.page-container {
+  width:  100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative; 
 }
 
-.text {
+.page-iphone {
+  background-color: rgb(17, 17, 17);
+}
+
+.page-tablet {
+  background-color: rgb(250, 250, 250);
+}
+
+.page-airpods {
+  background-color: rgb(241, 241, 243);
+}
+
+.page-text-content {
+  margin: auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.page-iphone-text {
+    color: white;
+}
+
+.page-tablet-text {
+  color: black;
+}
+
+.page-airpods-text{ 
+  color: black;
+}
+
+.page-title {
+  font-size: 50px;
+  margin-top: 150px;
+  font-weight: 700;
+}
+
+.page-airpods-second-title{
+  margin-top: 10px;
+}
+
+.page-subtitle {
   font-size: 28px;
+  margin-top: 14px;
   font-weight: 400;
+}
+
+
+.bottom-img{
+  width: 50%;
+  position: absolute;
+  bottom: 90px;
+  left: 0;
+  right: 0;
+  margin:auto;
+  z-index: 1;
+  object-fit: cover;
+}
+
+.tablet-img {
+  height: 400px;
+}
+
+.airpods-img {
+  height: 400px;  
 }
