@@ -1,0 +1,80 @@
+body, html, #root, .App {
+    width: 100%;
+    height: 100%;
+}
+.carousel-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+.carousel-items-wraper {
+    height: 100%;
+    display: flex;
+}
+.carousel-item {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    text-align: center
+}
+.carousel-item-title {
+    font-size: 48px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
+.carousel-item-subtitle {
+    margin-top: 20px;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+.bg-container {
+    padding-top: 10%;
+    width: 100%;
+    height: 100%;
+    background-size: auto 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+}
+.bg-tablet {
+    background-color: #FAFAFA;
+    background-image: url('../assets/tablet.png');
+    color: #000000;
+}
+.bg-airpods {
+    background-color: #F1F1F3;
+    background-image: url('../assets/airpods.png');
+    color: #000000;
+}
+.bg-iphone {
+    background-color: #111111;
+    background-image: url('../assets/iphone.png');
+    color: #FFFFFF;
+}
+.carousel-dots {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 30px;
+}
+.carousel-dot {
+    display: inline-block;
+    width: 60px;
+    height: 3px;
+    background: #656564;
+    margin: 0 5px;
+    border-radius: 3px;
+}
+.carousel-dot-inner {
+    width: 0;
+    height: 100%;
+    -webkit-transition: width 3s linear 0s;
+    -moz-transition: width 3s linear 0s;
+    transition: width 3s linear 0s;
+}
+.carousel-inner-active {
+    width: 100%;
+    background: #F8F8F7;
+}
