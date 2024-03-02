@@ -1,14 +1,50 @@
+/* reset */
+html,body,div,h2,p{
+    padding: 0;
+    margin: 0;
+}
+
 .App {
   text-align: center;
   position: relative;
 }
 
-.title {
-  font-size: 56px;
-  font-weight: 600;
+.App-slide{
+  padding-top: 248px;
+  box-sizing: border-box;
 }
 
-.text {
-  font-size: 28px;
-  font-weight: 400;
+.App-slide > h2{
+  margin-bottom: 30px;
+}
+
+.App-title{
+  font-size: 48px;
+}
+
+.App-text{
+  font-size: 24px;
+}
+
+.App-slide-phone{
+  background:#111111 url(./assets/iphone.png) center / 300px no-repeat;
+  background-size: 720px 450px;
+}
+
+.App-slide-tablet{
+  background:#fafafa url(./assets/tablet.png) center / 300px  no-repeat;
+  background-size: 1440px 450px;
+}
+
+.App-slide-arpods{
+  background:#f1f0f3 url(./assets/airpods.png) center / 300px  no-repeat;
+  background-size: 2160px 450px;
+}
+
+.App-slide-phone .App-title{
+  color: white;
+}
+
+.App-slide-phone .App-text{
+  color: white;
 }
