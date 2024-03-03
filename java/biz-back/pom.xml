@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.xxx</groupId>
+	<artifactId>biz-back</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<name>biz-back</name>
+	<description>biz-back</description>
+
+	<parent> 
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Edgware.SR2</spring-cloud.version>
+	</properties>
+
+	<dependencies>
+        <dependency>
+            <groupId>org.xxx</groupId>
+            <artifactId>biz-config</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xxx</groupId>
+            <artifactId>biz-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+        <!-- 热启动，热部署依赖包，为了调试方便，加入此包 -->  
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>springloaded</artifactId>
+            <scope>provided</scope>
+        </dependency>    
+        <dependency>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-devtools</artifactId>  
+            <optional>true</optional>  
+        </dependency> 	    
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+		
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+		        <configuration>
+		        	<layout>ZIP</layout>
+		        	<executable>true</executable>
+		        	<includes>
+				        <include>
+				            <groupId>org.xxx</groupId>
+				            <artifactId>biz-config</artifactId>
+				        </include>
+				        <include>
+				            <groupId>org.xxx</groupId>
+				            <artifactId>biz-common</artifactId>
+				        </include>
+				    </includes>
+		            <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+		        </configuration>
+		        <dependencies>  
+		          <!-- spring热部署-->  
+		          <!-- https://mvnrepository.com/artifact/org.springframework/springloaded -->  
+		          <dependency>  
+			            <groupId>org.springframework</groupId>  
+			            <artifactId>springloaded</artifactId>  
+			            <version>1.2.6.RELEASE</version>  
+		          </dependency>  
+		        </dependencies> 
+			</plugin>
+			<plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-jar-plugin</artifactId>
+                 <version>3.1.0</version>
+                 <configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+                     <archive>
+                         <manifest>
+                             <!-- 指定入口函数 -->
+                             <mainClass>org.xinhua.BizStatisticsJobApplication</mainClass>
+                             <!-- 是否添加依赖的jar路径配置 -->
+                             <addClasspath>true</addClasspath>
+                             <!-- 依赖的jar包存放位置，和生成的jar放在同一级目录下 -->
+                             <classpathPrefix>lib/</classpathPrefix>
+                         </manifest>
+                     </archive>
+                 </configuration>
+             </plugin>
+             <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+<!-- 				<configuration> -->
+<!-- 					<skip>true</skip> -->
+<!-- 				</configuration> -->
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.3</version>
+				<configuration>
+					<!--指定生成 .exec 文件的存放位置-->
+					<destFile>target/coverage-reports/jacoco-unit.exec</destFile>
+					<!--Jacoco 是根据 .exec 文件生成最终的报告，所以需指定 .exec 的存放路径-->
+					<dataFile>target/coverage-reports/jacoco-unit.exec</dataFile>
+				</configuration>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-site</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+
+</project>
