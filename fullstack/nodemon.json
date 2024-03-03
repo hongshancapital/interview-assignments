@@ -1,0 +1,19 @@
+{
+  "restartable": "rs",
+  "ignore": [".git", "node_modules", "resources"],
+  "verbose": true,
+  "execMap": {
+      "": "node",
+      "js": "node --harmony"
+  },
+  "events": {
+      "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
+  },
+  "watch": ["test/fixtures/", "test/samples/"],
+  "env": {
+      "NODE_ENV": "development",
+      "PORT": "3001"
+  },
+  "ext": "js json",
+  "legacy-watch": false
+}
