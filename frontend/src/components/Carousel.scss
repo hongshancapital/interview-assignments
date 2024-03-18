@@ -1,0 +1,36 @@
+.carousel {
+    overflow: hidden;
+    &_item_list {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform .3s ease;
+    }
+    &_item {
+        flex: none;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    &_tag_list {
+        position: absolute;
+        bottom: 2em;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+    }
+    &_tag {
+        width: 4em;
+        height: 2px;
+        border-radius: 1px;
+        background: #888;
+        & + & {
+            margin-left: .5em;
+        }
+    }
+    &_tag_progress {
+        height: 100%;
+        width: 0;
+        background: #ccc;
+    }
+}
