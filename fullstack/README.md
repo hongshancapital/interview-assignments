@@ -1,3 +1,42 @@
+# 项目说明
+
+- 本框架原本使用 node+typescript+express+mysql 搭建，修改后使用 redis 实现数据存储。
+  因此删掉了大多数不必要的文件，只保留了实现 api 的基础框架。
+- 此项目代码只考虑了长域名和短域名的转换，长域名唯一性校验和 mysql 持久化存储没有实现。
+- 短域名存储接口 url/save
+- 短域名读取接口 url/get
+
+# 递交作业说明
+
+1. 源代码
+   见代码。
+2. 单元测试代码以及单元测试覆盖率(覆盖率请勿提交整个目录，一张图片或一个 text table 即可)
+   ![nyc](./images/nyc.png)
+3. API 集成测试案例以及测试结果
+   ![api-save](./images/api-save.png)
+   ![api-get](./images/api-get.png)
+4. 简单的框架设计图，以及所有做的假设
+   ![简单架构图](./images/architecture.png)
+   假设：
+   - 怎么保证所有的短 url 唯一？
+     使用时间戳+10 位随机数生成一个数字，不能说完全唯一，但是重复率极小极小。
+   - 怎么保证短 url 长度小于 8 位？
+     时间戳长度为 13 位，经过 62 进制编码后长度绝对小于等于 8 位。
+   - 怎么保证长域名存储的唯一性？
+     本项目只考虑了长短域名的对应，长域名如果想做唯一性校验，可以在持久化到 mysql 数据库时做唯一索引，redis 这里只考虑短域名的唯一，且不考虑获取长域名对应的短域名情况
+5. 涉及的 SQL 或者 NoSQL 的 Schema，注意标注出 Primary key 和 Index 如果有。
+   本项目数据只涉及 redis 存储，schema 为 db0，key（短域名）- value（长域名）
+
+## 使用说明
+
+安装:
+
+> yarn
+
+启动：
+
+> yarn start
+
 # TypeScript Fullstack Engineer Assignment
 
 ### Typescript 实现短域名服务（细节可以百度/谷歌）
