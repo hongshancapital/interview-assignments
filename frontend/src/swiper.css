@@ -1,0 +1,70 @@
+.swiper-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    transition: transform 0.5s;
+    padding:0;
+    margin: 0;
+}
+.swiper-wrapper div {
+    flex: 0 0 100%;
+    height: 100%;
+}
+.swiper-wrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.progress-wrapper {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 30px;
+}
+.progress{
+    width: 50px;
+    height: 5px;
+    border:1px solid #ccc;
+    border-radius: 15px;
+    margin: 0 10px;
+    overflow: hidden;
+    box-shadow: 0 0 5px 0px #ddd inset;
+    display: flex;
+}
+.progress span {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-color: #fff; /* Old browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2989d8', endColorstr='#2989d8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background-size: 60px 30px;
+    text-align: center;
+    color:#d2d2d2;
+    -webkit-animation:load 3s ease-in;
+}
+@-webkit-keyframes load{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width:100%;
+    }
+}
+
+
+.progress span{
+    width: 6%;
+}
+@-webkit-keyframes load{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width:70%;
+    }
+}
