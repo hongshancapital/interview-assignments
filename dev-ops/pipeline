@@ -1,0 +1,36 @@
+pipeline {
+	stages {
+		stage('pull') {
+			git credentialsId: '3c210def-c000-4e2a-9b2d-838986a6b172', 
+			url: 'https://github.com/goxr3plus/Simplest-Spring-Boot-Hello-World'
+		}
+		stage('scan') {
+			steps {
+				sh "/tools/scanner-yf"
+				sh "/tools/scanner-ld"
+			}
+		
+		}
+		stage('build') {
+			steps {
+			    sh "mvn clean package"
+			}
+		
+		}
+		stage('push') {
+			steps {
+				docker build --build-arg app=Simplest-Spring-Boot-Hello-World .
+				docker push Simplest-Spring-Boot-Hello-World:latest
+			}
+		}
+		stage('make') {
+			steps {
+				cdk synth
+				cdk -y deploy
+			}
+		}
+		stage('monitor') {
+			aws cloudwatch get-metric-statistics --namespace demo --metric-name error --statistics Average
+		}
+	}
+}
