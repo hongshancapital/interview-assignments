@@ -1,0 +1,32 @@
+# 服务配置 端口80 , url /
+server:
+  port: 80
+  path: /
+  servlet:
+    # 字符集设置
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+
+# spring 配置
+spring:
+  http:
+    # 字符集设置
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+  mvc:
+    pathmatch:
+      # 集成swagger3 的问题解决
+      matching-strategy: ANT_PATH_MATCHER
+
+# log 配置
+logging:
+  config: classpath:logback.xml
+  level:
+    cn.sequoiacap: debug
+
