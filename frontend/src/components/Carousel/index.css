@@ -1,0 +1,119 @@
+:global(.clearfix:after) {
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: "";
+}
+
+.container {
+	overflow: hidden;
+	position: relative;
+	margin: 0 auto;
+	width: 100%;
+	height: 100vh;
+	background: inherit;
+
+	--switchSpace: 30px;
+}
+
+.carousel {
+	width: 100%;
+	height: 100%;
+	transition: all cubic-bezier(.4, 0, 1, 1) .5s;
+}
+
+.item {
+	float: left;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	background-size: contain;
+	text-align: center;
+}
+
+.title {
+	margin-top: 20%;
+}
+
+.switch {
+	position: absolute;
+	top: 50%;
+	border-radius: 30px;
+	width: 50px;
+	height: 50px;
+	background: rgb(221 221 221 / 50%);
+	cursor: pointer;
+	user-select: none;
+	line-height: 45px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 30px;
+	color: #ccc;
+	transform: translateY(-50%);
+}
+
+.switch:hover {
+	background: rgb(221 221 221 / 100%);
+	color: #fff;
+}
+
+.prev {
+	left: var(--switchSpace);
+}
+
+.next {
+	right: var(--switchSpace);
+}
+
+.activity {
+	display: inline-flex;
+	position: absolute;
+	left: 50%;
+	bottom: 30px;
+	padding: 10px;
+	transform: translateX(-50%);
+}
+
+.activity-item {
+	display: inline-block;
+	position: relative;
+	margin-right: 10px;
+	border-radius: 3px;
+	width: 60px;
+	height: 3px;
+	background: #bbb;
+	cursor: pointer;
+	text-align: left;
+}
+
+.activity-item::after {
+	position: absolute;
+	left: 0;
+	top: -5px;
+	bottom: -5px;
+	width: 100px;
+	content: "";
+}
+
+.activity-bg {
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	background: #fff;
+	/* animation: bg-animation 3s ease-in-out; */
+}
+
+@keyframes bg-animation {
+	from {
+		width: 0;
+	}
+
+	to {
+		width: 100%;
+	}
+}
