@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:sUrl.handleRequest();
+split
+group GET METHOD
+    if (get url param) then (Y)
+        :check redis;
+        if (success) then (Y)
+            :rebuild raw url;
+            :renew sUrl;
+        else (N)
+            label BaseURL
+            :redirect to BaseURL;
+      endif
+    else (N)
+        label base_1
+        goto BaseURL;
+    endif
+endgroup
+split again
+group POST METHOD
+    if (check url is valid) then (Y)
+        :generate sUrl;
+        while (check times < 10);
+            if (collision) then (Y)
+                if(same raw url) then (Y)
+                    break;
+                else (N)
+                    if(try to extend sUrl length) then (Y)
+                    else (over 8 chars)
+                        :regenerate sUrl with salt;
+                        if(limit times) then (Y)
+                            :status 500;
+                            end
+                        endif
+                    endif
+                endif
+            else
+                label sp1;
+                label sp1;
+                label sp1;
+                label sp1;
+'                -[hidden]-> N
+                break;
+            endif
+        endwhile (check times increase)
+        :save sUrl to redis;
+        :renew sUrl;
+    else (N)
+    :status 400;
+    end
+ endif
+endgroup
+end split
+
+stop
+
+@enduml
