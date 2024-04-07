@@ -1,0 +1,34 @@
+package com.wangxiao.shortlink.infrastructure.configuration.web;
+
+import com.wangxiao.shortlink.infrastructure.common.ErrorEnum;
+import com.wangxiao.shortlink.infrastructure.common.PersistenceException;
+import com.wangxiao.shortlink.infrastructure.common.Result;
+import com.wangxiao.shortlink.infrastructure.common.StoreOverFlowException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@ControllerAdvice
+@Slf4j
+public class GlobalExceptionHandler {
+    @ExceptionHandler(StoreOverFlowException.class)
+    @ResponseBody
+    public Result badArgumentHandler(StoreOverFlowException e) {
+        return Result.fail(ErrorEnum.STORE_OVERFLOW);
+    }
+
+
+    @ExceptionHandler(PersistenceException.class)
+    @ResponseBody
+    public Result badArgumentHandler(PersistenceException e) {
+        return Result.fail(ErrorEnum.PERSIST_ERROR);
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public Result seriousHandler(Exception e) {
+        log.error(e.getMessage(), e);
+        return Result.fail(ErrorEnum.SYSTEM_ERROR, e.getMessage());
+    }
+}

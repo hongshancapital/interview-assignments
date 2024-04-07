@@ -1,0 +1,39 @@
+package com.wangxiao.shortlink.domain.shortlink;
+
+import java.util.Map;
+
+public interface LinkPairRepository {
+    /**
+     * 如果短链接不存在则存入
+     *
+     * @param linkPair 短链接与长链接对
+     * @return 如果短链接已存在，返回对应的长链接，否则返回null
+     */
+    String saveIfAbsent(LinkPair linkPair);
+
+    /**
+     * 根据短链接获取长链接
+     *
+     * @param shortLink 短链接
+     * @return 长链接
+     */
+    String getLongLink(String shortLink);
+
+    String removeLink(String shortLink);
+
+    /**
+     * 已存储链接对总数量
+     *
+     * @return 已存储链接对总数量
+     */
+    Long totalPairSize();
+
+    /**
+     * 数据加载
+     *
+     * @param load 需要加载的持久化数据
+     */
+    void load(Map<String, String> load);
+
+    void clear();
+}
