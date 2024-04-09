@@ -1,0 +1,820 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		425E647D29925432001B36BA /* RedwoodTestProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E647C29925432001B36BA /* RedwoodTestProjectApp.swift */; };
+		425E647F29925432001B36BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E647E29925432001B36BA /* ContentView.swift */; };
+		425E648129925434001B36BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 425E648029925434001B36BA /* Assets.xcassets */; };
+		425E648429925434001B36BA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 425E648329925434001B36BA /* Preview Assets.xcassets */; };
+		425E648E29925434001B36BA /* RedwoodTestProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E648D29925434001B36BA /* RedwoodTestProjectTests.swift */; };
+		425E649829925434001B36BA /* RedwoodTestProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E649729925434001B36BA /* RedwoodTestProjectUITests.swift */; };
+		425E649A29925434001B36BA /* RedwoodTestProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E649929925434001B36BA /* RedwoodTestProjectUITestsLaunchTests.swift */; };
+		425E64AC29927929001B36BA /* XXListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E64AB29927929001B36BA /* XXListItem.swift */; };
+		425E64B12993734A001B36BA /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E64B02993734A001B36BA /* ColorExtension.swift */; };
+		425E69332993781F001B36BA /* XXRefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E69322993781F001B36BA /* XXRefreshFooterView.swift */; };
+		425E693929937D02001B36BA /* XXAdsItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E693829937D02001B36BA /* XXAdsItemModel.swift */; };
+		425E693C29938C0E001B36BA /* advsData.json in Resources */ = {isa = PBXBuildFile; fileRef = 425E693B29938C0E001B36BA /* advsData.json */; };
+		425E693E29938EF6001B36BA /* XXAdsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E693D29938EF5001B36BA /* XXAdsListViewModel.swift */; };
+		425E69452993C95D001B36BA /* XXRefreshBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425E69442993C95D001B36BA /* XXRefreshBase.swift */; };
+		48BE64C277EB83C56A18A473 /* Pods_RedwoodTestProject_RedwoodTestProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF645D53A0702341FDCFFE2 /* Pods_RedwoodTestProject_RedwoodTestProjectUITests.framework */; };
+		9A42D7709AB71120906DF1AE /* Pods_RedwoodTestProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D669565BA15DC73DF36CDFCD /* Pods_RedwoodTestProject.framework */; };
+		D7B883F4769446110377E9E8 /* Pods_RedwoodTestProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41AE418D553E273DE3A2A59 /* Pods_RedwoodTestProjectTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		425E648A29925434001B36BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 425E647129925432001B36BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 425E647829925432001B36BA;
+			remoteInfo = RedwoodTestProject;
+		};
+		425E649429925434001B36BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 425E647129925432001B36BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 425E647829925432001B36BA;
+			remoteInfo = RedwoodTestProject;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3659CB9868F8DA1B45F59B06 /* Pods-RedwoodTestProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedwoodTestProject.release.xcconfig"; path = "Target Support Files/Pods-RedwoodTestProject/Pods-RedwoodTestProject.release.xcconfig"; sourceTree = "<group>"; };
+		425E647929925432001B36BA /* RedwoodTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedwoodTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		425E647C29925432001B36BA /* RedwoodTestProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedwoodTestProjectApp.swift; sourceTree = "<group>"; };
+		425E647E29925432001B36BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		425E648029925434001B36BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		425E648329925434001B36BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		425E648929925434001B36BA /* RedwoodTestProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedwoodTestProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		425E648D29925434001B36BA /* RedwoodTestProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedwoodTestProjectTests.swift; sourceTree = "<group>"; };
+		425E649329925434001B36BA /* RedwoodTestProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedwoodTestProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		425E649729925434001B36BA /* RedwoodTestProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedwoodTestProjectUITests.swift; sourceTree = "<group>"; };
+		425E649929925434001B36BA /* RedwoodTestProjectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedwoodTestProjectUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		425E64AB29927929001B36BA /* XXListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XXListItem.swift; sourceTree = "<group>"; };
+		425E64B02993734A001B36BA /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		425E69322993781F001B36BA /* XXRefreshFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XXRefreshFooterView.swift; sourceTree = "<group>"; };
+		425E693829937D02001B36BA /* XXAdsItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XXAdsItemModel.swift; sourceTree = "<group>"; };
+		425E693B29938C0E001B36BA /* advsData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = advsData.json; sourceTree = "<group>"; };
+		425E693D29938EF5001B36BA /* XXAdsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XXAdsListViewModel.swift; sourceTree = "<group>"; };
+		425E69442993C95D001B36BA /* XXRefreshBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XXRefreshBase.swift; sourceTree = "<group>"; };
+		43FB9066BDC94E5D007AFE6E /* Pods-RedwoodTestProject-RedwoodTestProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedwoodTestProject-RedwoodTestProjectUITests.debug.xcconfig"; path = "Target Support Files/Pods-RedwoodTestProject-RedwoodTestProjectUITests/Pods-RedwoodTestProject-RedwoodTestProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		698ABE079D9AD4ED7C426076 /* Pods-RedwoodTestProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedwoodTestProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-RedwoodTestProjectTests/Pods-RedwoodTestProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A6EAAED0E1DFB48DF34B468A /* Pods-RedwoodTestProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedwoodTestProject.debug.xcconfig"; path = "Target Support Files/Pods-RedwoodTestProject/Pods-RedwoodTestProject.debug.xcconfig"; sourceTree = "<group>"; };
+		CD19E8272A4DA7CF89AD67D5 /* Pods-RedwoodTestProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedwoodTestProjectTests.release.xcconfig"; path = "Target Support Files/Pods-RedwoodTestProjectTests/Pods-RedwoodTestProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		D669565BA15DC73DF36CDFCD /* Pods_RedwoodTestProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RedwoodTestProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E41AE418D553E273DE3A2A59 /* Pods_RedwoodTestProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RedwoodTestProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9441EA3668C978DAAC24FEB /* Pods-RedwoodTestProject-RedwoodTestProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RedwoodTestProject-RedwoodTestProjectUITests.release.xcconfig"; path = "Target Support Files/Pods-RedwoodTestProject-RedwoodTestProjectUITests/Pods-RedwoodTestProject-RedwoodTestProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
+		ECF645D53A0702341FDCFFE2 /* Pods_RedwoodTestProject_RedwoodTestProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RedwoodTestProject_RedwoodTestProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		425E647629925432001B36BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A42D7709AB71120906DF1AE /* Pods_RedwoodTestProject.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		425E648629925434001B36BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7B883F4769446110377E9E8 /* Pods_RedwoodTestProjectTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		425E649029925434001B36BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48BE64C277EB83C56A18A473 /* Pods_RedwoodTestProject_RedwoodTestProjectUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		425E647029925432001B36BA = {
+			isa = PBXGroup;
+			children = (
+				425E647B29925432001B36BA /* RedwoodTestProject */,
+				425E648C29925434001B36BA /* RedwoodTestProjectTests */,
+				425E649629925434001B36BA /* RedwoodTestProjectUITests */,
+				425E647A29925432001B36BA /* Products */,
+				8E71D6A0997CC5CBD69F3224 /* Pods */,
+				76F806980DD8B7E24E090D93 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		425E647A29925432001B36BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				425E647929925432001B36BA /* RedwoodTestProject.app */,
+				425E648929925434001B36BA /* RedwoodTestProjectTests.xctest */,
+				425E649329925434001B36BA /* RedwoodTestProjectUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		425E647B29925432001B36BA /* RedwoodTestProject */ = {
+			isa = PBXGroup;
+			children = (
+				425E693A29938C01001B36BA /* dataSource */,
+				425E648029925434001B36BA /* Assets.xcassets */,
+				425E647C29925432001B36BA /* RedwoodTestProjectApp.swift */,
+				425E647E29925432001B36BA /* ContentView.swift */,
+				425E692F299377E4001B36BA /* XXRefresh-SwiftUI */,
+				425E64AF29937321001B36BA /* Extension */,
+				425E64A629925D25001B36BA /* View */,
+				425E64A729925D2C001B36BA /* ViewModel */,
+				425E64A829925D37001B36BA /* model */,
+				425E648229925434001B36BA /* Preview Content */,
+			);
+			path = RedwoodTestProject;
+			sourceTree = "<group>";
+		};
+		425E648229925434001B36BA /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				425E648329925434001B36BA /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		425E648C29925434001B36BA /* RedwoodTestProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				425E648D29925434001B36BA /* RedwoodTestProjectTests.swift */,
+			);
+			path = RedwoodTestProjectTests;
+			sourceTree = "<group>";
+		};
+		425E649629925434001B36BA /* RedwoodTestProjectUITests */ = {
+			isa = PBXGroup;
+			children = (
+				425E649729925434001B36BA /* RedwoodTestProjectUITests.swift */,
+				425E649929925434001B36BA /* RedwoodTestProjectUITestsLaunchTests.swift */,
+			);
+			path = RedwoodTestProjectUITests;
+			sourceTree = "<group>";
+		};
+		425E64A629925D25001B36BA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				425E64AB29927929001B36BA /* XXListItem.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		425E64A729925D2C001B36BA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				425E693D29938EF5001B36BA /* XXAdsListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		425E64A829925D37001B36BA /* model */ = {
+			isa = PBXGroup;
+			children = (
+				425E693829937D02001B36BA /* XXAdsItemModel.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		425E64AF29937321001B36BA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				425E64B02993734A001B36BA /* ColorExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		425E692F299377E4001B36BA /* XXRefresh-SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				425E6934299378AD001B36BA /* XXRefreshViews */,
+			);
+			path = "XXRefresh-SwiftUI";
+			sourceTree = "<group>";
+		};
+		425E6934299378AD001B36BA /* XXRefreshViews */ = {
+			isa = PBXGroup;
+			children = (
+				425E69322993781F001B36BA /* XXRefreshFooterView.swift */,
+				425E69442993C95D001B36BA /* XXRefreshBase.swift */,
+			);
+			path = XXRefreshViews;
+			sourceTree = "<group>";
+		};
+		425E693A29938C01001B36BA /* dataSource */ = {
+			isa = PBXGroup;
+			children = (
+				425E693B29938C0E001B36BA /* advsData.json */,
+			);
+			path = dataSource;
+			sourceTree = "<group>";
+		};
+		76F806980DD8B7E24E090D93 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D669565BA15DC73DF36CDFCD /* Pods_RedwoodTestProject.framework */,
+				ECF645D53A0702341FDCFFE2 /* Pods_RedwoodTestProject_RedwoodTestProjectUITests.framework */,
+				E41AE418D553E273DE3A2A59 /* Pods_RedwoodTestProjectTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8E71D6A0997CC5CBD69F3224 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A6EAAED0E1DFB48DF34B468A /* Pods-RedwoodTestProject.debug.xcconfig */,
+				3659CB9868F8DA1B45F59B06 /* Pods-RedwoodTestProject.release.xcconfig */,
+				43FB9066BDC94E5D007AFE6E /* Pods-RedwoodTestProject-RedwoodTestProjectUITests.debug.xcconfig */,
+				E9441EA3668C978DAAC24FEB /* Pods-RedwoodTestProject-RedwoodTestProjectUITests.release.xcconfig */,
+				698ABE079D9AD4ED7C426076 /* Pods-RedwoodTestProjectTests.debug.xcconfig */,
+				CD19E8272A4DA7CF89AD67D5 /* Pods-RedwoodTestProjectTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		425E647829925432001B36BA /* RedwoodTestProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 425E649D29925434001B36BA /* Build configuration list for PBXNativeTarget "RedwoodTestProject" */;
+			buildPhases = (
+				53275278EC2AE11123C3EB61 /* [CP] Check Pods Manifest.lock */,
+				425E647529925432001B36BA /* Sources */,
+				425E647629925432001B36BA /* Frameworks */,
+				425E647729925432001B36BA /* Resources */,
+				8C66AF3481764A6EA06FEBD8 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RedwoodTestProject;
+			productName = RedwoodTestProject;
+			productReference = 425E647929925432001B36BA /* RedwoodTestProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+		425E648829925434001B36BA /* RedwoodTestProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 425E64A029925434001B36BA /* Build configuration list for PBXNativeTarget "RedwoodTestProjectTests" */;
+			buildPhases = (
+				ECF4E47217BD1EF50C7980BA /* [CP] Check Pods Manifest.lock */,
+				425E648529925434001B36BA /* Sources */,
+				425E648629925434001B36BA /* Frameworks */,
+				425E648729925434001B36BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				425E648B29925434001B36BA /* PBXTargetDependency */,
+			);
+			name = RedwoodTestProjectTests;
+			productName = RedwoodTestProjectTests;
+			productReference = 425E648929925434001B36BA /* RedwoodTestProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		425E649229925434001B36BA /* RedwoodTestProjectUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 425E64A329925434001B36BA /* Build configuration list for PBXNativeTarget "RedwoodTestProjectUITests" */;
+			buildPhases = (
+				C62944D703BE9AA449DDBE83 /* [CP] Check Pods Manifest.lock */,
+				425E648F29925434001B36BA /* Sources */,
+				425E649029925434001B36BA /* Frameworks */,
+				425E649129925434001B36BA /* Resources */,
+				E04EDF3E9D8A8DC5CB6C6D9A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				425E649529925434001B36BA /* PBXTargetDependency */,
+			);
+			name = RedwoodTestProjectUITests;
+			productName = RedwoodTestProjectUITests;
+			productReference = 425E649329925434001B36BA /* RedwoodTestProjectUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		425E647129925432001B36BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					425E647829925432001B36BA = {
+						CreatedOnToolsVersion = 14.1;
+					};
+					425E648829925434001B36BA = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 425E647829925432001B36BA;
+					};
+					425E649229925434001B36BA = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 425E647829925432001B36BA;
+					};
+				};
+			};
+			buildConfigurationList = 425E647429925432001B36BA /* Build configuration list for PBXProject "RedwoodTestProject" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 425E647029925432001B36BA;
+			productRefGroup = 425E647A29925432001B36BA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				425E647829925432001B36BA /* RedwoodTestProject */,
+				425E648829925434001B36BA /* RedwoodTestProjectTests */,
+				425E649229925434001B36BA /* RedwoodTestProjectUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		425E647729925432001B36BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				425E648429925434001B36BA /* Preview Assets.xcassets in Resources */,
+				425E693C29938C0E001B36BA /* advsData.json in Resources */,
+				425E648129925434001B36BA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		425E648729925434001B36BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		425E649129925434001B36BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		53275278EC2AE11123C3EB61 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RedwoodTestProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C66AF3481764A6EA06FEBD8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RedwoodTestProject/Pods-RedwoodTestProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RedwoodTestProject/Pods-RedwoodTestProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RedwoodTestProject/Pods-RedwoodTestProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C62944D703BE9AA449DDBE83 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RedwoodTestProject-RedwoodTestProjectUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E04EDF3E9D8A8DC5CB6C6D9A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RedwoodTestProject-RedwoodTestProjectUITests/Pods-RedwoodTestProject-RedwoodTestProjectUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RedwoodTestProject-RedwoodTestProjectUITests/Pods-RedwoodTestProject-RedwoodTestProjectUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RedwoodTestProject-RedwoodTestProjectUITests/Pods-RedwoodTestProject-RedwoodTestProjectUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ECF4E47217BD1EF50C7980BA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RedwoodTestProjectTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		425E647529925432001B36BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				425E647F29925432001B36BA /* ContentView.swift in Sources */,
+				425E647D29925432001B36BA /* RedwoodTestProjectApp.swift in Sources */,
+				425E64AC29927929001B36BA /* XXListItem.swift in Sources */,
+				425E69452993C95D001B36BA /* XXRefreshBase.swift in Sources */,
+				425E693929937D02001B36BA /* XXAdsItemModel.swift in Sources */,
+				425E64B12993734A001B36BA /* ColorExtension.swift in Sources */,
+				425E69332993781F001B36BA /* XXRefreshFooterView.swift in Sources */,
+				425E693E29938EF6001B36BA /* XXAdsListViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		425E648529925434001B36BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				425E648E29925434001B36BA /* RedwoodTestProjectTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		425E648F29925434001B36BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				425E649829925434001B36BA /* RedwoodTestProjectUITests.swift in Sources */,
+				425E649A29925434001B36BA /* RedwoodTestProjectUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		425E648B29925434001B36BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 425E647829925432001B36BA /* RedwoodTestProject */;
+			targetProxy = 425E648A29925434001B36BA /* PBXContainerItemProxy */;
+		};
+		425E649529925434001B36BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 425E647829925432001B36BA /* RedwoodTestProject */;
+			targetProxy = 425E649429925434001B36BA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		425E649B29925434001B36BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		425E649C29925434001B36BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		425E649E29925434001B36BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6EAAED0E1DFB48DF34B468A /* Pods-RedwoodTestProject.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"RedwoodTestProject/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xuxiansheng.RedwoodTestProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		425E649F29925434001B36BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3659CB9868F8DA1B45F59B06 /* Pods-RedwoodTestProject.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"RedwoodTestProject/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xuxiansheng.RedwoodTestProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		425E64A129925434001B36BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 698ABE079D9AD4ED7C426076 /* Pods-RedwoodTestProjectTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xuxiansheng.RedwoodTestProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RedwoodTestProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RedwoodTestProject";
+			};
+			name = Debug;
+		};
+		425E64A229925434001B36BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD19E8272A4DA7CF89AD67D5 /* Pods-RedwoodTestProjectTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xuxiansheng.RedwoodTestProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RedwoodTestProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RedwoodTestProject";
+			};
+			name = Release;
+		};
+		425E64A429925434001B36BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43FB9066BDC94E5D007AFE6E /* Pods-RedwoodTestProject-RedwoodTestProjectUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xuxiansheng.RedwoodTestProjectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RedwoodTestProject;
+			};
+			name = Debug;
+		};
+		425E64A529925434001B36BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9441EA3668C978DAAC24FEB /* Pods-RedwoodTestProject-RedwoodTestProjectUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xuxiansheng.RedwoodTestProjectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RedwoodTestProject;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		425E647429925432001B36BA /* Build configuration list for PBXProject "RedwoodTestProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				425E649B29925434001B36BA /* Debug */,
+				425E649C29925434001B36BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		425E649D29925434001B36BA /* Build configuration list for PBXNativeTarget "RedwoodTestProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				425E649E29925434001B36BA /* Debug */,
+				425E649F29925434001B36BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		425E64A029925434001B36BA /* Build configuration list for PBXNativeTarget "RedwoodTestProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				425E64A129925434001B36BA /* Debug */,
+				425E64A229925434001B36BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		425E64A329925434001B36BA /* Build configuration list for PBXNativeTarget "RedwoodTestProjectUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				425E64A429925434001B36BA /* Debug */,
+				425E64A529925434001B36BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 425E647129925432001B36BA /* Project object */;
+}

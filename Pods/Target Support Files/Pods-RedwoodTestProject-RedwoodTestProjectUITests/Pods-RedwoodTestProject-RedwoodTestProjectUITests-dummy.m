@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_RedwoodTestProject_RedwoodTestProjectUITests : NSObject
+@end
+@implementation PodsDummy_Pods_RedwoodTestProject_RedwoodTestProjectUITests
+@end
