@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL，如果设置为WARN，则低于WARN的信息都不会输出 -->
+<!-- scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true -->
+<!-- scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 -->
+<!-- debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+<configuration scan="true" scanPeriod="30 seconds" debug="false">
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/> -->
+    <contextName>Logback For Url Converter</contextName>
+    <!-- name的值是变量的名称，value的值是变量定义的值。通过定义的值会被插入到logger上下文中。定义变量后，可以使“${}”来使用变量。 -->
+    <!-- 定义日志文件 输入位置 -->
+    <property name="LOG_HOME" value="D:/logs"/>
+    <property name="ROOT_LEVEL" value="INFO" />
+    <!-- 日志最大的历史 30天 -->
+    <property name="maxHistory" value="30" />
+
+
+    <!-- 控制台输出日志 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!--文件输出,时间窗口滚动-->
+    <appender name="timeFileOutput" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--日志名,指定最新的文件名，其他文件名使用FileNamePattern -->
+        <File>${LOG_HOME}/urlConverter-impl.log</File>
+        <!--文件滚动模式-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名,可设置文件类型为gz,开启文件压缩-->
+            <!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间-->
+            <FileNamePattern>${LOG_HOME}/gz/urlConverter-impl.%d{yyyy-MM-dd}.%i.log.gz</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>${maxHistory}</MaxHistory>
+            <!--按大小分割同一天的-->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <!--输出格式-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <!--设置编码-->
+            <charset>UTF-8</charset>
+        </encoder>
+
+    </appender>
+
+    <!--指定基础的日志输出级别-->
+    <root level="${ROOT_LEVEL}">
+        <!--appender将会添加到这个logger-->
+        <appender-ref ref="console"/>
+        <appender-ref ref="timeFileOutput"/>
+    </root>
+
+    <!--打印mybatis的会话开启及sql执行日志-->
+<!--    <logger name="com.iflytek.auto.valetparking.mapper" level="DEBUG" />-->
+<!--    <logger name="org.mybatis" level="debug"/>-->
+</configuration>
