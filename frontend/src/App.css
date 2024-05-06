@@ -1,3 +1,13 @@
+html, body, div, p {
+	margin: 0;
+	padding: 0;
+	border: 0; 
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+
 .App {
   text-align: center;
   position: relative;
@@ -6,9 +16,43 @@
 .title {
   font-size: 56px;
   font-weight: 600;
+  margin-top: 200px;
+  margin-bottom: 20px;
+}
+.title + .title {
+  margin-top: 0;
 }
 
 .text {
   font-size: 28px;
   font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 1;
+  color: #000;
+
+}
+
+
+.item1 {
+  background: #000 url('./assets/iphone.png') no-repeat center;
+  background-size: cover;
+  color: #fff;
+}
+
+
+.item2 {
+  background: #fff url('./assets/tablet.png') no-repeat center;
+  background-size: cover;
+}
+
+.item3 {
+  background: #fff url('./assets/airpods.png') no-repeat center;
+  background-size: cover;
 }
