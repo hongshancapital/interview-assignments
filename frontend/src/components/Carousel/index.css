@@ -1,0 +1,62 @@
+.Carousel {
+  overflow: hidden;
+  height: 100%;
+}
+
+.Carousel__list {
+  transition: transform .5s ease-in-out;
+  height: 100%;
+}
+
+.Carousel__item {
+  float: left;
+  width: 100vw;
+  height: 100%;
+}
+
+.Carousel__indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Carousel__indicatorItem {
+  position: relative;
+  width: 50px;
+  height: 2px;
+  background-color: #a9a9a9;
+  border-radius: 2px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.Carousel__indicatorItem::after {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 100%;
+  height: 20px;
+  left: 0;
+  top: -9px;
+}
+
+.Carousel__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #fff;
+  transition: width 0ms linear;
+}
+
+.Carousel__progress--active {
+  width: 100%;
+}
