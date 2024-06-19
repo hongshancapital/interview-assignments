@@ -1,0 +1,55 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-items {
+  display: flex;
+  height: 100%;
+}
+
+.carousel-tabs {
+  display: flex;
+  position: absolute;
+  margin: 0 auto;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-tab {
+  width: 50px;
+  height: 5px;
+  margin: 0 10px;
+  background-color: #ccc;
+  cursor: pointer;
+  position: relative;
+
+  &-progress {
+    width: 0;
+    height: 5px;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    &.active {
+      background-color: #fff;
+      animation-name: progressMove;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+@keyframes progressMove {
+  from {
+      width: 0;
+  }
+
+  to {
+      width: 100%;
+  }
+}
+
+
