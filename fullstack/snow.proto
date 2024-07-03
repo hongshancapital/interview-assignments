@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package snow;
+
+service Greeter {
+    rpc CallSnow (SnowRequest) returns (SnowReply) {}
+}
+ 
+message SnowRequest {
+    string name = 1;
+}
+ 
+message SnowReply {
+    string message = 1;
+}
+  
