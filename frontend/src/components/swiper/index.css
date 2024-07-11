@@ -1,0 +1,45 @@
+.swiper-widget {
+  overflow: hidden;
+  position: relative;
+}
+.swiper-widget__container {
+  display: flex;
+  height: 100%;
+}
+
+.swiper-widget__indicator {
+  display: flex;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+.swiper-widget__indicator-item {
+  height: 3px;
+  width: 48px;
+  background: rgb(169, 169, 169);
+  margin-right: 10px;
+  position: relative;
+}
+
+.swiper-widget__indicator-item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.swiper-widget__indicator-item::before{
+  content: ' ';
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  height: 100%;
+  width: 0;
+}
+
+.swiper-widget__indicator-item-active::before {
+  content: ' ';
+  width: 100%;
+  background: rgb(250, 250, 250);
+  transition: all var(--auto-interval);
+}
