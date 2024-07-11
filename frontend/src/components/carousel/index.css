@@ -1,0 +1,51 @@
+.carousel {
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+.list {
+  display: flex;
+  height: 100%;
+  transition: 0.5s ease-in-out;
+}
+.item {
+  height: 100%;
+  width: 100%;
+  flex-shrink: 0;
+}
+.dots {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  width: 16%;
+}
+.dot {
+  cursor: pointer;
+  height: 2px;
+  width: 30px;
+  left: 0;
+  display: block;
+  position: relative;
+  background-color: #9f9f9f;
+}
+.dotLoading {
+  position: absolute;
+  height: 100%;
+  background-color: #f9f9f9;
+  width: 0;
+  margin-right: 30px;
+  animation-name: progress;
+}
+@keyframes progress {
+  form {
+    margin-right: 30px;
+    width: 0;
+  }
+  to {
+    margin-right: 0;
+    width: 100%;
+  }
+}
