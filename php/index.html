@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style type="text/css">
+        body {
+            display: flex;
+        }
+
+        #main {
+            margin: 0 auto;
+        }
+
+        #register {
+            font-size: 16px;
+            line-height: 2rem;
+        }
+
+        .label {
+            width: 200px;
+        }
+
+        .warning_info {
+            color: red;
+            margin-left: 10px;
+        }
+
+        #success_message {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <h1>Register</h1>
+    <div id="register">
+        <span id="success_message"></span>
+        <form onsubmit="return false;">
+            <label class="label" for="username">Username</label><input type="text" class="" id="username">
+            <span class="warning_info"></span><br/>
+            <label class="label" for="password">Password</label><input type="password" class="" id="password">
+            <span class="warning_info"></span><br/>
+            <label class="label" for="repeat_password">Repeat Password</label><input type="password" class="" id="repeat_password">
+            <span class="warning_info"></span><br/>
+            <button type="button" onclick="register()">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    function register() {
+        clearPrompt();
+
+        let username = getDomById("username").value;
+        let password = getDomById("password").value;
+        let repeat_password = getDomById("repeat_password").value;
+
+        // 前端校验（省略）
+        // if (...) {
+        //     showWarningInfo()
+        //     return false;
+        // }
+
+        // 请求服务器
+        fetch("/api/register.php", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify({
+                'username': username,
+                'password': password,
+                'repeat_password': repeat_password,
+            })
+        }).then(response => response.json()).then(res => {
+            // 展示出响应结果
+            if (res.code !== 200) {
+                showWarningInfo(res.data.field, res.data.warning_info)
+            } else {
+                showSuccessInfo(res.message)
+            }
+        }).catch(error => console.log('error is', error));
+    }
+
+    function getDomById(id) {
+        return document.getElementById(id);
+    }
+
+    //展示错误提示
+    function showWarningInfo(filed, message) {
+        getDomById(filed).nextSibling.innerHTML = message;
+    }
+
+    //展示正确提示
+    function showSuccessInfo(message) {
+        getDomById('success_message').innerHTML = message;
+    }
+
+    //清除错误提示
+    function clearPrompt() {
+        Array.prototype.forEach.call(document.getElementsByClassName('warning_info'), function (element) {
+            element.innerHTML = '';
+        });
+        getDomById('success_message').innerHTML = '';
+    }
+
+</script>
+</body>
+</html>
