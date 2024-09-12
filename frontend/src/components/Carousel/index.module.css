@@ -1,0 +1,57 @@
+
+/* 轮播盒子 */
+.carousel-box {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  position: relative;
+}
+
+.img-box {
+  flex: 1 0 auto;
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.5s;
+}
+
+/* 进度条 */
+.indicator-wrap {
+  position: absolute;
+  width: 10%;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.indicator-item {
+  flex: 1;
+  border: 1px solid #cecece;
+  border-radius: 5px;
+  height: 2px;
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.indicator-animation {
+  background-color: #d9d9d9;
+  height: 100%;
+  width: 0;
+  animation-name: loading;
+  animation-fill-mode: forwards;
+}
+
+@keyframes loading {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
