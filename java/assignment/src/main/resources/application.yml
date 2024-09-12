@@ -1,0 +1,21 @@
+server:
+  port: 19000
+  servlet:
+    context-path: /short-url
+
+spring:
+  profiles:
+    active: dev
+    
+#日志
+logging:
+  file: #日志存储路径
+    path: D:/assignment/logs
+    config: classpath:logback-spring.xml
+    #日志级别
+    level:
+      root: info
+
+swagger:
+  #swagger会解析的包路径
+  base-package: com.hongshi.assignment
