@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: dwz
+server:
+  port: 80
+filter:
+  bloom:
+    expected-insertions: 200000000
+    fpp: 0.03
+mapper:
+  strategy: hashMap
+  ttl-of-day: 30
+# ===== swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: 短域名
+  try-host: http://localhost:${server.port}
