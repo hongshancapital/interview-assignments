@@ -1,0 +1,16 @@
+spring:
+    profiles:
+        active: dev
+
+logging:
+    config: classpath:logback.xml
+    level:
+        org:
+            springframework:
+                boot:
+                    autoconfigure: ERROR
+
+server:
+    port: 8080
+    servlet:
+        context-path: /shortDomain
