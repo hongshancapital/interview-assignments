@@ -70,9 +70,6 @@
 
 ```console
 $ mvn install
-
-java -jar spring-boot-samples-url-shortener-2.1.8.RELEASE.jar
-
 ...
 [INFO] BUILD SUCCESS
 ...
