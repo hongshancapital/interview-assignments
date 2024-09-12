@@ -1,0 +1,41 @@
+.progress-btn {
+    width: 36px;
+    height: 4px;
+    border: 0;
+    border-radius: 10px;
+    background: rgb(255, 255, 255, .3);
+    outline: none;
+    cursor: pointer;
+    transition: all .3s;
+    margin-right: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    height: 4px;
+    background: #fff;
+    opacity: 1;
+}
+
+.active.progress-span {
+    animation: progress 3s infinite linear;
+}
+
+@keyframes progress {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.noAutoplayActive {
+    width: 100%;
+}
