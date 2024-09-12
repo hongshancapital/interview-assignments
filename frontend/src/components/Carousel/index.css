@@ -1,0 +1,47 @@
+.flex {
+  display: flex;
+}
+
+.slider {
+  /* display: none; */
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+.active {
+  width: 100%;
+}
+
+.dotContainer {
+  width: 100%;
+  position: absolute;
+  bottom: 100px;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+  width: 100px;
+  height: 10px;
+  background: #bbbb;
+  transition: all 1.5s linear;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.dot-content {
+  width: 0;
+  height: 100%;
+}
+.dot-active {
+  width: 100%;
+  border-radius: 5px;
+  background-color: red;
+  overflow-x: hidden;
+  transition: all 1.5s linear;
+}
+
