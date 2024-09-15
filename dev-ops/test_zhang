@@ -1,0 +1,39 @@
+import re
+from collections import defaultdict
+
+# Regular expressions for extracting information from log lines
+pattern = r"(\w{3} \d{2} \d{2}:\d{2}:\d{2}) (\w+) (\w+)\[\d+\]: (.+)"
+regex = re.compile(pattern)
+
+# Dictionary to store the analysis results
+analysis_results = defaultdict(lambda: defaultdict(int))
+
+# Open the log file
+with open("data_set.txt", "r") as file:
+    # Process each log line
+    for line in file:
+        match = regex.match(line)
+        if match:
+            # Extract information from the log line
+            timestamp, device_name, process_name, description = match.groups()
+            process_id = re.search(r"\[(\d+)\]", line).group(1)
+            # Extract the hour from the timestamp
+            hour = timestamp.split()[1].split(":")[0]
+            # Create the time window string
+            time_window = f"{hour}00-{hour}59"
+            # Update the analysis results dictionary
+            analysis_results[time_window]["numberOfOccurrence"] += 1
+            analysis_results[time_window]["deviceName"] = device_name
+            analysis_results[time_window]["processId"] = process_id
+            analysis_results[time_window]["processName"] = process_name
+            analysis_results[time_window]["description"] = description
+
+# Print the analysis results
+for time_window, data in analysis_results.items():
+    print(f"时间窗口: {time_window}")
+    print(f"设备名称: {data['deviceName']}")
+    print(f"错误的进程号码: {data['processId']}")
+    print(f"进程/服务名称: {data['processName']}")
+    print(f"错误的原因（描述）: {data['description']}")
+    print(f"在小时级别内发生的次数: {data['numberOfOccurrence']}")
+    print()
