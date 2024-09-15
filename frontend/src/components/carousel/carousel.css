@@ -1,0 +1,75 @@
+ul,
+li,
+div,
+h3,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+.container {
+    width: 100vw;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.container .viewbox,
+.container .indicator {
+    display: flex;
+}
+
+.viewbox li {
+    width: 100vw;
+    height: 100vh;
+}
+
+.viewbox .text-desc {
+    padding-top: 100px;
+}
+
+.text-desc .white {
+    color: #fff;
+}
+
+.text-desc .black {
+    color: #000;
+}
+
+.text-desc h3 {
+    font-size: 4rem;
+    padding-bottom: 12px;
+}
+
+.text-desc p {
+    font-size: 2rem;
+}
+
+.container .indicator {
+    position: absolute;
+    left: 50%;
+    bottom: 50px;
+    transform: translateX(-50%);
+}
+
+.indicator li {
+    height: 4px;
+    border-radius: 4px;
+    background-color: #666;
+    cursor: pointer;
+}
+
+.indicator li+li {
+    margin-left: 20px;
+}
+
+.indicator li .bar {
+    height: 100%;
+    border-radius: 4px;
+    background-color: #eee;
+}
