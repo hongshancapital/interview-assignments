@@ -1,0 +1,32 @@
+server:
+  undertow:
+    max-http-post-size: -1
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
+spring:
+  profiles:
+    active:
+      - '@profile.active@'
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+logging:
+  config: classpath:log4j2.xml
+
+#################################### Swagger start #################################
+# swagger配置
+swagger:
+  enabled: true
+  base:
+    package: com.qyboot
+  contact:
+    email: zhouken@71info.com
+    name: zhouken
+    url: '/'
+  description: 'QY BOOT'
+  title: QY BOOT
+  url: '/'
+  version: 1.0
+#################################### Swagger end ###################################
