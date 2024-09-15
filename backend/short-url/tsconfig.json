@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "ES2021",
+        "module": "CommonJS",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "lib": ["ES2021"],
+        "baseUrl": "src",
+        "paths": {
+            "@config": ["config"],
+            "@utils/*": ["utils/*"],
+            "@routes/*": ["routes/*"],
+            "@controllers/*": ["controllers/*"],
+            "@middlewares/*": ["middlewares/*"],
+            "@interfaces/*": ["interfaces/*"],
+            "@dtos/*": ["dtos/*"],
+            "@entities/*": ["entities/*"],
+            "@services/*": ["services/*"],
+            "@exceptions/*": ["exceptions/*"]
+        }
+    },
+    "exclude": ["node_modules"]
+}
