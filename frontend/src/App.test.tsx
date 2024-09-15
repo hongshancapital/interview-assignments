@@ -1,9 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
+test('成功渲染carousel', () => {
+  const { getByTestId } = render(<App />);
+  const linkElement = getByTestId('carousel');
   expect(linkElement).toBeInTheDocument();
 });
