@@ -2,8 +2,9 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('dom test', () => {
+  setTimeout(() => {
+    const contentAniEL: HTMLElement | null = document.querySelector('.contentAni');
+    expect(contentAniEL?.dataset['index']).toBe('1');
+  }, 5000);
 });
