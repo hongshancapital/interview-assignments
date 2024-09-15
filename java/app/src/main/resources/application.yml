@@ -1,0 +1,11 @@
+server:
+  port:  8080
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: shorturl-app
+  cache:
+      caffeine:
+        spec: maximumSize=500
