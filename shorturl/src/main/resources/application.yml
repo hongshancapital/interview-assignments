@@ -1,0 +1,22 @@
+spring:
+  application:
+      name: short url service
+server:
+  port: 8081
+  tomcat:
+    threads:
+      max: 1000
+    max-connections: 20000
+url:
+  storage:
+    maximumSize: 1000000
+  shorter:
+    domain: https://8.cn/
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: ${spring.application.name} api
+  try-host: http://127.0.0.1:8081
+logging:
+  config: classpath:logback-spring.xml
