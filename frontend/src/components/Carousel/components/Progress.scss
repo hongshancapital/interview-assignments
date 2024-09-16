@@ -1,0 +1,25 @@
+.progress-container{
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 8000;
+    .progress-bg {
+      margin: 0 5px;
+      width: 50px;
+      height: 4px;
+      background-color: #9f9f9f;
+      position: relative;
+      // border-radius: 50%;
+      .progress-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #f9f9f9;
+        transition: width 0s linear;
+      }
+    }
+  }
