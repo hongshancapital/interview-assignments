@@ -1,0 +1,31 @@
+
+姓名：<input type="text" name="Username" id="username" /> </br>
+密码：<input type="password" name="Password" id="password" />  </br>
+确认密码：<input type="password" name="RePassword" id="rePassword" />  </br>
+   
+<input type="button" onclick="submit()"/>
+
+<script>
+
+function submit(){
+
+	var Username = document.getElementById("username").value;
+	var password = document.getElementById("password").value;
+	var rePassword = document.getElementById("rePassword").value;
+    var postStr = "username=" + Username + "&password=" + Password + "&RePassword=" + RePassword;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('post', 'localhost:3000/api/register');
+	xhr.send(postStr);
+
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && xhr.status == 200)
+		{
+			var res = xhr.responseText;
+		    alert(res.msg);
+		}
+	}
+
+}
+</script>
