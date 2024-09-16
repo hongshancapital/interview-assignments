@@ -1,0 +1,90 @@
+import json
+import requests
+
+with open('interview_data_set') as f:
+    data_all = f.readlines()
+    rn = 0
+    dict_rn = {}
+    dict_rn_ex = {}
+    for data in data_all:
+        rn = rn+1
+        if ":" not in data[:15] or "B" not in data.split(" ")[3]:#sort out all abnormal log data
+            dict_rn_ex.update({rn:data})
+        else:
+            dict_rn.update({rn:data})
+
+    lnm = [] #list of new mapping of abnormal log
+    for r in dict_rn_ex.keys():
+        list_nr=[]
+        for n in dict_rn.keys():
+            if n<r:
+                list_nr.append(n)
+        lnm.append(str(max(list_nr))+"|"+str(r))
+
+    for ln in lnm:
+        nk=int(ln.split("|")[0])
+        abnk=int(ln.split("|")[1])
+        dict_rn[nk]=dict_rn[nk]+dict_rn_ex[abnk]
+
+    time_ser=[]
+
+    fin_res=[]
+    for rowd in dict_rn:
+        result = {}
+        shdata=str.join(" ", dict_rn[rowd].splitlines())
+        timeWindow=shdata.split(" ")[2][:2]
+        deviceName=shdata.split(" ")[3]
+        lft=shdata.split(":")[2].rfind('[')
+        rit=shdata.split(":")[2].rfind(']')
+        processID=shdata.split(":")[2][lft+1:rit]
+        processName=shdata.split(" ",4)[4].split(":",1)[0]
+        desc=shdata.split(" ",4)[4].split(":",1)[1]
+        result.update({"deviceName":deviceName,
+                       "timeWindow":timeWindow,#+"00",
+                       "processID":processID,
+                       "processName":processName,
+                       "description":desc,
+                       "numberOfOccurrence":""})
+        fin_res.append(result)
+        time_ser.append(timeWindow)
+
+    hour_event_count = {i: time_ser.count(i) for i in time_ser}
+    #print(hour_event_count)
+
+
+
+    for i in range(len(fin_res)):
+        for key in fin_res[i]:
+            tw=fin_res[i]["timeWindow"]
+            for h in hour_event_count:
+                if tw == h:
+                    fin_res[i]["numberOfOccurrence"]=hour_event_count[h]
+
+    for f in fin_res:
+        print(f)
+
+    jres=json.dumps(fin_res)
+
+    req=requests.post('https://foo.com/bar',json=jres)
+    print(req.status_code)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
