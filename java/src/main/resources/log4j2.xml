@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration status="WARN" monitorInterval="10">
+
+    <!-- 日志文件/压缩文件目录、日志格式配置 -->
+    <properties>
+        <property name="APP_NAME">tinyurl</property>
+        <Property name="LOG_PATH">./logs</Property>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{TRACE_ID}] %level %c{1.} - %m%n</Property>
+    </properties>
+
+    <Appenders>
+        <!-- 控制台日志配置 -->
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <!-- INFO级别以上的日志配置，滚动输出。每6个小时滚动生成一个文件 -->
+        <RollingFile name="INFO_APPENDER" fileName="${LOG_PATH}/${APP_NAME}.log"
+                     filePattern="${LOG_PATH}/${APP_NAME}.log.%d{yyyy-MM-dd-HH}">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="6"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- ERROR级别以上的日志配置，滚动输出。每50MB滚动生成一个文件 -->
+        <RollingFile name="ERROR_APPENDER" fileName="${LOG_PATH}/${APP_NAME}.error.log"
+                     filePattern="${LOG_PATH}/${APP_NAME}.error.log.%i">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB" />
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="org.apache" level="INFO"/>
+        <Logger name="org.springframework" level="INFO"/>
+        <logger name="org.springframework.web" level="INFO"/>
+
+        <AsyncRoot level="INFO" includeLocation="true">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="INFO_APPENDER"/>
+            <AppenderRef ref="ERROR_APPENDER"/>
+        </AsyncRoot>
+    </Loggers>
+
+</configuration>
