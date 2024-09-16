@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortAddressServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">interview-assignments</a> &gt; <a href="index.source.html" class="el_package">com.example.service.impl</a> &gt; <span class="el_source">ShortAddressServiceImpl.java</span></div><h1>ShortAddressServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.service.impl;
+
+import com.example.service.ShortAddressService;
+import com.example.annotation.Sl4jLogger;
+import com.example.service.business.MD5BaseShortUrlService;
+import com.example.bean.result.ResultRpc;
+import com.example.bean.result.ResultRpcEnum;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+/**
+ * 描述:
+ * 短地址服务
+ *
+ * @author eric
+ * @create 2021-07-21 3:30 下午
+ */
+<span class="fc" id="L20">@Slf4j</span>
+@Service(&quot;shortAddressService&quot;)
+<span class="fc" id="L22">public class ShortAddressServiceImpl implements ShortAddressService {</span>
+
+    @Autowired
+    MD5BaseShortUrlService md5BaseShortUrlService;
+
+    @Override
+    @Sl4jLogger
+    public ResultRpc&lt;String&gt; genShortAddress(String longAddress) {
+<span class="fc" id="L30">        String shortAddress = &quot;&quot;;</span>
+        try {
+<span class="fc" id="L32">            shortAddress = md5BaseShortUrlService.convertShort(longAddress);</span>
+<span class="nc" id="L33">        } catch (Exception e) {</span>
+<span class="nc" id="L34">            log.error(e.getMessage(), e);</span>
+<span class="nc" id="L35">            ResultRpc.getErrorResult(ResultRpcEnum.RPC_SYSTEM_ERROR_FAIL.getCode(), e.getMessage());</span>
+<span class="fc" id="L36">        }</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if(StringUtils.isEmpty(shortAddress)) {</span>
+<span class="nc" id="L38">            return ResultRpc.getErrorResult(ResultRpcEnum.RPC_SYSTEM_ERROR_FAIL.getCode(), ResultRpcEnum.RPC_SYSTEM_ERROR_FAIL.getDesc());</span>
+        } else {
+<span class="fc" id="L40">            return ResultRpc.success(shortAddress);</span>
+        }
+    }
+
+    @Override
+    @Sl4jLogger
+    public ResultRpc&lt;String&gt; getLongAddressByShortAddress(String shortAddress) {
+<span class="fc" id="L47">        String longAddress = &quot;&quot;;</span>
+        try {
+<span class="fc" id="L49">            longAddress = md5BaseShortUrlService.lookupLong(shortAddress);</span>
+<span class="nc" id="L50">        } catch (Exception e) {</span>
+<span class="nc" id="L51">            log.error(e.getMessage(), e);</span>
+<span class="nc" id="L52">            ResultRpc.getErrorResult(ResultRpcEnum.RPC_SYSTEM_ERROR_FAIL.getCode(), e.getMessage());</span>
+<span class="fc" id="L53">        }</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if(StringUtils.isEmpty(longAddress)) {</span>
+<span class="fc" id="L55">            return ResultRpc.getErrorResult(ResultRpcEnum.RPC_SYSTEM_ERROR_FAIL.getCode(), ResultRpcEnum.RPC_SYSTEM_ERROR_FAIL.getDesc());</span>
+        } else {
+<span class="fc" id="L57">            return ResultRpc.success(longAddress);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

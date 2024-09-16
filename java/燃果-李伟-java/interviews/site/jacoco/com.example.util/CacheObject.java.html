@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CacheObject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">interview-assignments</a> &gt; <a href="index.source.html" class="el_package">com.example.util</a> &gt; <span class="el_source">CacheObject.java</span></div><h1>CacheObject.java</h1><pre class="source lang-java linenums">package com.example.util;
+
+/**
+ * 描述:
+ * 被缓存的对象
+ *
+ * @author eric
+ * @create 2021-07-21 4:19 下午
+ */
+public class CacheObject {
+    /**
+     * 缓存对象
+     */
+    private Object value;
+
+    /**
+     * 生存时间
+     */
+    private long ttl;
+
+    /**
+     * 构造函数
+     *
+     * @param value 缓存对象
+     * @param ttl   生存时间毫秒
+     */
+<span class="fc" id="L27">    public CacheObject(Object value, long ttl) {</span>
+<span class="fc" id="L28">        this.value = value;</span>
+<span class="fc" id="L29">        this.ttl = ttl;</span>
+<span class="fc" id="L30">    }</span>
+
+    public Object getValue() {
+<span class="fc" id="L33">        return value;</span>
+    }
+
+    public void setValue(Object value) {
+<span class="nc" id="L37">        this.value = value;</span>
+<span class="nc" id="L38">    }</span>
+
+    public long getTtl() {
+<span class="fc" id="L41">        return ttl;</span>
+    }
+
+    public void setTtl(long ttl) {
+<span class="nc" id="L45">        this.ttl = ttl;</span>
+<span class="nc" id="L46">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
