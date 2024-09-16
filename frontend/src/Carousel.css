@@ -1,0 +1,72 @@
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.marquee{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    left: 0vw;
+    transition: left 0.5s;
+    -webkit-transition: left 0.5s;
+}
+
+
+.page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.column{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    height:100vh;
+}
+
+
+.title{
+    font-size: 5rem;
+}
+.description{ 
+    font-size: 3rem;
+    width: 600px;
+}
+.logo{
+    padding-top: 200px;
+}
+
+.pagination{
+    position:absolute;
+    bottom: 100px;
+    width:100vw;
+    height:10px;
+    display:flex;
+    justify-content: center;
+}
+
+.pagination .out{
+    height: 3px;
+    width:60px;
+    background-color: #777777;
+    background-size:5%;
+    margin:10px;
+}
+.pagination .in{
+    height: 3px;
+    width:0%;
+    background-color: #dbdbdb;
+    background-size:5%;
+    position: relative;
+    transition: width 0.1s;
+    -webkit-transition: width 0.1s;
+}
