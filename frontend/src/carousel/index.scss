@@ -1,0 +1,107 @@
+.carousel-wrap {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel-frames {
+  transform: translateX(0);
+  transition: transform .3s ease;
+  will-change: transform;
+  touch-action: none;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+}
+
+.carousel-frame {
+  padding-top: 25vh;
+  position: relative;
+  color: #000;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+
+  .title, .text {
+    position: relative;
+    z-index: 10;
+  }
+
+  .img-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      height: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.carousel-indexs {
+  position: absolute;
+  z-index: 10;
+  bottom: 60px;
+  left: 50%;
+  transform: translate(-50%, -1px);
+  display: flex;
+  flex-wrap: nowrap;
+
+  .frame-index {
+    height: 2px;
+    border-radius: 2px;
+    margin-right: 10px;
+    background-color: grey;
+
+    &-active {
+      height: 2px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      overflow: hidden;
+
+      div {
+        width: inherit;
+        height: inherit;
+        background-color: #fafafa;
+        transform: translateX(-100%);
+        transition: transform 3s linear;
+      }
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+.xphone-frame {
+  background-color: #111;
+  color: #fff;
+
+  img {
+    width: 600px;
+  }
+}
+
+.tablet-frame {
+  background-color: #fafafa;
+
+  img {
+    width: 1200px;
+  }
+}
+
+.arpods-frame {
+  background-color: #f1f1f3;
+
+  img {
+    width: 1800px;
+  }
+}
