@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: Shortener
+
+short-code:
+  max-length: 8
+  max-store-size: 2000
+  gc-rate: 0.2
+  short-url-host: https://shortener.com
+  lock-config:
+    timeout: 10
+    timeunit: SECONDS
+    max-pool-size: 100
+
+api-docs:
+  title: "URL Shortener Service"
+  version: "1.0.0"
+  developer:
+    name: "张刚"
+    email: "157774105@qq.com"
