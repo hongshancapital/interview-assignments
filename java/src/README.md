@@ -1,6 +1,5 @@
 # 短域名服务技术方案
 
-
 ## 设计思路
 
 * 算法
@@ -21,40 +20,11 @@
 通过返回null，表明发生了异常：如参数错误等
 
 
-## Jacoco单元测试覆盖率截图
-![test-coverage](./doc/test-coverage.jpg)
-
-
-
 ## 架构设计图
-![structure](./doc/structure.jpg)
 
+## 假设
 
 ## 系统性能测试方案以及测试结果
 * 性能测试方案
-
-性能测试采用[Gatling](https://gatling.io/)工具，编写scala(详情见ToSUrlSimulation.scala和ToLUrlSimulation.scala)。
-
-压测设置为500qps、持续20s。由于条件限制，应用和Gatling均在本地电脑进行。 配置为MacBook Pro (13-inch, M1, 2020)，16GB。
-
-* 测试结果
-
-rt/scdt/toSUrl 压测结果：
-![to-short-url-statistics](./doc/to-short-url-statistics.jpg)
-![to-short-url-time](./doc/to-short-url-time.jpg)
-
-
-rt/scdt/toLUrl 压测结果：
-![to-long-url-statistics](./doc/to-long-url-statistics.jpg)
-![to-long-url-time](./doc/to-long-url-time.jpg)
-
-
-
-## 接口地址
-Swagger：[http://localhost:8115/rt/swagger-ui.html](http://localhost:8115/rt/swagger-ui.html)
-
-
-长域名转短域名 http://localhost:8115/rt/scdt/toSUrl
-
-短域名转长域名 http://localhost:8115/rt/scdt/toLUrl
+并发递交请求
 
