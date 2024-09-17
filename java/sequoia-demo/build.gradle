@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id "org.springframework.boot" version "2.4.2"
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'jacoco'
+}
+
+group 'org.faof'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'com.github.ben-manes.caffeine:caffeine'
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
+}
+jacocoTestReport {
+    reports {
+        html.enabled true
+        csv.enabled false
+        xml.enabled false
+        xml.destination file("$buildDir/jacoco/jacocoXml.xml")
+        html.destination file("$buildDir/jacoco/jacocoHtml")
+    }
+    afterEvaluate {
+        getClassDirectories().setFrom(
+                classDirectories.files.collect {
+                    fileTree(dir: it,
+                            exclude: [])
+                }
+        )
+    }
+}
