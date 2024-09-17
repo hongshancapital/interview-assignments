@@ -1,0 +1,128 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ShorterUrl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.zhouhongbing.shorturl.entity</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ShorterUrl (com.zhouhongbing.shorturl.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShorterUrl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (8/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (9/ 12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.zhouhongbing.shorturl.entity;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lombok.Data;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * @version 1.0
+<i>7</i>&nbsp; * @Author 海纳百川zhb
+<i>8</i>&nbsp; **/
+<b class="fc"><i>9</i>&nbsp;@Data</b>
+<i>10</i>&nbsp;public class ShorterUrl {
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * 无参构造函数
+<i>14</i>&nbsp;     */
+<b class="fc"><i>15</i>&nbsp;    public ShorterUrl(){};</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * 构造函数
+<i>19</i>&nbsp;     * @param longUrl
+<i>20</i>&nbsp;     */
+<b class="nc"><i>21</i>&nbsp;    public ShorterUrl(String longUrl){</b>
+<b class="nc"><i>22</i>&nbsp;        this.longUrl=longUrl;</b>
+<b class="nc"><i>23</i>&nbsp;    }</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;
+<b class="fc"><i>26</i>&nbsp;    private String longUrl;   //长域名</b>
+<i>27</i>&nbsp;
+<b class="fc"><i>28</i>&nbsp;    private Long id;  //雪花算法id</b>
+<i>29</i>&nbsp;
+<b class="fc"><i>30</i>&nbsp;    private String base62ShortUrl; //雪花算法id转为62进制的短域名</b>
+<i>31</i>&nbsp;
+<b class="fc"><i>32</i>&nbsp;    private String shorterUrl; //短域名</b>
+<i>33</i>&nbsp;
+<b class="fc"><i>34</i>&nbsp;    private String userId; //用户id</b>
+<i>35</i>&nbsp;
+<b class="fc"><i>36</i>&nbsp;    private String appId; //设备id</b>
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;    private int count; //点击次数</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-11-22 00:03</div>
+</div>
+</body>
+</html>
