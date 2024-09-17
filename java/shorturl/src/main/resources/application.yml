@@ -1,0 +1,17 @@
+spring:
+  # 激活环境配置
+  profiles:
+    active: dev
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:ehcache.xml
+      shared: true
+
+config:
+  init-capacity: 1000
+  max-capacity: 100000
+  short-url-length: 8
+  short-url-prefix: "https://url.com/"
+
+
