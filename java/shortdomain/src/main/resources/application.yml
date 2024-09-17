@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: shortDomain
+
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 500
+      min-spare: 30
+  port: 8080
+  servlet:
+    context-path:
+
+
+swagger:
+  enabled: true
