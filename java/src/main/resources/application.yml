@@ -1,0 +1,12 @@
+management:
+  port: 8080
+  # close security. 关闭身份验证，否则无法查询出数据
+  security:
+    enabled: false
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+info:
+  contactEmail: support@myreadinglist.com
