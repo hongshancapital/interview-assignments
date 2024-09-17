@@ -1,0 +1,26 @@
+{
+  "apps": [
+    {
+      "name": "fullstack",
+      "script": "startup.js",
+      "output": "/dev/null",
+      "error": "pm2.log",
+      "logDateFormat": "YYYY-MM-DD HH:mm",
+      "pid": "this.pid",
+      "combine_logs": true,
+      "exec_mode": "fork",
+      "restartDelay": 200,
+      "watch": false,
+      "ignore_watch" : ["node_modules", "client"],
+      "watch_options": {
+        "followSymlinks": false
+      },
+      "env_dev": {
+        "NODE_ENV": "development"
+      },
+      "env_production" : {
+          "NODE_ENV": "production"
+      }
+    }
+  ]
+}
