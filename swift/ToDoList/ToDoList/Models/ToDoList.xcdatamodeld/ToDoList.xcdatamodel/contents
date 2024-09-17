@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ToDoGroup" representedClassName="ToDoGroup" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ToDoItem" inverseName="group" inverseEntity="ToDoItem"/>
+    </entity>
+    <entity name="ToDoItem" representedClassName="ToDoItem" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="groupName" optional="YES" attributeType="String"/>
+        <attribute name="isFinished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ToDoGroup" inverseName="item" inverseEntity="ToDoGroup"/>
+    </entity>
+    <elements>
+        <element name="ToDoGroup" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="ToDoItem" positionX="-63" positionY="0" width="128" height="104"/>
+    </elements>
+</model>
