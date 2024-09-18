@@ -1,0 +1,30 @@
+server:
+  port: 18088
+  tomcat:
+    port-header: HEAD,PUT,DELETE,OPTIONS,TRACE,COPY,SEARCH,PROPFIND
+  servlet:
+    context-path: /api
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB  #单个文件的最大上限
+      max-request-size: 50MB #单个请求的文件总大小上限
+  profiles:
+      active: local
+  output:
+    ansi:
+      enabled: always
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+
+swagger:
+  enable: true
+
+logging:
+  path: /idss/safe-service-scan/logs
+  config: classpath:config/logback-spring.xml
+
+
