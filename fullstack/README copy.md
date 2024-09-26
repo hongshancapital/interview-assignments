@@ -1,6 +1,6 @@
 # 开发者
 ## 第一步 
-进入fullstack目录下，安装依赖： npm install
+安装依赖： npm install
 
 ## 第二步
 启动服务：npm run dev
