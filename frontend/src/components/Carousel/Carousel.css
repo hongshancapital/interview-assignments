@@ -1,0 +1,64 @@
+html{
+  font-size: 100px;
+}
+.wrapper {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.imgList {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: all 0.8s ease;
+}
+.imgItem {
+  width: 100%;
+  flex: none;
+  height: 100%;
+  background-size: auto 100%;
+  background-position-y: bottom;
+  background-position-x: center;
+  background-repeat: no-repeat;
+}
+.imgTitle {
+  font-size: 0.6rem;
+  padding: 1rem 0.3rem 0.2rem 0.3rem;
+  margin: 0 auto;
+}
+.imgDes {
+  font-size: 0.3rem;
+  padding: 0rem 0.3rem 0 0.3rem;
+  margin: 0 auto;
+}
+.dotList {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  display: flex;
+  transform: translate(-50%, -50%);
+}
+.dotItem {
+  width: 70px;
+  height: 3px;
+  background-color: #a9a9a9;
+  border-radius: 3px;
+  margin: 5px;
+  cursor: pointer;
+}
+.inner {
+  height: 100%;
+  border-radius: 3px;
+}
+@keyframes progress {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 70px;
+  }
+}
+.line {
+  width: 100%;
+  background-color: #ffffff;
+}
