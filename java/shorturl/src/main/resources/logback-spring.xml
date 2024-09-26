@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL,如果设置为WARN,则低于WARN的信息都不会输出 -->
+<!-- scan:当此属性设置为true时,配置文档如果发生改变,将会被重新加载,默认值为true -->
+<!-- scanPeriod:设置监测配置文档是否有修改的时间间隔,如果没有给出时间单位,默认单位是毫秒。 当scan为true时,此属性生效。默认的时间间隔为1分钟。
+ 可用的单位是 milliseconds,seconds,minutes 和 hours。如果只指定了数字,但没有指定单位,这默认单位为 milliseconds。-->
+<!-- debug:当此属性设置为true时,将打印出logback内部日志信息,实时查看logback运行状态。默认值为false。 -->
+<configuration scan="true" scanPeriod="30 seconds" debug="false">
+    <!--<contextName>${APP_NAME}</contextName>-->
+    <springProperty name="APP_NAME" scope="context" source="spring.application.name"/>
+    <springProperty name="LOG_FILE" scope="context" source="logging.file" defaultValue="./logs/app/${APP_NAME}"/>
+    <springProperty name="LOG_TRACK_FILE" scope="context" source="logging.file" defaultValue="./logs/track"/>
+    <springProperty name="LOG_AUDIT_FILE" scope="context" source="logging.file" defaultValue="./logs/audit"/>
+    <springProperty name="LOG_MAXFILESIZE" scope="context" source="logback.filesize" defaultValue="50MB"/>
+    <springProperty name="LOG_FILEMAXDAY" scope="context" source="logback.filemaxday" defaultValue="7"/>
+    <!--springcloud用-->
+    <!--<springProperty name="ServerIP" scope="context" source="spring.cloud.client.ip-address"/>-->
+    <springProperty name="ServerPort" scope="context" source="server.port" defaultValue="0000"/>
+
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!--springboot用-->
+    <conversionRule conversionWord="ServerIP" converterClass="org.example.shorturl.config.LogIpConfig"/>
+
+    <!-- 彩色日志格式 -->
+    <!--springcloud-->
+    <!--<property name="CONSOLE_LOG_PATTERN"-->
+    <!--          value="[${APP_NAME}:${ServerIP}:${ServerPort}] %clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%level){blue} %clr(${PID}){magenta} %clr([%X{traceId}]){yellow} %clr([%thread]){orange} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>-->
+    <!--springboot-->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="[${APP_NAME}:%ServerIP:${ServerPort}] %clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%level){blue} %clr([%thread]){orange} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+    <!-- 控制台日志 -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--此日志appender是为开发使用,只配置最底级别,控制台输出的日志级别是大于或等于此级别的日志信息-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 按照每天生成常规日志文件 -->
+    <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}/${APP_NAME}.log</file>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 基于时间的分包策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}/${APP_NAME}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--保留时间,单位:天-->
+            <maxHistory>${LOG_FILEMAXDAY}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_MAXFILESIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="FileAsync" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="FileAppender"/>
+    </appender>
+
+    <!-- 减少部分debug日志输出 -->
+    <logger name="org.springframework.context" level="WARN"/>
+    <logger name="org.springframework.beans" level="WARN"/>
+    <logger name="springfox.bean.validators" level="ERROR"/>
+    <logger name="springfox.documentation" level="ERROR"/>
+    <!-- 关闭validator打印　-->
+    <logger name="org.hibernate.validator.internal.util.Version" level="OFF"/>
+
+    <springProfile name="dev,prod">
+        <root level="INFO">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="FileAsync"/>
+        </root>
+    </springProfile>
+</configuration>
