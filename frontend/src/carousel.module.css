@@ -1,0 +1,60 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.body {
+  height: 100%;
+  white-space: nowrap;
+  transition: transform linear;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 1000vw;
+}
+
+.item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.footer {
+  position: absolute;
+  display: flex;
+  bottom: 5%;
+  width: 100%;
+  justify-content: center;
+}
+
+.indicator {
+  margin: 0 2px;
+  width: 40px;
+  height: 2px;
+  background: rgb(153, 153, 153);
+  border-radius: 2px;
+  position: relative;
+}
+
+.indicator::after {
+  content: "";
+  width: 0px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+}
+
+.progressing::after {
+  animation: progressing linear var(--carousel-interval);
+}
+@keyframes progressing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 40px;
+  }
+}
