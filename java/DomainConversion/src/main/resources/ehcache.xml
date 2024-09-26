@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+    <!-- 磁盘缓存位置 -->
+        <diskStore path="java.io.tmpdir" />
+
+    <cache name="DomainCache"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           maxEntriesLocalHeap="1000000"
+           maxEntriesLocalDisk="1000000"
+           diskExpiryThreadIntervalSeconds="120"
+           diskPersistent="false"
+           overflowToDisk="false"
+           memoryStoreEvictionPolicy="FIFO">
+    </cache>
+
+</ehcache>
