@@ -1,0 +1,27 @@
+version: "3.6"
+
+services:
+  short-url:
+    image: short-url:1.0.0
+    container_name: "short-url"
+    ports:
+      - "8080:8080"
+#    volumes:
+#      - "/private/etc/localtime:/etc/localtime"  #同步宿主机时间 OS X
+    depends_on:
+      - "leaf-zookeeper"
+    links:
+      - "leaf-zookeeper"
+
+  leaf-zookeeper:
+    image: zookeeper:3.6
+    container_name: "leaf-zookeeper"
+    hostname: "leaf-zookeeper"
+    ports:
+      - "2181:2181"
+#    volumes:
+#      - "/private/etc/localtime:/etc/localtime"  #同步宿主机时间 OS X
+    environment:
+      - "JVMFLAGS=-Xmx512m"
+      - "ZOO_MY_ID=1"
+      - "ZOO_SERVERS=server.1=0.0.0.0:2888:3888;2181"
