@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+
+  app-init:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: app
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    volumes:
+      - mongo-data:/data/db/mongo
+    ports:
+      - 27017:27017
+    networks:
+      default:
+        aliases:
+          - mongo.dev.domain.ai
+
+  redis:
+    image: redis/redis-stack-server:latest
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data/db/redis
+    networks:
+      default:
+        aliases:
+          - redis.dev.domain.ai
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  mongo-data:
+  redis-data:
