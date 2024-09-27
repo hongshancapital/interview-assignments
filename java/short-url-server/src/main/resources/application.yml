@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: test
+  application:
+    name: short-url-server
+url.prefix: http://xx.cn/
+---
+spring:
+  profiles: test
+  redis:
+    host: 127.0.0.1
+    port: 6379
+server:
+  port: 80
+zookeeper:
+  connections: localhost:2181
+  path: ${spring.application.name}
+  baseSleepTimeMs: 5000
+  retryCount: 3
+  sessionTimeout: 5000
+---
+spring:
+  profiles: prod
+  redis:
+    host: 127.0.0.1
+    port: 6379
+server:
+  port: 8080
+zookeeper:
+  connections: localhost:2181
+  path: ${spring.application.name}
+  baseSleepTimeMs: 5000
+  retryCount: 3
+  sessionTimeout: 5000
