@@ -1,0 +1,24 @@
+server:
+  port: 10001
+
+spring:
+  redis:
+    database: 0
+    prefix: test
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-wait: 2000ms
+        min-idle: 2
+        max-idle: 8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: configprops
+  endpoint:
+    health:
+      show-details: always
