@@ -43,3 +43,146 @@
   - 流畅阅读英文技术文档
   - 对审美有一定追求
   - 能力突出者可适当放宽年限
+
+
+
+### 启动
+docker 启动
+```
+docker-compose up -d --build
+```
+本地
+```
+docker run -it --rm -p 27017:27017 mongo  
+yarn build
+yarn start
+```
+单元测试
+```
+yarn test
+```
+
+### 单元测试覆盖率
+```
+ PASS  src/tests/services/ShortUrlService.spec.ts
+ PASS  src/tests/constollers/ShortUrlController.spec.ts
+------------------------|---------|----------|---------|---------|-------------------
+File                    | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+------------------------|---------|----------|---------|---------|-------------------
+All files               |     100 |      100 |     100 |     100 |                   
+ controllers            |     100 |      100 |     100 |     100 |                   
+  ShortUrlController.ts |     100 |      100 |     100 |     100 |                   
+ models                 |     100 |      100 |     100 |     100 |                   
+  ShortUrlModel.ts      |     100 |      100 |     100 |     100 |                   
+ services               |     100 |      100 |     100 |     100 |                   
+  ShortUrlService.ts    |     100 |      100 |     100 |     100 |                   
+------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 2 passed, 2 total
+Tests:       19 passed, 19 total
+Snapshots:   0 total
+Time:        1.545 s, estimated 2 s
+Ran all test suites.
+✨  Done in 2.34s.
+```
+
+### API 集成测试案例以及测试结果
+1. 新建一个短域名
+```
+ curl --location --request POST 'http://localhost:3000/shorturl' -H 'Content-Type: application/json' -d '{"url": "https://www.baidu.com/new_url?a=1&n=2#123"}'              
+{"url":"https://www.baidu.com/new_url?a=1&n=2#123","shortUrl":"https://www.baidu.com/00000001"}
+```
+
+2. 当一个域名已经存在短域名，返回这个短域名信息
+```
+ curl --location --request POST 'http://localhost:3000/shorturl' -H 'Content-Type: application/json' -d '{"url": "https://www.baidu.com/new_url?a=1&n=2#123"}'              
+{"url":"https://www.baidu.com/new_url?a=1&n=2#123","shortUrl":"https://www.baidu.com/00000001"}
+```
+
+3. 输入已经创建好的短域名信息，返回该域名的原域名
+```
+curl --location --request GET 'http://localhost:3000/shorturl/00000001' -H 'Content-Type: application/json'
+{"url":"https://www.baidu.com/new_url?a=1&n=2#123","shortUrl":"https://www.baidu.com/00000001"}%   
+```
+
+4. 输入一个无效的域名，返回错误
+```
+ curl --location --request POST 'http://localhost:3000/shorturl' -H 'Content-Type: application/json' -d '{"url": "https:///new_url?a=1&n=2#123"}' 
+{"message":"url is invalid"}
+```
+
+5. 输入一个不存在的短域名信息，返回错误
+```
+curl --location --request GET 'http://localhost:3000/shorturl/00000009' -H 'Content-Type: application/json'
+{"message":"shortId is invalid"}
+```
+
+6. 不传域名信息，返回错误
+```
+curl --location --request POST 'http://localhost:3000/shorturl' -H 'Content-Type: application/json' -d '{}'             
+{"message":"url is not provided"}%  
+```
+
+### 设计思路以及简单的框架
+对于这种简单的需要快速响应的服务，其实设计的时候首先想到的是用serverless服务 AWS lambda + dynamoDB 的框架。考虑到JD介绍里面的express + nodejs的结构，于是本次作业就用了 NodeJs + TypeScript + Express + MongoDB来完成的。 整体结构采用了 MVC + Rest API的方式实现。
+
+项目主体框架
+```
+.
+|-- server.ts // express server, entry point
+|-- app.ts // application initilize and start
+|-- routes
+  |-- ShortUrlRoute
+|-- controllers //controller
+  |-- ShortUrlController
+|-- models // model
+  |-- ShortUrlModel
+|-- services // services that used by ShortUrlController
+  |-- ShortUrlService
+
+```
+REST API 两个
+
+Request
+```
+GET /shortUrl/:shortId
+```
+
+Response
+```
+{
+  "url": "string",
+  "shortUrl": "string"
+}
+```
+
+Request
+```
+POST /shortUrl
+```
+Request Body
+```
+{
+  "url": "string, required",
+}
+```
+
+Response
+```
+{
+  "url": "string",
+  "shortUrl": "string"
+}
+```
+
+### 涉及到的schema
+```
+Document {
+    url: string; //index, required, unique
+    shortId: string; //index, required, unique
+    shortUrl: string; //index, required, unique
+    createdAt: Date; //auto generated
+    updatedAt: Date; //auto generated
+}
+```
+
