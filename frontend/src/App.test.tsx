@@ -1,9 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('should have 3 item', () => {
+  const { container } = render(<App />);
+  const elements = container.querySelectorAll('.carousel-slide')
+  expect(elements.length).toEqual(3)
 });
