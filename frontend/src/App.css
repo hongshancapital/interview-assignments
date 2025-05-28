@@ -1,14 +1,82 @@
 .App {
   text-align: center;
   position: relative;
+  height: 100%;
 }
 
 .title {
+  position: relative;
+  margin-top: 10%;
   font-size: 56px;
   font-weight: 600;
+  z-index: 100;
 }
 
 .text {
+  position: relative;
   font-size: 28px;
   font-weight: 400;
+  z-index: 100;
+}
+
+.box-item {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  white-space: pre-line;
+  z-index: 100;
+  transition: 1s;
+}
+
+.box {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.box img {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  display: table-cell;
+  object-fit: cover;
+}
+
+.line {
+  position: absolute;
+  width: 30%;
+  display: flex;
+  left: 35%;
+  bottom: 10%;
+  justify-content: center;
+  z-index: 100;
+}
+
+.line-item{
+  background-color: #a09fa1;
+  margin: 0 5px;
+  height: 3px;
+  width: 50px;
+  border-radius: 0.5rem;
+}
+
+.line .selected{
+  background-color: white;
+  width: 50px;
+  height: 3px;
+  margin: -3px 5px;
+  border-radius: 0.5rem;
+  transition: width 2s;
+}
+
+.line .selected-0{
+  background-color: white;
+  width: 0px;
+  height: 3px;
+  margin: -3px 5px;
+  border-radius: 0.5rem;
 }
