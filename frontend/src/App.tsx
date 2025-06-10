@@ -1,7 +1,12 @@
-import './App.css';
+import "./App.css";
+import SimpleSwiper from "./components/swiper/demos/simple";
 
 function App() {
-  return <div className='App'>{/* write your component here */}</div>;
+  return (
+    <div className="App">
+      <SimpleSwiper></SimpleSwiper>
+    </div>
+  );
 }
 
 export default App;
