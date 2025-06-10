@@ -1,11 +1,12 @@
-import './App.css';
-
-import type { CarouselItem } from 'entities/carousel'
-import { Carousel } from 'entities/carousel'
+import React from 'react';
+import { act, render } from '@testing-library/react';
+import type { CarouselItem } from '../index'
+import { Carousel } from '../index';
 
 import IphoneImg from 'assets/iphone.png'
 import TabletImg from 'assets/tablet.png'
 import AirpodsImg from 'assets/airpods.png'
+import { useDot } from './model';
 
 const List: CarouselItem[] = [
   {
@@ -34,11 +35,19 @@ const List: CarouselItem[] = [
   },
 ]
 
+test('render CarouselItem Dot Count', () => {
+  const { getAllByRole } = render(<Carousel list={List}></Carousel>);
+  const renderItem = getAllByRole('button')
 
-function App() {
-  return <div className='App'>
-    <Carousel list={List} />
-  </div>;
-}
+  expect(renderItem.length).toBe(3);
+});
 
-export default App;
+test('render Carousel Animation right', () => {
+  const { getAllByRole } = render(<Carousel list={List}></Carousel>);
+  const renderItem = getAllByRole('button')
+  act(() => {
+    renderItem[1].click()
+  })
+
+  expect(renderItem[1].parentElement).toHaveClass('dot-active');
+});
