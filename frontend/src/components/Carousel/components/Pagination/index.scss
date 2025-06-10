@@ -1,0 +1,38 @@
+@keyframes progress {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+.carousel-pagination{
+    z-index: 1;
+    position: absolute;
+    bottom: 74px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &-item{
+        padding: 5px 0;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    &-inner{
+        position: relative;
+        width: 50px;
+        height: 2px;
+        border-radius: 1px;
+        background: #A9A9A9;
+        &.carousel-pagination-active:before{
+            content:"";
+            position: absolute;
+            left: 0;
+            height: 100%;
+            background: white;
+            animation: progress linear;
+            animation-duration: inherit;
+        }
+    }
+}
