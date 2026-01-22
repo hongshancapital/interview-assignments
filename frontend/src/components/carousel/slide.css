@@ -1,0 +1,42 @@
+.last-slide {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: auto;
+    left: 0;
+    top: 0;
+}
+
+.current-slide {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: auto;
+    top: 0;
+}
+
+@keyframes fly-from-left {
+    0% {left: -100vw;}
+    30% {left: 0;}
+    100% {left: 0;}
+}
+
+@keyframes fly-from-right {
+    0% {left: 100vw;}
+    30% {left: 0;}
+    100% {left: 0;}
+}
+
+.slide {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 20px 20px 20px;
+    flex: auto;
+}
