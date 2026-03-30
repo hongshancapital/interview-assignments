@@ -1,0 +1,55 @@
+.carousel {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-container {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  transition: left .5s ease;
+}
+
+.carousel-page {
+  width: 100vw;
+  height: 100vh;
+}
+
+.process {
+  position: absolute;
+  display: flex;
+  left: 50%;
+  bottom: 90px;
+  transform: translateX(-50%);
+}
+
+.process-dot {
+  width: 54px;
+  height: 3px;
+  position: relative;
+  border-radius: 2px;
+  background-color: #A9A9A9;
+  margin: 0 5px;
+  overflow: hidden;
+}
+
+.process-dot-mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  border-radius: 2px;
+  background-color: #FAFAFA;
+}
+
+.process-dot.active .process-dot-mask {
+  animation: process 3s linear;
+}
+
+@keyframes process {
+  from { width: 0%; }
+  to { width: 100%; }
+}
