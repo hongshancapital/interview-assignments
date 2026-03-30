@@ -1,0 +1,40 @@
+.container {
+  overflow-x: hidden;
+}
+
+.scrollContainer {
+  display: flex;
+  transition: transform 500ms linear;
+}
+
+.page {
+  flex-shrink: 0;
+}
+
+.sliderContainer {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .slider {
+    &:not(:first-child) {
+      margin-left: 20px;
+    }
+    margin-bottom: 10px;
+
+    height: 2px;
+    background-color: gray;
+
+    .sliderProgress {
+      background-color: white;
+      height: 2px;
+      width: 0;
+    }
+  }
+}
