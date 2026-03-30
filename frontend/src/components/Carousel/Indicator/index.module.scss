@@ -1,0 +1,22 @@
+.indicator {
+  position: relative;
+  margin-right: 10px;
+  width: 42px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: #a9a9a9;
+
+  &-progress {
+    position: absolute;
+    top: -0.5px;
+    left: 0;
+    width: 0;
+    height: 3px;
+  }
+
+  &-active > &-progress {
+    width: 42px;
+    background-color: #fafafa;
+    border-radius: 1.5px;
+  }
+}
