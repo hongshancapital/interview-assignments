@@ -1,0 +1,29 @@
+.carousel {
+    position: relative;
+    width: 400px;
+    overflow: hidden;
+}
+
+.carousel .inner {
+    overflow: scroll;
+    transition: transform .3s ease;
+    /* transform: translateX(-20%); */
+}
+
+.carousel .inner::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel .inner span {
+    display: block;
+    float: left;
+}
+
+/* 轮播按钮 */
+.carousel-bar {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
