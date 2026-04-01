@@ -1,0 +1,69 @@
+/** 走马灯class  */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background-color: black;
+  overflow: hidden;
+
+  & > .slide-wrapper {
+    position: relative;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+    background-color: #808080;
+    display: flex;
+
+    & > div {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+  }
+  
+  & > ul.dots-wrap-bottom{
+    bottom: 60px;
+  }
+  & > ul.dots-wrap {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    margin: 0px;
+    width: 100%;
+    height: 0px;
+    display: flex;
+    justify-content: center;
+
+    & > li.dot-li {
+      padding: 5px 0;
+      & > .dot {
+        position: relative;
+        width: 39px;
+        height: 2.25px;
+        background-color: rgba(163, 163, 163, 0.6);
+        margin:0 5px;
+        border-radius: 2px;
+        & > .dot-banner {
+          background-color: #fff;
+          border-radius: 2px;
+          height: 100%;
+          width: 0;
+        }
+      }
+    }
+  }
+}
+
+/**  dot上banner 渐变的keyframe动画   */
+@keyframes carousel-auto-banner {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+}
+
