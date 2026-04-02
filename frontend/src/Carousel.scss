@@ -1,0 +1,59 @@
+.item-wrapper {
+  white-space: nowrap;
+  transition: transform 0.3s;
+}
+
+.carousel-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #fff;
+  background-color: #000;
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 100%;
+  .bar-wrapper {
+    width: 90px;
+    height: 7px;
+    background-color: gray;
+    margin-left: 20px;
+    cursor: pointer;
+    .bar {
+      animation-name: progressBar;
+      height: 100%;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+    }
+  }
+  @keyframes progressBar {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .img-wrapper {
+    width: 150px;
+    height: 150px;
+    img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
