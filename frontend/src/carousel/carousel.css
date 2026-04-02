@@ -1,0 +1,43 @@
+.carousel {
+    overflow: hidden;
+    position: relative;
+}
+.carousel .carousel-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    transition-property: left;
+    transition-duration: .7s;
+}
+.carousel .carousel-paper {
+    position: relative;
+    overflow: hidden;
+    float:left;
+    height: 100%;
+}
+.carousel .buttons{
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    height: 2px;
+    bottom: 20px;
+    text-align: center;
+}
+.carousel .buttons-bg{
+    z-index: 1;
+    opacity: .3;
+}
+.carousel .buttons .button{
+    position: relative;
+    width: 50px;
+    margin: 0 3px;
+    display: inline-block;
+    border-radius: 2px;
+    height: 2px;
+}
+.carousel .buttons .button-bg{
+    width: 100%;
+    height: 100%;
+}
