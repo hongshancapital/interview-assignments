@@ -1,9 +1,11 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import { render } from '@testing-library/react'
+import App from './App'
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+test('测试App', () => {
+  const { getByText } = render(<App />)
+  const testList = [/XPhone/, /Tablet/, /Get airPods/]
+  testList.forEach(line => {
+    const linkElement = getByText(line)
+    expect(linkElement).toBeInTheDocument()
+  })
+})
