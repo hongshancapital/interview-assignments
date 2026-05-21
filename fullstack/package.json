@@ -1,0 +1,29 @@
+{
+  "name": "short-url-map",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json",
+    "watch": "tsc -w --project ./tsconfig.json",
+    "test": "jest --detectOpenHandles",
+    "test:u": "jest --updateSnapshot",
+    "test:c": "jest --coverage"
+  },
+  "author": {
+    "name": "thornwang",
+    "email": "thorn_wang@qq.com"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --fix"
+  },
+  "dependencies": {
+    "eslint": "^8.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "babel-jest": "^27.3.1",
+    "jest": "^27.3.1",
+    "typescript": "^4.4.4"
+  }
+}
