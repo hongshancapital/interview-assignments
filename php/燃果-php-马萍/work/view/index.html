@@ -1,0 +1,113 @@
+
+<!doctype html>
+<html lang="zh-cmn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Last-Modified" content="Thu, 12 Jan 2018 11:44:00 GMT+0800">
+    <title>用户注册</title>
+    <!-- 引入 layui.css -->
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
+
+    <!-- 引入 layui.js -->
+    <script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
+    <script src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<style>
+    body {
+        margin:0;
+        padding: 0;
+        background: #EFEFEF;
+        font-weight: bold;
+        margin-right: 5%;
+    }
+    header{
+        border-bottom: 1px solid #DFDFDF;
+        width: 100%;
+        margin-bottom: 5px
+    }
+    .topBar {
+        padding: 5px 10px;
+        position: relative;
+        text-align: center;
+        background-color: #FFF;
+    }
+
+    .txt {
+        font-size: 18px;color: #000; font-weight: bold;
+        margin-top: 6px;
+    }
+
+    .upload-images-show{
+        width: 90px;
+        height: 90px;
+
+    }
+</style>
+<body>
+<header class="topBar">
+    <div class="txt">用户注册</div>
+</header>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="username"  value=""  lay-verify="required"   placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password"  value="" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" >
+        <div class="layui-input-block" style="color: red;display:none" id="errMsg">
+
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="text-align: center">
+        <div class="layui-input-block">
+            <button class="layui-btn" id="formDemo" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //Demo
+    layui.use(['form', 'layer','upload','laytpl'], function(){
+        var form = layui.form;
+        var upload = layui.upload;
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            $.post("http://127.0.0.1:3000/api/register", data.field,
+                function(str){
+                    data = JSON.parse(str);
+                    console.log(data);
+                    if (data.code == 400)
+                    {
+                        $('#errMsg').html(data.msg);
+                        $("#errMsg").css("display","block")
+                    }else{
+                        layer.msg(data.msg, {
+                            icon: 6,
+                            time: 5000
+                        }, function () {
+                            // parent.location.reload();
+                        });
+                    }
+
+                },'text');
+            return false;
+        });
+    });
+
+</script>
+
+</body>
+</html>
