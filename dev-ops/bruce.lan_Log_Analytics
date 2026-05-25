@@ -1,0 +1,41 @@
+import json
+import re
+import os
+import requests
+
+file = '/Users/bruce.lan/Downloads/interview-assignments-master/dev-ops/DevOps_interview_data_set'
+def analysis_syslog(file):
+    with open(file, 'r') as f:
+        data = f.readlines()
+    for line in data:
+        if 'error' in line:
+            try:
+                deviceName = line.split()[3]
+                processId = re.search(r'\d+', line.split()[5]).group()
+                processName = re.search(r'\d+', line.split()[5]).group().replace(processId, '')[1:-4]
+                description = ' '.join(line.split()[6:])
+                timeWindow = line.split()[0] + ' ' + line.split()[2][:-3]
+                numberOfOccurrence = 1
+                with open('result.json', 'a') as f:
+                    f.write(json.dumps({'deviceName': deviceName, 'processId': processId, 'processName': processName, 'description': description, 'timeWindow': timeWindow, 'numberOfOccurrence': numberOfOccurrence}))
+                    f.write('\n')
+                    f.close()
+                print(json.dumps({'deviceName': deviceName, 'processId': processId, 'processName': processName, 'description': description, 'timeWindow': timeWindow, 'numberOfOccurrence': numberOfOccurrence}))
+                print(deviceName, processId, processName, description, timeWindow, numberOfOccurrence)
+            except AttributeError:
+                pass
+    os.system('sort result.json | uniq -c > output.json')
+    os.system('rm result.json')
+    return
+
+def upload_to_web_server():
+    url = 'https://foo.com/bar'
+    files = {'file': open('output.json', 'rb')}
+    r = requests.post(url, files=files)
+    print(r.text)
+    return
+
+if __name__ == '__main__':
+    analysis_syslog(file)
+    upload_to_web_server()
+    
