@@ -1,0 +1,89 @@
+{
+  "name": "nodeserver",
+  "version": "1.0.0",
+  "description": "The node server for test",
+  "main": "app.js",
+  "scripts": {
+    "test": "cross-env TS_NODE_PROJECT='test/tsconfig.test.json' mocha './test/**/**.spec.ts'",
+    "test:cover": "nyc mocha './test/**/**.spec.ts'",
+    "tsc": "tsc --watch",
+    "start": "nodemon -e ts --exec ts-node app.ts",
+    "start:test": "set NODE_ENV=test&& ts-node app.ts",
+    "start:prod": "set NODE_ENV=prod&& ts-node app.ts"
+  },
+  "mocha": {
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register"
+    ],
+    "ui": "bdd"
+  },
+  "nyc": {
+    "include": [
+      "blogic/url/*.ts",
+      "model/*.ts",
+      "utils/*.ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "all": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://tianjige.com:7002/backend/nodeserver.git"
+  },
+  "keywords": [
+    "nodeserver"
+  ],
+  "author": "SinanLee",
+  "license": "ISC",
+  "email": "asdfwslxn@163.com",
+  "dependencies": {
+    "@msgpack/msgpack": "^2.7.2",
+    "cookie-parser": "^1.4.6",
+    "cross-env": "^7.0.3",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.1",
+    "express-jwt": "^7.7.5",
+    "formidable": "^2.0.1",
+    "http-errors": "^2.0.0",
+    "https-proxy-agent": "^5.0.1",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "jszip": "^3.10.0",
+    "lodash": "^4.17.21",
+    "log4js": "^6.6.0",
+    "mysql": "^2.18.1",
+    "redis": "^4.6.8",
+    "request": "^2.88.2",
+    "socket.io": "^4.5.1",
+    "ts-node": "^10.8.2",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.0.3",
+    "axios": "^1.5.0",
+    "chai": "^4.3.8",
+    "istanbul": "^0.4.5",
+    "nodemon": "^2.0.19",
+    "nyc": "^15.1.0",
+    "typescript": "^4.7.4"
+  }
+}
