@@ -1,0 +1,32 @@
+ PASS  tests/unit-test/util.test.ts (5.079 s)
+ PASS  tests/unit-test/service.test.ts (6.565 s)
+ PASS  tests/unit-test/controller.test.ts (6.729 s)
+ PASS  tests/unit-test/app.test.ts (7.026 s)
+---------------------|---------|----------|---------|---------|-------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+---------------------|---------|----------|---------|---------|-------------------
+All files            |   96.26 |    96.66 |      80 |   97.58 |
+ src                 |   97.14 |    96.66 |   85.71 |   98.05 |
+  app.ts             |   82.35 |      100 |      50 |    87.5 | 17-18
+  constant.ts        |     100 |      100 |     100 |     100 |
+  controller.ts      |     100 |     92.3 |     100 |     100 | 6
+  router.ts          |     100 |      100 |     100 |     100 |
+  service.ts         |     100 |      100 |     100 |     100 |
+  util.ts            |     100 |      100 |     100 |     100 |
+ src/data            |     100 |      100 |     100 |     100 |
+  index.ts           |     100 |      100 |     100 |     100 |
+ src/data/datasource |      80 |      100 |       0 |    87.5 |
+  index.ts           |   66.66 |      100 |       0 |      75 | 9
+  mysql.ts           |     100 |      100 |     100 |     100 |
+ src/data/entities   |     100 |      100 |     100 |     100 |
+  ShortUriEntity.ts  |     100 |      100 |     100 |     100 |
+ tests/helpers       |     100 |      100 |     100 |     100 |
+  mockConstant.ts    |     100 |      100 |     100 |     100 |
+---------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 4 passed, 4 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        7.953 s, estimated 9 s
+Ran all test suites matching /unit-test/i.
+Done in 9.26s.
