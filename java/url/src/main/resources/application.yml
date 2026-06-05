@@ -1,0 +1,27 @@
+server:
+  port: 8089
+spring:
+  profiles:
+    active: @env@
+  application:
+    name: @project.name@
+  datasource:
+    #url: jdbc:h2:~/test
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: sa
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      path: /h2
+      enabled: true
+api:
+  contextPath: /@project.name@/api
+url:
+  domainName: http:www.baidu.com/g/
