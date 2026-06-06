@@ -1,0 +1,64 @@
+name: Release and tag
+on:
+  push:
+    branches: [main]
+
+jobs:
+  
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    env:
+      NODE_ENV: testing
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm install
+      - run: npm run build
+
+      - name: Start containers
+        run: BYPASS_DB_INIT=true docker-compose -f "docker-compose.yml" up --build -d
+
+      - run: npm run test
+      - name: CodeCov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage/base
+
+      - name: Archive logs
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: domain
+          path: log/
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
+  
+  release:
+    needs: [test]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    env:
+      NODE_ENV: testing
+    steps:
+      - uses: actions/checkout@v3
+
+      # Semver release based on conventional commits
+      - name: Prepare local repository
+        run: git fetch --prune --unshallow --tags -f
+      - name: Semver-releaser
+        uses: heyvito/semver-releaser@v0.0.10
+        with:
+          github-token: ${{ secrets.DOMAIN_TOKEN }}
