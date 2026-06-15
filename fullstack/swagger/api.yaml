@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: Shorten URL API
+  version: 1.0.0
+paths:
+  /shorten:
+    post:
+      summary: Shorten a URL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+      responses:
+        '200':
+          description: The shortened URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+  /{code}:
+  get:
+    summary: Get the original URL
+    parameters:
+      - name: code
+        in: path
+        required: true
+        description: The short URL
+        schema:
+          type: string
+    responses:
+      '200':
+        description: The original URL
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
