@@ -1,0 +1,30 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: shortUrl
+  profiles: 
+    active: dev #默认环境(开发环境)
+  redis:
+    database: 0 # 表示使用redis统一数据库
+    host: 127.0.0.1
+    port: 6379
+logging:
+  level:
+    com:
+      sequoia:
+        interview:
+          shorturl: trace
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss, SSS} [%thread] %-5level %logger{50} - %msg%n"
+    # 指定文件中日志输出的格式
+    file: "%d{yyyy-MM-dd HH:mm:ss, SSS} === [%thread] === %-5level === %logger{50} ==== %msg%n"
+  file:
+    name: shorturl.log
+app:
+  # 62进制的  10000000 
+  start: "AAAA0000"
+  # 62进制的  20000000 ,7043229212000  
+  end: "AAAAzzzz"
+  seg_len: 4
