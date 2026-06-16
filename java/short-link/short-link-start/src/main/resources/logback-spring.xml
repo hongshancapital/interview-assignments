@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- https://github.com/spring-projects/spring-boot/blob/v1.4.2.RELEASE/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <property name="APP_NAME" value="short-link" />
+    <property name="LOG_PATH" value="${user.home}/${APP_NAME}/logs" />
+    <property name="LOG_FILE" value="${LOG_PATH}/${APP_NAME}.log" />
+
+
+    <appender name="APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/logs/application-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d][%t] %p %c:%line - %m %n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="COMMON_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/common-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/logs/common-error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d][%t] %p %c:%line - %m %n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %p (%file:%line\)- %m%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="APPLICATION" />
+    </root>
+
+    <!-- 开发,测试环境-->
+    <springProfile name="dev,test">
+        <root level="info" additivity="false">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="APPLICATION" />
+        </root>
+
+        <logger name="appicationLog" level="info" additivity="false">
+            <appender-ref ref="APPLICATION" />
+        </logger>
+
+        <logger name="commonErrorLog" level="error" additivity="false">
+            <appender-ref ref="COMMON_ERROR" />
+        </logger>
+
+    </springProfile>
+
+    <!-- 线上环境-->
+    <springProfile name="prod">
+        <root level="info" additivity="false">
+            <appender-ref ref="APPLICATION" />
+        </root>
+        <logger name="appicationLog" level="info" additivity="false">
+            <appender-ref ref="APPLICATION" />
+        </logger>
+
+        <logger name="commonErrorLog" level="error" additivity="false">
+            <appender-ref ref="COMMON_ERROR" />
+        </logger>
+
+    </springProfile>
+
+
+</configuration>

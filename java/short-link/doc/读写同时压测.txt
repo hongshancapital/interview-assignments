@@ -1,0 +1,119 @@
+D:\software\Apache24\bin>ab -n 8000 -c 50 -T "application/json" -H  "Content-Type: application/json" -p "d:/createshortlink.txt" "http://localhost:7001/shortlink/createPersist"
+This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking localhost (be patient)
+Completed 800 requests
+Completed 1600 requests
+Completed 2400 requests
+Completed 3200 requests
+Completed 4000 requests
+Completed 4800 requests
+Completed 5600 requests
+Completed 6400 requests
+Completed 7200 requests
+Completed 8000 requests
+Finished 8000 requests
+
+
+Server Software:
+Server Hostname:        localhost
+Server Port:            7001
+
+Document Path:          /shortlink/createPersist
+Document Length:        590 bytes
+
+Concurrency Level:      50
+Time taken for tests:   51.928 seconds
+Complete requests:      8000
+Failed requests:        0
+Total transferred:      5560000 bytes
+Total body sent:        4808000
+HTML transferred:       4720000 bytes
+Requests per second:    154.06 [#/sec] (mean)
+Time per request:       324.548 [ms] (mean)
+Time per request:       6.491 [ms] (mean, across all concurrent requests)
+Transfer rate:          104.56 [Kbytes/sec] received
+                        90.42 kb/s sent
+                        194.98 kb/s total
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.5      0      11
+Processing:    19  324 133.8    361     648
+Waiting:        4  324 133.8    361     647
+Total:         19  324 133.8    361     648
+
+Percentage of the requests served within a certain time (ms)
+  50%    361
+  66%    399
+  75%    423
+  80%    434
+  90%    477
+  95%    514
+  98%    597
+  99%    621
+ 100%    648 (longest request)
+
+ ===============================================================
+ D:\software\Apache24\bin>ab -n 8000  -c 80 -T "application/json" -H  "Content-Type: application/json" -p "d:/getshortlink.txt" "http://localhost:7001/shortlink/recoverPersist"
+ This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
+ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+ Licensed to The Apache Software Foundation, http://www.apache.org/
+
+ Benchmarking localhost (be patient)
+ Completed 800 requests
+ Completed 1600 requests
+ Completed 2400 requests
+ Completed 3200 requests
+ Completed 4000 requests
+ Completed 4800 requests
+ Completed 5600 requests
+ Completed 6400 requests
+ Completed 7200 requests
+ Completed 8000 requests
+ Finished 8000 requests
+
+
+ Server Software:
+ Server Hostname:        localhost
+ Server Port:            7001
+
+ Document Path:          /shortlink/recoverPersist
+ Document Length:        336 bytes
+
+ Concurrency Level:      80
+ Time taken for tests:   41.916 seconds
+ Complete requests:      8000
+ Failed requests:        0
+ Total transferred:      3528000 bytes
+ Total body sent:        3432000
+ HTML transferred:       2688000 bytes
+ Requests per second:    190.86 [#/sec] (mean)
+ Time per request:       419.165 [ms] (mean)
+ Time per request:       5.240 [ms] (mean, across all concurrent requests)
+ Transfer rate:          82.19 [Kbytes/sec] received
+                         79.96 kb/s sent
+                         162.15 kb/s total
+
+ Connection Times (ms)
+               min  mean[+/-sd] median   max
+ Connect:        0    0   0.5      0       6
+ Processing:   165  417  71.6    401     663
+ Waiting:      140  417  71.6    401     662
+ Total:        166  417  71.6    402     663
+
+ Percentage of the requests served within a certain time (ms)
+   50%    402
+   66%    427
+   75%    444
+   80%    461
+   90%    517
+   95%    571
+   98%    625
+   99%    642
+  100%    663 (longest request)
+
+
+
