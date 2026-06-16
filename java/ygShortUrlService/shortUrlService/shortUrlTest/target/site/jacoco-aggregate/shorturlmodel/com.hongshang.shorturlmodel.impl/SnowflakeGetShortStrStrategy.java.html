@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SnowflakeGetShortStrStrategy.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">shortUrlTest</a> &gt; <a href="../index.html" class="el_bundle">shorturlmodel</a> &gt; <a href="index.source.html" class="el_package">com.hongshang.shorturlmodel.impl</a> &gt; <span class="el_source">SnowflakeGetShortStrStrategy.java</span></div><h1>SnowflakeGetShortStrStrategy.java</h1><pre class="source lang-java linenums">package com.hongshang.shorturlmodel.impl;
+
+import com.hongshang.shorturlmodel.api.IGetShortStrStrategy;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 用雪花算法产生短地址的策略模式实现类
+ *
+ * @author yangguowen
+ * @date 2021/12/17
+ */
+@Component(&quot;snowflakeGetShortStrStrategy&quot;)
+<span class="fc" id="L16">public class SnowflakeGetShortStrStrategy implements IGetShortStrStrategy {</span>
+
+    public static final int NUMBER_OF_CHAR = 8;
+
+<span class="fc" id="L20">    private  SnowFlake snowFlakeCreator = new SnowFlake(2, 3);</span>
+
+<span class="fc" id="L22">    final static char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8',</span>
+            'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+            '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+            'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+            'Z'};
+
+    @Override
+    public synchronized String getNextShortStr() {
+<span class="fc" id="L31">        Long snowFlake = snowFlakeCreator.nextId();</span>
+<span class="fc" id="L32">        return compressNumber(snowFlake);</span>
+    }
+
+    /**
+     * 将雪花数变为8位字符
+     *
+     * @param snowFlake Long
+     * @return String
+     */
+    private String compressNumber(Long snowFlake) {
+<span class="fc" id="L42">        List&lt;Integer&gt; ll = toSixTwoList(snowFlake);</span>
+<span class="fc" id="L43">        char[] buf = new char[ll.size()];</span>
+<span class="fc" id="L44">        short charPos = (short) ll.size();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for(int index=0;index&lt;ll.size();index++){</span>
+<span class="fc" id="L46">            buf[--charPos] = digits[(int) (ll.get(index))];</span>
+        }
+<span class="fc" id="L48">        return new String(buf, charPos, (ll.size() - charPos));</span>
+    }
+
+    /**
+     * 雪花数变为8位62进行数
+     *
+     * @param snowFlake Long
+     * @return List 8位62进行数
+     */
+    private List&lt;Integer&gt; toSixTwoList(Long snowFlake){
+<span class="fc" id="L58">        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L59">        Long remainder = snowFlake;</span>
+<span class="fc" id="L60">        int index = 0;</span>
+<span class="pc bpc" id="L61" title="1 of 4 branches missed.">        while(remainder!=0&amp;&amp;index++&lt; NUMBER_OF_CHAR){</span>
+<span class="fc" id="L62">            result.add((int) (remainder%digits.length));</span>
+<span class="fc" id="L63">            remainder = remainder/digits.length;</span>
+        }
+<span class="fc" id="L65">        return  result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
