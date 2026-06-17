@@ -1,0 +1,137 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SwaggerConfiguration</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.zhouhongbing.shorturl.config.swagger</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SwaggerConfiguration (com.zhouhongbing.shorturl.config.swagger)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SwaggerConfiguration</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SwaggerConfiguration$$EnhancerBySpringCGLIB$$f3ec3c5d</td>
+  </tr>
+  <tr>
+    <td class="name">SwaggerConfiguration$$EnhancerBySpringCGLIB$$f3ec3c5d$$FastClassBySpringCGLIB$$f1fcfd55</td>
+  </tr>
+  <tr>
+    <td class="name">SwaggerConfiguration$$FastClassBySpringCGLIB$$32727e6e</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.zhouhongbing.shorturl.config.swagger;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+<i>4</i>&nbsp;import org.springframework.context.annotation.Bean;
+<i>5</i>&nbsp;import org.springframework.context.annotation.Configuration;
+<i>6</i>&nbsp;import springfox.documentation.builders.ApiInfoBuilder;
+<i>7</i>&nbsp;import springfox.documentation.builders.PathSelectors;
+<i>8</i>&nbsp;import springfox.documentation.builders.RequestHandlerSelectors;
+<i>9</i>&nbsp;import springfox.documentation.service.ApiInfo;
+<i>10</i>&nbsp;import springfox.documentation.service.Contact;
+<i>11</i>&nbsp;import springfox.documentation.spi.DocumentationType;
+<i>12</i>&nbsp;import springfox.documentation.spring.web.plugins.Docket;
+<i>13</i>&nbsp;import springfox.documentation.swagger2.annotations.EnableSwagger2;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;@Configuration
+<i>16</i>&nbsp;@EnableSwagger2
+<b class="fc"><i>17</i>&nbsp;public class SwaggerConfiguration {</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;   @Bean
+<i>20</i>&nbsp;   public Docket buildDocket() {
+<b class="fc"><i>21</i>&nbsp;      return new Docket(DocumentationType.SWAGGER_2)</b>
+<b class="fc"><i>22</i>&nbsp;              .apiInfo(buildApiInfo())</b>
+<b class="fc"><i>23</i>&nbsp;              .select()</b>
+<i>24</i>&nbsp;              // 要扫描的API(Controller)基础包
+<b class="fc"><i>25</i>&nbsp;              .apis(RequestHandlerSelectors.basePackage(&quot;com.zhouhongbing.shorturl.controller&quot;))</b>
+<b class="fc"><i>26</i>&nbsp;              .paths(PathSelectors.any())</b>
+<b class="fc"><i>27</i>&nbsp;              .build();</b>
+<i>28</i>&nbsp;   }
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;   private ApiInfo buildApiInfo() {
+<b class="fc"><i>31</i>&nbsp;      Contact contact = new Contact(&quot;周洪丙&quot;,&quot;&quot;,&quot;&quot;);</b>
+<b class="fc"><i>32</i>&nbsp;      return new ApiInfoBuilder()</b>
+<b class="fc"><i>33</i>&nbsp;              .title(&quot;短域名-平台管理API文档&quot;)</b>
+<b class="fc"><i>34</i>&nbsp;              .description(&quot;短域名平台管理服务api&quot;)</b>
+<b class="fc"><i>35</i>&nbsp;              .contact(contact)</b>
+<b class="fc"><i>36</i>&nbsp;              .version(&quot;1.0.0&quot;).build();</b>
+<i>37</i>&nbsp;   }
+<i>38</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-11-22 00:03</div>
+</div>
+</body>
+</html>

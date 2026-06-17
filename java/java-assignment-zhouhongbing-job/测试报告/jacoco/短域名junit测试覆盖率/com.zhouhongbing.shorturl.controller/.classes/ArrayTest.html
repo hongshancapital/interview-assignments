@@ -1,0 +1,253 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ArrayTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.zhouhongbing.shorturl.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ArrayTest (com.zhouhongbing.shorturl.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ArrayTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 71)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.zhouhongbing.shorturl.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;import java.util.Arrays;
+<i>5</i>&nbsp;import java.util.Random;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * @version 1.0
+<i>9</i>&nbsp; * @Author 海纳百川zhb
+<i>10</i>&nbsp; * 统计数组中最长递增的子数组,例如1,3,5,3,3,5,6,8,8 ,最长数组为 3,5,6,8
+<i>11</i>&nbsp; **/
+<b class="nc"><i>12</i>&nbsp;public class ArrayTest {</b>
+<i>13</i>&nbsp;    public static void main(String[] args) {
+<i>14</i>&nbsp;        //1,3,5,3,3,5,6,7,7
+<i>15</i>&nbsp;//        int initArr[]={1,3,5,3,3,5,6,8,8};
+<b class="nc"><i>16</i>&nbsp;        int randomLength=new Random().nextInt(1000000);</b>
+<b class="nc"><i>17</i>&nbsp;        int initArr[]=new int[randomLength];</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;        //随机构造数据
+<b class="nc"><i>20</i>&nbsp;        for (int i = 0; i &lt; randomLength; i++) {</b>
+<b class="nc"><i>21</i>&nbsp;            initArr[i]=new Random().nextInt(1000000);</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;        }
+<i>24</i>&nbsp;
+<b class="nc"><i>25</i>&nbsp;        long beginTime = System.currentTimeMillis();</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;        //第一天方案:  时间复杂度O(n),空间复杂度O(n)
+<i>28</i>&nbsp;//        ArrayList&lt;int[]&gt; indexArray = indexArray(initArr);
+<i>29</i>&nbsp;//        ArrayList&lt;Integer&gt; result = getResut(indexArray, initArr);
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;        //优化后: 时间复杂度O(n),空间复杂度O(1)
+<b class="nc"><i>32</i>&nbsp;        int[] indexArray = indexArray2(initArr);</b>
+<b class="nc"><i>33</i>&nbsp;        ArrayList&lt;Integer&gt; result = getResult1(indexArray, initArr);</b>
+<b class="nc"><i>34</i>&nbsp;        for (int i = 0; i &lt; result.size(); i++) {</b>
+<b class="nc"><i>35</i>&nbsp;            System.out.print(result.get(i)+&quot;,&quot;);</b>
+<i>36</i>&nbsp;        }
+<b class="nc"><i>37</i>&nbsp;        System.out.println();</b>
+<b class="nc"><i>38</i>&nbsp;        long endTiem=System.currentTimeMillis();</b>
+<b class="nc"><i>39</i>&nbsp;        System.out.println(&quot;总耗时:&quot;+(endTiem-beginTime)+&quot;毫秒&quot;);</b>
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     *  方法1:时间复杂度O(n) ,空间复杂度O(n)
+<i>44</i>&nbsp;     * @param arr
+<i>45</i>&nbsp;     * @return
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    private static  ArrayList&lt;int[]&gt; indexArray(int[] arr){
+<i>48</i>&nbsp;        //1.定义返回结果数组
+<b class="nc"><i>49</i>&nbsp;        ArrayList&lt;int[]&gt; list=new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>50</i>&nbsp;        int catchSize=0;</b>
+<i>51</i>&nbsp;        //2.定义临时数组变量temp[],记录新的最长数组的 初始下标 和 结束下标
+<b class="nc"><i>52</i>&nbsp;        int temp[]=new int[2];</b>
+<b class="nc"><i>53</i>&nbsp;        temp[0]=0; //设置初始下标为0</b>
+<b class="nc"><i>54</i>&nbsp;        temp[1]=1;</b>
+<i>55</i>&nbsp;        //3.遍历arr数组
+<b class="nc"><i>56</i>&nbsp;        int arrLength=arr.length;</b>
+<b class="nc"><i>57</i>&nbsp;        for (int i = 1; i &lt; arr.length; i++) {</b>
+<i>58</i>&nbsp;            //记录temp[0]=开始位置的下标
+<i>59</i>&nbsp;            //3.0 temp[1]=当前index
+<i>60</i>&nbsp;            //3.1 如果当前元素比前一个元素的数据小,则继续下一次循环
+<i>61</i>&nbsp;            //3.3 如果当前元素的比前一个元素的数据大
+<b class="nc"><i>62</i>&nbsp;            if (arr[i]&lt;=arr[i-1]) {</b>
+<i>63</i>&nbsp;                //,则将temp放入ArrayList集合
+<b class="nc"><i>64</i>&nbsp;                temp[1]=i-1;</b>
+<b class="nc"><i>65</i>&nbsp;                int newTemp[]=new  int[2];</b>
+<b class="nc"><i>66</i>&nbsp;                newTemp= Arrays.copyOf(temp,2);</b>
+<b class="nc"><i>67</i>&nbsp;                list.add(newTemp);</b>
+<b class="nc"><i>68</i>&nbsp;                catchSize++;</b>
+<i>69</i>&nbsp;                //
+<b class="nc"><i>70</i>&nbsp;                if (i&lt;=arrLength) {</b>
+<b class="nc"><i>71</i>&nbsp;                    temp[0]=i;</b>
+<b class="nc"><i>72</i>&nbsp;                    temp[1]=i+1;</b>
+<i>73</i>&nbsp;                }
+<i>74</i>&nbsp;            }
+<i>75</i>&nbsp;        }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;        //4.循环结束返回arraylist集合
+<b class="nc"><i>78</i>&nbsp;        System.out.println(&quot;分配空间为:&quot;+catchSize);</b>
+<b class="nc"><i>79</i>&nbsp;        return list;</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * 遍历计算indexArray中最长的数组下标,根据下标取出arr对应的子数组
+<i>85</i>&nbsp;     **/
+<i>86</i>&nbsp;    private static ArrayList&lt;Integer&gt; getResut(ArrayList&lt;int[]&gt; indexArray,int[] arr){
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;        //1.tempMax=node[1]-node[0]
+<b class="nc"><i>89</i>&nbsp;        int tempMax=0; //记录最大的滑动窗口长度</b>
+<b class="nc"><i>90</i>&nbsp;        int temp=0; //记录每个node[1]-node[0]</b>
+<b class="nc"><i>91</i>&nbsp;        int maxNode[]=new int[2];</b>
+<i>92</i>&nbsp;        //2.遍历indexArray,取出每一个元素node
+<b class="nc"><i>93</i>&nbsp;        for (int[] node : indexArray) {</b>
+<b class="nc"><i>94</i>&nbsp;            temp = node[1] - node[0];</b>
+<b class="nc"><i>95</i>&nbsp;            if (temp&gt;tempMax) {</b>
+<b class="nc"><i>96</i>&nbsp;                tempMax=temp;</b>
+<b class="nc"><i>97</i>&nbsp;                maxNode=node;</b>
+<i>98</i>&nbsp;            }
+<b class="nc"><i>99</i>&nbsp;        }</b>
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;        //从arr数组中,取出maxNode为上下边界的子数组
+<b class="nc"><i>102</i>&nbsp;        ArrayList&lt;Integer&gt; list=new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>103</i>&nbsp;        for (int i = maxNode[0]; i &lt;= maxNode[1]; i++) {</b>
+<b class="nc"><i>104</i>&nbsp;            list.add(arr[i]);</b>
+<i>105</i>&nbsp;        }
+<b class="nc"><i>106</i>&nbsp;        return  list;</b>
+<i>107</i>&nbsp;    }
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;    /**
+<i>111</i>&nbsp;     * 双指针记录滑动窗口,并使用临时临时变量记录滑动窗口长度
+<i>112</i>&nbsp;     * @param arr
+<i>113</i>&nbsp;     * @return
+<i>114</i>&nbsp;     */
+<i>115</i>&nbsp;    private static int[] indexArray2(int[] arr){
+<i>116</i>&nbsp;        //1.定义返回结果数组
+<b class="nc"><i>117</i>&nbsp;        int maxLengthSubArr[]=new int[2];</b>
+<b class="nc"><i>118</i>&nbsp;        int maxLength=0; //记录最大的长度</b>
+<b class="nc"><i>119</i>&nbsp;        int catchSize=1;</b>
+<i>120</i>&nbsp;        //2.定义临时数组变量temp[],记录新的最长数组的 初始下标 和 结束下标
+<b class="nc"><i>121</i>&nbsp;        int temp[]=new int[2];</b>
+<b class="nc"><i>122</i>&nbsp;        catchSize+=1;   //分配空间+1</b>
+<b class="nc"><i>123</i>&nbsp;        temp[0]=0; //设置初始下标为0</b>
+<b class="nc"><i>124</i>&nbsp;        temp[1]=1;</b>
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;        //
+<b class="nc"><i>127</i>&nbsp;        maxLengthSubArr=temp;</b>
+<i>128</i>&nbsp;        //3.遍历arr数组
+<b class="nc"><i>129</i>&nbsp;        int arrLength=arr.length;</b>
+<b class="nc"><i>130</i>&nbsp;        int tempmaxLength=0;</b>
+<b class="nc"><i>131</i>&nbsp;        for (int i = 1; i &lt; arr.length; i++) {</b>
+<i>132</i>&nbsp;            //记录temp[0]=开始位置的下标
+<i>133</i>&nbsp;            //3.0 temp[1]=当前index
+<i>134</i>&nbsp;            //3.1 如果当前元素比前一个元素的数据小,则继续下一次循环
+<i>135</i>&nbsp;            //3.3 如果当前元素的比前一个元素的数据大
+<i>136</i>&nbsp;
+<b class="nc"><i>137</i>&nbsp;            if (arr[i]&lt;=arr[i-1]) {</b>
+<i>138</i>&nbsp;                //,则将tempMaxLength与maxLength比较,如果 tempmaxlength&gt;maxlength,则将maxLength=tempmaxlength,并将maxLengthSubArr=temp
+<b class="nc"><i>139</i>&nbsp;                temp[1]=i-1;</b>
+<i>140</i>&nbsp;//                int newTemp[]=new  int[2];
+<b class="nc"><i>141</i>&nbsp;                tempmaxLength=temp[1]-temp[0];</b>
+<b class="nc"><i>142</i>&nbsp;                if (tempmaxLength&gt;maxLength) {</b>
+<b class="nc"><i>143</i>&nbsp;                    maxLength=tempmaxLength;</b>
+<b class="nc"><i>144</i>&nbsp;                    maxLengthSubArr= Arrays.copyOf(temp,2);</b>
+<i>145</i>&nbsp;                }
+<i>146</i>&nbsp;//                list.add(newTemp);
+<i>147</i>&nbsp;                //
+<b class="nc"><i>148</i>&nbsp;                if (i&lt;=arrLength) {</b>
+<b class="nc"><i>149</i>&nbsp;                    temp[0]=i;</b>
+<b class="nc"><i>150</i>&nbsp;                    temp[1]=i+1;</b>
+<i>151</i>&nbsp;                }
+<i>152</i>&nbsp;            }
+<i>153</i>&nbsp;        }
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;        //4.循环结束返回arraylist集合
+<b class="nc"><i>156</i>&nbsp;        System.out.println(&quot;分配空间为:&quot;+catchSize);</b>
+<b class="nc"><i>157</i>&nbsp;        return maxLengthSubArr;</b>
+<i>158</i>&nbsp;    }
+<i>159</i>&nbsp;
+<i>160</i>&nbsp;    private static ArrayList&lt;Integer&gt; getResult1(int[] indexArray, int[] arr){
+<i>161</i>&nbsp;        //从arr数组中,取出maxNode为上下边界的子数组
+<b class="nc"><i>162</i>&nbsp;        ArrayList&lt;Integer&gt; list=new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>163</i>&nbsp;        for (int i = indexArray[0]; i &lt;= indexArray[1]; i++) {</b>
+<b class="nc"><i>164</i>&nbsp;            list.add(arr[i]);</b>
+<i>165</i>&nbsp;        }
+<b class="nc"><i>166</i>&nbsp;        return  list;</b>
+<i>167</i>&nbsp;
+<i>168</i>&nbsp;    }
+<i>169</i>&nbsp;
+<i>170</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-11-22 00:03</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: IdWorker</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.zhouhongbing.shorturl.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: IdWorker (com.zhouhongbing.shorturl.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">IdWorker</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    44.4%
+  </span>
+  <span class="absValue">
+    (4/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    30.2%
+  </span>
+  <span class="absValue">
+    (16/ 53)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.zhouhongbing.shorturl.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.lang.management.ManagementFactory;
+<i>4</i>&nbsp;import java.net.InetAddress;
+<i>5</i>&nbsp;import java.net.NetworkInterface;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * &lt;p&gt;名称：IdWorker.java&lt;/p&gt;
+<i>9</i>&nbsp; * &lt;p&gt;描述：分布式自增长ID&lt;/p&gt;
+<i>10</i>&nbsp; * &lt;pre&gt;
+<i>11</i>&nbsp; *     Twitter的 Snowflake　JAVA实现方案
+<i>12</i>&nbsp; * &lt;/pre&gt;
+<i>13</i>&nbsp; * 核心代码为其IdWorker这个类实现，其原理结构如下，我分别用一个0表示一位，用—分割开部分的作用：
+<i>14</i>&nbsp; * 1||0---0000000000 0000000000 0000000000 0000000000 0 --- 00000 ---00000 ---000000000000
+<i>15</i>&nbsp; * 在上面的字符串中，第一位为未使用（实际上也可作为long的符号位），接下来的41位为毫秒级时间，
+<i>16</i>&nbsp; * 然后5位datacenter标识位，5位机器ID（并不算标识符，实际是为线程标识），
+<i>17</i>&nbsp; * 然后12位该毫秒内的当前毫秒内的计数，加起来刚好64位，为一个Long型。
+<i>18</i>&nbsp; * 这样的好处是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞（由datacenter和机器ID作区分），
+<i>19</i>&nbsp; * 并且效率较高，经测试，snowflake每秒能够产生26万ID左右，完全满足需要。
+<i>20</i>&nbsp; * &lt;p&gt;
+<i>21</i>&nbsp; * 64位ID (42(毫秒)+5(机器ID)+5(业务编码)+12(重复累加))
+<i>22</i>&nbsp; *
+<i>23</i>&nbsp; * @author Polim
+<i>24</i>&nbsp; */
+<i>25</i>&nbsp;public class IdWorker {
+<i>26</i>&nbsp;    // 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
+<i>27</i>&nbsp;    private final static long twepoch = 1288834974657L;
+<i>28</i>&nbsp;    // 机器标识位数
+<i>29</i>&nbsp;    private final static long workerIdBits = 5L;
+<i>30</i>&nbsp;    // 数据中心标识位数
+<i>31</i>&nbsp;    private final static long datacenterIdBits = 5L;
+<i>32</i>&nbsp;    // 机器ID最大值
+<i>33</i>&nbsp;    private final static long maxWorkerId = -1L ^ (-1L &lt;&lt; workerIdBits);
+<i>34</i>&nbsp;    // 数据中心ID最大值
+<i>35</i>&nbsp;    private final static long maxDatacenterId = -1L ^ (-1L &lt;&lt; datacenterIdBits);
+<i>36</i>&nbsp;    // 毫秒内自增位
+<i>37</i>&nbsp;    private final static long sequenceBits = 12L;
+<i>38</i>&nbsp;    // 机器ID偏左移12位
+<i>39</i>&nbsp;    private final static long workerIdShift = sequenceBits;
+<i>40</i>&nbsp;    // 数据中心ID左移17位
+<i>41</i>&nbsp;    private final static long datacenterIdShift = sequenceBits + workerIdBits;
+<i>42</i>&nbsp;    // 时间毫秒左移22位
+<i>43</i>&nbsp;    private final static long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    private final static long sequenceMask = -1L ^ (-1L &lt;&lt; sequenceBits);
+<i>46</i>&nbsp;    /* 上次生产id时间戳 */
+<b class="fc"><i>47</i>&nbsp;    private static long lastTimestamp = -1L;</b>
+<i>48</i>&nbsp;    // 0，并发控制
+<b class="fc"><i>49</i>&nbsp;    private long sequence = 0L;</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    private final long workerId;
+<i>52</i>&nbsp;    // 数据标识id部分
+<i>53</i>&nbsp;    private final long datacenterId;
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;    public IdWorker(){</b>
+<b class="nc"><i>56</i>&nbsp;        this.datacenterId = getDatacenterId(maxDatacenterId);</b>
+<b class="nc"><i>57</i>&nbsp;        this.workerId = getMaxWorkerId(datacenterId, maxWorkerId);</b>
+<b class="nc"><i>58</i>&nbsp;    }</b>
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * @param workerId
+<i>61</i>&nbsp;     *            工作机器ID
+<i>62</i>&nbsp;     * @param datacenterId
+<i>63</i>&nbsp;     *            序列号
+<i>64</i>&nbsp;     */
+<b class="fc"><i>65</i>&nbsp;    public IdWorker(long workerId, long datacenterId) {</b>
+<b class="pc"><i>66</i>&nbsp;        if (workerId &gt; maxWorkerId || workerId &lt; 0) {</b>
+<b class="nc"><i>67</i>&nbsp;            throw new IllegalArgumentException(String.format(&quot;worker Id can&#39;t be greater than %d or less than 0&quot;, maxWorkerId));</b>
+<i>68</i>&nbsp;        }
+<b class="pc"><i>69</i>&nbsp;        if (datacenterId &gt; maxDatacenterId || datacenterId &lt; 0) {</b>
+<b class="nc"><i>70</i>&nbsp;            throw new IllegalArgumentException(String.format(&quot;datacenter Id can&#39;t be greater than %d or less than 0&quot;, maxDatacenterId));</b>
+<i>71</i>&nbsp;        }
+<b class="fc"><i>72</i>&nbsp;        this.workerId = workerId;</b>
+<b class="fc"><i>73</i>&nbsp;        this.datacenterId = datacenterId;</b>
+<b class="fc"><i>74</i>&nbsp;    }</b>
+<i>75</i>&nbsp;    /**
+<i>76</i>&nbsp;     * 获取下一个ID
+<i>77</i>&nbsp;     *
+<i>78</i>&nbsp;     * @return
+<i>79</i>&nbsp;     */
+<i>80</i>&nbsp;    public synchronized long nextId() {
+<b class="fc"><i>81</i>&nbsp;        long timestamp = timeGen();</b>
+<b class="pc"><i>82</i>&nbsp;        if (timestamp &lt; lastTimestamp) {</b>
+<b class="nc"><i>83</i>&nbsp;            throw new RuntimeException(String.format(&quot;Clock moved backwards.  Refusing to generate id for %d milliseconds&quot;, lastTimestamp - timestamp));</b>
+<i>84</i>&nbsp;        }
+<i>85</i>&nbsp;
+<b class="pc"><i>86</i>&nbsp;        if (lastTimestamp == timestamp) {</b>
+<i>87</i>&nbsp;            // 当前毫秒内，则+1
+<b class="nc"><i>88</i>&nbsp;            sequence = (sequence + 1) &amp; sequenceMask;</b>
+<b class="nc"><i>89</i>&nbsp;            if (sequence == 0) {</b>
+<i>90</i>&nbsp;                // 当前毫秒内计数满了，则等待下一秒
+<b class="nc"><i>91</i>&nbsp;                timestamp = tilNextMillis(lastTimestamp);</b>
+<i>92</i>&nbsp;            }
+<i>93</i>&nbsp;        } else {
+<b class="fc"><i>94</i>&nbsp;            sequence = 0L;</b>
+<i>95</i>&nbsp;        }
+<b class="fc"><i>96</i>&nbsp;        lastTimestamp = timestamp;</b>
+<i>97</i>&nbsp;        // ID偏移组合生成最终的ID，并返回ID
+<b class="fc"><i>98</i>&nbsp;        long nextId = ((timestamp - twepoch) &lt;&lt; timestampLeftShift)</b>
+<i>99</i>&nbsp;                | (datacenterId &lt;&lt; datacenterIdShift)
+<i>100</i>&nbsp;                | (workerId &lt;&lt; workerIdShift) | sequence;
+<i>101</i>&nbsp;
+<b class="fc"><i>102</i>&nbsp;        return nextId;</b>
+<i>103</i>&nbsp;    }
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;    private long tilNextMillis(final long lastTimestamp) {
+<b class="nc"><i>106</i>&nbsp;        long timestamp = this.timeGen();</b>
+<b class="nc"><i>107</i>&nbsp;        while (timestamp &lt;= lastTimestamp) {</b>
+<b class="nc"><i>108</i>&nbsp;            timestamp = this.timeGen();</b>
+<i>109</i>&nbsp;        }
+<b class="nc"><i>110</i>&nbsp;        return timestamp;</b>
+<i>111</i>&nbsp;    }
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    private long timeGen() {
+<b class="fc"><i>114</i>&nbsp;        return System.currentTimeMillis();</b>
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;    /**
+<i>118</i>&nbsp;     * &lt;p&gt;
+<i>119</i>&nbsp;     * 获取 maxWorkerId
+<i>120</i>&nbsp;     * &lt;/p&gt;
+<i>121</i>&nbsp;     */
+<i>122</i>&nbsp;    protected static long getMaxWorkerId(long datacenterId, long maxWorkerId) {
+<b class="nc"><i>123</i>&nbsp;        StringBuffer mpid = new StringBuffer();</b>
+<b class="nc"><i>124</i>&nbsp;        mpid.append(datacenterId);</b>
+<b class="nc"><i>125</i>&nbsp;        String name = ManagementFactory.getRuntimeMXBean().getName();</b>
+<b class="nc"><i>126</i>&nbsp;        if (!name.isEmpty()) {</b>
+<i>127</i>&nbsp;         /*
+<i>128</i>&nbsp;          * GET jvmPid
+<i>129</i>&nbsp;          */
+<b class="nc"><i>130</i>&nbsp;            mpid.append(name.split(&quot;@&quot;)[0]);</b>
+<i>131</i>&nbsp;        }
+<i>132</i>&nbsp;      /*
+<i>133</i>&nbsp;       * MAC + PID 的 hashcode 获取16个低位
+<i>134</i>&nbsp;       */
+<b class="nc"><i>135</i>&nbsp;        return (mpid.toString().hashCode() &amp; 0xffff) % (maxWorkerId + 1);</b>
+<i>136</i>&nbsp;    }
+<i>137</i>&nbsp;
+<i>138</i>&nbsp;    /**
+<i>139</i>&nbsp;     * &lt;p&gt;
+<i>140</i>&nbsp;     * 数据标识id部分
+<i>141</i>&nbsp;     * &lt;/p&gt;
+<i>142</i>&nbsp;     */
+<i>143</i>&nbsp;    protected static long getDatacenterId(long maxDatacenterId) {
+<b class="nc"><i>144</i>&nbsp;        long id = 0L;</b>
+<i>145</i>&nbsp;        try {
+<b class="nc"><i>146</i>&nbsp;            InetAddress ip = InetAddress.getLocalHost();</b>
+<b class="nc"><i>147</i>&nbsp;            NetworkInterface network = NetworkInterface.getByInetAddress(ip);</b>
+<b class="nc"><i>148</i>&nbsp;            if (network == null) {</b>
+<b class="nc"><i>149</i>&nbsp;                id = 1L;</b>
+<i>150</i>&nbsp;            } else {
+<b class="nc"><i>151</i>&nbsp;                byte[] mac = network.getHardwareAddress();</b>
+<b class="nc"><i>152</i>&nbsp;                id = ((0x000000FF &amp; (long) mac[mac.length - 1])</b>
+<i>153</i>&nbsp;                        | (0x0000FF00 &amp; (((long) mac[mac.length - 2]) &lt;&lt; 8))) &gt;&gt; 6;
+<b class="nc"><i>154</i>&nbsp;                id = id % (maxDatacenterId + 1);</b>
+<i>155</i>&nbsp;            }
+<b class="nc"><i>156</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>157</i>&nbsp;            System.out.println(&quot; getDatacenterId: &quot; + e.getMessage());</b>
+<b class="nc"><i>158</i>&nbsp;        }</b>
+<b class="nc"><i>159</i>&nbsp;        return id;</b>
+<i>160</i>&nbsp;    }
+<i>161</i>&nbsp;
+<i>162</i>&nbsp;    public static void main(String[] args) {
+<b class="nc"><i>163</i>&nbsp;        IdWorker idWorker = new IdWorker();</b>
+<b class="nc"><i>164</i>&nbsp;        for (int i = 0; i &lt;10 ; i++) {</b>
+<b class="nc"><i>165</i>&nbsp;            long id = idWorker.nextId();</b>
+<b class="nc"><i>166</i>&nbsp;            System.out.println(&quot;生成id为:&quot;+id);</b>
+<i>167</i>&nbsp;        }
+<i>168</i>&nbsp;
+<b class="nc"><i>169</i>&nbsp;    }</b>
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;
+<i>172</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-11-22 00:03</div>
+</div>
+</body>
+</html>
