@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidatorUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">interview-assignments</a> &gt; <a href="index.source.html" class="el_package">com.example.util</a> &gt; <span class="el_source">ValidatorUtil.java</span></div><h1>ValidatorUtil.java</h1><pre class="source lang-java linenums">package com.example.util;
+
+import com.google.common.base.Preconditions;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import java.util.Set;
+
+/**
+ *
+ *
+ * @author eric
+ * @version on 2017/7/10.
+ */
+<span class="nc" id="L17">public class ValidatorUtil {</span>
+
+    private static class ValidatorHolder {
+<span class="nc" id="L20">        private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();</span>
+    }
+
+    public static &lt;T&gt; Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(T t) {
+<span class="nc" id="L24">        return ValidatorHolder.validator.validate(t);</span>
+    }
+
+    /**
+     * @Author songjunbao
+     * @Description //检验入参，校验不通过抛异常
+     * @Date  2019/6/19
+     * @Param [t]
+     * @return void
+     **/
+    public static &lt;T&gt; void checkValidateParam(T t){
+<span class="nc" id="L35">        Set&lt;ConstraintViolation&lt;T&gt;&gt; result = ValidatorUtil.validate(t);</span>
+<span class="nc" id="L36">        StringBuilder resultMsg = new StringBuilder();</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">        if (result != null &amp;&amp; result.size() &gt; 0) {</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            for (ConstraintViolation&lt;T&gt; constraintViolation : result) {</span>
+<span class="nc" id="L39">                resultMsg.append(constraintViolation.getMessage()).append(&quot;;&quot;);</span>
+<span class="nc" id="L40">            }</span>
+        }
+<span class="nc" id="L42">        Preconditions.checkArgument(StringUtils.isBlank(resultMsg),resultMsg);</span>
+<span class="nc" id="L43">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

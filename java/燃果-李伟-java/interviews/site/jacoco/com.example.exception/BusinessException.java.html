@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BusinessException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">interview-assignments</a> &gt; <a href="index.source.html" class="el_package">com.example.exception</a> &gt; <span class="el_source">BusinessException.java</span></div><h1>BusinessException.java</h1><pre class="source lang-java linenums">package com.example.exception;
+
+import com.example.bean.mdc.MdcContext;
+import com.example.bean.result.ResultRpcEnum;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * 业务异常
+ * - Service抛出，Controller捕获
+ * @author eric
+ * @date 2021/7/21 22:21
+ */
+<span class="nc bnc" id="L15" title="All 40 branches missed.">@EqualsAndHashCode(callSuper = true)</span>
+<span class="nc" id="L16">@Data</span>
+<span class="nc" id="L17">@Slf4j</span>
+public class BusinessException extends RuntimeException {
+    // 异常id
+<span class="nc" id="L20">    private String eid;</span>
+
+    // 错误码
+<span class="nc" id="L23">    private String code;</span>
+
+    // 错误消息
+<span class="nc" id="L26">    private String message;</span>
+
+    // 错误数据
+<span class="nc" id="L29">    private Object edata;</span>
+
+    private BusinessException(String exceptionId, String code, String message, Object errData, Throwable e){
+<span class="nc" id="L32">        super(e);</span>
+<span class="nc" id="L33">        this.eid = exceptionId;</span>
+<span class="nc" id="L34">        this.code = code;</span>
+<span class="nc" id="L35">        this.message = message;</span>
+<span class="nc" id="L36">        this.edata = errData;</span>
+<span class="nc" id="L37">    }</span>
+
+    public BusinessException(String message){
+<span class="nc" id="L40">        this(MdcContext.getTraceId(), ResultRpcEnum.FAILED.getCode(), message, null, null);</span>
+<span class="nc" id="L41">    }</span>
+
+    public BusinessException(String message, Throwable e){
+<span class="nc" id="L44">        this(MdcContext.getTraceId(), ResultRpcEnum.FAILED.getCode(), message, null, e);</span>
+<span class="nc" id="L45">    }</span>
+
+    public BusinessException(String message, Object errData){
+<span class="nc" id="L48">        this(MdcContext.getTraceId(), ResultRpcEnum.FAILED.getCode(), message, errData, null);</span>
+<span class="nc" id="L49">    }</span>
+
+    public BusinessException(ResultRpcEnum status){
+<span class="nc" id="L52">        this(MdcContext.getTraceId(), status.getCode(), status.getDesc(), null, null);</span>
+<span class="nc" id="L53">    }</span>
+
+    public BusinessException(ResultRpcEnum status, Object errData){
+<span class="nc" id="L56">        this(MdcContext.getTraceId(), status.getCode(), status.getDesc(), errData, null);</span>
+<span class="nc" id="L57">    }</span>
+
+    public BusinessException(ResultRpcEnum status, Throwable e){
+<span class="nc" id="L60">        this(MdcContext.getTraceId(), status.getCode(), status.getDesc(), null, e);</span>
+<span class="nc" id="L61">    }</span>
+
+    public void print(){
+<span class="nc" id="L64">        log.error(this.getEid() + &quot;: &quot; + this.getCode() + &quot;-&quot; + this.getMessage(), this);</span>
+<span class="nc" id="L65">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
