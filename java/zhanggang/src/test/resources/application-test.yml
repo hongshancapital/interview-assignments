@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: Shortener
+
+short-code:
+  max-length: 10
+  max-store-size: 2000
+  gc-rate: 0.5
+  short-url-host: https://shortener.com
+  lock-config:
+    max-pool-size: 15
+    timeout: 10
+    timeunit: MILLISECONDS
+
+api-docs:
+  title: api-docs-title
+  version: api-version
+  developer:
+    name: dev-name
+    email: dev-email
