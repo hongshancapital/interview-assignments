@@ -1,0 +1,24 @@
+{
+  "extends": "@tsconfig/node12/tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 12",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2019",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./server",
+    "moduleResolution": "node",
+    "sourceMap": true
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "./src/client"
+  ],
+  "include": [
+    "./src/server"
+  ]
+}
