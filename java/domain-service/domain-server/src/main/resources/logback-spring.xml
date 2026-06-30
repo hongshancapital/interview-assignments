@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- log maxFileSize -->
+    <springProperty scope="context" name="MAX_FILE_SIZE" source="spring.logback.max-file-size" defaultValue="100MB"/>
+
+    <!-- log maxIndex -->
+    <springProperty scope="context" name="MAX_INDEX" source="spring.logback.max-index" defaultValue="5"/>
+
+    <conversionRule converterClass="org.springframework.boot.logging.logback.ColorConverter" conversionWord="clr"/>
+    <conversionRule converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"
+                    conversionWord="wEx"/>
+
+    <include resource="logback/base-define.xml" />
+    <!-- log base path -->
+    <property name="LOG_HOME" value="/usr/local/deploy/logs/${appId}"/>
+
+    <include resource="logback/error-appender.xml"/>
+    <include resource="logback/info-appender.xml"/>
+    <include resource="logback/warn-appender.xml"/>
+    <include resource="logback/event-appender.xml"/>
+    <include resource="logback/custom-appender.xml"/>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
