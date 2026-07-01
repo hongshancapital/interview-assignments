@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration scan="false">
+    <property name="LOG_HOME" value="/web/logs" />
+    <property name="outPattern" value="[%p] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t][%c]%C:%L - %m %n" />
+    <property name="maxHistory" value="3" />
+    <property name="logLevel" value="info" />
+    <property name="projectName" value="short-url"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${outPattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOG_INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logLevel}</level>
+        </filter>
+        <file>${LOG_HOME}/${projectName}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${projectName}/info%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${outPattern}</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ASYNC_FILE_INFO" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="LOG_INFO_FILE" />
+    </appender>
+
+    <appender name="LOG_ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <file>${LOG_HOME}/${projectName}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${projectName}/error%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${outPattern}</Pattern>
+        </layout>
+    </appender>
+
+    <!--  异步输出，异步的log片段必须在同步段后面，否则不起作用  -->
+    <appender name="ASYNC_FILE_ERROR" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="LOG_ERROR_FILE" />
+    </appender>
+
+    <!-- 处理器日志 -->
+    <logger name="LOG_ERROR" level="ERROR" additivity="false">
+        <appender-ref ref="ASYNC_FILE_ERROR" />
+    </logger>
+
+    <root level="${logLevel}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE_INFO" />
+        <appender-ref ref="ASYNC_FILE_ERROR" />
+    </root>
+</configuration>
+
