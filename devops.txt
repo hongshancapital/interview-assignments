@@ -1,0 +1,221 @@
+.gitlab-ci.yml
+	stages:
+	  - request
+	mergeToMaterTest:
+	  stage: request
+	  tags:
+		- cicd
+	  only:
+		- main
+		- merge_requests
+	  script:
+		- /usr/local/maven/bin/mvn test -Dtest
+---
+---
+---
+dockerfile:
+	FROM harbor.test.com/ops/test-jre-fontconfig-8-jre-alpine:latest
+
+	RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+	RUN apk add --no-cache \
+		bash
+
+	ARG APPCATION_NAME
+	#spring-boot-starter-web
+
+	RUN mkdir -p /${APPCATION_NAME}
+	WORKDIR /${APPCATION_NAME}
+	RUN apk add --update ttf-dejavu fontconfig
+
+	RUN mkdir /home/data
+
+	ADD target/${APPCATION_NAME}.jar ./app.jar
+
+	ENV env=""
+	ENV APPCATION_NAME=""
+	RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+	ENV TZ=Asia/Shanghai
+
+	CMD java ${JAVA_OPTS} \
+		-Djava.security.egd=file:/dev/./urandom \
+		-jar app.jar
+
+---
+---
+---
+设置角色：
+	aws iam --region us-west-2 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://Spring-Boot-Hello-World.json
+
+配置集群：
+	aws iam --region us-west-2 attach-role-policy --role-name Spring-Boot-Hello-World --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+	ecs-cli configure --cluster Spring-Boot-Hello-World --default-launch-type FARGATE --config-name Spring-Boot-Hello-World --region us-west-2
+
+
+	ecs-cli configure profile --access-key AKIA2EXTRMOGxxxxxxxx --secret-key v8XMglsB5duYfPg6oxxxxxxx --profile-name Spring-Boot-Hello-World-profile
+
+启动集群：
+	ecs-cli up --cluster-config Spring-Boot-Hello-World-cluster --ecs-profile Spring-Boot-Hello-World-profile
+
+安全组规则：
+	aws ec2 authorize-security-group-ingress --group-id security_group_id --protocol tcp --port 80 --cidr 0.0.0.0/0 --region us-west-2
+
+stack代码：
+	import * as cdk from "@aws-cdk/core"; // 必须引入的包
+	import * as ecs from "@aws-cdk/aws-ecs"; // 我们使用ECS服务，那就引入此包
+	import * as ec2 from "@aws-cdk/aws-ec2"; // for VPC
+	import * as elbv2 from "@aws-cdk/aws-elasticloadbalancingv2"; // 使用负载均衡器，需要引入此包
+
+	export class EcsFargateDemoStack extends cdk.Stack {
+	  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+		super(scope, id, props);
+
+
+		// 创建一个集群
+		const cluster: ecs.Cluster = new ecs.Cluster(this, "Spring-Boot-Hello-World-cluster", {
+		  vpc: Spring-Boot-Hello-World-vpc,
+		});
+
+		// 创建一个Task的定义，注意是FARGATE类型，同时也包含了cpu和内存
+		const taskDefinition = new ecs.TaskDefinition(this, "Spring-Boot-Hello-World-task", {
+		  compatibility: ecs.Compatibility.FARGATE,
+		  cpu: "512",
+		  memoryMiB: "1024",
+		});
+		
+		// 向Task的定义里添加一个镜像，暴露80端
+		taskDefinition
+		  .addContainer("Spring-Boot-Hello-World-task", {
+			image: ecs.ContainerImage.fromRegistry("10.2.3.181:5000/Spring-Boot-Hello-World:latest"),
+			memoryLimitMiB: 512,
+		  })
+		  .addPortMappings({ containerPort: 80 });
+
+		const fargateService = new ecs.FargateService(this, "FargateService", {
+		  cluster: cluster,
+		  taskDefinition: taskDefinition,
+		  desiredCount: 3,
+		  serviceName: "Spring-Boot-Hello-World-Service",
+		});
+		  
+		fargateService.autoScaleTaskCount({
+		  maxCapacity: 10,
+		  minCapacity: 1,
+		});
+
+		// 创建一个load balancer，它是由监听器(listener)和目标组(targate group)组成
+		const elb = new elbv2.ApplicationLoadBalancer(this, "Spring-Boot-Hello-World-elb", {
+		  vpc: Spring-Boot-Hello-World-vpc,
+		  internetFacing: true, 
+		});
+
+		const listener = elb.addListener("Spring-Boot-Hello-World-Listener", {
+		  port: 80,
+		  protocol: elbv2.ApplicationProtocol.HTTP,
+		});
+
+		listener.addTargets("Spring-Boot-Hello-World-Tag", {
+		  port: 80,
+		  targets: [fargateService],
+		});
+		
+		new cdk.CfnOutput(this, "t.test.com", {
+		  value: listener.loadBalancer.loadBalancerDnsName,
+		});
+	  }
+	}
+
+
+---
+---
+---
+jenkins pipeline:
+	//使用jenkins打包镜像并上传至镜像仓库，并更新对应task；
+	pipeline {
+		agent any  //在任何可用的代理上执行这个 Pipeline 或其任意 stage
+		environment { 
+			workspace = pwd()
+			//war_name = 'jenkins-pipeline-test'
+			//registry_user = 'root'
+			//registry_host = '10.2.3.181'
+			//registry_port = '5000'
+			//tagss = latest
+		}
+	 
+		parameters {
+			string(name: 'app_name', defaultValue: 'dubbo-oss', description: '应用名称及类型')
+			string(name: 'status_ok', defaultValue: 'HTTP', description: '应用启动成功标志')
+			string(name: 'registry_port', defaultValue: '5000', description: '私有镜像仓库端口')
+			string(name: 'registry_user', defaultValue: 'root', description: '私有镜像仓库主机账号')
+			string(name: 'registry_host', defaultValue: '10.2.3.181', description: '私有镜像仓库主机账号地址')
+			
+		}
+		
+		stages {
+			stage('checkout') { 
+				steps {
+					dir('phj-back-parent'){
+					 //使用ssh登陆gitlab
+					 git branch: 'master', url: 'ssh://git@gitlab.test.com:goxr3plus/Simplest-Spring-Boot-Hello-World.git'
+					 }
+				}
+			}
+			
+			stage('build') { 
+				steps {
+					sh """
+						echo "编译 spring-boot-starter-web"
+						cd $workspace/
+						/usr/local/maven-3.0.5/bin/mvn clean install
+					"""
+				}
+			}
+			
+			stage('build image') { 
+				steps {
+					sh """
+						echo "拷贝文件"
+						cd $workspace/target
+						rm -rf /home/tddh/swyang/pipeline/spring-boot-starter-web/*
+						cp -rf *SNAPSHOT.jar /home/tddh/swyang/pipeline/spring-boot-starter-web
+					"""
+					sh """
+						echo "build image"
+						echo  "${params.app_name}"
+						echo "latest"
+						docker build -t ${params.registry_host}:${params.registry_port}/${params.app_name}:latest /home/tddh/swyang/pipeline/spring-boot-starter-web
+					"""
+				}
+			}
+			
+			stage('push image') { 
+				steps {
+					sh """
+						echo "上传镜像"
+						docker  push   ${params.registry_host}:${params.registry_port}/${params.app_name}:latest
+					"""
+					
+					sh """
+						echo "校验镜像"
+						curl http://${params.registry_host}:${params.registry_port}/v2/${params.app_name}/tags/list |grep \"latest\"
+					"""
+					
+					sh """
+						echo "删除本地镜像"
+						docker rmi ${params.registry_host}:${params.registry_port}/${params.app_name}:latest
+					"""
+				}
+			}
+
+
+			stage('deploy') { 
+				steps {
+					sh """
+						sed 
+						echo "新建或更新部署"
+						aws ecs update-service -cluster Spring-Boot-Hello-World-cluster --service-name Spring-Boot-Hello-World-task --task-definition file:file://Spring-Boot-Hello-World.json
+					"""
+				}
+			}
+		}
+	}
+	
