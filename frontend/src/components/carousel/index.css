@@ -1,0 +1,42 @@
+.carousel-wrap {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/** 走马灯 item */
+.carousel-container-wrap {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    display: flex;
+}
+
+
+/* 指示条 按钮 */
+.indication-wrap {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translate(-50%, 0);
+    z-index: 2;
+    display: flex;
+}
+
+.indication-item-wrap {
+    border-radius: 3px;
+    background-color: #666;
+    margin: 0 4px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.indication-item {
+    height: 100%;
+    width: 0;
+    background-color: #fff;
+    border-radius: 3px;
+    transition-timing-function: ease;
+}
