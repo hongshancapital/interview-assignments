@@ -1,3 +1,4 @@
+*{margin: 0;padding: 0}
 .App {
   text-align: center;
   position: relative;
@@ -11,4 +12,45 @@
 .text {
   font-size: 28px;
   font-weight: 400;
+}
+
+.bannerWrap{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  background-color: #f1f1f1;
+}
+.bannerTablet{
+  background-color: #fafafa;
+}
+.bannerWrap span {
+  font-size: 30px;
+  font-weight: 500;
+  color: #000;
+}
+.bannerWrap span:first-child {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.bannerBlack span{
+  color: #fff;
+  z-index: 1;
+}
+.bannerTablet span{
+  z-index: 1;
+}
+.bannerWrap span:first-child{
+  margin-top: 140px;
+}
+.banner{
+  width: 100%;
+  position: absolute;
+  bottom: 150px;
+}
+.bannerIphone{
+  bottom: 0;
 }
