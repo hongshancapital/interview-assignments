@@ -1,0 +1,92 @@
+.carousel {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+.carousel-item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-position: center top;
+    background-size: 1000%;
+    background-repeat: no-repeat;
+    inset: 0px;
+}
+
+.carousel-inner {
+    display: flex;
+    height: 100%;
+    transition: all 0.5s;
+}
+
+.carousel-item__logo {
+    width: 100%;
+    height: 140px;
+    background-position: center bottom;
+    background-size: auto 300%;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.carousel-item__slogan {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.indicator {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.indicator-item {
+    width: 40px;
+    height: 3px;
+    position: relative;
+    background: #a9a9a9;
+    margin: 20px;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.indicator-item--active  .indicator-item__mask {
+    content: '';
+    position: absolute;
+    left: -100px;
+    top: 0;
+    background: #fafafa;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    animation-name: moving;
+    animation-timing-function: linear;
+    animation-play-state: running;
+}
+
+.indicator-item:hover .indicator-item__mask {
+    animation-play-state: paused;
+}
+
+@keyframes moving {
+    0% {
+        left: -100%;
+    }
+  
+    100% {
+        left: 0;
+    }
+  }
