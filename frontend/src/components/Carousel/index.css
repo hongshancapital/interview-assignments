@@ -1,0 +1,48 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-list {
+  display: flex;
+  flex-wrap: nowrap;
+  transform: translateX(-0%);
+}
+
+.slider-list .slider-list-item {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-container .slider-dots {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  bottom: 56px;
+}
+
+.carousel-container .slider-dot-item {
+  width: 60px;
+  height: 4px;
+  margin: 0 6px;
+  border-radius: 2px;
+  background-color: #aaa;
+  overflow: hidden;
+}
+
+.carousel-container .slider-dot-item:hover {
+  cursor: pointer;
+}
+
+.carousel-container .slider-dot-progress {
+  height: 100%;
+  background-color: #fff;
+}
+
+/* 动画代码 */
+@keyframes progress {
+  from {width: 0;}
+  to {width: 100%;}
+}
+
