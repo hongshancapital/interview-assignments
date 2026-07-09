@@ -1,0 +1,35 @@
+{
+  "name": "express-pro",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.8",
+    "express": "^4.18.2",
+    "mongoose": "^5.13.16",
+    "nanoid": "^3.3.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/config": "^0.0.41",
+    "@types/express": "^4.17.17",
+    "@types/mongoose": "^5.11.97",
+    "@types/nanoid": "^3.0.0",
+    "@types/node": "^18.15.2",
+    "@types/supertest": "^2.0.12",
+    "jest": "^29.5.0",
+    "log4js": "^6.7.1",
+    "nodemon": "^2.0.21",
+    "supertest": "^6.3.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.5",
+    "prettier": "^2.8.4",
+    "ts-jest": "^29.0.5"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=develop nodemon --exec ts-node-dev --respawn --transpile-only src/app.ts",
+    "start": "NODE_ENV=develop ts-node-dev --respawn --transpile-only src/app.ts",
+    "pro": "NODE_ENV=production ts-node-dev --respawn --transpile-only src/app.ts ",
+    "test": "NODE_ENV=develop jest --coverage --testTimeout=20000"
+  }
+}
