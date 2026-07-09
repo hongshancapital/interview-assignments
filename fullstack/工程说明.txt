@@ -1,0 +1,32 @@
+运行说明：
+
+1. 需配置redis config/config.json
+2. 安装依赖
+3. node startup.js 启动程序
+
+
+MVC架构：
+
+基于express，支持
+
+1.权限控制
+{
+  "acls": [
+    {
+      "permission": "$everyone",
+      "property": "l2s"
+    },
+    {
+      "permission": "$everyone",
+      "property": "s2l"
+    }
+  ]
+}
+
+2.更清晰的MVC架构
+middlewares/index.js 自动加载所有controler和model
+
+3.全局监听者模式
+core里面目前只包含一个服务，其也是一个事件监听器
+
+4.db里面理应除了包含redis，可能还有MySQL、Mongo等数据库
