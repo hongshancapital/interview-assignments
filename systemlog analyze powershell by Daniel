@@ -1,0 +1,41 @@
+# 获取系统日志事件
+$events = Get-content D:\Desktop\json\interview_data_set 
+
+# 定义输出数组
+$output = @()
+
+# 分析每个事件
+foreach ($event in $events) {
+    # 获取设备名称
+    $deviceName = $event.Properties[0].Value
+    
+    # 获取错误进程�?
+    $processId = $event.Properties[1].Value
+    
+    # 获取进程/服务名称
+    $processName = $event.Properties[2].Value
+    
+    # 获取错误描述
+    $description = $event.Message
+    
+    # 获取事件时间并计算小时级�?
+    $time = $event.TimeCreated
+    $hour = $time.ToString("HH")
+    $timeWindow = "$hour-$hour + 1"
+    
+    #查询同一小时级别内出现的次数
+    $numberOfOccurrence = ($events | Where-Object {$_.TimeCreated -ge $time -and $_.TimeCreated -lt $time.AddHours(1)}).count
+    
+    # 构建输出对象
+    $output += [PSCustomObject]@{
+        deviceName    = $deviceName
+        processId     = $processId 
+        processName   = $processName
+        description   = $description 
+        timeWindow    = $timeWindow
+        numberOfOccurrence = $numberOfOccurrence
+    } 
+}
+
+# 输出 JSON 格式结果
+$output | ConvertTo-Json
