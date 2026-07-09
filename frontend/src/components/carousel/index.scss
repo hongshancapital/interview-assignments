@@ -1,0 +1,82 @@
+  .carousel-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .carousel-content {
+    position: absolute;
+    top:0;
+    left:0;
+    display: flex;
+    height: 100%;
+
+    .carousel-item {
+      width: 100vw;
+      height: 100%;
+      position: relative;
+
+      &-title {
+        position: absolute;
+        
+        top:20%;
+        left:0;
+        right:0;
+        margin: auto;
+        z-index: 100;
+        font-weight:bold;
+        font-size:60px
+      }
+      
+      &-subTitle {
+        position: absolute;
+        top:28%;
+        left:0;
+        right:0;
+        z-index: 100;
+        margin: auto;
+        font-size:26px;
+        margin-top: 20px;
+        font-weight: bold;
+      }
+
+    }
+    
+    
+    .carousel-item img {
+      width:100%;
+      height:100%;
+      position: absolute;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+      margin: auto;
+    }
+  }
+  
+  .carousel-step {
+    width:200px;
+    height:4px;
+    position: absolute;
+    bottom:90px;
+    left:0;
+    right:0;
+    margin: auto;
+    display: flex;
+    &-item{
+      width:50px;
+      height:4px;
+      background-color: gray;
+      margin-left: 10px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    &-actived{
+      width: 0;
+      height:4px;
+      background-color: #fff;
+    }
+  }
+ 
