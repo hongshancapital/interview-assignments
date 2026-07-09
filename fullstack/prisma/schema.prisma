@@ -1,0 +1,17 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = "file:./url-shortener.db"
+}
+
+model UrlTable {
+    id        Int      @id @default(autoincrement())
+    shortUrl  String   @unique
+    longUrl   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
