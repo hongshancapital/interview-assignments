@@ -1,0 +1,15 @@
+'200', 'ok', 表示业务成功。
+// 错误码，错误信息，内部唯一码：
+'404_not_hit', `短链接不存在[shortUrl=${shortUrl}]`, 'ER230217172008'
+'406_wrong_url', `参数格式错误[val=${val}]`, 'ER20230217161148'
+'406_wrong_host', `参数格式错误[val=${val}]`, 'ER20230217161228'
+'406_missing_param', '缺少必有参数[longUrl]', 'ER230217141752'
+'406_missing_param', '缺少必有参数[shortUrl]', 'ER230217163112'
+'406_unknown_url', `无法识别的短链接[shortUrl=${shortUrl}]`, 'ER230217163226'
+// 系统内部错误码
+'500_missing_param', '缺少必有参数[longUrl]', 'ER230217141332'
+'500_config_err', '配置文件错误[缺少必有值][shortHost]', 'ER230217142553'
+'500_config_err', 'redis配置信息缺失', 'ER230220094436'
+'500_redis_err', 'redis连接失败', 'ER230220095543'
+'500_redis_err', 'redis退出失败', 'ER230220101215'
+'500_pgsql_err', 'pgsql连接失败', 'ER230222002317'
