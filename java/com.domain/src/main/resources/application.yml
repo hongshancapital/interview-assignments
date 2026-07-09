@@ -1,0 +1,29 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port:  8080
+  servlet:
+    context-path: /
+spring:
+  freemarker:
+    enabled: false
+  thymeleaf:
+    enabled: false
+  application:
+    name: api-domain
+  jackson:
+    default-property-inclusion: NON_NULL
+domain:
+  url: http://ttt.cn/
+  limit: 100.0
+  authentication:
+    enabled: true
+    token: e3853146-a77e-4f51-b52d-277f719a5849
+    exclude:
+      url: /error,/swagger-ui.html,/webjars/springfox-swagger-ui/**,/swagger-ui.html#/**,/csrf
+  stone:
+    file:
+      config: /index/
+      data: /data/
+    slots: 1024  #存储槽数
+    capacity: 2048  #每个槽的hash size
