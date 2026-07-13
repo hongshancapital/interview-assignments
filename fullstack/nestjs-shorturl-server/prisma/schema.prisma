@@ -1,0 +1,25 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  // previewFeatures = []
+}
+
+model Url {
+  id        String   @id @default(cuid())
+  /// 原始链接
+  url       String   @unique @map("url")
+  /// 短链接
+  shortUrl  String   @unique @map("short_url")
+  /// 创建时间
+  createdAt DateTime @default(now()) @map("created_at")
+  // 更新时间
+  // updatedAt DateTime  @updatedAt @map("updated_at")
+  // 删除时间
+  // deletedAt DateTime? @map("deleted_at")
+
+  @@map("url")
+}

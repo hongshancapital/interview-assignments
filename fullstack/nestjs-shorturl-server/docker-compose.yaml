@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    # 允许外部通过 ip 和端口访问
+    expose:
+      - 5432
+    env_file:
+      - ./.env
+    # environment:
+    #   - POSTGRES_USER:prisma
+    #   - POSTGRES_PASSWORD:prisma
+    #   - POSTGRES_DB:kunlun
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      # - ~/init-db:/docker-entrypoint-initdb.d
