@@ -1,0 +1,86 @@
+{
+  "name": "STBaseProject",
+  "version": "0.1.0",
+  "summary": "Collect common classes in the development process.",
+  "description": "Collect common classes in the development process. Can custom.",
+  "homepage": "https://github.com/songMW/STBaseProject",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "songMW": "songshoubing7664@163.com"
+  },
+  "source": {
+    "git": "https://github.com/i-stack/STBaseProject.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "resources": [
+    "STBaseProject/Assets/*"
+  ],
+  "default_subspecs": "STBaseModule",
+  "public_header_files": "Pod/Classes/**/*",
+  "subspecs": [
+    {
+      "name": "STBaseModule",
+      "subspecs": [
+        {
+          "name": "STBaseViewController",
+          "source_files": [
+            "STBaseProject/Classes/STBaseModule/STBaseViewController/*.swift"
+          ]
+        },
+        {
+          "name": "STBaseView",
+          "source_files": [
+            "STBaseProject/Classes/STBaseModule/STBaseView/*.swift"
+          ]
+        },
+        {
+          "name": "STBaseViewModel",
+          "source_files": [
+            "STBaseProject/Classes/STBaseModule/STBaseViewModel/*.swift"
+          ]
+        },
+        {
+          "name": "STBaseModel",
+          "source_files": [
+            "STBaseProject/Classes/STBaseModule/STBaseModel/*.swift"
+          ]
+        },
+        {
+          "name": "STCommon",
+          "source_files": [
+            "STBaseProject/Classes/STBaseModule/STCommon/*.swift"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "STHUD",
+      "source_files": [
+        "STBaseProject/Classes/STHUD/*.swift"
+      ],
+      "dependencies": {
+        "MBProgressHUD": [
+
+        ]
+      }
+    },
+    {
+      "name": "STScanner",
+      "source_files": [
+        "STBaseProject/Classes/STScanner/*.swift"
+      ]
+    },
+    {
+      "name": "STScreenshot",
+      "source_files": [
+        "STBaseProject/Classes/STScreenshot/*.swift"
+      ]
+    }
+  ]
+}
