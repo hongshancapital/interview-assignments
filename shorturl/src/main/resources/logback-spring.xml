@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false" debug="false">
+    <property name="appName" value="short_url"/>
+    <property name="logBasePath" value="./data/logs/${appName}"/>
+    <property name="maxHistory" value="48"/>
+    <!-- 控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date [%thread] %highlight(%-5level) %logger{80} - %highlight(%msg) %n</pattern>
+        </encoder>
+    </appender>
+    <!-- warm 日志-->
+    <appender name="WARM-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--        <encoder charset="UTF-8"/>-->
+        <file>${logBasePath}/${appName}.log.warm</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logBasePath}/${appName}.log.warm.%d{yyyy-MM-dd-HH}</fileNamePattern>
+            <MaxHistory>${maxHistory}</MaxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] [%logger{80}]  ||   %m%n</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ASYNC-WARM-APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="WARM-APPENDER"/>
+    </appender>
+
+    <!-- info 日志-->
+    <appender name="INFO-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--        <encoder charset="UTF-8"/>-->
+        <file>${logBasePath}/${appName}.log.info</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logBasePath}/${appName}.log.info.%d{yyyy-MM-dd-HH}</fileNamePattern>
+            <MaxHistory>${maxHistory}</MaxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] [%logger{80}]  ||   %m%n</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ASYNC-INFO-APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="INFO-APPENDER"/>
+    </appender>
+
+    <!-- error 日志 -->
+    <appender name="ERROR-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--        <encoder charset="UTF-8"/>-->
+        <file>${logBasePath}/${appName}.log.error</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logBasePath}/${appName}.log.error.%d{yyyy-MM-dd-HH}</fileNamePattern>
+            <MaxHistory>${maxHistory}</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] [%logger{80}]  ||   %m%n</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ASYNC-ERROR-APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </appender>
+
+    <logger name="com.yilong.shorturl">
+        <level value="INFO"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNC-INFO-APPENDER"/>
+        <appender-ref ref="ASYNC-ERROR-APPENDER"/>
+
+        <appender-ref ref="ASYNC-WARM-APPENDER"/>
+
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>
