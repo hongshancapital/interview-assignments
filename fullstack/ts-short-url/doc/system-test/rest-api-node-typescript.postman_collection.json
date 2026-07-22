@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "304f09d2-a056-46fe-82c5-cc24eb324458",
+		"name": "rest-api-node-typescript",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "shortUrl",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"originalUrl\":\"https://www.baidu.com/rsv_t=b962R21RXTbtks2323yRjfNOH1gNTeks%2BDGAAB64avxqan312wj8C0%2F6bjFrRdIDVFlUjVnp14k7\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/shortUrl"
+			},
+			"response": []
+		},
+		{
+			"name": "originalUrl",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"shortUrl\":\"http://s.cn/zeii7YZZ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/originalUrl"
+			},
+			"response": []
+		}
+	]
+}
