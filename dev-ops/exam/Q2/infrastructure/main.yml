@@ -1,0 +1,32 @@
+---
+- name: Create AWS Resources
+  hosts: all
+  tasks:
+    - name: create cloudwatch log group
+      community.aws.cloudwatchlogs_log_group:
+        log_group_name: test-log-group
+    - name: create ecs cluster
+      community.aws.ecs_cluster:
+        name: hello-ecs-cluster
+        state: present
+    - name: create ecs task definition
+      community.aws.ecs_taskdefinition:
+        family: hello-ecs-task-definition
+        containers:
+        - name: hello-world
+          essential: true
+          image: "dockerhub.xxx.com/Simplest-Spring-Boot-Hello-World:latest"
+          portMappings:
+          - containerPort: 8080
+            hostPort: 8080
+          logConfiguration:
+            logDriver: awslogs
+            options:
+              awslogs-group: test-log-group
+    - name: create ecs service on VPC network
+      community.aws.ecs_service:
+        state: present
+        name: hello-ecs-service
+        cluster: hello-ecs-cluster
+        task_definition: 'hello-ecs-task-definition:1'
+        desired_count: 0
