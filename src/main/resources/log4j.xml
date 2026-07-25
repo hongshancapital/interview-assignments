@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="short_url_service-access-log" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8" />
+        <param name="File"
+               value="/Users/liuxiang/logs/short_url_service-access.log"/>
+        <param name="DatePattern" value=".yyyyMMdd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p %d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] %l [%m]%n" />
+        </layout>
+    </appender>
+
+    <appender name="short_url_service-error-log" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8" />
+        <param name="File"
+               value="/Users/liuxiang/logs/short_url_service-error.log"/>
+        <param name="Threshold" value="error"/>
+        <param name="DatePattern" value=".yyyyMMdd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p %d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] %l [%m]%n" />
+        </layout>
+    </appender>
+
+    <appender name="short_url_service-console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] [%l] - %m%n"/>
+        </layout>
+    </appender>
+
+    <root>
+        <priority value="@log_level@"/>
+        <!--<appender-ref ref="short_url_service-log"/>-->
+        <appender-ref ref="short_url_service-error-log"/>
+        <appender-ref ref="short_url_service-access-log"/>
+        <appender-ref ref="short_url_service-console"/>
+    </root>
+
+</log4j:configuration>
