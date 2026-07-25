@@ -1,0 +1,5 @@
+shell
+curl -X POST -H "Content-Type: application/json" -d result.json https://foo.com/bar
+
+ps
+$response = Invoke-WebRequest -Uri "https://foo.com/bar" -Method Post -Body $result.json -ContentType "application/json"
