@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<title>demo</title>
+<style>
+    body{text-align:center} 
+    .login{margin:0 auto; width:200px; height:300px;}
+    .input_wh{width: 200px; height: 20px; margin: 5px;}
+    .btn{width: 45%;}
+</style>
+</head>
+<body>
+
+<div class="login">
+<form id="form1" method="POST" enctype="multipart/form-data"> 
+    <input  type="text"     class="input_wh" name="Username">
+    <input  type="text" class="input_wh" name="Password">
+    <button type="button"   class="btn" onclick="login()">登录</button>
+    <button type="reset"    class="btn">重置</button>
+</form>
+
+</div>
+
+
+</body>
+<script type="text/javascript">
+    function login() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/index.php/index/login/register",
+            data: $('#form1').serialize(),
+            success: function (result) {
+                console.log(result);
+                if (result.resultCode == 200) {
+                    alert("SUCCESS");
+                }
+                ;
+            },
+            // error : function() {
+            //     alert("异常！");
+            // }
+        });
+    }
+</script>
+</html>
