@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "536df616-22c6-4487-b2a5-7cb35f9e9972",
+		"name": "short-url",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8456239"
+	},
+	"item": [
+		{
+			"name": "http://localhost:7777/add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\":\"aaaaahfhdfhdgfsfsdfjfgjk\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7777/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:7777/short/c967c9db",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7777/short/c967c9db",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"short",
+						"c967c9db"
+					],
+					"query": [
+						{
+							"key": "shortUrl",
+							"value": "ce3479bd",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:7777/short/c967c9dc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7777/short/c967c9dc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"short",
+						"c967c9dc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
