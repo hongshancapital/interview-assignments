@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KS_DOMAIN" >
+
+    <select id="queryLatest10000Times"
+            resultType="ks.sequoia.eobj.DomainEObj">
+        SELECT DOMAIN_ID AS domainId,
+               LONG_DOMAIN AS longDomain,
+               SHORT_DOMAIN AS shortDomain,
+               CREATE_TIME AS createTime,
+               CREATE_ID AS createId,
+               UPDATE_TIME AS updateTime
+        FROM KS_DOMAIN
+        ORDER BY createTime;
+    </select>
+
+    <select id="queryEObjByLongDomain"
+            resultType="ks.sequoia.eobj.DomainEObj">
+        SELECT DOMAIN_ID AS domainId,
+               LONG_DOMAIN AS longDomain,
+               SHORT_DOMAIN AS shortDomain,
+               CREATE_TIME AS createTime,
+               CREATE_ID AS createId,
+               UPDATE_TIME AS updateTime
+        FROM KS_DOMAIN
+        WHERE LONG_DOMAIN =
+            #{longDomain:VARCHAR}
+    </select>
+
+    <select id="queryEObjByShortDomain"
+            resultType="ks.sequoia.eobj.DomainEObj">
+        SELECT DOMAIN_ID AS domainId,
+               LONG_DOMAIN AS longDomain,
+               SHORT_DOMAIN AS shortDomain,
+               CREATE_TIME AS createTime,
+               CREATE_ID AS createId,
+               UPDATE_TIME AS updateTime
+        FROM KS_DOMAIN
+        WHERE LONG_DOMAIN =
+              #{shortDomain:VARCHAR}
+    </select>
+    <insert id="addEObj" parameterType="ks.sequoia.eobj.DomainEObj">
+        INSERT INTO KS_DOMAIN (
+            DOMAIN_ID    ,
+            LONG_DOMAIN  ,
+            SHORT_DOMAIN ,
+            CREATE_TIME  ,
+            CREATE_ID    ,
+            UPDATE_TIME
+        )
+        VALUES (#{domainId:BIGINT},
+                #{longDomain:VARCHAR},
+                #{shortDomain:VARCHAR},
+                #{createTime:TIMESTAMP},
+                #{createId:BIGINT},
+                #{updateTime:TIMESTAMP}
+                )
+    </insert>
+</mapper>
