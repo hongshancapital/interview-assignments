@@ -1,0 +1,31 @@
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+spring:
+    config:
+        activate:
+            on-profile:
+                - prod
+
+logging:
+    level:
+        ROOT: WARN
+
+
+# ===================================================================
+# Application properties
+# ===================================================================
+short-url:
+    prefix: http://localhost:8080/
+    default-redirect-url: /error/404
+    maxCacheSize: 100000
+
+
+
+# ===================================================================
+# Dependencies properties
+# ===================================================================
+
