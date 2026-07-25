@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "bab44ec8-1960-49cc-b097-a86b539307af",
+		"name": "domain",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/index（心跳地址）",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:9000/index"
+			},
+			"response": []
+		},
+		{
+			"name": "/domain/short（短域名存储接口）",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://127.0.0.1:9000/domain/short"
+			},
+			"response": []
+		},
+		{
+			"name": "/domain/get（短域名读取接口）",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "shortUrl",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:9000/domain/get"
+			},
+			"response": []
+		}
+	]
+}
